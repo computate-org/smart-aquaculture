@@ -1,0 +1,296 @@
+        <wa-details open>
+          <div slot="summary">Map of FeedingOperations</div>
+
+{%- block htmBodyGraphLocationFeedingOperationPage %}
+{% if resultCount > 0 %}
+        <div id="htmBodyGraphLocationFeedingOperationPage" class="htmBodyGraphLocation "></div>
+{% endif %}
+{%- endblock htmBodyGraphLocationFeedingOperationPage %}
+
+{%- block htmBodyGraphFeedingOperationPage %}
+        <div id="htmBodyGraphFeedingOperationPage" class="htmBodyGraph "></div>
+{%- endblock htmBodyGraphFeedingOperationPage %}
+        </wa-details>
+          <div class="htmBodySidebarFeedingOperationPage ">
+{%- block htmBodySidebarFeedingOperationPage %}
+          <wa-drawer with-header light-dismiss placement="end" id="siteSidebarToggleSearch">
+            <div slot="label">
+              <i class="{{ FONTAWESOME_STYLE }} fa-magnifying-glass "></i>
+              Search
+            </div>
+            <div>
+              {%- block htmBodySearchFeedingOperationPage %}
+              <div>
+                {% for key, value in varsQ.items() %}
+                <div>
+                  <div>
+                    <label for="qFeedingOperation_{{ key }}">{{ value.displayName }}<sup> ({{ value.classSimpleName }})</sup></label>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <wa-input id="qFeedingOperation_{{ key }}" placeholder="{{ displayName }}" data-var="{{ key }}" autocomplete="off="></wa-input>
+                    <div id="qFeedingOperationDiv_{{ key }}" class="pageSearchVal "></div>
+                  </div>
+                </div>
+                {% endfor %}
+                <div>
+                  <div>
+                    <label for="qFeedingOperation_Start">start<sup> (Long)</sup></label>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <wa-input id="qFeedingOperation_start" placeholder="{{ displayName }}" class="" data-var="start" autocomplete="off=" value="{{ start }}"></wa-input>
+                    <div id="qFeedingOperationDiv_start" class="pageSearchVal ">start={{ start }}</div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <label for="qFeedingOperation_Rows">rows<sup> (Long)</sup></label>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <wa-input id="qFeedingOperation_rows" placeholder="{{ displayName }}" class="" data-var="rows" autocomplete="off" value="{{ rows }}"></wa-input>
+                    <div id="qFeedingOperationDiv_rows" class="pageSearchVal ">rows={{ rows }}</div>
+                  </div>
+                </div>
+              </div>
+              {%- endblock htmBodySearchFeedingOperationPage %}
+            </div>
+          </wa-drawer>
+          <wa-drawer with-header light-dismiss placement="end" id="siteSidebarToggleFilters">
+            <div slot="label">
+              <span>
+              <i class="{{ FONTAWESOME_STYLE }} fa-filters "></i> Filters</span>
+            </div>
+            <div>
+              {%- block htmBodyFiltersFeedingOperationPage %}
+              <div>
+                {% for key, value in varsFq.items() %}
+                  <div class="">
+                    <label for="fqFeedingOperation_{{ key }}">{{ value.displayName }}<sup> ({{ value.classSimpleName }})</sup></label>
+                    <wa-tooltip for="buttonFacetFeedingOperation_{{ key }}">see values</wa-tooltip>
+                    <div class="flex round-column pill-smart-border-radius ">
+                      <wa-button variant="brand" id="buttonFacetFeedingOperation_{{ key }}" data-var="{{ value.var }}" data-clear="{% if value.facetField is defined %}true{% else %}false{% endif %}"><i class="{{ FONTAWESOME_STYLE }} fa-list "></i></wa-button>
+                      <wa-input id="fqFeedingOperation_{{ key }}" placeholder="{{ value.displayName }}" class="" onchange="fqChange('FeedingOperation', this); " data-var="{{ value.var }}" autocomplete="off=" value="{{ value.val }}"></wa-input>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pageSearchVal " id="pageSearchVal-fqFeedingOperation_{{ key }}">{% if value.val is defined %}fq={{ value.var }}:{{ value.val | urlencode() }}{% endif %}</div>
+                    <div class="pageSearchVal " id="pageSearchVal-buttonFacetFeedingOperation_{{ key }}">{% if value.facetField.var is defined %}facet.field={{ value.facetField.var }}{% endif %}</div>
+                    <div class="pageFacetField pageFacetFieldFeedingOperation_{{ key }} " id="pageFacetFieldFeedingOperation_{{ key }}">
+                      {% for facetFieldKey, facetFieldValue in value.facetField.counts.items() %}
+                      <div>
+                        <wa-tooltip content="{{ facetFieldValue | e }} FeedingOperation total with {{ value.facetField.var | e }} &quot;{{ facetFieldKey | e }}&quot;"></wa-tooltip>
+                        <div class="cursor-pointer " data-class="FeedingOperation" data-var="{{ value.facetField.var }}" data-val="{{ facetFieldKey }}" onclick="fqReplace('FeedingOperation', this); ">{{ facetFieldValue }}: {{ facetFieldKey }}</div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+              {%- endblock htmBodyFiltersFeedingOperationPage %}
+            </div>
+          </wa-drawer>
+          <wa-drawer with-header light-dismiss placement="end" id="siteSidebarToggleSort">
+            <div slot="label">
+              <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z "></i>
+              Sort
+            </div>
+            <div>
+              {%- block htmBodySortFeedingOperationPage %}
+              <div id="pageSearchVal-pageSort-FeedingOperation">
+              {% for key, value in varsFq.items() %}
+                  <div class="pageSearchVal pageSearchVal-pageSort-FeedingOperation-{{ key }} " id="pageSearchVal-pageSort-FeedingOperation-{{ key }}">{% if defaultSortVars is defined and (key + ' asc') in defaultSortVars %}sort={{ key }} asc{% else %}{% if defaultSortVars is defined and (key + ' desc') in defaultSortVars %}sort={{ key }} desc{% endif %}{% endif %}</div>
+              {% endfor %}
+              </div>
+              {% for key, value in varsFq.items() %}
+              <div>
+                <wa-radio-group name="pageFacetSort" class="pageFacetSort " id="pageFacetSortFeedingOperation_{{ key }}" value="{% if (key + ' asc') in defaultSortVars %}asc{% else %}{% if (key + ' desc') in defaultSortVars %}desc{% endif %}{% endif %}"{% if pivot is defined %} checked="checked"{% endif %} label={{ value.displayName | tojson }} size="small">
+                  <wa-radio-button value="" pill>none</wa-radio-button>
+                  <wa-radio-button value="asc" pill>ascending</wa-radio-button>
+                  <wa-radio-button value="desc" pill>descending</wa-radio-button>
+                </wa-radio-group>
+              </div>
+              {% endfor %}
+              {%- endblock htmBodySortFeedingOperationPage %}
+            </div>
+          </wa-drawer>
+          <wa-drawer with-header light-dismiss placement="end" id="siteSidebarToggleRange">
+            <div slot="label">
+              <span>
+              <i class="{{ FONTAWESOME_STYLE }} fa-calendar-range "></i> Range</span>
+            </div>
+            <div>
+              {%- block htmBodyRangeFeedingOperationPage %}
+              <table>
+                <tr>
+                  <td colspan="2">
+                    <div class="pageSearchVal " id="pageSearchVal-pageFacetRangeGap-FeedingOperation">{% if rangeGap is defined %}facet.range.gap={{ rangeGap | urlencode() }}{% endif %}</div>
+                    <div class="pageSearchVal " id="pageSearchVal-pageFacetRangeStart-FeedingOperation">{% if rangeStart is defined %}facet.range.start={{ rangeStart | urlencode() }}{% endif %}</div>
+                    <div class="pageSearchVal " id="pageSearchVal-pageFacetRangeEnd-FeedingOperation">{% if rangeEnd is defined %}facet.range.end={{ rangeEnd | urlencode() }}{% endif %}</div>
+                    <div class="pageSearchVal " id="pageSearchVal-pageFacetRangeVar-FeedingOperation">{% if defaultRangeVar is defined %}facet.range={!tag=r1}{{ defaultRangeVar | urlencode() }}{% endif %}</div>
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr class="">
+                  <td class="">
+                    <span>Range Gap</span>
+                  </td>
+                  <td class="">
+                    <select name="facet.range.gap" id="pageFacetRangeGap-FeedingOperation" onchange="facetRangeGapChange('FeedingOperation', this); ">
+                      <wa-option value="+1YEAR"{% if defaultRangeGap == '+1YEAR' %} selected="selected"{% else %}{% endif %}>Year</wa-option>
+                      <wa-option value="+1MONTH"{% if defaultRangeGap == '+1MONTH' %} selected="selected"{% else %}{% endif %}>Month</wa-option>
+                      <wa-option value="+1WEEK"{% if defaultRangeGap == '+1WEEK' %} selected="selected"{% else %}{% endif %}>Week</wa-option>
+                      <wa-option value="+1DAY"{% if defaultRangeGap == '+1DAY' %} selected="selected"{% else %}{% if defaultRangeGap is defined %}{% else %} selected="selected"{% endif %}{% endif %}>Day</wa-option>
+                      <wa-option value="+1HOUR"{% if defaultRangeGap == '+1HOUR' %} selected="selected"{% else %}{% endif %}>Hour</wa-option>
+                      <wa-option value="+1MINUTE"{% if defaultRangeGap == '+1MINUTE' %} selected="selected"{% else %}{% endif %}>Minute</wa-option>
+                      <wa-option value="+1SECOND"{% if defaultRangeGap == '+1SECOND' %} selected="selected"{% else %}{% endif %}>Second</wa-option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="">
+                  <td class="" colspan="2">
+                    <span>Range Start</span>
+                  </td>
+                </tr>
+                <tr class="">
+                  <td class="" colspan="2">
+                    <span><wa-input type="datetime-local" name="facetRangeStart" id="pageFacetRangeStart-FeedingOperation" value="{{ formatZonedDateTime(defaultRangeStart, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) }}" onclick="facetRangeStartChange('FeedingOperation', this); "></wa-input></span>
+                  </td>
+                </tr>
+                <tr class="">
+                  <td class="" colspan="2">
+                    <span>Range End</span>
+                  </td>
+                </tr>
+                <tr class="">
+                  <td class="" colspan="2">
+                    <span><wa-input type="datetime-local" name="facetRangeEnd" id="pageFacetRangeEnd-FeedingOperation" value="{{ formatZonedDateTime(defaultRangeEnd, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) }}" onclick="facetRangeEndChange('FeedingOperation', this); "></wa-input></span>
+                  </td>
+                </tr>
+              </table>
+              <wa-radio-group id="pageFacetRangeFeedingOperation">                {% for key, value in varsRange.items() %}
+                <wa-radio name="pageFacetRange" class="pageFacetRange " id="pageFacetRangeFeedingOperation_{{ key }}" value="{{ value.var }}"{% if defaultRangeVar == var %} checked="checked"{% endif %}>{{ value.displayName }}</wa-radio>
+                {% endfor %}
+              </wa-radio-group>
+              {%- endblock htmBodyRangeFeedingOperationPage %}
+            </div>
+          </wa-drawer>
+          <wa-drawer with-header light-dismiss placement="end" id="siteSidebarTogglePivot">
+            <div slot="label">
+              <span>
+              <i class="{{ FONTAWESOME_STYLE }} fa-table-pivot "></i> Pivot</span>
+            </div>
+            <div>
+              {%- block htmBodyPivotFeedingOperationPage %}
+              <div style="display: none; " id="pageSearchVal-PivotFeedingOperationHidden">
+                {% for item in defaultPivotVars %}
+                  <div class="pageSearchVal-PivotFeedingOperationHidden " id="pageSearchVal-PivotFeedingOperationHidden_{{ item }}">{{ item }}</div>
+                {% endfor %}
+              </div>
+              <div id="pageSearchVal-PivotFeedingOperation">
+                {% if defaultPivotVars is defined and defaultPivotVars.length > 0 %}
+                  <div class="pageSearchVal pageSearchVal-PivotFeedingOperation " id="pageSearchVal-PivotFeedingOperation_1">facet.pivot={!range=r1}{% for item in defaultPivotVars %}{% if loop.index > 0 %},{% endif %}{{ item }}{% endfor %}</div>
+                {% endif %}
+              </div>
+              {% for key, value in varsFq.items() %}
+              <div>
+                <wa-checkbox name="pageFacetPivot" class="pageFacetPivot " id="pageFacetPivotFeedingOperation_{{ key }}" value="{{ value.var }}"{% if pivot is defined %} checked="checked"{% endif %}>{{ value.displayName }}</wa-checkbox>
+              </div>
+              {% endfor %}
+              {%- endblock htmBodyPivotFeedingOperationPage %}
+            </div>
+          </wa-drawer>
+          <wa-drawer with-header light-dismiss placement="end" id="siteSidebarToggleFieldList">
+            <div slot="label">
+              <span>
+              <i class="{{ FONTAWESOME_STYLE }} fa-list-ul "></i> Field List</span>
+            </div>
+            <div>
+{%- block htmBodyFieldListFeedingOperationPage %}
+              <div style="display: none; " id="pageSearchVal-FieldListFeedingOperationHidden">
+                {% for item in defaultFieldListVars %}
+                  <div class="pageSearchVal-FieldListFeedingOperationHidden " id="pageSearchVal-FieldListFeedingOperationHidden_{{ item }}">{{ item }}</div>
+                {% endfor %}
+              </div>
+              {% if defaultFieldListVars is defined and defaultFieldListVars.length > 0 %}
+              <div id="pageSearchVal-FieldListFeedingOperation">
+                {% if defaultFieldListVars is defined %}
+                  <div class="pageSearchVal pageSearchVal-FieldListFeedingOperation " id="pageSearchVal-FieldListFeedingOperation_1">fl={% for item in defaultFieldListVars %}{% if loop.index > 0 %},{% endif %}{{ item }}{% endfor %}</div>
+                {% endif %}
+              </div>
+              {% endif %}
+              {% for key, value in varsFq.items() %}
+              <div>
+                <wa-checkbox name="pageFieldList" class="pageFieldList " id="pageFieldListFeedingOperation_{{ key }}" value="{{ value.var }}"{% if fieldList is defined %} checked="checked"{% endif %} onclick="facetFieldListChange('FeedingOperation', value); ">{{ value.displayName }}</wa-checkbox>
+              </div>
+                {% endfor %}
+{%- endblock htmBodyFieldListFeedingOperationPage %}
+            </div>
+          </wa-drawer>
+          <wa-drawer with-header light-dismiss placement="end" id="siteSidebarToggleStats">
+            <div slot="label">
+              <i class="{{ FONTAWESOME_STYLE }} fa-chart-candlestick "></i>
+              Stats
+            </div>
+            <div>
+{%- block htmBodyStatsFeedingOperationPage %}
+              <div style="display: none; " id="pageSearchVal-StatsFeedingOperationHidden">
+                {% for item in defaultStatsVars %}
+                  <div class="pageSearchVal-StatsFeedingOperationHidden " id="pageSearchVal-StatsFeedingOperationHidden_{{ item }}">{{ item }}</div>
+                {% endfor %}
+              </div>
+              <div id="pageSearchVal-StatsFeedingOperation">
+                {% if defaultStatsVars is defined %}
+                  {% for item in defaultStatsVars %}
+                    <div class="pageSearchVal pageSearchVal-StatsFeedingOperation_{{ item }} " id="pageSearchVal-StatsFeedingOperation_{{ item }}">stats.field={{ item }}                    </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <table>
+                {% for key, value in varsFq.items() %}
+                  {% if enableStats is defined %}
+                    <tr class="">
+                      <td class="">
+                        <span><wa-checkbox name="pageStats" class="pageStats " id="pageStatsFeedingOperation_{{ key }}" value="{{ value.var }}"{% if value.stats is defined %} checked="checked"{% endif %} onclick="facetStatsChange('FeedingOperation', value); ">{{ value.displayName }}</wa-checkbox></span>
+                      </td>
+                      <td>
+                        <div>
+                          <label for="pageStatsFeedingOperation_{{ key }}">{{ value.displayName }}</label>
+                        </div>
+                        <div class="pageStatsField pageStatsFieldFeedingOperation_{{ key }} " id="pageStatsFieldFeedingOperation_{{ key }}">
+                          {% if value.stats is defined %}
+                            {% for item in value.stats %}
+                              {% if item.key == 'name' %}{% else %}
+                                <div data-class="FeedingOperation" data-var="{{ item.var }}" data-val="{{ item.key }}">{{ item.key }}: {{ item }}</div>
+                              {% endif %}
+                            {% endfor %}
+                            {% if value.stats.max is defined %}
+                              <div>
+                                <span> step </span>
+                                <wa-input id="animateStatsStep" placeholder="step" value="1" style="width: 4em; "></wa-input>
+                                <span> min </span>
+                                <wa-input id="animateStatsMin" placeholder="min" value="{{ value.stats.min }}" style="width: 4em; "></wa-input>
+                                <span> max </span>
+                                <wa-input id="animateStatsMax" placeholder="max" value="{{ value.stats.max }}" style="width: 4em; "></wa-input>
+                                <span> speed in seconds </span>
+                                <wa-input id="animateStatsSpeed" placeholder="speed" value="1" style="width: 4em; "></wa-input>
+                                <wa-button variant="brand" onclick="animateStats(); ">animate</wa-button>
+                              </div>
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                      </td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </table>
+{%- endblock htmBodyStatsFeedingOperationPage %}
+            </div>
+          </wa-drawer>
+{%- endblock htmBodySidebarFeedingOperationPage %}
+        </div>

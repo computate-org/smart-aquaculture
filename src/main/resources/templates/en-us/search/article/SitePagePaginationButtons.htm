@@ -1,0 +1,22 @@
+
+          <div id="htmPaginationButtons">
+            <sl-tooltip placement="top" content="Show the previous results"></sl-tooltip>
+            <sl-tooltip placement="top" content="Show half the results"></sl-tooltip>
+            <sl-tooltip placement="top" content="Show double the results"></sl-tooltip>
+            <sl-tooltip placement="top" content="Show the next results"></sl-tooltip>
+            <sl-button-group>
+              <sl-button variant="primary" outline pill{% if pagination.pagePrevious is defined %} href="{{pageUri}}?start={{pagination.pagePrevious.start}}&amp;rows={{pagination.rows}}"{% else %} disabled{% endif %}>
+                <i slot="prefix" class="{{ FONTAWESOME_STYLE }} fa-arrow-square-left "></i>
+              </sl-button>
+              <sl-button variant="primary" outline{% if pagination.rowsPrevious >= pagination['1L'] %} href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsPrevious }}"{% else %} disabled{% endif %}>
+                <i slot="prefix" class="{{ FONTAWESOME_STYLE }} fa-minus-square "></i>
+              </sl-button>
+              <sl-button variant="primary" outline href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsNext }}">
+                <i slot="prefix" class="{{ FONTAWESOME_STYLE }} fa-plus-square "></i>
+              </sl-button>
+              <sl-button variant="primary" outline pill{% if pagination.pageNext is defined %} href="{{pageUri}}?start={{pagination.pageNext.start}}&amp;rows={{pagination.rows}}"{% else %} disabled{% endif %}>
+                <i slot="prefix" class="{{ FONTAWESOME_STYLE }} fa-arrow-square-right "></i>
+              </sl-button>
+            </sl-button-group>
+            <div>{{ pagination.startNum }} – {{ pagination.endNum }} of {{ pagination.foundNum }} articles</div>
+          </div>

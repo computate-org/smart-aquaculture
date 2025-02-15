@@ -1,0 +1,402 @@
+{% extends "en-us/PageLayout.htm" %}
+
+{%- block htmTitlePageLayout %}
+{%- block htmTitleFeederPage %}
+    <title>{% if resultCount == 0 %}no Feeder found{% else %}Feeders{% endif %}</title>
+{%- endblock htmTitleFeederPage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/feeder/Feeder.css"/>
+{%- block htmStylesFeederPage %}
+{%- endblock htmStylesFeederPage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+{{ super() }}
+{%- block htmStyleFeederPage %}
+{%- endblock htmStyleFeederPage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsFeederPage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/feeder/Feeder.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/feeder/FeederSearchPage.js"></script>
+{%- endblock htmScriptsFeederPage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptFeederPage %}
+    <script>
+
+      function jsWebsocketFeeder(entityShortId, vars, $response) {
+{%- block jsWebsocketFeederPage %}{%- endblock %}
+      }
+
+      function jsTooltipFeeder(e, feature) {
+{%- block jsTooltipFeederPage %}{%- endblock %}
+      }
+
+      function htmTooltipFeeder(feature, layer) {
+        return `{%- block htmTooltipFeederPage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.title}</a></h3>
+{%- endblock htmTooltipFeederPage %}`;
+      }
+
+      function jsLegendFeeder(map) {
+{%- block jsLegendFeederPage %}
+        var div = L.DomUtil.create('div', 'info legend');
+        var htm = '';
+        window.listFeeder.forEach((result, index) => {
+          if(result.location) {
+            var shapes = [];
+            if(Array.isArray(result.location))
+              shapes = shapes.concat(result.location);
+            else
+              shapes.push(result.location);
+            shapes.forEach(function(shape, index) {
+              htm += htmLegendFeeder(map, shape, result, index, shapes.length);
+            });
+          }
+          if(result.areaServed) {
+            var shapes = [];
+            if(Array.isArray(result.areaServed))
+              shapes = shapes.concat(result.areaServed);
+            else
+              shapes.push(result.areaServed);
+            shapes.forEach(function(shape, index) {
+              htm += htmLegendFeeder(map, shape, result, index, shapes.length);
+            });
+          }
+        });
+        div.innerHTML = htm;
+        return div;
+{%- endblock jsLegendFeederPage %}
+      }
+
+      function htmLegendFeeder(map, shape, result, index, count) {
+        var color = result.areaServedColors[index];
+        var title = result.areaServedTitles[index];
+        var url = result.areaServedLinks[index];
+        var htm = '';
+        htm += `<div class="cursor-pointer " style="max-width: 400px; ">
+`;
+        htm += `{%- block htmLegendFeederPage %}
+    <div title="${quoteattr(title)}">
+    <div style="width: 20px; ">
+      <i class="{{ FONTAWESOME_STYLE }} fa-circle" style="color: ${color}; "></i>
+    </div>
+    <div class="text-overflow-ellipsis ">
+      <span class="" data-solrId="${result.solrId}" onclick="window.mapLayers[this.getAttribute('data-solrId')].openPopup(); return false;" href="">${title}</span>
+    </div>
+    </div>
+{%- endblock htmLegendFeederPage %}`;
+        htm += `
+</div>
+`;
+        return htm;
+      }
+
+      function jsStyleFeeder(feature) {
+{%- block jsStyleFeederPage %}
+        if(feature.geometry.type == 'Point') {
+          return {
+            radius: 8
+            , fillColor: (feature.properties.areaServedColors && feature.properties.areaServedColors[feature.index] ? feature.properties.areaServedColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , color: (feature.properties.areaServedColors && feature.properties.areaServedColors[feature.index] ? feature.properties.areaServedColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , weight: 1
+            , opacity: 0.7
+            , fillOpacity: 0.7
+            , contextmenu: true
+            , contextmenuItems: [
+              {
+                text: 'Show coordinates'
+                , callback: function(event) {
+                  alert(event2.target.getLatLngs());
+                }
+              }
+            ]
+          };
+        } else if(feature.geometry.type == 'LineString') {
+          return {
+            color: (feature.properties.areaServedColors && feature.properties.areaServedColors[feature.index] ? feature.properties.areaServedColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , weight: 5
+            , opacity: 0.7
+          };
+        } else {
+          return {
+             fillColor: (feature.properties.areaServedColors && feature.properties.areaServedColors[feature.index] ? feature.properties.areaServedColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , color: (feature.properties.areaServedColors && feature.properties.areaServedColors[feature.index] ? feature.properties.areaServedColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , weight: 3
+            , opacity: 0.7
+            , fillOpacity: 0.7
+          };
+        }
+{%- endblock jsStyleFeederPage %}
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+      ]).then(() => {
+
+        var entityShortId = {% if result.entityShortId is defined %}{{ result.entityShortId | tojson }}{% else %}null{% endif %};
+
+        if(entityShortId == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if entityShortId is defined %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listFeeder')?.value;
+        if(l)
+          window.listFeeder = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        pageGraphFeeder();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qFeeder_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('Feeder', event.target, document.querySelector('#qFeederDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qFeeder_rows')?.addEventListener('change', event => {
+          paramChange('Feeder', event.target, document.querySelector('#qFeederDiv_rows'));
+        });
+
+        document.querySelector('#qFeeder_start')?.addEventListener('change', event => {
+          paramChange('Feeder', event.target, document.querySelector('#qFeederDiv_start'));
+        });
+
+
+        var submitForm_patchFeeder = document.querySelector('#htmForm_patchFeeder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchFeeder')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchFeeder(null, document.querySelector('#htmForm_patchFeeder'), document.querySelector('#htmFormButton_patchFeeder'), event.target.getAttribute('data-entityShortId'));
+          return false;
+        });
+
+        var submitForm_postFeeder = document.querySelector('#htmForm_postFeeder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postFeeder')?.addEventListener('click', event => {
+          event.preventDefault();
+          postFeeder(document.querySelector('#htmForm_postFeeder'), document.querySelector('#htmFormButton_postFeeder'), (response, target) => { response.json().then((json) => { window.location.href = json.editPage; }); });
+          return false;
+        });
+
+        var submitForm_deleteFeeder = document.querySelector('#htmForm_deleteFeeder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteFeeder')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteFeeder(event.target, event.target.getAttribute('data-entityShortId'));
+          return false;
+        });
+
+        var submitForm_putimportFeeder = document.querySelector('#htmForm_putimportFeeder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportFeeder')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportFeeder(document.querySelector('#htmForm_putimportFeeder'), document.querySelector('#htmFormButton_putimportFeeder'));
+          return false;
+        });
+
+        var submitForm_searchpageFeeder = document.querySelector('#htmForm_searchpageFeeder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageFeeder')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageFeeder();
+          return false;
+        });
+
+        var submitForm_deletefilterFeeder = document.querySelector('#htmForm_deletefilterFeeder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterFeeder')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterFeeder(event.target);
+          return false;
+        });
+      });
+    </script>
+{%- endblock htmScriptFeederPage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketFeederPage %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketFeeder(websocketFeederInner);
+{%- endblock websocketFeederPage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlFeederPage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlFeederPage %}
+
+{%- block htmBodyStartPageLayout %}
+{{ super() }}
+{%- block htmBodyStartFeederPage %}
+{% if resultCount > 0 %}
+          <h1><a href="{{pageUri}}"><i class="fa-duotone fa-regular fa-fish-cooked"></i> <span>Feeders</span></a></h1>
+{%- include en-us/search/feeder/FeederSuggestedSearch.htm %}
+{% include en-us/search/feeder/FeederSearchButtons.htm %}
+{% include en-us/search/feeder/FeederSearchForm.htm %}
+{% endif %}
+{%- endblock htmBodyStartFeederPage %}
+{%- endblock htmBodyStartPageLayout %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleFeederPage %}
+{% if resultCount == 0 %}
+        {% if varsFqCount > 0 %}
+        <wa-tooltip for="return-to-Feeder">back to all Feeders</wa-tooltip>
+          <wa-button id="return-to-Feeder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+            <i class="{{ FONTAWESOME_STYLE }} fa-angle-left"></i>
+            all Feeders
+          </wa-button>
+        </wa-tooltip>
+        {% endif %}
+        <h1><i class="fa-duotone fa-regular fa-fish-cooked"></i> <span>Feeders</span></h1>
+{% include en-us/search/feeder/FeederSearchButtons.htm %}
+{% include en-us/search/feeder/FeederSearchForm.htm %}
+        <h2>
+          <span>
+  {% if classIconCssClasses is defined %}
+            <i class="{{ classIconCssClasses }}  site-menu-icon "></i>
+  {% endif %}
+            <span class="">no Feeder found</span>
+          </span>
+        </h2>
+{% else %}
+{%- include en-us/search/feeder/FeederSidebar.htm %}
+          <form action="/en-us/api/feeder" id="FeederForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+            <input name="focusId" type="hidden"/>
+            <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+            <input name="listFeeder" id="listFeeder" class="listFeeder"  value='{{ toJsonArrayStringInApostrophes(listFeeder) }}' type="hidden"/>
+          </form>
+        <div class="pageContent ">
+          <div id="site-calendar-box">
+            <div id="site-calendar"><!-- // --></div>
+          </div>
+          {% if varsFqCount > 0 %}
+          <div class="margin-block">
+            <wa-tooltip for="return-to-Feeder">back to all Feeders</wa-tooltip>
+            <wa-button id="return-to-Feeder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="{{ FONTAWESOME_STYLE }} fa-angle-left"></i>
+              all Feeders
+            </wa-button>
+          </div>
+          {% endif %}
+{% include en-us/search/feeder/FeederPaginationButtons.htm %}
+          <div class="card-like-thing background-color-surface-border" id="site-results-grid">
+            <div>
+              <wa-dropdown id="htmDropdown-name">
+                <wa-button variant="brand" slot="trigger" caret>name</wa-button>
+                <wa-menu>
+                  <wa-menu-item data-action="sort" data-order="asc" id="htmDropdown-name-asc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by name ascending
+                  </wa-menu-item>
+                  <wa-menu-item data-action="sort" data-order="desc" id="htmDropdown-name-desc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by name descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-description">
+                <wa-button variant="brand" slot="trigger" caret>description</wa-button>
+                <wa-menu>
+                  <wa-menu-item data-action="sort" data-order="asc" id="htmDropdown-description-asc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by description ascending
+                  </wa-menu-item>
+                  <wa-menu-item data-action="sort" data-order="desc" id="htmDropdown-description-desc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by description descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <div></div>
+            </div>
+            {% for item in listFeeder%}
+            <div>
+              <a href="{{ item.displayPage }}">
+                <i class="fa-duotone fa-regular fa-fish-cooked"></i>
+              {{ item.name }}
+              </a>
+              <a href="{{ item.displayPage }}">
+              {{ item.description }}
+              </a>
+              <wa-button variant="brand"
+                  id="{{classApiMethodMethod}}_editPage"
+                  placeholder="[String] edit"
+                  label="edit"
+                  title="Edit this"
+                  class="button-on-left {{classApiMethodMethod}}_editPage classFeeder inputFeeder{{entityShortId}}EditPage "
+                  name="setEditPage"
+                  href="{{ item.editPage | e }}"
+                  >
+                <i class="fa-duotone fa-regular fa-pen-to-square"></i>
+                edit
+              </wa-button>
+            </div>
+            {% endfor %}
+              {% if getColumnName is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnDescription is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnEditPage is defined %}
+                <div>
+                </div>
+              {% endif %}
+          </div>
+        </div>
+{% endif %}
+{%- endblock htmBodyMiddleFeederPage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+  {{ super() }}
+{%- block htmBodyEndFeederPage %}
+{%- endblock htmBodyEndFeederPage %}
+{%- endblock htmBodyEndPageLayout %}
