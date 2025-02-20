@@ -1,6 +1,7 @@
 target/**
 .flattened-pom.xml
 .vscode
+*.code-workspace
 bin/generate.sh
 bin/generatenow.sh
 bin/index.sh

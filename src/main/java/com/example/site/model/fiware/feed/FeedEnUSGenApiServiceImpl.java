@@ -102,6 +102,7 @@ import java.util.Base64;
 import java.time.ZonedDateTime;
 import org.apache.commons.lang3.BooleanUtils;
 import org.computate.vertx.search.list.SearchList;
+import com.example.site.model.fiware.feed.FeedPage;
 
 
 /**
@@ -625,10 +626,19 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 				siteRequest.setSqlConnection(sqlConnection);
 				varsFeed(siteRequest).onSuccess(a -> {
 					JsonObject jsonObject = o.getSiteRequest_().getJsonObject();
-					if(jsonObject.isEmpty()) {
-						ngsildGetEntity(o).onSuccess(ngsildData -> {
-							String setNgsildData = String.format("set%s",StringUtils.capitalize(Feed.VAR_ngsildData));
-							jsonObject.put(setNgsildData, ngsildData);
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						ngsildGetEntity(o).compose(ngsildData -> {
+							Promise<JsonObject> promise2 = Promise.promise();
+							if(ngsildData == null) {
+								promise2.complete(jsonObject);
+							} else {
+								String setNgsildData = String.format("set%s",StringUtils.capitalize(Feed.VAR_ngsildData));
+								jsonObject.put(setNgsildData, ngsildData);
+								promise2.complete(jsonObject);
+							}
+							return promise2.future();
+						}).compose(ngsildData -> {
+							Promise<Feed> promise2 = Promise.promise();
 							sqlPATCHFeed(o, entityShortId).onSuccess(feed -> {
 								persistFeed(feed, true).onSuccess(c -> {
 									relateFeed(feed).onSuccess(d -> {
@@ -641,19 +651,22 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 														eventBus.publish("websocketFeed", JsonObject.mapFrom(apiRequest).toString());
 												}
 											}
-											promise1.complete(feed);
+											promise2.complete(feed);
 										}).onFailure(ex -> {
-											promise1.fail(ex);
+											promise2.fail(ex);
 										});
 									}).onFailure(ex -> {
-										promise1.fail(ex);
+										promise2.fail(ex);
 									});
 								}).onFailure(ex -> {
-									promise1.fail(ex);
+									promise2.fail(ex);
 								});
 							}).onFailure(ex -> {
-								promise1.fail(ex);
+								promise2.fail(ex);
 							});
+							return promise2.future();
+						}).onSuccess(o2 -> {
+							promise1.complete(o2);
 						}).onFailure(ex -> {
 							promise1.fail(ex);
 						});
@@ -1842,12 +1855,16 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					cbDeleteEntity(o).onSuccess(c -> {
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETEFeed failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
 						promise.complete();
-					}).onFailure(ex -> {
-						LOG.error(String.format("sqlDELETEFeed failed. "), ex);
-						promise.fail(ex);
-					});
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETEFeed failed. "), ex);
 					promise.fail(ex);
@@ -2857,12 +2874,16 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					cbDeleteEntity(o).onSuccess(c -> {
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETEFilterFeed failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
 						promise.complete();
-					}).onFailure(ex -> {
-						LOG.error(String.format("sqlDELETEFilterFeed failed. "), ex);
-						promise.fail(ex);
-					});
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETEFilterFeed failed. "), ex);
 					promise.fail(ex);
@@ -3251,12 +3272,16 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 						}
 					}
 					o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-						cbUpsertEntity(o, patch).onSuccess(b -> {
+						if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+							cbUpsertEntity(o, patch).onSuccess(b -> {
+								promise.complete();
+							}).onFailure(ex -> {
+								LOG.error(String.format("persistFeed failed. "), ex);
+								promise.fail(ex);
+							});
+						} else {
 							promise.complete();
-						}).onFailure(ex -> {
-							LOG.error(String.format("persistFeed failed. "), ex);
-							promise.fail(ex);
-						});
+						}
 					}).onFailure(ex -> {
 						LOG.error(String.format("persistFeed failed. "), ex);
 						promise.fail(ex);

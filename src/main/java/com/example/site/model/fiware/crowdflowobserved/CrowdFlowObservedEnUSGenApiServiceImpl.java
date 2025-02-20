@@ -102,6 +102,7 @@ import java.util.Base64;
 import java.time.ZonedDateTime;
 import org.apache.commons.lang3.BooleanUtils;
 import org.computate.vertx.search.list.SearchList;
+import com.example.site.model.fiware.crowdflowobserved.CrowdFlowObservedPage;
 
 
 /**
@@ -625,10 +626,19 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				siteRequest.setSqlConnection(sqlConnection);
 				varsCrowdFlowObserved(siteRequest).onSuccess(a -> {
 					JsonObject jsonObject = o.getSiteRequest_().getJsonObject();
-					if(jsonObject.isEmpty()) {
-						ngsildGetEntity(o).onSuccess(ngsildData -> {
-							String setNgsildData = String.format("set%s",StringUtils.capitalize(CrowdFlowObserved.VAR_ngsildData));
-							jsonObject.put(setNgsildData, ngsildData);
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						ngsildGetEntity(o).compose(ngsildData -> {
+							Promise<JsonObject> promise2 = Promise.promise();
+							if(ngsildData == null) {
+								promise2.complete(jsonObject);
+							} else {
+								String setNgsildData = String.format("set%s",StringUtils.capitalize(CrowdFlowObserved.VAR_ngsildData));
+								jsonObject.put(setNgsildData, ngsildData);
+								promise2.complete(jsonObject);
+							}
+							return promise2.future();
+						}).compose(ngsildData -> {
+							Promise<CrowdFlowObserved> promise2 = Promise.promise();
 							sqlPATCHCrowdFlowObserved(o, entityShortId).onSuccess(crowdFlowObserved -> {
 								persistCrowdFlowObserved(crowdFlowObserved, true).onSuccess(c -> {
 									relateCrowdFlowObserved(crowdFlowObserved).onSuccess(d -> {
@@ -641,19 +651,22 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 														eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
 												}
 											}
-											promise1.complete(crowdFlowObserved);
+											promise2.complete(crowdFlowObserved);
 										}).onFailure(ex -> {
-											promise1.fail(ex);
+											promise2.fail(ex);
 										});
 									}).onFailure(ex -> {
-										promise1.fail(ex);
+										promise2.fail(ex);
 									});
 								}).onFailure(ex -> {
-									promise1.fail(ex);
+									promise2.fail(ex);
 								});
 							}).onFailure(ex -> {
-								promise1.fail(ex);
+								promise2.fail(ex);
 							});
+							return promise2.future();
+						}).onSuccess(o2 -> {
+							promise1.complete(o2);
 						}).onFailure(ex -> {
 							promise1.fail(ex);
 						});
@@ -1995,12 +2008,16 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					cbDeleteEntity(o).onSuccess(c -> {
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETECrowdFlowObserved failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
 						promise.complete();
-					}).onFailure(ex -> {
-						LOG.error(String.format("sqlDELETECrowdFlowObserved failed. "), ex);
-						promise.fail(ex);
-					});
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETECrowdFlowObserved failed. "), ex);
 					promise.fail(ex);
@@ -3010,12 +3027,16 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					cbDeleteEntity(o).onSuccess(c -> {
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETEFilterCrowdFlowObserved failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
 						promise.complete();
-					}).onFailure(ex -> {
-						LOG.error(String.format("sqlDELETEFilterCrowdFlowObserved failed. "), ex);
-						promise.fail(ex);
-					});
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETEFilterCrowdFlowObserved failed. "), ex);
 					promise.fail(ex);
@@ -3404,12 +3425,16 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						}
 					}
 					o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-						cbUpsertEntity(o, patch).onSuccess(b -> {
+						if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+							cbUpsertEntity(o, patch).onSuccess(b -> {
+								promise.complete();
+							}).onFailure(ex -> {
+								LOG.error(String.format("persistCrowdFlowObserved failed. "), ex);
+								promise.fail(ex);
+							});
+						} else {
 							promise.complete();
-						}).onFailure(ex -> {
-							LOG.error(String.format("persistCrowdFlowObserved failed. "), ex);
-							promise.fail(ex);
-						});
+						}
 					}).onFailure(ex -> {
 						LOG.error(String.format("persistCrowdFlowObserved failed. "), ex);
 						promise.fail(ex);
