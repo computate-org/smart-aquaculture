@@ -24,4 +24,4 @@ RUN mvn clean install -DskipTests
 WORKDIR /home/default/smart-aquaculture
 RUN mvn clean install -DskipTests
 RUN mvn dependency:build-classpath -Dmdep.outputFile=/home/default/smart-aquaculture/cp.txt -q
-CMD java -cp "$(cat /home/default/smart-aquaculture/cp.txt):/home/default/smart-aquaculture/target/classes" com.example.site.verticle.MainVerticle
+CMD java -cp "$(cat /home/default/smart-aquaculture/cp.txt):/home/default/smart-aquaculture/target/classes" org.computate.smartaquaculture.verticle.MainVerticle

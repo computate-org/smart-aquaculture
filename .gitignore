@@ -8,3 +8,4 @@ bin/index.sh
 bin/indexnow.sh
 bin/watch.sh
 bin/watchnow.sh
+*.code-workspace

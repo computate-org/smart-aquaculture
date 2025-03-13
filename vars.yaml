@@ -96,7 +96,7 @@ API_CONTACT_EMAIL: "{{ MAILING_LIST_EMAIL }}"
 # The Maven group ID of the project. 
 SITE_POM_GROUP_ID: "{{ DOMAIN_NAME | split('.') | reverse | join('.') }}"
 # The Maven artifact ID of the project. 
-SITE_POM_ARTIFACT_ID: "site"
+SITE_POM_ARTIFACT_ID: "{{ SITE_SHORT_NAME }}"
 # The current Maven version of the project. 
 SITE_POM_VERSION: "{{ API_VERSION }}"
 # The base Java Package for the project based on Maven group ID and artifact ID. 
