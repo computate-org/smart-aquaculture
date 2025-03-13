@@ -41,7 +41,7 @@ SITE_LANG: "{{ SITE_LOCALE | replace('-', '') }}"
 # The timezone of the site. 
 SITE_ZONE: "{{ lookup('env', 'SITE_ZONE') | default('America/New_York', true) }}"
 # The domain name of the site. 
-DOMAIN_NAME: example.com
+DOMAIN_NAME: computate.org
 # The GitHub organization for this project. 
 GITHUB_ORG: computate-org
 # The main git repository for the project. 
@@ -55,9 +55,11 @@ SITE_HOST_NAME: "{{ lookup('env', 'SITE_HOST_NAME') | default('localhost', true)
 # The base URL of the site. 
 SITE_BASE_URL: "{{ lookup('env', 'SITE_BASE_URL') | default('http://' + SITE_HOST_NAME + ':' + (SITE_PORT | string), true) }}"
 # The public facing URL for the site. 
-SITE_PUBLIC_URL: "https://www.{{ DOMAIN_NAME }}"
+SITE_PUBLIC_URL: "https://smartaquaculture.{{ DOMAIN_NAME }}"
 # The port of the Zookeeper cluster manager. 
 CLUSTER_PORT: "{{ (SITE_PORT | int) + 1 }}"
+# The public port of the Zookeeper cluster manager. 
+CLUSTER_PUBLIC_PORT: "{{ (SITE_PORT | int) + 1 }}"
 # Zookeeper root path to avoid conflicts with other apps using Zookeeper for clustering. 
 ZOOKEEPER_ROOT_PATH: "{{ lookup('env', 'ZOOKEEPER_ROOT_PATH') | default(SITE_NAME, true) }}"
 # Verify SSL connections. 
@@ -183,8 +185,6 @@ CONTAINER_URI: "{{ CONTAINER_REGISTRY }}/{{ CONTAINER_ORG }}/{{ CONTAINER_NAME }
 # Static content defaults #
 ###########################
 
-# The site logo relative URI
-SITE_LOGO_URI: "/svg/smart-aquaculture-logo-white.svg"
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 
 FONTAWESOME_KIT: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name='font-awesome', namespace=SITE_NAMESPACE)[0].data['FONTAWESOME_KIT'] | b64decode }}"
 # A default FontAwesome style. 
@@ -199,6 +199,8 @@ WEB_COMPONENTS_JS: |-
   {{ '<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.0/cdn/shoelace-autoloader.js"></script>' if WEB_COMPONENTS_PREFIX == 'sl-' else (query('kubernetes.core.k8s', kind='Secret', resource_name='font-awesome', namespace=SITE_NAMESPACE)[0].data['WEB_COMPONENTS_JS'] | b64decode | default('<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.0/cdn/shoelace-autoloader.js"></script>')) }}
 # Site default theme, light or dark. 
 SITE_THEME: dark
+# The site logo relative URI
+SITE_LOGO_URI: "/svg/logo-{{ SITE_THEME }}.svg"
 # The name of the repository containing the web static content. 
 SITE_STATIC_NAME: "{{ SITE_NAME }}-static"
 # The static files git repository for the project. 
@@ -311,14 +313,14 @@ SOLR_URL_COMPUTATE: "{{ ('https://' if SOLR_SSL_COMPUTATE | bool == True else 'h
 ENABLE_DATABASE: true
 # The namespace of the database in OpenShift. 
 DATABASE_NAMESPACE: postgres
-# The database secret containing the user password to connect to the database. 
-DATABASE_SECRET: "postgres-pguser-{{ SITE_SHORT_NAME }}"
 # The PostgreSQL database host name. 
 DATABASE_HOST: "{{ lookup('env', 'DATABASE_HOST') | default('postgres.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The PostgreSQL database port. 
 DATABASE_PORT: "{{ lookup('env', 'DATABASE_PORT') | default('30432', true) }}"
 # The PostgreSQL database user name of the site. 
 DATABASE_USERNAME: "{{ lookup('env', 'DATABASE_USERNAME_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
+# The database secret containing the user password to connect to the database. 
+DATABASE_SECRET: "postgres-pguser-{{ DATABASE_USERNAME }}"
 # The PostgreSQL database password of the site. 
 DATABASE_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(DATABASE_SECRET), namespace=SITE_NAMESPACE)[0].data.password | b64decode }}"
 # The PostgreSQL database name of the site. 
