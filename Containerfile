@@ -20,7 +20,6 @@ WORKDIR /home/default/computate-vertx
 RUN mvn clean install -DskipTests
 WORKDIR $HOME/smart-aquaculture
 RUN mvn clean install -DskipTests
-RUN rm -rf /home/default/computate-base /home/default/computate-search /home/default/computate-vertx
 
 WORKDIR /home/default/smart-aquaculture
 RUN mvn clean install -DskipTests
