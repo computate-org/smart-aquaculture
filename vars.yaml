@@ -55,7 +55,7 @@ SITE_HOST_NAME: "{{ lookup('env', 'SITE_HOST_NAME') | default('localhost', true)
 # The base URL of the site. 
 SITE_BASE_URL: "{{ lookup('env', 'SITE_BASE_URL') | default('http://' + SITE_HOST_NAME + ':' + (SITE_PORT | string), true) }}"
 # The public facing URL for the site. 
-SITE_PUBLIC_URL: "https://smartaquaculture.{{ DOMAIN_NAME }}"
+SITE_PUBLIC_URL: "https://{{ SITE_SHORT_NAME }}.{{ DOMAIN_NAME }}"
 # The port of the Zookeeper cluster manager. 
 CLUSTER_PORT: "{{ (SITE_PORT | int) + 1 }}"
 # The public port of the Zookeeper cluster manager. 
@@ -124,11 +124,11 @@ SUFFIX_SRC_GEN_JAVA: /src/gen/java
 # The relative paths in the project to watch for changes. 
 RELATIVE_PATHS_TO_WATCH: "src/main/java/{{ SITE_JAVA_PACKAGE | replace('.', '/') }}"
 # The default source code directory for the computate application which helps generate and translate most the code. 
-COMPUTATE_SRC: "{{ (SITE_SRC + '/../computate') | realpath }}"
+COMPUTATE_SRC: "{{ (PARENT_SRC + '/computate') | realpath }}"
 # The default source code directory for the computate-search application. 
-COMPUTATE_SEARCH_SRC: "{{ (SITE_SRC + '/../computate-search') | realpath }}"
+COMPUTATE_SEARCH_SRC: "{{ (PARENT_SRC + '/computate-search') | realpath }}"
 # The default source code directory for the computate-vertx application. 
-COMPUTATE_VERTX_SRC: "{{ (SITE_SRC + '/../computate-vertx') | realpath }}"
+COMPUTATE_VERTX_SRC: "{{ (PARENT_SRC + '/computate-vertx') | realpath }}"
 # The paths to the internationalization for this project. 
 I18N_PATHS: ["{{ COMPUTATE_VERTX_SRC }}/src/main/resources/org/computate/i18n/i18n_{{ SITE_LANG }}.yaml"]
 # The Java main class of the site. 
@@ -212,8 +212,6 @@ STATIC_PATH: "{{ (SITE_SRC + '/../' + SITE_STATIC_NAME + '/' + ('webawesome' if 
 # The path to the template files. 
 TEMPLATE_PATH: "{{ STATIC_PATH }}/templates"
 # The path to the site page templates. 
-DYNAMIC_PAGE_PATHS:
-  - "en-us/article"
 
 ######################
 # Developer defaults #
@@ -242,11 +240,11 @@ SITE_SYSTEMD: "{{ '/usr/lib/systemd/system' if ansible_distribution_file_variety
 #######################
 
 # The name of the cloud provider where the public site is deployed. 
-SITE_POWERED_BY_NAME: Red Hat OpenShift Local
+SITE_POWERED_BY_NAME: "{{ lookup('env', 'SITE_POWERED_BY_NAME') | default('Red Hat OpenShift Local', true) }}"
 # The URL of the cloud provider where the public site is deployed. 
-SITE_POWERED_BY_URL: https://developers.redhat.com/products/openshift-local/overview
+SITE_POWERED_BY_URL: "{{ lookup('env', 'SITE_POWERED_BY_URL') | default('https://developers.redhat.com/products/openshift-local/overview', true) }}"
 # The static path to the logo of the cloud provider where the public site is deployed. 
-SITE_POWERED_BY_IMAGE: '<img class="footer-img" alt="Red Hat OpenShift" src="{{ STATIC_BASE_URL }}/svg/openshift.svg"/>'
+SITE_POWERED_BY_IMAGE: "{{ lookup('env', 'SITE_POWERED_BY_IMAGE') | default('<img class="footer-img" alt="' + SITE_POWERED_BY_NAME + '" src="' + STATIC_BASE_URL + '/svg/openshift.svg"/>', true) }}"
 
 ######################
 # Zookeeper defaults #
@@ -281,7 +279,7 @@ SOLR_PORT: "{{ lookup('env', 'SOLR_PORT') | default('443', true) }}"
 # The solr collection to use for the site. 
 SOLR_COLLECTION: "{{ lookup('env', 'SOLR_COLLECTION_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
 # The URL to the Solr collection. 
-SOLR_URL: "{{ ('https://' if SOLR_SSL | bool == True else 'http://') + SOLR_HOST_NAME + ('' if SOLR_PORT | int == 443 else (':' + SOLR_PORT)) }}/solr/{{ SOLR_COLLECTION }}"
+SOLR_URL: "{{ ('https://' if SOLR_SSL | bool == True else 'http://') + SOLR_HOST_NAME + ('' if SOLR_PORT | int == 443 else (':' + (SOLR_PORT | string))) }}/solr/{{ SOLR_COLLECTION }}"
 # The solr pod name to connect and create Solr configsets and collections. 
 SOLR_POD_NAME: "solr-0"
 # The time before committing Solr data in milliseconds. 
@@ -314,7 +312,7 @@ ENABLE_DATABASE: true
 # The namespace of the database in OpenShift. 
 DATABASE_NAMESPACE: postgres
 # The PostgreSQL database host name. 
-DATABASE_HOST: "{{ lookup('env', 'DATABASE_HOST') | default('postgres.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+DATABASE_HOST_NAME: "{{ lookup('env', 'DATABASE_HOST_NAME') | default('postgres.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The PostgreSQL database port. 
 DATABASE_PORT: "{{ lookup('env', 'DATABASE_PORT') | default('30432', true) }}"
 # The PostgreSQL database user name of the site. 
@@ -384,7 +382,7 @@ AUTH_FINE_GRAINED_POLICY_PERMISSIONS: true
 ###############
 
 # Enable FIWARE Smart Data Model integrations. 
-ENABLE_FIWARE: false
+ENABLE_FIWARE: true
 # FIWARE Smart Data Model source code directory. 
 SMART_DATA_MODELS_SRC: "{{ (PARENT_SRC + '/smart-data-models') | realpath }}"
 # Map default latitude,longitude. 
@@ -410,14 +408,14 @@ SOLR_URL_FIWARE: "{{ ('https://' if SOLR_SSL_FIWARE | bool == True else 'http://
 # Enable context broker integration in the Fiware enabled Smart Data Model APIs. 
 ENABLE_CONTEXT_BROKER: true
 # Enable sending context broker data. 
-ENABLE_CONTEXT_BROKER_SEND: false
+ENABLE_CONTEXT_BROKER_SEND: true
 # The Context Broker namespace. 
 CONTEXT_BROKER_NAMESPACE: "scorpiobroker"
-# Whether to use SSL when connecting to Solr. 
+# Whether to use SSL when connecting to the Context Broker. 
 CONTEXT_BROKER_SSL: "{{ (lookup('env', 'CONTEXT_BROKER_SSL') | lower) != 'false' }}"
-# The host name to connect to Solr in OpenShift. 
+# The host name to connect to the Context Broker in OpenShift. 
 CONTEXT_BROKER_HOST_NAME: "{{ lookup('env', 'CONTEXT_BROKER_HOST_NAME') | default('scorpiobroker.' + OPENSHIFT_APPS_DOMAIN, true) }}"
-# The default port that Solr runs. 
+# The default port that the Context Broker runs. 
 CONTEXT_BROKER_PORT: "{{ lookup('env', 'CONTEXT_BROKER_PORT') | default('443', true) }}"
 # The delay between messages and requerying entity @context. 
 CONTEXT_BROKER_DELAY_MILLIS: 0
@@ -451,40 +449,39 @@ KAFKA_SSL_TRUSTSTORE_SECRET: default-cluster-ca-cert
 # The Kafka port. 
 KAFKA_PORT: 9093
 
-##############
+#############
 # MQTT vars #
-##############
+#############
 
 # Enable MQTT message integration. 
-ENABLE_MQTT: false
-# The namespace in OpenShift where MQTT will run. 
-MQTT_NAMESPACE: mqtt
-# The MQTT host. 
-MQTT_HOST: "mqtt.{{ OPENSHIFT_APPS_DOMAIN }}"
-# The MQTT port. 
-MQTT_PORT: 30883
-# The MQTT user name of the site. 
-MQTT_USERNAME: "{{ SITE_SHORT_NAME }}"
-# The MQTT password of the site. 
-MQTT_PASSWORD: ""
+ENABLE_MQTT: "{{ (lookup('env', 'ENABLE_MQTT') | lower) == 'true' }}"
+# The namespace in OpenShift where the MQTT message broker will run. 
+MQTT_NAMESPACE: "{{ lookup('env', 'MQTT_NAMESPACE') | default('amq-broker', true) }}"
+# The MQTT port (default 1883). 
+MQTT_PORT: "{{ lookup('env', 'MQTT_PORT') | default('30083', true) }}"
+# The MQTT host name. 
+MQTT_HOST_NAME: "{{ lookup('env', 'MQTT_HOST_NAME') | default('import-broker-mqtt-0-svc.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+# The MQTT user. 
+MQTT_USERNAME: "{{ lookup('env', 'MQTT_USERNAME') | default('user', true) }}"
+# The MQTT password. 
+MQTT_PASSWORD: "{{ lookup('env', 'MQTT_PASSWORD') | default('password', true) }}"
 
 #############
 # AMQP vars #
 #############
 
 # Enable AMQP message integration. 
-ENABLE_AMQP: false
+ENABLE_AMQP: "{{ (lookup('env', 'ENABLE_AMQP') | lower) == 'true' }}"
 # The namespace in OpenShift where the AMQP message broker will run. 
-AMQP_NAMESPACE: rabbitmq
-# The AMQP port. 
-AMQP_PORT: 5672
+AMQP_NAMESPACE: "{{ lookup('env', 'AMQP_NAMESPACE') | default('amq-broker', true) }}"
+# The AMQP port (default 5672). 
+AMQP_PORT: "{{ lookup('env', 'AMQP_PORT') | default('30072', true) }}"
 # The AMQP host name. 
-AMQP_HOST_NAME: "rabbitmq.{{ AMQP_NAMESPACE }}.svc"
+AMQP_HOST_NAME: "{{ lookup('env', 'AMQP_HOST_NAME') | default('import-broker-AMQP-0-svc.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The AMQP user. 
-AMQP_HOST_USER: "user"
+AMQP_USERNAME: "{{ lookup('env', 'AMQP_USERNAME') | default('user', true) }}"
 # The AMQP password. 
-AMQP_HOST_PASSWORD: ""
-#AMQP_HOST_PASSWORD: ""
+AMQP_PASSWORD: "{{ lookup('env', 'AMQP_PASSWORD') | default('password', true) }}"
 # The AMQP virtual host. 
 AMQP_VIRTUAL_HOST: "%2F"
 
@@ -493,18 +490,18 @@ AMQP_VIRTUAL_HOST: "%2F"
 #################
 
 # Enable RabbitMQ message integration. 
-ENABLE_RABBITMQ: false
-# The namespace in OpenShift where the AMQP message broker will run. 
-RABBITMQ_NAMESPACE: rabbitmq
-# The AMQP port. 
-RABBITMQ_PORT: 30072
-# The AMQP host name. 
-RABBITMQ_HOST_NAME: "rabbitmq.{{ AMQP_NAMESPACE }}.svc"
-# The AMQP user. 
-RABBITMQ_USER: "user"
-# The AMQP password. 
-RABBITMQ_PASSWORD: ""
-# The AMQP virtual host. 
+ENABLE_RABBITMQ: "{{ (lookup('env', 'ENABLE_RABBITMQ') | lower) == 'true' }}"
+# The namespace in OpenShift where the RabbitMQ message broker will run. 
+RABBITMQ_NAMESPACE: "{{ lookup('env', 'RABBITMQ_NAMESPACE') | default('rabbitmq', true) }}"
+# The RabbitMQ port (default 5672). 
+RABBITMQ_PORT: "{{ lookup('env', 'RABBITMQ_PORT') | default('30072', true) }}"
+# The RabbitMQ host name. 
+RABBITMQ_HOST_NAME: "{{ lookup('env', 'RABBITMQ_HOST_NAME') | default('rabbitmq.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+# The RabbitMQ user. 
+RABBITMQ_USERNAME: "{{ lookup('env', 'RABBITMQ_USERNAME') | default('user', true) }}"
+# The RabbitMQ password. 
+RABBITMQ_PASSWORD: "{{ lookup('env', 'RABBITMQ_PASSWORD') | default('password', true) }}"
+# The RabbitMQ virtual host. 
 RABBITMQ_VIRTUAL_HOST: "/"
 
 ################################

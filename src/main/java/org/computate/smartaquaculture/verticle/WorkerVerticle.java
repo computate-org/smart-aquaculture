@@ -312,7 +312,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			Integer jdbcMaxPoolSize = Integer.parseInt(config().getString(ConfigKeys.DATABASE_MAX_POOL_SIZE));
 
 			pgOptions.setPort(Integer.parseInt(config().getString(ConfigKeys.DATABASE_PORT)));
-			pgOptions.setHost(config().getString(ConfigKeys.DATABASE_HOST));
+			pgOptions.setHost(config().getString(ConfigKeys.DATABASE_HOST_NAME));
 			pgOptions.setDatabase(config().getString(ConfigKeys.DATABASE_DATABASE));
 			pgOptions.setUser(config().getString(ConfigKeys.DATABASE_USERNAME));
 			pgOptions.setPassword(config().getString(ConfigKeys.DATABASE_PASSWORD));
@@ -409,7 +409,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			if(BooleanUtils.isTrue(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_MQTT)))) {
 				try {
 					mqttClient = MqttClient.create(vertx);
-					mqttClient.connect(Integer.parseInt(config().getString(ConfigKeys.MQTT_PORT)), config().getString(ConfigKeys.MQTT_HOST)).onSuccess(a -> {
+					mqttClient.connect(Integer.parseInt(config().getString(ConfigKeys.MQTT_PORT)), config().getString(ConfigKeys.MQTT_HOST_NAME)).onSuccess(a -> {
 						try {
 							LOG.info("The MQTT client was initialized successfully.");
 							promise.complete(mqttClient);
@@ -445,9 +445,9 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			if(BooleanUtils.isTrue(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_AMQP)))) {
 				try {
 					AmqpClientOptions options = new AmqpClientOptions()
-							.setHost(config().getString(ConfigKeys.AMQP_HOST))
+							.setHost(config().getString(ConfigKeys.AMQP_HOST_NAME))
 							.setPort(Integer.parseInt(config().getString(ConfigKeys.AMQP_PORT)))
-							.setUsername(config().getString(ConfigKeys.AMQP_USER))
+							.setUsername(config().getString(ConfigKeys.AMQP_USERNAME))
 							.setPassword(config().getString(ConfigKeys.AMQP_PASSWORD))
 							.setVirtualHost(config().getString(ConfigKeys.AMQP_VIRTUAL_HOST))
 							;
@@ -499,7 +499,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 					RabbitMQOptions options = new RabbitMQOptions()
 							.setHost(config().getString(ConfigKeys.RABBITMQ_HOST_NAME))
 							.setPort(Integer.parseInt(config().getString(ConfigKeys.RABBITMQ_PORT)))
-							.setUser(config().getString(ConfigKeys.RABBITMQ_USER))
+							.setUser(config().getString(ConfigKeys.RABBITMQ_USERNAME))
 							.setPassword(config().getString(ConfigKeys.RABBITMQ_PASSWORD))
 							.setVirtualHost(config().getString(ConfigKeys.RABBITMQ_VIRTUAL_HOST))
 							.setAutomaticRecoveryEnabled(true)
