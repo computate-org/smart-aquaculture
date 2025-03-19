@@ -4,6 +4,7 @@ package org.computate.smartaquaculture.verticle;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
@@ -91,6 +92,7 @@ import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.kafka.client.producer.KafkaProducer;
+import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.mqtt.MqttClient;
 import io.vertx.amqp.AmqpClient;
 import io.vertx.amqp.AmqpClientOptions;
@@ -409,8 +411,11 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			if(BooleanUtils.isTrue(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_MQTT)))) {
 				try {
 					mqttClient = MqttClient.create(vertx);
-					mqttClient.connect(Integer.parseInt(config().getString(ConfigKeys.MQTT_PORT)), config().getString(ConfigKeys.MQTT_HOST_NAME)).onSuccess(a -> {
+					mqttClient.connect(Integer.parseInt(config().getString(ConfigKeys.MQTT_PORT)), config().getString(ConfigKeys.MQTT_HOST_NAME)).onSuccess(mqttConnection -> {
 						try {
+							mqttClient.publishHandler(message -> {
+								LOG.info(String.format("MQTT: %s", message.payload().toString(Charset.defaultCharset())));
+							}).subscribe("workbench-user1", MqttQoS.EXACTLY_ONCE.value());
 							LOG.info("The MQTT client was initialized successfully.");
 							promise.complete(mqttClient);
 						} catch(Exception ex) {
