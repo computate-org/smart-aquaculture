@@ -244,7 +244,7 @@ SITE_POWERED_BY_NAME: "{{ lookup('env', 'SITE_POWERED_BY_NAME') | default('Red H
 # The URL of the cloud provider where the public site is deployed. 
 SITE_POWERED_BY_URL: "{{ lookup('env', 'SITE_POWERED_BY_URL') | default('https://developers.redhat.com/products/openshift-local/overview', true) }}"
 # The static path to the logo of the cloud provider where the public site is deployed. 
-SITE_POWERED_BY_IMAGE: "{{ lookup('env', 'SITE_POWERED_BY_IMAGE') | default('<img class="footer-img" alt="' + SITE_POWERED_BY_NAME + '" src="' + STATIC_BASE_URL + '/svg/openshift.svg"/>', true) }}"
+SITE_POWERED_BY_IMAGE: "{{ lookup('env', 'SITE_POWERED_BY_IMAGE') | default('<img class=\"footer-img\" alt=\"' + SITE_POWERED_BY_NAME + '\" src=\"' + STATIC_BASE_URL + '/svg/openshift.svg\"/>', true) }}"
 
 ######################
 # Zookeeper defaults #
