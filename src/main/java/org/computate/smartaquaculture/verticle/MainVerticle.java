@@ -285,6 +285,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 				} else {
 					future = future.compose(a -> run(config).onSuccess(b -> {
 						LOG.info("MainVerticle run completed");
+						LOG.info(String.format("Access your site here: %s", config.getString(ConfigKeys.SITE_BASE_URL)));
 					}).onFailure(ex -> {
 						LOG.info("MainVerticle run failed");
 						vertx.close();

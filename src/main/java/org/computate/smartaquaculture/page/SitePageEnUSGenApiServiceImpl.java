@@ -410,6 +410,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
 		listSitePage.getList().forEach(o -> {
 			SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
+			siteRequest2.setScopes(siteRequest.getScopes());
 			o.setSiteRequest_(siteRequest2);
 			siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
 			JsonObject jsonObject = JsonObject.mapFrom(o);

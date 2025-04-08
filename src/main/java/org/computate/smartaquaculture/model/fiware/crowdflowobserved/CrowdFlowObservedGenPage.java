@@ -140,7 +140,7 @@ public class CrowdFlowObservedGenPage extends CrowdFlowObservedGenPageGen<PageLa
   @Override
   protected void _varsFq(JsonObject vars) {
     Map<String, SolrResponse.FacetField> facetFields = Optional.ofNullable(facetCounts).map(c -> c.getFacetFields()).map(f -> f.getFacets()).orElse(new HashMap<String,SolrResponse.FacetField>());
-    Integer varsFqCount = 0;
+    varsFqCount = 0;
     for(String var : CrowdFlowObserved.varsFqForClass()) {
       String varIndexed = CrowdFlowObserved.varIndexedCrowdFlowObserved(var);
       String varStored = CrowdFlowObserved.varStoredCrowdFlowObserved(var);
