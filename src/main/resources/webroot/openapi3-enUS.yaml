@@ -16,6 +16,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -30,14 +38,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -211,6 +211,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -225,14 +233,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -284,6 +284,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -298,14 +306,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
       requestBody:
@@ -334,6 +334,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -348,14 +356,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -421,6 +421,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -435,14 +443,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -495,6 +495,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -509,14 +517,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -544,6 +544,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -558,14 +566,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -637,6 +637,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -651,14 +659,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -687,6 +687,14 @@ paths:
       tags:
         - CrowdFlowObserveds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -701,14 +709,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -883,6 +883,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -897,14 +905,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -1078,6 +1078,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1092,14 +1100,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -1151,6 +1151,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1165,14 +1173,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
       requestBody:
@@ -1201,6 +1201,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1215,14 +1223,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -1288,6 +1288,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1302,14 +1310,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -1362,6 +1362,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1376,14 +1384,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -1411,6 +1411,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1425,14 +1433,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -1504,6 +1504,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1518,14 +1526,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -1554,6 +1554,14 @@ paths:
       tags:
         - Feeds
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1568,14 +1576,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -1750,6 +1750,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1764,14 +1772,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -1945,6 +1945,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1959,14 +1967,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -2018,6 +2018,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2032,14 +2040,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
       requestBody:
@@ -2068,6 +2068,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2082,14 +2090,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -2155,6 +2155,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2169,14 +2177,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -2229,6 +2229,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2243,14 +2251,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -2278,6 +2278,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2292,14 +2300,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -2371,6 +2371,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2385,14 +2393,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -2421,6 +2421,14 @@ paths:
       tags:
         - Feeders
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2435,14 +2443,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -2617,6 +2617,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2631,14 +2639,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -2812,6 +2812,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2826,14 +2834,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -2885,6 +2885,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2899,14 +2907,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
       requestBody:
@@ -2935,6 +2935,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2949,14 +2957,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -3022,6 +3022,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3036,14 +3044,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -3096,6 +3096,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3110,14 +3118,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -3145,6 +3145,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3159,14 +3167,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -3238,6 +3238,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3252,14 +3260,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -3288,6 +3288,14 @@ paths:
       tags:
         - FeedingOperations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3302,14 +3310,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -3484,6 +3484,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3498,14 +3506,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -3679,6 +3679,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3693,14 +3701,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -3752,6 +3752,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3766,14 +3774,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
       requestBody:
@@ -3802,6 +3802,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3816,14 +3824,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -3889,6 +3889,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3903,14 +3911,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -3963,6 +3963,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3977,14 +3985,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -4012,6 +4012,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -4026,14 +4034,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -4105,6 +4105,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -4119,14 +4127,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - name: entityShortId
@@ -4155,6 +4155,14 @@ paths:
       tags:
         - FishPopulations
       parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -4169,14 +4177,6 @@ paths:
             type: string
         - name: NGSILD-Path
           in: header
-          schema:
-            type: string
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
           schema:
             type: string
         - in: query
@@ -4582,6 +4582,15 @@ paths:
       summary: >+
       tags:
         - articles
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -4688,10 +4697,6 @@ paths:
     get:
       operationId: editpageSitePage
       x-vertx-event-bus: smart-aquaculture-enUS-SitePage
-      security:
-        - openIdConnect:
-          - openid
-          - profile
       description: >+
       summary: >+
       tags:
@@ -5172,6 +5177,15 @@ paths:
       summary: >+
       tags:
         - site users
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true

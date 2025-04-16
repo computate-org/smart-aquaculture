@@ -118,7 +118,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void searchFeedingOperation(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -139,7 +140,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -148,6 +149,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchFeedingOperationList(siteRequest, false, true, false).onSuccess(listFeedingOperation -> {
 							response200SearchFeedingOperation(listFeedingOperation).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -279,7 +281,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void getFeedingOperation(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -300,7 +303,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -309,6 +312,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchFeedingOperationList(siteRequest, false, true, false).onSuccess(listFeedingOperation -> {
 							response200GETFeedingOperation(listFeedingOperation).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -379,7 +383,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 	@Override
 	public void patchFeedingOperation(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		LOG.debug(String.format("patchFeedingOperation started. "));
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -400,7 +405,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -409,6 +414,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchFeedingOperationList(siteRequest, false, true, true).onSuccess(listFeedingOperation -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
@@ -419,7 +425,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFeedingOperation.first());
-								apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId()).orElse(null));
+								apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 								apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
 								eventBus.publish("websocketFeedingOperation", JsonObject.mapFrom(apiRequest).toString());
 
@@ -521,7 +527,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void patchFeedingOperationFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
 				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
@@ -541,7 +548,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
 							FeedingOperation o2 = jsonObject.mapTo(FeedingOperation.class);
@@ -572,7 +579,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		});
 	}
 
-	public Future<FeedingOperation> patchFeedingOperationFuture(FeedingOperation o, Boolean entityShortId) {
+	public Future<FeedingOperation> patchFeedingOperationFuture(FeedingOperation o, Boolean inheritPrimaryKey) {
 		SiteRequest siteRequest = o.getSiteRequest_();
 		Promise<FeedingOperation> promise = Promise.promise();
 
@@ -596,7 +603,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							return promise2.future();
 						}).compose(ngsildData -> {
 							Promise<FeedingOperation> promise2 = Promise.promise();
-							sqlPATCHFeedingOperation(o, entityShortId).onSuccess(feedingOperation -> {
+							sqlPATCHFeedingOperation(o, inheritPrimaryKey).onSuccess(feedingOperation -> {
 								persistFeedingOperation(feedingOperation, true).onSuccess(c -> {
 									relateFeedingOperation(feedingOperation).onSuccess(d -> {
 										indexFeedingOperation(feedingOperation).onSuccess(o2 -> {
@@ -628,7 +635,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							promise1.fail(ex);
 						});
 					} else {
-						sqlPATCHFeedingOperation(o, entityShortId).onSuccess(feedingOperation -> {
+						sqlPATCHFeedingOperation(o, inheritPrimaryKey).onSuccess(feedingOperation -> {
 							persistFeedingOperation(feedingOperation, true).onSuccess(c -> {
 								relateFeedingOperation(feedingOperation).onSuccess(d -> {
 									indexFeedingOperation(feedingOperation).onSuccess(o2 -> {
@@ -683,7 +690,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		return promise.future();
 	}
 
-	public Future<FeedingOperation> sqlPATCHFeedingOperation(FeedingOperation o, Boolean entityShortId) {
+	public Future<FeedingOperation> sqlPATCHFeedingOperation(FeedingOperation o, Boolean inheritPrimaryKey) {
 		Promise<FeedingOperation> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
@@ -992,7 +999,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 	@Override
 	public void postFeedingOperation(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		LOG.debug(String.format("postFeedingOperation started. "));
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -1013,7 +1021,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -1022,6 +1030,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						ApiRequest apiRequest = new ApiRequest();
 						apiRequest.setRows(1L);
 						apiRequest.setNumFound(1L);
@@ -1032,7 +1041,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 						JsonObject params = new JsonObject();
 						params.put("body", siteRequest.getJsonObject());
 						params.put("path", new JsonObject());
-						params.put("cookie", new JsonObject());
+						params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
 						params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
 						params.put("form", new JsonObject());
 						JsonObject query = new JsonObject();
@@ -1091,7 +1100,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void postFeedingOperationFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
 				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
@@ -1218,7 +1228,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		return promise.future();
 	}
 
-	public Future<FeedingOperation> sqlPOSTFeedingOperation(FeedingOperation o, Boolean entityShortId) {
+	public Future<FeedingOperation> sqlPOSTFeedingOperation(FeedingOperation o, Boolean inheritPrimaryKey) {
 		Promise<FeedingOperation> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
@@ -1572,7 +1582,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 	@Override
 	public void deleteFeedingOperation(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		LOG.debug(String.format("deleteFeedingOperation started. "));
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -1593,7 +1604,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -1602,6 +1613,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchFeedingOperationList(siteRequest, false, true, true).onSuccess(listFeedingOperation -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
@@ -1713,7 +1725,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void deleteFeedingOperationFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
 				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
@@ -1733,7 +1746,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
 							deleteFeedingOperationFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -1912,7 +1925,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 	@Override
 	public void putimportFeedingOperation(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		LOG.debug(String.format("putimportFeedingOperation started. "));
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -1933,7 +1947,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -1942,6 +1956,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						ApiRequest apiRequest = new ApiRequest();
 						JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
 						apiRequest.setRows(Long.valueOf(jsonArray.size()));
@@ -2009,7 +2024,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonObject params = new JsonObject();
 					params.put("body", obj);
 					params.put("path", new JsonObject());
-					params.put("cookie", new JsonObject());
+					params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
 					params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
 					params.put("form", new JsonObject());
 					JsonObject query = new JsonObject();
@@ -2048,7 +2063,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void putimportFeedingOperationFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
 				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
@@ -2197,7 +2213,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void searchpageFeedingOperation(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -2218,7 +2235,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -2227,6 +2244,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchFeedingOperationList(siteRequest, false, true, false).onSuccess(listFeedingOperation -> {
 							response200SearchPageFeedingOperation(listFeedingOperation).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -2355,7 +2373,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void editpageFeedingOperation(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -2376,7 +2395,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -2385,6 +2404,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchFeedingOperationList(siteRequest, false, true, false).onSuccess(listFeedingOperation -> {
 							response200EditPageFeedingOperation(listFeedingOperation).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -2514,7 +2534,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 	@Override
 	public void deletefilterFeedingOperation(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		LOG.debug(String.format("deletefilterFeedingOperation started. "));
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
@@ -2535,7 +2556,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
 					)
 					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-					.putHeader("Authorization", String.format("Bearer %s", siteRequest.getUser().principal().getString("access_token")))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
 					.sendForm(form)
 					.expecting(HttpResponseExpectation.SC_OK)
 			.onComplete(authorizationDecisionResponse -> {
@@ -2544,6 +2565,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchFeedingOperationList(siteRequest, false, true, true).onSuccess(listFeedingOperation -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
@@ -2655,7 +2677,8 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 	@Override
 	public void deletefilterFeedingOperationFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+		Boolean classPublicRead = false;
+		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
 				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
@@ -2675,7 +2698,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
 							deletefilterFeedingOperationFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -2978,9 +3001,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 			}
 
 			String entityShortId = serviceRequest.getParams().getJsonObject("path").getString("entityShortId");
-			if(entityShortId != null && NumberUtils.isCreatable(entityShortId)) {
-				searchList.fq("(_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId) + " OR entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId) + ")");
-			} else if(entityShortId != null) {
+			if(entityShortId != null) {
 				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
 			}
 
@@ -3476,7 +3497,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 				CompositeFuture.all(futures).onSuccess(b -> {
 					JsonObject params = new JsonObject();
 					params.put("body", new JsonObject());
-					params.put("cookie", new JsonObject());
+					params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
 					params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
 					params.put("form", new JsonObject());
 					params.put("path", new JsonObject());
