@@ -1131,7 +1131,8 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 				if(StringUtils.startsWith(siteBaseUrl, "https://"))
 					sessionHandler.setCookieSecureFlag(true);
 		
-				RouterBuilder.create(vertx, "webroot/openapi3-enUS.yaml").onSuccess(routerBuilder -> {
+				String siteSrc = config().getString(ComputateConfigKeys.SITE_SRC);
+				RouterBuilder.create(vertx, Path.of(siteSrc, "src/main/resources/webroot/openapi3-enUS.yaml").toAbsolutePath().toString()).onSuccess(routerBuilder -> {
 					routerBuilder.rootHandler(sessionHandler);
 					routerBuilder.rootHandler(BodyHandler.create());
 
