@@ -807,13 +807,13 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 							num++;
 							bParams.add(o2.sqlNgsildContext());
 						break;
-					case "setTitle":
-							o2.setTitle(jsonObject.getString(entityVar));
+					case "setObjectTitle":
+							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feed.VAR_title + "=$" + num);
+							bSql.append(Feed.VAR_objectTitle + "=$" + num);
 							num++;
-							bParams.add(o2.sqlTitle());
+							bParams.add(o2.sqlObjectTitle());
 						break;
 					case "setNgsildData":
 							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
@@ -1343,14 +1343,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 						num++;
 						bParams.add(o2.sqlNgsildContext());
 						break;
-					case Feed.VAR_title:
-						o2.setTitle(jsonObject.getString(entityVar));
+					case Feed.VAR_objectTitle:
+						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feed.VAR_title + "=$" + num);
+						bSql.append(Feed.VAR_objectTitle + "=$" + num);
 						num++;
-						bParams.add(o2.sqlTitle());
+						bParams.add(o2.sqlObjectTitle());
 						break;
 					case Feed.VAR_ngsildData:
 						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
@@ -2009,84 +2009,102 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-
-				SearchList<Feed> searchList = new SearchList<Feed>();
-				searchList.setStore(true);
-				searchList.q("*:*");
-				searchList.setC(Feed.class);
-				searchList.fq("archived_docvalues_boolean:false");
-				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
-				searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
-					try {
-						if(searchList.size() >= 1) {
-							Feed o = searchList.getList().stream().findFirst().orElse(null);
-							Feed o2 = new Feed();
-							o2.setSiteRequest_(siteRequest);
-							JsonObject body2 = new JsonObject();
-							for(String f : body.fieldNames()) {
-								Object bodyVal = body.getValue(f);
-								if(bodyVal instanceof JsonArray) {
-									JsonArray bodyVals = (JsonArray)bodyVal;
-									Object valsObj = o.obtainForClass(f);
-									Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-									if(bodyVals.size() == vals.size()) {
-										Boolean match = true;
-										for(Object val : vals) {
-											if(val != null) {
-												if(!bodyVals.contains(val.toString())) {
-													match = false;
-													break;
-												}
-											} else {
-												match = false;
-												break;
+				pgPool.getConnection().onSuccess(sqlConnection -> {
+					String sqlQuery = String.format("select * from %s WHERE entityShortId=$1", Feed.CLASS_SIMPLE_NAME);
+					sqlConnection.preparedQuery(sqlQuery)
+							.execute(Tuple.tuple(Arrays.asList(entityShortId))
+							).onSuccess(result -> {
+						sqlConnection.close().onSuccess(a -> {
+							try {
+								if(result.size() >= 1) {
+									Feed o = new Feed();
+									o.setSiteRequest_(siteRequest);
+									for(Row definition : result.value()) {
+										for(Integer i = 0; i < definition.size(); i++) {
+											try {
+												String columnName = definition.getColumnName(i);
+												Object columnValue = definition.getValue(i);
+												o.persistForClass(columnName, columnValue);
+											} catch(Exception e) {
+												LOG.error(String.format("persistFeed failed. "), e);
 											}
 										}
-										vals.clear();
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
-									} else {
-										vals.clear();
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 									}
+									Feed o2 = new Feed();
+									o2.setSiteRequest_(siteRequest);
+									JsonObject body2 = new JsonObject();
+									for(String f : body.fieldNames()) {
+										Object bodyVal = body.getValue(f);
+										if(bodyVal instanceof JsonArray) {
+											JsonArray bodyVals = (JsonArray)bodyVal;
+											Object valsObj = o.obtainForClass(f);
+											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
+											if(bodyVals.size() == vals.size()) {
+												Boolean match = true;
+												for(Object val : vals) {
+													if(val != null) {
+														if(!bodyVals.contains(val.toString())) {
+															match = false;
+															break;
+														}
+													} else {
+														match = false;
+														break;
+													}
+												}
+												vals.clear();
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+											} else {
+												vals.clear();
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+											}
+										} else {
+											o2.persistForClass(f, bodyVal);
+											o2.relateForClass(f, bodyVal);
+											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+										}
+									}
+									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
+										if(!body.fieldNames().contains(f)) {
+											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+												body2.putNull("set" + StringUtils.capitalize(f));
+										}
+									}
+									if(result.size() >= 1) {
+										apiRequest.setOriginal(o);
+										apiRequest.setId(o.getEntityShortId());
+										apiRequest.setPk(o.getPk());
+									}
+									siteRequest.setJsonObject(body2);
+									patchFeedFuture(o, true).onSuccess(b -> {
+										LOG.debug("Import Feed {} succeeded, modified Feed. ", body.getValue(Feed.VAR_entityShortId));
+										eventHandler.handle(Future.succeededFuture());
+									}).onFailure(ex -> {
+										LOG.error(String.format("putimportFeedFuture failed. "), ex);
+										eventHandler.handle(Future.failedFuture(ex));
+									});
 								} else {
-									o2.persistForClass(f, bodyVal);
-									o2.relateForClass(f, bodyVal);
-									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
+									postFeedFuture(siteRequest, true).onSuccess(b -> {
+										LOG.debug("Import Feed {} succeeded, created new Feed. ", body.getValue(Feed.VAR_entityShortId));
+										eventHandler.handle(Future.succeededFuture());
+									}).onFailure(ex -> {
+										LOG.error(String.format("putimportFeedFuture failed. "), ex);
+										eventHandler.handle(Future.failedFuture(ex));
+									});
 								}
-							}
-							for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
-								if(!body.fieldNames().contains(f)) {
-									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-										body2.putNull("set" + StringUtils.capitalize(f));
-								}
-							}
-							if(searchList.size() == 1) {
-								apiRequest.setOriginal(o);
-								apiRequest.setId(o.getEntityShortId());
-								apiRequest.setPk(o.getPk());
-							}
-							siteRequest.setJsonObject(body2);
-							patchFeedFuture(o, true).onSuccess(b -> {
-								LOG.debug("Import Feed {} succeeded, modified Feed. ", body.getValue(Feed.VAR_entityShortId));
-								eventHandler.handle(Future.succeededFuture());
-							}).onFailure(ex -> {
+							} catch(Exception ex) {
 								LOG.error(String.format("putimportFeedFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
-							});
-						} else {
-							postFeedFuture(siteRequest, true).onSuccess(b -> {
-								LOG.debug("Import Feed {} succeeded, created new Feed. ", body.getValue(Feed.VAR_entityShortId));
-								eventHandler.handle(Future.succeededFuture());
-							}).onFailure(ex -> {
-								LOG.error(String.format("putimportFeedFuture failed. "), ex);
-								eventHandler.handle(Future.failedFuture(ex));
-							});
-						}
-					} catch(Exception ex) {
+							}
+						}).onFailure(ex -> {
+							LOG.error(String.format("putimportFeedFuture failed. "), ex);
+							eventHandler.handle(Future.failedFuture(ex));
+						});
+					}).onFailure(ex -> {
 						LOG.error(String.format("putimportFeedFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
-					}
+					});
 				}).onFailure(ex -> {
 					LOG.error(String.format("putimportFeedFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
@@ -3378,7 +3396,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 				JsonObject json = new JsonObject();
 				JsonObject delete = new JsonObject();
 				json.put("delete", delete);
-				String query = String.format("filter(pk_docvalues_long:%s)", o.obtainForClass("pk"));
+				String query = String.format("filter(%s:%s)", Feed.VAR_solrId, o.obtainForClass(Feed.VAR_solrId));
 				delete.put("query", query);
 				String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 				String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
@@ -3493,7 +3511,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 			page.persistForClass(Feed.VAR_ngsildTenant, Feed.staticSetNgsildTenant(siteRequest2, (String)result.get(Feed.VAR_ngsildTenant)));
 			page.persistForClass(Feed.VAR_ngsildPath, Feed.staticSetNgsildPath(siteRequest2, (String)result.get(Feed.VAR_ngsildPath)));
 			page.persistForClass(Feed.VAR_ngsildContext, Feed.staticSetNgsildContext(siteRequest2, (String)result.get(Feed.VAR_ngsildContext)));
-			page.persistForClass(Feed.VAR_title, Feed.staticSetTitle(siteRequest2, (String)result.get(Feed.VAR_title)));
+			page.persistForClass(Feed.VAR_objectTitle, Feed.staticSetObjectTitle(siteRequest2, (String)result.get(Feed.VAR_objectTitle)));
 			page.persistForClass(Feed.VAR_ngsildData, Feed.staticSetNgsildData(siteRequest2, (String)result.get(Feed.VAR_ngsildData)));
 			page.persistForClass(Feed.VAR_displayPage, Feed.staticSetDisplayPage(siteRequest2, (String)result.get(Feed.VAR_displayPage)));
 			page.persistForClass(Feed.VAR_address, Feed.staticSetAddress(siteRequest2, (String)result.get(Feed.VAR_address)));

@@ -727,14 +727,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
-					case "setCreated":
-							o2.setCreated(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_created + "=$" + num);
-							num++;
-							bParams.add(o2.sqlCreated());
-						break;
 					case "setLocation":
 							o2.setLocation(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
@@ -742,6 +734,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							bSql.append(Feeder.VAR_location + "=$" + num);
 							num++;
 							bParams.add(o2.sqlLocation());
+						break;
+					case "setCreated":
+							o2.setCreated(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(Feeder.VAR_created + "=$" + num);
+							num++;
+							bParams.add(o2.sqlCreated());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -775,14 +775,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setUserKey":
-							o2.setUserKey(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_userKey + "=$" + num);
-							num++;
-							bParams.add(o2.sqlUserKey());
-						break;
 					case "setNgsildTenant":
 							o2.setNgsildTenant(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -790,6 +782,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
 							num++;
 							bParams.add(o2.sqlNgsildTenant());
+						break;
+					case "setUserKey":
+							o2.setUserKey(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(Feeder.VAR_userKey + "=$" + num);
+							num++;
+							bParams.add(o2.sqlUserKey());
 						break;
 					case "setNgsildPath":
 							o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -807,14 +807,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							num++;
 							bParams.add(o2.sqlNgsildContext());
 						break;
-					case "setTitle":
-							o2.setTitle(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_title + "=$" + num);
-							num++;
-							bParams.add(o2.sqlTitle());
-						break;
 					case "setNgsildData":
 							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
@@ -823,13 +815,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							num++;
 							bParams.add(o2.sqlNgsildData());
 						break;
-					case "setDisplayPage":
-							o2.setDisplayPage(jsonObject.getString(entityVar));
+					case "setObjectTitle":
+							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_displayPage + "=$" + num);
+							bSql.append(Feeder.VAR_objectTitle + "=$" + num);
 							num++;
-							bParams.add(o2.sqlDisplayPage());
+							bParams.add(o2.sqlObjectTitle());
 						break;
 					case "setAddress":
 							o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -838,6 +830,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							bSql.append(Feeder.VAR_address + "=$" + num);
 							num++;
 							bParams.add(o2.sqlAddress());
+						break;
+					case "setDisplayPage":
+							o2.setDisplayPage(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(Feeder.VAR_displayPage + "=$" + num);
+							num++;
+							bParams.add(o2.sqlDisplayPage());
 						break;
 					case "setAlternateName":
 							o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1253,15 +1253,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case Feeder.VAR_created:
-						o2.setCreated(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_created + "=$" + num);
-						num++;
-						bParams.add(o2.sqlCreated());
-						break;
 					case Feeder.VAR_location:
 						o2.setLocation(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
@@ -1270,6 +1261,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						bSql.append(Feeder.VAR_location + "=$" + num);
 						num++;
 						bParams.add(o2.sqlLocation());
+						break;
+					case Feeder.VAR_created:
+						o2.setCreated(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(Feeder.VAR_created + "=$" + num);
+						num++;
+						bParams.add(o2.sqlCreated());
 						break;
 					case Feeder.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1307,15 +1307,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case Feeder.VAR_userKey:
-						o2.setUserKey(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_userKey + "=$" + num);
-						num++;
-						bParams.add(o2.sqlUserKey());
-						break;
 					case Feeder.VAR_ngsildTenant:
 						o2.setNgsildTenant(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1324,6 +1315,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
 						num++;
 						bParams.add(o2.sqlNgsildTenant());
+						break;
+					case Feeder.VAR_userKey:
+						o2.setUserKey(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(Feeder.VAR_userKey + "=$" + num);
+						num++;
+						bParams.add(o2.sqlUserKey());
 						break;
 					case Feeder.VAR_ngsildPath:
 						o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1343,15 +1343,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						num++;
 						bParams.add(o2.sqlNgsildContext());
 						break;
-					case Feeder.VAR_title:
-						o2.setTitle(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_title + "=$" + num);
-						num++;
-						bParams.add(o2.sqlTitle());
-						break;
 					case Feeder.VAR_ngsildData:
 						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
@@ -1361,14 +1352,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						num++;
 						bParams.add(o2.sqlNgsildData());
 						break;
-					case Feeder.VAR_displayPage:
-						o2.setDisplayPage(jsonObject.getString(entityVar));
+					case Feeder.VAR_objectTitle:
+						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_displayPage + "=$" + num);
+						bSql.append(Feeder.VAR_objectTitle + "=$" + num);
 						num++;
-						bParams.add(o2.sqlDisplayPage());
+						bParams.add(o2.sqlObjectTitle());
 						break;
 					case Feeder.VAR_address:
 						o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -1378,6 +1369,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						bSql.append(Feeder.VAR_address + "=$" + num);
 						num++;
 						bParams.add(o2.sqlAddress());
+						break;
+					case Feeder.VAR_displayPage:
+						o2.setDisplayPage(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(Feeder.VAR_displayPage + "=$" + num);
+						num++;
+						bParams.add(o2.sqlDisplayPage());
 						break;
 					case Feeder.VAR_alternateName:
 						o2.setAlternateName(jsonObject.getString(entityVar));
@@ -2009,84 +2009,102 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-
-				SearchList<Feeder> searchList = new SearchList<Feeder>();
-				searchList.setStore(true);
-				searchList.q("*:*");
-				searchList.setC(Feeder.class);
-				searchList.fq("archived_docvalues_boolean:false");
-				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
-				searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
-					try {
-						if(searchList.size() >= 1) {
-							Feeder o = searchList.getList().stream().findFirst().orElse(null);
-							Feeder o2 = new Feeder();
-							o2.setSiteRequest_(siteRequest);
-							JsonObject body2 = new JsonObject();
-							for(String f : body.fieldNames()) {
-								Object bodyVal = body.getValue(f);
-								if(bodyVal instanceof JsonArray) {
-									JsonArray bodyVals = (JsonArray)bodyVal;
-									Object valsObj = o.obtainForClass(f);
-									Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-									if(bodyVals.size() == vals.size()) {
-										Boolean match = true;
-										for(Object val : vals) {
-											if(val != null) {
-												if(!bodyVals.contains(val.toString())) {
-													match = false;
-													break;
-												}
-											} else {
-												match = false;
-												break;
+				pgPool.getConnection().onSuccess(sqlConnection -> {
+					String sqlQuery = String.format("select * from %s WHERE entityShortId=$1", Feeder.CLASS_SIMPLE_NAME);
+					sqlConnection.preparedQuery(sqlQuery)
+							.execute(Tuple.tuple(Arrays.asList(entityShortId))
+							).onSuccess(result -> {
+						sqlConnection.close().onSuccess(a -> {
+							try {
+								if(result.size() >= 1) {
+									Feeder o = new Feeder();
+									o.setSiteRequest_(siteRequest);
+									for(Row definition : result.value()) {
+										for(Integer i = 0; i < definition.size(); i++) {
+											try {
+												String columnName = definition.getColumnName(i);
+												Object columnValue = definition.getValue(i);
+												o.persistForClass(columnName, columnValue);
+											} catch(Exception e) {
+												LOG.error(String.format("persistFeeder failed. "), e);
 											}
 										}
-										vals.clear();
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
-									} else {
-										vals.clear();
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 									}
+									Feeder o2 = new Feeder();
+									o2.setSiteRequest_(siteRequest);
+									JsonObject body2 = new JsonObject();
+									for(String f : body.fieldNames()) {
+										Object bodyVal = body.getValue(f);
+										if(bodyVal instanceof JsonArray) {
+											JsonArray bodyVals = (JsonArray)bodyVal;
+											Object valsObj = o.obtainForClass(f);
+											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
+											if(bodyVals.size() == vals.size()) {
+												Boolean match = true;
+												for(Object val : vals) {
+													if(val != null) {
+														if(!bodyVals.contains(val.toString())) {
+															match = false;
+															break;
+														}
+													} else {
+														match = false;
+														break;
+													}
+												}
+												vals.clear();
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+											} else {
+												vals.clear();
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+											}
+										} else {
+											o2.persistForClass(f, bodyVal);
+											o2.relateForClass(f, bodyVal);
+											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+										}
+									}
+									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
+										if(!body.fieldNames().contains(f)) {
+											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+												body2.putNull("set" + StringUtils.capitalize(f));
+										}
+									}
+									if(result.size() >= 1) {
+										apiRequest.setOriginal(o);
+										apiRequest.setId(o.getEntityShortId());
+										apiRequest.setPk(o.getPk());
+									}
+									siteRequest.setJsonObject(body2);
+									patchFeederFuture(o, true).onSuccess(b -> {
+										LOG.debug("Import Feeder {} succeeded, modified Feeder. ", body.getValue(Feeder.VAR_entityShortId));
+										eventHandler.handle(Future.succeededFuture());
+									}).onFailure(ex -> {
+										LOG.error(String.format("putimportFeederFuture failed. "), ex);
+										eventHandler.handle(Future.failedFuture(ex));
+									});
 								} else {
-									o2.persistForClass(f, bodyVal);
-									o2.relateForClass(f, bodyVal);
-									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
+									postFeederFuture(siteRequest, true).onSuccess(b -> {
+										LOG.debug("Import Feeder {} succeeded, created new Feeder. ", body.getValue(Feeder.VAR_entityShortId));
+										eventHandler.handle(Future.succeededFuture());
+									}).onFailure(ex -> {
+										LOG.error(String.format("putimportFeederFuture failed. "), ex);
+										eventHandler.handle(Future.failedFuture(ex));
+									});
 								}
-							}
-							for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
-								if(!body.fieldNames().contains(f)) {
-									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-										body2.putNull("set" + StringUtils.capitalize(f));
-								}
-							}
-							if(searchList.size() == 1) {
-								apiRequest.setOriginal(o);
-								apiRequest.setId(o.getEntityShortId());
-								apiRequest.setPk(o.getPk());
-							}
-							siteRequest.setJsonObject(body2);
-							patchFeederFuture(o, true).onSuccess(b -> {
-								LOG.debug("Import Feeder {} succeeded, modified Feeder. ", body.getValue(Feeder.VAR_entityShortId));
-								eventHandler.handle(Future.succeededFuture());
-							}).onFailure(ex -> {
+							} catch(Exception ex) {
 								LOG.error(String.format("putimportFeederFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
-							});
-						} else {
-							postFeederFuture(siteRequest, true).onSuccess(b -> {
-								LOG.debug("Import Feeder {} succeeded, created new Feeder. ", body.getValue(Feeder.VAR_entityShortId));
-								eventHandler.handle(Future.succeededFuture());
-							}).onFailure(ex -> {
-								LOG.error(String.format("putimportFeederFuture failed. "), ex);
-								eventHandler.handle(Future.failedFuture(ex));
-							});
-						}
-					} catch(Exception ex) {
+							}
+						}).onFailure(ex -> {
+							LOG.error(String.format("putimportFeederFuture failed. "), ex);
+							eventHandler.handle(Future.failedFuture(ex));
+						});
+					}).onFailure(ex -> {
 						LOG.error(String.format("putimportFeederFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
-					}
+					});
 				}).onFailure(ex -> {
 					LOG.error(String.format("putimportFeederFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
@@ -3378,7 +3396,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				JsonObject json = new JsonObject();
 				JsonObject delete = new JsonObject();
 				json.put("delete", delete);
-				String query = String.format("filter(pk_docvalues_long:%s)", o.obtainForClass("pk"));
+				String query = String.format("filter(%s:%s)", Feeder.VAR_solrId, o.obtainForClass(Feeder.VAR_solrId));
 				delete.put("query", query);
 				String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 				String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
@@ -3483,20 +3501,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 
 			page.persistForClass(Feeder.VAR_name, Feeder.staticSetName(siteRequest2, (String)result.get(Feeder.VAR_name)));
 			page.persistForClass(Feeder.VAR_description, Feeder.staticSetDescription(siteRequest2, (String)result.get(Feeder.VAR_description)));
-			page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created)));
 			page.persistForClass(Feeder.VAR_location, Feeder.staticSetLocation(siteRequest2, (String)result.get(Feeder.VAR_location)));
+			page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created)));
 			page.persistForClass(Feeder.VAR_archived, Feeder.staticSetArchived(siteRequest2, (String)result.get(Feeder.VAR_archived)));
 			page.persistForClass(Feeder.VAR_areaServed, Feeder.staticSetAreaServed(siteRequest2, (String)result.get(Feeder.VAR_areaServed)));
 			page.persistForClass(Feeder.VAR_id, Feeder.staticSetId(siteRequest2, (String)result.get(Feeder.VAR_id)));
 			page.persistForClass(Feeder.VAR_sessionId, Feeder.staticSetSessionId(siteRequest2, (String)result.get(Feeder.VAR_sessionId)));
-			page.persistForClass(Feeder.VAR_userKey, Feeder.staticSetUserKey(siteRequest2, (String)result.get(Feeder.VAR_userKey)));
 			page.persistForClass(Feeder.VAR_ngsildTenant, Feeder.staticSetNgsildTenant(siteRequest2, (String)result.get(Feeder.VAR_ngsildTenant)));
+			page.persistForClass(Feeder.VAR_userKey, Feeder.staticSetUserKey(siteRequest2, (String)result.get(Feeder.VAR_userKey)));
 			page.persistForClass(Feeder.VAR_ngsildPath, Feeder.staticSetNgsildPath(siteRequest2, (String)result.get(Feeder.VAR_ngsildPath)));
 			page.persistForClass(Feeder.VAR_ngsildContext, Feeder.staticSetNgsildContext(siteRequest2, (String)result.get(Feeder.VAR_ngsildContext)));
-			page.persistForClass(Feeder.VAR_title, Feeder.staticSetTitle(siteRequest2, (String)result.get(Feeder.VAR_title)));
 			page.persistForClass(Feeder.VAR_ngsildData, Feeder.staticSetNgsildData(siteRequest2, (String)result.get(Feeder.VAR_ngsildData)));
-			page.persistForClass(Feeder.VAR_displayPage, Feeder.staticSetDisplayPage(siteRequest2, (String)result.get(Feeder.VAR_displayPage)));
+			page.persistForClass(Feeder.VAR_objectTitle, Feeder.staticSetObjectTitle(siteRequest2, (String)result.get(Feeder.VAR_objectTitle)));
 			page.persistForClass(Feeder.VAR_address, Feeder.staticSetAddress(siteRequest2, (String)result.get(Feeder.VAR_address)));
+			page.persistForClass(Feeder.VAR_displayPage, Feeder.staticSetDisplayPage(siteRequest2, (String)result.get(Feeder.VAR_displayPage)));
 			page.persistForClass(Feeder.VAR_alternateName, Feeder.staticSetAlternateName(siteRequest2, (String)result.get(Feeder.VAR_alternateName)));
 			page.persistForClass(Feeder.VAR_dataProvider, Feeder.staticSetDataProvider(siteRequest2, (String)result.get(Feeder.VAR_dataProvider)));
 			page.persistForClass(Feeder.VAR_dateCreated, Feeder.staticSetDateCreated(siteRequest2, (String)result.get(Feeder.VAR_dateCreated)));

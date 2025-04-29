@@ -12,14 +12,11 @@ import org.computate.smartaquaculture.request.SiteRequest;
  * Order: 1
  * Description: A user record for each site user
  * AName: a site user
- * Icon: <i class="fa-duotone fa-solid fa-user-gear"></i>
+ * Icon: <i class="fa-duotone fa-regular fa-user-gear"></i>
  * 
  * Keyword: classSimpleNameSiteUser
  * Filter: userId
  * AuthUser: true
- * AuthDefaultClient:
- *   GET:
- *   PATCH:
  * 
  * SearchPageUri: /en-us/search/user
  * EditPageUri: /en-us/edit/user/{userId}
@@ -109,6 +106,19 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
 	 */
 	protected void _seeArchived(Wrap<Boolean> c) {
 		c.o(false);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * HtmRow: 4
+	 * HtmCell: 2
+	 * DisplayName: awesome effect (requires refresh)
+	 * Description: an awesome effect for the entire site
+	 */
+	protected void _awesomeEffect(Wrap<Boolean> w) {
+		w.o(false);
 	}
 
 	/**

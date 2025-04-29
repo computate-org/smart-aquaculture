@@ -62,8 +62,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <ol>
 <h3>Suggestions that can generate more code for you: </h3> * </ol>
  * <li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class FeederGen into the class Feeder. 
- * </li><li>You can add a class comment "SqlOrder: " followed by an Integer to sort this class compared when generating the SQL code to create and drop tables. 
- * The Order comment allows you do define which order the SQL code is generated. 
  * </li>
  * <h3>About the Feeder class and it's generated class FeederGen&lt;BaseModel&gt;: </h3>extends FeederGen
  * <p>
@@ -131,6 +129,9 @@ import org.computate.search.response.solr.SolrResponse;
  * </p>
  * <h2>Order: 1</h2>
  * <p>This class contains a comment <b>"Order: 1"</b>, which means this class will be sorted by the given number 1 ascending when code that relates to multiple classes at the same time is generated. 
+ * </p>
+ * <h2>SqlOrder: 1</h2>
+ * <p>This class contains a comment <b>"SqlOrder: 1"</b>, which means this class will be sorted by the given number 1 ascending when SQL code to create and drop the tables is generated. 
  * </p>
  * <h2>Model: true</h2>
  * <p>This class contains a comment <b>"Model: true"</b>, which means this class will be stored in the database. 
@@ -2249,20 +2250,29 @@ public abstract class FeederGen<DEV> extends BaseModel {
 
 			if(saves.contains("areaServedColors")) {
 				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
-				if(areaServedColors != null)
-					oFeeder.areaServedColors.addAll(areaServedColors);
+				if(areaServedColors != null) {
+					areaServedColors.stream().forEach( v -> {
+						oFeeder.areaServedColors.add(v);
+					});
+				}
 			}
 
 			if(saves.contains("areaServedTitles")) {
 				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
-				if(areaServedTitles != null)
-					oFeeder.areaServedTitles.addAll(areaServedTitles);
+				if(areaServedTitles != null) {
+					areaServedTitles.stream().forEach( v -> {
+						oFeeder.areaServedTitles.add(v);
+					});
+				}
 			}
 
 			if(saves.contains("areaServedLinks")) {
 				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
-				if(areaServedLinks != null)
-					oFeeder.areaServedLinks.addAll(areaServedLinks);
+				if(areaServedLinks != null) {
+					areaServedLinks.stream().forEach( v -> {
+						oFeeder.areaServedLinks.add(v);
+					});
+				}
 			}
 
 			if(saves.contains("areaServed")) {
@@ -2379,21 +2389,21 @@ public abstract class FeederGen<DEV> extends BaseModel {
 			JsonArray l = new JsonArray();
 			doc.put("areaServedColors_indexedstored_strings", l);
 			for(String o : areaServedColors) {
-				l.add(o);
+				l.add(Feeder.staticSearchAreaServedColors(siteRequest_, o));
 			}
 		}
 		if(areaServedTitles != null) {
 			JsonArray l = new JsonArray();
 			doc.put("areaServedTitles_indexedstored_strings", l);
 			for(String o : areaServedTitles) {
-				l.add(o);
+				l.add(Feeder.staticSearchAreaServedTitles(siteRequest_, o));
 			}
 		}
 		if(areaServedLinks != null) {
 			JsonArray l = new JsonArray();
 			doc.put("areaServedLinks_indexedstored_strings", l);
 			for(String o : areaServedLinks) {
-				l.add(o);
+				l.add(Feeder.staticSearchAreaServedLinks(siteRequest_, o));
 			}
 		}
 		if(areaServed != null) {
@@ -2856,7 +2866,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 
 	@Override
 	public String titleForClass() {
-		return title;
+		return objectTitle;
 	}
 
 	@Override

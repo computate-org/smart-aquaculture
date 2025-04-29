@@ -118,7 +118,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
 	@Override
 	public void searchSiteUser(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		Boolean classPublicRead = false;
+		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
@@ -134,6 +134,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", SiteUser.CLASS_SIMPLE_NAME, "PUT"));
 			if(userId != null)
 				form.add("permission", String.format("%s-%s#%s", SiteUser.CLASS_SIMPLE_NAME, userId, "GET"));
+			siteRequest.setPublicRead(classPublicRead);
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -286,7 +287,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	@Override
 	public void patchSiteUser(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		LOG.debug(String.format("patchSiteUser started. "));
-		Boolean classPublicRead = false;
+		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
@@ -302,6 +303,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", SiteUser.CLASS_SIMPLE_NAME, "PUT"));
 			if(userId != null)
 				form.add("permission", String.format("%s-%s#%s", SiteUser.CLASS_SIMPLE_NAME, userId, "PATCH"));
+			siteRequest.setPublicRead(classPublicRead);
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -434,7 +436,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
 	@Override
 	public void patchSiteUserFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		Boolean classPublicRead = false;
+		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
 				siteRequest.addScopes("GET");
@@ -651,13 +653,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setDisplayName":
-							o2.setDisplayName(jsonObject.getString(entityVar));
+					case "setAwesomeEffect":
+							o2.setAwesomeEffect(jsonObject.getBoolean(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(SiteUser.VAR_displayName + "=$" + num);
+							bSql.append(SiteUser.VAR_awesomeEffect + "=$" + num);
 							num++;
-							bParams.add(o2.sqlDisplayName());
+							bParams.add(o2.sqlAwesomeEffect());
 						break;
 					case "setUserKey":
 							o2.setUserKey(jsonObject.getString(entityVar));
@@ -667,13 +669,21 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlUserKey());
 						break;
-					case "setTitle":
-							o2.setTitle(jsonObject.getString(entityVar));
+					case "setDisplayName":
+							o2.setDisplayName(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(SiteUser.VAR_title + "=$" + num);
+							bSql.append(SiteUser.VAR_displayName + "=$" + num);
 							num++;
-							bParams.add(o2.sqlTitle());
+							bParams.add(o2.sqlDisplayName());
+						break;
+					case "setObjectTitle":
+							o2.setObjectTitle(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(SiteUser.VAR_objectTitle + "=$" + num);
+							num++;
+							bParams.add(o2.sqlObjectTitle());
 						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -747,7 +757,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	@Override
 	public void postSiteUser(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		LOG.debug(String.format("postSiteUser started. "));
-		Boolean classPublicRead = false;
+		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
@@ -763,6 +773,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", SiteUser.CLASS_SIMPLE_NAME, "PUT"));
 			if(userId != null)
 				form.add("permission", String.format("%s-%s#%s", SiteUser.CLASS_SIMPLE_NAME, userId, "POST"));
+			siteRequest.setPublicRead(classPublicRead);
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -852,7 +863,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
 	@Override
 	public void postSiteUserFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		Boolean classPublicRead = false;
+		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
 				siteRequest.addScopes("GET");
@@ -1117,14 +1128,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case SiteUser.VAR_displayName:
-						o2.setDisplayName(jsonObject.getString(entityVar));
+					case SiteUser.VAR_awesomeEffect:
+						o2.setAwesomeEffect(jsonObject.getBoolean(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(SiteUser.VAR_displayName + "=$" + num);
+						bSql.append(SiteUser.VAR_awesomeEffect + "=$" + num);
 						num++;
-						bParams.add(o2.sqlDisplayName());
+						bParams.add(o2.sqlAwesomeEffect());
 						break;
 					case SiteUser.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
@@ -1135,14 +1146,23 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlUserKey());
 						break;
-					case SiteUser.VAR_title:
-						o2.setTitle(jsonObject.getString(entityVar));
+					case SiteUser.VAR_displayName:
+						o2.setDisplayName(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(SiteUser.VAR_title + "=$" + num);
+						bSql.append(SiteUser.VAR_displayName + "=$" + num);
 						num++;
-						bParams.add(o2.sqlTitle());
+						bParams.add(o2.sqlDisplayName());
+						break;
+					case SiteUser.VAR_objectTitle:
+						o2.setObjectTitle(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SiteUser.VAR_objectTitle + "=$" + num);
+						num++;
+						bParams.add(o2.sqlObjectTitle());
 						break;
 					case SiteUser.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -1215,7 +1235,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
 	@Override
 	public void searchpageSiteUser(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		Boolean classPublicRead = false;
+		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
@@ -1231,6 +1251,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", SiteUser.CLASS_SIMPLE_NAME, "PUT"));
 			if(userId != null)
 				form.add("permission", String.format("%s-%s#%s", SiteUser.CLASS_SIMPLE_NAME, userId, "GET"));
+			siteRequest.setPublicRead(classPublicRead);
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1379,7 +1400,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
 	@Override
 	public void editpageSiteUser(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		Boolean classPublicRead = false;
+		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
@@ -1395,6 +1416,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", SiteUser.CLASS_SIMPLE_NAME, "PUT"));
 			if(userId != null)
 				form.add("permission", String.format("%s-%s#%s", SiteUser.CLASS_SIMPLE_NAME, userId, "GET"));
+			siteRequest.setPublicRead(classPublicRead);
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1970,7 +1992,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				JsonObject json = new JsonObject();
 				JsonObject delete = new JsonObject();
 				json.put("delete", delete);
-				String query = String.format("filter(pk_docvalues_long:%s)", o.obtainForClass("pk"));
+				String query = String.format("filter(%s:%s)", SiteUser.VAR_solrId, o.obtainForClass(SiteUser.VAR_solrId));
 				delete.put("query", query);
 				String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 				String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
@@ -2049,9 +2071,10 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(SiteUser.VAR_userFullName, SiteUser.staticSetUserFullName(siteRequest2, (String)result.get(SiteUser.VAR_userFullName)));
 			page.persistForClass(SiteUser.VAR_seeArchived, SiteUser.staticSetSeeArchived(siteRequest2, (String)result.get(SiteUser.VAR_seeArchived)));
 			page.persistForClass(SiteUser.VAR_sessionId, SiteUser.staticSetSessionId(siteRequest2, (String)result.get(SiteUser.VAR_sessionId)));
-			page.persistForClass(SiteUser.VAR_displayName, SiteUser.staticSetDisplayName(siteRequest2, (String)result.get(SiteUser.VAR_displayName)));
+			page.persistForClass(SiteUser.VAR_awesomeEffect, SiteUser.staticSetAwesomeEffect(siteRequest2, (String)result.get(SiteUser.VAR_awesomeEffect)));
 			page.persistForClass(SiteUser.VAR_userKey, SiteUser.staticSetUserKey(siteRequest2, (String)result.get(SiteUser.VAR_userKey)));
-			page.persistForClass(SiteUser.VAR_title, SiteUser.staticSetTitle(siteRequest2, (String)result.get(SiteUser.VAR_title)));
+			page.persistForClass(SiteUser.VAR_displayName, SiteUser.staticSetDisplayName(siteRequest2, (String)result.get(SiteUser.VAR_displayName)));
+			page.persistForClass(SiteUser.VAR_objectTitle, SiteUser.staticSetObjectTitle(siteRequest2, (String)result.get(SiteUser.VAR_objectTitle)));
 			page.persistForClass(SiteUser.VAR_displayPage, SiteUser.staticSetDisplayPage(siteRequest2, (String)result.get(SiteUser.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {

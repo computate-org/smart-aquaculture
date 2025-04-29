@@ -501,8 +501,8 @@ public class CrowdFlowObservedGenPage extends CrowdFlowObservedGenPageGen<PageLa
 
   @Override
   protected void _pageTitle(Wrap<String> c) {
-    if(result != null && result.getTitle() != null)
-      c.o(result.getTitle());
+    if(result != null && result.getObjectTitle() != null)
+      c.o(result.getObjectTitle());
     else if(result != null)
       c.o("CrowdFlowObserveds");
     else if(searchListCrowdFlowObserved_ == null || resultCount == 0)

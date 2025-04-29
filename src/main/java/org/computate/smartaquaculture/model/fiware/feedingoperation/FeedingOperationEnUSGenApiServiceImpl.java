@@ -807,13 +807,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							num++;
 							bParams.add(o2.sqlNgsildContext());
 						break;
-					case "setTitle":
-							o2.setTitle(jsonObject.getString(entityVar));
+					case "setObjectTitle":
+							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FeedingOperation.VAR_title + "=$" + num);
+							bSql.append(FeedingOperation.VAR_objectTitle + "=$" + num);
 							num++;
-							bParams.add(o2.sqlTitle());
+							bParams.add(o2.sqlObjectTitle());
 						break;
 					case "setNgsildData":
 							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
@@ -1375,14 +1375,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 						num++;
 						bParams.add(o2.sqlNgsildContext());
 						break;
-					case FeedingOperation.VAR_title:
-						o2.setTitle(jsonObject.getString(entityVar));
+					case FeedingOperation.VAR_objectTitle:
+						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FeedingOperation.VAR_title + "=$" + num);
+						bSql.append(FeedingOperation.VAR_objectTitle + "=$" + num);
 						num++;
-						bParams.add(o2.sqlTitle());
+						bParams.add(o2.sqlObjectTitle());
 						break;
 					case FeedingOperation.VAR_ngsildData:
 						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
@@ -2077,84 +2077,102 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-
-				SearchList<FeedingOperation> searchList = new SearchList<FeedingOperation>();
-				searchList.setStore(true);
-				searchList.q("*:*");
-				searchList.setC(FeedingOperation.class);
-				searchList.fq("archived_docvalues_boolean:false");
-				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
-				searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
-					try {
-						if(searchList.size() >= 1) {
-							FeedingOperation o = searchList.getList().stream().findFirst().orElse(null);
-							FeedingOperation o2 = new FeedingOperation();
-							o2.setSiteRequest_(siteRequest);
-							JsonObject body2 = new JsonObject();
-							for(String f : body.fieldNames()) {
-								Object bodyVal = body.getValue(f);
-								if(bodyVal instanceof JsonArray) {
-									JsonArray bodyVals = (JsonArray)bodyVal;
-									Object valsObj = o.obtainForClass(f);
-									Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-									if(bodyVals.size() == vals.size()) {
-										Boolean match = true;
-										for(Object val : vals) {
-											if(val != null) {
-												if(!bodyVals.contains(val.toString())) {
-													match = false;
-													break;
-												}
-											} else {
-												match = false;
-												break;
+				pgPool.getConnection().onSuccess(sqlConnection -> {
+					String sqlQuery = String.format("select * from %s WHERE entityShortId=$1", FeedingOperation.CLASS_SIMPLE_NAME);
+					sqlConnection.preparedQuery(sqlQuery)
+							.execute(Tuple.tuple(Arrays.asList(entityShortId))
+							).onSuccess(result -> {
+						sqlConnection.close().onSuccess(a -> {
+							try {
+								if(result.size() >= 1) {
+									FeedingOperation o = new FeedingOperation();
+									o.setSiteRequest_(siteRequest);
+									for(Row definition : result.value()) {
+										for(Integer i = 0; i < definition.size(); i++) {
+											try {
+												String columnName = definition.getColumnName(i);
+												Object columnValue = definition.getValue(i);
+												o.persistForClass(columnName, columnValue);
+											} catch(Exception e) {
+												LOG.error(String.format("persistFeedingOperation failed. "), e);
 											}
 										}
-										vals.clear();
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
-									} else {
-										vals.clear();
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 									}
+									FeedingOperation o2 = new FeedingOperation();
+									o2.setSiteRequest_(siteRequest);
+									JsonObject body2 = new JsonObject();
+									for(String f : body.fieldNames()) {
+										Object bodyVal = body.getValue(f);
+										if(bodyVal instanceof JsonArray) {
+											JsonArray bodyVals = (JsonArray)bodyVal;
+											Object valsObj = o.obtainForClass(f);
+											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
+											if(bodyVals.size() == vals.size()) {
+												Boolean match = true;
+												for(Object val : vals) {
+													if(val != null) {
+														if(!bodyVals.contains(val.toString())) {
+															match = false;
+															break;
+														}
+													} else {
+														match = false;
+														break;
+													}
+												}
+												vals.clear();
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+											} else {
+												vals.clear();
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+											}
+										} else {
+											o2.persistForClass(f, bodyVal);
+											o2.relateForClass(f, bodyVal);
+											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+										}
+									}
+									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
+										if(!body.fieldNames().contains(f)) {
+											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+												body2.putNull("set" + StringUtils.capitalize(f));
+										}
+									}
+									if(result.size() >= 1) {
+										apiRequest.setOriginal(o);
+										apiRequest.setId(o.getEntityShortId());
+										apiRequest.setPk(o.getPk());
+									}
+									siteRequest.setJsonObject(body2);
+									patchFeedingOperationFuture(o, true).onSuccess(b -> {
+										LOG.debug("Import FeedingOperation {} succeeded, modified FeedingOperation. ", body.getValue(FeedingOperation.VAR_entityShortId));
+										eventHandler.handle(Future.succeededFuture());
+									}).onFailure(ex -> {
+										LOG.error(String.format("putimportFeedingOperationFuture failed. "), ex);
+										eventHandler.handle(Future.failedFuture(ex));
+									});
 								} else {
-									o2.persistForClass(f, bodyVal);
-									o2.relateForClass(f, bodyVal);
-									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-										body2.put("set" + StringUtils.capitalize(f), bodyVal);
+									postFeedingOperationFuture(siteRequest, true).onSuccess(b -> {
+										LOG.debug("Import FeedingOperation {} succeeded, created new FeedingOperation. ", body.getValue(FeedingOperation.VAR_entityShortId));
+										eventHandler.handle(Future.succeededFuture());
+									}).onFailure(ex -> {
+										LOG.error(String.format("putimportFeedingOperationFuture failed. "), ex);
+										eventHandler.handle(Future.failedFuture(ex));
+									});
 								}
-							}
-							for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
-								if(!body.fieldNames().contains(f)) {
-									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-										body2.putNull("set" + StringUtils.capitalize(f));
-								}
-							}
-							if(searchList.size() == 1) {
-								apiRequest.setOriginal(o);
-								apiRequest.setId(o.getEntityShortId());
-								apiRequest.setPk(o.getPk());
-							}
-							siteRequest.setJsonObject(body2);
-							patchFeedingOperationFuture(o, true).onSuccess(b -> {
-								LOG.debug("Import FeedingOperation {} succeeded, modified FeedingOperation. ", body.getValue(FeedingOperation.VAR_entityShortId));
-								eventHandler.handle(Future.succeededFuture());
-							}).onFailure(ex -> {
+							} catch(Exception ex) {
 								LOG.error(String.format("putimportFeedingOperationFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
-							});
-						} else {
-							postFeedingOperationFuture(siteRequest, true).onSuccess(b -> {
-								LOG.debug("Import FeedingOperation {} succeeded, created new FeedingOperation. ", body.getValue(FeedingOperation.VAR_entityShortId));
-								eventHandler.handle(Future.succeededFuture());
-							}).onFailure(ex -> {
-								LOG.error(String.format("putimportFeedingOperationFuture failed. "), ex);
-								eventHandler.handle(Future.failedFuture(ex));
-							});
-						}
-					} catch(Exception ex) {
+							}
+						}).onFailure(ex -> {
+							LOG.error(String.format("putimportFeedingOperationFuture failed. "), ex);
+							eventHandler.handle(Future.failedFuture(ex));
+						});
+					}).onFailure(ex -> {
 						LOG.error(String.format("putimportFeedingOperationFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
-					}
+					});
 				}).onFailure(ex -> {
 					LOG.error(String.format("putimportFeedingOperationFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
@@ -3446,7 +3464,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 				JsonObject json = new JsonObject();
 				JsonObject delete = new JsonObject();
 				json.put("delete", delete);
-				String query = String.format("filter(pk_docvalues_long:%s)", o.obtainForClass("pk"));
+				String query = String.format("filter(%s:%s)", FeedingOperation.VAR_solrId, o.obtainForClass(FeedingOperation.VAR_solrId));
 				delete.put("query", query);
 				String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 				String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
@@ -3561,7 +3579,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 			page.persistForClass(FeedingOperation.VAR_ngsildTenant, FeedingOperation.staticSetNgsildTenant(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildTenant)));
 			page.persistForClass(FeedingOperation.VAR_ngsildPath, FeedingOperation.staticSetNgsildPath(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildPath)));
 			page.persistForClass(FeedingOperation.VAR_ngsildContext, FeedingOperation.staticSetNgsildContext(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildContext)));
-			page.persistForClass(FeedingOperation.VAR_title, FeedingOperation.staticSetTitle(siteRequest2, (String)result.get(FeedingOperation.VAR_title)));
+			page.persistForClass(FeedingOperation.VAR_objectTitle, FeedingOperation.staticSetObjectTitle(siteRequest2, (String)result.get(FeedingOperation.VAR_objectTitle)));
 			page.persistForClass(FeedingOperation.VAR_ngsildData, FeedingOperation.staticSetNgsildData(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildData)));
 			page.persistForClass(FeedingOperation.VAR_displayPage, FeedingOperation.staticSetDisplayPage(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPage)));
 			page.persistForClass(FeedingOperation.VAR_address, FeedingOperation.staticSetAddress(siteRequest2, (String)result.get(FeedingOperation.VAR_address)));

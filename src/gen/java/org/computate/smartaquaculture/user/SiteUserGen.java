@@ -52,8 +52,6 @@ import org.computate.search.response.solr.SolrResponse;
  * </li><li>You can add a class comment "Rows: 100" if you wish the SiteUser API to return more or less than 10 records by default. 
  * In this case, the API will return 100 records from the API instead of 10 by default. 
  * Each API has built in pagination of the search records to ensure a user can query all the data a page at a time without running the application out of memory. 
- * </li><li>You can add a class comment "SqlOrder: " followed by an Integer to sort this class compared when generating the SQL code to create and drop tables. 
- * The Order comment allows you do define which order the SQL code is generated. 
  * </li>
  * <h3>About the SiteUser class and it's generated class SiteUserGen&lt;BaseModel&gt;: </h3>extends SiteUserGen
  * <p>
@@ -106,6 +104,9 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Rows: null</h2>
  * <h2>Order: 1</h2>
  * <p>This class contains a comment <b>"Order: 1"</b>, which means this class will be sorted by the given number 1 ascending when code that relates to multiple classes at the same time is generated. 
+ * </p>
+ * <h2>SqlOrder: 1</h2>
+ * <p>This class contains a comment <b>"SqlOrder: 1"</b>, which means this class will be sorted by the given number 1 ascending when SQL code to create and drop the tables is generated. 
  * </p>
  * <h2>Model: true</h2>
  * <p>This class contains a comment <b>"Model: true"</b>, which means this class will be stored in the database. 
@@ -200,7 +201,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/user/%s";
 	public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/user/%s";
 
-	public static final String Icon = "<i class=\"fa-duotone fa-solid fa-user-gear\"></i>";
+	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-user-gear\"></i>";
 
 	//////////////
 	// userKeys //
@@ -212,7 +213,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	 */
 	@JsonProperty
 	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonSerialize(contentUsing = ToStringSerializer.class)
 	@JsonInclude(Include.NON_NULL)
 	protected List<Long> userKeys = new ArrayList<Long>();
 
@@ -684,6 +684,67 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		return seeArchived;
 	}
 
+	///////////////////
+	// awesomeEffect //
+	///////////////////
+
+
+	/**	 The entity awesomeEffect
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected Boolean awesomeEffect;
+
+	/**	<br> The entity awesomeEffect
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:awesomeEffect">Find the entity awesomeEffect in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _awesomeEffect(Wrap<Boolean> w);
+
+	public Boolean getAwesomeEffect() {
+		return awesomeEffect;
+	}
+
+	public void setAwesomeEffect(Boolean awesomeEffect) {
+		this.awesomeEffect = awesomeEffect;
+	}
+	@JsonIgnore
+	public void setAwesomeEffect(String o) {
+		this.awesomeEffect = SiteUser.staticSetAwesomeEffect(siteRequest_, o);
+	}
+	public static Boolean staticSetAwesomeEffect(SiteRequest siteRequest_, String o) {
+		return Boolean.parseBoolean(o);
+	}
+	protected SiteUser awesomeEffectInit() {
+		Wrap<Boolean> awesomeEffectWrap = new Wrap<Boolean>().var("awesomeEffect");
+		if(awesomeEffect == null) {
+			_awesomeEffect(awesomeEffectWrap);
+			Optional.ofNullable(awesomeEffectWrap.getO()).ifPresent(o -> {
+				setAwesomeEffect(o);
+			});
+		}
+		return (SiteUser)this;
+	}
+
+	public static Boolean staticSearchAwesomeEffect(SiteRequest siteRequest_, Boolean o) {
+		return o;
+	}
+
+	public static String staticSearchStrAwesomeEffect(SiteRequest siteRequest_, Boolean o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAwesomeEffect(SiteRequest siteRequest_, String o) {
+		return SiteUser.staticSearchAwesomeEffect(siteRequest_, SiteUser.staticSetAwesomeEffect(siteRequest_, o)).toString();
+	}
+
+	public Boolean sqlAwesomeEffect() {
+		return awesomeEffect;
+	}
+
 	/////////////////
 	// displayName //
 	/////////////////
@@ -777,6 +838,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				userLastNameInit();
 				userFullNameInit();
 				seeArchivedInit();
+				awesomeEffectInit();
 				displayNameInit();
 				promise2.complete();
 			} catch(Exception ex) {
@@ -847,6 +909,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return oSiteUser.userFullName;
 			case "seeArchived":
 				return oSiteUser.seeArchived;
+			case "awesomeEffect":
+				return oSiteUser.awesomeEffect;
 			case "displayName":
 				return oSiteUser.displayName;
 			default:
@@ -904,6 +968,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSetUserFullName(siteRequest_, o);
 		case "seeArchived":
 			return SiteUser.staticSetSeeArchived(siteRequest_, o);
+		case "awesomeEffect":
+			return SiteUser.staticSetAwesomeEffect(siteRequest_, o);
 		case "displayName":
 			return SiteUser.staticSetDisplayName(siteRequest_, o);
 			default:
@@ -936,6 +1002,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSearchUserFullName(siteRequest_, (String)o);
 		case "seeArchived":
 			return SiteUser.staticSearchSeeArchived(siteRequest_, (Boolean)o);
+		case "awesomeEffect":
+			return SiteUser.staticSearchAwesomeEffect(siteRequest_, (Boolean)o);
 		case "displayName":
 			return SiteUser.staticSearchDisplayName(siteRequest_, (String)o);
 			default:
@@ -968,6 +1036,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSearchStrUserFullName(siteRequest_, (String)o);
 		case "seeArchived":
 			return SiteUser.staticSearchStrSeeArchived(siteRequest_, (Boolean)o);
+		case "awesomeEffect":
+			return SiteUser.staticSearchStrAwesomeEffect(siteRequest_, (Boolean)o);
 		case "displayName":
 			return SiteUser.staticSearchStrDisplayName(siteRequest_, (String)o);
 			default:
@@ -1000,6 +1070,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSearchFqUserFullName(siteRequest_, o);
 		case "seeArchived":
 			return SiteUser.staticSearchFqSeeArchived(siteRequest_, o);
+		case "awesomeEffect":
+			return SiteUser.staticSearchFqAwesomeEffect(siteRequest_, o);
 		case "displayName":
 			return SiteUser.staticSearchFqDisplayName(siteRequest_, o);
 			default:
@@ -1072,6 +1144,14 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				}
 				saves.add("seeArchived");
 				return val;
+			} else if("awesomeeffect".equals(varLower)) {
+				if(val instanceof Boolean) {
+					setAwesomeEffect((Boolean)val);
+				} else {
+					setAwesomeEffect(val == null ? null : val.toString());
+				}
+				saves.add("awesomeEffect");
+				return val;
 			} else if("displayname".equals(varLower)) {
 				if(val instanceof String) {
 					setDisplayName((String)val);
@@ -1097,8 +1177,11 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 
 			if(saves.contains("userKeys")) {
 				List<Long> userKeys = (List<Long>)doc.get("userKeys_docvalues_longs");
-				if(userKeys != null)
-					oSiteUser.userKeys.addAll(userKeys);
+				if(userKeys != null) {
+					userKeys.stream().forEach( v -> {
+						oSiteUser.userKeys.add(v);
+					});
+				}
 			}
 
 			if(saves.contains("userId")) {
@@ -1143,6 +1226,12 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 					oSiteUser.setSeeArchived(seeArchived);
 			}
 
+			if(saves.contains("awesomeEffect")) {
+				Boolean awesomeEffect = (Boolean)doc.get("awesomeEffect_docvalues_boolean");
+				if(awesomeEffect != null)
+					oSiteUser.setAwesomeEffect(awesomeEffect);
+			}
+
 			if(saves.contains("displayName")) {
 				String displayName = (String)doc.get("displayName_docvalues_string");
 				if(displayName != null)
@@ -1158,7 +1247,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			JsonArray l = new JsonArray();
 			doc.put("userKeys_docvalues_longs", l);
 			for(Long o : userKeys) {
-				l.add(o);
+				l.add(SiteUser.staticSearchUserKeys(siteRequest_, o));
 			}
 		}
 		if(userId != null) {
@@ -1181,6 +1270,9 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		}
 		if(seeArchived != null) {
 			doc.put("seeArchived_docvalues_boolean", seeArchived);
+		}
+		if(awesomeEffect != null) {
+			doc.put("awesomeEffect_docvalues_boolean", awesomeEffect);
 		}
 		if(displayName != null) {
 			doc.put("displayName_docvalues_string", displayName);
@@ -1207,6 +1299,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return "userFullName_docvalues_string";
 			case "seeArchived":
 				return "seeArchived_docvalues_boolean";
+			case "awesomeEffect":
+				return "awesomeEffect_docvalues_boolean";
 			case "displayName":
 				return "displayName_docvalues_string";
 			default:
@@ -1232,6 +1326,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return "userFullName_docvalues_string";
 			case "seeArchived":
 				return "seeArchived_docvalues_boolean";
+			case "awesomeEffect":
+				return "awesomeEffect_docvalues_boolean";
 			case "displayName":
 				return "displayName_docvalues_string";
 			default:
@@ -1257,6 +1353,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return "userFullName";
 			case "seeArchived_docvalues_boolean":
 				return "seeArchived";
+			case "awesomeEffect_docvalues_boolean":
+				return "awesomeEffect";
 			case "displayName_docvalues_string":
 				return "displayName";
 			default:
@@ -1299,6 +1397,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		oSiteUser.setUserLastName(Optional.ofNullable(doc.get("userLastName_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oSiteUser.setUserFullName(Optional.ofNullable(doc.get("userFullName_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oSiteUser.setSeeArchived(Optional.ofNullable(doc.get("seeArchived_docvalues_boolean")).map(v -> v.toString()).orElse(null));
+		oSiteUser.setAwesomeEffect(Optional.ofNullable(doc.get("awesomeEffect_docvalues_boolean")).map(v -> v.toString()).orElse(null));
 		oSiteUser.setDisplayName(Optional.ofNullable(doc.get("displayName_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(doc);
@@ -1329,6 +1428,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				apiRequest.addVars("userFullName");
 			if(!Objects.equals(seeArchived, original.getSeeArchived()))
 				apiRequest.addVars("seeArchived");
+			if(!Objects.equals(awesomeEffect, original.getAwesomeEffect()))
+				apiRequest.addVars("awesomeEffect");
 			if(!Objects.equals(displayName, original.getDisplayName()))
 				apiRequest.addVars("displayName");
 			super.apiRequestBaseModel();
@@ -1350,6 +1451,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		sb.append(Optional.ofNullable(userLastName).map(v -> "userLastName: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(userFullName).map(v -> "userFullName: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(seeArchived).map(v -> "seeArchived: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(awesomeEffect).map(v -> "awesomeEffect: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(displayName).map(v -> "displayName: \"" + v + "\"\n" ).orElse(""));
 		return sb.toString();
 	}
@@ -1368,6 +1470,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	public static final String VAR_userLastName = "userLastName";
 	public static final String VAR_userFullName = "userFullName";
 	public static final String VAR_seeArchived = "seeArchived";
+	public static final String VAR_awesomeEffect = "awesomeEffect";
 	public static final String VAR_displayName = "displayName";
 
 	public static List<String> varsQForClass() {
@@ -1402,6 +1505,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	public static final String DISPLAY_NAME_userLastName = "";
 	public static final String DISPLAY_NAME_userFullName = "";
 	public static final String DISPLAY_NAME_seeArchived = "see archived";
+	public static final String DISPLAY_NAME_awesomeEffect = "awesome effect (requires refresh)";
 	public static final String DISPLAY_NAME_displayName = "";
 
 	@Override
@@ -1411,7 +1515,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 
 	@Override
 	public String titleForClass() {
-		return title;
+		return objectTitle;
 	}
 
 	@Override
@@ -1470,6 +1574,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return DISPLAY_NAME_userFullName;
 		case VAR_seeArchived:
 			return DISPLAY_NAME_seeArchived;
+		case VAR_awesomeEffect:
+			return DISPLAY_NAME_awesomeEffect;
 		case VAR_displayName:
 			return DISPLAY_NAME_displayName;
 		default:
@@ -1495,6 +1601,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return "The user's full name";
 		case VAR_seeArchived:
 			return "A user field allowing a user to see archived records";
+		case VAR_awesomeEffect:
+			return "an awesome effect for the entire site";
 		case VAR_displayName:
 			return "The display name for this user";
 			default:
@@ -1520,6 +1628,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return "String";
 		case VAR_seeArchived:
 			return "Boolean";
+		case VAR_awesomeEffect:
+			return "Boolean";
 		case VAR_displayName:
 			return "String";
 			default:
@@ -1542,6 +1652,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		switch(var) {
 		case VAR_seeArchived:
 			return 4;
+		case VAR_awesomeEffect:
+			return 4;
 			default:
 				return BaseModel.htmRowBaseModel(var);
 		}
@@ -1551,6 +1663,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		switch(var) {
 		case VAR_seeArchived:
 			return 1;
+		case VAR_awesomeEffect:
+			return 2;
 			default:
 				return BaseModel.htmCellBaseModel(var);
 		}

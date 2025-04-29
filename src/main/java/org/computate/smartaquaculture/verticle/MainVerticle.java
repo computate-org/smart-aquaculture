@@ -144,6 +144,7 @@ import io.vertx.ext.web.impl.RoutingContextImpl;
 import io.vertx.ext.web.openapi.RouterBuilder;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.kafka.client.producer.KafkaProducer;
+import io.vertx.kafka.client.consumer.KafkaConsumer;
 import io.vertx.mqtt.MqttClient;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgBuilder;
@@ -171,12 +172,12 @@ import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOpera
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
-import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.feed.Feed;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
+import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.feed.Feed;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePage;
@@ -216,6 +217,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 	private AuthorizationProvider authorizationProvider;
 
 	private KafkaProducer<String, String> kafkaProducer;
+	private KafkaConsumer<String, String> kafkaConsumer;
 
 	private MqttClient mqttClient;
 
@@ -285,7 +287,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 				} else {
 					future = future.compose(a -> run(config).onSuccess(b -> {
 						LOG.info("MainVerticle run completed");
-						LOG.info(String.format("Access your site here: %s", config.getString(ConfigKeys.SITE_BASE_URL)));
 					}).onFailure(ex -> {
 						LOG.info("MainVerticle run failed");
 						vertx.close();
@@ -325,14 +326,14 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			apiFishPopulation.setVertx(vertx);
 			apiFishPopulation.setConfig(config);
 			apiFishPopulation.setWebClient(webClient);
-			FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
-			apiFeed.setVertx(vertx);
-			apiFeed.setConfig(config);
-			apiFeed.setWebClient(webClient);
 			FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
 			apiFeeder.setVertx(vertx);
 			apiFeeder.setConfig(config);
 			apiFeeder.setWebClient(webClient);
+			FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
+			apiFeed.setVertx(vertx);
+			apiFeed.setConfig(config);
+			apiFeed.setWebClient(webClient);
 			SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
 			apiSiteUser.setVertx(vertx);
 			apiSiteUser.setConfig(config);
@@ -357,17 +358,16 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 								.compose(q3 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
 								.compose(q3 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
 								.onSuccess(q3 -> {
-							apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "FeedViewer", new String[] { "GET" })
-									.compose(q4 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "FeedEditor", new String[] { "GET", "POST", "PATCH" }))
-									.compose(q4 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-									.compose(q4 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+							apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "FeederViewer", new String[] { "GET" })
+									.compose(q4 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "FeederEditor", new String[] { "GET", "POST", "PATCH" }))
+									.compose(q4 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+									.compose(q4 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
 									.onSuccess(q4 -> {
-								apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "FeederViewer", new String[] { "GET" })
-										.compose(q5 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "FeederEditor", new String[] { "GET", "POST", "PATCH" }))
-										.compose(q5 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-										.compose(q5 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+								apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "FeedViewer", new String[] { "GET" })
+										.compose(q5 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "FeedEditor", new String[] { "GET", "POST", "PATCH" }))
+										.compose(q5 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+										.compose(q5 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
 										.onSuccess(q5 -> {
-									apiSiteUser.authorizeClientData(authToken, SiteUser.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_CLIENT), new String[] { "GET", "PATCH" }).onSuccess(q6 -> {
 										apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
 												.compose(q7 -> apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
 												.onSuccess(q7 -> {
@@ -378,7 +378,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 								}).onFailure(ex -> promise.fail(ex));
 							}).onFailure(ex -> promise.fail(ex));
 						}).onFailure(ex -> promise.fail(ex));
-					}).onFailure(ex -> promise.fail(ex));
 				}).onFailure(ex -> promise.fail(ex));
 			}).onFailure(ex -> promise.fail(ex));
 		} catch(Throwable ex) {
@@ -796,10 +795,15 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			if(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_KAFKA))) {
 				Map<String, String> kafkaConfig = new HashMap<>();
 				kafkaConfig.put("bootstrap.servers", config().getString(ConfigKeys.KAFKA_BROKERS));
-				kafkaConfig.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-				kafkaConfig.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 				kafkaConfig.put("acks", "1");
 				kafkaConfig.put("security.protocol", "SSL");
+				kafkaConfig.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+				kafkaConfig.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+				kafkaConfig.put("group.id", config().getString(ConfigKeys.KAFKA_GROUP));
+				kafkaConfig.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+				kafkaConfig.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+				kafkaConfig.put("auto.offset.reset", "earliest");
+				kafkaConfig.put("enable.auto.commit", "true");
 				Optional.ofNullable(config().getString(ConfigKeys.KAFKA_SSL_KEYSTORE_TYPE)).ifPresent(keystoreType -> {
 					kafkaConfig.put("ssl.keystore.type", keystoreType);
 					kafkaConfig.put("ssl.keystore.location", config().getString(ConfigKeys.KAFKA_SSL_KEYSTORE_LOCATION));
@@ -812,8 +816,15 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 				});
 
 				kafkaProducer = KafkaProducer.createShared(vertx, config().getString(ConfigKeys.SITE_NAME), kafkaConfig);
-				LOG.info("The Kafka producer was initialized successfully. ");
-				promise.complete(kafkaProducer);
+							
+				// use consumer for interacting with Apache Kafka
+				kafkaConsumer = KafkaConsumer.create(vertx, kafkaConfig);
+				SiteRoutes.kafkaConsumer(vertx, kafkaConsumer, config()).onSuccess(a -> {
+					LOG.info("The Kafka producer was initialized successfully. ");
+					promise.complete(kafkaProducer);
+				}).onFailure(ex -> {
+					promise.fail(ex);
+				});
 			} else {
 				LOG.info("The Kafka producer was initialized successfully. ");
 				promise.complete(null);
@@ -825,6 +836,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 		return promise.future();
 	}
+
 	/**
 	 **/
 	public Future<MqttClient> configureMqtt() {
@@ -1374,7 +1386,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		Promise<Void> promise = Promise.promise();
 		try {
 			List<Future<?>> futures = new ArrayList<>();
-			List<String> authResources = Arrays.asList("CrowdFlowObserved","FeedingOperation","FishPopulation","Feed","Feeder","SitePage");
+			List<String> authResources = Arrays.asList("CrowdFlowObserved","FeedingOperation","FishPopulation","Feeder","Feed","SitePage");
 			List<String> publicResources = Arrays.asList("SitePage");
 			SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
 			initializeApiService(apiSiteUser);
@@ -1394,13 +1406,13 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			initializeApiService(apiFishPopulation);
 			registerApiService(FishPopulationEnUSGenApiService.class, apiFishPopulation, FishPopulation.getClassApiAddress());
 
-			FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
-			initializeApiService(apiFeed);
-			registerApiService(FeedEnUSGenApiService.class, apiFeed, Feed.getClassApiAddress());
-
 			FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
 			initializeApiService(apiFeeder);
 			registerApiService(FeederEnUSGenApiService.class, apiFeeder, Feeder.getClassApiAddress());
+
+			FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
+			initializeApiService(apiFeed);
+			registerApiService(FeedEnUSGenApiService.class, apiFeed, Feed.getClassApiAddress());
 
 			SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
 			initializeApiService(apiSitePage);
@@ -1544,6 +1556,18 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 				}).onFailure(ex -> {
 					LOG.error(String.format("Failed to render page %s", originalUri), ex);
 					handler.fail(ex);
+				});
+			});
+
+			router.post("/ngsi-ld/subscription").handler(ctx -> {
+				SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
+				initializeApiService(apiSiteUser);
+				apiSiteUser.listPUTImportSmartDataModel(ctx).onSuccess(a -> {
+					ctx.response().setStatusCode(200);
+					ctx.end();
+				}).onFailure(ex -> {
+					LOG.error("NGSI-LD subscription failed", ex);
+					promise.fail(ex);
 				});
 			});
 

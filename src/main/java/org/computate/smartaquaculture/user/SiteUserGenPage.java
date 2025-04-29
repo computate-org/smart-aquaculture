@@ -497,8 +497,8 @@ public class SiteUserGenPage extends SiteUserGenPageGen<PageLayout> {
 
   @Override
   protected void _pageTitle(Wrap<String> c) {
-    if(result != null && result.getTitle() != null)
-      c.o(result.getTitle());
+    if(result != null && result.getObjectTitle() != null)
+      c.o(result.getObjectTitle());
     else if(result != null)
       c.o("site users");
     else if(searchListSiteUser_ == null || resultCount == 0)
@@ -534,7 +534,7 @@ public class SiteUserGenPage extends SiteUserGenPageGen<PageLayout> {
 
   @Override
   protected void _classIcon(Wrap<String> c) {
-      c.o("<i class=\"fa-duotone fa-solid fa-user-gear\"></i>");
+      c.o("<i class=\"fa-duotone fa-regular fa-user-gear\"></i>");
   }
 
   protected void _pageUriSiteUser(Wrap<String> c) {

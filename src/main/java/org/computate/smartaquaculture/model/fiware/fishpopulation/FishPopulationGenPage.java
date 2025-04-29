@@ -500,8 +500,8 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _pageTitle(Wrap<String> c) {
-    if(result != null && result.getTitle() != null)
-      c.o(result.getTitle());
+    if(result != null && result.getObjectTitle() != null)
+      c.o(result.getObjectTitle());
     else if(result != null)
       c.o("FishPopulations");
     else if(searchListFishPopulation_ == null || resultCount == 0)

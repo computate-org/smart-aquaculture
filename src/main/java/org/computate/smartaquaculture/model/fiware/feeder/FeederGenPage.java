@@ -500,8 +500,8 @@ public class FeederGenPage extends FeederGenPageGen<PageLayout> {
 
   @Override
   protected void _pageTitle(Wrap<String> c) {
-    if(result != null && result.getTitle() != null)
-      c.o(result.getTitle());
+    if(result != null && result.getObjectTitle() != null)
+      c.o(result.getObjectTitle());
     else if(result != null)
       c.o("Feeders");
     else if(searchListFeeder_ == null || resultCount == 0)

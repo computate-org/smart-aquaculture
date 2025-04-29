@@ -45,12 +45,12 @@ import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOpera
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.feed.Feed;
-import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.feed.Feed;
+import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
 import org.computate.smartaquaculture.page.SitePage;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
@@ -562,12 +562,32 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			siteRequest.addScopes("GET");
 			String templatePath = config().getString(ComputateConfigKeys.TEMPLATE_PATH);
 
+			CrowdFlowObservedEnUSApiServiceImpl apiCrowdFlowObserved = new CrowdFlowObservedEnUSApiServiceImpl();
+			initializeApiService(apiCrowdFlowObserved);
+			FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
+			initializeApiService(apiFeedingOperation);
+			FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
+			initializeApiService(apiFishPopulation);
+			FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
+			initializeApiService(apiFeeder);
+			FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
+			initializeApiService(apiFeed);
 			SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
 			initializeApiService(apiSitePage);
 
-			apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, "pageId", "userPage", "download").onSuccess(q1 -> {
-				LOG.info("data import complete");
-				promise.complete();
+			apiCrowdFlowObserved.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, CrowdFlowObserved.CLASS_CANONICAL_NAME, CrowdFlowObserved.CLASS_SIMPLE_NAME, CrowdFlowObserved.CLASS_API_ADDRESS_CrowdFlowObserved, "entityShortId", "userPage", "download").onSuccess(q1 -> {
+				apiFeedingOperation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FeedingOperation.CLASS_CANONICAL_NAME, FeedingOperation.CLASS_SIMPLE_NAME, FeedingOperation.CLASS_API_ADDRESS_FeedingOperation, "entityShortId", "userPage", "download").onSuccess(q2 -> {
+					apiFishPopulation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishPopulation.CLASS_CANONICAL_NAME, FishPopulation.CLASS_SIMPLE_NAME, FishPopulation.CLASS_API_ADDRESS_FishPopulation, "entityShortId", "userPage", "download").onSuccess(q3 -> {
+						apiFeeder.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feeder.CLASS_CANONICAL_NAME, Feeder.CLASS_SIMPLE_NAME, Feeder.CLASS_API_ADDRESS_Feeder, "entityShortId", "userPage", "download").onSuccess(q4 -> {
+							apiFeed.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feed.CLASS_CANONICAL_NAME, Feed.CLASS_SIMPLE_NAME, Feed.CLASS_API_ADDRESS_Feed, "entityShortId", "userPage", "download").onSuccess(q5 -> {
+								apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, "pageId", "userPage", "download").onSuccess(q6 -> {
+									LOG.info("data import complete");
+									promise.complete();
+								}).onFailure(ex -> promise.fail(ex));
+							}).onFailure(ex -> promise.fail(ex));
+						}).onFailure(ex -> promise.fail(ex));
+					}).onFailure(ex -> promise.fail(ex));
+				}).onFailure(ex -> promise.fail(ex));
 			}).onFailure(ex -> promise.fail(ex));
 		}
 		else {

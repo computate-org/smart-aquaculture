@@ -21,7 +21,7 @@ import org.computate.vertx.model.base.ComputateBaseModel;
  * Model: true
  * Keyword: classSimpleNameBaseModel
  * Description: A reusable base class for all database model classes
- * Order: 1
+ * Order: 0
  */
 public class BaseModel extends BaseModelGen<Object> implements ComputateBaseModel {
 
@@ -176,7 +176,7 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
 	 * Description: The title of this page. 
 	 * VarTitle: true
 	 */
-	protected void _title(Wrap<String> w) {
+	protected void _objectTitle(Wrap<String> w) {
 		w.o(String.format("%s — %s", classNameAdjectiveSingularForClass(), nameForClass()));
 	}
 

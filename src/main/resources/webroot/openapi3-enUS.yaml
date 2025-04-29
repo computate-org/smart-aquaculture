@@ -9627,8 +9627,6 @@ components:
                     type: string
                   initialNumber:
                     type: string
-                  owner:
-                    type: object
                   refSpecie:
                     type: string
                   relatedSource:
@@ -9637,6 +9635,8 @@ components:
                     type: string
                   source:
                     type: string
+                  owner:
+                    type: object
     PATCHFishPopulationRequest:
       allOf:
         - type: object
@@ -9825,13 +9825,6 @@ components:
               type: string
             removeAllInitialNumber:
               type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
             setRefSpecie:
               type: string
               nullable: true
@@ -9860,6 +9853,13 @@ components:
               type: string
             removeAllSource:
               type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
     PATCHFishPopulationResponse:
       allOf:
         - type: object
@@ -10048,13 +10048,6 @@ components:
               type: string
             removeAllInitialNumber:
               type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
             setRefSpecie:
               type: string
               nullable: true
@@ -10083,6 +10076,13 @@ components:
               type: string
             removeAllSource:
               type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
     POSTFishPopulationRequest:
       allOf:
         - type: object
@@ -10137,8 +10137,6 @@ components:
               type: string
             initialNumber:
               type: string
-            owner:
-              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10147,6 +10145,8 @@ components:
               type: string
             source:
               type: string
+            owner:
+              type: object
     POSTFishPopulationResponse:
       allOf:
         - type: object
@@ -10201,8 +10201,6 @@ components:
               type: string
             initialNumber:
               type: string
-            owner:
-              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10211,6 +10209,8 @@ components:
               type: string
             source:
               type: string
+            owner:
+              type: object
     DELETEFilterFishPopulationResponse:
       allOf:
         - type: object
@@ -10265,8 +10265,6 @@ components:
               type: string
             initialNumber:
               type: string
-            owner:
-              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10275,6 +10273,8 @@ components:
               type: string
             source:
               type: string
+            owner:
+              type: object
     PUTImportFishPopulationRequest:
       allOf:
         - type: object
@@ -10334,8 +10334,6 @@ components:
                     type: string
                   initialNumber:
                     type: string
-                  owner:
-                    type: object
                   refSpecie:
                     type: string
                   relatedSource:
@@ -10344,6 +10342,8 @@ components:
                     type: string
                   source:
                     type: string
+                  owner:
+                    type: object
     PUTImportFishPopulationResponse:
       allOf:
         - type: object
@@ -10398,8 +10398,6 @@ components:
                     type: string
                   initialNumber:
                     type: string
-                  owner:
-                    type: object
                   refSpecie:
                     type: string
                   relatedSource:
@@ -10408,6 +10406,8 @@ components:
                     type: string
                   source:
                     type: string
+                  owner:
+                    type: object
     GETFishPopulationResponse:
       allOf:
         - type: object
@@ -10462,8 +10462,6 @@ components:
               type: string
             initialNumber:
               type: string
-            owner:
-              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10472,6 +10470,8 @@ components:
               type: string
             source:
               type: string
+            owner:
+              type: object
     DELETEFishPopulationResponse:
       allOf:
         - type: object
@@ -10526,8 +10526,6 @@ components:
               type: string
             initialNumber:
               type: string
-            owner:
-              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10536,6 +10534,8 @@ components:
               type: string
             source:
               type: string
+            owner:
+              type: object
     EditPageFishPopulationResponse:
       allOf:
         - type: string
@@ -11210,6 +11210,8 @@ components:
                     type: string
                   seeArchived:
                     type: boolean
+                  awesomeEffect:
+                    type: boolean
                   displayName:
                     type: string
     PATCHSiteUserRequest:
@@ -11281,6 +11283,13 @@ components:
             removeSeeArchived:
               type: boolean
             removeAllSeeArchived:
+              type: boolean
+            setAwesomeEffect:
+              type: boolean
+              nullable: true
+            removeAwesomeEffect:
+              type: boolean
+            removeAllAwesomeEffect:
               type: boolean
             setDisplayName:
               type: string
@@ -11359,6 +11368,13 @@ components:
               type: boolean
             removeAllSeeArchived:
               type: boolean
+            setAwesomeEffect:
+              type: boolean
+              nullable: true
+            removeAwesomeEffect:
+              type: boolean
+            removeAllAwesomeEffect:
+              type: boolean
             setDisplayName:
               type: string
               nullable: true
@@ -11388,6 +11404,8 @@ components:
               type: string
             seeArchived:
               type: boolean
+            awesomeEffect:
+              type: boolean
             displayName:
               type: string
     POSTSiteUserResponse:
@@ -11411,6 +11429,8 @@ components:
             userFullName:
               type: string
             seeArchived:
+              type: boolean
+            awesomeEffect:
               type: boolean
             displayName:
               type: string
