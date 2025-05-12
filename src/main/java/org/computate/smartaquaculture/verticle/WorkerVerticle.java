@@ -54,6 +54,9 @@ import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
 import org.computate.smartaquaculture.page.SitePage;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
 import org.computate.vertx.api.ApiCounter;
 import org.computate.vertx.api.ApiRequest;
 import org.computate.vertx.config.ComputateConfigKeys;
@@ -574,6 +577,8 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			initializeApiService(apiFeed);
 			SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
 			initializeApiService(apiSitePage);
+			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
+			initializeApiService(apiFishingTrip);
 
 			apiCrowdFlowObserved.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, CrowdFlowObserved.CLASS_CANONICAL_NAME, CrowdFlowObserved.CLASS_SIMPLE_NAME, CrowdFlowObserved.CLASS_API_ADDRESS_CrowdFlowObserved, "entityShortId", "userPage", "download").onSuccess(q1 -> {
 				apiFeedingOperation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FeedingOperation.CLASS_CANONICAL_NAME, FeedingOperation.CLASS_SIMPLE_NAME, FeedingOperation.CLASS_API_ADDRESS_FeedingOperation, "entityShortId", "userPage", "download").onSuccess(q2 -> {
@@ -581,8 +586,10 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 						apiFeeder.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feeder.CLASS_CANONICAL_NAME, Feeder.CLASS_SIMPLE_NAME, Feeder.CLASS_API_ADDRESS_Feeder, "entityShortId", "userPage", "download").onSuccess(q4 -> {
 							apiFeed.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feed.CLASS_CANONICAL_NAME, Feed.CLASS_SIMPLE_NAME, Feed.CLASS_API_ADDRESS_Feed, "entityShortId", "userPage", "download").onSuccess(q5 -> {
 								apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, "pageId", "userPage", "download").onSuccess(q6 -> {
-									LOG.info("data import complete");
-									promise.complete();
+									apiFishingTrip.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingTrip.CLASS_CANONICAL_NAME, FishingTrip.CLASS_SIMPLE_NAME, FishingTrip.CLASS_API_ADDRESS_FishingTrip, "pk", "userPage", "download").onSuccess(q7 -> {
+										LOG.info("data import complete");
+										promise.complete();
+									}).onFailure(ex -> promise.fail(ex));
 								}).onFailure(ex -> promise.fail(ex));
 							}).onFailure(ex -> promise.fail(ex));
 						}).onFailure(ex -> promise.fail(ex));

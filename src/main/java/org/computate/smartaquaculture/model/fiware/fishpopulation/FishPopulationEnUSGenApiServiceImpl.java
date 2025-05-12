@@ -530,9 +530,13 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
 				serviceRequest.getParams().getJsonObject("query").put("rows", 1);
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				searchFishPopulationList(siteRequest, false, true, true).onSuccess(listFishPopulation -> {
 					try {
 						FishPopulation o = listFishPopulation.first();
@@ -727,14 +731,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
-					case "setLocation":
-							o2.setLocation(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishPopulation.VAR_location + "=$" + num);
-							num++;
-							bParams.add(o2.sqlLocation());
-						break;
 					case "setCreated":
 							o2.setCreated(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -742,6 +738,14 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							bSql.append(FishPopulation.VAR_created + "=$" + num);
 							num++;
 							bParams.add(o2.sqlCreated());
+						break;
+					case "setLocation":
+							o2.setLocation(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishPopulation.VAR_location + "=$" + num);
+							num++;
+							bParams.add(o2.sqlLocation());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -775,14 +779,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setNgsildTenant":
-							o2.setNgsildTenant(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishPopulation.VAR_ngsildTenant + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildTenant());
-						break;
 					case "setUserKey":
 							o2.setUserKey(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -790,6 +786,14 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							bSql.append(FishPopulation.VAR_userKey + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserKey());
+						break;
+					case "setNgsildTenant":
+							o2.setNgsildTenant(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishPopulation.VAR_ngsildTenant + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildTenant());
 						break;
 					case "setNgsildPath":
 							o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -807,14 +811,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlNgsildContext());
 						break;
-					case "setNgsildData":
-							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishPopulation.VAR_ngsildData + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildData());
-						break;
 					case "setObjectTitle":
 							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -823,13 +819,13 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlObjectTitle());
 						break;
-					case "setAddress":
-							o2.setAddress(jsonObject.getJsonObject(entityVar));
+					case "setNgsildData":
+							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishPopulation.VAR_address + "=$" + num);
+							bSql.append(FishPopulation.VAR_ngsildData + "=$" + num);
 							num++;
-							bParams.add(o2.sqlAddress());
+							bParams.add(o2.sqlNgsildData());
 						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -838,6 +834,14 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							bSql.append(FishPopulation.VAR_displayPage + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDisplayPage());
+						break;
+					case "setAddress":
+							o2.setAddress(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishPopulation.VAR_address + "=$" + num);
+							num++;
+							bParams.add(o2.sqlAddress());
 						break;
 					case "setAlternateName":
 							o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1111,7 +1115,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -1293,15 +1296,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case FishPopulation.VAR_location:
-						o2.setLocation(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishPopulation.VAR_location + "=$" + num);
-						num++;
-						bParams.add(o2.sqlLocation());
-						break;
 					case FishPopulation.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1310,6 +1304,15 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						bSql.append(FishPopulation.VAR_created + "=$" + num);
 						num++;
 						bParams.add(o2.sqlCreated());
+						break;
+					case FishPopulation.VAR_location:
+						o2.setLocation(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishPopulation.VAR_location + "=$" + num);
+						num++;
+						bParams.add(o2.sqlLocation());
 						break;
 					case FishPopulation.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1347,15 +1350,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case FishPopulation.VAR_ngsildTenant:
-						o2.setNgsildTenant(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishPopulation.VAR_ngsildTenant + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildTenant());
-						break;
 					case FishPopulation.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1364,6 +1358,15 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						bSql.append(FishPopulation.VAR_userKey + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserKey());
+						break;
+					case FishPopulation.VAR_ngsildTenant:
+						o2.setNgsildTenant(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishPopulation.VAR_ngsildTenant + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildTenant());
 						break;
 					case FishPopulation.VAR_ngsildPath:
 						o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1383,15 +1386,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlNgsildContext());
 						break;
-					case FishPopulation.VAR_ngsildData:
-						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishPopulation.VAR_ngsildData + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildData());
-						break;
 					case FishPopulation.VAR_objectTitle:
 						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1401,14 +1395,14 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
-					case FishPopulation.VAR_address:
-						o2.setAddress(jsonObject.getJsonObject(entityVar));
+					case FishPopulation.VAR_ngsildData:
+						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishPopulation.VAR_address + "=$" + num);
+						bSql.append(FishPopulation.VAR_ngsildData + "=$" + num);
 						num++;
-						bParams.add(o2.sqlAddress());
+						bParams.add(o2.sqlNgsildData());
 						break;
 					case FishPopulation.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -1418,6 +1412,15 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						bSql.append(FishPopulation.VAR_displayPage + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDisplayPage());
+						break;
+					case FishPopulation.VAR_address:
+						o2.setAddress(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishPopulation.VAR_address + "=$" + num);
+						num++;
+						bParams.add(o2.sqlAddress());
 						break;
 					case FishPopulation.VAR_alternateName:
 						o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1745,9 +1748,13 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
 				serviceRequest.getParams().getJsonObject("query").put("rows", 1);
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				searchFishPopulationList(siteRequest, false, true, true).onSuccess(listFishPopulation -> {
 					try {
 						FishPopulation o = listFishPopulation.first();
@@ -2083,7 +2090,6 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -2124,7 +2130,7 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 											JsonArray bodyVals = (JsonArray)bodyVal;
 											Object valsObj = o.obtainForClass(f);
 											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-											if(bodyVals.size() == vals.size()) {
+											if(vals != null && bodyVals.size() == vals.size()) {
 												Boolean match = true;
 												for(Object val : vals) {
 													if(val != null) {
@@ -2140,7 +2146,8 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 												vals.clear();
 												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 											} else {
-												vals.clear();
+												if(vals != null)
+													vals.clear();
 												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 											}
 										} else {
@@ -2715,9 +2722,13 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
 				serviceRequest.getParams().getJsonObject("query").put("rows", 1);
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				searchFishPopulationList(siteRequest, false, true, true).onSuccess(listFishPopulation -> {
 					try {
 						FishPopulation o = listFishPopulation.first();
@@ -3586,20 +3597,20 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 
 			page.persistForClass(FishPopulation.VAR_name, FishPopulation.staticSetName(siteRequest2, (String)result.get(FishPopulation.VAR_name)));
 			page.persistForClass(FishPopulation.VAR_description, FishPopulation.staticSetDescription(siteRequest2, (String)result.get(FishPopulation.VAR_description)));
-			page.persistForClass(FishPopulation.VAR_location, FishPopulation.staticSetLocation(siteRequest2, (String)result.get(FishPopulation.VAR_location)));
 			page.persistForClass(FishPopulation.VAR_created, FishPopulation.staticSetCreated(siteRequest2, (String)result.get(FishPopulation.VAR_created)));
+			page.persistForClass(FishPopulation.VAR_location, FishPopulation.staticSetLocation(siteRequest2, (String)result.get(FishPopulation.VAR_location)));
 			page.persistForClass(FishPopulation.VAR_archived, FishPopulation.staticSetArchived(siteRequest2, (String)result.get(FishPopulation.VAR_archived)));
 			page.persistForClass(FishPopulation.VAR_areaServed, FishPopulation.staticSetAreaServed(siteRequest2, (String)result.get(FishPopulation.VAR_areaServed)));
 			page.persistForClass(FishPopulation.VAR_id, FishPopulation.staticSetId(siteRequest2, (String)result.get(FishPopulation.VAR_id)));
 			page.persistForClass(FishPopulation.VAR_sessionId, FishPopulation.staticSetSessionId(siteRequest2, (String)result.get(FishPopulation.VAR_sessionId)));
-			page.persistForClass(FishPopulation.VAR_ngsildTenant, FishPopulation.staticSetNgsildTenant(siteRequest2, (String)result.get(FishPopulation.VAR_ngsildTenant)));
 			page.persistForClass(FishPopulation.VAR_userKey, FishPopulation.staticSetUserKey(siteRequest2, (String)result.get(FishPopulation.VAR_userKey)));
+			page.persistForClass(FishPopulation.VAR_ngsildTenant, FishPopulation.staticSetNgsildTenant(siteRequest2, (String)result.get(FishPopulation.VAR_ngsildTenant)));
 			page.persistForClass(FishPopulation.VAR_ngsildPath, FishPopulation.staticSetNgsildPath(siteRequest2, (String)result.get(FishPopulation.VAR_ngsildPath)));
 			page.persistForClass(FishPopulation.VAR_ngsildContext, FishPopulation.staticSetNgsildContext(siteRequest2, (String)result.get(FishPopulation.VAR_ngsildContext)));
-			page.persistForClass(FishPopulation.VAR_ngsildData, FishPopulation.staticSetNgsildData(siteRequest2, (String)result.get(FishPopulation.VAR_ngsildData)));
 			page.persistForClass(FishPopulation.VAR_objectTitle, FishPopulation.staticSetObjectTitle(siteRequest2, (String)result.get(FishPopulation.VAR_objectTitle)));
-			page.persistForClass(FishPopulation.VAR_address, FishPopulation.staticSetAddress(siteRequest2, (String)result.get(FishPopulation.VAR_address)));
+			page.persistForClass(FishPopulation.VAR_ngsildData, FishPopulation.staticSetNgsildData(siteRequest2, (String)result.get(FishPopulation.VAR_ngsildData)));
 			page.persistForClass(FishPopulation.VAR_displayPage, FishPopulation.staticSetDisplayPage(siteRequest2, (String)result.get(FishPopulation.VAR_displayPage)));
+			page.persistForClass(FishPopulation.VAR_address, FishPopulation.staticSetAddress(siteRequest2, (String)result.get(FishPopulation.VAR_address)));
 			page.persistForClass(FishPopulation.VAR_alternateName, FishPopulation.staticSetAlternateName(siteRequest2, (String)result.get(FishPopulation.VAR_alternateName)));
 			page.persistForClass(FishPopulation.VAR_bodyMasse, FishPopulation.staticSetBodyMasse(siteRequest2, (String)result.get(FishPopulation.VAR_bodyMasse)));
 			page.persistForClass(FishPopulation.VAR_culturedIn, FishPopulation.staticSetCulturedIn(siteRequest2, (String)result.get(FishPopulation.VAR_culturedIn)));

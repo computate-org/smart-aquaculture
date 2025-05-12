@@ -1,4 +1,4 @@
-package org.computate.smartaquaculture.model.fiware.feeder;
+package org.computate.smartaquaculture.model.fiware.fishingtrip;
 
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -103,37 +103,37 @@ import java.util.Base64;
 import java.time.ZonedDateTime;
 import org.apache.commons.lang3.BooleanUtils;
 import org.computate.vertx.search.list.SearchList;
-import org.computate.smartaquaculture.model.fiware.feeder.FeederPage;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripPage;
 
 
 /**
  * Translate: false
  * Generated: true
  **/
-public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements FeederEnUSGenApiService {
+public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl implements FishingTripEnUSGenApiService {
 
-	protected static final Logger LOG = LoggerFactory.getLogger(FeederEnUSGenApiServiceImpl.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(FishingTripEnUSGenApiServiceImpl.class);
 
 	// Search //
 
 	@Override
-	public void searchFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void searchFishingTrip(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -150,21 +150,21 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
-							response200SearchFeeder(listFeeder).onSuccess(response -> {
+						searchFishingTripList(siteRequest, false, true, false).onSuccess(listFishingTrip -> {
+							response200SearchFishingTrip(listFishingTrip).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("searchFeeder succeeded. "));
+								LOG.debug(String.format("searchFishingTrip succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("searchFeeder failed. "), ex);
+								LOG.error(String.format("searchFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("searchFeeder failed. "), ex);
+							LOG.error(String.format("searchFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("searchFeeder failed. "), ex);
+					LOG.error(String.format("searchFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -173,7 +173,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("searchFeeder failed. ", ex2));
+					LOG.error(String.format("searchFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -188,27 +188,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("searchFeeder failed. "), ex);
+				LOG.error(String.format("searchFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<ServiceResponse> response200SearchFeeder(SearchList<Feeder> listFeeder) {
+	public Future<ServiceResponse> response200SearchFishingTrip(SearchList<FishingTrip> listFishingTrip) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-			List<String> fls = listFeeder.getRequest().getFields();
+			SiteRequest siteRequest = listFishingTrip.getSiteRequest_(SiteRequest.class);
+			List<String> fls = listFishingTrip.getRequest().getFields();
 			JsonObject json = new JsonObject();
 			JsonArray l = new JsonArray();
-			listFeeder.getList().stream().forEach(o -> {
+			listFishingTrip.getList().stream().forEach(o -> {
 				JsonObject json2 = JsonObject.mapFrom(o);
 				if(fls.size() > 0) {
 					Set<String> fieldNames = new HashSet<String>();
 					for(String fieldName : json2.fieldNames()) {
-						String v = Feeder.varIndexedFeeder(fieldName);
+						String v = FishingTrip.varIndexedFishingTrip(fieldName);
 						if(v != null)
-							fieldNames.add(Feeder.varIndexedFeeder(fieldName));
+							fieldNames.add(FishingTrip.varIndexedFishingTrip(fieldName));
 					}
 					if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
 						fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
@@ -226,10 +226,10 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				l.add(json2);
 			});
 			json.put("list", l);
-			response200Search(listFeeder.getRequest(), listFeeder.getResponse(), json);
+			response200Search(listFishingTrip.getRequest(), listFishingTrip.getResponse(), json);
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
+						String m = String.format("%s %s not found", "fishing trip", pk);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -237,12 +237,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200SearchFeeder failed. "), ex);
+			LOG.error(String.format("response200SearchFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void responsePivotSearchFeeder(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+	public void responsePivotSearchFishingTrip(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
 		if(pivots != null) {
 			for(SolrResponse.Pivot pivotField : pivots) {
 				String entityIndexed = pivotField.getField();
@@ -271,7 +271,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				if(pivotFields2 != null) {
 					JsonArray pivotArray2 = new JsonArray();
 					pivotJson.put("pivot", pivotArray2);
-					responsePivotSearchFeeder(pivotFields2, pivotArray2);
+					responsePivotSearchFishingTrip(pivotFields2, pivotArray2);
 				}
 			}
 		}
@@ -280,23 +280,23 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// GET //
 
 	@Override
-	public void getFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void getFishingTrip(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -313,21 +313,21 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
-							response200GETFeeder(listFeeder).onSuccess(response -> {
+						searchFishingTripList(siteRequest, false, true, false).onSuccess(listFishingTrip -> {
+							response200GETFishingTrip(listFishingTrip).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("getFeeder succeeded. "));
+								LOG.debug(String.format("getFishingTrip succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("getFeeder failed. "), ex);
+								LOG.error(String.format("getFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("getFeeder failed. "), ex);
+							LOG.error(String.format("getFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("getFeeder failed. "), ex);
+					LOG.error(String.format("getFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -336,7 +336,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("getFeeder failed. ", ex2));
+					LOG.error(String.format("getFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -351,20 +351,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("getFeeder failed. "), ex);
+				LOG.error(String.format("getFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<ServiceResponse> response200GETFeeder(SearchList<Feeder> listFeeder) {
+	public Future<ServiceResponse> response200GETFishingTrip(SearchList<FishingTrip> listFishingTrip) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-			JsonObject json = JsonObject.mapFrom(listFeeder.getList().stream().findFirst().orElse(null));
+			SiteRequest siteRequest = listFishingTrip.getSiteRequest_(SiteRequest.class);
+			JsonObject json = JsonObject.mapFrom(listFishingTrip.getList().stream().findFirst().orElse(null));
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
+						String m = String.format("%s %s not found", "fishing trip", pk);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -372,7 +372,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200GETFeeder failed. "), ex);
+			LOG.error(String.format("response200GETFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -381,24 +381,24 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// PATCH //
 
 	@Override
-	public void patchFeeder(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("patchFeeder started. "));
+	public void patchFishingTrip(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("patchFishingTrip started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "PATCH"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -415,43 +415,43 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+						searchFishingTripList(siteRequest, false, true, true).onSuccess(listFishingTrip -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
-								apiRequest.setRows(listFeeder.getRequest().getRows());
-								apiRequest.setNumFound(listFeeder.getResponse().getResponse().getNumFound());
+								apiRequest.setRows(listFishingTrip.getRequest().getRows());
+								apiRequest.setNumFound(listFishingTrip.getResponse().getResponse().getNumFound());
 								apiRequest.setNumPATCH(0L);
 								apiRequest.initDeepApiRequest(siteRequest);
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
-									apiRequest.setOriginal(listFeeder.first());
-								apiRequest.setId(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-								apiRequest.setPk(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getPk()).orElse(null));
-								eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+									apiRequest.setOriginal(listFishingTrip.first());
+								apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
+								apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+								eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 
-								listPATCHFeeder(apiRequest, listFeeder).onSuccess(e -> {
-									response200PATCHFeeder(siteRequest).onSuccess(response -> {
-										LOG.debug(String.format("patchFeeder succeeded. "));
+								listPATCHFishingTrip(apiRequest, listFishingTrip).onSuccess(e -> {
+									response200PATCHFishingTrip(siteRequest).onSuccess(response -> {
+										LOG.debug(String.format("patchFishingTrip succeeded. "));
 										eventHandler.handle(Future.succeededFuture(response));
 									}).onFailure(ex -> {
-										LOG.error(String.format("patchFeeder failed. "), ex);
+										LOG.error(String.format("patchFishingTrip failed. "), ex);
 										error(siteRequest, eventHandler, ex);
 									});
 								}).onFailure(ex -> {
-									LOG.error(String.format("patchFeeder failed. "), ex);
+									LOG.error(String.format("patchFishingTrip failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							} catch(Exception ex) {
-								LOG.error(String.format("patchFeeder failed. "), ex);
+								LOG.error(String.format("patchFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("patchFeeder failed. "), ex);
+							LOG.error(String.format("patchFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("patchFeeder failed. "), ex);
+					LOG.error(String.format("patchFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -460,7 +460,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("patchFeeder failed. ", ex2));
+					LOG.error(String.format("patchFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -475,58 +475,58 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("patchFeeder failed. "), ex);
+				LOG.error(String.format("patchFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listPATCHFeeder(ApiRequest apiRequest, SearchList<Feeder> listFeeder) {
+	public Future<Void> listPATCHFishingTrip(ApiRequest apiRequest, SearchList<FishingTrip> listFishingTrip) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
-		SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-		listFeeder.getList().forEach(o -> {
+		SiteRequest siteRequest = listFishingTrip.getSiteRequest_(SiteRequest.class);
+		listFishingTrip.getList().forEach(o -> {
 			SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
 			siteRequest2.setScopes(siteRequest.getScopes());
 			o.setSiteRequest_(siteRequest2);
 			siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
 			JsonObject jsonObject = JsonObject.mapFrom(o);
-			Feeder o2 = jsonObject.mapTo(Feeder.class);
+			FishingTrip o2 = jsonObject.mapTo(FishingTrip.class);
 			o2.setSiteRequest_(siteRequest2);
 			futures.add(Future.future(promise1 -> {
-				patchFeederFuture(o2, false).onSuccess(a -> {
+				patchFishingTripFuture(o2, false).onSuccess(a -> {
 					promise1.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("listPATCHFeeder failed. "), ex);
+					LOG.error(String.format("listPATCHFishingTrip failed. "), ex);
 					promise1.fail(ex);
 				});
 			}));
 		});
 		CompositeFuture.all(futures).onSuccess( a -> {
-			listFeeder.next().onSuccess(next -> {
+			listFishingTrip.next().onSuccess(next -> {
 				if(next) {
-					listPATCHFeeder(apiRequest, listFeeder).onSuccess(b -> {
+					listPATCHFishingTrip(apiRequest, listFishingTrip).onSuccess(b -> {
 						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listPATCHFeeder failed. "), ex);
+						LOG.error(String.format("listPATCHFishingTrip failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete();
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("listPATCHFeeder failed. "), ex);
+				LOG.error(String.format("listPATCHFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		}).onFailure(ex -> {
-			LOG.error(String.format("listPATCHFeeder failed. "), ex);
+			LOG.error(String.format("listPATCHFishingTrip failed. "), ex);
 			promise.fail(ex);
 		});
 		return promise.future();
 	}
 
 	@Override
-	public void patchFeederFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void patchFishingTripFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -537,10 +537,10 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						siteRequest.addScopes(scope);
 					});
 				});
-				searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+				searchFishingTripList(siteRequest, false, true, true).onSuccess(listFishingTrip -> {
 					try {
-						Feeder o = listFeeder.first();
-						if(o != null && listFeeder.getResponse().getResponse().getNumFound() == 1) {
+						FishingTrip o = listFishingTrip.first();
+						if(o != null && listFishingTrip.getResponse().getResponse().getNumFound() == 1) {
 							ApiRequest apiRequest = new ApiRequest();
 							apiRequest.setRows(1L);
 							apiRequest.setNumFound(1L);
@@ -552,12 +552,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
+							apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
-							Feeder o2 = jsonObject.mapTo(Feeder.class);
+							FishingTrip o2 = jsonObject.mapTo(FishingTrip.class);
 							o2.setSiteRequest_(siteRequest);
-							patchFeederFuture(o2, false).onSuccess(o3 -> {
+							patchFishingTripFuture(o2, false).onSuccess(o3 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
 								eventHandler.handle(Future.failedFuture(ex));
@@ -566,95 +566,46 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 						}
 					} catch(Exception ex) {
-						LOG.error(String.format("patchFeeder failed. "), ex);
+						LOG.error(String.format("patchFishingTrip failed. "), ex);
 						error(siteRequest, eventHandler, ex);
 					}
 				}).onFailure(ex -> {
-					LOG.error(String.format("patchFeeder failed. "), ex);
+					LOG.error(String.format("patchFishingTrip failed. "), ex);
 					error(siteRequest, eventHandler, ex);
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("patchFeeder failed. "), ex);
+				LOG.error(String.format("patchFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
-			LOG.error(String.format("patchFeeder failed. "), ex);
+			LOG.error(String.format("patchFishingTrip failed. "), ex);
 			error(null, eventHandler, ex);
 		});
 	}
 
-	public Future<Feeder> patchFeederFuture(Feeder o, Boolean inheritPrimaryKey) {
+	public Future<FishingTrip> patchFishingTripFuture(FishingTrip o, Boolean inheritPrimaryKey) {
 		SiteRequest siteRequest = o.getSiteRequest_();
-		Promise<Feeder> promise = Promise.promise();
+		Promise<FishingTrip> promise = Promise.promise();
 
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			Promise<Feeder> promise1 = Promise.promise();
+			Promise<FishingTrip> promise1 = Promise.promise();
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
-				varsFeeder(siteRequest).onSuccess(a -> {
-					JsonObject jsonObject = o.getSiteRequest_().getJsonObject();
-					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-						ngsildGetEntity(o).compose(ngsildData -> {
-							Promise<JsonObject> promise2 = Promise.promise();
-							if(ngsildData == null) {
-								promise2.complete(jsonObject);
-							} else {
-								String setNgsildData = String.format("set%s",StringUtils.capitalize(Feeder.VAR_ngsildData));
-								jsonObject.put(setNgsildData, ngsildData);
-								promise2.complete(jsonObject);
-							}
-							return promise2.future();
-						}).compose(ngsildData -> {
-							Promise<Feeder> promise2 = Promise.promise();
-							sqlPATCHFeeder(o, inheritPrimaryKey).onSuccess(feeder -> {
-								persistFeeder(feeder, true).onSuccess(c -> {
-									relateFeeder(feeder).onSuccess(d -> {
-										indexFeeder(feeder).onSuccess(o2 -> {
-											if(apiRequest != null) {
-												apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-												if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-													o2.apiRequestFeeder();
-													if(apiRequest.getVars().size() > 0)
-														eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
-												}
-											}
-											promise2.complete(feeder);
-										}).onFailure(ex -> {
-											promise2.fail(ex);
-										});
-									}).onFailure(ex -> {
-										promise2.fail(ex);
-									});
-								}).onFailure(ex -> {
-									promise2.fail(ex);
-								});
-							}).onFailure(ex -> {
-								promise2.fail(ex);
-							});
-							return promise2.future();
-						}).onSuccess(o2 -> {
-							promise1.complete(o2);
-						}).onFailure(ex -> {
-							promise1.fail(ex);
-						});
-					} else {
-						sqlPATCHFeeder(o, inheritPrimaryKey).onSuccess(feeder -> {
-							persistFeeder(feeder, true).onSuccess(c -> {
-								relateFeeder(feeder).onSuccess(d -> {
-									indexFeeder(feeder).onSuccess(o2 -> {
-										if(apiRequest != null) {
-											apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-											if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-												o2.apiRequestFeeder();
-												if(apiRequest.getVars().size() > 0)
-													eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
-											}
+				varsFishingTrip(siteRequest).onSuccess(a -> {
+					sqlPATCHFishingTrip(o, inheritPrimaryKey).onSuccess(fishingTrip -> {
+						persistFishingTrip(fishingTrip, true).onSuccess(c -> {
+							relateFishingTrip(fishingTrip).onSuccess(d -> {
+								indexFishingTrip(fishingTrip).onSuccess(o2 -> {
+									if(apiRequest != null) {
+										apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+										if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+											o2.apiRequestFishingTrip();
+											if(apiRequest.getVars().size() > 0)
+												eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 										}
-										promise1.complete(feeder);
-									}).onFailure(ex -> {
-										promise1.fail(ex);
-									});
+									}
+									promise1.complete(fishingTrip);
 								}).onFailure(ex -> {
 									promise1.fail(ex);
 								});
@@ -664,7 +615,9 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						}).onFailure(ex -> {
 							promise1.fail(ex);
 						});
-					}
+					}).onFailure(ex -> {
+						promise1.fail(ex);
+					});
 				}).onFailure(ex -> {
 					promise1.fail(ex);
 				});
@@ -674,28 +627,28 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(feeder -> {
-				Promise<Feeder> promise2 = Promise.promise();
-				refreshFeeder(feeder).onSuccess(a -> {
-					promise2.complete(feeder);
+			}).compose(fishingTrip -> {
+				Promise<FishingTrip> promise2 = Promise.promise();
+				refreshFishingTrip(fishingTrip).onSuccess(a -> {
+					promise2.complete(fishingTrip);
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(feeder -> {
-				promise.complete(feeder);
+			}).onSuccess(fishingTrip -> {
+				promise.complete(fishingTrip);
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("patchFeederFuture failed. "), ex);
+			LOG.error(String.format("patchFishingTripFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Feeder> sqlPATCHFeeder(Feeder o, Boolean inheritPrimaryKey) {
-		Promise<Feeder> promise = Promise.promise();
+	public Future<FishingTrip> sqlPATCHFishingTrip(FishingTrip o, Boolean inheritPrimaryKey) {
+		Promise<FishingTrip> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -703,79 +656,71 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("UPDATE Feeder SET ");
+			StringBuilder bSql = new StringBuilder("UPDATE FishingTrip SET ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
 			Set<String> methodNames = jsonObject.fieldNames();
-			Feeder o2 = new Feeder();
+			FishingTrip o2 = new FishingTrip();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
 
 			for(String entityVar : methodNames) {
 				switch(entityVar) {
-					case "setName":
-							o2.setName(jsonObject.getString(entityVar));
+					case "setDepartureDate":
+							o2.setDepartureDate(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_name + "=$" + num);
+							bSql.append(FishingTrip.VAR_departureDate + "=$" + num);
 							num++;
-							bParams.add(o2.sqlName());
-						break;
-					case "setDescription":
-							o2.setDescription(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_description + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDescription());
+							bParams.add(o2.sqlDepartureDate());
 						break;
 					case "setCreated":
 							o2.setCreated(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_created + "=$" + num);
+							bSql.append(FishingTrip.VAR_created + "=$" + num);
 							num++;
 							bParams.add(o2.sqlCreated());
 						break;
-					case "setLocation":
-							o2.setLocation(jsonObject.getJsonObject(entityVar));
+					case "setArrivalDate":
+							o2.setArrivalDate(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_location + "=$" + num);
+							bSql.append(FishingTrip.VAR_arrivalDate + "=$" + num);
 							num++;
-							bParams.add(o2.sqlLocation());
+							bParams.add(o2.sqlArrivalDate());
+						break;
+					case "setName":
+							o2.setName(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingTrip.VAR_name + "=$" + num);
+							num++;
+							bParams.add(o2.sqlName());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_archived + "=$" + num);
+							bSql.append(FishingTrip.VAR_archived + "=$" + num);
 							num++;
 							bParams.add(o2.sqlArchived());
 						break;
-					case "setAreaServed":
-							o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+					case "setDescription":
+							o2.setDescription(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_areaServed + "=$" + num);
+							bSql.append(FishingTrip.VAR_description + "=$" + num);
 							num++;
-							bParams.add(o2.sqlAreaServed());
-						break;
-					case "setId":
-							o2.setId(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_id + "=$" + num);
-							num++;
-							bParams.add(o2.sqlId());
+							bParams.add(o2.sqlDescription());
 						break;
 					case "setSessionId":
 							o2.setSessionId(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_sessionId + "=$" + num);
+							bSql.append(FishingTrip.VAR_sessionId + "=$" + num);
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
@@ -783,129 +728,25 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							o2.setUserKey(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_userKey + "=$" + num);
+							bSql.append(FishingTrip.VAR_userKey + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserKey());
-						break;
-					case "setNgsildTenant":
-							o2.setNgsildTenant(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildTenant());
-						break;
-					case "setNgsildPath":
-							o2.setNgsildPath(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_ngsildPath + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildPath());
-						break;
-					case "setNgsildContext":
-							o2.setNgsildContext(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_ngsildContext + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildContext());
 						break;
 					case "setObjectTitle":
 							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_objectTitle + "=$" + num);
+							bSql.append(FishingTrip.VAR_objectTitle + "=$" + num);
 							num++;
 							bParams.add(o2.sqlObjectTitle());
-						break;
-					case "setNgsildData":
-							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_ngsildData + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildData());
 						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_displayPage + "=$" + num);
+							bSql.append(FishingTrip.VAR_displayPage + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDisplayPage());
-						break;
-					case "setAddress":
-							o2.setAddress(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_address + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAddress());
-						break;
-					case "setAlternateName":
-							o2.setAlternateName(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_alternateName + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAlternateName());
-						break;
-					case "setDataProvider":
-							o2.setDataProvider(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_dataProvider + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDataProvider());
-						break;
-					case "setDateCreated":
-							o2.setDateCreated(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_dateCreated + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDateCreated());
-						break;
-					case "setDateModified":
-							o2.setDateModified(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_dateModified + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDateModified());
-						break;
-					case "setOwner":
-							o2.setOwner(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_owner + "=$" + num);
-							num++;
-							bParams.add(o2.sqlOwner());
-						break;
-					case "setRelatedSource":
-							o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_relatedSource + "=$" + num);
-							num++;
-							bParams.add(o2.sqlRelatedSource());
-						break;
-					case "setSeeAlso":
-							o2.setSeeAlso(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_seeAlso + "=$" + num);
-							num++;
-							bParams.add(o2.sqlSeeAlso());
-						break;
-					case "setSource":
-							o2.setSource(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(Feeder.VAR_source + "=$" + num);
-							num++;
-							bParams.add(o2.sqlSource());
 						break;
 				}
 			}
@@ -919,40 +760,40 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							).onSuccess(b -> {
 						a.handle(Future.succeededFuture());
 					}).onFailure(ex -> {
-						RuntimeException ex2 = new RuntimeException("value Feeder failed", ex);
-						LOG.error(String.format("relateFeeder failed. "), ex2);
+						RuntimeException ex2 = new RuntimeException("value FishingTrip failed", ex);
+						LOG.error(String.format("relateFishingTrip failed. "), ex2);
 						a.handle(Future.failedFuture(ex2));
 					});
 				}));
 			}
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					Feeder o3 = new Feeder();
+					FishingTrip o3 = new FishingTrip();
 					o3.setSiteRequest_(o.getSiteRequest_());
 					o3.setPk(pk);
 					promise.complete(o3);
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlPATCHFeeder failed. "), ex);
+					LOG.error(String.format("sqlPATCHFishingTrip failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlPATCHFeeder failed. "), ex);
+				LOG.error(String.format("sqlPATCHFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlPATCHFeeder failed. "), ex);
+			LOG.error(String.format("sqlPATCHFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200PATCHFeeder(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200PATCHFishingTrip(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
+						String m = String.format("%s %s not found", "fishing trip", pk);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -960,7 +801,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200PATCHFeeder failed. "), ex);
+			LOG.error(String.format("response200PATCHFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -969,24 +810,24 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// POST //
 
 	@Override
-	public void postFeeder(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("postFeeder started. "));
+	public void postFishingTrip(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("postFishingTrip started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "POST"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1009,7 +850,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						apiRequest.setNumPATCH(0L);
 						apiRequest.initDeepApiRequest(siteRequest);
 						siteRequest.setApiRequest_(apiRequest);
-						eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+						eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 						JsonObject params = new JsonObject();
 						params.put("body", siteRequest.getJsonObject());
 						params.put("path", new JsonObject());
@@ -1028,19 +869,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						params.put("query", query);
 						JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
 						JsonObject json = new JsonObject().put("context", context);
-						eventBus.request(Feeder.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFeederFuture")).onSuccess(a -> {
+						eventBus.request(FishingTrip.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFishingTripFuture")).onSuccess(a -> {
 							JsonObject responseMessage = (JsonObject)a.body();
 							JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
 							apiRequest.setPk(Long.parseLong(responseBody.getString("pk")));
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
-							LOG.debug(String.format("postFeeder succeeded. "));
+							LOG.debug(String.format("postFishingTrip succeeded. "));
 						}).onFailure(ex -> {
-							LOG.error(String.format("postFeeder failed. "), ex);
+							LOG.error(String.format("postFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("postFeeder failed. "), ex);
+					LOG.error(String.format("postFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -1049,7 +890,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("postFeeder failed. ", ex2));
+					LOG.error(String.format("postFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1064,14 +905,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("postFeeder failed. "), ex);
+				LOG.error(String.format("postFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
 	@Override
-	public void postFeederFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void postFishingTripFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -1084,13 +925,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-				postFeederFuture(siteRequest, false).onSuccess(o -> {
+				postFishingTripFuture(siteRequest, false).onSuccess(o -> {
 					eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(JsonObject.mapFrom(o).encodePrettily()))));
 				}).onFailure(ex -> {
 					eventHandler.handle(Future.failedFuture(ex));
 				});
 			} catch(Throwable ex) {
-				LOG.error(String.format("postFeeder failed. "), ex);
+				LOG.error(String.format("postFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
@@ -1098,7 +939,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("postFeeder failed. ", ex2));
+					LOG.error(String.format("postFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1113,26 +954,26 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("postFeeder failed. "), ex);
+				LOG.error(String.format("postFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Feeder> postFeederFuture(SiteRequest siteRequest, Boolean entityShortId) {
-		Promise<Feeder> promise = Promise.promise();
+	public Future<FishingTrip> postFishingTripFuture(SiteRequest siteRequest, Boolean pk) {
+		Promise<FishingTrip> promise = Promise.promise();
 
 		try {
 			pgPool.withTransaction(sqlConnection -> {
-				Promise<Feeder> promise1 = Promise.promise();
+				Promise<FishingTrip> promise1 = Promise.promise();
 				siteRequest.setSqlConnection(sqlConnection);
-				varsFeeder(siteRequest).onSuccess(a -> {
-					createFeeder(siteRequest).onSuccess(feeder -> {
-						sqlPOSTFeeder(feeder, entityShortId).onSuccess(b -> {
-							persistFeeder(feeder, false).onSuccess(c -> {
-								relateFeeder(feeder).onSuccess(d -> {
-									indexFeeder(feeder).onSuccess(o2 -> {
-										promise1.complete(feeder);
+				varsFishingTrip(siteRequest).onSuccess(a -> {
+					createFishingTrip(siteRequest).onSuccess(fishingTrip -> {
+						sqlPOSTFishingTrip(fishingTrip, pk).onSuccess(b -> {
+							persistFishingTrip(fishingTrip, false).onSuccess(c -> {
+								relateFishingTrip(fishingTrip).onSuccess(d -> {
+									indexFishingTrip(fishingTrip).onSuccess(o2 -> {
+										promise1.complete(fishingTrip);
 									}).onFailure(ex -> {
 										promise1.fail(ex);
 									});
@@ -1157,50 +998,50 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(feeder -> {
-				Promise<Feeder> promise2 = Promise.promise();
-				refreshFeeder(feeder).onSuccess(a -> {
+			}).compose(fishingTrip -> {
+				Promise<FishingTrip> promise2 = Promise.promise();
+				refreshFishingTrip(fishingTrip).onSuccess(a -> {
 					try {
 						ApiRequest apiRequest = siteRequest.getApiRequest_();
 						if(apiRequest != null) {
 							apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-							feeder.apiRequestFeeder();
-							eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+							fishingTrip.apiRequestFishingTrip();
+							eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 						}
-						promise2.complete(feeder);
+						promise2.complete(fishingTrip);
 					} catch(Exception ex) {
-						LOG.error(String.format("postFeederFuture failed. "), ex);
+						LOG.error(String.format("postFishingTripFuture failed. "), ex);
 						promise.fail(ex);
 					}
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(feeder -> {
+			}).onSuccess(fishingTrip -> {
 				try {
 					ApiRequest apiRequest = siteRequest.getApiRequest_();
 					if(apiRequest != null) {
 						apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-						feeder.apiRequestFeeder();
-						eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+						fishingTrip.apiRequestFishingTrip();
+						eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 					}
-					promise.complete(feeder);
+					promise.complete(fishingTrip);
 				} catch(Exception ex) {
-					LOG.error(String.format("postFeederFuture failed. "), ex);
+					LOG.error(String.format("postFishingTripFuture failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("postFeederFuture failed. "), ex);
+			LOG.error(String.format("postFishingTripFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Feeder> sqlPOSTFeeder(Feeder o, Boolean inheritPrimaryKey) {
-		Promise<Feeder> promise = Promise.promise();
+	public Future<FishingTrip> sqlPOSTFishingTrip(FishingTrip o, Boolean inheritPrimaryKey) {
+		Promise<FishingTrip> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -1208,11 +1049,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("UPDATE Feeder SET ");
+			StringBuilder bSql = new StringBuilder("UPDATE FishingTrip SET ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
-			Feeder o2 = new Feeder();
+			FishingTrip o2 = new FishingTrip();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
@@ -1238,221 +1079,95 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				Set<String> entityVars = jsonObject.fieldNames();
 				for(String entityVar : entityVars) {
 					switch(entityVar) {
-					case Feeder.VAR_name:
-						o2.setName(jsonObject.getString(entityVar));
+					case FishingTrip.VAR_departureDate:
+						o2.setDepartureDate(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_name + "=$" + num);
+						bSql.append(FishingTrip.VAR_departureDate + "=$" + num);
 						num++;
-						bParams.add(o2.sqlName());
+						bParams.add(o2.sqlDepartureDate());
 						break;
-					case Feeder.VAR_description:
-						o2.setDescription(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_description + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDescription());
-						break;
-					case Feeder.VAR_created:
+					case FishingTrip.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_created + "=$" + num);
+						bSql.append(FishingTrip.VAR_created + "=$" + num);
 						num++;
 						bParams.add(o2.sqlCreated());
 						break;
-					case Feeder.VAR_location:
-						o2.setLocation(jsonObject.getJsonObject(entityVar));
+					case FishingTrip.VAR_arrivalDate:
+						o2.setArrivalDate(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_location + "=$" + num);
+						bSql.append(FishingTrip.VAR_arrivalDate + "=$" + num);
 						num++;
-						bParams.add(o2.sqlLocation());
+						bParams.add(o2.sqlArrivalDate());
 						break;
-					case Feeder.VAR_archived:
+					case FishingTrip.VAR_name:
+						o2.setName(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingTrip.VAR_name + "=$" + num);
+						num++;
+						bParams.add(o2.sqlName());
+						break;
+					case FishingTrip.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_archived + "=$" + num);
+						bSql.append(FishingTrip.VAR_archived + "=$" + num);
 						num++;
 						bParams.add(o2.sqlArchived());
 						break;
-					case Feeder.VAR_areaServed:
-						o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+					case FishingTrip.VAR_description:
+						o2.setDescription(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_areaServed + "=$" + num);
+						bSql.append(FishingTrip.VAR_description + "=$" + num);
 						num++;
-						bParams.add(o2.sqlAreaServed());
+						bParams.add(o2.sqlDescription());
 						break;
-					case Feeder.VAR_id:
-						o2.setId(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_id + "=$" + num);
-						num++;
-						bParams.add(o2.sqlId());
-						break;
-					case Feeder.VAR_sessionId:
+					case FishingTrip.VAR_sessionId:
 						o2.setSessionId(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_sessionId + "=$" + num);
+						bSql.append(FishingTrip.VAR_sessionId + "=$" + num);
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case Feeder.VAR_userKey:
+					case FishingTrip.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_userKey + "=$" + num);
+						bSql.append(FishingTrip.VAR_userKey + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserKey());
 						break;
-					case Feeder.VAR_ngsildTenant:
-						o2.setNgsildTenant(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildTenant());
-						break;
-					case Feeder.VAR_ngsildPath:
-						o2.setNgsildPath(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_ngsildPath + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildPath());
-						break;
-					case Feeder.VAR_ngsildContext:
-						o2.setNgsildContext(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_ngsildContext + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildContext());
-						break;
-					case Feeder.VAR_objectTitle:
+					case FishingTrip.VAR_objectTitle:
 						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_objectTitle + "=$" + num);
+						bSql.append(FishingTrip.VAR_objectTitle + "=$" + num);
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
-					case Feeder.VAR_ngsildData:
-						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_ngsildData + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildData());
-						break;
-					case Feeder.VAR_displayPage:
+					case FishingTrip.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(Feeder.VAR_displayPage + "=$" + num);
+						bSql.append(FishingTrip.VAR_displayPage + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDisplayPage());
-						break;
-					case Feeder.VAR_address:
-						o2.setAddress(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_address + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAddress());
-						break;
-					case Feeder.VAR_alternateName:
-						o2.setAlternateName(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_alternateName + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAlternateName());
-						break;
-					case Feeder.VAR_dataProvider:
-						o2.setDataProvider(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_dataProvider + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDataProvider());
-						break;
-					case Feeder.VAR_dateCreated:
-						o2.setDateCreated(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_dateCreated + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDateCreated());
-						break;
-					case Feeder.VAR_dateModified:
-						o2.setDateModified(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_dateModified + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDateModified());
-						break;
-					case Feeder.VAR_owner:
-						o2.setOwner(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_owner + "=$" + num);
-						num++;
-						bParams.add(o2.sqlOwner());
-						break;
-					case Feeder.VAR_relatedSource:
-						o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_relatedSource + "=$" + num);
-						num++;
-						bParams.add(o2.sqlRelatedSource());
-						break;
-					case Feeder.VAR_seeAlso:
-						o2.setSeeAlso(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_seeAlso + "=$" + num);
-						num++;
-						bParams.add(o2.sqlSeeAlso());
-						break;
-					case Feeder.VAR_source:
-						o2.setSource(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(Feeder.VAR_source + "=$" + num);
-						num++;
-						bParams.add(o2.sqlSource());
 						break;
 					}
 				}
@@ -1467,8 +1182,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							).onSuccess(b -> {
 						a.handle(Future.succeededFuture());
 					}).onFailure(ex -> {
-						RuntimeException ex2 = new RuntimeException("value Feeder failed", ex);
-						LOG.error(String.format("relateFeeder failed. "), ex2);
+						RuntimeException ex2 = new RuntimeException("value FishingTrip failed", ex);
+						LOG.error(String.format("relateFishingTrip failed. "), ex2);
 						a.handle(Future.failedFuture(ex2));
 					});
 				}));
@@ -1477,28 +1192,28 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				CompositeFuture.all(futures2).onSuccess(b -> {
 					promise.complete(o2);
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlPOSTFeeder failed. "), ex);
+					LOG.error(String.format("sqlPOSTFishingTrip failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlPOSTFeeder failed. "), ex);
+				LOG.error(String.format("sqlPOSTFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlPOSTFeeder failed. "), ex);
+			LOG.error(String.format("sqlPOSTFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200POSTFeeder(Feeder o) {
+	public Future<ServiceResponse> response200POSTFishingTrip(FishingTrip o) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
+						String m = String.format("%s %s not found", "fishing trip", pk);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1506,7 +1221,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200POSTFeeder failed. "), ex);
+			LOG.error(String.format("response200POSTFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -1515,24 +1230,24 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// DELETE //
 
 	@Override
-	public void deleteFeeder(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("deleteFeeder started. "));
+	public void deleteFishingTrip(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("deleteFishingTrip started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1549,42 +1264,42 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+						searchFishingTripList(siteRequest, false, true, true).onSuccess(listFishingTrip -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
-								apiRequest.setRows(listFeeder.getRequest().getRows());
-								apiRequest.setNumFound(listFeeder.getResponse().getResponse().getNumFound());
+								apiRequest.setRows(listFishingTrip.getRequest().getRows());
+								apiRequest.setNumFound(listFishingTrip.getResponse().getResponse().getNumFound());
 								apiRequest.setNumPATCH(0L);
 								apiRequest.initDeepApiRequest(siteRequest);
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
-									apiRequest.setOriginal(listFeeder.first());
-								apiRequest.setPk(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getPk()).orElse(null));
-								eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+									apiRequest.setOriginal(listFishingTrip.first());
+								apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+								eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 
-								listDELETEFeeder(apiRequest, listFeeder).onSuccess(e -> {
-									response200DELETEFeeder(siteRequest).onSuccess(response -> {
-										LOG.debug(String.format("deleteFeeder succeeded. "));
+								listDELETEFishingTrip(apiRequest, listFishingTrip).onSuccess(e -> {
+									response200DELETEFishingTrip(siteRequest).onSuccess(response -> {
+										LOG.debug(String.format("deleteFishingTrip succeeded. "));
 										eventHandler.handle(Future.succeededFuture(response));
 									}).onFailure(ex -> {
-										LOG.error(String.format("deleteFeeder failed. "), ex);
+										LOG.error(String.format("deleteFishingTrip failed. "), ex);
 										error(siteRequest, eventHandler, ex);
 									});
 								}).onFailure(ex -> {
-									LOG.error(String.format("deleteFeeder failed. "), ex);
+									LOG.error(String.format("deleteFishingTrip failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							} catch(Exception ex) {
-								LOG.error(String.format("deleteFeeder failed. "), ex);
+								LOG.error(String.format("deleteFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("deleteFeeder failed. "), ex);
+							LOG.error(String.format("deleteFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("deleteFeeder failed. "), ex);
+					LOG.error(String.format("deleteFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -1593,7 +1308,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("deleteFeeder failed. ", ex2));
+					LOG.error(String.format("deleteFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1608,58 +1323,58 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("deleteFeeder failed. "), ex);
+				LOG.error(String.format("deleteFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listDELETEFeeder(ApiRequest apiRequest, SearchList<Feeder> listFeeder) {
+	public Future<Void> listDELETEFishingTrip(ApiRequest apiRequest, SearchList<FishingTrip> listFishingTrip) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
-		SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-		listFeeder.getList().forEach(o -> {
+		SiteRequest siteRequest = listFishingTrip.getSiteRequest_(SiteRequest.class);
+		listFishingTrip.getList().forEach(o -> {
 			SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
 			siteRequest2.setScopes(siteRequest.getScopes());
 			o.setSiteRequest_(siteRequest2);
 			siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
 			JsonObject jsonObject = JsonObject.mapFrom(o);
-			Feeder o2 = jsonObject.mapTo(Feeder.class);
+			FishingTrip o2 = jsonObject.mapTo(FishingTrip.class);
 			o2.setSiteRequest_(siteRequest2);
 			futures.add(Future.future(promise1 -> {
-				deleteFeederFuture(o).onSuccess(a -> {
+				deleteFishingTripFuture(o).onSuccess(a -> {
 					promise1.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("listDELETEFeeder failed. "), ex);
+					LOG.error(String.format("listDELETEFishingTrip failed. "), ex);
 					promise1.fail(ex);
 				});
 			}));
 		});
 		CompositeFuture.all(futures).onSuccess( a -> {
-			listFeeder.next().onSuccess(next -> {
+			listFishingTrip.next().onSuccess(next -> {
 				if(next) {
-					listDELETEFeeder(apiRequest, listFeeder).onSuccess(b -> {
+					listDELETEFishingTrip(apiRequest, listFishingTrip).onSuccess(b -> {
 						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listDELETEFeeder failed. "), ex);
+						LOG.error(String.format("listDELETEFishingTrip failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete();
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("listDELETEFeeder failed. "), ex);
+				LOG.error(String.format("listDELETEFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		}).onFailure(ex -> {
-			LOG.error(String.format("listDELETEFeeder failed. "), ex);
+			LOG.error(String.format("listDELETEFishingTrip failed. "), ex);
 			promise.fail(ex);
 		});
 		return promise.future();
 	}
 
 	@Override
-	public void deleteFeederFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void deleteFishingTripFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -1670,10 +1385,10 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						siteRequest.addScopes(scope);
 					});
 				});
-				searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+				searchFishingTripList(siteRequest, false, true, true).onSuccess(listFishingTrip -> {
 					try {
-						Feeder o = listFeeder.first();
-						if(o != null && listFeeder.getResponse().getResponse().getNumFound() == 1) {
+						FishingTrip o = listFishingTrip.first();
+						if(o != null && listFishingTrip.getResponse().getResponse().getNumFound() == 1) {
 							ApiRequest apiRequest = new ApiRequest();
 							apiRequest.setRows(1L);
 							apiRequest.setNumFound(1L);
@@ -1685,9 +1400,9 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getPk()).orElse(null));
-							deleteFeederFuture(o).onSuccess(o2 -> {
+							apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
+							apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+							deleteFishingTripFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
 								eventHandler.handle(Future.failedFuture(ex));
@@ -1696,42 +1411,42 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 						}
 					} catch(Exception ex) {
-						LOG.error(String.format("deleteFeeder failed. "), ex);
+						LOG.error(String.format("deleteFishingTrip failed. "), ex);
 						error(siteRequest, eventHandler, ex);
 					}
 				}).onFailure(ex -> {
-					LOG.error(String.format("deleteFeeder failed. "), ex);
+					LOG.error(String.format("deleteFishingTrip failed. "), ex);
 					error(siteRequest, eventHandler, ex);
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("deleteFeeder failed. "), ex);
+				LOG.error(String.format("deleteFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
-			LOG.error(String.format("deleteFeeder failed. "), ex);
+			LOG.error(String.format("deleteFishingTrip failed. "), ex);
 			error(null, eventHandler, ex);
 		});
 	}
 
-	public Future<Feeder> deleteFeederFuture(Feeder o) {
+	public Future<FishingTrip> deleteFishingTripFuture(FishingTrip o) {
 		SiteRequest siteRequest = o.getSiteRequest_();
-		Promise<Feeder> promise = Promise.promise();
+		Promise<FishingTrip> promise = Promise.promise();
 
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			Promise<Feeder> promise1 = Promise.promise();
+			Promise<FishingTrip> promise1 = Promise.promise();
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
-				varsFeeder(siteRequest).onSuccess(a -> {
-					sqlDELETEFeeder(o).onSuccess(feeder -> {
-						relateFeeder(o).onSuccess(d -> {
-							unindexFeeder(o).onSuccess(o2 -> {
+				varsFishingTrip(siteRequest).onSuccess(a -> {
+					sqlDELETEFishingTrip(o).onSuccess(fishingTrip -> {
+						relateFishingTrip(o).onSuccess(d -> {
+							unindexFishingTrip(o).onSuccess(o2 -> {
 								if(apiRequest != null) {
 									apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 									if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-										o2.apiRequestFeeder();
+										o2.apiRequestFishingTrip();
 										if(apiRequest.getVars().size() > 0)
-											eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+											eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 									}
 								}
 								promise1.complete();
@@ -1753,27 +1468,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(feeder -> {
-				Promise<Feeder> promise2 = Promise.promise();
-				refreshFeeder(o).onSuccess(a -> {
+			}).compose(fishingTrip -> {
+				Promise<FishingTrip> promise2 = Promise.promise();
+				refreshFishingTrip(o).onSuccess(a -> {
 					promise2.complete(o);
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(feeder -> {
-				promise.complete(feeder);
+			}).onSuccess(fishingTrip -> {
+				promise.complete(fishingTrip);
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("deleteFeederFuture failed. "), ex);
+			LOG.error(String.format("deleteFishingTripFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> sqlDELETEFeeder(Feeder o) {
+	public Future<Void> sqlDELETEFishingTrip(FishingTrip o) {
 		Promise<Void> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
@@ -1782,11 +1497,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("DELETE FROM Feeder ");
+			StringBuilder bSql = new StringBuilder("DELETE FROM FishingTrip ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
-			Feeder o2 = new Feeder();
+			FishingTrip o2 = new FishingTrip();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
@@ -1807,45 +1522,36 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						).onSuccess(b -> {
 					a.handle(Future.succeededFuture());
 				}).onFailure(ex -> {
-					RuntimeException ex2 = new RuntimeException("value Feeder failed", ex);
-					LOG.error(String.format("unrelateFeeder failed. "), ex2);
+					RuntimeException ex2 = new RuntimeException("value FishingTrip failed", ex);
+					LOG.error(String.format("unrelateFishingTrip failed. "), ex2);
 					a.handle(Future.failedFuture(ex2));
 				});
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-						cbDeleteEntity(o).onSuccess(c -> {
-							promise.complete();
-						}).onFailure(ex -> {
-							LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
-							promise.fail(ex);
-						});
-					} else {
-						promise.complete();
-					}
+					promise.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
+					LOG.error(String.format("sqlDELETEFishingTrip failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
+				LOG.error(String.format("sqlDELETEFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
+			LOG.error(String.format("sqlDELETEFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200DELETEFeeder(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200DELETEFishingTrip(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
+						String m = String.format("%s %s not found", "fishing trip", pk);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1853,7 +1559,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200DELETEFeeder failed. "), ex);
+			LOG.error(String.format("response200DELETEFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -1862,24 +1568,24 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// PUTImport //
 
 	@Override
-	public void putimportFeeder(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("putimportFeeder started. "));
+	public void putimportFishingTrip(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("putimportFishingTrip started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "PUT"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "PUT"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1903,27 +1609,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						apiRequest.setNumPATCH(0L);
 						apiRequest.initDeepApiRequest(siteRequest);
 						siteRequest.setApiRequest_(apiRequest);
-						eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
-						varsFeeder(siteRequest).onSuccess(d -> {
-							listPUTImportFeeder(apiRequest, siteRequest).onSuccess(e -> {
-								response200PUTImportFeeder(siteRequest).onSuccess(response -> {
-									LOG.debug(String.format("putimportFeeder succeeded. "));
+						eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
+						varsFishingTrip(siteRequest).onSuccess(d -> {
+							listPUTImportFishingTrip(apiRequest, siteRequest).onSuccess(e -> {
+								response200PUTImportFishingTrip(siteRequest).onSuccess(response -> {
+									LOG.debug(String.format("putimportFishingTrip succeeded. "));
 									eventHandler.handle(Future.succeededFuture(response));
 								}).onFailure(ex -> {
-									LOG.error(String.format("putimportFeeder failed. "), ex);
+									LOG.error(String.format("putimportFishingTrip failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							}).onFailure(ex -> {
-								LOG.error(String.format("putimportFeeder failed. "), ex);
+								LOG.error(String.format("putimportFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("putimportFeeder failed. "), ex);
+							LOG.error(String.format("putimportFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("putimportFeeder failed. "), ex);
+					LOG.error(String.format("putimportFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -1932,7 +1638,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("putimportFeeder failed. ", ex2));
+					LOG.error(String.format("putimportFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1947,13 +1653,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("putimportFeeder failed. "), ex);
+				LOG.error(String.format("putimportFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listPUTImportFeeder(ApiRequest apiRequest, SiteRequest siteRequest) {
+	public Future<Void> listPUTImportFishingTrip(ApiRequest apiRequest, SiteRequest siteRequest) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
 		JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
@@ -1978,10 +1684,10 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					params.put("query", query);
 					JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
 					JsonObject json = new JsonObject().put("context", context);
-					eventBus.request(Feeder.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "putimportFeederFuture")).onSuccess(a -> {
+					eventBus.request(FishingTrip.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "putimportFishingTripFuture")).onSuccess(a -> {
 						promise1.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listPUTImportFeeder failed. "), ex);
+						LOG.error(String.format("listPUTImportFishingTrip failed. "), ex);
 						promise1.fail(ex);
 					});
 				}));
@@ -1990,18 +1696,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 				promise.complete();
 			}).onFailure(ex -> {
-				LOG.error(String.format("listPUTImportFeeder failed. "), ex);
+				LOG.error(String.format("listPUTImportFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("listPUTImportFeeder failed. "), ex);
+			LOG.error(String.format("listPUTImportFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
 	@Override
-	public void putimportFeederFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void putimportFishingTripFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -2011,19 +1717,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				apiRequest.setNumPATCH(0L);
 				apiRequest.initDeepApiRequest(siteRequest);
 				siteRequest.setApiRequest_(apiRequest);
-				String entityShortId = Optional.ofNullable(body.getString(Feeder.VAR_entityShortId)).orElse(body.getString(Feeder.VAR_solrId));
+				String pk = Optional.ofNullable(body.getString(FishingTrip.VAR_pk)).orElse(body.getString(FishingTrip.VAR_solrId));
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
 				pgPool.getConnection().onSuccess(sqlConnection -> {
-					String sqlQuery = String.format("select * from %s WHERE entityShortId=$1", Feeder.CLASS_SIMPLE_NAME);
+					String sqlQuery = String.format("select * from %s WHERE pk=$1", FishingTrip.CLASS_SIMPLE_NAME);
 					sqlConnection.preparedQuery(sqlQuery)
-							.execute(Tuple.tuple(Arrays.asList(entityShortId))
+							.execute(Tuple.tuple(Arrays.asList(pk))
 							).onSuccess(result -> {
 						sqlConnection.close().onSuccess(a -> {
 							try {
 								if(result.size() >= 1) {
-									Feeder o = new Feeder();
+									FishingTrip o = new FishingTrip();
 									o.setSiteRequest_(siteRequest);
 									for(Row definition : result.value()) {
 										for(Integer i = 0; i < definition.size(); i++) {
@@ -2032,11 +1738,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 												Object columnValue = definition.getValue(i);
 												o.persistForClass(columnName, columnValue);
 											} catch(Exception e) {
-												LOG.error(String.format("persistFeeder failed. "), e);
+												LOG.error(String.format("persistFishingTrip failed. "), e);
 											}
 										}
 									}
-									Feeder o2 = new Feeder();
+									FishingTrip o2 = new FishingTrip();
 									o2.setSiteRequest_(siteRequest);
 									JsonObject body2 = new JsonObject();
 									for(String f : body.fieldNames()) {
@@ -2068,56 +1774,56 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 										} else {
 											o2.persistForClass(f, bodyVal);
 											o2.relateForClass(f, bodyVal);
-											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+											if(!StringUtils.containsAny(f, "pk", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
 												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 										}
 									}
 									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
 										if(!body.fieldNames().contains(f)) {
-											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+											if(!StringUtils.containsAny(f, "pk", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
 												body2.putNull("set" + StringUtils.capitalize(f));
 										}
 									}
 									if(result.size() >= 1) {
 										apiRequest.setOriginal(o);
-										apiRequest.setId(o.getEntityShortId());
+										apiRequest.setId(Optional.ofNullable(o.getPk()).map(v -> v.toString()).orElse(null));
 										apiRequest.setPk(o.getPk());
 									}
 									siteRequest.setJsonObject(body2);
-									patchFeederFuture(o, true).onSuccess(b -> {
-										LOG.debug("Import Feeder {} succeeded, modified Feeder. ", body.getValue(Feeder.VAR_entityShortId));
+									patchFishingTripFuture(o, true).onSuccess(b -> {
+										LOG.debug("Import FishingTrip {} succeeded, modified FishingTrip. ", body.getValue(FishingTrip.VAR_pk));
 										eventHandler.handle(Future.succeededFuture());
 									}).onFailure(ex -> {
-										LOG.error(String.format("putimportFeederFuture failed. "), ex);
+										LOG.error(String.format("putimportFishingTripFuture failed. "), ex);
 										eventHandler.handle(Future.failedFuture(ex));
 									});
 								} else {
-									postFeederFuture(siteRequest, true).onSuccess(b -> {
-										LOG.debug("Import Feeder {} succeeded, created new Feeder. ", body.getValue(Feeder.VAR_entityShortId));
+									postFishingTripFuture(siteRequest, true).onSuccess(b -> {
+										LOG.debug("Import FishingTrip {} succeeded, created new FishingTrip. ", body.getValue(FishingTrip.VAR_pk));
 										eventHandler.handle(Future.succeededFuture());
 									}).onFailure(ex -> {
-										LOG.error(String.format("putimportFeederFuture failed. "), ex);
+										LOG.error(String.format("putimportFishingTripFuture failed. "), ex);
 										eventHandler.handle(Future.failedFuture(ex));
 									});
 								}
 							} catch(Exception ex) {
-								LOG.error(String.format("putimportFeederFuture failed. "), ex);
+								LOG.error(String.format("putimportFishingTripFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("putimportFeederFuture failed. "), ex);
+							LOG.error(String.format("putimportFishingTripFuture failed. "), ex);
 							eventHandler.handle(Future.failedFuture(ex));
 						});
 					}).onFailure(ex -> {
-						LOG.error(String.format("putimportFeederFuture failed. "), ex);
+						LOG.error(String.format("putimportFishingTripFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
 					});
 				}).onFailure(ex -> {
-					LOG.error(String.format("putimportFeederFuture failed. "), ex);
+					LOG.error(String.format("putimportFishingTripFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("putimportFeederFuture failed. "), ex);
+				LOG.error(String.format("putimportFishingTripFuture failed. "), ex);
 				eventHandler.handle(Future.failedFuture(ex));
 			}
 		}).onFailure(ex -> {
@@ -2125,7 +1831,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("putimportFeeder failed. ", ex2));
+					LOG.error(String.format("putimportFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2140,19 +1846,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("putimportFeeder failed. "), ex);
+				LOG.error(String.format("putimportFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<ServiceResponse> response200PUTImportFeeder(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200PUTImportFishingTrip(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
+						String m = String.format("%s %s not found", "fishing trip", pk);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2160,7 +1866,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200PUTImportFeeder failed. "), ex);
+			LOG.error(String.format("response200PUTImportFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -2169,23 +1875,23 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// SearchPage //
 
 	@Override
-	public void searchpageFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void searchpageFishingTrip(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2202,21 +1908,21 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
-							response200SearchPageFeeder(listFeeder).onSuccess(response -> {
+						searchFishingTripList(siteRequest, false, true, false).onSuccess(listFishingTrip -> {
+							response200SearchPageFishingTrip(listFishingTrip).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("searchpageFeeder succeeded. "));
+								LOG.debug(String.format("searchpageFishingTrip succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("searchpageFeeder failed. "), ex);
+								LOG.error(String.format("searchpageFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("searchpageFeeder failed. "), ex);
+							LOG.error(String.format("searchpageFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("searchpageFeeder failed. "), ex);
+					LOG.error(String.format("searchpageFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -2225,7 +1931,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("searchpageFeeder failed. ", ex2));
+					LOG.error(String.format("searchpageFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2240,38 +1946,38 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("searchpageFeeder failed. "), ex);
+				LOG.error(String.format("searchpageFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public void searchpageFeederPageInit(FeederPage page, SearchList<Feeder> listFeeder) {
+	public void searchpageFishingTripPageInit(FishingTripPage page, SearchList<FishingTrip> listFishingTrip) {
 	}
 
-	public String templateSearchPageFeeder(ServiceRequest serviceRequest) {
-		return "en-us/search/feeder/FeederSearchPage.htm";
+	public String templateSearchPageFishingTrip(ServiceRequest serviceRequest) {
+		return "en-us/search/fishing-trip/FishingTripSearchPage.htm";
 	}
-	public Future<ServiceResponse> response200SearchPageFeeder(SearchList<Feeder> listFeeder) {
+	public Future<ServiceResponse> response200SearchPageFishingTrip(SearchList<FishingTrip> listFishingTrip) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-			String pageTemplateUri = templateSearchPageFeeder(siteRequest.getServiceRequest());
+			SiteRequest siteRequest = listFishingTrip.getSiteRequest_(SiteRequest.class);
+			String pageTemplateUri = templateSearchPageFishingTrip(siteRequest.getServiceRequest());
 			String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
 			Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
 			String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-			FeederPage page = new FeederPage();
+			FishingTripPage page = new FishingTripPage();
 			MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
 			siteRequest.setRequestHeaders(requestHeaders);
 
-			if(listFeeder.size() >= 1)
-				siteRequest.setRequestPk(listFeeder.get(0).getPk());
-			page.setSearchListFeeder_(listFeeder);
+			if(listFishingTrip.size() >= 1)
+				siteRequest.setRequestPk(listFishingTrip.get(0).getPk());
+			page.setSearchListFishingTrip_(listFishingTrip);
 			page.setSiteRequest_(siteRequest);
 			page.setServiceRequest(siteRequest.getServiceRequest());
 			page.setWebClient(webClient);
 			page.setVertx(vertx);
-			page.promiseDeepFeederPage(siteRequest).onSuccess(a -> {
+			page.promiseDeepFishingTripPage(siteRequest).onSuccess(a -> {
 				try {
 					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
@@ -2279,19 +1985,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					Buffer buffer = Buffer.buffer(renderedTemplate);
 					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
 				} catch(Exception ex) {
-					LOG.error(String.format("response200SearchPageFeeder failed. "), ex);
+					LOG.error(String.format("response200SearchPageFishingTrip failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("response200SearchPageFeeder failed. "), ex);
+			LOG.error(String.format("response200SearchPageFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void responsePivotSearchPageFeeder(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+	public void responsePivotSearchPageFishingTrip(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
 		if(pivots != null) {
 			for(SolrResponse.Pivot pivotField : pivots) {
 				String entityIndexed = pivotField.getField();
@@ -2320,7 +2026,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				if(pivotFields2 != null) {
 					JsonArray pivotArray2 = new JsonArray();
 					pivotJson.put("pivot", pivotArray2);
-					responsePivotSearchPageFeeder(pivotFields2, pivotArray2);
+					responsePivotSearchPageFishingTrip(pivotFields2, pivotArray2);
 				}
 			}
 		}
@@ -2329,23 +2035,23 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// EditPage //
 
 	@Override
-	public void editpageFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void editpageFishingTrip(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2362,21 +2068,21 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
-							response200EditPageFeeder(listFeeder).onSuccess(response -> {
+						searchFishingTripList(siteRequest, false, true, false).onSuccess(listFishingTrip -> {
+							response200EditPageFishingTrip(listFishingTrip).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("editpageFeeder succeeded. "));
+								LOG.debug(String.format("editpageFishingTrip succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("editpageFeeder failed. "), ex);
+								LOG.error(String.format("editpageFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("editpageFeeder failed. "), ex);
+							LOG.error(String.format("editpageFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("editpageFeeder failed. "), ex);
+					LOG.error(String.format("editpageFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -2385,7 +2091,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("editpageFeeder failed. ", ex2));
+					LOG.error(String.format("editpageFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2400,38 +2106,38 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("editpageFeeder failed. "), ex);
+				LOG.error(String.format("editpageFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public void editpageFeederPageInit(FeederPage page, SearchList<Feeder> listFeeder) {
+	public void editpageFishingTripPageInit(FishingTripPage page, SearchList<FishingTrip> listFishingTrip) {
 	}
 
-	public String templateEditPageFeeder(ServiceRequest serviceRequest) {
-		return "en-us/edit/feeder/FeederEditPage.htm";
+	public String templateEditPageFishingTrip(ServiceRequest serviceRequest) {
+		return "en-us/edit/fishing-trip/FishingTripEditPage.htm";
 	}
-	public Future<ServiceResponse> response200EditPageFeeder(SearchList<Feeder> listFeeder) {
+	public Future<ServiceResponse> response200EditPageFishingTrip(SearchList<FishingTrip> listFishingTrip) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-			String pageTemplateUri = templateEditPageFeeder(siteRequest.getServiceRequest());
+			SiteRequest siteRequest = listFishingTrip.getSiteRequest_(SiteRequest.class);
+			String pageTemplateUri = templateEditPageFishingTrip(siteRequest.getServiceRequest());
 			String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
 			Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
 			String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-			FeederPage page = new FeederPage();
+			FishingTripPage page = new FishingTripPage();
 			MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
 			siteRequest.setRequestHeaders(requestHeaders);
 
-			if(listFeeder.size() >= 1)
-				siteRequest.setRequestPk(listFeeder.get(0).getPk());
-			page.setSearchListFeeder_(listFeeder);
+			if(listFishingTrip.size() >= 1)
+				siteRequest.setRequestPk(listFishingTrip.get(0).getPk());
+			page.setSearchListFishingTrip_(listFishingTrip);
 			page.setSiteRequest_(siteRequest);
 			page.setServiceRequest(siteRequest.getServiceRequest());
 			page.setWebClient(webClient);
 			page.setVertx(vertx);
-			page.promiseDeepFeederPage(siteRequest).onSuccess(a -> {
+			page.promiseDeepFishingTripPage(siteRequest).onSuccess(a -> {
 				try {
 					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
@@ -2439,19 +2145,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					Buffer buffer = Buffer.buffer(renderedTemplate);
 					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
 				} catch(Exception ex) {
-					LOG.error(String.format("response200EditPageFeeder failed. "), ex);
+					LOG.error(String.format("response200EditPageFishingTrip failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("response200EditPageFeeder failed. "), ex);
+			LOG.error(String.format("response200EditPageFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void responsePivotEditPageFeeder(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+	public void responsePivotEditPageFishingTrip(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
 		if(pivots != null) {
 			for(SolrResponse.Pivot pivotField : pivots) {
 				String entityIndexed = pivotField.getField();
@@ -2480,7 +2186,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				if(pivotFields2 != null) {
 					JsonArray pivotArray2 = new JsonArray();
 					pivotJson.put("pivot", pivotArray2);
-					responsePivotEditPageFeeder(pivotFields2, pivotArray2);
+					responsePivotEditPageFishingTrip(pivotFields2, pivotArray2);
 				}
 			}
 		}
@@ -2489,24 +2195,24 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 	// DELETEFilter //
 
 	@Override
-	public void deletefilterFeeder(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("deletefilterFeeder started. "));
+	public void deletefilterFishingTrip(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("deletefilterFishingTrip started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingTrip.CLASS_SIMPLE_NAME, "PUT"));
+			if(pk != null)
+				form.add("permission", String.format("%s-%s#%s", FishingTrip.CLASS_SIMPLE_NAME, pk, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2523,42 +2229,42 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+						searchFishingTripList(siteRequest, false, true, true).onSuccess(listFishingTrip -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
-								apiRequest.setRows(listFeeder.getRequest().getRows());
-								apiRequest.setNumFound(listFeeder.getResponse().getResponse().getNumFound());
+								apiRequest.setRows(listFishingTrip.getRequest().getRows());
+								apiRequest.setNumFound(listFishingTrip.getResponse().getResponse().getNumFound());
 								apiRequest.setNumPATCH(0L);
 								apiRequest.initDeepApiRequest(siteRequest);
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
-									apiRequest.setOriginal(listFeeder.first());
-								apiRequest.setPk(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getPk()).orElse(null));
-								eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+									apiRequest.setOriginal(listFishingTrip.first());
+								apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+								eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 
-								listDELETEFilterFeeder(apiRequest, listFeeder).onSuccess(e -> {
-									response200DELETEFilterFeeder(siteRequest).onSuccess(response -> {
-										LOG.debug(String.format("deletefilterFeeder succeeded. "));
+								listDELETEFilterFishingTrip(apiRequest, listFishingTrip).onSuccess(e -> {
+									response200DELETEFilterFishingTrip(siteRequest).onSuccess(response -> {
+										LOG.debug(String.format("deletefilterFishingTrip succeeded. "));
 										eventHandler.handle(Future.succeededFuture(response));
 									}).onFailure(ex -> {
-										LOG.error(String.format("deletefilterFeeder failed. "), ex);
+										LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 										error(siteRequest, eventHandler, ex);
 									});
 								}).onFailure(ex -> {
-									LOG.error(String.format("deletefilterFeeder failed. "), ex);
+									LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							} catch(Exception ex) {
-								LOG.error(String.format("deletefilterFeeder failed. "), ex);
+								LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("deletefilterFeeder failed. "), ex);
+							LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("deletefilterFeeder failed. "), ex);
+					LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -2567,7 +2273,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("deletefilterFeeder failed. ", ex2));
+					LOG.error(String.format("deletefilterFishingTrip failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2582,58 +2288,58 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							)
 					));
 			} else {
-				LOG.error(String.format("deletefilterFeeder failed. "), ex);
+				LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listDELETEFilterFeeder(ApiRequest apiRequest, SearchList<Feeder> listFeeder) {
+	public Future<Void> listDELETEFilterFishingTrip(ApiRequest apiRequest, SearchList<FishingTrip> listFishingTrip) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
-		SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-		listFeeder.getList().forEach(o -> {
+		SiteRequest siteRequest = listFishingTrip.getSiteRequest_(SiteRequest.class);
+		listFishingTrip.getList().forEach(o -> {
 			SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
 			siteRequest2.setScopes(siteRequest.getScopes());
 			o.setSiteRequest_(siteRequest2);
 			siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
 			JsonObject jsonObject = JsonObject.mapFrom(o);
-			Feeder o2 = jsonObject.mapTo(Feeder.class);
+			FishingTrip o2 = jsonObject.mapTo(FishingTrip.class);
 			o2.setSiteRequest_(siteRequest2);
 			futures.add(Future.future(promise1 -> {
-				deletefilterFeederFuture(o).onSuccess(a -> {
+				deletefilterFishingTripFuture(o).onSuccess(a -> {
 					promise1.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
+					LOG.error(String.format("listDELETEFilterFishingTrip failed. "), ex);
 					promise1.fail(ex);
 				});
 			}));
 		});
 		CompositeFuture.all(futures).onSuccess( a -> {
-			listFeeder.next().onSuccess(next -> {
+			listFishingTrip.next().onSuccess(next -> {
 				if(next) {
-					listDELETEFilterFeeder(apiRequest, listFeeder).onSuccess(b -> {
+					listDELETEFilterFishingTrip(apiRequest, listFishingTrip).onSuccess(b -> {
 						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
+						LOG.error(String.format("listDELETEFilterFishingTrip failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete();
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
+				LOG.error(String.format("listDELETEFilterFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		}).onFailure(ex -> {
-			LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
+			LOG.error(String.format("listDELETEFilterFishingTrip failed. "), ex);
 			promise.fail(ex);
 		});
 		return promise.future();
 	}
 
 	@Override
-	public void deletefilterFeederFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void deletefilterFishingTripFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -2644,10 +2350,10 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						siteRequest.addScopes(scope);
 					});
 				});
-				searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+				searchFishingTripList(siteRequest, false, true, true).onSuccess(listFishingTrip -> {
 					try {
-						Feeder o = listFeeder.first();
-						if(o != null && listFeeder.getResponse().getResponse().getNumFound() == 1) {
+						FishingTrip o = listFishingTrip.first();
+						if(o != null && listFishingTrip.getResponse().getResponse().getNumFound() == 1) {
 							ApiRequest apiRequest = new ApiRequest();
 							apiRequest.setRows(1L);
 							apiRequest.setNumFound(1L);
@@ -2659,9 +2365,9 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFeeder.first()).map(o2 -> o2.getPk()).orElse(null));
-							deletefilterFeederFuture(o).onSuccess(o2 -> {
+							apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
+							apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+							deletefilterFishingTripFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
 								eventHandler.handle(Future.failedFuture(ex));
@@ -2670,42 +2376,42 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 						}
 					} catch(Exception ex) {
-						LOG.error(String.format("deletefilterFeeder failed. "), ex);
+						LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 						error(siteRequest, eventHandler, ex);
 					}
 				}).onFailure(ex -> {
-					LOG.error(String.format("deletefilterFeeder failed. "), ex);
+					LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 					error(siteRequest, eventHandler, ex);
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("deletefilterFeeder failed. "), ex);
+				LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
-			LOG.error(String.format("deletefilterFeeder failed. "), ex);
+			LOG.error(String.format("deletefilterFishingTrip failed. "), ex);
 			error(null, eventHandler, ex);
 		});
 	}
 
-	public Future<Feeder> deletefilterFeederFuture(Feeder o) {
+	public Future<FishingTrip> deletefilterFishingTripFuture(FishingTrip o) {
 		SiteRequest siteRequest = o.getSiteRequest_();
-		Promise<Feeder> promise = Promise.promise();
+		Promise<FishingTrip> promise = Promise.promise();
 
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			Promise<Feeder> promise1 = Promise.promise();
+			Promise<FishingTrip> promise1 = Promise.promise();
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
-				varsFeeder(siteRequest).onSuccess(a -> {
-					sqlDELETEFilterFeeder(o).onSuccess(feeder -> {
-						relateFeeder(o).onSuccess(d -> {
-							unindexFeeder(o).onSuccess(o2 -> {
+				varsFishingTrip(siteRequest).onSuccess(a -> {
+					sqlDELETEFilterFishingTrip(o).onSuccess(fishingTrip -> {
+						relateFishingTrip(o).onSuccess(d -> {
+							unindexFishingTrip(o).onSuccess(o2 -> {
 								if(apiRequest != null) {
 									apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 									if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-										o2.apiRequestFeeder();
+										o2.apiRequestFishingTrip();
 										if(apiRequest.getVars().size() > 0)
-											eventBus.publish("websocketFeeder", JsonObject.mapFrom(apiRequest).toString());
+											eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 									}
 								}
 								promise1.complete();
@@ -2727,27 +2433,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(feeder -> {
-				Promise<Feeder> promise2 = Promise.promise();
-				refreshFeeder(o).onSuccess(a -> {
+			}).compose(fishingTrip -> {
+				Promise<FishingTrip> promise2 = Promise.promise();
+				refreshFishingTrip(o).onSuccess(a -> {
 					promise2.complete(o);
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(feeder -> {
-				promise.complete(feeder);
+			}).onSuccess(fishingTrip -> {
+				promise.complete(fishingTrip);
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("deletefilterFeederFuture failed. "), ex);
+			LOG.error(String.format("deletefilterFishingTripFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> sqlDELETEFilterFeeder(Feeder o) {
+	public Future<Void> sqlDELETEFilterFishingTrip(FishingTrip o) {
 		Promise<Void> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
@@ -2756,11 +2462,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("DELETE FROM Feeder ");
+			StringBuilder bSql = new StringBuilder("DELETE FROM FishingTrip ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
-			Feeder o2 = new Feeder();
+			FishingTrip o2 = new FishingTrip();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
@@ -2781,45 +2487,36 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						).onSuccess(b -> {
 					a.handle(Future.succeededFuture());
 				}).onFailure(ex -> {
-					RuntimeException ex2 = new RuntimeException("value Feeder failed", ex);
-					LOG.error(String.format("unrelateFeeder failed. "), ex2);
+					RuntimeException ex2 = new RuntimeException("value FishingTrip failed", ex);
+					LOG.error(String.format("unrelateFishingTrip failed. "), ex2);
 					a.handle(Future.failedFuture(ex2));
 				});
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-						cbDeleteEntity(o).onSuccess(c -> {
-							promise.complete();
-						}).onFailure(ex -> {
-							LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
-							promise.fail(ex);
-						});
-					} else {
-						promise.complete();
-					}
+					promise.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
+					LOG.error(String.format("sqlDELETEFilterFishingTrip failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
+				LOG.error(String.format("sqlDELETEFilterFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
+			LOG.error(String.format("sqlDELETEFilterFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200DELETEFilterFeeder(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200DELETEFilterFishingTrip(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String pk = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pk");
+						String m = String.format("%s %s not found", "fishing trip", pk);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2827,7 +2524,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200DELETEFilterFeeder failed. "), ex);
+			LOG.error(String.format("response200DELETEFilterFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -2835,78 +2532,78 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 
 	// General //
 
-	public Future<Feeder> createFeeder(SiteRequest siteRequest) {
-		Promise<Feeder> promise = Promise.promise();
+	public Future<FishingTrip> createFishingTrip(SiteRequest siteRequest) {
+		Promise<FishingTrip> promise = Promise.promise();
 		try {
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			String userId = siteRequest.getUserId();
 			Long userKey = siteRequest.getUserKey();
 			ZonedDateTime created = Optional.ofNullable(siteRequest.getJsonObject()).map(j -> j.getString("created")).map(s -> ZonedDateTime.parse(s, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER.withZone(ZoneId.of(config.getString(ConfigKeys.SITE_ZONE))))).orElse(ZonedDateTime.now(ZoneId.of(config.getString(ConfigKeys.SITE_ZONE))));
 
-			sqlConnection.preparedQuery("INSERT INTO Feeder(created, userKey) VALUES($1, $2) RETURNING pk")
+			sqlConnection.preparedQuery("INSERT INTO FishingTrip(created, userKey) VALUES($1, $2) RETURNING pk")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(created.toOffsetDateTime(), userKey)).onSuccess(result -> {
 				Row createLine = result.value().stream().findFirst().orElseGet(() -> null);
 				Long pk = createLine.getLong(0);
-				Feeder o = new Feeder();
+				FishingTrip o = new FishingTrip();
 				o.setPk(pk);
 				o.setSiteRequest_(siteRequest);
 				promise.complete(o);
 			}).onFailure(ex -> {
 				RuntimeException ex2 = new RuntimeException(ex);
-				LOG.error("createFeeder failed. ", ex2);
+				LOG.error("createFishingTrip failed. ", ex2);
 				promise.fail(ex2);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("createFeeder failed. "), ex);
+			LOG.error(String.format("createFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public void searchFeederQ(SearchList<Feeder> searchList, String entityVar, String valueIndexed, String varIndexed) {
+	public void searchFishingTripQ(SearchList<FishingTrip> searchList, String entityVar, String valueIndexed, String varIndexed) {
 		searchList.q(varIndexed + ":" + ("*".equals(valueIndexed) ? valueIndexed : SearchTool.escapeQueryChars(valueIndexed)));
 		if(!"*".equals(entityVar)) {
 		}
 	}
 
-	public String searchFeederFq(SearchList<Feeder> searchList, String entityVar, String valueIndexed, String varIndexed) {
+	public String searchFishingTripFq(SearchList<FishingTrip> searchList, String entityVar, String valueIndexed, String varIndexed) {
 		if(varIndexed == null)
 			throw new RuntimeException(String.format("\"%s\" is not an indexed entity. ", entityVar));
 		if(StringUtils.startsWith(valueIndexed, "[")) {
 			String[] fqs = StringUtils.substringAfter(StringUtils.substringBeforeLast(valueIndexed, "]"), "[").split(" TO ");
 			if(fqs.length != 2)
 				throw new RuntimeException(String.format("\"%s\" invalid range query. ", valueIndexed));
-			String fq1 = fqs[0].equals("*") ? fqs[0] : Feeder.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[0]);
-			String fq2 = fqs[1].equals("*") ? fqs[1] : Feeder.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[1]);
+			String fq1 = fqs[0].equals("*") ? fqs[0] : FishingTrip.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[0]);
+			String fq2 = fqs[1].equals("*") ? fqs[1] : FishingTrip.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[1]);
 			 return varIndexed + ":[" + fq1 + " TO " + fq2 + "]";
 		} else {
-			return varIndexed + ":" + SearchTool.escapeQueryChars(Feeder.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), valueIndexed)).replace("\\", "\\\\");
+			return varIndexed + ":" + SearchTool.escapeQueryChars(FishingTrip.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), valueIndexed)).replace("\\", "\\\\");
 		}
 	}
 
-	public void searchFeederSort(SearchList<Feeder> searchList, String entityVar, String valueIndexed, String varIndexed) {
+	public void searchFishingTripSort(SearchList<FishingTrip> searchList, String entityVar, String valueIndexed, String varIndexed) {
 		if(varIndexed == null)
 			throw new RuntimeException(String.format("\"%s\" is not an indexed entity. ", entityVar));
 		searchList.sort(varIndexed, valueIndexed);
 	}
 
-	public void searchFeederRows(SearchList<Feeder> searchList, Long valueRows) {
+	public void searchFishingTripRows(SearchList<FishingTrip> searchList, Long valueRows) {
 			searchList.rows(valueRows != null ? valueRows : 10L);
 	}
 
-	public void searchFeederStart(SearchList<Feeder> searchList, Long valueStart) {
+	public void searchFishingTripStart(SearchList<FishingTrip> searchList, Long valueStart) {
 		searchList.start(valueStart);
 	}
 
-	public void searchFeederVar(SearchList<Feeder> searchList, String var, String value) {
+	public void searchFishingTripVar(SearchList<FishingTrip> searchList, String var, String value) {
 		searchList.getSiteRequest_(SiteRequest.class).getRequestVars().put(var, value);
 	}
 
-	public void searchFeederUri(SearchList<Feeder> searchList) {
+	public void searchFishingTripUri(SearchList<FishingTrip> searchList) {
 	}
 
-	public Future<ServiceResponse> varsFeeder(SiteRequest siteRequest) {
+	public Future<ServiceResponse> varsFishingTrip(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			ServiceRequest serviceRequest = siteRequest.getServiceRequest();
@@ -2924,25 +2621,25 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						siteRequest.getRequestVars().put(entityVar, valueIndexed);
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("searchFeeder failed. "), ex);
+					LOG.error(String.format("searchFishingTrip failed. "), ex);
 					promise.fail(ex);
 				}
 			});
 			promise.complete();
 		} catch(Exception ex) {
-			LOG.error(String.format("searchFeeder failed. "), ex);
+			LOG.error(String.format("searchFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<SearchList<Feeder>> searchFeederList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
-		Promise<SearchList<Feeder>> promise = Promise.promise();
+	public Future<SearchList<FishingTrip>> searchFishingTripList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
+		Promise<SearchList<FishingTrip>> promise = Promise.promise();
 		try {
 			ServiceRequest serviceRequest = siteRequest.getServiceRequest();
 			String entityListStr = siteRequest.getServiceRequest().getParams().getJsonObject("query").getString("fl");
 			String[] entityList = entityListStr == null ? null : entityListStr.split(",\\s*");
-			SearchList<Feeder> searchList = new SearchList<Feeder>();
+			SearchList<FishingTrip> searchList = new SearchList<FishingTrip>();
 			String facetRange = null;
 			Date facetRangeStart = null;
 			Date facetRangeEnd = null;
@@ -2952,18 +2649,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			searchList.setPopulate(populate);
 			searchList.setStore(store);
 			searchList.q("*:*");
-			searchList.setC(Feeder.class);
+			searchList.setC(FishingTrip.class);
 			searchList.setSiteRequest_(siteRequest);
 			searchList.facetMinCount(1);
 			if(entityList != null) {
 				for(String v : entityList) {
-					searchList.fl(Feeder.varIndexedFeeder(v));
+					searchList.fl(FishingTrip.varIndexedFishingTrip(v));
 				}
 			}
 
-			String entityShortId = serviceRequest.getParams().getJsonObject("path").getString("entityShortId");
-			if(entityShortId != null) {
-				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
+			String pk = serviceRequest.getParams().getJsonObject("path").getString("pk");
+			if(pk != null) {
+				searchList.fq("pk_docvalues_long:" + SearchTool.escapeQueryChars(pk));
 			}
 
 			for(String paramName : serviceRequest.getParams().getJsonObject("query").fieldNames()) {
@@ -2986,7 +2683,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							String[] varsIndexed = new String[entityVars.length];
 							for(Integer i = 0; i < entityVars.length; i++) {
 								entityVar = entityVars[i];
-								varsIndexed[i] = Feeder.varIndexedFeeder(entityVar);
+								varsIndexed[i] = FishingTrip.varIndexedFishingTrip(entityVar);
 							}
 							searchList.facetPivot((solrLocalParams == null ? "" : solrLocalParams) + StringUtils.join(varsIndexed, ","));
 						}
@@ -2998,8 +2695,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 								while(mQ.find()) {
 									entityVar = mQ.group(1).trim();
 									valueIndexed = mQ.group(2).trim();
-									varIndexed = Feeder.varIndexedFeeder(entityVar);
-									String entityQ = searchFeederFq(searchList, entityVar, valueIndexed, varIndexed);
+									varIndexed = FishingTrip.varIndexedFishingTrip(entityVar);
+									String entityQ = searchFishingTripFq(searchList, entityVar, valueIndexed, varIndexed);
 									mQ.appendReplacement(sb, entityQ);
 								}
 								if(!sb.isEmpty()) {
@@ -3012,8 +2709,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 								while(mFq.find()) {
 									entityVar = mFq.group(1).trim();
 									valueIndexed = mFq.group(2).trim();
-									varIndexed = Feeder.varIndexedFeeder(entityVar);
-									String entityFq = searchFeederFq(searchList, entityVar, valueIndexed, varIndexed);
+									varIndexed = FishingTrip.varIndexedFishingTrip(entityVar);
+									String entityFq = searchFishingTripFq(searchList, entityVar, valueIndexed, varIndexed);
 									mFq.appendReplacement(sb, entityFq);
 								}
 								if(!sb.isEmpty()) {
@@ -3023,14 +2720,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							} else if(paramName.equals("sort")) {
 								entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, " "));
 								valueIndexed = StringUtils.trim(StringUtils.substringAfter((String)paramObject, " "));
-								varIndexed = Feeder.varIndexedFeeder(entityVar);
-								searchFeederSort(searchList, entityVar, valueIndexed, varIndexed);
+								varIndexed = FishingTrip.varIndexedFishingTrip(entityVar);
+								searchFishingTripSort(searchList, entityVar, valueIndexed, varIndexed);
 							} else if(paramName.equals("start")) {
 								valueStart = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-								searchFeederStart(searchList, valueStart);
+								searchFishingTripStart(searchList, valueStart);
 							} else if(paramName.equals("rows")) {
 								valueRows = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-								searchFeederRows(searchList, valueRows);
+								searchFishingTripRows(searchList, valueRows);
 							} else if(paramName.equals("stats")) {
 								searchList.stats((Boolean)paramObject);
 							} else if(paramName.equals("stats.field")) {
@@ -3038,7 +2735,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 								if(mStats.find()) {
 									String solrLocalParams = mStats.group(1);
 									entityVar = mStats.group(2).trim();
-									varIndexed = Feeder.varIndexedFeeder(entityVar);
+									varIndexed = FishingTrip.varIndexedFishingTrip(entityVar);
 									searchList.statsField((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
 									statsField = entityVar;
 									statsFieldIndexed = varIndexed;
@@ -3064,25 +2761,25 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 								if(mFacetRange.find()) {
 									String solrLocalParams = mFacetRange.group(1);
 									entityVar = mFacetRange.group(2).trim();
-									varIndexed = Feeder.varIndexedFeeder(entityVar);
+									varIndexed = FishingTrip.varIndexedFishingTrip(entityVar);
 									searchList.facetRange((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
 									facetRange = entityVar;
 								}
 							} else if(paramName.equals("facet.field")) {
 								entityVar = (String)paramObject;
-								varIndexed = Feeder.varIndexedFeeder(entityVar);
+								varIndexed = FishingTrip.varIndexedFishingTrip(entityVar);
 								if(varIndexed != null)
 									searchList.facetField(varIndexed);
 							} else if(paramName.equals("var")) {
 								entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, ":"));
 								valueIndexed = URLDecoder.decode(StringUtils.trim(StringUtils.substringAfter((String)paramObject, ":")), "UTF-8");
-								searchFeederVar(searchList, entityVar, valueIndexed);
+								searchFishingTripVar(searchList, entityVar, valueIndexed);
 							} else if(paramName.equals("cursorMark")) {
 								valueCursorMark = (String)paramObject;
 								searchList.cursorMark((String)paramObject);
 							}
 						}
-						searchFeederUri(searchList);
+						searchFishingTripUri(searchList);
 					}
 				} catch(Exception e) {
 					ExceptionUtils.rethrow(e);
@@ -3097,7 +2794,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			String facetRangeGap2 = facetRangeGap;
 			String statsField2 = statsField;
 			String statsFieldIndexed2 = statsFieldIndexed;
-			searchFeeder2(siteRequest, populate, store, modify, searchList);
+			searchFishingTrip2(siteRequest, populate, store, modify, searchList);
 			searchList.promiseDeepForClass(siteRequest).onSuccess(searchList2 -> {
 				if(facetRange2 != null && statsField2 != null && facetRange2.equals(statsField2)) {
 					StatsField stats = searchList.getResponse().getStats().getStatsFields().get(statsFieldIndexed2);
@@ -3133,32 +2830,32 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					searchList.query().onSuccess(b -> {
 						promise.complete(searchList);
 					}).onFailure(ex -> {
-						LOG.error(String.format("searchFeeder failed. "), ex);
+						LOG.error(String.format("searchFishingTrip failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete(searchList);
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("searchFeeder failed. "), ex);
+				LOG.error(String.format("searchFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("searchFeeder failed. "), ex);
+			LOG.error(String.format("searchFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void searchFeeder2(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, SearchList<Feeder> searchList) {
+	public void searchFishingTrip2(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, SearchList<FishingTrip> searchList) {
 	}
 
-	public Future<Void> persistFeeder(Feeder o, Boolean patch) {
+	public Future<Void> persistFishingTrip(FishingTrip o, Boolean patch) {
 		Promise<Void> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT * FROM Feeder WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT * FROM FishingTrip WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -3171,198 +2868,50 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 								try {
 									o.persistForClass(columnName, columnValue);
 								} catch(Exception e) {
-									LOG.error(String.format("persistFeeder failed. "), e);
+									LOG.error(String.format("persistFishingTrip failed. "), e);
 								}
 							}
 						}
 					}
 					o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-						if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-							cbUpsertEntity(o, patch).onSuccess(b -> {
-								promise.complete();
-							}).onFailure(ex -> {
-								LOG.error(String.format("persistFeeder failed. "), ex);
-								promise.fail(ex);
-							});
-						} else {
-							promise.complete();
-						}
+						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("persistFeeder failed. "), ex);
+						LOG.error(String.format("persistFishingTrip failed. "), ex);
 						promise.fail(ex);
 					});
 				} catch(Exception ex) {
-					LOG.error(String.format("persistFeeder failed. "), ex);
+					LOG.error(String.format("persistFishingTrip failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				RuntimeException ex2 = new RuntimeException(ex);
-				LOG.error(String.format("persistFeeder failed. "), ex2);
+				LOG.error(String.format("persistFishingTrip failed. "), ex2);
 				promise.fail(ex2);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("persistFeeder failed. "), ex);
+			LOG.error(String.format("persistFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> cbUpsertEntity(Feeder o, Boolean patch) {
-		Promise<Void> promise = Promise.promise();
-		try {
-			ZonedDateTime observedAt = ZonedDateTime.now(ZoneId.of("UTC"));
-			String observedAtStr = observedAt.format(ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER);
-			JsonArray entityArray = new JsonArray();
-			JsonObject entityBody = new JsonObject();
-			entityBody.put("@context", config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT));
-			entityBody.put("id", o.getId());
-			entityBody.put("type", Feeder.CLASS_SIMPLE_NAME);
-			entityBody.put("NGSILD-Tenant"
-					, new JsonObject()
-					.put("type", "Property")
-					.put("value", o.getNgsildTenant())
-					.put("observedAt", observedAtStr)
-					);
-			entityBody.put("NGSILD-Path"
-					, new JsonObject()
-					.put("type", "Property")
-					.put("value", o.getNgsildPath())
-					.put("observedAt", observedAtStr)
-					);
-
-			List<String> vars = Feeder.varsFqForClass();
-			for (String var : vars) {
-				String ngsiType = Feeder.ngsiType(var);
-				String displayName = Optional.ofNullable(Feeder.displayNameFeeder(var)).orElse(var);
-				if (ngsiType != null && displayName != null && !var.equals("id") && !var.equals("ngsildData")) {
-					Object value = o.obtainForClass(var);
-					if(value != null) {
-						Object ngsildVal = Feeder.ngsiFeeder(var, o);
-						String ngsildType = Feeder.ngsiType(var);
-						entityBody.put(displayName
-								, new JsonObject()
-								.put("type", ngsildType)
-								.put("value", ngsildVal)
-								.put("observedAt", observedAtStr)
-								);
-					}
-				}
-			}
-			entityArray.add(entityBody);
-			LOG.info(entityArray.encodePrettily());
-			webClient.post(
-					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
-					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
-					, "/ngsi-ld/v1/entityOperations/upsert/"
-					)
-					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
-					.putHeader("Content-Type", "application/ld+json")
-					.putHeader("Fiware-Service", o.getNgsildTenant())
-					.putHeader("Fiware-ServicePath", o.getNgsildPath())
-					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
-					.putHeader("NGSILD-Path", o.getNgsildPath())
-					.sendJson(entityArray)
-					.expecting(HttpResponseExpectation.SC_NO_CONTENT.or(HttpResponseExpectation.SC_CREATED)).onSuccess(b -> {
-				promise.complete();
-			}).onFailure(ex -> {
-				LOG.error(String.format("cbUpsertEntity failed. "), ex);
-				promise.fail(ex);
-			});
-		} catch(Throwable ex) {
-			LOG.error(String.format("cbUpsertEntity failed. "), ex);
-			promise.fail(ex);
-		}
-		return promise.future();
-	}
-
-	public Future<JsonObject> ngsildGetEntity(Feeder o) {
-		Promise<JsonObject> promise = Promise.promise();
-		try {
-			String entityName = o.getName();
-			String entityType = Feeder.CLASS_SIMPLE_NAME;
-			String entityId = o.getId();
-			String ngsildUri = String.format("/ngsi-ld/v1/entities/%s", urlEncode(entityId));
-			String ngsildContext = config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT);
-			String link = String.format("<%s>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"", ngsildContext);
-
-			webClient.get(
-					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
-					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
-					, ngsildUri
-					)
-					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
-					.putHeader("Content-Type", "application/ld+json")
-					.putHeader("Fiware-Service", o.getNgsildTenant())
-					.putHeader("Fiware-ServicePath", o.getNgsildPath())
-					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
-					.putHeader("NGSILD-Path", o.getNgsildPath())
-					.putHeader("Link", link)
-					.putHeader("Accept", "*/*")
-					.send()
-					.expecting(HttpResponseExpectation.SC_OK.or(HttpResponseExpectation.SC_NOT_FOUND)).onSuccess(entityResponse -> {
-				JsonObject entity = entityResponse.bodyAsJsonObject();
-				entity.remove("NGSILD data");
-				promise.complete(entity);
-			}).onFailure(ex -> {
-				LOG.error(String.format("postIotServiceFuture failed. "), ex);
-				promise.fail(ex);
-			});
-		} catch(Throwable ex) {
-			LOG.error(String.format("postIotServiceFuture failed. "), ex);
-			promise.fail(ex);
-		}
-		return promise.future();
-	}
-
-	public Future<Void> cbDeleteEntity(Feeder o) {
-		Promise<Void> promise = Promise.promise();
-		try {
-			webClient.delete(
-					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
-					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
-					, String.format("/ngsi-ld/v1/entities/%s", urlEncode(o.getId()))
-					)
-					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
-					.putHeader("Content-Type", "application/ld+json")
-					.putHeader("Fiware-Service", o.getNgsildTenant())
-					.putHeader("Fiware-ServicePath", o.getNgsildPath())
-					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
-					.putHeader("NGSILD-Path", o.getNgsildPath())
-					.send()
-					.expecting(HttpResponseExpectation.SC_NO_CONTENT).onSuccess(b -> {
-				promise.complete();
-			}).onFailure(ex -> {
-				if("Response status code 404 is not equal to 204".equals(ex.getMessage())) {
-					promise.complete();
-				} else {
-					LOG.error(String.format("cbDeleteEntity failed. "), ex);
-					promise.fail(ex);
-				}
-			});
-		} catch(Throwable ex) {
-			LOG.error(String.format("cbDeleteEntity failed. "), ex);
-			promise.fail(ex);
-		}
-		return promise.future();
-	}
-
-	public Future<Void> relateFeeder(Feeder o) {
+	public Future<Void> relateFishingTrip(FishingTrip o) {
 		Promise<Void> promise = Promise.promise();
 			promise.complete();
 		return promise.future();
 	}
 
 	public String searchVar(String varIndexed) {
-		return Feeder.searchVarFeeder(varIndexed);
+		return FishingTrip.searchVarFishingTrip(varIndexed);
 	}
 
 	@Override
 	public String getClassApiAddress() {
-		return Feeder.CLASS_API_ADDRESS_Feeder;
+		return FishingTrip.CLASS_API_ADDRESS_FishingTrip;
 	}
 
-	public Future<Feeder> indexFeeder(Feeder o) {
-		Promise<Feeder> promise = Promise.promise();
+	public Future<FishingTrip> indexFishingTrip(FishingTrip o) {
+		Promise<FishingTrip> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -3371,7 +2920,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			json.put("add", add);
 			JsonObject doc = new JsonObject();
 			add.put("doc", doc);
-			o.indexFeeder(doc);
+			o.indexFishingTrip(doc);
 			String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 			String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
 			String solrHostName = siteRequest.getConfig().getString(ConfigKeys.SOLR_HOST_NAME);
@@ -3388,18 +2937,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			webClient.post(solrPort, solrHostName, solrRequestUri).ssl(solrSsl).authentication(new UsernamePasswordCredentials(solrUsername, solrPassword)).putHeader("Content-Type", "application/json").sendBuffer(json.toBuffer()).expecting(HttpResponseExpectation.SC_OK).onSuccess(b -> {
 				promise.complete(o);
 			}).onFailure(ex -> {
-				LOG.error(String.format("indexFeeder failed. "), new RuntimeException(ex));
+				LOG.error(String.format("indexFishingTrip failed. "), new RuntimeException(ex));
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("indexFeeder failed. "), ex);
+			LOG.error(String.format("indexFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Feeder> unindexFeeder(Feeder o) {
-		Promise<Feeder> promise = Promise.promise();
+	public Future<FishingTrip> unindexFishingTrip(FishingTrip o) {
+		Promise<FishingTrip> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -3407,7 +2956,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				JsonObject json = new JsonObject();
 				JsonObject delete = new JsonObject();
 				json.put("delete", delete);
-				String query = String.format("filter(%s:%s)", Feeder.VAR_solrId, o.obtainForClass(Feeder.VAR_solrId));
+				String query = String.format("filter(%s:%s)", FishingTrip.VAR_solrId, o.obtainForClass(FishingTrip.VAR_solrId));
 				delete.put("query", query);
 				String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 				String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
@@ -3425,21 +2974,21 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				webClient.post(solrPort, solrHostName, solrRequestUri).ssl(solrSsl).authentication(new UsernamePasswordCredentials(solrUsername, solrPassword)).putHeader("Content-Type", "application/json").sendBuffer(json.toBuffer()).expecting(HttpResponseExpectation.SC_OK).onSuccess(b -> {
 					promise.complete(o);
 				}).onFailure(ex -> {
-					LOG.error(String.format("unindexFeeder failed. "), new RuntimeException(ex));
+					LOG.error(String.format("unindexFishingTrip failed. "), new RuntimeException(ex));
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("unindexFeeder failed. "), ex);
+				LOG.error(String.format("unindexFishingTrip failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("unindexFeeder failed. "), ex);
+			LOG.error(String.format("unindexFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> refreshFeeder(Feeder o) {
+	public Future<Void> refreshFishingTrip(FishingTrip o) {
 		Promise<Void> promise = Promise.promise();
 		SiteRequest siteRequest = o.getSiteRequest_();
 		try {
@@ -3475,7 +3024,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					params.put("query", query);
 					JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
 					JsonObject json = new JsonObject().put("context", context);
-					eventBus.request(Feeder.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFeederFuture")).onSuccess(c -> {
+					eventBus.request(FishingTrip.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishingTripFuture")).onSuccess(c -> {
 						JsonObject responseMessage = (JsonObject)c.body();
 						Integer statusCode = responseMessage.getInteger("statusCode");
 						if(statusCode.equals(200))
@@ -3494,7 +3043,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				promise.complete();
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("refreshFeeder failed. "), ex);
+			LOG.error(String.format("refreshFishingTrip failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -3507,33 +3056,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			Map<String, Object> result = (Map<String, Object>)ctx.get("result");
 			SiteRequest siteRequest2 = (SiteRequest)siteRequest;
 			String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-			Feeder page = new Feeder();
+			FishingTrip page = new FishingTrip();
 			page.setSiteRequest_((SiteRequest)siteRequest);
 
-			page.persistForClass(Feeder.VAR_name, Feeder.staticSetName(siteRequest2, (String)result.get(Feeder.VAR_name)));
-			page.persistForClass(Feeder.VAR_description, Feeder.staticSetDescription(siteRequest2, (String)result.get(Feeder.VAR_description)));
-			page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created)));
-			page.persistForClass(Feeder.VAR_location, Feeder.staticSetLocation(siteRequest2, (String)result.get(Feeder.VAR_location)));
-			page.persistForClass(Feeder.VAR_archived, Feeder.staticSetArchived(siteRequest2, (String)result.get(Feeder.VAR_archived)));
-			page.persistForClass(Feeder.VAR_areaServed, Feeder.staticSetAreaServed(siteRequest2, (String)result.get(Feeder.VAR_areaServed)));
-			page.persistForClass(Feeder.VAR_id, Feeder.staticSetId(siteRequest2, (String)result.get(Feeder.VAR_id)));
-			page.persistForClass(Feeder.VAR_sessionId, Feeder.staticSetSessionId(siteRequest2, (String)result.get(Feeder.VAR_sessionId)));
-			page.persistForClass(Feeder.VAR_userKey, Feeder.staticSetUserKey(siteRequest2, (String)result.get(Feeder.VAR_userKey)));
-			page.persistForClass(Feeder.VAR_ngsildTenant, Feeder.staticSetNgsildTenant(siteRequest2, (String)result.get(Feeder.VAR_ngsildTenant)));
-			page.persistForClass(Feeder.VAR_ngsildPath, Feeder.staticSetNgsildPath(siteRequest2, (String)result.get(Feeder.VAR_ngsildPath)));
-			page.persistForClass(Feeder.VAR_ngsildContext, Feeder.staticSetNgsildContext(siteRequest2, (String)result.get(Feeder.VAR_ngsildContext)));
-			page.persistForClass(Feeder.VAR_objectTitle, Feeder.staticSetObjectTitle(siteRequest2, (String)result.get(Feeder.VAR_objectTitle)));
-			page.persistForClass(Feeder.VAR_ngsildData, Feeder.staticSetNgsildData(siteRequest2, (String)result.get(Feeder.VAR_ngsildData)));
-			page.persistForClass(Feeder.VAR_displayPage, Feeder.staticSetDisplayPage(siteRequest2, (String)result.get(Feeder.VAR_displayPage)));
-			page.persistForClass(Feeder.VAR_address, Feeder.staticSetAddress(siteRequest2, (String)result.get(Feeder.VAR_address)));
-			page.persistForClass(Feeder.VAR_alternateName, Feeder.staticSetAlternateName(siteRequest2, (String)result.get(Feeder.VAR_alternateName)));
-			page.persistForClass(Feeder.VAR_dataProvider, Feeder.staticSetDataProvider(siteRequest2, (String)result.get(Feeder.VAR_dataProvider)));
-			page.persistForClass(Feeder.VAR_dateCreated, Feeder.staticSetDateCreated(siteRequest2, (String)result.get(Feeder.VAR_dateCreated)));
-			page.persistForClass(Feeder.VAR_dateModified, Feeder.staticSetDateModified(siteRequest2, (String)result.get(Feeder.VAR_dateModified)));
-			page.persistForClass(Feeder.VAR_owner, Feeder.staticSetOwner(siteRequest2, (String)result.get(Feeder.VAR_owner)));
-			page.persistForClass(Feeder.VAR_relatedSource, Feeder.staticSetRelatedSource(siteRequest2, (String)result.get(Feeder.VAR_relatedSource)));
-			page.persistForClass(Feeder.VAR_seeAlso, Feeder.staticSetSeeAlso(siteRequest2, (String)result.get(Feeder.VAR_seeAlso)));
-			page.persistForClass(Feeder.VAR_source, Feeder.staticSetSource(siteRequest2, (String)result.get(Feeder.VAR_source)));
+			page.persistForClass(FishingTrip.VAR_departureDate, FishingTrip.staticSetDepartureDate(siteRequest2, (String)result.get(FishingTrip.VAR_departureDate)));
+			page.persistForClass(FishingTrip.VAR_created, FishingTrip.staticSetCreated(siteRequest2, (String)result.get(FishingTrip.VAR_created)));
+			page.persistForClass(FishingTrip.VAR_arrivalDate, FishingTrip.staticSetArrivalDate(siteRequest2, (String)result.get(FishingTrip.VAR_arrivalDate)));
+			page.persistForClass(FishingTrip.VAR_name, FishingTrip.staticSetName(siteRequest2, (String)result.get(FishingTrip.VAR_name)));
+			page.persistForClass(FishingTrip.VAR_archived, FishingTrip.staticSetArchived(siteRequest2, (String)result.get(FishingTrip.VAR_archived)));
+			page.persistForClass(FishingTrip.VAR_description, FishingTrip.staticSetDescription(siteRequest2, (String)result.get(FishingTrip.VAR_description)));
+			page.persistForClass(FishingTrip.VAR_sessionId, FishingTrip.staticSetSessionId(siteRequest2, (String)result.get(FishingTrip.VAR_sessionId)));
+			page.persistForClass(FishingTrip.VAR_userKey, FishingTrip.staticSetUserKey(siteRequest2, (String)result.get(FishingTrip.VAR_userKey)));
+			page.persistForClass(FishingTrip.VAR_objectTitle, FishingTrip.staticSetObjectTitle(siteRequest2, (String)result.get(FishingTrip.VAR_objectTitle)));
+			page.persistForClass(FishingTrip.VAR_displayPage, FishingTrip.staticSetDisplayPage(siteRequest2, (String)result.get(FishingTrip.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

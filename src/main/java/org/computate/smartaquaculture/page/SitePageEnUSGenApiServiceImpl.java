@@ -421,9 +421,13 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
 				serviceRequest.getParams().getJsonObject("query").put("rows", 1);
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				searchSitePageList(siteRequest, false, true, true).onSuccess(listSitePage -> {
 					try {
 						SitePage o = listSitePage.first();
@@ -591,7 +595,6 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -791,7 +794,6 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -802,101 +804,84 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-				pgPool.getConnection().onSuccess(sqlConnection -> {
-					String sqlQuery = String.format("select * from %s WHERE pageId=$1", SitePage.CLASS_SIMPLE_NAME);
-					sqlConnection.preparedQuery(sqlQuery)
-							.execute(Tuple.tuple(Arrays.asList(pageId))
-							).onSuccess(result -> {
-						sqlConnection.close().onSuccess(a -> {
-							try {
-								if(result.size() >= 1) {
-									SitePage o = new SitePage();
-									o.setSiteRequest_(siteRequest);
-									for(Row definition : result.value()) {
-										for(Integer i = 0; i < definition.size(); i++) {
-											try {
-												String columnName = definition.getColumnName(i);
-												Object columnValue = definition.getValue(i);
-												o.persistForClass(columnName, columnValue);
-											} catch(Exception e) {
-												LOG.error(String.format("persistSitePage failed. "), e);
-											}
-										}
-									}
-									SitePage o2 = new SitePage();
-									o2.setSiteRequest_(siteRequest);
-									JsonObject body2 = new JsonObject();
-									for(String f : body.fieldNames()) {
-										Object bodyVal = body.getValue(f);
-										if(bodyVal instanceof JsonArray) {
-											JsonArray bodyVals = (JsonArray)bodyVal;
-											Object valsObj = o.obtainForClass(f);
-											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-											if(bodyVals.size() == vals.size()) {
-												Boolean match = true;
-												for(Object val : vals) {
-													if(val != null) {
-														if(!bodyVals.contains(val.toString())) {
-															match = false;
-															break;
-														}
-													} else {
-														match = false;
-														break;
-													}
+
+				SearchList<SitePage> searchList = new SearchList<SitePage>();
+				searchList.setStore(true);
+				searchList.q("*:*");
+				searchList.setC(SitePage.class);
+				searchList.fq("archived_docvalues_boolean:false");
+				searchList.fq("pageId_docvalues_string:" + SearchTool.escapeQueryChars(pageId));
+				searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+					try {
+						if(searchList.size() >= 1) {
+							SitePage o = searchList.getList().stream().findFirst().orElse(null);
+							SitePage o2 = new SitePage();
+							o2.setSiteRequest_(siteRequest);
+							JsonObject body2 = new JsonObject();
+							for(String f : body.fieldNames()) {
+								Object bodyVal = body.getValue(f);
+								if(bodyVal instanceof JsonArray) {
+									JsonArray bodyVals = (JsonArray)bodyVal;
+									Object valsObj = o.obtainForClass(f);
+									Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
+									if(vals != null && bodyVals.size() == vals.size()) {
+										Boolean match = true;
+										for(Object val : vals) {
+											if(val != null) {
+												if(!bodyVals.contains(val.toString())) {
+													match = false;
+													break;
 												}
-												vals.clear();
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 											} else {
-												vals.clear();
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+												match = false;
+												break;
 											}
-										} else {
-											o2.persistForClass(f, bodyVal);
-											o2.relateForClass(f, bodyVal);
-											if(!StringUtils.containsAny(f, "pageId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 										}
+										vals.clear();
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
+									} else {
+										if(vals != null)
+											vals.clear();
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 									}
-									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
-										if(!body.fieldNames().contains(f)) {
-											if(!StringUtils.containsAny(f, "pageId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-												body2.putNull("set" + StringUtils.capitalize(f));
-										}
-									}
-									if(result.size() >= 1) {
-										apiRequest.setOriginal(o);
-										apiRequest.setId(o.getPageId());
-									}
-									siteRequest.setJsonObject(body2);
-									patchSitePageFuture(o2, true).onSuccess(b -> {
-										LOG.debug("Import SitePage {} succeeded, modified SitePage. ", body.getValue(SitePage.VAR_pageId));
-										eventHandler.handle(Future.succeededFuture());
-									}).onFailure(ex -> {
-										LOG.error(String.format("putimportSitePageFuture failed. "), ex);
-										eventHandler.handle(Future.failedFuture(ex));
-									});
 								} else {
-									postSitePageFuture(siteRequest, true).onSuccess(b -> {
-										LOG.debug("Import SitePage {} succeeded, created new SitePage. ", body.getValue(SitePage.VAR_pageId));
-										eventHandler.handle(Future.succeededFuture());
-									}).onFailure(ex -> {
-										LOG.error(String.format("putimportSitePageFuture failed. "), ex);
-										eventHandler.handle(Future.failedFuture(ex));
-									});
+									o2.persistForClass(f, bodyVal);
+									o2.relateForClass(f, bodyVal);
+									if(!StringUtils.containsAny(f, "pageId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 								}
-							} catch(Exception ex) {
+							}
+							for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
+								if(!body.fieldNames().contains(f)) {
+									if(!StringUtils.containsAny(f, "pageId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+										body2.putNull("set" + StringUtils.capitalize(f));
+								}
+							}
+							if(searchList.size() == 1) {
+								apiRequest.setOriginal(o);
+								apiRequest.setId(o.getPageId());
+							}
+							siteRequest.setJsonObject(body2);
+							patchSitePageFuture(o2, true).onSuccess(b -> {
+								LOG.debug("Import SitePage {} succeeded, modified SitePage. ", body.getValue(SitePage.VAR_pageId));
+								eventHandler.handle(Future.succeededFuture());
+							}).onFailure(ex -> {
 								LOG.error(String.format("putimportSitePageFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
-							}
-						}).onFailure(ex -> {
-							LOG.error(String.format("putimportSitePageFuture failed. "), ex);
-							eventHandler.handle(Future.failedFuture(ex));
-						});
-					}).onFailure(ex -> {
+							});
+						} else {
+							postSitePageFuture(siteRequest, true).onSuccess(b -> {
+								LOG.debug("Import SitePage {} succeeded, created new SitePage. ", body.getValue(SitePage.VAR_pageId));
+								eventHandler.handle(Future.succeededFuture());
+							}).onFailure(ex -> {
+								LOG.error(String.format("putimportSitePageFuture failed. "), ex);
+								eventHandler.handle(Future.failedFuture(ex));
+							});
+						}
+					} catch(Exception ex) {
 						LOG.error(String.format("putimportSitePageFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
-					});
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("putimportSitePageFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
@@ -1079,6 +1064,36 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	public void editpageSitePage(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+			String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
+			MultiMap form = MultiMap.caseInsensitiveMultiMap();
+			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+			form.add("response_mode", "permissions");
+			form.add("permission", String.format("%s#%s", SitePage.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", SitePage.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", SitePage.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", SitePage.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", SitePage.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", SitePage.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", SitePage.CLASS_SIMPLE_NAME, "PUT"));
+			if(pageId != null)
+				form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_SIMPLE_NAME, pageId, "GET"));
+			webClient.post(
+					config.getInteger(ComputateConfigKeys.AUTH_PORT)
+					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+					, config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+					)
+					.ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+					.putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+					.sendForm(form)
+					.expecting(HttpResponseExpectation.SC_OK)
+			.onComplete(authorizationDecisionResponse -> {
+				try {
+					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+					{
+						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+						List<String> scopes2 = siteRequest.getScopes();
 						searchSitePageList(siteRequest, false, true, false).onSuccess(listSitePage -> {
 							response200EditPageSitePage(listSitePage).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -1091,6 +1106,12 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							LOG.error(String.format("editpageSitePage failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
+					}
+				} catch(Exception ex) {
+					LOG.error(String.format("editpageSitePage failed. "), ex);
+					error(null, eventHandler, ex);
+				}
+			});
 		}).onFailure(ex -> {
 			if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
 				try {

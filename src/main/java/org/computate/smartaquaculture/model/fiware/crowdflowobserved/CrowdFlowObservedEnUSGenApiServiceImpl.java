@@ -530,9 +530,13 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
 				serviceRequest.getParams().getJsonObject("query").put("rows", 1);
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
 					try {
 						CrowdFlowObserved o = listCrowdFlowObserved.first();
@@ -727,14 +731,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
-					case "setLocation":
-							o2.setLocation(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_location + "=$" + num);
-							num++;
-							bParams.add(o2.sqlLocation());
-						break;
 					case "setCreated":
 							o2.setCreated(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -742,6 +738,14 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							bSql.append(CrowdFlowObserved.VAR_created + "=$" + num);
 							num++;
 							bParams.add(o2.sqlCreated());
+						break;
+					case "setLocation":
+							o2.setLocation(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(CrowdFlowObserved.VAR_location + "=$" + num);
+							num++;
+							bParams.add(o2.sqlLocation());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -775,14 +779,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setNgsildTenant":
-							o2.setNgsildTenant(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_ngsildTenant + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildTenant());
-						break;
 					case "setUserKey":
 							o2.setUserKey(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -790,6 +786,14 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							bSql.append(CrowdFlowObserved.VAR_userKey + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserKey());
+						break;
+					case "setNgsildTenant":
+							o2.setNgsildTenant(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(CrowdFlowObserved.VAR_ngsildTenant + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildTenant());
 						break;
 					case "setNgsildPath":
 							o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -807,14 +811,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							num++;
 							bParams.add(o2.sqlNgsildContext());
 						break;
-					case "setNgsildData":
-							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_ngsildData + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildData());
-						break;
 					case "setObjectTitle":
 							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -823,13 +819,13 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							num++;
 							bParams.add(o2.sqlObjectTitle());
 						break;
-					case "setAddress":
-							o2.setAddress(jsonObject.getJsonObject(entityVar));
+					case "setNgsildData":
+							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_address + "=$" + num);
+							bSql.append(CrowdFlowObserved.VAR_ngsildData + "=$" + num);
 							num++;
-							bParams.add(o2.sqlAddress());
+							bParams.add(o2.sqlNgsildData());
 						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -838,6 +834,14 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							bSql.append(CrowdFlowObserved.VAR_displayPage + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDisplayPage());
+						break;
+					case "setAddress":
+							o2.setAddress(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(CrowdFlowObserved.VAR_address + "=$" + num);
+							num++;
+							bParams.add(o2.sqlAddress());
 						break;
 					case "setAlternateName":
 							o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1143,7 +1147,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -1325,15 +1328,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case CrowdFlowObserved.VAR_location:
-						o2.setLocation(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_location + "=$" + num);
-						num++;
-						bParams.add(o2.sqlLocation());
-						break;
 					case CrowdFlowObserved.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1342,6 +1336,15 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						bSql.append(CrowdFlowObserved.VAR_created + "=$" + num);
 						num++;
 						bParams.add(o2.sqlCreated());
+						break;
+					case CrowdFlowObserved.VAR_location:
+						o2.setLocation(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(CrowdFlowObserved.VAR_location + "=$" + num);
+						num++;
+						bParams.add(o2.sqlLocation());
 						break;
 					case CrowdFlowObserved.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1379,15 +1382,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case CrowdFlowObserved.VAR_ngsildTenant:
-						o2.setNgsildTenant(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_ngsildTenant + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildTenant());
-						break;
 					case CrowdFlowObserved.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1396,6 +1390,15 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						bSql.append(CrowdFlowObserved.VAR_userKey + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserKey());
+						break;
+					case CrowdFlowObserved.VAR_ngsildTenant:
+						o2.setNgsildTenant(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(CrowdFlowObserved.VAR_ngsildTenant + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildTenant());
 						break;
 					case CrowdFlowObserved.VAR_ngsildPath:
 						o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1415,15 +1418,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						num++;
 						bParams.add(o2.sqlNgsildContext());
 						break;
-					case CrowdFlowObserved.VAR_ngsildData:
-						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_ngsildData + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildData());
-						break;
 					case CrowdFlowObserved.VAR_objectTitle:
 						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1433,14 +1427,14 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
-					case CrowdFlowObserved.VAR_address:
-						o2.setAddress(jsonObject.getJsonObject(entityVar));
+					case CrowdFlowObserved.VAR_ngsildData:
+						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_address + "=$" + num);
+						bSql.append(CrowdFlowObserved.VAR_ngsildData + "=$" + num);
 						num++;
-						bParams.add(o2.sqlAddress());
+						bParams.add(o2.sqlNgsildData());
 						break;
 					case CrowdFlowObserved.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -1450,6 +1444,15 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						bSql.append(CrowdFlowObserved.VAR_displayPage + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDisplayPage());
+						break;
+					case CrowdFlowObserved.VAR_address:
+						o2.setAddress(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(CrowdFlowObserved.VAR_address + "=$" + num);
+						num++;
+						bParams.add(o2.sqlAddress());
 						break;
 					case CrowdFlowObserved.VAR_alternateName:
 						o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1813,9 +1816,13 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
 				serviceRequest.getParams().getJsonObject("query").put("rows", 1);
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
 					try {
 						CrowdFlowObserved o = listCrowdFlowObserved.first();
@@ -2151,7 +2158,6 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -2192,7 +2198,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 											JsonArray bodyVals = (JsonArray)bodyVal;
 											Object valsObj = o.obtainForClass(f);
 											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-											if(bodyVals.size() == vals.size()) {
+											if(vals != null && bodyVals.size() == vals.size()) {
 												Boolean match = true;
 												for(Object val : vals) {
 													if(val != null) {
@@ -2208,7 +2214,8 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 												vals.clear();
 												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 											} else {
-												vals.clear();
+												if(vals != null)
+													vals.clear();
 												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 											}
 										} else {
@@ -2783,9 +2790,13 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
-				siteRequest.addScopes("GET");
 				siteRequest.setJsonObject(body);
 				serviceRequest.getParams().getJsonObject("query").put("rows", 1);
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
 					try {
 						CrowdFlowObserved o = listCrowdFlowObserved.first();
@@ -3654,20 +3665,20 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 
 			page.persistForClass(CrowdFlowObserved.VAR_name, CrowdFlowObserved.staticSetName(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_name)));
 			page.persistForClass(CrowdFlowObserved.VAR_description, CrowdFlowObserved.staticSetDescription(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_description)));
-			page.persistForClass(CrowdFlowObserved.VAR_location, CrowdFlowObserved.staticSetLocation(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_location)));
 			page.persistForClass(CrowdFlowObserved.VAR_created, CrowdFlowObserved.staticSetCreated(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_created)));
+			page.persistForClass(CrowdFlowObserved.VAR_location, CrowdFlowObserved.staticSetLocation(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_location)));
 			page.persistForClass(CrowdFlowObserved.VAR_archived, CrowdFlowObserved.staticSetArchived(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_archived)));
 			page.persistForClass(CrowdFlowObserved.VAR_areaServed, CrowdFlowObserved.staticSetAreaServed(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_areaServed)));
 			page.persistForClass(CrowdFlowObserved.VAR_id, CrowdFlowObserved.staticSetId(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_id)));
 			page.persistForClass(CrowdFlowObserved.VAR_sessionId, CrowdFlowObserved.staticSetSessionId(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_sessionId)));
-			page.persistForClass(CrowdFlowObserved.VAR_ngsildTenant, CrowdFlowObserved.staticSetNgsildTenant(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildTenant)));
 			page.persistForClass(CrowdFlowObserved.VAR_userKey, CrowdFlowObserved.staticSetUserKey(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_userKey)));
+			page.persistForClass(CrowdFlowObserved.VAR_ngsildTenant, CrowdFlowObserved.staticSetNgsildTenant(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildTenant)));
 			page.persistForClass(CrowdFlowObserved.VAR_ngsildPath, CrowdFlowObserved.staticSetNgsildPath(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildPath)));
 			page.persistForClass(CrowdFlowObserved.VAR_ngsildContext, CrowdFlowObserved.staticSetNgsildContext(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildContext)));
-			page.persistForClass(CrowdFlowObserved.VAR_ngsildData, CrowdFlowObserved.staticSetNgsildData(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildData)));
 			page.persistForClass(CrowdFlowObserved.VAR_objectTitle, CrowdFlowObserved.staticSetObjectTitle(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_objectTitle)));
-			page.persistForClass(CrowdFlowObserved.VAR_address, CrowdFlowObserved.staticSetAddress(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_address)));
+			page.persistForClass(CrowdFlowObserved.VAR_ngsildData, CrowdFlowObserved.staticSetNgsildData(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildData)));
 			page.persistForClass(CrowdFlowObserved.VAR_displayPage, CrowdFlowObserved.staticSetDisplayPage(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_displayPage)));
+			page.persistForClass(CrowdFlowObserved.VAR_address, CrowdFlowObserved.staticSetAddress(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_address)));
 			page.persistForClass(CrowdFlowObserved.VAR_alternateName, CrowdFlowObserved.staticSetAlternateName(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_alternateName)));
 			page.persistForClass(CrowdFlowObserved.VAR_averageCrowdSpeed, CrowdFlowObserved.staticSetAverageCrowdSpeed(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_averageCrowdSpeed)));
 			page.persistForClass(CrowdFlowObserved.VAR_averageHeadwayTime, CrowdFlowObserved.staticSetAverageHeadwayTime(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_averageHeadwayTime)));

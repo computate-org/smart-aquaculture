@@ -97,6 +97,7 @@ import io.vertx.core.WorkerExecutor;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBusOptions;
+import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.Cookie;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpHeaders;
@@ -107,6 +108,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.PemKeyCertOptions;
+import io.vertx.core.shareddata.SharedData;
 import io.vertx.core.spi.cluster.ClusterManager;
 import io.vertx.core.spi.cluster.NodeInfo;
 import io.opentelemetry.api.trace.Tracer;
@@ -145,6 +147,7 @@ import io.vertx.ext.web.openapi.RouterBuilder;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.kafka.client.consumer.KafkaConsumer;
+import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.mqtt.MqttClient;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgBuilder;
@@ -181,6 +184,9 @@ import org.computate.smartaquaculture.model.fiware.feed.Feed;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePage;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
 
 
 /**
@@ -342,6 +348,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			apiSitePage.setVertx(vertx);
 			apiSitePage.setConfig(config);
 			apiSitePage.setWebClient(webClient);
+			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
+			apiFishingTrip.setVertx(vertx);
+			apiFishingTrip.setConfig(config);
+			apiFishingTrip.setWebClient(webClient);
 			apiSiteUser.createAuthorizationScopes().onSuccess(authToken -> {
 				apiCrowdFlowObserved.authorizeGroupData(authToken, CrowdFlowObserved.CLASS_SIMPLE_NAME, "CrowdFlowObservedViewer", new String[] { "GET" })
 						.compose(q1 -> apiCrowdFlowObserved.authorizeGroupData(authToken, CrowdFlowObserved.CLASS_SIMPLE_NAME, "CrowdFlowObservedEditor", new String[] { "GET", "POST", "PATCH" }))
@@ -371,13 +381,19 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 										apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
 												.compose(q7 -> apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
 												.onSuccess(q7 -> {
-											LOG.info("authorize data complete");
-											promise.complete();
+											apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "FishingTripViewer", new String[] { "GET" })
+													.compose(q8 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "FishingTripEditor", new String[] { "GET", "POST", "PATCH" }))
+													.compose(q8 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+													.compose(q8 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+													.onSuccess(q8 -> {
+												LOG.info("authorize data complete");
+												promise.complete();
+											}).onFailure(ex -> promise.fail(ex));
 										}).onFailure(ex -> promise.fail(ex));
 									}).onFailure(ex -> promise.fail(ex));
 								}).onFailure(ex -> promise.fail(ex));
 							}).onFailure(ex -> promise.fail(ex));
-						}).onFailure(ex -> promise.fail(ex));
+					}).onFailure(ex -> promise.fail(ex));
 				}).onFailure(ex -> promise.fail(ex));
 			}).onFailure(ex -> promise.fail(ex));
 		} catch(Throwable ex) {
@@ -846,7 +862,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			if(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_MQTT))) {
 				try {
 					mqttClient = MqttClient.create(vertx);
-					mqttClient.connect(Integer.parseInt(config().getString(ConfigKeys.MQTT_PORT)), config().getString(ConfigKeys.MQTT_HOST_NAME)).onSuccess(a -> {
+					mqttClient.connect(Integer.parseInt(config().getString(ConfigKeys.MQTT_PORT)), config().getString(ConfigKeys.MQTT_HOST_NAME)).onSuccess(mqttConnection -> {
 						try {
 							LOG.info("The MQTT client was initialized successfully.");
 							promise.complete(mqttClient);
@@ -1386,7 +1402,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		Promise<Void> promise = Promise.promise();
 		try {
 			List<Future<?>> futures = new ArrayList<>();
-			List<String> authResources = Arrays.asList("CrowdFlowObserved","FeedingOperation","FishPopulation","Feeder","Feed","SitePage");
+			List<String> authResources = Arrays.asList("CrowdFlowObserved","FeedingOperation","FishPopulation","Feeder","Feed","SitePage","FishingTrip");
 			List<String> publicResources = Arrays.asList("SitePage");
 			SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
 			initializeApiService(apiSiteUser);
@@ -1417,6 +1433,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
 			initializeApiService(apiSitePage);
 			registerApiService(SitePageEnUSGenApiService.class, apiSitePage, SitePage.getClassApiAddress());
+
+			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
+			initializeApiService(apiFishingTrip);
+			registerApiService(FishingTripEnUSGenApiService.class, apiFishingTrip, FishingTrip.getClassApiAddress());
 
 			Future.all(futures).onSuccess( a -> {
 				LOG.info("The API was configured properly.");

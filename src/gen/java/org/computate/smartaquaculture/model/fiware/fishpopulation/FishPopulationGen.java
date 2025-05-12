@@ -201,6 +201,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	public static final String NameActual_enUS = "current FishPopulation";
 	public static final String AllName_enUS = "all FishPopulations";
 	public static final String SearchAllNameBy_enUS = "search FishPopulations by ";
+	public static final String SearchAllName_enUS = "search FishPopulations";
 	public static final String Title_enUS = "FishPopulations";
 	public static final String ThePluralName_enUS = "the FishPopulations";
 	public static final String NoNameFound_enUS = "no FishPopulation found";
@@ -2733,7 +2734,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
 				if(areaServedColors != null) {
 					areaServedColors.stream().forEach( v -> {
-						oFishPopulation.areaServedColors.add(v);
+						oFishPopulation.areaServedColors.add(FishPopulation.staticSetAreaServedColors(siteRequest_, v));
 					});
 				}
 			}
@@ -2742,7 +2743,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
 				if(areaServedTitles != null) {
 					areaServedTitles.stream().forEach( v -> {
-						oFishPopulation.areaServedTitles.add(v);
+						oFishPopulation.areaServedTitles.add(FishPopulation.staticSetAreaServedTitles(siteRequest_, v));
 					});
 				}
 			}
@@ -2751,7 +2752,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
 				if(areaServedLinks != null) {
 					areaServedLinks.stream().forEach( v -> {
-						oFishPopulation.areaServedLinks.add(v);
+						oFishPopulation.areaServedLinks.add(FishPopulation.staticSetAreaServedLinks(siteRequest_, v));
 					});
 				}
 			}
@@ -2938,10 +2939,10 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 			doc.put("ngsildContext_docvalues_string", ngsildContext);
 		}
 		if(ngsildData != null) {
-			doc.put("ngsildData_docvalues_string", ngsildData.toString());
+			doc.put("ngsildData_docvalues_string", ngsildData.encode());
 		}
 		if(address != null) {
-			doc.put("address_docvalues_string", address.toString());
+			doc.put("address_docvalues_string", address.encode());
 		}
 		if(alternateName != null) {
 			doc.put("alternateName_docvalues_string", alternateName);
@@ -2968,13 +2969,13 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 			doc.put("initialNumber_docvalues_double", initialNumber.doubleValue());
 		}
 		if(owner != null) {
-			doc.put("owner_docvalues_string", owner.toString());
+			doc.put("owner_docvalues_string", owner.encode());
 		}
 		if(refSpecie != null) {
 			doc.put("refSpecie_docvalues_double", refSpecie.doubleValue());
 		}
 		if(relatedSource != null) {
-			doc.put("relatedSource_docvalues_string", relatedSource.toString());
+			doc.put("relatedSource_docvalues_string", relatedSource.encode());
 		}
 		if(seeAlso != null) {
 			doc.put("seeAlso_docvalues_string", seeAlso);

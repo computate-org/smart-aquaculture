@@ -200,6 +200,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 	public static final String NameActual_enUS = "current Feeder";
 	public static final String AllName_enUS = "all Feeders";
 	public static final String SearchAllNameBy_enUS = "search Feeders by ";
+	public static final String SearchAllName_enUS = "search Feeders";
 	public static final String Title_enUS = "Feeders";
 	public static final String ThePluralName_enUS = "the Feeders";
 	public static final String NoNameFound_enUS = "no Feeder found";
@@ -2252,7 +2253,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
 				if(areaServedColors != null) {
 					areaServedColors.stream().forEach( v -> {
-						oFeeder.areaServedColors.add(v);
+						oFeeder.areaServedColors.add(Feeder.staticSetAreaServedColors(siteRequest_, v));
 					});
 				}
 			}
@@ -2261,7 +2262,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
 				if(areaServedTitles != null) {
 					areaServedTitles.stream().forEach( v -> {
-						oFeeder.areaServedTitles.add(v);
+						oFeeder.areaServedTitles.add(Feeder.staticSetAreaServedTitles(siteRequest_, v));
 					});
 				}
 			}
@@ -2270,7 +2271,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
 				if(areaServedLinks != null) {
 					areaServedLinks.stream().forEach( v -> {
-						oFeeder.areaServedLinks.add(v);
+						oFeeder.areaServedLinks.add(Feeder.staticSetAreaServedLinks(siteRequest_, v));
 					});
 				}
 			}
@@ -2427,10 +2428,10 @@ public abstract class FeederGen<DEV> extends BaseModel {
 			doc.put("ngsildContext_docvalues_string", ngsildContext);
 		}
 		if(ngsildData != null) {
-			doc.put("ngsildData_docvalues_string", ngsildData.toString());
+			doc.put("ngsildData_docvalues_string", ngsildData.encode());
 		}
 		if(address != null) {
-			doc.put("address_docvalues_string", address.toString());
+			doc.put("address_docvalues_string", address.encode());
 		}
 		if(alternateName != null) {
 			doc.put("alternateName_docvalues_string", alternateName);
@@ -2445,10 +2446,10 @@ public abstract class FeederGen<DEV> extends BaseModel {
 			doc.put("dateModified_docvalues_string", dateModified);
 		}
 		if(owner != null) {
-			doc.put("owner_docvalues_string", owner.toString());
+			doc.put("owner_docvalues_string", owner.encode());
 		}
 		if(relatedSource != null) {
-			doc.put("relatedSource_docvalues_string", relatedSource.toString());
+			doc.put("relatedSource_docvalues_string", relatedSource.encode());
 		}
 		if(seeAlso != null) {
 			doc.put("seeAlso_docvalues_string", seeAlso);

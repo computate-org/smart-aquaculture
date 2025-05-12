@@ -202,6 +202,7 @@ public abstract class CrowdFlowObservedGen<DEV> extends BaseModel {
 	public static final String NameActual_enUS = "current CrowdFlowObserved";
 	public static final String AllName_enUS = "all CrowdFlowObserveds";
 	public static final String SearchAllNameBy_enUS = "search CrowdFlowObserveds by ";
+	public static final String SearchAllName_enUS = "search CrowdFlowObserveds";
 	public static final String Title_enUS = "CrowdFlowObserveds";
 	public static final String ThePluralName_enUS = "the CrowdFlowObserveds";
 	public static final String NoNameFound_enUS = "no CrowdFlowObserved found";
@@ -2999,7 +3000,7 @@ public abstract class CrowdFlowObservedGen<DEV> extends BaseModel {
 				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
 				if(areaServedColors != null) {
 					areaServedColors.stream().forEach( v -> {
-						oCrowdFlowObserved.areaServedColors.add(v);
+						oCrowdFlowObserved.areaServedColors.add(CrowdFlowObserved.staticSetAreaServedColors(siteRequest_, v));
 					});
 				}
 			}
@@ -3008,7 +3009,7 @@ public abstract class CrowdFlowObservedGen<DEV> extends BaseModel {
 				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
 				if(areaServedTitles != null) {
 					areaServedTitles.stream().forEach( v -> {
-						oCrowdFlowObserved.areaServedTitles.add(v);
+						oCrowdFlowObserved.areaServedTitles.add(CrowdFlowObserved.staticSetAreaServedTitles(siteRequest_, v));
 					});
 				}
 			}
@@ -3017,7 +3018,7 @@ public abstract class CrowdFlowObservedGen<DEV> extends BaseModel {
 				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
 				if(areaServedLinks != null) {
 					areaServedLinks.stream().forEach( v -> {
-						oCrowdFlowObserved.areaServedLinks.add(v);
+						oCrowdFlowObserved.areaServedLinks.add(CrowdFlowObserved.staticSetAreaServedLinks(siteRequest_, v));
 					});
 				}
 			}
@@ -3228,10 +3229,10 @@ public abstract class CrowdFlowObservedGen<DEV> extends BaseModel {
 			doc.put("ngsildContext_docvalues_string", ngsildContext);
 		}
 		if(ngsildData != null) {
-			doc.put("ngsildData_docvalues_string", ngsildData.toString());
+			doc.put("ngsildData_docvalues_string", ngsildData.encode());
 		}
 		if(address != null) {
-			doc.put("address_docvalues_string", address.toString());
+			doc.put("address_docvalues_string", address.encode());
 		}
 		if(alternateName != null) {
 			doc.put("alternateName_docvalues_string", alternateName);
@@ -3270,7 +3271,7 @@ public abstract class CrowdFlowObservedGen<DEV> extends BaseModel {
 			doc.put("occupancy_docvalues_double", occupancy.doubleValue());
 		}
 		if(owner != null) {
-			doc.put("owner_docvalues_string", owner.toString());
+			doc.put("owner_docvalues_string", owner.encode());
 		}
 		if(peopleCount != null) {
 			doc.put("peopleCount_docvalues_double", peopleCount.doubleValue());

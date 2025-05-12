@@ -200,6 +200,7 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 	public static final String NameActual_enUS = "current FeedingOperation";
 	public static final String AllName_enUS = "all FeedingOperations";
 	public static final String SearchAllNameBy_enUS = "search FeedingOperations by ";
+	public static final String SearchAllName_enUS = "search FeedingOperations";
 	public static final String Title_enUS = "FeedingOperations";
 	public static final String ThePluralName_enUS = "the FeedingOperations";
 	public static final String NoNameFound_enUS = "no FeedingOperation found";
@@ -2555,7 +2556,7 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
 				if(areaServedColors != null) {
 					areaServedColors.stream().forEach( v -> {
-						oFeedingOperation.areaServedColors.add(v);
+						oFeedingOperation.areaServedColors.add(FeedingOperation.staticSetAreaServedColors(siteRequest_, v));
 					});
 				}
 			}
@@ -2564,7 +2565,7 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
 				if(areaServedTitles != null) {
 					areaServedTitles.stream().forEach( v -> {
-						oFeedingOperation.areaServedTitles.add(v);
+						oFeedingOperation.areaServedTitles.add(FeedingOperation.staticSetAreaServedTitles(siteRequest_, v));
 					});
 				}
 			}
@@ -2573,7 +2574,7 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
 				if(areaServedLinks != null) {
 					areaServedLinks.stream().forEach( v -> {
-						oFeedingOperation.areaServedLinks.add(v);
+						oFeedingOperation.areaServedLinks.add(FeedingOperation.staticSetAreaServedLinks(siteRequest_, v));
 					});
 				}
 			}
@@ -2754,16 +2755,16 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 			doc.put("ngsildContext_docvalues_string", ngsildContext);
 		}
 		if(ngsildData != null) {
-			doc.put("ngsildData_docvalues_string", ngsildData.toString());
+			doc.put("ngsildData_docvalues_string", ngsildData.encode());
 		}
 		if(address != null) {
-			doc.put("address_docvalues_string", address.toString());
+			doc.put("address_docvalues_string", address.encode());
 		}
 		if(alternateName != null) {
 			doc.put("alternateName_docvalues_string", alternateName);
 		}
 		if(category != null) {
-			doc.put("category_docvalues_string", category.toString());
+			doc.put("category_docvalues_string", category.encode());
 		}
 		if(dataProvider != null) {
 			doc.put("dataProvider_docvalues_string", dataProvider);
@@ -2781,10 +2782,10 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 			doc.put("hasProvider_docvalues_string", hasProvider);
 		}
 		if(owner != null) {
-			doc.put("owner_docvalues_string", owner.toString());
+			doc.put("owner_docvalues_string", owner.encode());
 		}
 		if(relatedSource != null) {
-			doc.put("relatedSource_docvalues_string", relatedSource.toString());
+			doc.put("relatedSource_docvalues_string", relatedSource.encode());
 		}
 		if(seeAlso != null) {
 			doc.put("seeAlso_docvalues_string", seeAlso);

@@ -200,6 +200,7 @@ public abstract class FeedGen<DEV> extends BaseModel {
 	public static final String NameActual_enUS = "current Feed";
 	public static final String AllName_enUS = "all Feeds";
 	public static final String SearchAllNameBy_enUS = "search Feeds by ";
+	public static final String SearchAllName_enUS = "search Feeds";
 	public static final String Title_enUS = "Feeds";
 	public static final String ThePluralName_enUS = "the Feeds";
 	public static final String NoNameFound_enUS = "no Feed found";
@@ -2252,7 +2253,7 @@ public abstract class FeedGen<DEV> extends BaseModel {
 				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
 				if(areaServedColors != null) {
 					areaServedColors.stream().forEach( v -> {
-						oFeed.areaServedColors.add(v);
+						oFeed.areaServedColors.add(Feed.staticSetAreaServedColors(siteRequest_, v));
 					});
 				}
 			}
@@ -2261,7 +2262,7 @@ public abstract class FeedGen<DEV> extends BaseModel {
 				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
 				if(areaServedTitles != null) {
 					areaServedTitles.stream().forEach( v -> {
-						oFeed.areaServedTitles.add(v);
+						oFeed.areaServedTitles.add(Feed.staticSetAreaServedTitles(siteRequest_, v));
 					});
 				}
 			}
@@ -2270,7 +2271,7 @@ public abstract class FeedGen<DEV> extends BaseModel {
 				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
 				if(areaServedLinks != null) {
 					areaServedLinks.stream().forEach( v -> {
-						oFeed.areaServedLinks.add(v);
+						oFeed.areaServedLinks.add(Feed.staticSetAreaServedLinks(siteRequest_, v));
 					});
 				}
 			}
@@ -2427,10 +2428,10 @@ public abstract class FeedGen<DEV> extends BaseModel {
 			doc.put("ngsildContext_docvalues_string", ngsildContext);
 		}
 		if(ngsildData != null) {
-			doc.put("ngsildData_docvalues_string", ngsildData.toString());
+			doc.put("ngsildData_docvalues_string", ngsildData.encode());
 		}
 		if(address != null) {
-			doc.put("address_docvalues_string", address.toString());
+			doc.put("address_docvalues_string", address.encode());
 		}
 		if(alternateName != null) {
 			doc.put("alternateName_docvalues_string", alternateName);
@@ -2445,10 +2446,10 @@ public abstract class FeedGen<DEV> extends BaseModel {
 			doc.put("dateModified_docvalues_string", dateModified);
 		}
 		if(owner != null) {
-			doc.put("owner_docvalues_string", owner.toString());
+			doc.put("owner_docvalues_string", owner.encode());
 		}
 		if(relatedSource != null) {
-			doc.put("relatedSource_docvalues_string", relatedSource.toString());
+			doc.put("relatedSource_docvalues_string", relatedSource.encode());
 		}
 		if(seeAlso != null) {
 			doc.put("seeAlso_docvalues_string", seeAlso);

@@ -91,7 +91,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -399,7 +399,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -615,7 +615,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -762,7 +762,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -958,7 +958,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -1266,7 +1266,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -1482,7 +1482,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -1629,7 +1629,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -1825,7 +1825,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -2133,7 +2133,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -2349,7 +2349,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -2496,7 +2496,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -2692,7 +2692,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -3000,7 +3000,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -3216,7 +3216,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -3363,7 +3363,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -3471,6 +3471,729 @@ paths:
             text/html; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/SearchPageFeedingOperationResponse'
+  /en-us/api/fishing-trip:
+    get:
+      operationId: searchFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchFishingTripResponse'
+    patch:
+      operationId: patchFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHFishingTripRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHFishingTripResponse'
+    post:
+      operationId: postFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTFishingTripRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTFishingTripResponse'
+    delete:
+      operationId: deletefilterFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFilterFishingTripResponse'
+  /en-us/api/fishing-trip-import:
+    put:
+      operationId: putimportFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportFishingTripRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportFishingTripResponse'
+  /en-us/api/fishing-trip/{pk}:
+    get:
+      operationId: getFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: pk
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETFishingTripResponse'
+    delete:
+      operationId: deleteFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: pk
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFishingTripResponse'
+  /en-us/edit/fishing-trip/{pk}:
+    get:
+      operationId: editpageFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: pk
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EditPageFishingTripResponse'
+  /en-us/search/fishing-trip:
+    get:
+      operationId: searchpageFishingTrip
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing trips
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageFishingTripResponse'
   /en-us/api/fish-population:
     get:
       operationId: searchFishPopulation
@@ -3559,7 +4282,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -3867,7 +4590,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -4083,7 +4806,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
       responses:
         '200':
@@ -4230,7 +4953,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -4697,6 +5420,10 @@ paths:
     get:
       operationId: editpageSitePage
       x-vertx-event-bus: smart-aquaculture-enUS-SitePage
+      security:
+        - openIdConnect:
+          - openid
+          - profile
       description: >+
       summary: >+
       tags:
@@ -5686,6 +6413,66 @@ components:
         text/html; charset=utf-8:
           schema:
             $ref: '#/components/schemas/SearchPageFeedingOperationResponse'
+    SearchFishingTripResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchFishingTripResponse'
+    PATCHFishingTripRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHFishingTripRequest'
+    PATCHFishingTripResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHFishingTripResponse'
+    POSTFishingTripRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTFishingTripRequest'
+    POSTFishingTripResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTFishingTripResponse'
+    DELETEFilterFishingTripResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFilterFishingTripResponse'
+    PUTImportFishingTripRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishingTripRequest'
+    PUTImportFishingTripResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishingTripResponse'
+    GETFishingTripResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETFishingTripResponse'
+    DELETEFishingTripResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFishingTripResponse'
+    EditPageFishingTripResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/EditPageFishingTripResponse'
+    SearchPageFishingTripResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageFishingTripResponse'
     SearchFishPopulationResponse:
       content:
         application/json; charset=utf-8:
@@ -9559,6 +10346,221 @@ components:
     SearchPageFeedingOperationResponse:
       allOf:
         - type: string
+    SearchFishingTripResponse:
+      allOf:
+        - type: object
+          properties:
+            startNum:
+              type: integer
+              minimum: 0
+            foundNum:
+              type: integer
+              minimum: 0
+            returnedNum:
+              type: integer
+              minimum: 0
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  pk:
+                    type: string
+                  departureDate:
+                    type: string
+                  arrivalDate:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+    PATCHFishingTripRequest:
+      allOf:
+        - type: object
+          properties:
+            setPk:
+              type: string
+              nullable: true
+            removePk:
+              type: string
+            removeAllPk:
+              type: string
+            setDepartureDate:
+              type: string
+              nullable: true
+            removeDepartureDate:
+              type: string
+            removeAllDepartureDate:
+              type: string
+            setArrivalDate:
+              type: string
+              nullable: true
+            removeArrivalDate:
+              type: string
+            removeAllArrivalDate:
+              type: string
+            setName:
+              type: string
+              nullable: true
+            removeName:
+              type: string
+            removeAllName:
+              type: string
+            setDescription:
+              type: string
+              nullable: true
+            removeDescription:
+              type: string
+            removeAllDescription:
+              type: string
+    PATCHFishingTripResponse:
+      allOf:
+        - type: object
+          properties:
+            setPk:
+              type: string
+              nullable: true
+            removePk:
+              type: string
+            removeAllPk:
+              type: string
+            setDepartureDate:
+              type: string
+              nullable: true
+            removeDepartureDate:
+              type: string
+            removeAllDepartureDate:
+              type: string
+            setArrivalDate:
+              type: string
+              nullable: true
+            removeArrivalDate:
+              type: string
+            removeAllArrivalDate:
+              type: string
+            setName:
+              type: string
+              nullable: true
+            removeName:
+              type: string
+            removeAllName:
+              type: string
+            setDescription:
+              type: string
+              nullable: true
+            removeDescription:
+              type: string
+            removeAllDescription:
+              type: string
+    POSTFishingTripRequest:
+      allOf:
+        - type: object
+          properties:
+            pk:
+              type: string
+            departureDate:
+              type: string
+            arrivalDate:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+    POSTFishingTripResponse:
+      allOf:
+        - type: object
+          properties:
+            pk:
+              type: string
+            departureDate:
+              type: string
+            arrivalDate:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+    DELETEFilterFishingTripResponse:
+      allOf:
+        - type: object
+          properties:
+            pk:
+              type: string
+            departureDate:
+              type: string
+            arrivalDate:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+    PUTImportFishingTripRequest:
+      allOf:
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  pk:
+                    type: string
+                  departureDate:
+                    type: string
+                  arrivalDate:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+    PUTImportFishingTripResponse:
+      allOf:
+        - type: object
+          properties:
+                  pk:
+                    type: string
+                  departureDate:
+                    type: string
+                  arrivalDate:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+    GETFishingTripResponse:
+      allOf:
+        - type: object
+          properties:
+            pk:
+              type: string
+            departureDate:
+              type: string
+            arrivalDate:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+    DELETEFishingTripResponse:
+      allOf:
+        - type: object
+          properties:
+            pk:
+              type: string
+            departureDate:
+              type: string
+            arrivalDate:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+    EditPageFishingTripResponse:
+      allOf:
+        - type: string
+    SearchPageFishingTripResponse:
+      allOf:
+        - type: string
     SearchFishPopulationResponse:
       allOf:
         - type: object
@@ -9627,6 +10629,8 @@ components:
                     type: string
                   initialNumber:
                     type: string
+                  owner:
+                    type: object
                   refSpecie:
                     type: string
                   relatedSource:
@@ -9635,8 +10639,6 @@ components:
                     type: string
                   source:
                     type: string
-                  owner:
-                    type: object
     PATCHFishPopulationRequest:
       allOf:
         - type: object
@@ -9825,6 +10827,13 @@ components:
               type: string
             removeAllInitialNumber:
               type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
             setRefSpecie:
               type: string
               nullable: true
@@ -9853,13 +10862,6 @@ components:
               type: string
             removeAllSource:
               type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
     PATCHFishPopulationResponse:
       allOf:
         - type: object
@@ -10048,6 +11050,13 @@ components:
               type: string
             removeAllInitialNumber:
               type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
             setRefSpecie:
               type: string
               nullable: true
@@ -10076,13 +11085,6 @@ components:
               type: string
             removeAllSource:
               type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
     POSTFishPopulationRequest:
       allOf:
         - type: object
@@ -10137,6 +11139,8 @@ components:
               type: string
             initialNumber:
               type: string
+            owner:
+              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10145,8 +11149,6 @@ components:
               type: string
             source:
               type: string
-            owner:
-              type: object
     POSTFishPopulationResponse:
       allOf:
         - type: object
@@ -10201,6 +11203,8 @@ components:
               type: string
             initialNumber:
               type: string
+            owner:
+              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10209,8 +11213,6 @@ components:
               type: string
             source:
               type: string
-            owner:
-              type: object
     DELETEFilterFishPopulationResponse:
       allOf:
         - type: object
@@ -10265,6 +11267,8 @@ components:
               type: string
             initialNumber:
               type: string
+            owner:
+              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10273,8 +11277,6 @@ components:
               type: string
             source:
               type: string
-            owner:
-              type: object
     PUTImportFishPopulationRequest:
       allOf:
         - type: object
@@ -10334,6 +11336,8 @@ components:
                     type: string
                   initialNumber:
                     type: string
+                  owner:
+                    type: object
                   refSpecie:
                     type: string
                   relatedSource:
@@ -10342,8 +11346,6 @@ components:
                     type: string
                   source:
                     type: string
-                  owner:
-                    type: object
     PUTImportFishPopulationResponse:
       allOf:
         - type: object
@@ -10398,6 +11400,8 @@ components:
                     type: string
                   initialNumber:
                     type: string
+                  owner:
+                    type: object
                   refSpecie:
                     type: string
                   relatedSource:
@@ -10406,8 +11410,6 @@ components:
                     type: string
                   source:
                     type: string
-                  owner:
-                    type: object
     GETFishPopulationResponse:
       allOf:
         - type: object
@@ -10462,6 +11464,8 @@ components:
               type: string
             initialNumber:
               type: string
+            owner:
+              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10470,8 +11474,6 @@ components:
               type: string
             source:
               type: string
-            owner:
-              type: object
     DELETEFishPopulationResponse:
       allOf:
         - type: object
@@ -10526,6 +11528,8 @@ components:
               type: string
             initialNumber:
               type: string
+            owner:
+              type: object
             refSpecie:
               type: string
             relatedSource:
@@ -10534,8 +11538,6 @@ components:
               type: string
             source:
               type: string
-            owner:
-              type: object
     EditPageFishPopulationResponse:
       allOf:
         - type: string
@@ -11192,12 +12194,6 @@ components:
               items:
                 type: object
                 properties:
-                  userKeys:
-                    type: array
-                    items:
-                      type: string
-                  userId:
-                    type: string
                   userName:
                     type: string
                   userEmail:
@@ -11214,34 +12210,20 @@ components:
                     type: boolean
                   displayName:
                     type: string
+                  siteTheme:
+                    type: string
+                  webComponentsTheme:
+                    type: string
+                  userKeys:
+                    type: array
+                    items:
+                      type: string
+                  userId:
+                    type: string
     PATCHSiteUserRequest:
       allOf:
         - type: object
           properties:
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
-            setUserId:
-              type: string
-              nullable: true
-            removeUserId:
-              type: string
-            removeAllUserId:
-              type: string
             setUserName:
               type: string
               nullable: true
@@ -11297,35 +12279,49 @@ components:
             removeDisplayName:
               type: string
             removeAllDisplayName:
+              type: string
+            setSiteTheme:
+              type: string
+              nullable: true
+            removeSiteTheme:
+              type: string
+            removeAllSiteTheme:
+              type: string
+            setWebComponentsTheme:
+              type: string
+              nullable: true
+            removeWebComponentsTheme:
+              type: string
+            removeAllWebComponentsTheme:
+              type: string
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserId:
+              type: string
+              nullable: true
+            removeUserId:
+              type: string
+            removeAllUserId:
               type: string
     PATCHSiteUserResponse:
       allOf:
         - type: object
           properties:
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
-            setUserId:
-              type: string
-              nullable: true
-            removeUserId:
-              type: string
-            removeAllUserId:
-              type: string
             setUserName:
               type: string
               nullable: true
@@ -11382,16 +12378,48 @@ components:
               type: string
             removeAllDisplayName:
               type: string
+            setSiteTheme:
+              type: string
+              nullable: true
+            removeSiteTheme:
+              type: string
+            removeAllSiteTheme:
+              type: string
+            setWebComponentsTheme:
+              type: string
+              nullable: true
+            removeWebComponentsTheme:
+              type: string
+            removeAllWebComponentsTheme:
+              type: string
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserId:
+              type: string
+              nullable: true
+            removeUserId:
+              type: string
+            removeAllUserId:
+              type: string
     POSTSiteUserRequest:
       allOf:
         - type: object
           properties:
-            userKeys:
-              type: array
-              items:
-                type: string
-            userId:
-              type: string
             userName:
               type: string
             userEmail:
@@ -11407,17 +12435,21 @@ components:
             awesomeEffect:
               type: boolean
             displayName:
+              type: string
+            siteTheme:
+              type: string
+            webComponentsTheme:
+              type: string
+            userKeys:
+              type: array
+              items:
+                type: string
+            userId:
               type: string
     POSTSiteUserResponse:
       allOf:
         - type: object
           properties:
-            userKeys:
-              type: array
-              items:
-                type: string
-            userId:
-              type: string
             userName:
               type: string
             userEmail:
@@ -11433,6 +12465,16 @@ components:
             awesomeEffect:
               type: boolean
             displayName:
+              type: string
+            siteTheme:
+              type: string
+            webComponentsTheme:
+              type: string
+            userKeys:
+              type: array
+              items:
+                type: string
+            userId:
               type: string
     EditPageSiteUserResponse:
       allOf:
