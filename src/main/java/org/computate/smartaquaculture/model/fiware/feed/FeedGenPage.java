@@ -62,17 +62,17 @@ public class FeedGenPage extends FeedGenPageGen<PageLayout> {
   @Override
   protected void _pageResponse(Wrap<String> w) {
     if(searchListFeed_ != null)
-      w.o(JsonObject.mapFrom(searchListFeed_.getResponse()).toString());
+      w.o(Optional.ofNullable(searchListFeed_.getResponse()).map(response -> JsonObject.mapFrom(response).toString()).orElse(null));
   }
 
   @Override
   protected void _stats(Wrap<SolrResponse.Stats> w) {
-    w.o(searchListFeed_.getResponse().getStats());
+    w.o(Optional.ofNullable(searchListFeed_.getResponse()).map(response -> response.getStats()).orElse(null));
   }
 
   @Override
   protected void _facetCounts(Wrap<SolrResponse.FacetCounts> w) {
-    w.o(searchListFeed_.getResponse().getFacetCounts());
+    w.o(Optional.ofNullable(searchListFeed_.getResponse()).map(response -> response.getFacetCounts()).orElse(null));
   }
 
   @Override
@@ -80,7 +80,7 @@ public class FeedGenPage extends FeedGenPageGen<PageLayout> {
     JsonArray pages = new JsonArray();
     Long start = searchListFeed_.getStart().longValue();
     Long rows = searchListFeed_.getRows().longValue();
-    Long foundNum = searchListFeed_.getResponse().getResponse().getNumFound().longValue();
+    Long foundNum = Optional.ofNullable(searchListFeed_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListFeed_.getList().size()));
     Long startNum = start + 1L;
     Long endNum = start + rows;
     Long floorMod = (rows == 0L ? 0L : Math.floorMod(foundNum, rows));
@@ -233,7 +233,7 @@ public class FeedGenPage extends FeedGenPageGen<PageLayout> {
     JsonObject params = serviceRequest.getParams();
 
     JsonObject queryParams = Optional.ofNullable(serviceRequest).map(ServiceRequest::getParams).map(or -> or.getJsonObject("query")).orElse(new JsonObject());
-    Long num = searchListFeed_.getResponse().getResponse().getNumFound().longValue();
+    Long num = Optional.ofNullable(searchListFeed_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListFeed_.getList().size()));
     String q = "*:*";
     String q1 = "objectText";
     String q2 = "";

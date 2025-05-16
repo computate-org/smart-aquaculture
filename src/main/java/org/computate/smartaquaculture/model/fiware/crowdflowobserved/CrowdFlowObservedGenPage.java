@@ -63,17 +63,17 @@ public class CrowdFlowObservedGenPage extends CrowdFlowObservedGenPageGen<PageLa
   @Override
   protected void _pageResponse(Wrap<String> w) {
     if(searchListCrowdFlowObserved_ != null)
-      w.o(JsonObject.mapFrom(searchListCrowdFlowObserved_.getResponse()).toString());
+      w.o(Optional.ofNullable(searchListCrowdFlowObserved_.getResponse()).map(response -> JsonObject.mapFrom(response).toString()).orElse(null));
   }
 
   @Override
   protected void _stats(Wrap<SolrResponse.Stats> w) {
-    w.o(searchListCrowdFlowObserved_.getResponse().getStats());
+    w.o(Optional.ofNullable(searchListCrowdFlowObserved_.getResponse()).map(response -> response.getStats()).orElse(null));
   }
 
   @Override
   protected void _facetCounts(Wrap<SolrResponse.FacetCounts> w) {
-    w.o(searchListCrowdFlowObserved_.getResponse().getFacetCounts());
+    w.o(Optional.ofNullable(searchListCrowdFlowObserved_.getResponse()).map(response -> response.getFacetCounts()).orElse(null));
   }
 
   @Override
@@ -81,7 +81,7 @@ public class CrowdFlowObservedGenPage extends CrowdFlowObservedGenPageGen<PageLa
     JsonArray pages = new JsonArray();
     Long start = searchListCrowdFlowObserved_.getStart().longValue();
     Long rows = searchListCrowdFlowObserved_.getRows().longValue();
-    Long foundNum = searchListCrowdFlowObserved_.getResponse().getResponse().getNumFound().longValue();
+    Long foundNum = Optional.ofNullable(searchListCrowdFlowObserved_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListCrowdFlowObserved_.getList().size()));
     Long startNum = start + 1L;
     Long endNum = start + rows;
     Long floorMod = (rows == 0L ? 0L : Math.floorMod(foundNum, rows));
@@ -234,7 +234,7 @@ public class CrowdFlowObservedGenPage extends CrowdFlowObservedGenPageGen<PageLa
     JsonObject params = serviceRequest.getParams();
 
     JsonObject queryParams = Optional.ofNullable(serviceRequest).map(ServiceRequest::getParams).map(or -> or.getJsonObject("query")).orElse(new JsonObject());
-    Long num = searchListCrowdFlowObserved_.getResponse().getResponse().getNumFound().longValue();
+    Long num = Optional.ofNullable(searchListCrowdFlowObserved_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListCrowdFlowObserved_.getList().size()));
     String q = "*:*";
     String q1 = "objectText";
     String q2 = "";
