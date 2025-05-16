@@ -66,6 +66,7 @@ public class FishingTrip extends FishingTripGen<BaseModel> {
 	 * HtmRow: 3
 	 * HtmCell: 0
 	 * Facet: true
+	 * Zone: true
 	 **/
 	protected void _timeZone(Wrap<String> w) {
     w.o(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE));
