@@ -201,7 +201,7 @@ FONTAWESOME_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=
 # A default FontAwesome style. 
 FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('') | b64decode }}"
 # Site default theme, light or dark. 
-SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('') | b64decode }}"
+SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('dark') | b64decode }}"
 # The site logo relative URI
 SITE_LOGO_URI: "/svg/logo-{{ SITE_THEME }}.svg"
 # The name of the repository containing the web static content. 

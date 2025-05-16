@@ -668,13 +668,13 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 
 			for(String entityVar : methodNames) {
 				switch(entityVar) {
-					case "setDepartureDate":
-							o2.setDepartureDate(jsonObject.getString(entityVar));
+					case "setTimeZone":
+							o2.setTimeZone(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_departureDate + "=$" + num);
+							bSql.append(FishingTrip.VAR_timeZone + "=$" + num);
 							num++;
-							bParams.add(o2.sqlDepartureDate());
+							bParams.add(o2.sqlTimeZone());
 						break;
 					case "setCreated":
 							o2.setCreated(jsonObject.getString(entityVar));
@@ -684,6 +684,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlCreated());
 						break;
+					case "setDepartureDate":
+							o2.setDepartureDate(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingTrip.VAR_departureDate + "=$" + num);
+							num++;
+							bParams.add(o2.sqlDepartureDate());
+						break;
 					case "setArrivalDate":
 							o2.setArrivalDate(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -692,14 +700,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlArrivalDate());
 						break;
-					case "setName":
-							o2.setName(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_name + "=$" + num);
-							num++;
-							bParams.add(o2.sqlName());
-						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
 							if(bParams.size() > 0)
@@ -707,6 +707,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingTrip.VAR_archived + "=$" + num);
 							num++;
 							bParams.add(o2.sqlArchived());
+						break;
+					case "setName":
+							o2.setName(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingTrip.VAR_name + "=$" + num);
+							num++;
+							bParams.add(o2.sqlName());
 						break;
 					case "setDescription":
 							o2.setDescription(jsonObject.getString(entityVar));
@@ -1079,14 +1087,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				Set<String> entityVars = jsonObject.fieldNames();
 				for(String entityVar : entityVars) {
 					switch(entityVar) {
-					case FishingTrip.VAR_departureDate:
-						o2.setDepartureDate(jsonObject.getString(entityVar));
+					case FishingTrip.VAR_timeZone:
+						o2.setTimeZone(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishingTrip.VAR_departureDate + "=$" + num);
+						bSql.append(FishingTrip.VAR_timeZone + "=$" + num);
 						num++;
-						bParams.add(o2.sqlDepartureDate());
+						bParams.add(o2.sqlTimeZone());
 						break;
 					case FishingTrip.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
@@ -1097,6 +1105,15 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlCreated());
 						break;
+					case FishingTrip.VAR_departureDate:
+						o2.setDepartureDate(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingTrip.VAR_departureDate + "=$" + num);
+						num++;
+						bParams.add(o2.sqlDepartureDate());
+						break;
 					case FishingTrip.VAR_arrivalDate:
 						o2.setArrivalDate(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1106,15 +1123,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlArrivalDate());
 						break;
-					case FishingTrip.VAR_name:
-						o2.setName(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingTrip.VAR_name + "=$" + num);
-						num++;
-						bParams.add(o2.sqlName());
-						break;
 					case FishingTrip.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
 						if(bParams.size() > 0) {
@@ -1123,6 +1131,15 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingTrip.VAR_archived + "=$" + num);
 						num++;
 						bParams.add(o2.sqlArchived());
+						break;
+					case FishingTrip.VAR_name:
+						o2.setName(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingTrip.VAR_name + "=$" + num);
+						num++;
+						bParams.add(o2.sqlName());
 						break;
 					case FishingTrip.VAR_description:
 						o2.setDescription(jsonObject.getString(entityVar));
@@ -3059,11 +3076,12 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			FishingTrip page = new FishingTrip();
 			page.setSiteRequest_((SiteRequest)siteRequest);
 
-			page.persistForClass(FishingTrip.VAR_departureDate, FishingTrip.staticSetDepartureDate(siteRequest2, (String)result.get(FishingTrip.VAR_departureDate)));
+			page.persistForClass(FishingTrip.VAR_timeZone, FishingTrip.staticSetTimeZone(siteRequest2, (String)result.get(FishingTrip.VAR_timeZone)));
 			page.persistForClass(FishingTrip.VAR_created, FishingTrip.staticSetCreated(siteRequest2, (String)result.get(FishingTrip.VAR_created)));
+			page.persistForClass(FishingTrip.VAR_departureDate, FishingTrip.staticSetDepartureDate(siteRequest2, (String)result.get(FishingTrip.VAR_departureDate)));
 			page.persistForClass(FishingTrip.VAR_arrivalDate, FishingTrip.staticSetArrivalDate(siteRequest2, (String)result.get(FishingTrip.VAR_arrivalDate)));
-			page.persistForClass(FishingTrip.VAR_name, FishingTrip.staticSetName(siteRequest2, (String)result.get(FishingTrip.VAR_name)));
 			page.persistForClass(FishingTrip.VAR_archived, FishingTrip.staticSetArchived(siteRequest2, (String)result.get(FishingTrip.VAR_archived)));
+			page.persistForClass(FishingTrip.VAR_name, FishingTrip.staticSetName(siteRequest2, (String)result.get(FishingTrip.VAR_name)));
 			page.persistForClass(FishingTrip.VAR_description, FishingTrip.staticSetDescription(siteRequest2, (String)result.get(FishingTrip.VAR_description)));
 			page.persistForClass(FishingTrip.VAR_sessionId, FishingTrip.staticSetSessionId(siteRequest2, (String)result.get(FishingTrip.VAR_sessionId)));
 			page.persistForClass(FishingTrip.VAR_userKey, FishingTrip.staticSetUserKey(siteRequest2, (String)result.get(FishingTrip.VAR_userKey)));

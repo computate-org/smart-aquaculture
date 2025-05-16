@@ -10366,6 +10366,8 @@ components:
                 properties:
                   pk:
                     type: string
+                  timeZone:
+                    type: string
                   departureDate:
                     type: string
                   arrivalDate:
@@ -10384,6 +10386,13 @@ components:
             removePk:
               type: string
             removeAllPk:
+              type: string
+            setTimeZone:
+              type: string
+              nullable: true
+            removeTimeZone:
+              type: string
+            removeAllTimeZone:
               type: string
             setDepartureDate:
               type: string
@@ -10424,6 +10433,13 @@ components:
               type: string
             removeAllPk:
               type: string
+            setTimeZone:
+              type: string
+              nullable: true
+            removeTimeZone:
+              type: string
+            removeAllTimeZone:
+              type: string
             setDepartureDate:
               type: string
               nullable: true
@@ -10458,6 +10474,8 @@ components:
           properties:
             pk:
               type: string
+            timeZone:
+              type: string
             departureDate:
               type: string
             arrivalDate:
@@ -10472,6 +10490,8 @@ components:
           properties:
             pk:
               type: string
+            timeZone:
+              type: string
             departureDate:
               type: string
             arrivalDate:
@@ -10485,6 +10505,8 @@ components:
         - type: object
           properties:
             pk:
+              type: string
+            timeZone:
               type: string
             departureDate:
               type: string
@@ -10505,6 +10527,8 @@ components:
                 properties:
                   pk:
                     type: string
+                  timeZone:
+                    type: string
                   departureDate:
                     type: string
                   arrivalDate:
@@ -10518,6 +10542,8 @@ components:
         - type: object
           properties:
                   pk:
+                    type: string
+                  timeZone:
                     type: string
                   departureDate:
                     type: string
@@ -10533,6 +10559,8 @@ components:
           properties:
             pk:
               type: string
+            timeZone:
+              type: string
             departureDate:
               type: string
             arrivalDate:
@@ -10546,6 +10574,8 @@ components:
         - type: object
           properties:
             pk:
+              type: string
+            timeZone:
               type: string
             departureDate:
               type: string

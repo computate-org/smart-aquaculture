@@ -3,6 +3,7 @@ package org.computate.smartaquaculture.model.fiware.fishingtrip;
 import java.time.ZonedDateTime;
 
 import org.computate.search.wrap.Wrap;
+import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.model.BaseModel;
 
 /**
@@ -59,12 +60,26 @@ public class FishingTrip extends FishingTripGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: departure date
-	 * Description: The date and time the fishing trip departed. 
+	 * DisplayName: time zone
+	 * Description: The local time zone the fishing trip departure and arrival dates are based on. 
 	 * HtmRowTitleOpen: departure/arrival
-	 * HtmColumn: 1
 	 * HtmRow: 3
 	 * HtmCell: 0
+	 * Facet: true
+	 **/
+	protected void _timeZone(Wrap<String> w) {
+    w.o(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * DisplayName: departure date
+	 * Description: The date and time the fishing trip departed. 
+	 * HtmColumn: 1
+	 * HtmRow: 3
+	 * HtmCell: 1
 	 * Facet: true
 	 **/
 	protected void _departureDate(Wrap<ZonedDateTime> w) {
@@ -79,7 +94,7 @@ public class FishingTrip extends FishingTripGen<BaseModel> {
 	 * Description: The date and time the fishing trip returned. 
 	 * HtmColumn: 2
 	 * HtmRow: 3
-	 * HtmCell: 1
+	 * HtmCell: 2
 	 * Facet: true
 	 **/
 	protected void _arrivalDate(Wrap<ZonedDateTime> w) {

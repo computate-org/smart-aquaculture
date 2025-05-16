@@ -180,6 +180,7 @@ ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS sessionId text;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS userKey bigint;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS objectTitle text;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS displayPage text;
+ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS timeZone text;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS departureDate timestamp with time zone;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS arrivalDate timestamp with time zone;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS name text;

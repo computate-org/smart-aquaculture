@@ -238,6 +238,62 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-fish-cooked\"></i>";
 	public static final Integer Rows = 100;
 
+	//////////////
+	// timeZone //
+	//////////////
+
+
+	/**	 The entity timeZone
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String timeZone;
+
+	/**	<br> The entity timeZone
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _timeZone(Wrap<String> w);
+
+	public String getTimeZone() {
+		return timeZone;
+	}
+	public void setTimeZone(String o) {
+		this.timeZone = FishingTrip.staticSetTimeZone(siteRequest_, o);
+	}
+	public static String staticSetTimeZone(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected FishingTrip timeZoneInit() {
+		Wrap<String> timeZoneWrap = new Wrap<String>().var("timeZone");
+		if(timeZone == null) {
+			_timeZone(timeZoneWrap);
+			Optional.ofNullable(timeZoneWrap.getO()).ifPresent(o -> {
+				setTimeZone(o);
+			});
+		}
+		return (FishingTrip)this;
+	}
+
+	public static String staticSearchTimeZone(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrTimeZone(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqTimeZone(SiteRequest siteRequest_, String o) {
+		return FishingTrip.staticSearchTimeZone(siteRequest_, FishingTrip.staticSetTimeZone(siteRequest_, o)).toString();
+	}
+
+	public String sqlTimeZone() {
+		return timeZone;
+	}
+
 	///////////////////
 	// departureDate //
 	///////////////////
@@ -539,6 +595,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		Future.future(a -> a.complete()).compose(a -> {
 			Promise<Void> promise2 = Promise.promise();
 			try {
+				timeZoneInit();
 				departureDateInit();
 				arrivalDateInit();
 				nameInit();
@@ -596,6 +653,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public Object obtainFishingTrip(String var) {
 		FishingTrip oFishingTrip = (FishingTrip)this;
 		switch(var) {
+			case "timeZone":
+				return oFishingTrip.timeZone;
 			case "departureDate":
 				return oFishingTrip.departureDate;
 			case "arrivalDate":
@@ -643,6 +702,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 	public static Object staticSetFishingTrip(String entityVar, SiteRequest siteRequest_, String o) {
 		switch(entityVar) {
+		case "timeZone":
+			return FishingTrip.staticSetTimeZone(siteRequest_, o);
 		case "departureDate":
 			return FishingTrip.staticSetDepartureDate(siteRequest_, o);
 		case "arrivalDate":
@@ -665,6 +726,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 	public static Object staticSearchFishingTrip(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
+		case "timeZone":
+			return FishingTrip.staticSearchTimeZone(siteRequest_, (String)o);
 		case "departureDate":
 			return FishingTrip.staticSearchDepartureDate(siteRequest_, (ZonedDateTime)o);
 		case "arrivalDate":
@@ -687,6 +750,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 	public static String staticSearchStrFishingTrip(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
+		case "timeZone":
+			return FishingTrip.staticSearchStrTimeZone(siteRequest_, (String)o);
 		case "departureDate":
 			return FishingTrip.staticSearchStrDepartureDate(siteRequest_, (String)o);
 		case "arrivalDate":
@@ -709,6 +774,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 	public static String staticSearchFqFishingTrip(String entityVar, SiteRequest siteRequest_, String o) {
 		switch(entityVar) {
+		case "timeZone":
+			return FishingTrip.staticSearchFqTimeZone(siteRequest_, o);
 		case "departureDate":
 			return FishingTrip.staticSearchFqDepartureDate(siteRequest_, o);
 		case "arrivalDate":
@@ -743,7 +810,13 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 	public Object persistFishingTrip(String var, Object val) {
 		String varLower = var.toLowerCase();
-			if("departuredate".equals(varLower)) {
+			if("timezone".equals(varLower)) {
+				if(val instanceof String) {
+					setTimeZone((String)val);
+				}
+				saves.add("timeZone");
+				return val;
+			} else if("departuredate".equals(varLower)) {
 				if(val instanceof String) {
 					setDepartureDate((String)val);
 				} else if(val instanceof OffsetDateTime) {
@@ -788,6 +861,12 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
 		if(saves != null) {
 
+			if(saves.contains("timeZone")) {
+				String timeZone = (String)doc.get("timeZone_docvalues_string");
+				if(timeZone != null)
+					oFishingTrip.setTimeZone(timeZone);
+			}
+
 			if(saves.contains("departureDate")) {
 				String departureDate = (String)doc.get("departureDate_docvalues_date");
 				if(departureDate != null)
@@ -817,6 +896,9 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 
 	public void indexFishingTrip(JsonObject doc) {
+		if(timeZone != null) {
+			doc.put("timeZone_docvalues_string", timeZone);
+		}
 		if(departureDate != null) {
 			doc.put("departureDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(departureDate.toInstant(), ZoneId.of("UTC"))));
 		}
@@ -835,6 +917,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	public static String varStoredFishingTrip(String entityVar) {
 		switch(entityVar) {
+			case "timeZone":
+				return "timeZone_docvalues_string";
 			case "departureDate":
 				return "departureDate_docvalues_date";
 			case "arrivalDate":
@@ -850,6 +934,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	public static String varIndexedFishingTrip(String entityVar) {
 		switch(entityVar) {
+			case "timeZone":
+				return "timeZone_docvalues_string";
 			case "departureDate":
 				return "departureDate_docvalues_date";
 			case "arrivalDate":
@@ -865,6 +951,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	public static String searchVarFishingTrip(String searchVar) {
 		switch(searchVar) {
+			case "timeZone_docvalues_string":
+				return "timeZone";
 			case "departureDate_docvalues_date":
 				return "departureDate";
 			case "arrivalDate_docvalues_date":
@@ -903,6 +991,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		FishingTrip oFishingTrip = (FishingTrip)this;
 		SiteRequest siteRequest = oFishingTrip.getSiteRequest_();
 
+		oFishingTrip.setTimeZone(Optional.ofNullable(doc.get("timeZone_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishingTrip.setDepartureDate(Optional.ofNullable(doc.get("departureDate_docvalues_date")).map(v -> v.toString()).orElse(null));
 		oFishingTrip.setArrivalDate(Optional.ofNullable(doc.get("arrivalDate_docvalues_date")).map(v -> v.toString()).orElse(null));
 		oFishingTrip.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
@@ -920,6 +1009,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
 		if(o != null && o instanceof FishingTrip) {
 			FishingTrip original = (FishingTrip)o;
+			if(!Objects.equals(timeZone, original.getTimeZone()))
+				apiRequest.addVars("timeZone");
 			if(!Objects.equals(departureDate, original.getDepartureDate()))
 				apiRequest.addVars("departureDate");
 			if(!Objects.equals(arrivalDate, original.getArrivalDate()))
@@ -939,6 +1030,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	@Override public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
+		sb.append(Optional.ofNullable(timeZone).map(v -> "timeZone: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(departureDate).map(v -> "departureDate: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(arrivalDate).map(v -> "arrivalDate: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
@@ -952,6 +1044,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishingTrip;
 	}
+	public static final String VAR_timeZone = "timeZone";
 	public static final String VAR_departureDate = "departureDate";
 	public static final String VAR_arrivalDate = "arrivalDate";
 	public static final String VAR_name = "name";
@@ -969,6 +1062,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		return FishingTrip.varsFqFishingTrip(new ArrayList<String>());
 	}
 	public static List<String> varsFqFishingTrip(List<String> vars) {
+		vars.add(VAR_timeZone);
 		vars.add(VAR_departureDate);
 		vars.add(VAR_arrivalDate);
 		vars.add(VAR_name);
@@ -987,6 +1081,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		return vars;
 	}
 
+	public static final String DISPLAY_NAME_timeZone = "time zone";
 	public static final String DISPLAY_NAME_departureDate = "departure date";
 	public static final String DISPLAY_NAME_arrivalDate = "arrival date";
 	public static final String DISPLAY_NAME_name = "name";
@@ -1042,6 +1137,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 	public static String displayNameFishingTrip(String var) {
 		switch(var) {
+		case VAR_timeZone:
+			return DISPLAY_NAME_timeZone;
 		case VAR_departureDate:
 			return DISPLAY_NAME_departureDate;
 		case VAR_arrivalDate:
@@ -1057,6 +1154,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	public static String descriptionFishingTrip(String var) {
 		switch(var) {
+		case VAR_timeZone:
+			return "The local time zone the fishing trip departure and arrival dates are based on. ";
 		case VAR_departureDate:
 			return "The date and time the fishing trip departed. ";
 		case VAR_arrivalDate:
@@ -1072,6 +1171,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	public static String classSimpleNameFishingTrip(String var) {
 		switch(var) {
+		case VAR_timeZone:
+			return "String";
 		case VAR_departureDate:
 			return "ZonedDateTime";
 		case VAR_arrivalDate:
@@ -1102,6 +1203,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	public static Integer htmRowFishingTrip(String var) {
 		switch(var) {
+		case VAR_timeZone:
+			return 3;
 		case VAR_departureDate:
 			return 3;
 		case VAR_arrivalDate:
@@ -1117,10 +1220,12 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	public static Integer htmCellFishingTrip(String var) {
 		switch(var) {
-		case VAR_departureDate:
+		case VAR_timeZone:
 			return 0;
-		case VAR_arrivalDate:
+		case VAR_departureDate:
 			return 1;
+		case VAR_arrivalDate:
+			return 2;
 		case VAR_name:
 			return 0;
 		case VAR_description:
