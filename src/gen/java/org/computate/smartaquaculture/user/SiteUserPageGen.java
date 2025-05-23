@@ -229,13 +229,13 @@ public abstract class SiteUserPageGen<DEV> extends SiteUserGenPage {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetSiteUserPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, SiteUserPage o) {
+		return staticSetSiteUserPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetSiteUserPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetSiteUserPage(String entityVar, SiteRequest siteRequest_, String v, SiteUserPage o) {
 		switch(entityVar) {
 			default:
-				return SiteUserGenPage.staticSetSiteUserGenPage(entityVar,  siteRequest_, o);
+				return SiteUserGenPage.staticSetSiteUserGenPage(entityVar,  siteRequest_, v, o);
 		}
 	}
 

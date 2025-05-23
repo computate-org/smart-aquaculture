@@ -229,13 +229,13 @@ public abstract class FeederPageGen<DEV> extends FeederGenPage {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFeederPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeederPage o) {
+		return staticSetFeederPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFeederPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFeederPage(String entityVar, SiteRequest siteRequest_, String v, FeederPage o) {
 		switch(entityVar) {
 			default:
-				return FeederGenPage.staticSetFeederGenPage(entityVar,  siteRequest_, o);
+				return FeederGenPage.staticSetFeederGenPage(entityVar,  siteRequest_, v, o);
 		}
 	}
 

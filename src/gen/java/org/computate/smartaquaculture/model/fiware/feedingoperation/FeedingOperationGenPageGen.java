@@ -634,23 +634,23 @@ public abstract class FeedingOperationGenPageGen<DEV> extends PageLayout {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFeedingOperationGenPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationGenPage o) {
+		return staticSetFeedingOperationGenPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFeedingOperationGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFeedingOperationGenPage(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationGenPage o) {
 		switch(entityVar) {
 		case "listFeedingOperation":
-			return FeedingOperationGenPage.staticSetListFeedingOperation(siteRequest_, o);
+			return FeedingOperationGenPage.staticSetListFeedingOperation(siteRequest_, v);
 		case "resultCount":
-			return FeedingOperationGenPage.staticSetResultCount(siteRequest_, o);
+			return FeedingOperationGenPage.staticSetResultCount(siteRequest_, v);
 		case "pk":
-			return FeedingOperationGenPage.staticSetPk(siteRequest_, o);
+			return FeedingOperationGenPage.staticSetPk(siteRequest_, v);
 		case "solrId":
-			return FeedingOperationGenPage.staticSetSolrId(siteRequest_, o);
+			return FeedingOperationGenPage.staticSetSolrId(siteRequest_, v);
 		case "pageUriFeedingOperation":
-			return FeedingOperationGenPage.staticSetPageUriFeedingOperation(siteRequest_, o);
+			return FeedingOperationGenPage.staticSetPageUriFeedingOperation(siteRequest_, v);
 			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, o);
+				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
 		}
 	}
 

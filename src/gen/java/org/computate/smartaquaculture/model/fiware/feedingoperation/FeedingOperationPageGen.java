@@ -229,13 +229,13 @@ public abstract class FeedingOperationPageGen<DEV> extends FeedingOperationGenPa
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFeedingOperationPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationPage o) {
+		return staticSetFeedingOperationPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFeedingOperationPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFeedingOperationPage(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationPage o) {
 		switch(entityVar) {
 			default:
-				return FeedingOperationGenPage.staticSetFeedingOperationGenPage(entityVar,  siteRequest_, o);
+				return FeedingOperationGenPage.staticSetFeedingOperationGenPage(entityVar,  siteRequest_, v, o);
 		}
 	}
 

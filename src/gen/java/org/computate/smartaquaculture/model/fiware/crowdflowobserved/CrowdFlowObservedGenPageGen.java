@@ -634,23 +634,23 @@ public abstract class CrowdFlowObservedGenPageGen<DEV> extends PageLayout {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetCrowdFlowObservedGenPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObservedGenPage o) {
+		return staticSetCrowdFlowObservedGenPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetCrowdFlowObservedGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetCrowdFlowObservedGenPage(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObservedGenPage o) {
 		switch(entityVar) {
 		case "listCrowdFlowObserved":
-			return CrowdFlowObservedGenPage.staticSetListCrowdFlowObserved(siteRequest_, o);
+			return CrowdFlowObservedGenPage.staticSetListCrowdFlowObserved(siteRequest_, v);
 		case "resultCount":
-			return CrowdFlowObservedGenPage.staticSetResultCount(siteRequest_, o);
+			return CrowdFlowObservedGenPage.staticSetResultCount(siteRequest_, v);
 		case "pk":
-			return CrowdFlowObservedGenPage.staticSetPk(siteRequest_, o);
+			return CrowdFlowObservedGenPage.staticSetPk(siteRequest_, v);
 		case "solrId":
-			return CrowdFlowObservedGenPage.staticSetSolrId(siteRequest_, o);
+			return CrowdFlowObservedGenPage.staticSetSolrId(siteRequest_, v);
 		case "pageUriCrowdFlowObserved":
-			return CrowdFlowObservedGenPage.staticSetPageUriCrowdFlowObserved(siteRequest_, o);
+			return CrowdFlowObservedGenPage.staticSetPageUriCrowdFlowObserved(siteRequest_, v);
 			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, o);
+				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
 		}
 	}
 

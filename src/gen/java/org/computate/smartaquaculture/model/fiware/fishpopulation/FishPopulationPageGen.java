@@ -229,13 +229,13 @@ public abstract class FishPopulationPageGen<DEV> extends FishPopulationGenPage {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFishPopulationPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishPopulationPage o) {
+		return staticSetFishPopulationPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFishPopulationPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFishPopulationPage(String entityVar, SiteRequest siteRequest_, String v, FishPopulationPage o) {
 		switch(entityVar) {
 			default:
-				return FishPopulationGenPage.staticSetFishPopulationGenPage(entityVar,  siteRequest_, o);
+				return FishPopulationGenPage.staticSetFishPopulationGenPage(entityVar,  siteRequest_, v, o);
 		}
 	}
 

@@ -634,23 +634,23 @@ public abstract class FishPopulationGenPageGen<DEV> extends PageLayout {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFishPopulationGenPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishPopulationGenPage o) {
+		return staticSetFishPopulationGenPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFishPopulationGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFishPopulationGenPage(String entityVar, SiteRequest siteRequest_, String v, FishPopulationGenPage o) {
 		switch(entityVar) {
 		case "listFishPopulation":
-			return FishPopulationGenPage.staticSetListFishPopulation(siteRequest_, o);
+			return FishPopulationGenPage.staticSetListFishPopulation(siteRequest_, v);
 		case "resultCount":
-			return FishPopulationGenPage.staticSetResultCount(siteRequest_, o);
+			return FishPopulationGenPage.staticSetResultCount(siteRequest_, v);
 		case "pk":
-			return FishPopulationGenPage.staticSetPk(siteRequest_, o);
+			return FishPopulationGenPage.staticSetPk(siteRequest_, v);
 		case "solrId":
-			return FishPopulationGenPage.staticSetSolrId(siteRequest_, o);
+			return FishPopulationGenPage.staticSetSolrId(siteRequest_, v);
 		case "pageUriFishPopulation":
-			return FishPopulationGenPage.staticSetPageUriFishPopulation(siteRequest_, o);
+			return FishPopulationGenPage.staticSetPageUriFishPopulation(siteRequest_, v);
 			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, o);
+				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
 		}
 	}
 

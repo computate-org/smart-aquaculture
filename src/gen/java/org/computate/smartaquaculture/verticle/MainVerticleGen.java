@@ -183,10 +183,10 @@ public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetMainVerticle(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, MainVerticle o) {
+		return staticSetMainVerticle(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetMainVerticle(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetMainVerticle(String entityVar, SiteRequest siteRequest_, String v, MainVerticle o) {
 		switch(entityVar) {
 			default:
 				return null;

@@ -331,21 +331,22 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	/** Example: 2011-12-03T10:15:30+01:00 **/
 	@JsonIgnore
 	public void setDepartureDate(String o) {
-		this.departureDate = FishingTrip.staticSetDepartureDate(siteRequest_, o);
+		ZoneId zoneId = Optional.ofNullable(timeZone).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")));
+		this.departureDate = FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId);
 	}
 	@JsonIgnore
 	public void setDepartureDate(Date o) {
 		this.departureDate = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
 	}
-	public static ZonedDateTime staticSetDepartureDate(SiteRequest siteRequest_, String o) {
+	public static ZonedDateTime staticSetDepartureDate(SiteRequest siteRequest_, String o, ZoneId zoneId) {
 		if(StringUtils.endsWith(o, "]"))
 			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
 		else if(StringUtils.endsWith(o, "Z"))
-			return o == null ? null : Instant.parse(o).atZone(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))).truncatedTo(ChronoUnit.MILLIS);
+			return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
 		else if(StringUtils.contains(o, "T"))
 			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
 		else
-			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
+			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
 	}
 	protected FishingTrip departureDateInit() {
 		Wrap<ZonedDateTime> departureDateWrap = new Wrap<ZonedDateTime>().var("departureDate");
@@ -363,11 +364,13 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 
 	public static String staticSearchStrDepartureDate(SiteRequest siteRequest_, String o) {
-		return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o));
+		ZoneId zoneId = ZoneId.of("UTC");
+		return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId));
 	}
 
 	public static String staticSearchFqDepartureDate(SiteRequest siteRequest_, String o) {
-		return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o)).toString();
+		ZoneId zoneId = ZoneId.of("UTC");
+		return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId)).toString();
 	}
 
 	public OffsetDateTime sqlDepartureDate() {
@@ -411,21 +414,22 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	/** Example: 2011-12-03T10:15:30+01:00 **/
 	@JsonIgnore
 	public void setArrivalDate(String o) {
-		this.arrivalDate = FishingTrip.staticSetArrivalDate(siteRequest_, o);
+		ZoneId zoneId = Optional.ofNullable(timeZone).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")));
+		this.arrivalDate = FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId);
 	}
 	@JsonIgnore
 	public void setArrivalDate(Date o) {
 		this.arrivalDate = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
 	}
-	public static ZonedDateTime staticSetArrivalDate(SiteRequest siteRequest_, String o) {
+	public static ZonedDateTime staticSetArrivalDate(SiteRequest siteRequest_, String o, ZoneId zoneId) {
 		if(StringUtils.endsWith(o, "]"))
 			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
 		else if(StringUtils.endsWith(o, "Z"))
-			return o == null ? null : Instant.parse(o).atZone(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))).truncatedTo(ChronoUnit.MILLIS);
+			return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
 		else if(StringUtils.contains(o, "T"))
 			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
 		else
-			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
+			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
 	}
 	protected FishingTrip arrivalDateInit() {
 		Wrap<ZonedDateTime> arrivalDateWrap = new Wrap<ZonedDateTime>().var("arrivalDate");
@@ -443,11 +447,13 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 
 	public static String staticSearchStrArrivalDate(SiteRequest siteRequest_, String o) {
-		return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o));
+		ZoneId zoneId = ZoneId.of("UTC");
+		return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId));
 	}
 
 	public static String staticSearchFqArrivalDate(SiteRequest siteRequest_, String o) {
-		return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o)).toString();
+		ZoneId zoneId = ZoneId.of("UTC");
+		return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId)).toString();
 	}
 
 	public OffsetDateTime sqlArrivalDate() {
@@ -697,23 +703,23 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFishingTrip(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingTrip o) {
+		return staticSetFishingTrip(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFishingTrip(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFishingTrip(String entityVar, SiteRequest siteRequest_, String v, FishingTrip o) {
 		switch(entityVar) {
 		case "timeZone":
-			return FishingTrip.staticSetTimeZone(siteRequest_, o);
+			return FishingTrip.staticSetTimeZone(siteRequest_, v);
 		case "departureDate":
-			return FishingTrip.staticSetDepartureDate(siteRequest_, o);
+			return FishingTrip.staticSetDepartureDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 		case "arrivalDate":
-			return FishingTrip.staticSetArrivalDate(siteRequest_, o);
+			return FishingTrip.staticSetArrivalDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 		case "name":
-			return FishingTrip.staticSetName(siteRequest_, o);
+			return FishingTrip.staticSetName(siteRequest_, v);
 		case "description":
-			return FishingTrip.staticSetDescription(siteRequest_, o);
+			return FishingTrip.staticSetDescription(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, o);
+				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 

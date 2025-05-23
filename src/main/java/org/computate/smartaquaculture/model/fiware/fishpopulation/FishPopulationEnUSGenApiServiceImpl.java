@@ -3657,7 +3657,7 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 
 			page.persistForClass(FishPopulation.VAR_name, FishPopulation.staticSetName(siteRequest2, (String)result.get(FishPopulation.VAR_name)));
 			page.persistForClass(FishPopulation.VAR_description, FishPopulation.staticSetDescription(siteRequest2, (String)result.get(FishPopulation.VAR_description)));
-			page.persistForClass(FishPopulation.VAR_created, FishPopulation.staticSetCreated(siteRequest2, (String)result.get(FishPopulation.VAR_created)));
+			page.persistForClass(FishPopulation.VAR_created, FishPopulation.staticSetCreated(siteRequest2, (String)result.get(FishPopulation.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(FishPopulation.VAR_location, FishPopulation.staticSetLocation(siteRequest2, (String)result.get(FishPopulation.VAR_location)));
 			page.persistForClass(FishPopulation.VAR_archived, FishPopulation.staticSetArchived(siteRequest2, (String)result.get(FishPopulation.VAR_archived)));
 			page.persistForClass(FishPopulation.VAR_areaServed, FishPopulation.staticSetAreaServed(siteRequest2, (String)result.get(FishPopulation.VAR_areaServed)));

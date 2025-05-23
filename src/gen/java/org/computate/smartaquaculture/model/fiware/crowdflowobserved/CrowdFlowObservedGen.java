@@ -2458,75 +2458,75 @@ public abstract class CrowdFlowObservedGen<DEV> extends BaseModel {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetCrowdFlowObserved(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObserved o) {
+		return staticSetCrowdFlowObserved(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetCrowdFlowObserved(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetCrowdFlowObserved(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObserved o) {
 		switch(entityVar) {
 		case "name":
-			return CrowdFlowObserved.staticSetName(siteRequest_, o);
+			return CrowdFlowObserved.staticSetName(siteRequest_, v);
 		case "description":
-			return CrowdFlowObserved.staticSetDescription(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDescription(siteRequest_, v);
 		case "location":
-			return CrowdFlowObserved.staticSetLocation(siteRequest_, o);
+			return CrowdFlowObserved.staticSetLocation(siteRequest_, v);
 		case "areaServedColors":
-			return CrowdFlowObserved.staticSetAreaServedColors(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAreaServedColors(siteRequest_, v);
 		case "areaServedTitles":
-			return CrowdFlowObserved.staticSetAreaServedTitles(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAreaServedTitles(siteRequest_, v);
 		case "areaServedLinks":
-			return CrowdFlowObserved.staticSetAreaServedLinks(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAreaServedLinks(siteRequest_, v);
 		case "areaServed":
-			return CrowdFlowObserved.staticSetAreaServed(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAreaServed(siteRequest_, v);
 		case "id":
-			return CrowdFlowObserved.staticSetId(siteRequest_, o);
+			return CrowdFlowObserved.staticSetId(siteRequest_, v);
 		case "entityShortId":
-			return CrowdFlowObserved.staticSetEntityShortId(siteRequest_, o);
+			return CrowdFlowObserved.staticSetEntityShortId(siteRequest_, v);
 		case "ngsildTenant":
-			return CrowdFlowObserved.staticSetNgsildTenant(siteRequest_, o);
+			return CrowdFlowObserved.staticSetNgsildTenant(siteRequest_, v);
 		case "ngsildPath":
-			return CrowdFlowObserved.staticSetNgsildPath(siteRequest_, o);
+			return CrowdFlowObserved.staticSetNgsildPath(siteRequest_, v);
 		case "ngsildContext":
-			return CrowdFlowObserved.staticSetNgsildContext(siteRequest_, o);
+			return CrowdFlowObserved.staticSetNgsildContext(siteRequest_, v);
 		case "ngsildData":
-			return CrowdFlowObserved.staticSetNgsildData(siteRequest_, o);
+			return CrowdFlowObserved.staticSetNgsildData(siteRequest_, v);
 		case "address":
-			return CrowdFlowObserved.staticSetAddress(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAddress(siteRequest_, v);
 		case "alternateName":
-			return CrowdFlowObserved.staticSetAlternateName(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAlternateName(siteRequest_, v);
 		case "averageCrowdSpeed":
-			return CrowdFlowObserved.staticSetAverageCrowdSpeed(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAverageCrowdSpeed(siteRequest_, v);
 		case "averageHeadwayTime":
-			return CrowdFlowObserved.staticSetAverageHeadwayTime(siteRequest_, o);
+			return CrowdFlowObserved.staticSetAverageHeadwayTime(siteRequest_, v);
 		case "congested":
-			return CrowdFlowObserved.staticSetCongested(siteRequest_, o);
+			return CrowdFlowObserved.staticSetCongested(siteRequest_, v);
 		case "dataProvider":
-			return CrowdFlowObserved.staticSetDataProvider(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDataProvider(siteRequest_, v);
 		case "dateCreated":
-			return CrowdFlowObserved.staticSetDateCreated(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDateCreated(siteRequest_, v);
 		case "dateModified":
-			return CrowdFlowObserved.staticSetDateModified(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDateModified(siteRequest_, v);
 		case "dateObserved":
-			return CrowdFlowObserved.staticSetDateObserved(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDateObserved(siteRequest_, v);
 		case "dateObservedFrom":
-			return CrowdFlowObserved.staticSetDateObservedFrom(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDateObservedFrom(siteRequest_, v);
 		case "dateObservedTo":
-			return CrowdFlowObserved.staticSetDateObservedTo(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDateObservedTo(siteRequest_, v);
 		case "direction":
-			return CrowdFlowObserved.staticSetDirection(siteRequest_, o);
+			return CrowdFlowObserved.staticSetDirection(siteRequest_, v);
 		case "occupancy":
-			return CrowdFlowObserved.staticSetOccupancy(siteRequest_, o);
+			return CrowdFlowObserved.staticSetOccupancy(siteRequest_, v);
 		case "owner":
-			return CrowdFlowObserved.staticSetOwner(siteRequest_, o);
+			return CrowdFlowObserved.staticSetOwner(siteRequest_, v);
 		case "peopleCount":
-			return CrowdFlowObserved.staticSetPeopleCount(siteRequest_, o);
+			return CrowdFlowObserved.staticSetPeopleCount(siteRequest_, v);
 		case "refRoadSegment":
-			return CrowdFlowObserved.staticSetRefRoadSegment(siteRequest_, o);
+			return CrowdFlowObserved.staticSetRefRoadSegment(siteRequest_, v);
 		case "seeAlso":
-			return CrowdFlowObserved.staticSetSeeAlso(siteRequest_, o);
+			return CrowdFlowObserved.staticSetSeeAlso(siteRequest_, v);
 		case "source":
-			return CrowdFlowObserved.staticSetSource(siteRequest_, o);
+			return CrowdFlowObserved.staticSetSource(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, o);
+				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 

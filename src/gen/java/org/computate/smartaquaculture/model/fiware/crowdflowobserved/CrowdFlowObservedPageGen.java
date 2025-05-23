@@ -229,13 +229,13 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetCrowdFlowObservedPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObservedPage o) {
+		return staticSetCrowdFlowObservedPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetCrowdFlowObservedPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetCrowdFlowObservedPage(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObservedPage o) {
 		switch(entityVar) {
 			default:
-				return CrowdFlowObservedGenPage.staticSetCrowdFlowObservedGenPage(entityVar,  siteRequest_, o);
+				return CrowdFlowObservedGenPage.staticSetCrowdFlowObservedGenPage(entityVar,  siteRequest_, v, o);
 		}
 	}
 

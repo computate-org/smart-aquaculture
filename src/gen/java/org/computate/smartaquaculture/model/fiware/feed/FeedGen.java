@@ -1845,57 +1845,57 @@ public abstract class FeedGen<DEV> extends BaseModel {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFeed(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, Feed o) {
+		return staticSetFeed(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFeed(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFeed(String entityVar, SiteRequest siteRequest_, String v, Feed o) {
 		switch(entityVar) {
 		case "name":
-			return Feed.staticSetName(siteRequest_, o);
+			return Feed.staticSetName(siteRequest_, v);
 		case "description":
-			return Feed.staticSetDescription(siteRequest_, o);
+			return Feed.staticSetDescription(siteRequest_, v);
 		case "location":
-			return Feed.staticSetLocation(siteRequest_, o);
+			return Feed.staticSetLocation(siteRequest_, v);
 		case "areaServedColors":
-			return Feed.staticSetAreaServedColors(siteRequest_, o);
+			return Feed.staticSetAreaServedColors(siteRequest_, v);
 		case "areaServedTitles":
-			return Feed.staticSetAreaServedTitles(siteRequest_, o);
+			return Feed.staticSetAreaServedTitles(siteRequest_, v);
 		case "areaServedLinks":
-			return Feed.staticSetAreaServedLinks(siteRequest_, o);
+			return Feed.staticSetAreaServedLinks(siteRequest_, v);
 		case "areaServed":
-			return Feed.staticSetAreaServed(siteRequest_, o);
+			return Feed.staticSetAreaServed(siteRequest_, v);
 		case "id":
-			return Feed.staticSetId(siteRequest_, o);
+			return Feed.staticSetId(siteRequest_, v);
 		case "entityShortId":
-			return Feed.staticSetEntityShortId(siteRequest_, o);
+			return Feed.staticSetEntityShortId(siteRequest_, v);
 		case "ngsildTenant":
-			return Feed.staticSetNgsildTenant(siteRequest_, o);
+			return Feed.staticSetNgsildTenant(siteRequest_, v);
 		case "ngsildPath":
-			return Feed.staticSetNgsildPath(siteRequest_, o);
+			return Feed.staticSetNgsildPath(siteRequest_, v);
 		case "ngsildContext":
-			return Feed.staticSetNgsildContext(siteRequest_, o);
+			return Feed.staticSetNgsildContext(siteRequest_, v);
 		case "ngsildData":
-			return Feed.staticSetNgsildData(siteRequest_, o);
+			return Feed.staticSetNgsildData(siteRequest_, v);
 		case "address":
-			return Feed.staticSetAddress(siteRequest_, o);
+			return Feed.staticSetAddress(siteRequest_, v);
 		case "alternateName":
-			return Feed.staticSetAlternateName(siteRequest_, o);
+			return Feed.staticSetAlternateName(siteRequest_, v);
 		case "dataProvider":
-			return Feed.staticSetDataProvider(siteRequest_, o);
+			return Feed.staticSetDataProvider(siteRequest_, v);
 		case "dateCreated":
-			return Feed.staticSetDateCreated(siteRequest_, o);
+			return Feed.staticSetDateCreated(siteRequest_, v);
 		case "dateModified":
-			return Feed.staticSetDateModified(siteRequest_, o);
+			return Feed.staticSetDateModified(siteRequest_, v);
 		case "owner":
-			return Feed.staticSetOwner(siteRequest_, o);
+			return Feed.staticSetOwner(siteRequest_, v);
 		case "relatedSource":
-			return Feed.staticSetRelatedSource(siteRequest_, o);
+			return Feed.staticSetRelatedSource(siteRequest_, v);
 		case "seeAlso":
-			return Feed.staticSetSeeAlso(siteRequest_, o);
+			return Feed.staticSetSeeAlso(siteRequest_, v);
 		case "source":
-			return Feed.staticSetSource(siteRequest_, o);
+			return Feed.staticSetSource(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, o);
+				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 

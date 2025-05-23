@@ -202,11 +202,11 @@ WEB_COMPONENTS_CSS: >-
 # WEB_COMPONENTS_CSS: >-
 #   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.0/cdn/themes/dark.css" />
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 
-FONTAWESOME_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_KIT | default('') | b64decode }}"
+FONTAWESOME_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_KIT | default('', true) | b64decode | default('', true) }}"
 # A default FontAwesome style. 
-FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('') | b64decode }}"
+FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('default', true) }}"
 # Site default theme, light or dark. 
-SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('dark') | b64decode }}"
+SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('', true) | b64decode | default('dark', true) }}"
 # The site logo relative URI
 SITE_LOGO_URI: "/svg/logo-{{ SITE_THEME }}.svg"
 # The name of the repository containing the web static content. 

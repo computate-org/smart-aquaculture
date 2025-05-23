@@ -12224,6 +12224,12 @@ components:
               items:
                 type: object
                 properties:
+                  userKeys:
+                    type: array
+                    items:
+                      type: string
+                  userId:
+                    type: string
                   userName:
                     type: string
                   userEmail:
@@ -12244,16 +12250,34 @@ components:
                     type: string
                   webComponentsTheme:
                     type: string
-                  userKeys:
-                    type: array
-                    items:
-                      type: string
-                  userId:
-                    type: string
     PATCHSiteUserRequest:
       allOf:
         - type: object
           properties:
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserId:
+              type: string
+              nullable: true
+            removeUserId:
+              type: string
+            removeAllUserId:
+              type: string
             setUserName:
               type: string
               nullable: true
@@ -12323,35 +12347,35 @@ components:
             removeWebComponentsTheme:
               type: string
             removeAllWebComponentsTheme:
-              type: string
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
-            setUserId:
-              type: string
-              nullable: true
-            removeUserId:
-              type: string
-            removeAllUserId:
               type: string
     PATCHSiteUserResponse:
       allOf:
         - type: object
           properties:
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserId:
+              type: string
+              nullable: true
+            removeUserId:
+              type: string
+            removeAllUserId:
+              type: string
             setUserName:
               type: string
               nullable: true
@@ -12422,34 +12446,16 @@ components:
               type: string
             removeAllWebComponentsTheme:
               type: string
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
-            setUserId:
-              type: string
-              nullable: true
-            removeUserId:
-              type: string
-            removeAllUserId:
-              type: string
     POSTSiteUserRequest:
       allOf:
         - type: object
           properties:
+            userKeys:
+              type: array
+              items:
+                type: string
+            userId:
+              type: string
             userName:
               type: string
             userEmail:
@@ -12469,17 +12475,17 @@ components:
             siteTheme:
               type: string
             webComponentsTheme:
-              type: string
-            userKeys:
-              type: array
-              items:
-                type: string
-            userId:
               type: string
     POSTSiteUserResponse:
       allOf:
         - type: object
           properties:
+            userKeys:
+              type: array
+              items:
+                type: string
+            userId:
+              type: string
             userName:
               type: string
             userEmail:
@@ -12499,12 +12505,6 @@ components:
             siteTheme:
               type: string
             webComponentsTheme:
-              type: string
-            userKeys:
-              type: array
-              items:
-                type: string
-            userId:
               type: string
     EditPageSiteUserResponse:
       allOf:

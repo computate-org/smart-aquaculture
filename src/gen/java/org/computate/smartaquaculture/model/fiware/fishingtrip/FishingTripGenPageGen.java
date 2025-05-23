@@ -634,23 +634,23 @@ public abstract class FishingTripGenPageGen<DEV> extends PageLayout {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFishingTripGenPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingTripGenPage o) {
+		return staticSetFishingTripGenPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFishingTripGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFishingTripGenPage(String entityVar, SiteRequest siteRequest_, String v, FishingTripGenPage o) {
 		switch(entityVar) {
 		case "listFishingTrip":
-			return FishingTripGenPage.staticSetListFishingTrip(siteRequest_, o);
+			return FishingTripGenPage.staticSetListFishingTrip(siteRequest_, v);
 		case "resultCount":
-			return FishingTripGenPage.staticSetResultCount(siteRequest_, o);
+			return FishingTripGenPage.staticSetResultCount(siteRequest_, v);
 		case "pk":
-			return FishingTripGenPage.staticSetPk(siteRequest_, o);
+			return FishingTripGenPage.staticSetPk(siteRequest_, v);
 		case "solrId":
-			return FishingTripGenPage.staticSetSolrId(siteRequest_, o);
+			return FishingTripGenPage.staticSetSolrId(siteRequest_, v);
 		case "pageUriFishingTrip":
-			return FishingTripGenPage.staticSetPageUriFishingTrip(siteRequest_, o);
+			return FishingTripGenPage.staticSetPageUriFishingTrip(siteRequest_, v);
 			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, o);
+				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
 		}
 	}
 

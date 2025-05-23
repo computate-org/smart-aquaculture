@@ -1925,7 +1925,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SitePage page = new SitePage();
 			page.setSiteRequest_((SiteRequest)siteRequest);
 
-			page.persistForClass(SitePage.VAR_created, SitePage.staticSetCreated(siteRequest2, (String)result.get(SitePage.VAR_created)));
+			page.persistForClass(SitePage.VAR_created, SitePage.staticSetCreated(siteRequest2, (String)result.get(SitePage.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(SitePage.VAR_archived, SitePage.staticSetArchived(siteRequest2, (String)result.get(SitePage.VAR_archived)));
 			page.persistForClass(SitePage.VAR_objectTitle, SitePage.staticSetObjectTitle(siteRequest2, (String)result.get(SitePage.VAR_objectTitle)));
 			page.persistForClass(SitePage.VAR_displayPage, SitePage.staticSetDisplayPage(siteRequest2, (String)result.get(SitePage.VAR_displayPage)));

@@ -2090,65 +2090,65 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFeedingOperation(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeedingOperation o) {
+		return staticSetFeedingOperation(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFeedingOperation(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFeedingOperation(String entityVar, SiteRequest siteRequest_, String v, FeedingOperation o) {
 		switch(entityVar) {
 		case "name":
-			return FeedingOperation.staticSetName(siteRequest_, o);
+			return FeedingOperation.staticSetName(siteRequest_, v);
 		case "description":
-			return FeedingOperation.staticSetDescription(siteRequest_, o);
+			return FeedingOperation.staticSetDescription(siteRequest_, v);
 		case "location":
-			return FeedingOperation.staticSetLocation(siteRequest_, o);
+			return FeedingOperation.staticSetLocation(siteRequest_, v);
 		case "areaServedColors":
-			return FeedingOperation.staticSetAreaServedColors(siteRequest_, o);
+			return FeedingOperation.staticSetAreaServedColors(siteRequest_, v);
 		case "areaServedTitles":
-			return FeedingOperation.staticSetAreaServedTitles(siteRequest_, o);
+			return FeedingOperation.staticSetAreaServedTitles(siteRequest_, v);
 		case "areaServedLinks":
-			return FeedingOperation.staticSetAreaServedLinks(siteRequest_, o);
+			return FeedingOperation.staticSetAreaServedLinks(siteRequest_, v);
 		case "areaServed":
-			return FeedingOperation.staticSetAreaServed(siteRequest_, o);
+			return FeedingOperation.staticSetAreaServed(siteRequest_, v);
 		case "id":
-			return FeedingOperation.staticSetId(siteRequest_, o);
+			return FeedingOperation.staticSetId(siteRequest_, v);
 		case "entityShortId":
-			return FeedingOperation.staticSetEntityShortId(siteRequest_, o);
+			return FeedingOperation.staticSetEntityShortId(siteRequest_, v);
 		case "ngsildTenant":
-			return FeedingOperation.staticSetNgsildTenant(siteRequest_, o);
+			return FeedingOperation.staticSetNgsildTenant(siteRequest_, v);
 		case "ngsildPath":
-			return FeedingOperation.staticSetNgsildPath(siteRequest_, o);
+			return FeedingOperation.staticSetNgsildPath(siteRequest_, v);
 		case "ngsildContext":
-			return FeedingOperation.staticSetNgsildContext(siteRequest_, o);
+			return FeedingOperation.staticSetNgsildContext(siteRequest_, v);
 		case "ngsildData":
-			return FeedingOperation.staticSetNgsildData(siteRequest_, o);
+			return FeedingOperation.staticSetNgsildData(siteRequest_, v);
 		case "address":
-			return FeedingOperation.staticSetAddress(siteRequest_, o);
+			return FeedingOperation.staticSetAddress(siteRequest_, v);
 		case "alternateName":
-			return FeedingOperation.staticSetAlternateName(siteRequest_, o);
+			return FeedingOperation.staticSetAlternateName(siteRequest_, v);
 		case "category":
-			return FeedingOperation.staticSetCategory(siteRequest_, o);
+			return FeedingOperation.staticSetCategory(siteRequest_, v);
 		case "dataProvider":
-			return FeedingOperation.staticSetDataProvider(siteRequest_, o);
+			return FeedingOperation.staticSetDataProvider(siteRequest_, v);
 		case "dateCreated":
-			return FeedingOperation.staticSetDateCreated(siteRequest_, o);
+			return FeedingOperation.staticSetDateCreated(siteRequest_, v);
 		case "dateModified":
-			return FeedingOperation.staticSetDateModified(siteRequest_, o);
+			return FeedingOperation.staticSetDateModified(siteRequest_, v);
 		case "endpoint":
-			return FeedingOperation.staticSetEndpoint(siteRequest_, o);
+			return FeedingOperation.staticSetEndpoint(siteRequest_, v);
 		case "hasProvider":
-			return FeedingOperation.staticSetHasProvider(siteRequest_, o);
+			return FeedingOperation.staticSetHasProvider(siteRequest_, v);
 		case "owner":
-			return FeedingOperation.staticSetOwner(siteRequest_, o);
+			return FeedingOperation.staticSetOwner(siteRequest_, v);
 		case "relatedSource":
-			return FeedingOperation.staticSetRelatedSource(siteRequest_, o);
+			return FeedingOperation.staticSetRelatedSource(siteRequest_, v);
 		case "seeAlso":
-			return FeedingOperation.staticSetSeeAlso(siteRequest_, o);
+			return FeedingOperation.staticSetSeeAlso(siteRequest_, v);
 		case "source":
-			return FeedingOperation.staticSetSource(siteRequest_, o);
+			return FeedingOperation.staticSetSource(siteRequest_, v);
 		case "version":
-			return FeedingOperation.staticSetVersion(siteRequest_, o);
+			return FeedingOperation.staticSetVersion(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, o);
+				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 

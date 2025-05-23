@@ -3572,7 +3572,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 
 			page.persistForClass(Feed.VAR_name, Feed.staticSetName(siteRequest2, (String)result.get(Feed.VAR_name)));
 			page.persistForClass(Feed.VAR_description, Feed.staticSetDescription(siteRequest2, (String)result.get(Feed.VAR_description)));
-			page.persistForClass(Feed.VAR_created, Feed.staticSetCreated(siteRequest2, (String)result.get(Feed.VAR_created)));
+			page.persistForClass(Feed.VAR_created, Feed.staticSetCreated(siteRequest2, (String)result.get(Feed.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(Feed.VAR_location, Feed.staticSetLocation(siteRequest2, (String)result.get(Feed.VAR_location)));
 			page.persistForClass(Feed.VAR_archived, Feed.staticSetArchived(siteRequest2, (String)result.get(Feed.VAR_archived)));
 			page.persistForClass(Feed.VAR_areaServed, Feed.staticSetAreaServed(siteRequest2, (String)result.get(Feed.VAR_areaServed)));

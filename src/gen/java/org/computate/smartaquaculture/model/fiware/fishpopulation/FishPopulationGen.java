@@ -2246,67 +2246,67 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFishPopulation(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishPopulation o) {
+		return staticSetFishPopulation(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFishPopulation(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFishPopulation(String entityVar, SiteRequest siteRequest_, String v, FishPopulation o) {
 		switch(entityVar) {
 		case "name":
-			return FishPopulation.staticSetName(siteRequest_, o);
+			return FishPopulation.staticSetName(siteRequest_, v);
 		case "description":
-			return FishPopulation.staticSetDescription(siteRequest_, o);
+			return FishPopulation.staticSetDescription(siteRequest_, v);
 		case "location":
-			return FishPopulation.staticSetLocation(siteRequest_, o);
+			return FishPopulation.staticSetLocation(siteRequest_, v);
 		case "areaServedColors":
-			return FishPopulation.staticSetAreaServedColors(siteRequest_, o);
+			return FishPopulation.staticSetAreaServedColors(siteRequest_, v);
 		case "areaServedTitles":
-			return FishPopulation.staticSetAreaServedTitles(siteRequest_, o);
+			return FishPopulation.staticSetAreaServedTitles(siteRequest_, v);
 		case "areaServedLinks":
-			return FishPopulation.staticSetAreaServedLinks(siteRequest_, o);
+			return FishPopulation.staticSetAreaServedLinks(siteRequest_, v);
 		case "areaServed":
-			return FishPopulation.staticSetAreaServed(siteRequest_, o);
+			return FishPopulation.staticSetAreaServed(siteRequest_, v);
 		case "id":
-			return FishPopulation.staticSetId(siteRequest_, o);
+			return FishPopulation.staticSetId(siteRequest_, v);
 		case "entityShortId":
-			return FishPopulation.staticSetEntityShortId(siteRequest_, o);
+			return FishPopulation.staticSetEntityShortId(siteRequest_, v);
 		case "ngsildTenant":
-			return FishPopulation.staticSetNgsildTenant(siteRequest_, o);
+			return FishPopulation.staticSetNgsildTenant(siteRequest_, v);
 		case "ngsildPath":
-			return FishPopulation.staticSetNgsildPath(siteRequest_, o);
+			return FishPopulation.staticSetNgsildPath(siteRequest_, v);
 		case "ngsildContext":
-			return FishPopulation.staticSetNgsildContext(siteRequest_, o);
+			return FishPopulation.staticSetNgsildContext(siteRequest_, v);
 		case "ngsildData":
-			return FishPopulation.staticSetNgsildData(siteRequest_, o);
+			return FishPopulation.staticSetNgsildData(siteRequest_, v);
 		case "address":
-			return FishPopulation.staticSetAddress(siteRequest_, o);
+			return FishPopulation.staticSetAddress(siteRequest_, v);
 		case "alternateName":
-			return FishPopulation.staticSetAlternateName(siteRequest_, o);
+			return FishPopulation.staticSetAlternateName(siteRequest_, v);
 		case "bodyMasse":
-			return FishPopulation.staticSetBodyMasse(siteRequest_, o);
+			return FishPopulation.staticSetBodyMasse(siteRequest_, v);
 		case "culturedIn":
-			return FishPopulation.staticSetCulturedIn(siteRequest_, o);
+			return FishPopulation.staticSetCulturedIn(siteRequest_, v);
 		case "dataProvider":
-			return FishPopulation.staticSetDataProvider(siteRequest_, o);
+			return FishPopulation.staticSetDataProvider(siteRequest_, v);
 		case "dateCreated":
-			return FishPopulation.staticSetDateCreated(siteRequest_, o);
+			return FishPopulation.staticSetDateCreated(siteRequest_, v);
 		case "dateModified":
-			return FishPopulation.staticSetDateModified(siteRequest_, o);
+			return FishPopulation.staticSetDateModified(siteRequest_, v);
 		case "fishRemoved":
-			return FishPopulation.staticSetFishRemoved(siteRequest_, o);
+			return FishPopulation.staticSetFishRemoved(siteRequest_, v);
 		case "initialNumber":
-			return FishPopulation.staticSetInitialNumber(siteRequest_, o);
+			return FishPopulation.staticSetInitialNumber(siteRequest_, v);
 		case "owner":
-			return FishPopulation.staticSetOwner(siteRequest_, o);
+			return FishPopulation.staticSetOwner(siteRequest_, v);
 		case "refSpecie":
-			return FishPopulation.staticSetRefSpecie(siteRequest_, o);
+			return FishPopulation.staticSetRefSpecie(siteRequest_, v);
 		case "relatedSource":
-			return FishPopulation.staticSetRelatedSource(siteRequest_, o);
+			return FishPopulation.staticSetRelatedSource(siteRequest_, v);
 		case "seeAlso":
-			return FishPopulation.staticSetSeeAlso(siteRequest_, o);
+			return FishPopulation.staticSetSeeAlso(siteRequest_, v);
 		case "source":
-			return FishPopulation.staticSetSource(siteRequest_, o);
+			return FishPopulation.staticSetSource(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, o);
+				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 

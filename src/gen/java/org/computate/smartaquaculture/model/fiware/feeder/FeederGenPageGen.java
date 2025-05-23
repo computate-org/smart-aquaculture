@@ -634,23 +634,23 @@ public abstract class FeederGenPageGen<DEV> extends PageLayout {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFeederGenPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeederGenPage o) {
+		return staticSetFeederGenPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFeederGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFeederGenPage(String entityVar, SiteRequest siteRequest_, String v, FeederGenPage o) {
 		switch(entityVar) {
 		case "listFeeder":
-			return FeederGenPage.staticSetListFeeder(siteRequest_, o);
+			return FeederGenPage.staticSetListFeeder(siteRequest_, v);
 		case "resultCount":
-			return FeederGenPage.staticSetResultCount(siteRequest_, o);
+			return FeederGenPage.staticSetResultCount(siteRequest_, v);
 		case "pk":
-			return FeederGenPage.staticSetPk(siteRequest_, o);
+			return FeederGenPage.staticSetPk(siteRequest_, v);
 		case "solrId":
-			return FeederGenPage.staticSetSolrId(siteRequest_, o);
+			return FeederGenPage.staticSetSolrId(siteRequest_, v);
 		case "pageUriFeeder":
-			return FeederGenPage.staticSetPageUriFeeder(siteRequest_, o);
+			return FeederGenPage.staticSetPageUriFeeder(siteRequest_, v);
 			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, o);
+				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
 		}
 	}
 

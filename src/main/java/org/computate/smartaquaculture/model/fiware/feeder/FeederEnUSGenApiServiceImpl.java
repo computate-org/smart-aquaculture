@@ -3572,7 +3572,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 
 			page.persistForClass(Feeder.VAR_name, Feeder.staticSetName(siteRequest2, (String)result.get(Feeder.VAR_name)));
 			page.persistForClass(Feeder.VAR_description, Feeder.staticSetDescription(siteRequest2, (String)result.get(Feeder.VAR_description)));
-			page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created)));
+			page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(Feeder.VAR_location, Feeder.staticSetLocation(siteRequest2, (String)result.get(Feeder.VAR_location)));
 			page.persistForClass(Feeder.VAR_archived, Feeder.staticSetArchived(siteRequest2, (String)result.get(Feeder.VAR_archived)));
 			page.persistForClass(Feeder.VAR_areaServed, Feeder.staticSetAreaServed(siteRequest2, (String)result.get(Feeder.VAR_areaServed)));

@@ -229,13 +229,13 @@ public abstract class FishingTripPageGen<DEV> extends FishingTripGenPage {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetFishingTripPage(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingTripPage o) {
+		return staticSetFishingTripPage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFishingTripPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetFishingTripPage(String entityVar, SiteRequest siteRequest_, String v, FishingTripPage o) {
 		switch(entityVar) {
 			default:
-				return FishingTripGenPage.staticSetFishingTripGenPage(entityVar,  siteRequest_, o);
+				return FishingTripGenPage.staticSetFishingTripGenPage(entityVar,  siteRequest_, v, o);
 		}
 	}
 

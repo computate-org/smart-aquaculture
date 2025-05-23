@@ -3640,7 +3640,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
 			page.persistForClass(FeedingOperation.VAR_name, FeedingOperation.staticSetName(siteRequest2, (String)result.get(FeedingOperation.VAR_name)));
 			page.persistForClass(FeedingOperation.VAR_description, FeedingOperation.staticSetDescription(siteRequest2, (String)result.get(FeedingOperation.VAR_description)));
-			page.persistForClass(FeedingOperation.VAR_created, FeedingOperation.staticSetCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_created)));
+			page.persistForClass(FeedingOperation.VAR_created, FeedingOperation.staticSetCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(FeedingOperation.VAR_location, FeedingOperation.staticSetLocation(siteRequest2, (String)result.get(FeedingOperation.VAR_location)));
 			page.persistForClass(FeedingOperation.VAR_archived, FeedingOperation.staticSetArchived(siteRequest2, (String)result.get(FeedingOperation.VAR_archived)));
 			page.persistForClass(FeedingOperation.VAR_areaServed, FeedingOperation.staticSetAreaServed(siteRequest2, (String)result.get(FeedingOperation.VAR_areaServed)));

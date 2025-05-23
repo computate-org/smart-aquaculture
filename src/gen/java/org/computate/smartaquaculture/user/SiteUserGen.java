@@ -1066,37 +1066,37 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSetSiteUser(entityVar,  siteRequest_, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, SiteUser o) {
+		return staticSetSiteUser(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetSiteUser(String entityVar, SiteRequest siteRequest_, String o) {
+	public static Object staticSetSiteUser(String entityVar, SiteRequest siteRequest_, String v, SiteUser o) {
 		switch(entityVar) {
 		case "userKeys":
-			return SiteUser.staticSetUserKeys(siteRequest_, o);
+			return SiteUser.staticSetUserKeys(siteRequest_, v);
 		case "userId":
-			return SiteUser.staticSetUserId(siteRequest_, o);
+			return SiteUser.staticSetUserId(siteRequest_, v);
 		case "userName":
-			return SiteUser.staticSetUserName(siteRequest_, o);
+			return SiteUser.staticSetUserName(siteRequest_, v);
 		case "userEmail":
-			return SiteUser.staticSetUserEmail(siteRequest_, o);
+			return SiteUser.staticSetUserEmail(siteRequest_, v);
 		case "userFirstName":
-			return SiteUser.staticSetUserFirstName(siteRequest_, o);
+			return SiteUser.staticSetUserFirstName(siteRequest_, v);
 		case "userLastName":
-			return SiteUser.staticSetUserLastName(siteRequest_, o);
+			return SiteUser.staticSetUserLastName(siteRequest_, v);
 		case "userFullName":
-			return SiteUser.staticSetUserFullName(siteRequest_, o);
+			return SiteUser.staticSetUserFullName(siteRequest_, v);
 		case "seeArchived":
-			return SiteUser.staticSetSeeArchived(siteRequest_, o);
+			return SiteUser.staticSetSeeArchived(siteRequest_, v);
 		case "awesomeEffect":
-			return SiteUser.staticSetAwesomeEffect(siteRequest_, o);
+			return SiteUser.staticSetAwesomeEffect(siteRequest_, v);
 		case "displayName":
-			return SiteUser.staticSetDisplayName(siteRequest_, o);
+			return SiteUser.staticSetDisplayName(siteRequest_, v);
 		case "siteTheme":
-			return SiteUser.staticSetSiteTheme(siteRequest_, o);
+			return SiteUser.staticSetSiteTheme(siteRequest_, v);
 		case "webComponentsTheme":
-			return SiteUser.staticSetWebComponentsTheme(siteRequest_, o);
+			return SiteUser.staticSetWebComponentsTheme(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, o);
+				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 
