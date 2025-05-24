@@ -22,7 +22,7 @@ import io.vertx.pgclient.data.Polygon;
  *
  * Order: 1
  * Description: 
- * AName: a FishPopulation
+ * AName: a fish population
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
  * Rows: 100
  * 

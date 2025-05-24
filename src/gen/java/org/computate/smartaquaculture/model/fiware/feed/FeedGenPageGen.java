@@ -824,6 +824,8 @@ public abstract class FeedGenPageGen<DEV> extends PageLayout {
 	}
 
 	public static String descriptionFeedGenPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return PageLayout.descriptionPageLayout(var);

@@ -37,6 +37,7 @@ import java.math.RoundingMode;
 import java.util.Map;
 import java.lang.Long;
 import java.lang.String;
+import org.computate.smartaquaculture.model.timezone.TimeZone;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -694,6 +695,12 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public Object relateFishingTrip(String var, Object val) {
 		FishingTrip oFishingTrip = (FishingTrip)this;
 		switch(var) {
+			case "timeZone":
+				if(oFishingTrip.getTimeZone() == null)
+					oFishingTrip.setTimeZone(Optional.ofNullable(val).map(v -> v.toString()).orElse(null));
+				if(!saves.contains("timeZone"))
+					saves.add("timeZone");
+				return val;
 			default:
 				return super.relateBaseModel(var, val);
 		}
@@ -867,11 +874,9 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
 		if(saves != null) {
 
-			if(saves.contains("timeZone")) {
-				String timeZone = (String)doc.get("timeZone_docvalues_string");
-				if(timeZone != null)
-					oFishingTrip.setTimeZone(timeZone);
-			}
+			String timeZone = (String)doc.get("timeZone_docvalues_string");
+			if(timeZone != null)
+				oFishingTrip.setTimeZone(timeZone);
 
 			if(saves.contains("departureDate")) {
 				String departureDate = (String)doc.get("departureDate_docvalues_date");
@@ -1159,6 +1164,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	}
 
 	public static String descriptionFishingTrip(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_timeZone:
 			return "The local time zone the fishing trip departure and arrival dates are based on. ";

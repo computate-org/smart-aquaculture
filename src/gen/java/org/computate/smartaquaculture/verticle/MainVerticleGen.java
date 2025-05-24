@@ -297,6 +297,8 @@ public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
 	}
 
 	public static String descriptionMainVerticle(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return null;

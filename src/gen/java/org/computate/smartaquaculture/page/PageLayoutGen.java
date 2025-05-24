@@ -5475,6 +5475,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	}
 
 	public static String descriptionPageLayout(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_webClient:
 			return "The current request object";

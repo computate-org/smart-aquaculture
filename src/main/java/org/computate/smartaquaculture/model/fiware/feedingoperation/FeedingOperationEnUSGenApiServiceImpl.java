@@ -438,7 +438,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFeedingOperation.first());
 								apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-								apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
+								apiRequest.setSolrId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFeedingOperation", JsonObject.mapFrom(apiRequest).toString());
 
 								listPATCHFeedingOperation(apiRequest, listFeedingOperation).onSuccess(e -> {
@@ -565,7 +565,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
 							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
 							FeedingOperation o2 = jsonObject.mapTo(FeedingOperation.class);
 							o2.setSiteRequest_(siteRequest);
@@ -711,7 +711,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -1087,7 +1087,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 						eventBus.request(FeedingOperation.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFeedingOperationFuture")).onSuccess(a -> {
 							JsonObject responseMessage = (JsonObject)a.body();
 							JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
-							apiRequest.setPk(Long.parseLong(responseBody.getString("pk")));
+							apiRequest.setSolrId(responseBody.getString(FeedingOperation.VAR_solrId));
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
 							LOG.debug(String.format("postFeedingOperation succeeded. "));
 						}).onFailure(ex -> {
@@ -1260,7 +1260,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -1663,7 +1663,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFeedingOperation.first());
-								apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
+								apiRequest.setSolrId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFeedingOperation", JsonObject.mapFrom(apiRequest).toString());
 
 								listDELETEFeedingOperation(apiRequest, listFeedingOperation).onSuccess(e -> {
@@ -1790,7 +1790,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
 							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deleteFeedingOperationFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
@@ -1882,7 +1882,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -2197,7 +2197,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 									if(result.size() >= 1) {
 										apiRequest.setOriginal(o);
 										apiRequest.setId(Optional.ofNullable(o.getEntityShortId()).map(v -> v.toString()).orElse(null));
-										apiRequest.setPk(o.getPk());
+										apiRequest.setSolrId(o.getSolrId());
 									}
 									siteRequest.setJsonObject(body2);
 									patchFeedingOperationFuture(o, true).onSuccess(b -> {
@@ -2661,7 +2661,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFeedingOperation.first());
-								apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
+								apiRequest.setSolrId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFeedingOperation", JsonObject.mapFrom(apiRequest).toString());
 
 								listDELETEFilterFeedingOperation(apiRequest, listFeedingOperation).onSuccess(e -> {
@@ -2788,7 +2788,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
 							apiRequest.setId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFeedingOperation.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deletefilterFeedingOperationFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
@@ -2880,7 +2880,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -3572,14 +3572,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 		SiteRequest siteRequest = o.getSiteRequest_();
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			Boolean refresh = !"false".equals(siteRequest.getRequestVars().get("refresh"));
 			if(refresh && !Optional.ofNullable(siteRequest.getJsonObject()).map(JsonObject::isEmpty).orElse(true)) {
 				List<Future> futures = new ArrayList<>();
 
-				for(int i=0; i < pks.size(); i++) {
-					Long pk2 = pks.get(i);
+				for(int i=0; i < solrIds.size(); i++) {
+					String solrId2 = solrIds.get(i);
 					String classSimpleName2 = classes.get(i);
 				}
 

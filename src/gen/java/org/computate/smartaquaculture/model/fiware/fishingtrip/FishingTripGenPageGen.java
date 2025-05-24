@@ -824,6 +824,8 @@ public abstract class FishingTripGenPageGen<DEV> extends PageLayout {
 	}
 
 	public static String descriptionFishingTripGenPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return PageLayout.descriptionPageLayout(var);

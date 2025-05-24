@@ -111,7 +111,7 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
  * </p>
  * <h2>ApiTag.enUS: true</h2>
- * <p>This class contains a comment <b>"ApiTag: FishPopulations"</b>, which groups all of the OpenAPIs for FishPopulation objects under the tag "FishPopulations". 
+ * <p>This class contains a comment <b>"ApiTag: fish populations"</b>, which groups all of the OpenAPIs for FishPopulation objects under the tag "fish populations". 
  * </p>
  * <h2>ApiUri.enUS: /en-us/api/fish-population</h2>
  * <p>This class contains a comment <b>"ApiUri: /en-us/api/fish-population"</b>, which defines the base API URI for FishPopulation objects as "/en-us/api/fish-population" in the OpenAPI spec. 
@@ -170,8 +170,8 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>
  *   If a super class of this Java class with `Model: true`, then the child class will also inherit `Promise: true`. 
  * </p>
- * <h2>AName.enUS: a FishPopulation</h2>
- * <p>This class contains a comment <b>"AName.enUS: a FishPopulation"</b>, which identifies the language context to describe a FishPopulation as "a FishPopulation". 
+ * <h2>AName.enUS: a fish population</h2>
+ * <p>This class contains a comment <b>"AName.enUS: a fish population"</b>, which identifies the language context to describe a FishPopulation as "a fish population". 
  * </p>
  * <p>
  * Delete the class FishPopulation in Solr: 
@@ -190,28 +190,28 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class FishPopulationGen<DEV> extends BaseModel {
 	protected static final Logger LOG = LoggerFactory.getLogger(FishPopulation.class);
 
-	public static final String Description_enUS = "AName: a FishPopulation";
-	public static final String AName_enUS = "a FishPopulation";
+	public static final String Description_enUS = "AName: a fish population";
+	public static final String AName_enUS = "a fish population";
 	public static final String This_enUS = "this ";
-	public static final String ThisName_enUS = "this FishPopulation";
+	public static final String ThisName_enUS = "this fish population";
 	public static final String A_enUS = "a ";
-	public static final String TheName_enUS = "the FishPopulation";
-	public static final String SingularName_enUS = "FishPopulation";
-	public static final String PluralName_enUS = "FishPopulations";
-	public static final String NameActual_enUS = "current FishPopulation";
-	public static final String AllName_enUS = "all FishPopulations";
-	public static final String SearchAllNameBy_enUS = "search FishPopulations by ";
-	public static final String SearchAllName_enUS = "search FishPopulations";
-	public static final String Title_enUS = "FishPopulations";
-	public static final String ThePluralName_enUS = "the FishPopulations";
-	public static final String NoNameFound_enUS = "no FishPopulation found";
+	public static final String TheName_enUS = "the fish population";
+	public static final String SingularName_enUS = "fish population";
+	public static final String PluralName_enUS = "fish populations";
+	public static final String NameActual_enUS = "current fish population";
+	public static final String AllName_enUS = "all fish populations";
+	public static final String SearchAllNameBy_enUS = "search fish populations by ";
+	public static final String SearchAllName_enUS = "search fish populations";
+	public static final String Title_enUS = "fish populations";
+	public static final String ThePluralName_enUS = "the fish populations";
+	public static final String NoNameFound_enUS = "no fish population found";
 	public static final String ApiUri_enUS = "/en-us/api/fish-population";
 	public static final String ApiUriSearchPage_enUS = "/en-us/search/fish-population";
 	public static final String ApiUriEditPage_enUS = "/en-us/edit/fish-population/{entityShortId}";
-	public static final String OfName_enUS = "of FishPopulation";
-	public static final String ANameAdjective_enUS = "a FishPopulation";
-	public static final String NameAdjectiveSingular_enUS = "FishPopulation";
-	public static final String NameAdjectivePlural_enUS = "FishPopulations";
+	public static final String OfName_enUS = "of fish population";
+	public static final String ANameAdjective_enUS = "a fish population";
+	public static final String NameAdjectiveSingular_enUS = "fish population";
+	public static final String NameAdjectivePlural_enUS = "fish populations";
 	public static final String Search_enUS_OpenApiUri = "/en-us/api/fish-population";
 	public static final String Search_enUS_StringFormatUri = "/en-us/api/fish-population";
 	public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fish-population";
@@ -3566,6 +3566,8 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	}
 
 	public static String descriptionFishPopulation(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_name:
 			return "The name of this item";

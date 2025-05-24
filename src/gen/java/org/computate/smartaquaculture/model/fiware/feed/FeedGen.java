@@ -2960,6 +2960,8 @@ public abstract class FeedGen<DEV> extends BaseModel {
 	}
 
 	public static String descriptionFeed(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_name:
 			return "The name of this item";

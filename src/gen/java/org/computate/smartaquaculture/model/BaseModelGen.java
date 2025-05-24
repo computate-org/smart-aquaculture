@@ -2328,6 +2328,8 @@ public abstract class BaseModelGen<DEV> extends Object {
 	}
 
 	public static String descriptionBaseModel(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_siteRequest_:
 			return "The current request object";

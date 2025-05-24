@@ -824,6 +824,8 @@ public abstract class FeedingOperationGenPageGen<DEV> extends PageLayout {
 	}
 
 	public static String descriptionFeedingOperationGenPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return PageLayout.descriptionPageLayout(var);

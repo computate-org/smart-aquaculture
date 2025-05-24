@@ -351,6 +351,8 @@ public abstract class FeedingOperationPageGen<DEV> extends FeedingOperationGenPa
 	}
 
 	public static String descriptionFeedingOperationPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return FeedingOperationGenPage.descriptionFeedingOperationGenPage(var);

@@ -2249,6 +2249,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 	}
 
 	public static String descriptionSiteRequest(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_config:
 			return "The site configuration variables";

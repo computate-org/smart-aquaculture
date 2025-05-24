@@ -1,7 +1,7 @@
-package org.computate.smartaquaculture.model.fiware.crowdflowobserved;
+package org.computate.smartaquaculture.model.timezone;
 
 import org.computate.smartaquaculture.request.SiteRequest;
-import org.computate.smartaquaculture.model.fiware.crowdflowobserved.CrowdFlowObservedGenPage;
+import org.computate.smartaquaculture.model.timezone.TimeZoneGenPage;
 import org.computate.smartaquaculture.model.BaseModel;
 import org.computate.vertx.api.ApiRequest;
 import org.computate.smartaquaculture.config.ConfigKeys;
@@ -41,23 +41,23 @@ import io.vertx.core.json.JsonArray;
 /**
  * <ol>
 <h3>Suggestions that can generate more code for you: </h3> * </ol>
- * <li>You can add a class comment <b>"Api: true"</b> if you wish to GET, POST, PATCH or PUT these CrowdFlowObservedPage objects in a RESTful API. 
- * </li><li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class CrowdFlowObservedPageGen into the class CrowdFlowObservedPage. 
+ * <li>You can add a class comment <b>"Api: true"</b> if you wish to GET, POST, PATCH or PUT these TimeZonePage objects in a RESTful API. 
+ * </li><li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class TimeZonePageGen into the class TimeZonePage. 
  * </li>
- * <h3>About the CrowdFlowObservedPage class and it's generated class CrowdFlowObservedPageGen&lt;CrowdFlowObservedGenPage&gt;: </h3>extends CrowdFlowObservedPageGen
+ * <h3>About the TimeZonePage class and it's generated class TimeZonePageGen&lt;TimeZoneGenPage&gt;: </h3>extends TimeZonePageGen
  * <p>
- * This Java class extends a generated Java class CrowdFlowObservedPageGen built by the <a href="https://github.com/computate-org/computate">https://github.com/computate-org/computate</a> project. 
+ * This Java class extends a generated Java class TimeZonePageGen built by the <a href="https://github.com/computate-org/computate">https://github.com/computate-org/computate</a> project. 
  * Whenever this Java class is modified or touched, the watch service installed as described in the README, indexes all the information about this Java class in a local Apache Solr Search Engine. 
  * If you are running the service, you can see the indexed data about this Java Class here: 
  * </p>
- * <p><a href="https://solr.apps-crc.testing/solr/computate/select?q=*:*&fq=partEstClasse_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.crowdflowobserved.CrowdFlowObservedPage">Find the class CrowdFlowObservedPage in Solr. </a></p>
+ * <p><a href="https://solr.apps-crc.testing/solr/computate/select?q=*:*&fq=partEstClasse_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZonePage">Find the class TimeZonePage in Solr. </a></p>
  * <p>
  * The extended class ending with "Gen" did not exist at first, but was automatically created by the same watch service based on the data retrieved from the local Apache Server search engine. 
  * The extended class contains many generated fields, getters, setters, initialization code, and helper methods to help build a website and API fast, reactive, and scalable. 
  * </p>
- * extends CrowdFlowObservedPageGen<CrowdFlowObservedGenPage>
- * <p>This <code>class CrowdFlowObservedPage extends CrowdFlowObservedPageGen&lt;CrowdFlowObservedGenPage&gt;</code>, which means it extends a newly generated CrowdFlowObservedPageGen. 
- * The generated <code>class CrowdFlowObservedPageGen extends CrowdFlowObservedGenPage</code> which means that CrowdFlowObservedPage extends CrowdFlowObservedPageGen which extends CrowdFlowObservedGenPage. 
+ * extends TimeZonePageGen<TimeZoneGenPage>
+ * <p>This <code>class TimeZonePage extends TimeZonePageGen&lt;TimeZoneGenPage&gt;</code>, which means it extends a newly generated TimeZonePageGen. 
+ * The generated <code>class TimeZonePageGen extends TimeZoneGenPage</code> which means that TimeZonePage extends TimeZonePageGen which extends TimeZoneGenPage. 
  * This generated inheritance is a powerful feature that allows a lot of boiler plate code to be created for you automatically while still preserving inheritance through the power of Java Generic classes. 
  * </p>
  * <h2>Api: true</h2>
@@ -66,7 +66,7 @@ import io.vertx.core.json.JsonArray;
  * <h2>Color: null</h2>
  * <h2>Indexed: true</h2>
  * <h2>{@inheritDoc}</h2>
- * <p>By adding a class comment "{@inheritDoc}", the CrowdFlowObservedPage class will inherit the helpful inherited class comments from the super class CrowdFlowObservedPageGen. 
+ * <p>By adding a class comment "{@inheritDoc}", the TimeZonePage class will inherit the helpful inherited class comments from the super class TimeZonePageGen. 
  * </p>
  * <h2>Rows: null</h2>
  * <h2>Model: true</h2>
@@ -76,7 +76,7 @@ import io.vertx.core.json.JsonArray;
  * <p>
  *   This class contains a comment <b>"Promise: true"</b>
  *   Sometimes a Java class must be initialized asynchronously when it involves calling a blocking API. 
- *   This means that the CrowdFlowObservedPage Java class has promiseDeep methods which must be initialized asynchronously as a Vert.x Promise  instead of initDeep methods which are a simple non-asynchronous method. 
+ *   This means that the TimeZonePage Java class has promiseDeep methods which must be initialized asynchronously as a Vert.x Promise  instead of initDeep methods which are a simple non-asynchronous method. 
  * </p>
  * <p>
  *   Adding protected void methods beginning with an underscore with a Promise as the only parameter will automatically set `Promise: true`. 
@@ -97,12 +97,12 @@ import io.vertx.core.json.JsonArray;
  * </p>
  * <h2>AName.enUS: null</h2>
  * <p>
- * Delete the class CrowdFlowObservedPage in Solr: 
- * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.crowdflowobserved.CrowdFlowObservedPage&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
+ * Delete the class TimeZonePage in Solr: 
+ * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZonePage&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
  * </p>
  * <p>
- * Delete  the package org.computate.smartaquaculture.model.fiware.crowdflowobserved in Solr: 
- * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomEnsemble_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.crowdflowobserved&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
+ * Delete  the package org.computate.smartaquaculture.model.timezone in Solr: 
+ * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomEnsemble_enUS_indexed_string:org.computate.smartaquaculture.model.timezone&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
  * </p>
  * <p>
  * Delete  the project smart-aquaculture in Solr: 
@@ -110,24 +110,24 @@ import io.vertx.core.json.JsonArray;
  * </p>
  * Generated: true
  **/
-public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGenPage {
-	protected static final Logger LOG = LoggerFactory.getLogger(CrowdFlowObservedPage.class);
+public abstract class TimeZonePageGen<DEV> extends TimeZoneGenPage {
+	protected static final Logger LOG = LoggerFactory.getLogger(TimeZonePage.class);
 
 	//////////////
 	// initDeep //
 	//////////////
 
-	public Future<CrowdFlowObservedPageGen<DEV>> promiseDeepCrowdFlowObservedPage(SiteRequest siteRequest_) {
+	public Future<TimeZonePageGen<DEV>> promiseDeepTimeZonePage(SiteRequest siteRequest_) {
 		setSiteRequest_(siteRequest_);
-		return promiseDeepCrowdFlowObservedPage();
+		return promiseDeepTimeZonePage();
 	}
 
-	public Future<CrowdFlowObservedPageGen<DEV>> promiseDeepCrowdFlowObservedPage() {
-		Promise<CrowdFlowObservedPageGen<DEV>> promise = Promise.promise();
+	public Future<TimeZonePageGen<DEV>> promiseDeepTimeZonePage() {
+		Promise<TimeZonePageGen<DEV>> promise = Promise.promise();
 		Promise<Void> promise2 = Promise.promise();
-		promiseCrowdFlowObservedPage(promise2);
+		promiseTimeZonePage(promise2);
 		promise2.future().onSuccess(a -> {
-			super.promiseDeepCrowdFlowObservedGenPage(siteRequest_).onSuccess(b -> {
+			super.promiseDeepTimeZoneGenPage(siteRequest_).onSuccess(b -> {
 				promise.complete(this);
 			}).onFailure(ex -> {
 				promise.fail(ex);
@@ -138,7 +138,7 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 		return promise.future();
 	}
 
-	public Future<Void> promiseCrowdFlowObservedPage(Promise<Void> promise) {
+	public Future<Void> promiseTimeZonePage(Promise<Void> promise) {
 		Future.future(a -> a.complete()).compose(a -> {
 			Promise<Void> promise2 = Promise.promise();
 			try {
@@ -155,20 +155,20 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 		return promise.future();
 	}
 
-	@Override public Future<? extends CrowdFlowObservedPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepCrowdFlowObservedPage(siteRequest_);
+	@Override public Future<? extends TimeZonePageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+		return promiseDeepTimeZonePage(siteRequest_);
 	}
 
 	/////////////////
 	// siteRequest //
 	/////////////////
 
-	public void siteRequestCrowdFlowObservedPage(SiteRequest siteRequest_) {
-			super.siteRequestCrowdFlowObservedGenPage(siteRequest_);
+	public void siteRequestTimeZonePage(SiteRequest siteRequest_) {
+			super.siteRequestTimeZoneGenPage(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestCrowdFlowObservedPage(siteRequest_);
+		siteRequestTimeZonePage(siteRequest_);
 	}
 
 	/////////////
@@ -180,7 +180,7 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 		Object o = null;
 		for(String v : vars) {
 			if(o == null)
-				o = obtainCrowdFlowObservedPage(v);
+				o = obtainTimeZonePage(v);
 			else if(o instanceof BaseModel) {
 				BaseModel baseModel = (BaseModel)o;
 				o = baseModel.obtainForClass(v);
@@ -192,11 +192,11 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 		}
 		return o;
 	}
-	public Object obtainCrowdFlowObservedPage(String var) {
-		CrowdFlowObservedPage oCrowdFlowObservedPage = (CrowdFlowObservedPage)this;
+	public Object obtainTimeZonePage(String var) {
+		TimeZonePage oTimeZonePage = (TimeZonePage)this;
 		switch(var) {
 			default:
-				return super.obtainCrowdFlowObservedGenPage(var);
+				return super.obtainTimeZoneGenPage(var);
 		}
 	}
 
@@ -209,7 +209,7 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 		Object o = null;
 		for(String v : vars) {
 			if(o == null)
-				o = relateCrowdFlowObservedPage(v, val);
+				o = relateTimeZonePage(v, val);
 			else if(o instanceof BaseModel) {
 				BaseModel baseModel = (BaseModel)o;
 				o = baseModel.relateForClass(v, val);
@@ -217,11 +217,11 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 		}
 		return o != null;
 	}
-	public Object relateCrowdFlowObservedPage(String var, Object val) {
-		CrowdFlowObservedPage oCrowdFlowObservedPage = (CrowdFlowObservedPage)this;
+	public Object relateTimeZonePage(String var, Object val) {
+		TimeZonePage oTimeZonePage = (TimeZonePage)this;
 		switch(var) {
 			default:
-				return super.relateCrowdFlowObservedGenPage(var, val);
+				return super.relateTimeZoneGenPage(var, val);
 		}
 	}
 
@@ -229,13 +229,13 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObservedPage o) {
-		return staticSetCrowdFlowObservedPage(entityVar,  siteRequest_, v, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, TimeZonePage o) {
+		return staticSetTimeZonePage(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetCrowdFlowObservedPage(String entityVar, SiteRequest siteRequest_, String v, CrowdFlowObservedPage o) {
+	public static Object staticSetTimeZonePage(String entityVar, SiteRequest siteRequest_, String v, TimeZonePage o) {
 		switch(entityVar) {
 			default:
-				return CrowdFlowObservedGenPage.staticSetCrowdFlowObservedGenPage(entityVar,  siteRequest_, v, o);
+				return TimeZoneGenPage.staticSetTimeZoneGenPage(entityVar,  siteRequest_, v, o);
 		}
 	}
 
@@ -244,12 +244,12 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 	////////////////
 
 	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchCrowdFlowObservedPage(entityVar,  siteRequest_, o);
+		return staticSearchTimeZonePage(entityVar,  siteRequest_, o);
 	}
-	public static Object staticSearchCrowdFlowObservedPage(String entityVar, SiteRequest siteRequest_, Object o) {
+	public static Object staticSearchTimeZonePage(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
 			default:
-				return CrowdFlowObservedGenPage.staticSearchCrowdFlowObservedGenPage(entityVar,  siteRequest_, o);
+				return TimeZoneGenPage.staticSearchTimeZoneGenPage(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -258,12 +258,12 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 	///////////////////
 
 	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrCrowdFlowObservedPage(entityVar,  siteRequest_, o);
+		return staticSearchStrTimeZonePage(entityVar,  siteRequest_, o);
 	}
-	public static String staticSearchStrCrowdFlowObservedPage(String entityVar, SiteRequest siteRequest_, Object o) {
+	public static String staticSearchStrTimeZonePage(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
 			default:
-				return CrowdFlowObservedGenPage.staticSearchStrCrowdFlowObservedGenPage(entityVar,  siteRequest_, o);
+				return TimeZoneGenPage.staticSearchStrTimeZoneGenPage(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -272,12 +272,12 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 	//////////////////
 
 	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqCrowdFlowObservedPage(entityVar,  siteRequest_, o);
+		return staticSearchFqTimeZonePage(entityVar,  siteRequest_, o);
 	}
-	public static String staticSearchFqCrowdFlowObservedPage(String entityVar, SiteRequest siteRequest_, String o) {
+	public static String staticSearchFqTimeZonePage(String entityVar, SiteRequest siteRequest_, String o) {
 		switch(entityVar) {
 			default:
-				return CrowdFlowObservedGenPage.staticSearchFqCrowdFlowObservedGenPage(entityVar,  siteRequest_, o);
+				return TimeZoneGenPage.staticSearchFqTimeZoneGenPage(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -291,8 +291,8 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 		return sb.toString();
 	}
 
-	public static final String CLASS_SIMPLE_NAME = "CrowdFlowObservedPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.crowdflowobserved.CrowdFlowObservedPage";
+	public static final String CLASS_SIMPLE_NAME = "TimeZonePage";
+	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.timezone.TimeZonePage";
 
 
 	@Override
@@ -341,75 +341,77 @@ public abstract class CrowdFlowObservedPageGen<DEV> extends CrowdFlowObservedGen
 	}
 
 	public static String displayNameForClass(String var) {
-		return CrowdFlowObservedPage.displayNameCrowdFlowObservedPage(var);
+		return TimeZonePage.displayNameTimeZonePage(var);
 	}
-	public static String displayNameCrowdFlowObservedPage(String var) {
+	public static String displayNameTimeZonePage(String var) {
 		switch(var) {
 		default:
-			return CrowdFlowObservedGenPage.displayNameCrowdFlowObservedGenPage(var);
+			return TimeZoneGenPage.displayNameTimeZoneGenPage(var);
 		}
 	}
 
-	public static String descriptionCrowdFlowObservedPage(String var) {
+	public static String descriptionTimeZonePage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.descriptionCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.descriptionTimeZoneGenPage(var);
 		}
 	}
 
-	public static String classSimpleNameCrowdFlowObservedPage(String var) {
+	public static String classSimpleNameTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.classSimpleNameCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.classSimpleNameTimeZoneGenPage(var);
 		}
 	}
 
-	public static Integer htmColumnCrowdFlowObservedPage(String var) {
+	public static Integer htmColumnTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.htmColumnCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.htmColumnTimeZoneGenPage(var);
 		}
 	}
 
-	public static Integer htmRowCrowdFlowObservedPage(String var) {
+	public static Integer htmRowTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.htmRowCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.htmRowTimeZoneGenPage(var);
 		}
 	}
 
-	public static Integer htmCellCrowdFlowObservedPage(String var) {
+	public static Integer htmCellTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.htmCellCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.htmCellTimeZoneGenPage(var);
 		}
 	}
 
-	public static Integer lengthMinCrowdFlowObservedPage(String var) {
+	public static Integer lengthMinTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.lengthMinCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.lengthMinTimeZoneGenPage(var);
 		}
 	}
 
-	public static Integer lengthMaxCrowdFlowObservedPage(String var) {
+	public static Integer lengthMaxTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.lengthMaxCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.lengthMaxTimeZoneGenPage(var);
 		}
 	}
 
-	public static Integer maxCrowdFlowObservedPage(String var) {
+	public static Integer maxTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.maxCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.maxTimeZoneGenPage(var);
 		}
 	}
 
-	public static Integer minCrowdFlowObservedPage(String var) {
+	public static Integer minTimeZonePage(String var) {
 		switch(var) {
 			default:
-				return CrowdFlowObservedGenPage.minCrowdFlowObservedGenPage(var);
+				return TimeZoneGenPage.minTimeZoneGenPage(var);
 		}
 	}
 }

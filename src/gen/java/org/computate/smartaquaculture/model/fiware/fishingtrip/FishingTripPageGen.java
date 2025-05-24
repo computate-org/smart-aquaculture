@@ -351,6 +351,8 @@ public abstract class FishingTripPageGen<DEV> extends FishingTripGenPage {
 	}
 
 	public static String descriptionFishingTripPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return FishingTripGenPage.descriptionFishingTripGenPage(var);

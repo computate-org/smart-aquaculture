@@ -30,14 +30,6 @@ import org.computate.smartaquaculture.model.BaseModel;
  *     GET:
  *     POST:
  *     PATCH:
- *   SuperAdmin:
- *     POST:
- *     PATCH:
- *     GET:
- *     PUT:
- *     DELETE:
- *     SuperAdmin:
- *     Admin:
  *   Admin:
  *     POST:
  *     PATCH:
@@ -67,6 +59,7 @@ public class FishingTrip extends FishingTripGen<BaseModel> {
 	 * HtmCell: 0
 	 * Facet: true
 	 * Zone: true
+	 * Relate: TimeZone.id
 	 **/
 	protected void _timeZone(Wrap<String> w) {
     w.o(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE));

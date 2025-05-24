@@ -351,6 +351,8 @@ public abstract class SiteUserPageGen<DEV> extends SiteUserGenPage {
 	}
 
 	public static String descriptionSiteUserPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return SiteUserGenPage.descriptionSiteUserGenPage(var);

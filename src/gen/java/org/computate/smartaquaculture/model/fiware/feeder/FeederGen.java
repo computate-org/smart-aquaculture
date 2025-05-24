@@ -2960,6 +2960,8 @@ public abstract class FeederGen<DEV> extends BaseModel {
 	}
 
 	public static String descriptionFeeder(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_name:
 			return "The name of this item";

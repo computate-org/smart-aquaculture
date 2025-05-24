@@ -312,6 +312,8 @@ public abstract class WorkerVerticleGen<DEV> extends AbstractVerticle {
 	}
 
 	public static String descriptionWorkerVerticle(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return null;

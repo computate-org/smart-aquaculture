@@ -351,6 +351,8 @@ public abstract class FeedPageGen<DEV> extends FeedGenPage {
 	}
 
 	public static String descriptionFeedPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return FeedGenPage.descriptionFeedGenPage(var);

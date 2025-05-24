@@ -503,11 +503,11 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
     if(result != null && result.getObjectTitle() != null)
       c.o(result.getObjectTitle());
     else if(result != null)
-      c.o("FishPopulations");
+      c.o("fish populations");
     else if(searchListFishPopulation_ == null || resultCount == 0)
-      c.o("no FishPopulation found");
+      c.o("no fish population found");
     else
-      c.o("FishPopulations");
+      c.o("fish populations");
   }
 
   @Override
@@ -527,7 +527,7 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _pageDescription(Wrap<String> c) {
-      c.o("AName: a FishPopulation");
+      c.o("AName: a fish population");
   }
 
   @Override

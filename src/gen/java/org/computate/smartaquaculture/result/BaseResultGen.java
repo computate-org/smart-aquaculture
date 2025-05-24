@@ -2029,6 +2029,8 @@ public abstract class BaseResultGen<DEV> extends Object {
 	}
 
 	public static String descriptionBaseResult(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_siteRequest_:
 			return "The current request object";

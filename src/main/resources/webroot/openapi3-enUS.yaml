@@ -3,873 +3,6 @@ info:
   title: "Smart Aquaculture"
   version: 3.0.0
 paths:
-  /en-us/api/crowd-flow-observed:
-    get:
-      operationId: searchCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - in: query
-          name: q
-          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
-          required: false
-          schema:
-            type: string
-            default: '*:*'
-        - in: query
-          name: fq
-          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: var
-          description: 'The var parameters are additional optional variables and values to pass into the application. '
-          required: false
-          schema:
-            type: array
-            items:
-                type: string
-        - in: query
-          name: fl
-          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: sort
-          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: start
-          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
-          required: false
-          schema:
-            type: integer
-            default: 0
-            minimum: 0
-        - in: query
-          name: rows
-          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
-          required: false
-          schema:
-            type: integer
-            default: 100
-            minimum: 0
-        - in: query
-          name: facet
-          description: 'The facet parameter enables facet counts in the query response. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: facet.range.start
-          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.range.end
-          description: 'The facet.range.end specifies the upper bound of the ranges. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.range.gap
-          description: 'The span of each range expressed as a value to be added to the lower bound. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.pivot
-          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.range
-          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.field
-          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: d
-          description: 'The radial distance, usually in kilometers. '
-          required: false
-          schema:
-            type: integer
-            minimum: 0
-        - in: query
-          name: pt
-          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: sfield
-          description: 'A spatial indexed field. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: score
-          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: distanceUnits
-          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: stats
-          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: stats.field
-          description: 'Specifies a field for which statistics should be generated. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        '200':
-          description: >+
-          content:
-            application/json; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/SearchCrowdFlowObservedResponse'
-    patch:
-      operationId: patchCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - in: query
-          name: q
-          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
-          required: false
-          schema:
-            type: string
-            default: '*:*'
-        - in: query
-          name: fq
-          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: var
-          description: 'The var parameters are additional optional variables and values to pass into the application. '
-          required: false
-          schema:
-            type: array
-            items:
-                type: string
-      requestBody:
-        description: >+
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PATCHCrowdFlowObservedRequest'
-      responses:
-        '200':
-          description: >+
-          content:
-            application/json; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/PATCHCrowdFlowObservedResponse'
-    post:
-      operationId: postCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-      requestBody:
-        description: >+
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/POSTCrowdFlowObservedRequest'
-      responses:
-        '200':
-          description: >+
-          content:
-            application/json; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/POSTCrowdFlowObservedResponse'
-    delete:
-      operationId: deletefilterCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - in: query
-          name: q
-          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
-          required: false
-          schema:
-            type: string
-            default: '*:*'
-        - in: query
-          name: fq
-          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: var
-          description: 'The var parameters are additional optional variables and values to pass into the application. '
-          required: false
-          schema:
-            type: array
-            items:
-                type: string
-        - in: query
-          name: commitWithin
-          description: 'The number of milliseconds to commit the record to Solr. '
-          required: false
-          schema:
-            type: integer
-        - in: query
-          name: softCommit
-          description: 'Does a soft commit for the record in Solr immediately. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: rows
-          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
-          required: false
-          schema:
-            type: integer
-            default: 100
-            minimum: 0
-      responses:
-        '200':
-          description: >+
-          content:
-            application/json; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/DELETEFilterCrowdFlowObservedResponse'
-  /en-us/api/crowd-flow-observed-import:
-    put:
-      operationId: putimportCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - in: query
-          name: q
-          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
-          required: false
-          schema:
-            type: string
-            default: '*:*'
-        - in: query
-          name: fq
-          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: var
-          description: 'The var parameters are additional optional variables and values to pass into the application. '
-          required: false
-          schema:
-            type: array
-            items:
-                type: string
-      requestBody:
-        description: >+
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PUTImportCrowdFlowObservedRequest'
-      responses:
-        '200':
-          description: >+
-          content:
-            application/json; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/PUTImportCrowdFlowObservedResponse'
-  /en-us/api/crowd-flow-observed/{entityShortId}:
-    get:
-      operationId: getCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - name: entityShortId
-          in: path
-          description: >+
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: >+
-          content:
-            application/json; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/GETCrowdFlowObservedResponse'
-    delete:
-      operationId: deleteCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - name: entityShortId
-          in: path
-          description: >+
-          required: true
-          schema:
-            type: string
-        - in: query
-          name: q
-          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
-          required: false
-          schema:
-            type: string
-            default: '*:*'
-        - in: query
-          name: fq
-          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: var
-          description: 'The var parameters are additional optional variables and values to pass into the application. '
-          required: false
-          schema:
-            type: array
-            items:
-                type: string
-        - in: query
-          name: commitWithin
-          description: 'The number of milliseconds to commit the record to Solr. '
-          required: false
-          schema:
-            type: integer
-        - in: query
-          name: softCommit
-          description: 'Does a soft commit for the record in Solr immediately. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: rows
-          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
-          required: false
-          schema:
-            type: integer
-            default: 100
-            minimum: 0
-      responses:
-        '200':
-          description: >+
-          content:
-            application/json; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/DELETECrowdFlowObservedResponse'
-  /en-us/edit/crowd-flow-observed/{entityShortId}:
-    get:
-      operationId: editpageCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - name: entityShortId
-          in: path
-          description: >+
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: >+
-          content:
-            text/html; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/EditPageCrowdFlowObservedResponse'
-  /en-us/search/crowd-flow-observed:
-    get:
-      operationId: searchpageCrowdFlowObserved
-      x-vertx-event-bus: smart-aquaculture-enUS-CrowdFlowObserved
-      security:
-        - openIdConnect:
-          - openid
-          - profile
-      description: >+
-      summary: >+
-      tags:
-        - CrowdFlowObserveds
-      parameters:
-        - name: vertx-web.session
-          in: cookie
-          schema:
-            type: string
-        - name: sessionIdBefore
-          in: cookie
-          schema:
-            type: string
-        - name: Fiware-Service
-          in: header
-          schema:
-            type: string
-        - name: Fiware-ServicePath
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Tenant
-          in: header
-          schema:
-            type: string
-        - name: NGSILD-Path
-          in: header
-          schema:
-            type: string
-        - in: query
-          name: q
-          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
-          required: false
-          schema:
-            type: string
-            default: '*:*'
-        - in: query
-          name: fq
-          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: var
-          description: 'The var parameters are additional optional variables and values to pass into the application. '
-          required: false
-          schema:
-            type: array
-            items:
-                type: string
-        - in: query
-          name: fl
-          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: sort
-          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: start
-          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
-          required: false
-          schema:
-            type: integer
-            default: 0
-            minimum: 0
-        - in: query
-          name: rows
-          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
-          required: false
-          schema:
-            type: integer
-            default: 100
-            minimum: 0
-        - in: query
-          name: facet
-          description: 'The facet parameter enables facet counts in the query response. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: facet.range.start
-          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.range.end
-          description: 'The facet.range.end specifies the upper bound of the ranges. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.range.gap
-          description: 'The span of each range expressed as a value to be added to the lower bound. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.pivot
-          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.range
-          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: facet.field
-          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: d
-          description: 'The radial distance, usually in kilometers. '
-          required: false
-          schema:
-            type: integer
-            minimum: 0
-        - in: query
-          name: pt
-          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: sfield
-          description: 'A spatial indexed field. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: score
-          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: distanceUnits
-          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: stats
-          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: stats.field
-          description: 'Specifies a field for which statistics should be generated. '
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        '200':
-          description: >+
-          content:
-            text/html; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/SearchPageCrowdFlowObservedResponse'
   /en-us/api/feed:
     get:
       operationId: searchFeed
@@ -3471,6 +2604,1452 @@ paths:
             text/html; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/SearchPageFeedingOperationResponse'
+  /en-us/api/fish-farm:
+    get:
+      operationId: searchFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchFishFarmResponse'
+    patch:
+      operationId: patchFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHFishFarmRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHFishFarmResponse'
+    post:
+      operationId: postFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTFishFarmRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTFishFarmResponse'
+    delete:
+      operationId: deletefilterFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFilterFishFarmResponse'
+  /en-us/api/fish-farm-import:
+    put:
+      operationId: putimportFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportFishFarmRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportFishFarmResponse'
+  /en-us/api/fish-farm/{id}:
+    get:
+      operationId: getFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETFishFarmResponse'
+    delete:
+      operationId: deleteFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFishFarmResponse'
+  /en-us/edit/fish-farm/{id}:
+    get:
+      operationId: editpageFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EditPageFishFarmResponse'
+  /en-us/search/fish-farm:
+    get:
+      operationId: searchpageFishFarm
+      x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fish farms
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageFishFarmResponse'
+  /en-us/api/fishing-dock:
+    get:
+      operationId: searchFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchFishingDockResponse'
+    patch:
+      operationId: patchFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHFishingDockRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHFishingDockResponse'
+    post:
+      operationId: postFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTFishingDockRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTFishingDockResponse'
+    delete:
+      operationId: deletefilterFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFilterFishingDockResponse'
+  /en-us/api/fishing-dock-import:
+    put:
+      operationId: putimportFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportFishingDockRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportFishingDockResponse'
+  /en-us/api/fishing-dock/{id}:
+    get:
+      operationId: getFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETFishingDockResponse'
+    delete:
+      operationId: deleteFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFishingDockResponse'
+  /en-us/edit/fishing-dock/{id}:
+    get:
+      operationId: editpageFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EditPageFishingDockResponse'
+  /en-us/search/fishing-dock:
+    get:
+      operationId: searchpageFishingDock
+      x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageFishingDockResponse'
   /en-us/api/fishing-trip:
     get:
       operationId: searchFishingTrip
@@ -4205,7 +4784,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4400,7 +4979,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4473,7 +5052,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4523,7 +5102,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4610,7 +5189,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4684,7 +5263,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4733,7 +5312,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4826,7 +5405,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -4876,7 +5455,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - FishPopulations
+        - fish populations
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -5061,6 +5640,717 @@ paths:
             text/html; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/SearchPageFishPopulationResponse'
+  /en-us/api/time-zone:
+    get:
+      operationId: searchTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchTimeZoneResponse'
+    patch:
+      operationId: patchTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHTimeZoneRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHTimeZoneResponse'
+    post:
+      operationId: postTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTTimeZoneRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTTimeZoneResponse'
+    delete:
+      operationId: deletefilterTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFilterTimeZoneResponse'
+  /en-us/api/time-zone-import:
+    put:
+      operationId: putimportTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportTimeZoneRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportTimeZoneResponse'
+  /en-us/api/time-zone/{id}:
+    get:
+      operationId: getTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETTimeZoneResponse'
+    delete:
+      operationId: deleteTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETETimeZoneResponse'
+  /en-us/edit/time-zone/{id}:
+    get:
+      operationId: editpageTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EditPageTimeZoneResponse'
+  /en-us/search/time-zone:
+    get:
+      operationId: searchpageTimeZone
+      x-vertx-event-bus: smart-aquaculture-enUS-TimeZone
+      description: >+
+      summary: >+
+      tags:
+        - time zones
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageTimeZoneResponse'
   /en-us/api/article:
     get:
       operationId: searchSitePage
@@ -6173,66 +7463,6 @@ components:
       type: openIdConnect
       openIdConnectUrl: https://keycloak.apps-crc.testing/realms/SMARTAQUACULTURE/.well-known/openid-configuration
   requestBodies:
-    SearchCrowdFlowObservedResponse:
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/SearchCrowdFlowObservedResponse'
-    PATCHCrowdFlowObservedRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PATCHCrowdFlowObservedRequest'
-    PATCHCrowdFlowObservedResponse:
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/PATCHCrowdFlowObservedResponse'
-    POSTCrowdFlowObservedRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/POSTCrowdFlowObservedRequest'
-    POSTCrowdFlowObservedResponse:
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/POSTCrowdFlowObservedResponse'
-    DELETEFilterCrowdFlowObservedResponse:
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/DELETEFilterCrowdFlowObservedResponse'
-    PUTImportCrowdFlowObservedRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PUTImportCrowdFlowObservedRequest'
-    PUTImportCrowdFlowObservedResponse:
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/PUTImportCrowdFlowObservedResponse'
-    GETCrowdFlowObservedResponse:
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/GETCrowdFlowObservedResponse'
-    DELETECrowdFlowObservedResponse:
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/DELETECrowdFlowObservedResponse'
-    EditPageCrowdFlowObservedResponse:
-      content:
-        text/html; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/EditPageCrowdFlowObservedResponse'
-    SearchPageCrowdFlowObservedResponse:
-      content:
-        text/html; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/SearchPageCrowdFlowObservedResponse'
     SearchFeedResponse:
       content:
         application/json; charset=utf-8:
@@ -6413,6 +7643,126 @@ components:
         text/html; charset=utf-8:
           schema:
             $ref: '#/components/schemas/SearchPageFeedingOperationResponse'
+    SearchFishFarmResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchFishFarmResponse'
+    PATCHFishFarmRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHFishFarmRequest'
+    PATCHFishFarmResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHFishFarmResponse'
+    POSTFishFarmRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTFishFarmRequest'
+    POSTFishFarmResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTFishFarmResponse'
+    DELETEFilterFishFarmResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFilterFishFarmResponse'
+    PUTImportFishFarmRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishFarmRequest'
+    PUTImportFishFarmResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishFarmResponse'
+    GETFishFarmResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETFishFarmResponse'
+    DELETEFishFarmResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFishFarmResponse'
+    EditPageFishFarmResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/EditPageFishFarmResponse'
+    SearchPageFishFarmResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageFishFarmResponse'
+    SearchFishingDockResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchFishingDockResponse'
+    PATCHFishingDockRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHFishingDockRequest'
+    PATCHFishingDockResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHFishingDockResponse'
+    POSTFishingDockRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTFishingDockRequest'
+    POSTFishingDockResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTFishingDockResponse'
+    DELETEFilterFishingDockResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFilterFishingDockResponse'
+    PUTImportFishingDockRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishingDockRequest'
+    PUTImportFishingDockResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishingDockResponse'
+    GETFishingDockResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETFishingDockResponse'
+    DELETEFishingDockResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFishingDockResponse'
+    EditPageFishingDockResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/EditPageFishingDockResponse'
+    SearchPageFishingDockResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageFishingDockResponse'
     SearchFishingTripResponse:
       content:
         application/json; charset=utf-8:
@@ -6533,6 +7883,66 @@ components:
         text/html; charset=utf-8:
           schema:
             $ref: '#/components/schemas/SearchPageFishPopulationResponse'
+    SearchTimeZoneResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchTimeZoneResponse'
+    PATCHTimeZoneRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHTimeZoneRequest'
+    PATCHTimeZoneResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHTimeZoneResponse'
+    POSTTimeZoneRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTTimeZoneRequest'
+    POSTTimeZoneResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTTimeZoneResponse'
+    DELETEFilterTimeZoneResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFilterTimeZoneResponse'
+    PUTImportTimeZoneRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportTimeZoneRequest'
+    PUTImportTimeZoneResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportTimeZoneResponse'
+    GETTimeZoneResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETTimeZoneResponse'
+    DELETETimeZoneResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETETimeZoneResponse'
+    EditPageTimeZoneResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/EditPageTimeZoneResponse'
+    SearchPageTimeZoneResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageTimeZoneResponse'
     SearchSitePageResponse:
       content:
         application/json; charset=utf-8:
@@ -6624,1109 +8034,6 @@ components:
           schema:
             $ref: '#/components/schemas/SearchPageSiteUserResponse'
   schemas:
-    SearchCrowdFlowObservedResponse:
-      allOf:
-        - type: object
-          properties:
-            startNum:
-              type: integer
-              minimum: 0
-            foundNum:
-              type: integer
-              minimum: 0
-            returnedNum:
-              type: integer
-              minimum: 0
-            list:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: object
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildPath:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  ngsildData:
-                    type: object
-                  address:
-                    type: object
-                  alternateName:
-                    type: string
-                  averageCrowdSpeed:
-                    type: string
-                  averageHeadwayTime:
-                    type: string
-                  congested:
-                    type: boolean
-                  dataProvider:
-                    type: string
-                  dateCreated:
-                    type: string
-                  dateModified:
-                    type: string
-                  dateObserved:
-                    type: string
-                  dateObservedFrom:
-                    type: string
-                  dateObservedTo:
-                    type: string
-                  direction:
-                    type: string
-                  occupancy:
-                    type: string
-                  owner:
-                    type: object
-                  peopleCount:
-                    type: string
-                  refRoadSegment:
-                    type: string
-                  seeAlso:
-                    type: string
-                  source:
-                    type: string
-    PATCHCrowdFlowObservedRequest:
-      allOf:
-        - type: object
-          properties:
-            setName:
-              type: string
-              nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setLocation:
-              type: object
-              nullable: true
-            removeLocation:
-              type: object
-            removeAllLocation:
-              type: object
-            setAreaServedColors:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedColors:
-              type: string
-            removeAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            addAreaServedColors:
-              type: string
-            addAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            setAreaServedTitles:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedTitles:
-              type: string
-            removeAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            addAreaServedTitles:
-              type: string
-            addAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            setAreaServedLinks:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedLinks:
-              type: string
-            removeAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            addAreaServedLinks:
-              type: string
-            addAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            setAreaServed:
-              type: object
-              nullable: true
-            removeAreaServed:
-              type: object
-            removeAllAreaServed:
-              type: object
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
-              type: string
-            setNgsildData:
-              type: object
-              nullable: true
-            removeNgsildData:
-              type: object
-            removeAllNgsildData:
-              type: object
-            setAddress:
-              type: object
-              nullable: true
-            removeAddress:
-              type: object
-            removeAllAddress:
-              type: object
-            setAlternateName:
-              type: string
-              nullable: true
-            removeAlternateName:
-              type: string
-            removeAllAlternateName:
-              type: string
-            setAverageCrowdSpeed:
-              type: string
-              nullable: true
-            removeAverageCrowdSpeed:
-              type: string
-            removeAllAverageCrowdSpeed:
-              type: string
-            setAverageHeadwayTime:
-              type: string
-              nullable: true
-            removeAverageHeadwayTime:
-              type: string
-            removeAllAverageHeadwayTime:
-              type: string
-            setCongested:
-              type: boolean
-              nullable: true
-            removeCongested:
-              type: boolean
-            removeAllCongested:
-              type: boolean
-            setDataProvider:
-              type: string
-              nullable: true
-            removeDataProvider:
-              type: string
-            removeAllDataProvider:
-              type: string
-            setDateCreated:
-              type: string
-              nullable: true
-            removeDateCreated:
-              type: string
-            removeAllDateCreated:
-              type: string
-            setDateModified:
-              type: string
-              nullable: true
-            removeDateModified:
-              type: string
-            removeAllDateModified:
-              type: string
-            setDateObserved:
-              type: string
-              nullable: true
-            removeDateObserved:
-              type: string
-            removeAllDateObserved:
-              type: string
-            setDateObservedFrom:
-              type: string
-              nullable: true
-            removeDateObservedFrom:
-              type: string
-            removeAllDateObservedFrom:
-              type: string
-            setDateObservedTo:
-              type: string
-              nullable: true
-            removeDateObservedTo:
-              type: string
-            removeAllDateObservedTo:
-              type: string
-            setDirection:
-              type: string
-              nullable: true
-            removeDirection:
-              type: string
-            removeAllDirection:
-              type: string
-            setOccupancy:
-              type: string
-              nullable: true
-            removeOccupancy:
-              type: string
-            removeAllOccupancy:
-              type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
-            setPeopleCount:
-              type: string
-              nullable: true
-            removePeopleCount:
-              type: string
-            removeAllPeopleCount:
-              type: string
-            setRefRoadSegment:
-              type: string
-              nullable: true
-            removeRefRoadSegment:
-              type: string
-            removeAllRefRoadSegment:
-              type: string
-            setSeeAlso:
-              type: string
-              nullable: true
-            removeSeeAlso:
-              type: string
-            removeAllSeeAlso:
-              type: string
-            setSource:
-              type: string
-              nullable: true
-            removeSource:
-              type: string
-            removeAllSource:
-              type: string
-    PATCHCrowdFlowObservedResponse:
-      allOf:
-        - type: object
-          properties:
-            setName:
-              type: string
-              nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setLocation:
-              type: object
-              nullable: true
-            removeLocation:
-              type: object
-            removeAllLocation:
-              type: object
-            setAreaServedColors:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedColors:
-              type: string
-            removeAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            addAreaServedColors:
-              type: string
-            addAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            setAreaServedTitles:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedTitles:
-              type: string
-            removeAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            addAreaServedTitles:
-              type: string
-            addAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            setAreaServedLinks:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedLinks:
-              type: string
-            removeAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            addAreaServedLinks:
-              type: string
-            addAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            setAreaServed:
-              type: object
-              nullable: true
-            removeAreaServed:
-              type: object
-            removeAllAreaServed:
-              type: object
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
-              type: string
-            setNgsildData:
-              type: object
-              nullable: true
-            removeNgsildData:
-              type: object
-            removeAllNgsildData:
-              type: object
-            setAddress:
-              type: object
-              nullable: true
-            removeAddress:
-              type: object
-            removeAllAddress:
-              type: object
-            setAlternateName:
-              type: string
-              nullable: true
-            removeAlternateName:
-              type: string
-            removeAllAlternateName:
-              type: string
-            setAverageCrowdSpeed:
-              type: string
-              nullable: true
-            removeAverageCrowdSpeed:
-              type: string
-            removeAllAverageCrowdSpeed:
-              type: string
-            setAverageHeadwayTime:
-              type: string
-              nullable: true
-            removeAverageHeadwayTime:
-              type: string
-            removeAllAverageHeadwayTime:
-              type: string
-            setCongested:
-              type: boolean
-              nullable: true
-            removeCongested:
-              type: boolean
-            removeAllCongested:
-              type: boolean
-            setDataProvider:
-              type: string
-              nullable: true
-            removeDataProvider:
-              type: string
-            removeAllDataProvider:
-              type: string
-            setDateCreated:
-              type: string
-              nullable: true
-            removeDateCreated:
-              type: string
-            removeAllDateCreated:
-              type: string
-            setDateModified:
-              type: string
-              nullable: true
-            removeDateModified:
-              type: string
-            removeAllDateModified:
-              type: string
-            setDateObserved:
-              type: string
-              nullable: true
-            removeDateObserved:
-              type: string
-            removeAllDateObserved:
-              type: string
-            setDateObservedFrom:
-              type: string
-              nullable: true
-            removeDateObservedFrom:
-              type: string
-            removeAllDateObservedFrom:
-              type: string
-            setDateObservedTo:
-              type: string
-              nullable: true
-            removeDateObservedTo:
-              type: string
-            removeAllDateObservedTo:
-              type: string
-            setDirection:
-              type: string
-              nullable: true
-            removeDirection:
-              type: string
-            removeAllDirection:
-              type: string
-            setOccupancy:
-              type: string
-              nullable: true
-            removeOccupancy:
-              type: string
-            removeAllOccupancy:
-              type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
-            setPeopleCount:
-              type: string
-              nullable: true
-            removePeopleCount:
-              type: string
-            removeAllPeopleCount:
-              type: string
-            setRefRoadSegment:
-              type: string
-              nullable: true
-            removeRefRoadSegment:
-              type: string
-            removeAllRefRoadSegment:
-              type: string
-            setSeeAlso:
-              type: string
-              nullable: true
-            removeSeeAlso:
-              type: string
-            removeAllSeeAlso:
-              type: string
-            setSource:
-              type: string
-              nullable: true
-            removeSource:
-              type: string
-            removeAllSource:
-              type: string
-    POSTCrowdFlowObservedRequest:
-      allOf:
-        - type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
-            address:
-              type: object
-            alternateName:
-              type: string
-            averageCrowdSpeed:
-              type: string
-            averageHeadwayTime:
-              type: string
-            congested:
-              type: boolean
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            dateObserved:
-              type: string
-            dateObservedFrom:
-              type: string
-            dateObservedTo:
-              type: string
-            direction:
-              type: string
-            occupancy:
-              type: string
-            owner:
-              type: object
-            peopleCount:
-              type: string
-            refRoadSegment:
-              type: string
-            seeAlso:
-              type: string
-            source:
-              type: string
-    POSTCrowdFlowObservedResponse:
-      allOf:
-        - type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
-            address:
-              type: object
-            alternateName:
-              type: string
-            averageCrowdSpeed:
-              type: string
-            averageHeadwayTime:
-              type: string
-            congested:
-              type: boolean
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            dateObserved:
-              type: string
-            dateObservedFrom:
-              type: string
-            dateObservedTo:
-              type: string
-            direction:
-              type: string
-            occupancy:
-              type: string
-            owner:
-              type: object
-            peopleCount:
-              type: string
-            refRoadSegment:
-              type: string
-            seeAlso:
-              type: string
-            source:
-              type: string
-    DELETEFilterCrowdFlowObservedResponse:
-      allOf:
-        - type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
-            address:
-              type: object
-            alternateName:
-              type: string
-            averageCrowdSpeed:
-              type: string
-            averageHeadwayTime:
-              type: string
-            congested:
-              type: boolean
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            dateObserved:
-              type: string
-            dateObservedFrom:
-              type: string
-            dateObservedTo:
-              type: string
-            direction:
-              type: string
-            occupancy:
-              type: string
-            owner:
-              type: object
-            peopleCount:
-              type: string
-            refRoadSegment:
-              type: string
-            seeAlso:
-              type: string
-            source:
-              type: string
-    PUTImportCrowdFlowObservedRequest:
-      allOf:
-        - type: object
-          properties:
-            list:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: object
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildPath:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  ngsildData:
-                    type: object
-                  address:
-                    type: object
-                  alternateName:
-                    type: string
-                  averageCrowdSpeed:
-                    type: string
-                  averageHeadwayTime:
-                    type: string
-                  congested:
-                    type: boolean
-                  dataProvider:
-                    type: string
-                  dateCreated:
-                    type: string
-                  dateModified:
-                    type: string
-                  dateObserved:
-                    type: string
-                  dateObservedFrom:
-                    type: string
-                  dateObservedTo:
-                    type: string
-                  direction:
-                    type: string
-                  occupancy:
-                    type: string
-                  owner:
-                    type: object
-                  peopleCount:
-                    type: string
-                  refRoadSegment:
-                    type: string
-                  seeAlso:
-                    type: string
-                  source:
-                    type: string
-    PUTImportCrowdFlowObservedResponse:
-      allOf:
-        - type: object
-          properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: object
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildPath:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  ngsildData:
-                    type: object
-                  address:
-                    type: object
-                  alternateName:
-                    type: string
-                  averageCrowdSpeed:
-                    type: string
-                  averageHeadwayTime:
-                    type: string
-                  congested:
-                    type: boolean
-                  dataProvider:
-                    type: string
-                  dateCreated:
-                    type: string
-                  dateModified:
-                    type: string
-                  dateObserved:
-                    type: string
-                  dateObservedFrom:
-                    type: string
-                  dateObservedTo:
-                    type: string
-                  direction:
-                    type: string
-                  occupancy:
-                    type: string
-                  owner:
-                    type: object
-                  peopleCount:
-                    type: string
-                  refRoadSegment:
-                    type: string
-                  seeAlso:
-                    type: string
-                  source:
-                    type: string
-    GETCrowdFlowObservedResponse:
-      allOf:
-        - type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
-            address:
-              type: object
-            alternateName:
-              type: string
-            averageCrowdSpeed:
-              type: string
-            averageHeadwayTime:
-              type: string
-            congested:
-              type: boolean
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            dateObserved:
-              type: string
-            dateObservedFrom:
-              type: string
-            dateObservedTo:
-              type: string
-            direction:
-              type: string
-            occupancy:
-              type: string
-            owner:
-              type: object
-            peopleCount:
-              type: string
-            refRoadSegment:
-              type: string
-            seeAlso:
-              type: string
-            source:
-              type: string
-    DELETECrowdFlowObservedResponse:
-      allOf:
-        - type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
-            address:
-              type: object
-            alternateName:
-              type: string
-            averageCrowdSpeed:
-              type: string
-            averageHeadwayTime:
-              type: string
-            congested:
-              type: boolean
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            dateObserved:
-              type: string
-            dateObservedFrom:
-              type: string
-            dateObservedTo:
-              type: string
-            direction:
-              type: string
-            occupancy:
-              type: string
-            owner:
-              type: object
-            peopleCount:
-              type: string
-            refRoadSegment:
-              type: string
-            seeAlso:
-              type: string
-            source:
-              type: string
-    EditPageCrowdFlowObservedResponse:
-      allOf:
-        - type: string
-    SearchPageCrowdFlowObservedResponse:
-      allOf:
-        - type: string
     SearchFeedResponse:
       allOf:
         - type: object
@@ -10346,6 +10653,316 @@ components:
     SearchPageFeedingOperationResponse:
       allOf:
         - type: string
+    SearchFishFarmResponse:
+      allOf:
+        - type: object
+          properties:
+            startNum:
+              type: integer
+              minimum: 0
+            foundNum:
+              type: integer
+              minimum: 0
+            returnedNum:
+              type: integer
+              minimum: 0
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+    PATCHFishFarmRequest:
+      allOf:
+        - type: object
+          properties:
+            setName:
+              type: string
+              nullable: true
+            removeName:
+              type: string
+            removeAllName:
+              type: string
+            setDescription:
+              type: string
+              nullable: true
+            removeDescription:
+              type: string
+            removeAllDescription:
+              type: string
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+    PATCHFishFarmResponse:
+      allOf:
+        - type: object
+          properties:
+            setName:
+              type: string
+              nullable: true
+            removeName:
+              type: string
+            removeAllName:
+              type: string
+            setDescription:
+              type: string
+              nullable: true
+            removeDescription:
+              type: string
+            removeAllDescription:
+              type: string
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+    POSTFishFarmRequest:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    POSTFishFarmResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    DELETEFilterFishFarmResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    PUTImportFishFarmRequest:
+      allOf:
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+    PUTImportFishFarmResponse:
+      allOf:
+        - type: object
+          properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+    GETFishFarmResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    DELETEFishFarmResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    EditPageFishFarmResponse:
+      allOf:
+        - type: string
+    SearchPageFishFarmResponse:
+      allOf:
+        - type: string
+    SearchFishingDockResponse:
+      allOf:
+        - type: object
+          properties:
+            startNum:
+              type: integer
+              minimum: 0
+            foundNum:
+              type: integer
+              minimum: 0
+            returnedNum:
+              type: integer
+              minimum: 0
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+    PATCHFishingDockRequest:
+      allOf:
+        - type: object
+          properties:
+            setName:
+              type: string
+              nullable: true
+            removeName:
+              type: string
+            removeAllName:
+              type: string
+            setDescription:
+              type: string
+              nullable: true
+            removeDescription:
+              type: string
+            removeAllDescription:
+              type: string
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+    PATCHFishingDockResponse:
+      allOf:
+        - type: object
+          properties:
+            setName:
+              type: string
+              nullable: true
+            removeName:
+              type: string
+            removeAllName:
+              type: string
+            setDescription:
+              type: string
+              nullable: true
+            removeDescription:
+              type: string
+            removeAllDescription:
+              type: string
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+    POSTFishingDockRequest:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    POSTFishingDockResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    DELETEFilterFishingDockResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    PUTImportFishingDockRequest:
+      allOf:
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+    PUTImportFishingDockResponse:
+      allOf:
+        - type: object
+          properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: string
+    GETFishingDockResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    DELETEFishingDockResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            id:
+              type: string
+    EditPageFishingDockResponse:
+      allOf:
+        - type: string
+    SearchPageFishingDockResponse:
+      allOf:
+        - type: string
     SearchFishingTripResponse:
       allOf:
         - type: object
@@ -11572,6 +12189,101 @@ components:
       allOf:
         - type: string
     SearchPageFishPopulationResponse:
+      allOf:
+        - type: string
+    SearchTimeZoneResponse:
+      allOf:
+        - type: object
+          properties:
+            startNum:
+              type: integer
+              minimum: 0
+            foundNum:
+              type: integer
+              minimum: 0
+            returnedNum:
+              type: integer
+              minimum: 0
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+    PATCHTimeZoneRequest:
+      allOf:
+        - type: object
+          properties:
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+    PATCHTimeZoneResponse:
+      allOf:
+        - type: object
+          properties:
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+    POSTTimeZoneRequest:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+    POSTTimeZoneResponse:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+    DELETEFilterTimeZoneResponse:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+    PUTImportTimeZoneRequest:
+      allOf:
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+    PUTImportTimeZoneResponse:
+      allOf:
+        - type: object
+          properties:
+                  id:
+                    type: string
+    GETTimeZoneResponse:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+    DELETETimeZoneResponse:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+    EditPageTimeZoneResponse:
+      allOf:
+        - type: string
+    SearchPageTimeZoneResponse:
       allOf:
         - type: string
     SearchSitePageResponse:

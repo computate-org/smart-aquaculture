@@ -2350,6 +2350,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	}
 
 	public static String descriptionSitePage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_courseNum:
 			return "The course number for this page. ";

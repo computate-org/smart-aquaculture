@@ -351,6 +351,8 @@ public abstract class FishPopulationPageGen<DEV> extends FishPopulationGenPage {
 	}
 
 	public static String descriptionFishPopulationPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return FishPopulationGenPage.descriptionFishPopulationGenPage(var);

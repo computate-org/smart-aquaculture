@@ -1,4 +1,4 @@
-package org.computate.smartaquaculture.model.fiware.crowdflowobserved;
+package org.computate.smartaquaculture.model.fiware.fishingdock;
 
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -103,37 +103,37 @@ import java.util.Base64;
 import java.time.ZonedDateTime;
 import org.apache.commons.lang3.BooleanUtils;
 import org.computate.vertx.search.list.SearchList;
-import org.computate.smartaquaculture.model.fiware.crowdflowobserved.CrowdFlowObservedPage;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockPage;
 
 
 /**
  * Translate: false
  * Generated: true
  **/
-public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements CrowdFlowObservedEnUSGenApiService {
+public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl implements FishingDockEnUSGenApiService {
 
-	protected static final Logger LOG = LoggerFactory.getLogger(CrowdFlowObservedEnUSGenApiServiceImpl.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(FishingDockEnUSGenApiServiceImpl.class);
 
 	// Search //
 
 	@Override
-	public void searchCrowdFlowObserved(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void searchFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -150,21 +150,21 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchCrowdFlowObservedList(siteRequest, false, true, false).onSuccess(listCrowdFlowObserved -> {
-							response200SearchCrowdFlowObserved(listCrowdFlowObserved).onSuccess(response -> {
+						searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+							response200SearchFishingDock(listFishingDock).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("searchCrowdFlowObserved succeeded. "));
+								LOG.debug(String.format("searchFishingDock succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("searchFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("searchFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("searchFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -173,7 +173,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("searchCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("searchFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -188,27 +188,27 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("searchFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<ServiceResponse> response200SearchCrowdFlowObserved(SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public Future<ServiceResponse> response200SearchFishingDock(SearchList<FishingDock> listFishingDock) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listCrowdFlowObserved.getSiteRequest_(SiteRequest.class);
-			List<String> fls = listCrowdFlowObserved.getRequest().getFields();
+			SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+			List<String> fls = listFishingDock.getRequest().getFields();
 			JsonObject json = new JsonObject();
 			JsonArray l = new JsonArray();
-			listCrowdFlowObserved.getList().stream().forEach(o -> {
+			listFishingDock.getList().stream().forEach(o -> {
 				JsonObject json2 = JsonObject.mapFrom(o);
 				if(fls.size() > 0) {
 					Set<String> fieldNames = new HashSet<String>();
 					for(String fieldName : json2.fieldNames()) {
-						String v = CrowdFlowObserved.varIndexedCrowdFlowObserved(fieldName);
+						String v = FishingDock.varIndexedFishingDock(fieldName);
 						if(v != null)
-							fieldNames.add(CrowdFlowObserved.varIndexedCrowdFlowObserved(fieldName));
+							fieldNames.add(FishingDock.varIndexedFishingDock(fieldName));
 					}
 					if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
 						fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
@@ -226,10 +226,10 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				l.add(json2);
 			});
 			json.put("list", l);
-			response200Search(listCrowdFlowObserved.getRequest(), listCrowdFlowObserved.getResponse(), json);
+			response200Search(listFishingDock.getRequest(), listFishingDock.getResponse(), json);
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "CrowdFlowObserved", entityShortId);
+				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+						String m = String.format("%s %s not found", "fishing dock", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -237,12 +237,12 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200SearchCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200SearchFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void responsePivotSearchCrowdFlowObserved(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+	public void responsePivotSearchFishingDock(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
 		if(pivots != null) {
 			for(SolrResponse.Pivot pivotField : pivots) {
 				String entityIndexed = pivotField.getField();
@@ -271,7 +271,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				if(pivotFields2 != null) {
 					JsonArray pivotArray2 = new JsonArray();
 					pivotJson.put("pivot", pivotArray2);
-					responsePivotSearchCrowdFlowObserved(pivotFields2, pivotArray2);
+					responsePivotSearchFishingDock(pivotFields2, pivotArray2);
 				}
 			}
 		}
@@ -280,23 +280,23 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// GET //
 
 	@Override
-	public void getCrowdFlowObserved(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void getFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -313,21 +313,21 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchCrowdFlowObservedList(siteRequest, false, true, false).onSuccess(listCrowdFlowObserved -> {
-							response200GETCrowdFlowObserved(listCrowdFlowObserved).onSuccess(response -> {
+						searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+							response200GETFishingDock(listFishingDock).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("getCrowdFlowObserved succeeded. "));
+								LOG.debug(String.format("getFishingDock succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("getCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("getFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("getCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("getFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("getCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("getFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -336,7 +336,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("getCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("getFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -351,20 +351,20 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("getCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("getFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<ServiceResponse> response200GETCrowdFlowObserved(SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public Future<ServiceResponse> response200GETFishingDock(SearchList<FishingDock> listFishingDock) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listCrowdFlowObserved.getSiteRequest_(SiteRequest.class);
-			JsonObject json = JsonObject.mapFrom(listCrowdFlowObserved.getList().stream().findFirst().orElse(null));
+			SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+			JsonObject json = JsonObject.mapFrom(listFishingDock.getList().stream().findFirst().orElse(null));
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "CrowdFlowObserved", entityShortId);
+				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+						String m = String.format("%s %s not found", "fishing dock", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -372,7 +372,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200GETCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200GETFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -381,24 +381,24 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// PATCH //
 
 	@Override
-	public void patchCrowdFlowObserved(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("patchCrowdFlowObserved started. "));
+	public void patchFishingDock(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("patchFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "PATCH"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -427,43 +427,43 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					} else {
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
+						searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
-								apiRequest.setRows(listCrowdFlowObserved.getRequest().getRows());
-								apiRequest.setNumFound(listCrowdFlowObserved.getResponse().getResponse().getNumFound());
+								apiRequest.setRows(listFishingDock.getRequest().getRows());
+								apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
 								apiRequest.setNumPATCH(0L);
 								apiRequest.initDeepApiRequest(siteRequest);
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
-									apiRequest.setOriginal(listCrowdFlowObserved.first());
-								apiRequest.setId(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-								apiRequest.setPk(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getPk()).orElse(null));
-								eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+									apiRequest.setOriginal(listFishingDock.first());
+								apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+								apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+								eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 
-								listPATCHCrowdFlowObserved(apiRequest, listCrowdFlowObserved).onSuccess(e -> {
-									response200PATCHCrowdFlowObserved(siteRequest).onSuccess(response -> {
-										LOG.debug(String.format("patchCrowdFlowObserved succeeded. "));
+								listPATCHFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
+									response200PATCHFishingDock(siteRequest).onSuccess(response -> {
+										LOG.debug(String.format("patchFishingDock succeeded. "));
 										eventHandler.handle(Future.succeededFuture(response));
 									}).onFailure(ex -> {
-										LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+										LOG.error(String.format("patchFishingDock failed. "), ex);
 										error(siteRequest, eventHandler, ex);
 									});
 								}).onFailure(ex -> {
-									LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+									LOG.error(String.format("patchFishingDock failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							} catch(Exception ex) {
-								LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("patchFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("patchFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("patchFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -472,7 +472,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("patchCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("patchFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -487,58 +487,58 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("patchFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listPATCHCrowdFlowObserved(ApiRequest apiRequest, SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public Future<Void> listPATCHFishingDock(ApiRequest apiRequest, SearchList<FishingDock> listFishingDock) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
-		SiteRequest siteRequest = listCrowdFlowObserved.getSiteRequest_(SiteRequest.class);
-		listCrowdFlowObserved.getList().forEach(o -> {
+		SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+		listFishingDock.getList().forEach(o -> {
 			SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
 			siteRequest2.setScopes(siteRequest.getScopes());
 			o.setSiteRequest_(siteRequest2);
 			siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
 			JsonObject jsonObject = JsonObject.mapFrom(o);
-			CrowdFlowObserved o2 = jsonObject.mapTo(CrowdFlowObserved.class);
+			FishingDock o2 = jsonObject.mapTo(FishingDock.class);
 			o2.setSiteRequest_(siteRequest2);
 			futures.add(Future.future(promise1 -> {
-				patchCrowdFlowObservedFuture(o2, false).onSuccess(a -> {
+				patchFishingDockFuture(o2, false).onSuccess(a -> {
 					promise1.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("listPATCHCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("listPATCHFishingDock failed. "), ex);
 					promise1.fail(ex);
 				});
 			}));
 		});
 		CompositeFuture.all(futures).onSuccess( a -> {
-			listCrowdFlowObserved.next().onSuccess(next -> {
+			listFishingDock.next().onSuccess(next -> {
 				if(next) {
-					listPATCHCrowdFlowObserved(apiRequest, listCrowdFlowObserved).onSuccess(b -> {
+					listPATCHFishingDock(apiRequest, listFishingDock).onSuccess(b -> {
 						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listPATCHCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("listPATCHFishingDock failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete();
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("listPATCHCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("listPATCHFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		}).onFailure(ex -> {
-			LOG.error(String.format("listPATCHCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("listPATCHFishingDock failed. "), ex);
 			promise.fail(ex);
 		});
 		return promise.future();
 	}
 
 	@Override
-	public void patchCrowdFlowObservedFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void patchFishingDockFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -549,10 +549,10 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						siteRequest.addScopes(scope);
 					});
 				});
-				searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
+				searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
 					try {
-						CrowdFlowObserved o = listCrowdFlowObserved.first();
-						if(o != null && listCrowdFlowObserved.getResponse().getResponse().getNumFound() == 1) {
+						FishingDock o = listFishingDock.first();
+						if(o != null && listFishingDock.getResponse().getResponse().getNumFound() == 1) {
 							ApiRequest apiRequest = new ApiRequest();
 							apiRequest.setRows(1L);
 							apiRequest.setNumFound(1L);
@@ -564,12 +564,12 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
-							CrowdFlowObserved o2 = jsonObject.mapTo(CrowdFlowObserved.class);
+							FishingDock o2 = jsonObject.mapTo(FishingDock.class);
 							o2.setSiteRequest_(siteRequest);
-							patchCrowdFlowObservedFuture(o2, false).onSuccess(o3 -> {
+							patchFishingDockFuture(o2, false).onSuccess(o3 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
 								eventHandler.handle(Future.failedFuture(ex));
@@ -578,95 +578,46 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 						}
 					} catch(Exception ex) {
-						LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("patchFishingDock failed. "), ex);
 						error(siteRequest, eventHandler, ex);
 					}
 				}).onFailure(ex -> {
-					LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("patchFishingDock failed. "), ex);
 					error(siteRequest, eventHandler, ex);
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("patchFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
-			LOG.error(String.format("patchCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("patchFishingDock failed. "), ex);
 			error(null, eventHandler, ex);
 		});
 	}
 
-	public Future<CrowdFlowObserved> patchCrowdFlowObservedFuture(CrowdFlowObserved o, Boolean inheritPrimaryKey) {
+	public Future<FishingDock> patchFishingDockFuture(FishingDock o, Boolean inheritPrimaryKey) {
 		SiteRequest siteRequest = o.getSiteRequest_();
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+		Promise<FishingDock> promise = Promise.promise();
 
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			Promise<CrowdFlowObserved> promise1 = Promise.promise();
+			Promise<FishingDock> promise1 = Promise.promise();
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
-				varsCrowdFlowObserved(siteRequest).onSuccess(a -> {
-					JsonObject jsonObject = o.getSiteRequest_().getJsonObject();
-					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-						ngsildGetEntity(o).compose(ngsildData -> {
-							Promise<JsonObject> promise2 = Promise.promise();
-							if(ngsildData == null) {
-								promise2.complete(jsonObject);
-							} else {
-								String setNgsildData = String.format("set%s",StringUtils.capitalize(CrowdFlowObserved.VAR_ngsildData));
-								jsonObject.put(setNgsildData, ngsildData);
-								promise2.complete(jsonObject);
-							}
-							return promise2.future();
-						}).compose(ngsildData -> {
-							Promise<CrowdFlowObserved> promise2 = Promise.promise();
-							sqlPATCHCrowdFlowObserved(o, inheritPrimaryKey).onSuccess(crowdFlowObserved -> {
-								persistCrowdFlowObserved(crowdFlowObserved, true).onSuccess(c -> {
-									relateCrowdFlowObserved(crowdFlowObserved).onSuccess(d -> {
-										indexCrowdFlowObserved(crowdFlowObserved).onSuccess(o2 -> {
-											if(apiRequest != null) {
-												apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-												if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-													o2.apiRequestCrowdFlowObserved();
-													if(apiRequest.getVars().size() > 0)
-														eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
-												}
-											}
-											promise2.complete(crowdFlowObserved);
-										}).onFailure(ex -> {
-											promise2.fail(ex);
-										});
-									}).onFailure(ex -> {
-										promise2.fail(ex);
-									});
-								}).onFailure(ex -> {
-									promise2.fail(ex);
-								});
-							}).onFailure(ex -> {
-								promise2.fail(ex);
-							});
-							return promise2.future();
-						}).onSuccess(o2 -> {
-							promise1.complete(o2);
-						}).onFailure(ex -> {
-							promise1.fail(ex);
-						});
-					} else {
-						sqlPATCHCrowdFlowObserved(o, inheritPrimaryKey).onSuccess(crowdFlowObserved -> {
-							persistCrowdFlowObserved(crowdFlowObserved, true).onSuccess(c -> {
-								relateCrowdFlowObserved(crowdFlowObserved).onSuccess(d -> {
-									indexCrowdFlowObserved(crowdFlowObserved).onSuccess(o2 -> {
-										if(apiRequest != null) {
-											apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-											if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-												o2.apiRequestCrowdFlowObserved();
-												if(apiRequest.getVars().size() > 0)
-													eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
-											}
+				varsFishingDock(siteRequest).onSuccess(a -> {
+					sqlPATCHFishingDock(o, inheritPrimaryKey).onSuccess(fishingDock -> {
+						persistFishingDock(fishingDock, true).onSuccess(c -> {
+							relateFishingDock(fishingDock).onSuccess(d -> {
+								indexFishingDock(fishingDock).onSuccess(o2 -> {
+									if(apiRequest != null) {
+										apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+										if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+											o2.apiRequestFishingDock();
+											if(apiRequest.getVars().size() > 0)
+												eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 										}
-										promise1.complete(crowdFlowObserved);
-									}).onFailure(ex -> {
-										promise1.fail(ex);
-									});
+									}
+									promise1.complete(fishingDock);
 								}).onFailure(ex -> {
 									promise1.fail(ex);
 								});
@@ -676,7 +627,9 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						}).onFailure(ex -> {
 							promise1.fail(ex);
 						});
-					}
+					}).onFailure(ex -> {
+						promise1.fail(ex);
+					});
 				}).onFailure(ex -> {
 					promise1.fail(ex);
 				});
@@ -686,41 +639,41 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(crowdFlowObserved -> {
-				Promise<CrowdFlowObserved> promise2 = Promise.promise();
-				refreshCrowdFlowObserved(crowdFlowObserved).onSuccess(a -> {
-					promise2.complete(crowdFlowObserved);
+			}).compose(fishingDock -> {
+				Promise<FishingDock> promise2 = Promise.promise();
+				refreshFishingDock(fishingDock).onSuccess(a -> {
+					promise2.complete(fishingDock);
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(crowdFlowObserved -> {
-				promise.complete(crowdFlowObserved);
+			}).onSuccess(fishingDock -> {
+				promise.complete(fishingDock);
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("patchCrowdFlowObservedFuture failed. "), ex);
+			LOG.error(String.format("patchFishingDockFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<CrowdFlowObserved> sqlPATCHCrowdFlowObserved(CrowdFlowObserved o, Boolean inheritPrimaryKey) {
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+	public Future<FishingDock> sqlPATCHFishingDock(FishingDock o, Boolean inheritPrimaryKey) {
+		Promise<FishingDock> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("UPDATE CrowdFlowObserved SET ");
+			StringBuilder bSql = new StringBuilder("UPDATE FishingDock SET ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
 			Set<String> methodNames = jsonObject.fieldNames();
-			CrowdFlowObserved o2 = new CrowdFlowObserved();
+			FishingDock o2 = new FishingDock();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
@@ -731,7 +684,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							o2.setName(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_name + "=$" + num);
+							bSql.append(FishingDock.VAR_name + "=$" + num);
 							num++;
 							bParams.add(o2.sqlName());
 						break;
@@ -739,7 +692,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							o2.setDescription(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_description + "=$" + num);
+							bSql.append(FishingDock.VAR_description + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
@@ -747,47 +700,31 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							o2.setCreated(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_created + "=$" + num);
+							bSql.append(FishingDock.VAR_created + "=$" + num);
 							num++;
 							bParams.add(o2.sqlCreated());
-						break;
-					case "setLocation":
-							o2.setLocation(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_location + "=$" + num);
-							num++;
-							bParams.add(o2.sqlLocation());
-						break;
-					case "setArchived":
-							o2.setArchived(jsonObject.getBoolean(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_archived + "=$" + num);
-							num++;
-							bParams.add(o2.sqlArchived());
-						break;
-					case "setAreaServed":
-							o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_areaServed + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAreaServed());
 						break;
 					case "setId":
 							o2.setId(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_id + "=$" + num);
+							bSql.append(FishingDock.VAR_id + "=$" + num);
 							num++;
 							bParams.add(o2.sqlId());
+						break;
+					case "setArchived":
+							o2.setArchived(jsonObject.getBoolean(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_archived + "=$" + num);
+							num++;
+							bParams.add(o2.sqlArchived());
 						break;
 					case "setSessionId":
 							o2.setSessionId(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_sessionId + "=$" + num);
+							bSql.append(FishingDock.VAR_sessionId + "=$" + num);
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
@@ -795,201 +732,25 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							o2.setUserKey(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_userKey + "=$" + num);
+							bSql.append(FishingDock.VAR_userKey + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserKey());
-						break;
-					case "setNgsildTenant":
-							o2.setNgsildTenant(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_ngsildTenant + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildTenant());
-						break;
-					case "setNgsildPath":
-							o2.setNgsildPath(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_ngsildPath + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildPath());
-						break;
-					case "setNgsildContext":
-							o2.setNgsildContext(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_ngsildContext + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildContext());
 						break;
 					case "setObjectTitle":
 							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_objectTitle + "=$" + num);
+							bSql.append(FishingDock.VAR_objectTitle + "=$" + num);
 							num++;
 							bParams.add(o2.sqlObjectTitle());
-						break;
-					case "setNgsildData":
-							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_ngsildData + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildData());
 						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_displayPage + "=$" + num);
+							bSql.append(FishingDock.VAR_displayPage + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDisplayPage());
-						break;
-					case "setAddress":
-							o2.setAddress(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_address + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAddress());
-						break;
-					case "setAlternateName":
-							o2.setAlternateName(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_alternateName + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAlternateName());
-						break;
-					case "setAverageCrowdSpeed":
-							o2.setAverageCrowdSpeed(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_averageCrowdSpeed + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAverageCrowdSpeed());
-						break;
-					case "setAverageHeadwayTime":
-							o2.setAverageHeadwayTime(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_averageHeadwayTime + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAverageHeadwayTime());
-						break;
-					case "setCongested":
-							o2.setCongested(jsonObject.getBoolean(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_congested + "=$" + num);
-							num++;
-							bParams.add(o2.sqlCongested());
-						break;
-					case "setDataProvider":
-							o2.setDataProvider(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_dataProvider + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDataProvider());
-						break;
-					case "setDateCreated":
-							o2.setDateCreated(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_dateCreated + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDateCreated());
-						break;
-					case "setDateModified":
-							o2.setDateModified(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_dateModified + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDateModified());
-						break;
-					case "setDateObserved":
-							o2.setDateObserved(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_dateObserved + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDateObserved());
-						break;
-					case "setDateObservedFrom":
-							o2.setDateObservedFrom(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_dateObservedFrom + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDateObservedFrom());
-						break;
-					case "setDateObservedTo":
-							o2.setDateObservedTo(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_dateObservedTo + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDateObservedTo());
-						break;
-					case "setDirection":
-							o2.setDirection(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_direction + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDirection());
-						break;
-					case "setOccupancy":
-							o2.setOccupancy(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_occupancy + "=$" + num);
-							num++;
-							bParams.add(o2.sqlOccupancy());
-						break;
-					case "setOwner":
-							o2.setOwner(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_owner + "=$" + num);
-							num++;
-							bParams.add(o2.sqlOwner());
-						break;
-					case "setPeopleCount":
-							o2.setPeopleCount(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_peopleCount + "=$" + num);
-							num++;
-							bParams.add(o2.sqlPeopleCount());
-						break;
-					case "setRefRoadSegment":
-							o2.setRefRoadSegment(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_refRoadSegment + "=$" + num);
-							num++;
-							bParams.add(o2.sqlRefRoadSegment());
-						break;
-					case "setSeeAlso":
-							o2.setSeeAlso(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_seeAlso + "=$" + num);
-							num++;
-							bParams.add(o2.sqlSeeAlso());
-						break;
-					case "setSource":
-							o2.setSource(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(CrowdFlowObserved.VAR_source + "=$" + num);
-							num++;
-							bParams.add(o2.sqlSource());
 						break;
 				}
 			}
@@ -1003,40 +764,40 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							).onSuccess(b -> {
 						a.handle(Future.succeededFuture());
 					}).onFailure(ex -> {
-						RuntimeException ex2 = new RuntimeException("value CrowdFlowObserved failed", ex);
-						LOG.error(String.format("relateCrowdFlowObserved failed. "), ex2);
+						RuntimeException ex2 = new RuntimeException("value FishingDock failed", ex);
+						LOG.error(String.format("relateFishingDock failed. "), ex2);
 						a.handle(Future.failedFuture(ex2));
 					});
 				}));
 			}
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					CrowdFlowObserved o3 = new CrowdFlowObserved();
+					FishingDock o3 = new FishingDock();
 					o3.setSiteRequest_(o.getSiteRequest_());
 					o3.setPk(pk);
 					promise.complete(o3);
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlPATCHCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("sqlPATCHFishingDock failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlPATCHCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("sqlPATCHFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlPATCHCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("sqlPATCHFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200PATCHCrowdFlowObserved(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200PATCHFishingDock(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "CrowdFlowObserved", entityShortId);
+				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+						String m = String.format("%s %s not found", "fishing dock", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1044,7 +805,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200PATCHCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200PATCHFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -1053,24 +814,24 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// POST //
 
 	@Override
-	public void postCrowdFlowObserved(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("postCrowdFlowObserved started. "));
+	public void postFishingDock(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("postFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "POST"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1105,7 +866,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						apiRequest.setNumPATCH(0L);
 						apiRequest.initDeepApiRequest(siteRequest);
 						siteRequest.setApiRequest_(apiRequest);
-						eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+						eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 						JsonObject params = new JsonObject();
 						params.put("body", siteRequest.getJsonObject());
 						params.put("path", new JsonObject());
@@ -1124,19 +885,19 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						params.put("query", query);
 						JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
 						JsonObject json = new JsonObject().put("context", context);
-						eventBus.request(CrowdFlowObserved.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postCrowdFlowObservedFuture")).onSuccess(a -> {
+						eventBus.request(FishingDock.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFishingDockFuture")).onSuccess(a -> {
 							JsonObject responseMessage = (JsonObject)a.body();
 							JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
-							apiRequest.setPk(Long.parseLong(responseBody.getString("pk")));
+							apiRequest.setSolrId(responseBody.getString(FishingDock.VAR_solrId));
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
-							LOG.debug(String.format("postCrowdFlowObserved succeeded. "));
+							LOG.debug(String.format("postFishingDock succeeded. "));
 						}).onFailure(ex -> {
-							LOG.error(String.format("postCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("postFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("postCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("postFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -1145,7 +906,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("postCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("postFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1160,14 +921,14 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("postCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("postFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
 	@Override
-	public void postCrowdFlowObservedFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void postFishingDockFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -1180,13 +941,13 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-				postCrowdFlowObservedFuture(siteRequest, false).onSuccess(o -> {
+				postFishingDockFuture(siteRequest, false).onSuccess(o -> {
 					eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(JsonObject.mapFrom(o).encodePrettily()))));
 				}).onFailure(ex -> {
 					eventHandler.handle(Future.failedFuture(ex));
 				});
 			} catch(Throwable ex) {
-				LOG.error(String.format("postCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("postFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
@@ -1194,7 +955,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("postCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("postFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1209,26 +970,26 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("postCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("postFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<CrowdFlowObserved> postCrowdFlowObservedFuture(SiteRequest siteRequest, Boolean entityShortId) {
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+	public Future<FishingDock> postFishingDockFuture(SiteRequest siteRequest, Boolean id) {
+		Promise<FishingDock> promise = Promise.promise();
 
 		try {
 			pgPool.withTransaction(sqlConnection -> {
-				Promise<CrowdFlowObserved> promise1 = Promise.promise();
+				Promise<FishingDock> promise1 = Promise.promise();
 				siteRequest.setSqlConnection(sqlConnection);
-				varsCrowdFlowObserved(siteRequest).onSuccess(a -> {
-					createCrowdFlowObserved(siteRequest).onSuccess(crowdFlowObserved -> {
-						sqlPOSTCrowdFlowObserved(crowdFlowObserved, entityShortId).onSuccess(b -> {
-							persistCrowdFlowObserved(crowdFlowObserved, false).onSuccess(c -> {
-								relateCrowdFlowObserved(crowdFlowObserved).onSuccess(d -> {
-									indexCrowdFlowObserved(crowdFlowObserved).onSuccess(o2 -> {
-										promise1.complete(crowdFlowObserved);
+				varsFishingDock(siteRequest).onSuccess(a -> {
+					createFishingDock(siteRequest).onSuccess(fishingDock -> {
+						sqlPOSTFishingDock(fishingDock, id).onSuccess(b -> {
+							persistFishingDock(fishingDock, false).onSuccess(c -> {
+								relateFishingDock(fishingDock).onSuccess(d -> {
+									indexFishingDock(fishingDock).onSuccess(o2 -> {
+										promise1.complete(fishingDock);
 									}).onFailure(ex -> {
 										promise1.fail(ex);
 									});
@@ -1253,62 +1014,62 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(crowdFlowObserved -> {
-				Promise<CrowdFlowObserved> promise2 = Promise.promise();
-				refreshCrowdFlowObserved(crowdFlowObserved).onSuccess(a -> {
+			}).compose(fishingDock -> {
+				Promise<FishingDock> promise2 = Promise.promise();
+				refreshFishingDock(fishingDock).onSuccess(a -> {
 					try {
 						ApiRequest apiRequest = siteRequest.getApiRequest_();
 						if(apiRequest != null) {
 							apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-							crowdFlowObserved.apiRequestCrowdFlowObserved();
-							eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+							fishingDock.apiRequestFishingDock();
+							eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 						}
-						promise2.complete(crowdFlowObserved);
+						promise2.complete(fishingDock);
 					} catch(Exception ex) {
-						LOG.error(String.format("postCrowdFlowObservedFuture failed. "), ex);
+						LOG.error(String.format("postFishingDockFuture failed. "), ex);
 						promise.fail(ex);
 					}
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(crowdFlowObserved -> {
+			}).onSuccess(fishingDock -> {
 				try {
 					ApiRequest apiRequest = siteRequest.getApiRequest_();
 					if(apiRequest != null) {
 						apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-						crowdFlowObserved.apiRequestCrowdFlowObserved();
-						eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+						fishingDock.apiRequestFishingDock();
+						eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 					}
-					promise.complete(crowdFlowObserved);
+					promise.complete(fishingDock);
 				} catch(Exception ex) {
-					LOG.error(String.format("postCrowdFlowObservedFuture failed. "), ex);
+					LOG.error(String.format("postFishingDockFuture failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("postCrowdFlowObservedFuture failed. "), ex);
+			LOG.error(String.format("postFishingDockFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<CrowdFlowObserved> sqlPOSTCrowdFlowObserved(CrowdFlowObserved o, Boolean inheritPrimaryKey) {
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+	public Future<FishingDock> sqlPOSTFishingDock(FishingDock o, Boolean inheritPrimaryKey) {
+		Promise<FishingDock> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("UPDATE CrowdFlowObserved SET ");
+			StringBuilder bSql = new StringBuilder("UPDATE FishingDock SET ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
-			CrowdFlowObserved o2 = new CrowdFlowObserved();
+			FishingDock o2 = new FishingDock();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
@@ -1334,302 +1095,86 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				Set<String> entityVars = jsonObject.fieldNames();
 				for(String entityVar : entityVars) {
 					switch(entityVar) {
-					case CrowdFlowObserved.VAR_name:
+					case FishingDock.VAR_name:
 						o2.setName(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_name + "=$" + num);
+						bSql.append(FishingDock.VAR_name + "=$" + num);
 						num++;
 						bParams.add(o2.sqlName());
 						break;
-					case CrowdFlowObserved.VAR_description:
+					case FishingDock.VAR_description:
 						o2.setDescription(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_description + "=$" + num);
+						bSql.append(FishingDock.VAR_description + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case CrowdFlowObserved.VAR_created:
+					case FishingDock.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_created + "=$" + num);
+						bSql.append(FishingDock.VAR_created + "=$" + num);
 						num++;
 						bParams.add(o2.sqlCreated());
 						break;
-					case CrowdFlowObserved.VAR_location:
-						o2.setLocation(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_location + "=$" + num);
-						num++;
-						bParams.add(o2.sqlLocation());
-						break;
-					case CrowdFlowObserved.VAR_archived:
-						o2.setArchived(jsonObject.getBoolean(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_archived + "=$" + num);
-						num++;
-						bParams.add(o2.sqlArchived());
-						break;
-					case CrowdFlowObserved.VAR_areaServed:
-						o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_areaServed + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAreaServed());
-						break;
-					case CrowdFlowObserved.VAR_id:
+					case FishingDock.VAR_id:
 						o2.setId(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_id + "=$" + num);
+						bSql.append(FishingDock.VAR_id + "=$" + num);
 						num++;
 						bParams.add(o2.sqlId());
 						break;
-					case CrowdFlowObserved.VAR_sessionId:
+					case FishingDock.VAR_archived:
+						o2.setArchived(jsonObject.getBoolean(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_archived + "=$" + num);
+						num++;
+						bParams.add(o2.sqlArchived());
+						break;
+					case FishingDock.VAR_sessionId:
 						o2.setSessionId(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_sessionId + "=$" + num);
+						bSql.append(FishingDock.VAR_sessionId + "=$" + num);
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case CrowdFlowObserved.VAR_userKey:
+					case FishingDock.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_userKey + "=$" + num);
+						bSql.append(FishingDock.VAR_userKey + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserKey());
 						break;
-					case CrowdFlowObserved.VAR_ngsildTenant:
-						o2.setNgsildTenant(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_ngsildTenant + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildTenant());
-						break;
-					case CrowdFlowObserved.VAR_ngsildPath:
-						o2.setNgsildPath(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_ngsildPath + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildPath());
-						break;
-					case CrowdFlowObserved.VAR_ngsildContext:
-						o2.setNgsildContext(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_ngsildContext + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildContext());
-						break;
-					case CrowdFlowObserved.VAR_objectTitle:
+					case FishingDock.VAR_objectTitle:
 						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_objectTitle + "=$" + num);
+						bSql.append(FishingDock.VAR_objectTitle + "=$" + num);
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
-					case CrowdFlowObserved.VAR_ngsildData:
-						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_ngsildData + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildData());
-						break;
-					case CrowdFlowObserved.VAR_displayPage:
+					case FishingDock.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(CrowdFlowObserved.VAR_displayPage + "=$" + num);
+						bSql.append(FishingDock.VAR_displayPage + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDisplayPage());
-						break;
-					case CrowdFlowObserved.VAR_address:
-						o2.setAddress(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_address + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAddress());
-						break;
-					case CrowdFlowObserved.VAR_alternateName:
-						o2.setAlternateName(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_alternateName + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAlternateName());
-						break;
-					case CrowdFlowObserved.VAR_averageCrowdSpeed:
-						o2.setAverageCrowdSpeed(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_averageCrowdSpeed + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAverageCrowdSpeed());
-						break;
-					case CrowdFlowObserved.VAR_averageHeadwayTime:
-						o2.setAverageHeadwayTime(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_averageHeadwayTime + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAverageHeadwayTime());
-						break;
-					case CrowdFlowObserved.VAR_congested:
-						o2.setCongested(jsonObject.getBoolean(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_congested + "=$" + num);
-						num++;
-						bParams.add(o2.sqlCongested());
-						break;
-					case CrowdFlowObserved.VAR_dataProvider:
-						o2.setDataProvider(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_dataProvider + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDataProvider());
-						break;
-					case CrowdFlowObserved.VAR_dateCreated:
-						o2.setDateCreated(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_dateCreated + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDateCreated());
-						break;
-					case CrowdFlowObserved.VAR_dateModified:
-						o2.setDateModified(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_dateModified + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDateModified());
-						break;
-					case CrowdFlowObserved.VAR_dateObserved:
-						o2.setDateObserved(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_dateObserved + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDateObserved());
-						break;
-					case CrowdFlowObserved.VAR_dateObservedFrom:
-						o2.setDateObservedFrom(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_dateObservedFrom + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDateObservedFrom());
-						break;
-					case CrowdFlowObserved.VAR_dateObservedTo:
-						o2.setDateObservedTo(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_dateObservedTo + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDateObservedTo());
-						break;
-					case CrowdFlowObserved.VAR_direction:
-						o2.setDirection(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_direction + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDirection());
-						break;
-					case CrowdFlowObserved.VAR_occupancy:
-						o2.setOccupancy(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_occupancy + "=$" + num);
-						num++;
-						bParams.add(o2.sqlOccupancy());
-						break;
-					case CrowdFlowObserved.VAR_owner:
-						o2.setOwner(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_owner + "=$" + num);
-						num++;
-						bParams.add(o2.sqlOwner());
-						break;
-					case CrowdFlowObserved.VAR_peopleCount:
-						o2.setPeopleCount(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_peopleCount + "=$" + num);
-						num++;
-						bParams.add(o2.sqlPeopleCount());
-						break;
-					case CrowdFlowObserved.VAR_refRoadSegment:
-						o2.setRefRoadSegment(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_refRoadSegment + "=$" + num);
-						num++;
-						bParams.add(o2.sqlRefRoadSegment());
-						break;
-					case CrowdFlowObserved.VAR_seeAlso:
-						o2.setSeeAlso(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_seeAlso + "=$" + num);
-						num++;
-						bParams.add(o2.sqlSeeAlso());
-						break;
-					case CrowdFlowObserved.VAR_source:
-						o2.setSource(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(CrowdFlowObserved.VAR_source + "=$" + num);
-						num++;
-						bParams.add(o2.sqlSource());
 						break;
 					}
 				}
@@ -1644,8 +1189,8 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							).onSuccess(b -> {
 						a.handle(Future.succeededFuture());
 					}).onFailure(ex -> {
-						RuntimeException ex2 = new RuntimeException("value CrowdFlowObserved failed", ex);
-						LOG.error(String.format("relateCrowdFlowObserved failed. "), ex2);
+						RuntimeException ex2 = new RuntimeException("value FishingDock failed", ex);
+						LOG.error(String.format("relateFishingDock failed. "), ex2);
 						a.handle(Future.failedFuture(ex2));
 					});
 				}));
@@ -1654,28 +1199,28 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				CompositeFuture.all(futures2).onSuccess(b -> {
 					promise.complete(o2);
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlPOSTCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("sqlPOSTFishingDock failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlPOSTCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("sqlPOSTFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlPOSTCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("sqlPOSTFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200POSTCrowdFlowObserved(CrowdFlowObserved o) {
+	public Future<ServiceResponse> response200POSTFishingDock(FishingDock o) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "CrowdFlowObserved", entityShortId);
+				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+						String m = String.format("%s %s not found", "fishing dock", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1683,7 +1228,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200POSTCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200POSTFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -1692,24 +1237,24 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// DELETE //
 
 	@Override
-	public void deleteCrowdFlowObserved(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("deleteCrowdFlowObserved started. "));
+	public void deleteFishingDock(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("deleteFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1738,42 +1283,42 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					} else {
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
+						searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
-								apiRequest.setRows(listCrowdFlowObserved.getRequest().getRows());
-								apiRequest.setNumFound(listCrowdFlowObserved.getResponse().getResponse().getNumFound());
+								apiRequest.setRows(listFishingDock.getRequest().getRows());
+								apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
 								apiRequest.setNumPATCH(0L);
 								apiRequest.initDeepApiRequest(siteRequest);
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
-									apiRequest.setOriginal(listCrowdFlowObserved.first());
-								apiRequest.setPk(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getPk()).orElse(null));
-								eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+									apiRequest.setOriginal(listFishingDock.first());
+								apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+								eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 
-								listDELETECrowdFlowObserved(apiRequest, listCrowdFlowObserved).onSuccess(e -> {
-									response200DELETECrowdFlowObserved(siteRequest).onSuccess(response -> {
-										LOG.debug(String.format("deleteCrowdFlowObserved succeeded. "));
+								listDELETEFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
+									response200DELETEFishingDock(siteRequest).onSuccess(response -> {
+										LOG.debug(String.format("deleteFishingDock succeeded. "));
 										eventHandler.handle(Future.succeededFuture(response));
 									}).onFailure(ex -> {
-										LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+										LOG.error(String.format("deleteFishingDock failed. "), ex);
 										error(siteRequest, eventHandler, ex);
 									});
 								}).onFailure(ex -> {
-									LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+									LOG.error(String.format("deleteFishingDock failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							} catch(Exception ex) {
-								LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("deleteFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("deleteFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("deleteFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -1782,7 +1327,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("deleteCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("deleteFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1797,58 +1342,58 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("deleteFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listDELETECrowdFlowObserved(ApiRequest apiRequest, SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public Future<Void> listDELETEFishingDock(ApiRequest apiRequest, SearchList<FishingDock> listFishingDock) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
-		SiteRequest siteRequest = listCrowdFlowObserved.getSiteRequest_(SiteRequest.class);
-		listCrowdFlowObserved.getList().forEach(o -> {
+		SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+		listFishingDock.getList().forEach(o -> {
 			SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
 			siteRequest2.setScopes(siteRequest.getScopes());
 			o.setSiteRequest_(siteRequest2);
 			siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
 			JsonObject jsonObject = JsonObject.mapFrom(o);
-			CrowdFlowObserved o2 = jsonObject.mapTo(CrowdFlowObserved.class);
+			FishingDock o2 = jsonObject.mapTo(FishingDock.class);
 			o2.setSiteRequest_(siteRequest2);
 			futures.add(Future.future(promise1 -> {
-				deleteCrowdFlowObservedFuture(o).onSuccess(a -> {
+				deleteFishingDockFuture(o).onSuccess(a -> {
 					promise1.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("listDELETECrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("listDELETEFishingDock failed. "), ex);
 					promise1.fail(ex);
 				});
 			}));
 		});
 		CompositeFuture.all(futures).onSuccess( a -> {
-			listCrowdFlowObserved.next().onSuccess(next -> {
+			listFishingDock.next().onSuccess(next -> {
 				if(next) {
-					listDELETECrowdFlowObserved(apiRequest, listCrowdFlowObserved).onSuccess(b -> {
+					listDELETEFishingDock(apiRequest, listFishingDock).onSuccess(b -> {
 						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listDELETECrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("listDELETEFishingDock failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete();
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("listDELETECrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("listDELETEFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		}).onFailure(ex -> {
-			LOG.error(String.format("listDELETECrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("listDELETEFishingDock failed. "), ex);
 			promise.fail(ex);
 		});
 		return promise.future();
 	}
 
 	@Override
-	public void deleteCrowdFlowObservedFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void deleteFishingDockFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -1859,10 +1404,10 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						siteRequest.addScopes(scope);
 					});
 				});
-				searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
+				searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
 					try {
-						CrowdFlowObserved o = listCrowdFlowObserved.first();
-						if(o != null && listCrowdFlowObserved.getResponse().getResponse().getNumFound() == 1) {
+						FishingDock o = listFishingDock.first();
+						if(o != null && listFishingDock.getResponse().getResponse().getNumFound() == 1) {
 							ApiRequest apiRequest = new ApiRequest();
 							apiRequest.setRows(1L);
 							apiRequest.setNumFound(1L);
@@ -1874,9 +1419,9 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getPk()).orElse(null));
-							deleteCrowdFlowObservedFuture(o).onSuccess(o2 -> {
+							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+							deleteFishingDockFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
 								eventHandler.handle(Future.failedFuture(ex));
@@ -1885,42 +1430,42 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 						}
 					} catch(Exception ex) {
-						LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("deleteFishingDock failed. "), ex);
 						error(siteRequest, eventHandler, ex);
 					}
 				}).onFailure(ex -> {
-					LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("deleteFishingDock failed. "), ex);
 					error(siteRequest, eventHandler, ex);
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("deleteFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
-			LOG.error(String.format("deleteCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("deleteFishingDock failed. "), ex);
 			error(null, eventHandler, ex);
 		});
 	}
 
-	public Future<CrowdFlowObserved> deleteCrowdFlowObservedFuture(CrowdFlowObserved o) {
+	public Future<FishingDock> deleteFishingDockFuture(FishingDock o) {
 		SiteRequest siteRequest = o.getSiteRequest_();
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+		Promise<FishingDock> promise = Promise.promise();
 
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			Promise<CrowdFlowObserved> promise1 = Promise.promise();
+			Promise<FishingDock> promise1 = Promise.promise();
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
-				varsCrowdFlowObserved(siteRequest).onSuccess(a -> {
-					sqlDELETECrowdFlowObserved(o).onSuccess(crowdFlowObserved -> {
-						relateCrowdFlowObserved(o).onSuccess(d -> {
-							unindexCrowdFlowObserved(o).onSuccess(o2 -> {
+				varsFishingDock(siteRequest).onSuccess(a -> {
+					sqlDELETEFishingDock(o).onSuccess(fishingDock -> {
+						relateFishingDock(o).onSuccess(d -> {
+							unindexFishingDock(o).onSuccess(o2 -> {
 								if(apiRequest != null) {
 									apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 									if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-										o2.apiRequestCrowdFlowObserved();
+										o2.apiRequestFishingDock();
 										if(apiRequest.getVars().size() > 0)
-											eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+											eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 									}
 								}
 								promise1.complete();
@@ -1942,40 +1487,40 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(crowdFlowObserved -> {
-				Promise<CrowdFlowObserved> promise2 = Promise.promise();
-				refreshCrowdFlowObserved(o).onSuccess(a -> {
+			}).compose(fishingDock -> {
+				Promise<FishingDock> promise2 = Promise.promise();
+				refreshFishingDock(o).onSuccess(a -> {
 					promise2.complete(o);
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(crowdFlowObserved -> {
-				promise.complete(crowdFlowObserved);
+			}).onSuccess(fishingDock -> {
+				promise.complete(fishingDock);
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("deleteCrowdFlowObservedFuture failed. "), ex);
+			LOG.error(String.format("deleteFishingDockFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> sqlDELETECrowdFlowObserved(CrowdFlowObserved o) {
+	public Future<Void> sqlDELETEFishingDock(FishingDock o) {
 		Promise<Void> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("DELETE FROM CrowdFlowObserved ");
+			StringBuilder bSql = new StringBuilder("DELETE FROM FishingDock ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
-			CrowdFlowObserved o2 = new CrowdFlowObserved();
+			FishingDock o2 = new FishingDock();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
@@ -1996,45 +1541,36 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						).onSuccess(b -> {
 					a.handle(Future.succeededFuture());
 				}).onFailure(ex -> {
-					RuntimeException ex2 = new RuntimeException("value CrowdFlowObserved failed", ex);
-					LOG.error(String.format("unrelateCrowdFlowObserved failed. "), ex2);
+					RuntimeException ex2 = new RuntimeException("value FishingDock failed", ex);
+					LOG.error(String.format("unrelateFishingDock failed. "), ex2);
 					a.handle(Future.failedFuture(ex2));
 				});
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-						cbDeleteEntity(o).onSuccess(c -> {
-							promise.complete();
-						}).onFailure(ex -> {
-							LOG.error(String.format("sqlDELETECrowdFlowObserved failed. "), ex);
-							promise.fail(ex);
-						});
-					} else {
-						promise.complete();
-					}
+					promise.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlDELETECrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlDELETECrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlDELETECrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200DELETECrowdFlowObserved(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200DELETEFishingDock(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "CrowdFlowObserved", entityShortId);
+				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+						String m = String.format("%s %s not found", "fishing dock", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2042,7 +1578,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200DELETECrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200DELETEFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -2051,24 +1587,24 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// PUTImport //
 
 	@Override
-	public void putimportCrowdFlowObserved(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("putimportCrowdFlowObserved started. "));
+	public void putimportFishingDock(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("putimportFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "PUT"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "PUT"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2104,27 +1640,27 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						apiRequest.setNumPATCH(0L);
 						apiRequest.initDeepApiRequest(siteRequest);
 						siteRequest.setApiRequest_(apiRequest);
-						eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
-						varsCrowdFlowObserved(siteRequest).onSuccess(d -> {
-							listPUTImportCrowdFlowObserved(apiRequest, siteRequest).onSuccess(e -> {
-								response200PUTImportCrowdFlowObserved(siteRequest).onSuccess(response -> {
-									LOG.debug(String.format("putimportCrowdFlowObserved succeeded. "));
+						eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+						varsFishingDock(siteRequest).onSuccess(d -> {
+							listPUTImportFishingDock(apiRequest, siteRequest).onSuccess(e -> {
+								response200PUTImportFishingDock(siteRequest).onSuccess(response -> {
+									LOG.debug(String.format("putimportFishingDock succeeded. "));
 									eventHandler.handle(Future.succeededFuture(response));
 								}).onFailure(ex -> {
-									LOG.error(String.format("putimportCrowdFlowObserved failed. "), ex);
+									LOG.error(String.format("putimportFishingDock failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							}).onFailure(ex -> {
-								LOG.error(String.format("putimportCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("putimportFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("putimportCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("putimportFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("putimportCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("putimportFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -2133,7 +1669,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("putimportCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("putimportFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2148,13 +1684,13 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("putimportCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("putimportFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listPUTImportCrowdFlowObserved(ApiRequest apiRequest, SiteRequest siteRequest) {
+	public Future<Void> listPUTImportFishingDock(ApiRequest apiRequest, SiteRequest siteRequest) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
 		JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
@@ -2179,10 +1715,10 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					params.put("query", query);
 					JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
 					JsonObject json = new JsonObject().put("context", context);
-					eventBus.request(CrowdFlowObserved.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "putimportCrowdFlowObservedFuture")).onSuccess(a -> {
+					eventBus.request(FishingDock.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "putimportFishingDockFuture")).onSuccess(a -> {
 						promise1.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listPUTImportCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("listPUTImportFishingDock failed. "), ex);
 						promise1.fail(ex);
 					});
 				}));
@@ -2191,18 +1727,18 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 				promise.complete();
 			}).onFailure(ex -> {
-				LOG.error(String.format("listPUTImportCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("listPUTImportFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("listPUTImportCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("listPUTImportFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
 	@Override
-	public void putimportCrowdFlowObservedFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void putimportFishingDockFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -2212,19 +1748,19 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				apiRequest.setNumPATCH(0L);
 				apiRequest.initDeepApiRequest(siteRequest);
 				siteRequest.setApiRequest_(apiRequest);
-				String entityShortId = Optional.ofNullable(body.getString(CrowdFlowObserved.VAR_entityShortId)).orElse(body.getString(CrowdFlowObserved.VAR_solrId));
+				String id = Optional.ofNullable(body.getString(FishingDock.VAR_id)).orElse(body.getString(FishingDock.VAR_solrId));
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
 				pgPool.getConnection().onSuccess(sqlConnection -> {
-					String sqlQuery = String.format("select * from %s WHERE entityShortId=$1", CrowdFlowObserved.CLASS_SIMPLE_NAME);
+					String sqlQuery = String.format("select * from %s WHERE id=$1", FishingDock.CLASS_SIMPLE_NAME);
 					sqlConnection.preparedQuery(sqlQuery)
-							.execute(Tuple.tuple(Arrays.asList(entityShortId))
+							.execute(Tuple.tuple(Arrays.asList(id))
 							).onSuccess(result -> {
 						sqlConnection.close().onSuccess(a -> {
 							try {
 								if(result.size() >= 1) {
-									CrowdFlowObserved o = new CrowdFlowObserved();
+									FishingDock o = new FishingDock();
 									o.setSiteRequest_(siteRequest);
 									for(Row definition : result.value()) {
 										for(Integer i = 0; i < definition.size(); i++) {
@@ -2233,11 +1769,11 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 												Object columnValue = definition.getValue(i);
 												o.persistForClass(columnName, columnValue);
 											} catch(Exception e) {
-												LOG.error(String.format("persistCrowdFlowObserved failed. "), e);
+												LOG.error(String.format("persistFishingDock failed. "), e);
 											}
 										}
 									}
-									CrowdFlowObserved o2 = new CrowdFlowObserved();
+									FishingDock o2 = new FishingDock();
 									o2.setSiteRequest_(siteRequest);
 									JsonObject body2 = new JsonObject();
 									for(String f : body.fieldNames()) {
@@ -2269,56 +1805,56 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 										} else {
 											o2.persistForClass(f, bodyVal);
 											o2.relateForClass(f, bodyVal);
-											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+											if(!StringUtils.containsAny(f, "id", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
 												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 										}
 									}
 									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
 										if(!body.fieldNames().contains(f)) {
-											if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+											if(!StringUtils.containsAny(f, "id", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
 												body2.putNull("set" + StringUtils.capitalize(f));
 										}
 									}
 									if(result.size() >= 1) {
 										apiRequest.setOriginal(o);
-										apiRequest.setId(Optional.ofNullable(o.getEntityShortId()).map(v -> v.toString()).orElse(null));
-										apiRequest.setPk(o.getPk());
+										apiRequest.setId(Optional.ofNullable(o.getId()).map(v -> v.toString()).orElse(null));
+										apiRequest.setSolrId(o.getSolrId());
 									}
 									siteRequest.setJsonObject(body2);
-									patchCrowdFlowObservedFuture(o, true).onSuccess(b -> {
-										LOG.debug("Import CrowdFlowObserved {} succeeded, modified CrowdFlowObserved. ", body.getValue(CrowdFlowObserved.VAR_entityShortId));
+									patchFishingDockFuture(o, true).onSuccess(b -> {
+										LOG.debug("Import FishingDock {} succeeded, modified FishingDock. ", body.getValue(FishingDock.VAR_id));
 										eventHandler.handle(Future.succeededFuture());
 									}).onFailure(ex -> {
-										LOG.error(String.format("putimportCrowdFlowObservedFuture failed. "), ex);
+										LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 										eventHandler.handle(Future.failedFuture(ex));
 									});
 								} else {
-									postCrowdFlowObservedFuture(siteRequest, true).onSuccess(b -> {
-										LOG.debug("Import CrowdFlowObserved {} succeeded, created new CrowdFlowObserved. ", body.getValue(CrowdFlowObserved.VAR_entityShortId));
+									postFishingDockFuture(siteRequest, true).onSuccess(b -> {
+										LOG.debug("Import FishingDock {} succeeded, created new FishingDock. ", body.getValue(FishingDock.VAR_id));
 										eventHandler.handle(Future.succeededFuture());
 									}).onFailure(ex -> {
-										LOG.error(String.format("putimportCrowdFlowObservedFuture failed. "), ex);
+										LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 										eventHandler.handle(Future.failedFuture(ex));
 									});
 								}
 							} catch(Exception ex) {
-								LOG.error(String.format("putimportCrowdFlowObservedFuture failed. "), ex);
+								LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("putimportCrowdFlowObservedFuture failed. "), ex);
+							LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 							eventHandler.handle(Future.failedFuture(ex));
 						});
 					}).onFailure(ex -> {
-						LOG.error(String.format("putimportCrowdFlowObservedFuture failed. "), ex);
+						LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
 					});
 				}).onFailure(ex -> {
-					LOG.error(String.format("putimportCrowdFlowObservedFuture failed. "), ex);
+					LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("putimportCrowdFlowObservedFuture failed. "), ex);
+				LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 				eventHandler.handle(Future.failedFuture(ex));
 			}
 		}).onFailure(ex -> {
@@ -2326,7 +1862,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("putimportCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("putimportFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2341,19 +1877,19 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("putimportCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("putimportFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<ServiceResponse> response200PUTImportCrowdFlowObserved(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200PUTImportFishingDock(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "CrowdFlowObserved", entityShortId);
+				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+						String m = String.format("%s %s not found", "fishing dock", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2361,7 +1897,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200PUTImportCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200PUTImportFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -2370,23 +1906,23 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// SearchPage //
 
 	@Override
-	public void searchpageCrowdFlowObserved(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void searchpageFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2403,21 +1939,21 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchCrowdFlowObservedList(siteRequest, false, true, false).onSuccess(listCrowdFlowObserved -> {
-							response200SearchPageCrowdFlowObserved(listCrowdFlowObserved).onSuccess(response -> {
+						searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+							response200SearchPageFishingDock(listFishingDock).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("searchpageCrowdFlowObserved succeeded. "));
+								LOG.debug(String.format("searchpageFishingDock succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("searchpageCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("searchpageFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("searchpageCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("searchpageFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("searchpageCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("searchpageFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -2426,7 +1962,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("searchpageCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("searchpageFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2441,38 +1977,38 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("searchpageCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("searchpageFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public void searchpageCrowdFlowObservedPageInit(CrowdFlowObservedPage page, SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public void searchpageFishingDockPageInit(FishingDockPage page, SearchList<FishingDock> listFishingDock) {
 	}
 
-	public String templateSearchPageCrowdFlowObserved(ServiceRequest serviceRequest) {
-		return "en-us/search/crowd-flow-observed/CrowdFlowObservedSearchPage.htm";
+	public String templateSearchPageFishingDock(ServiceRequest serviceRequest) {
+		return "en-us/search/fishing-dock/FishingDockSearchPage.htm";
 	}
-	public Future<ServiceResponse> response200SearchPageCrowdFlowObserved(SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public Future<ServiceResponse> response200SearchPageFishingDock(SearchList<FishingDock> listFishingDock) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listCrowdFlowObserved.getSiteRequest_(SiteRequest.class);
-			String pageTemplateUri = templateSearchPageCrowdFlowObserved(siteRequest.getServiceRequest());
+			SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+			String pageTemplateUri = templateSearchPageFishingDock(siteRequest.getServiceRequest());
 			String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
 			Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
 			String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-			CrowdFlowObservedPage page = new CrowdFlowObservedPage();
+			FishingDockPage page = new FishingDockPage();
 			MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
 			siteRequest.setRequestHeaders(requestHeaders);
 
-			if(listCrowdFlowObserved.size() >= 1)
-				siteRequest.setRequestPk(listCrowdFlowObserved.get(0).getPk());
-			page.setSearchListCrowdFlowObserved_(listCrowdFlowObserved);
+			if(listFishingDock.size() >= 1)
+				siteRequest.setRequestPk(listFishingDock.get(0).getPk());
+			page.setSearchListFishingDock_(listFishingDock);
 			page.setSiteRequest_(siteRequest);
 			page.setServiceRequest(siteRequest.getServiceRequest());
 			page.setWebClient(webClient);
 			page.setVertx(vertx);
-			page.promiseDeepCrowdFlowObservedPage(siteRequest).onSuccess(a -> {
+			page.promiseDeepFishingDockPage(siteRequest).onSuccess(a -> {
 				try {
 					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
@@ -2480,19 +2016,19 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					Buffer buffer = Buffer.buffer(renderedTemplate);
 					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
 				} catch(Exception ex) {
-					LOG.error(String.format("response200SearchPageCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("response200SearchPageFishingDock failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("response200SearchPageCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200SearchPageFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void responsePivotSearchPageCrowdFlowObserved(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+	public void responsePivotSearchPageFishingDock(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
 		if(pivots != null) {
 			for(SolrResponse.Pivot pivotField : pivots) {
 				String entityIndexed = pivotField.getField();
@@ -2521,7 +2057,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				if(pivotFields2 != null) {
 					JsonArray pivotArray2 = new JsonArray();
 					pivotJson.put("pivot", pivotArray2);
-					responsePivotSearchPageCrowdFlowObserved(pivotFields2, pivotArray2);
+					responsePivotSearchPageFishingDock(pivotFields2, pivotArray2);
 				}
 			}
 		}
@@ -2530,23 +2066,23 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// EditPage //
 
 	@Override
-	public void editpageCrowdFlowObserved(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void editpageFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2563,21 +2099,21 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchCrowdFlowObservedList(siteRequest, false, true, false).onSuccess(listCrowdFlowObserved -> {
-							response200EditPageCrowdFlowObserved(listCrowdFlowObserved).onSuccess(response -> {
+						searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+							response200EditPageFishingDock(listFishingDock).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
-								LOG.debug(String.format("editpageCrowdFlowObserved succeeded. "));
+								LOG.debug(String.format("editpageFishingDock succeeded. "));
 							}).onFailure(ex -> {
-								LOG.error(String.format("editpageCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("editpageFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							});
 						}).onFailure(ex -> {
-							LOG.error(String.format("editpageCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("editpageFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("editpageCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("editpageFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -2586,7 +2122,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("editpageCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("editpageFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2601,38 +2137,38 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("editpageCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("editpageFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public void editpageCrowdFlowObservedPageInit(CrowdFlowObservedPage page, SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public void editpageFishingDockPageInit(FishingDockPage page, SearchList<FishingDock> listFishingDock) {
 	}
 
-	public String templateEditPageCrowdFlowObserved(ServiceRequest serviceRequest) {
-		return "en-us/edit/crowd-flow-observed/CrowdFlowObservedEditPage.htm";
+	public String templateEditPageFishingDock(ServiceRequest serviceRequest) {
+		return "en-us/edit/fishing-dock/FishingDockEditPage.htm";
 	}
-	public Future<ServiceResponse> response200EditPageCrowdFlowObserved(SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public Future<ServiceResponse> response200EditPageFishingDock(SearchList<FishingDock> listFishingDock) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
-			SiteRequest siteRequest = listCrowdFlowObserved.getSiteRequest_(SiteRequest.class);
-			String pageTemplateUri = templateEditPageCrowdFlowObserved(siteRequest.getServiceRequest());
+			SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+			String pageTemplateUri = templateEditPageFishingDock(siteRequest.getServiceRequest());
 			String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
 			Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
 			String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-			CrowdFlowObservedPage page = new CrowdFlowObservedPage();
+			FishingDockPage page = new FishingDockPage();
 			MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
 			siteRequest.setRequestHeaders(requestHeaders);
 
-			if(listCrowdFlowObserved.size() >= 1)
-				siteRequest.setRequestPk(listCrowdFlowObserved.get(0).getPk());
-			page.setSearchListCrowdFlowObserved_(listCrowdFlowObserved);
+			if(listFishingDock.size() >= 1)
+				siteRequest.setRequestPk(listFishingDock.get(0).getPk());
+			page.setSearchListFishingDock_(listFishingDock);
 			page.setSiteRequest_(siteRequest);
 			page.setServiceRequest(siteRequest.getServiceRequest());
 			page.setWebClient(webClient);
 			page.setVertx(vertx);
-			page.promiseDeepCrowdFlowObservedPage(siteRequest).onSuccess(a -> {
+			page.promiseDeepFishingDockPage(siteRequest).onSuccess(a -> {
 				try {
 					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
@@ -2640,19 +2176,19 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					Buffer buffer = Buffer.buffer(renderedTemplate);
 					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
 				} catch(Exception ex) {
-					LOG.error(String.format("response200EditPageCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("response200EditPageFishingDock failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("response200EditPageCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200EditPageFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void responsePivotEditPageCrowdFlowObserved(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+	public void responsePivotEditPageFishingDock(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
 		if(pivots != null) {
 			for(SolrResponse.Pivot pivotField : pivots) {
 				String entityIndexed = pivotField.getField();
@@ -2681,7 +2217,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				if(pivotFields2 != null) {
 					JsonArray pivotArray2 = new JsonArray();
 					pivotJson.put("pivot", pivotArray2);
-					responsePivotEditPageCrowdFlowObserved(pivotFields2, pivotArray2);
+					responsePivotEditPageFishingDock(pivotFields2, pivotArray2);
 				}
 			}
 		}
@@ -2690,24 +2226,24 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 	// DELETEFilter //
 
 	@Override
-	public void deletefilterCrowdFlowObserved(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-		LOG.debug(String.format("deletefilterCrowdFlowObserved started. "));
+	public void deletefilterFishingDock(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+		LOG.debug(String.format("deletefilterFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, "PUT"));
-			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", CrowdFlowObserved.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "GET"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "POST"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
+			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
+			if(id != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2736,42 +2272,42 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					} else {
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
+						searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
-								apiRequest.setRows(listCrowdFlowObserved.getRequest().getRows());
-								apiRequest.setNumFound(listCrowdFlowObserved.getResponse().getResponse().getNumFound());
+								apiRequest.setRows(listFishingDock.getRequest().getRows());
+								apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
 								apiRequest.setNumPATCH(0L);
 								apiRequest.initDeepApiRequest(siteRequest);
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
-									apiRequest.setOriginal(listCrowdFlowObserved.first());
-								apiRequest.setPk(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getPk()).orElse(null));
-								eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+									apiRequest.setOriginal(listFishingDock.first());
+								apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+								eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 
-								listDELETEFilterCrowdFlowObserved(apiRequest, listCrowdFlowObserved).onSuccess(e -> {
-									response200DELETEFilterCrowdFlowObserved(siteRequest).onSuccess(response -> {
-										LOG.debug(String.format("deletefilterCrowdFlowObserved succeeded. "));
+								listDELETEFilterFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
+									response200DELETEFilterFishingDock(siteRequest).onSuccess(response -> {
+										LOG.debug(String.format("deletefilterFishingDock succeeded. "));
 										eventHandler.handle(Future.succeededFuture(response));
 									}).onFailure(ex -> {
-										LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+										LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 										error(siteRequest, eventHandler, ex);
 									});
 								}).onFailure(ex -> {
-									LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+									LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 									error(siteRequest, eventHandler, ex);
 								});
 							} catch(Exception ex) {
-								LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+								LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 								error(siteRequest, eventHandler, ex);
 							}
 						}).onFailure(ex -> {
-							LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+							LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 							error(siteRequest, eventHandler, ex);
 						});
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 					error(null, eventHandler, ex);
 				}
 			});
@@ -2780,7 +2316,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				try {
 					eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
 				} catch(Exception ex2) {
-					LOG.error(String.format("deletefilterCrowdFlowObserved failed. ", ex2));
+					LOG.error(String.format("deletefilterFishingDock failed. ", ex2));
 					error(null, eventHandler, ex2);
 				}
 			} else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2795,58 +2331,58 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							)
 					));
 			} else {
-				LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		});
 	}
 
-	public Future<Void> listDELETEFilterCrowdFlowObserved(ApiRequest apiRequest, SearchList<CrowdFlowObserved> listCrowdFlowObserved) {
+	public Future<Void> listDELETEFilterFishingDock(ApiRequest apiRequest, SearchList<FishingDock> listFishingDock) {
 		Promise<Void> promise = Promise.promise();
 		List<Future> futures = new ArrayList<>();
-		SiteRequest siteRequest = listCrowdFlowObserved.getSiteRequest_(SiteRequest.class);
-		listCrowdFlowObserved.getList().forEach(o -> {
+		SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+		listFishingDock.getList().forEach(o -> {
 			SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
 			siteRequest2.setScopes(siteRequest.getScopes());
 			o.setSiteRequest_(siteRequest2);
 			siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
 			JsonObject jsonObject = JsonObject.mapFrom(o);
-			CrowdFlowObserved o2 = jsonObject.mapTo(CrowdFlowObserved.class);
+			FishingDock o2 = jsonObject.mapTo(FishingDock.class);
 			o2.setSiteRequest_(siteRequest2);
 			futures.add(Future.future(promise1 -> {
-				deletefilterCrowdFlowObservedFuture(o).onSuccess(a -> {
+				deletefilterFishingDockFuture(o).onSuccess(a -> {
 					promise1.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("listDELETEFilterCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
 					promise1.fail(ex);
 				});
 			}));
 		});
 		CompositeFuture.all(futures).onSuccess( a -> {
-			listCrowdFlowObserved.next().onSuccess(next -> {
+			listFishingDock.next().onSuccess(next -> {
 				if(next) {
-					listDELETEFilterCrowdFlowObserved(apiRequest, listCrowdFlowObserved).onSuccess(b -> {
+					listDELETEFilterFishingDock(apiRequest, listFishingDock).onSuccess(b -> {
 						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("listDELETEFilterCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete();
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("listDELETEFilterCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		}).onFailure(ex -> {
-			LOG.error(String.format("listDELETEFilterCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
 			promise.fail(ex);
 		});
 		return promise.future();
 	}
 
 	@Override
-	public void deletefilterCrowdFlowObservedFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+	public void deletefilterFishingDockFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
@@ -2857,10 +2393,10 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						siteRequest.addScopes(scope);
 					});
 				});
-				searchCrowdFlowObservedList(siteRequest, false, true, true).onSuccess(listCrowdFlowObserved -> {
+				searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
 					try {
-						CrowdFlowObserved o = listCrowdFlowObserved.first();
-						if(o != null && listCrowdFlowObserved.getResponse().getResponse().getNumFound() == 1) {
+						FishingDock o = listFishingDock.first();
+						if(o != null && listFishingDock.getResponse().getResponse().getNumFound() == 1) {
 							ApiRequest apiRequest = new ApiRequest();
 							apiRequest.setRows(1L);
 							apiRequest.setNumFound(1L);
@@ -2872,9 +2408,9 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listCrowdFlowObserved.first()).map(o2 -> o2.getPk()).orElse(null));
-							deletefilterCrowdFlowObservedFuture(o).onSuccess(o2 -> {
+							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+							deletefilterFishingDockFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
 								eventHandler.handle(Future.failedFuture(ex));
@@ -2883,42 +2419,42 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 						}
 					} catch(Exception ex) {
-						LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 						error(siteRequest, eventHandler, ex);
 					}
 				}).onFailure(ex -> {
-					LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 					error(siteRequest, eventHandler, ex);
 				});
 			} catch(Exception ex) {
-				LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 				error(null, eventHandler, ex);
 			}
 		}).onFailure(ex -> {
-			LOG.error(String.format("deletefilterCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("deletefilterFishingDock failed. "), ex);
 			error(null, eventHandler, ex);
 		});
 	}
 
-	public Future<CrowdFlowObserved> deletefilterCrowdFlowObservedFuture(CrowdFlowObserved o) {
+	public Future<FishingDock> deletefilterFishingDockFuture(FishingDock o) {
 		SiteRequest siteRequest = o.getSiteRequest_();
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+		Promise<FishingDock> promise = Promise.promise();
 
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			Promise<CrowdFlowObserved> promise1 = Promise.promise();
+			Promise<FishingDock> promise1 = Promise.promise();
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
-				varsCrowdFlowObserved(siteRequest).onSuccess(a -> {
-					sqlDELETEFilterCrowdFlowObserved(o).onSuccess(crowdFlowObserved -> {
-						relateCrowdFlowObserved(o).onSuccess(d -> {
-							unindexCrowdFlowObserved(o).onSuccess(o2 -> {
+				varsFishingDock(siteRequest).onSuccess(a -> {
+					sqlDELETEFilterFishingDock(o).onSuccess(fishingDock -> {
+						relateFishingDock(o).onSuccess(d -> {
+							unindexFishingDock(o).onSuccess(o2 -> {
 								if(apiRequest != null) {
 									apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 									if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-										o2.apiRequestCrowdFlowObserved();
+										o2.apiRequestFishingDock();
 										if(apiRequest.getVars().size() > 0)
-											eventBus.publish("websocketCrowdFlowObserved", JsonObject.mapFrom(apiRequest).toString());
+											eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 									}
 								}
 								promise1.complete();
@@ -2940,40 +2476,40 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			}).onFailure(ex -> {
 				siteRequest.setSqlConnection(null);
 				promise.fail(ex);
-			}).compose(crowdFlowObserved -> {
-				Promise<CrowdFlowObserved> promise2 = Promise.promise();
-				refreshCrowdFlowObserved(o).onSuccess(a -> {
+			}).compose(fishingDock -> {
+				Promise<FishingDock> promise2 = Promise.promise();
+				refreshFishingDock(o).onSuccess(a -> {
 					promise2.complete(o);
 				}).onFailure(ex -> {
 					promise2.fail(ex);
 				});
 				return promise2.future();
-			}).onSuccess(crowdFlowObserved -> {
-				promise.complete(crowdFlowObserved);
+			}).onSuccess(fishingDock -> {
+				promise.complete(fishingDock);
 			}).onFailure(ex -> {
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("deletefilterCrowdFlowObservedFuture failed. "), ex);
+			LOG.error(String.format("deletefilterFishingDockFuture failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> sqlDELETEFilterCrowdFlowObserved(CrowdFlowObserved o) {
+	public Future<Void> sqlDELETEFilterFishingDock(FishingDock o) {
 		Promise<Void> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
-			StringBuilder bSql = new StringBuilder("DELETE FROM CrowdFlowObserved ");
+			StringBuilder bSql = new StringBuilder("DELETE FROM FishingDock ");
 			List<Object> bParams = new ArrayList<Object>();
 			Long pk = o.getPk();
 			JsonObject jsonObject = siteRequest.getJsonObject();
-			CrowdFlowObserved o2 = new CrowdFlowObserved();
+			FishingDock o2 = new FishingDock();
 			o2.setSiteRequest_(siteRequest);
 			List<Future> futures1 = new ArrayList<>();
 			List<Future> futures2 = new ArrayList<>();
@@ -2994,45 +2530,36 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						).onSuccess(b -> {
 					a.handle(Future.succeededFuture());
 				}).onFailure(ex -> {
-					RuntimeException ex2 = new RuntimeException("value CrowdFlowObserved failed", ex);
-					LOG.error(String.format("unrelateCrowdFlowObserved failed. "), ex2);
+					RuntimeException ex2 = new RuntimeException("value FishingDock failed", ex);
+					LOG.error(String.format("unrelateFishingDock failed. "), ex2);
 					a.handle(Future.failedFuture(ex2));
 				});
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-						cbDeleteEntity(o).onSuccess(c -> {
-							promise.complete();
-						}).onFailure(ex -> {
-							LOG.error(String.format("sqlDELETEFilterCrowdFlowObserved failed. "), ex);
-							promise.fail(ex);
-						});
-					} else {
-						promise.complete();
-					}
+					promise.complete();
 				}).onFailure(ex -> {
-					LOG.error(String.format("sqlDELETEFilterCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("sqlDELETEFilterCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("sqlDELETEFilterCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<ServiceResponse> response200DELETEFilterCrowdFlowObserved(SiteRequest siteRequest) {
+	public Future<ServiceResponse> response200DELETEFilterFishingDock(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "CrowdFlowObserved", entityShortId);
+				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+						String m = String.format("%s %s not found", "fishing dock", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -3040,7 +2567,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("response200DELETEFilterCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("response200DELETEFilterFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -3048,78 +2575,78 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 
 	// General //
 
-	public Future<CrowdFlowObserved> createCrowdFlowObserved(SiteRequest siteRequest) {
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+	public Future<FishingDock> createFishingDock(SiteRequest siteRequest) {
+		Promise<FishingDock> promise = Promise.promise();
 		try {
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			String userId = siteRequest.getUserId();
 			Long userKey = siteRequest.getUserKey();
 			ZonedDateTime created = Optional.ofNullable(siteRequest.getJsonObject()).map(j -> j.getString("created")).map(s -> ZonedDateTime.parse(s, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER.withZone(ZoneId.of(config.getString(ConfigKeys.SITE_ZONE))))).orElse(ZonedDateTime.now(ZoneId.of(config.getString(ConfigKeys.SITE_ZONE))));
 
-			sqlConnection.preparedQuery("INSERT INTO CrowdFlowObserved(created, userKey) VALUES($1, $2) RETURNING pk")
+			sqlConnection.preparedQuery("INSERT INTO FishingDock(created, userKey) VALUES($1, $2) RETURNING pk")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(created.toOffsetDateTime(), userKey)).onSuccess(result -> {
 				Row createLine = result.value().stream().findFirst().orElseGet(() -> null);
 				Long pk = createLine.getLong(0);
-				CrowdFlowObserved o = new CrowdFlowObserved();
+				FishingDock o = new FishingDock();
 				o.setPk(pk);
 				o.setSiteRequest_(siteRequest);
 				promise.complete(o);
 			}).onFailure(ex -> {
 				RuntimeException ex2 = new RuntimeException(ex);
-				LOG.error("createCrowdFlowObserved failed. ", ex2);
+				LOG.error("createFishingDock failed. ", ex2);
 				promise.fail(ex2);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("createCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("createFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public void searchCrowdFlowObservedQ(SearchList<CrowdFlowObserved> searchList, String entityVar, String valueIndexed, String varIndexed) {
+	public void searchFishingDockQ(SearchList<FishingDock> searchList, String entityVar, String valueIndexed, String varIndexed) {
 		searchList.q(varIndexed + ":" + ("*".equals(valueIndexed) ? valueIndexed : SearchTool.escapeQueryChars(valueIndexed)));
 		if(!"*".equals(entityVar)) {
 		}
 	}
 
-	public String searchCrowdFlowObservedFq(SearchList<CrowdFlowObserved> searchList, String entityVar, String valueIndexed, String varIndexed) {
+	public String searchFishingDockFq(SearchList<FishingDock> searchList, String entityVar, String valueIndexed, String varIndexed) {
 		if(varIndexed == null)
 			throw new RuntimeException(String.format("\"%s\" is not an indexed entity. ", entityVar));
 		if(StringUtils.startsWith(valueIndexed, "[")) {
 			String[] fqs = StringUtils.substringAfter(StringUtils.substringBeforeLast(valueIndexed, "]"), "[").split(" TO ");
 			if(fqs.length != 2)
 				throw new RuntimeException(String.format("\"%s\" invalid range query. ", valueIndexed));
-			String fq1 = fqs[0].equals("*") ? fqs[0] : CrowdFlowObserved.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[0]);
-			String fq2 = fqs[1].equals("*") ? fqs[1] : CrowdFlowObserved.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[1]);
+			String fq1 = fqs[0].equals("*") ? fqs[0] : FishingDock.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[0]);
+			String fq2 = fqs[1].equals("*") ? fqs[1] : FishingDock.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[1]);
 			 return varIndexed + ":[" + fq1 + " TO " + fq2 + "]";
 		} else {
-			return varIndexed + ":" + SearchTool.escapeQueryChars(CrowdFlowObserved.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), valueIndexed)).replace("\\", "\\\\");
+			return varIndexed + ":" + SearchTool.escapeQueryChars(FishingDock.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), valueIndexed)).replace("\\", "\\\\");
 		}
 	}
 
-	public void searchCrowdFlowObservedSort(SearchList<CrowdFlowObserved> searchList, String entityVar, String valueIndexed, String varIndexed) {
+	public void searchFishingDockSort(SearchList<FishingDock> searchList, String entityVar, String valueIndexed, String varIndexed) {
 		if(varIndexed == null)
 			throw new RuntimeException(String.format("\"%s\" is not an indexed entity. ", entityVar));
 		searchList.sort(varIndexed, valueIndexed);
 	}
 
-	public void searchCrowdFlowObservedRows(SearchList<CrowdFlowObserved> searchList, Long valueRows) {
+	public void searchFishingDockRows(SearchList<FishingDock> searchList, Long valueRows) {
 			searchList.rows(valueRows != null ? valueRows : 10L);
 	}
 
-	public void searchCrowdFlowObservedStart(SearchList<CrowdFlowObserved> searchList, Long valueStart) {
+	public void searchFishingDockStart(SearchList<FishingDock> searchList, Long valueStart) {
 		searchList.start(valueStart);
 	}
 
-	public void searchCrowdFlowObservedVar(SearchList<CrowdFlowObserved> searchList, String var, String value) {
+	public void searchFishingDockVar(SearchList<FishingDock> searchList, String var, String value) {
 		searchList.getSiteRequest_(SiteRequest.class).getRequestVars().put(var, value);
 	}
 
-	public void searchCrowdFlowObservedUri(SearchList<CrowdFlowObserved> searchList) {
+	public void searchFishingDockUri(SearchList<FishingDock> searchList) {
 	}
 
-	public Future<ServiceResponse> varsCrowdFlowObserved(SiteRequest siteRequest) {
+	public Future<ServiceResponse> varsFishingDock(SiteRequest siteRequest) {
 		Promise<ServiceResponse> promise = Promise.promise();
 		try {
 			ServiceRequest serviceRequest = siteRequest.getServiceRequest();
@@ -3137,25 +2664,25 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 						siteRequest.getRequestVars().put(entityVar, valueIndexed);
 					}
 				} catch(Exception ex) {
-					LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("searchFishingDock failed. "), ex);
 					promise.fail(ex);
 				}
 			});
 			promise.complete();
 		} catch(Exception ex) {
-			LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("searchFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<SearchList<CrowdFlowObserved>> searchCrowdFlowObservedList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
-		Promise<SearchList<CrowdFlowObserved>> promise = Promise.promise();
+	public Future<SearchList<FishingDock>> searchFishingDockList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
+		Promise<SearchList<FishingDock>> promise = Promise.promise();
 		try {
 			ServiceRequest serviceRequest = siteRequest.getServiceRequest();
 			String entityListStr = siteRequest.getServiceRequest().getParams().getJsonObject("query").getString("fl");
 			String[] entityList = entityListStr == null ? null : entityListStr.split(",\\s*");
-			SearchList<CrowdFlowObserved> searchList = new SearchList<CrowdFlowObserved>();
+			SearchList<FishingDock> searchList = new SearchList<FishingDock>();
 			String facetRange = null;
 			Date facetRangeStart = null;
 			Date facetRangeEnd = null;
@@ -3165,18 +2692,18 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			searchList.setPopulate(populate);
 			searchList.setStore(store);
 			searchList.q("*:*");
-			searchList.setC(CrowdFlowObserved.class);
+			searchList.setC(FishingDock.class);
 			searchList.setSiteRequest_(siteRequest);
 			searchList.facetMinCount(1);
 			if(entityList != null) {
 				for(String v : entityList) {
-					searchList.fl(CrowdFlowObserved.varIndexedCrowdFlowObserved(v));
+					searchList.fl(FishingDock.varIndexedFishingDock(v));
 				}
 			}
 
-			String entityShortId = serviceRequest.getParams().getJsonObject("path").getString("entityShortId");
-			if(entityShortId != null) {
-				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
+			String id = serviceRequest.getParams().getJsonObject("path").getString("id");
+			if(id != null) {
+				searchList.fq("id_docvalues_string:" + SearchTool.escapeQueryChars(id));
 			}
 
 			for(String paramName : serviceRequest.getParams().getJsonObject("query").fieldNames()) {
@@ -3199,7 +2726,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							String[] varsIndexed = new String[entityVars.length];
 							for(Integer i = 0; i < entityVars.length; i++) {
 								entityVar = entityVars[i];
-								varsIndexed[i] = CrowdFlowObserved.varIndexedCrowdFlowObserved(entityVar);
+								varsIndexed[i] = FishingDock.varIndexedFishingDock(entityVar);
 							}
 							searchList.facetPivot((solrLocalParams == null ? "" : solrLocalParams) + StringUtils.join(varsIndexed, ","));
 						}
@@ -3211,8 +2738,8 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 								while(mQ.find()) {
 									entityVar = mQ.group(1).trim();
 									valueIndexed = mQ.group(2).trim();
-									varIndexed = CrowdFlowObserved.varIndexedCrowdFlowObserved(entityVar);
-									String entityQ = searchCrowdFlowObservedFq(searchList, entityVar, valueIndexed, varIndexed);
+									varIndexed = FishingDock.varIndexedFishingDock(entityVar);
+									String entityQ = searchFishingDockFq(searchList, entityVar, valueIndexed, varIndexed);
 									mQ.appendReplacement(sb, entityQ);
 								}
 								if(!sb.isEmpty()) {
@@ -3225,8 +2752,8 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 								while(mFq.find()) {
 									entityVar = mFq.group(1).trim();
 									valueIndexed = mFq.group(2).trim();
-									varIndexed = CrowdFlowObserved.varIndexedCrowdFlowObserved(entityVar);
-									String entityFq = searchCrowdFlowObservedFq(searchList, entityVar, valueIndexed, varIndexed);
+									varIndexed = FishingDock.varIndexedFishingDock(entityVar);
+									String entityFq = searchFishingDockFq(searchList, entityVar, valueIndexed, varIndexed);
 									mFq.appendReplacement(sb, entityFq);
 								}
 								if(!sb.isEmpty()) {
@@ -3236,14 +2763,14 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 							} else if(paramName.equals("sort")) {
 								entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, " "));
 								valueIndexed = StringUtils.trim(StringUtils.substringAfter((String)paramObject, " "));
-								varIndexed = CrowdFlowObserved.varIndexedCrowdFlowObserved(entityVar);
-								searchCrowdFlowObservedSort(searchList, entityVar, valueIndexed, varIndexed);
+								varIndexed = FishingDock.varIndexedFishingDock(entityVar);
+								searchFishingDockSort(searchList, entityVar, valueIndexed, varIndexed);
 							} else if(paramName.equals("start")) {
 								valueStart = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-								searchCrowdFlowObservedStart(searchList, valueStart);
+								searchFishingDockStart(searchList, valueStart);
 							} else if(paramName.equals("rows")) {
 								valueRows = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-								searchCrowdFlowObservedRows(searchList, valueRows);
+								searchFishingDockRows(searchList, valueRows);
 							} else if(paramName.equals("stats")) {
 								searchList.stats((Boolean)paramObject);
 							} else if(paramName.equals("stats.field")) {
@@ -3251,7 +2778,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 								if(mStats.find()) {
 									String solrLocalParams = mStats.group(1);
 									entityVar = mStats.group(2).trim();
-									varIndexed = CrowdFlowObserved.varIndexedCrowdFlowObserved(entityVar);
+									varIndexed = FishingDock.varIndexedFishingDock(entityVar);
 									searchList.statsField((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
 									statsField = entityVar;
 									statsFieldIndexed = varIndexed;
@@ -3277,25 +2804,25 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 								if(mFacetRange.find()) {
 									String solrLocalParams = mFacetRange.group(1);
 									entityVar = mFacetRange.group(2).trim();
-									varIndexed = CrowdFlowObserved.varIndexedCrowdFlowObserved(entityVar);
+									varIndexed = FishingDock.varIndexedFishingDock(entityVar);
 									searchList.facetRange((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
 									facetRange = entityVar;
 								}
 							} else if(paramName.equals("facet.field")) {
 								entityVar = (String)paramObject;
-								varIndexed = CrowdFlowObserved.varIndexedCrowdFlowObserved(entityVar);
+								varIndexed = FishingDock.varIndexedFishingDock(entityVar);
 								if(varIndexed != null)
 									searchList.facetField(varIndexed);
 							} else if(paramName.equals("var")) {
 								entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, ":"));
 								valueIndexed = URLDecoder.decode(StringUtils.trim(StringUtils.substringAfter((String)paramObject, ":")), "UTF-8");
-								searchCrowdFlowObservedVar(searchList, entityVar, valueIndexed);
+								searchFishingDockVar(searchList, entityVar, valueIndexed);
 							} else if(paramName.equals("cursorMark")) {
 								valueCursorMark = (String)paramObject;
 								searchList.cursorMark((String)paramObject);
 							}
 						}
-						searchCrowdFlowObservedUri(searchList);
+						searchFishingDockUri(searchList);
 					}
 				} catch(Exception e) {
 					ExceptionUtils.rethrow(e);
@@ -3310,7 +2837,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			String facetRangeGap2 = facetRangeGap;
 			String statsField2 = statsField;
 			String statsFieldIndexed2 = statsFieldIndexed;
-			searchCrowdFlowObserved2(siteRequest, populate, store, modify, searchList);
+			searchFishingDock2(siteRequest, populate, store, modify, searchList);
 			searchList.promiseDeepForClass(siteRequest).onSuccess(searchList2 -> {
 				if(facetRange2 != null && statsField2 != null && facetRange2.equals(statsField2)) {
 					StatsField stats = searchList.getResponse().getStats().getStatsFields().get(statsFieldIndexed2);
@@ -3346,32 +2873,32 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					searchList.query().onSuccess(b -> {
 						promise.complete(searchList);
 					}).onFailure(ex -> {
-						LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("searchFishingDock failed. "), ex);
 						promise.fail(ex);
 					});
 				} else {
 					promise.complete(searchList);
 				}
 			}).onFailure(ex -> {
-				LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("searchFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("searchCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("searchFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
-	public void searchCrowdFlowObserved2(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, SearchList<CrowdFlowObserved> searchList) {
+	public void searchFishingDock2(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, SearchList<FishingDock> searchList) {
 	}
 
-	public Future<Void> persistCrowdFlowObserved(CrowdFlowObserved o, Boolean patch) {
+	public Future<Void> persistFishingDock(FishingDock o, Boolean patch) {
 		Promise<Void> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT * FROM CrowdFlowObserved WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT * FROM FishingDock WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -3384,198 +2911,50 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 								try {
 									o.persistForClass(columnName, columnValue);
 								} catch(Exception e) {
-									LOG.error(String.format("persistCrowdFlowObserved failed. "), e);
+									LOG.error(String.format("persistFishingDock failed. "), e);
 								}
 							}
 						}
 					}
 					o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-						if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
-							cbUpsertEntity(o, patch).onSuccess(b -> {
-								promise.complete();
-							}).onFailure(ex -> {
-								LOG.error(String.format("persistCrowdFlowObserved failed. "), ex);
-								promise.fail(ex);
-							});
-						} else {
-							promise.complete();
-						}
+						promise.complete();
 					}).onFailure(ex -> {
-						LOG.error(String.format("persistCrowdFlowObserved failed. "), ex);
+						LOG.error(String.format("persistFishingDock failed. "), ex);
 						promise.fail(ex);
 					});
 				} catch(Exception ex) {
-					LOG.error(String.format("persistCrowdFlowObserved failed. "), ex);
+					LOG.error(String.format("persistFishingDock failed. "), ex);
 					promise.fail(ex);
 				}
 			}).onFailure(ex -> {
 				RuntimeException ex2 = new RuntimeException(ex);
-				LOG.error(String.format("persistCrowdFlowObserved failed. "), ex2);
+				LOG.error(String.format("persistFishingDock failed. "), ex2);
 				promise.fail(ex2);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("persistCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("persistFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> cbUpsertEntity(CrowdFlowObserved o, Boolean patch) {
+	public Future<Void> relateFishingDock(FishingDock o) {
 		Promise<Void> promise = Promise.promise();
-		try {
-			ZonedDateTime observedAt = ZonedDateTime.now(ZoneId.of("UTC"));
-			String observedAtStr = observedAt.format(ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER);
-			JsonArray entityArray = new JsonArray();
-			JsonObject entityBody = new JsonObject();
-			entityBody.put("@context", config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT));
-			entityBody.put("id", o.getId());
-			entityBody.put("type", CrowdFlowObserved.CLASS_SIMPLE_NAME);
-			entityBody.put("NGSILD-Tenant"
-					, new JsonObject()
-					.put("type", "Property")
-					.put("value", o.getNgsildTenant())
-					.put("observedAt", observedAtStr)
-					);
-			entityBody.put("NGSILD-Path"
-					, new JsonObject()
-					.put("type", "Property")
-					.put("value", o.getNgsildPath())
-					.put("observedAt", observedAtStr)
-					);
-
-			List<String> vars = CrowdFlowObserved.varsFqForClass();
-			for (String var : vars) {
-				String ngsiType = CrowdFlowObserved.ngsiType(var);
-				String displayName = Optional.ofNullable(CrowdFlowObserved.displayNameCrowdFlowObserved(var)).orElse(var);
-				if (ngsiType != null && displayName != null && !var.equals("id") && !var.equals("ngsildData")) {
-					Object value = o.obtainForClass(var);
-					if(value != null) {
-						Object ngsildVal = CrowdFlowObserved.ngsiCrowdFlowObserved(var, o);
-						String ngsildType = CrowdFlowObserved.ngsiType(var);
-						entityBody.put(displayName
-								, new JsonObject()
-								.put("type", ngsildType)
-								.put("value", ngsildVal)
-								.put("observedAt", observedAtStr)
-								);
-					}
-				}
-			}
-			entityArray.add(entityBody);
-			LOG.info(entityArray.encodePrettily());
-			webClient.post(
-					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
-					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
-					, "/ngsi-ld/v1/entityOperations/upsert/"
-					)
-					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
-					.putHeader("Content-Type", "application/ld+json")
-					.putHeader("Fiware-Service", o.getNgsildTenant())
-					.putHeader("Fiware-ServicePath", o.getNgsildPath())
-					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
-					.putHeader("NGSILD-Path", o.getNgsildPath())
-					.sendJson(entityArray)
-					.expecting(HttpResponseExpectation.SC_NO_CONTENT.or(HttpResponseExpectation.SC_CREATED)).onSuccess(b -> {
-				promise.complete();
-			}).onFailure(ex -> {
-				LOG.error(String.format("cbUpsertEntity failed. "), ex);
-				promise.fail(ex);
-			});
-		} catch(Throwable ex) {
-			LOG.error(String.format("cbUpsertEntity failed. "), ex);
-			promise.fail(ex);
-		}
-		return promise.future();
-	}
-
-	public Future<JsonObject> ngsildGetEntity(CrowdFlowObserved o) {
-		Promise<JsonObject> promise = Promise.promise();
-		try {
-			String entityName = o.getName();
-			String entityType = CrowdFlowObserved.CLASS_SIMPLE_NAME;
-			String entityId = o.getId();
-			String ngsildUri = String.format("/ngsi-ld/v1/entities/%s", urlEncode(entityId));
-			String ngsildContext = config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT);
-			String link = String.format("<%s>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"", ngsildContext);
-
-			webClient.get(
-					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
-					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
-					, ngsildUri
-					)
-					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
-					.putHeader("Content-Type", "application/ld+json")
-					.putHeader("Fiware-Service", o.getNgsildTenant())
-					.putHeader("Fiware-ServicePath", o.getNgsildPath())
-					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
-					.putHeader("NGSILD-Path", o.getNgsildPath())
-					.putHeader("Link", link)
-					.putHeader("Accept", "*/*")
-					.send()
-					.expecting(HttpResponseExpectation.SC_OK.or(HttpResponseExpectation.SC_NOT_FOUND)).onSuccess(entityResponse -> {
-				JsonObject entity = entityResponse.bodyAsJsonObject();
-				entity.remove("NGSILD data");
-				promise.complete(entity);
-			}).onFailure(ex -> {
-				LOG.error(String.format("postIotServiceFuture failed. "), ex);
-				promise.fail(ex);
-			});
-		} catch(Throwable ex) {
-			LOG.error(String.format("postIotServiceFuture failed. "), ex);
-			promise.fail(ex);
-		}
-		return promise.future();
-	}
-
-	public Future<Void> cbDeleteEntity(CrowdFlowObserved o) {
-		Promise<Void> promise = Promise.promise();
-		try {
-			webClient.delete(
-					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
-					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
-					, String.format("/ngsi-ld/v1/entities/%s", urlEncode(o.getId()))
-					)
-					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
-					.putHeader("Content-Type", "application/ld+json")
-					.putHeader("Fiware-Service", o.getNgsildTenant())
-					.putHeader("Fiware-ServicePath", o.getNgsildPath())
-					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
-					.putHeader("NGSILD-Path", o.getNgsildPath())
-					.send()
-					.expecting(HttpResponseExpectation.SC_NO_CONTENT).onSuccess(b -> {
-				promise.complete();
-			}).onFailure(ex -> {
-				if("Response status code 404 is not equal to 204".equals(ex.getMessage())) {
-					promise.complete();
-				} else {
-					LOG.error(String.format("cbDeleteEntity failed. "), ex);
-					promise.fail(ex);
-				}
-			});
-		} catch(Throwable ex) {
-			LOG.error(String.format("cbDeleteEntity failed. "), ex);
-			promise.fail(ex);
-		}
-		return promise.future();
-	}
-
-	public Future<Void> relateCrowdFlowObserved(CrowdFlowObserved o) {
-		Promise<Void> promise = Promise.promise();
-			promise.complete();
+		promise.complete();
 		return promise.future();
 	}
 
 	public String searchVar(String varIndexed) {
-		return CrowdFlowObserved.searchVarCrowdFlowObserved(varIndexed);
+		return FishingDock.searchVarFishingDock(varIndexed);
 	}
 
 	@Override
 	public String getClassApiAddress() {
-		return CrowdFlowObserved.CLASS_API_ADDRESS_CrowdFlowObserved;
+		return FishingDock.CLASS_API_ADDRESS_FishingDock;
 	}
 
-	public Future<CrowdFlowObserved> indexCrowdFlowObserved(CrowdFlowObserved o) {
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+	public Future<FishingDock> indexFishingDock(FishingDock o) {
+		Promise<FishingDock> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -3584,7 +2963,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			json.put("add", add);
 			JsonObject doc = new JsonObject();
 			add.put("doc", doc);
-			o.indexCrowdFlowObserved(doc);
+			o.indexFishingDock(doc);
 			String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 			String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
 			String solrHostName = siteRequest.getConfig().getString(ConfigKeys.SOLR_HOST_NAME);
@@ -3601,18 +2980,18 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			webClient.post(solrPort, solrHostName, solrRequestUri).ssl(solrSsl).authentication(new UsernamePasswordCredentials(solrUsername, solrPassword)).putHeader("Content-Type", "application/json").sendBuffer(json.toBuffer()).expecting(HttpResponseExpectation.SC_OK).onSuccess(b -> {
 				promise.complete(o);
 			}).onFailure(ex -> {
-				LOG.error(String.format("indexCrowdFlowObserved failed. "), new RuntimeException(ex));
+				LOG.error(String.format("indexFishingDock failed. "), new RuntimeException(ex));
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("indexCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("indexFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<CrowdFlowObserved> unindexCrowdFlowObserved(CrowdFlowObserved o) {
-		Promise<CrowdFlowObserved> promise = Promise.promise();
+	public Future<FishingDock> unindexFishingDock(FishingDock o) {
+		Promise<FishingDock> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -3620,7 +2999,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				JsonObject json = new JsonObject();
 				JsonObject delete = new JsonObject();
 				json.put("delete", delete);
-				String query = String.format("filter(%s:%s)", CrowdFlowObserved.VAR_solrId, o.obtainForClass(CrowdFlowObserved.VAR_solrId));
+				String query = String.format("filter(%s:%s)", FishingDock.VAR_solrId, o.obtainForClass(FishingDock.VAR_solrId));
 				delete.put("query", query);
 				String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
 				String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
@@ -3638,33 +3017,33 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				webClient.post(solrPort, solrHostName, solrRequestUri).ssl(solrSsl).authentication(new UsernamePasswordCredentials(solrUsername, solrPassword)).putHeader("Content-Type", "application/json").sendBuffer(json.toBuffer()).expecting(HttpResponseExpectation.SC_OK).onSuccess(b -> {
 					promise.complete(o);
 				}).onFailure(ex -> {
-					LOG.error(String.format("unindexCrowdFlowObserved failed. "), new RuntimeException(ex));
+					LOG.error(String.format("unindexFishingDock failed. "), new RuntimeException(ex));
 					promise.fail(ex);
 				});
 			}).onFailure(ex -> {
-				LOG.error(String.format("unindexCrowdFlowObserved failed. "), ex);
+				LOG.error(String.format("unindexFishingDock failed. "), ex);
 				promise.fail(ex);
 			});
 		} catch(Exception ex) {
-			LOG.error(String.format("unindexCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("unindexFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
 	}
 
-	public Future<Void> refreshCrowdFlowObserved(CrowdFlowObserved o) {
+	public Future<Void> refreshFishingDock(FishingDock o) {
 		Promise<Void> promise = Promise.promise();
 		SiteRequest siteRequest = o.getSiteRequest_();
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			Boolean refresh = !"false".equals(siteRequest.getRequestVars().get("refresh"));
 			if(refresh && !Optional.ofNullable(siteRequest.getJsonObject()).map(JsonObject::isEmpty).orElse(true)) {
 				List<Future> futures = new ArrayList<>();
 
-				for(int i=0; i < pks.size(); i++) {
-					Long pk2 = pks.get(i);
+				for(int i=0; i < solrIds.size(); i++) {
+					String solrId2 = solrIds.get(i);
 					String classSimpleName2 = classes.get(i);
 				}
 
@@ -3688,7 +3067,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 					params.put("query", query);
 					JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
 					JsonObject json = new JsonObject().put("context", context);
-					eventBus.request(CrowdFlowObserved.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchCrowdFlowObservedFuture")).onSuccess(c -> {
+					eventBus.request(FishingDock.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishingDockFuture")).onSuccess(c -> {
 						JsonObject responseMessage = (JsonObject)c.body();
 						Integer statusCode = responseMessage.getInteger("statusCode");
 						if(statusCode.equals(200))
@@ -3707,7 +3086,7 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 				promise.complete();
 			}
 		} catch(Exception ex) {
-			LOG.error(String.format("refreshCrowdFlowObserved failed. "), ex);
+			LOG.error(String.format("refreshFishingDock failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -3720,42 +3099,18 @@ public class CrowdFlowObservedEnUSGenApiServiceImpl extends BaseApiServiceImpl i
 			Map<String, Object> result = (Map<String, Object>)ctx.get("result");
 			SiteRequest siteRequest2 = (SiteRequest)siteRequest;
 			String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-			CrowdFlowObserved page = new CrowdFlowObserved();
+			FishingDock page = new FishingDock();
 			page.setSiteRequest_((SiteRequest)siteRequest);
 
-			page.persistForClass(CrowdFlowObserved.VAR_name, CrowdFlowObserved.staticSetName(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_name)));
-			page.persistForClass(CrowdFlowObserved.VAR_description, CrowdFlowObserved.staticSetDescription(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_description)));
-			page.persistForClass(CrowdFlowObserved.VAR_created, CrowdFlowObserved.staticSetCreated(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-			page.persistForClass(CrowdFlowObserved.VAR_location, CrowdFlowObserved.staticSetLocation(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_location)));
-			page.persistForClass(CrowdFlowObserved.VAR_archived, CrowdFlowObserved.staticSetArchived(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_archived)));
-			page.persistForClass(CrowdFlowObserved.VAR_areaServed, CrowdFlowObserved.staticSetAreaServed(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_areaServed)));
-			page.persistForClass(CrowdFlowObserved.VAR_id, CrowdFlowObserved.staticSetId(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_id)));
-			page.persistForClass(CrowdFlowObserved.VAR_sessionId, CrowdFlowObserved.staticSetSessionId(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_sessionId)));
-			page.persistForClass(CrowdFlowObserved.VAR_userKey, CrowdFlowObserved.staticSetUserKey(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_userKey)));
-			page.persistForClass(CrowdFlowObserved.VAR_ngsildTenant, CrowdFlowObserved.staticSetNgsildTenant(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildTenant)));
-			page.persistForClass(CrowdFlowObserved.VAR_ngsildPath, CrowdFlowObserved.staticSetNgsildPath(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildPath)));
-			page.persistForClass(CrowdFlowObserved.VAR_ngsildContext, CrowdFlowObserved.staticSetNgsildContext(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildContext)));
-			page.persistForClass(CrowdFlowObserved.VAR_objectTitle, CrowdFlowObserved.staticSetObjectTitle(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_objectTitle)));
-			page.persistForClass(CrowdFlowObserved.VAR_ngsildData, CrowdFlowObserved.staticSetNgsildData(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_ngsildData)));
-			page.persistForClass(CrowdFlowObserved.VAR_displayPage, CrowdFlowObserved.staticSetDisplayPage(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_displayPage)));
-			page.persistForClass(CrowdFlowObserved.VAR_address, CrowdFlowObserved.staticSetAddress(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_address)));
-			page.persistForClass(CrowdFlowObserved.VAR_alternateName, CrowdFlowObserved.staticSetAlternateName(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_alternateName)));
-			page.persistForClass(CrowdFlowObserved.VAR_averageCrowdSpeed, CrowdFlowObserved.staticSetAverageCrowdSpeed(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_averageCrowdSpeed)));
-			page.persistForClass(CrowdFlowObserved.VAR_averageHeadwayTime, CrowdFlowObserved.staticSetAverageHeadwayTime(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_averageHeadwayTime)));
-			page.persistForClass(CrowdFlowObserved.VAR_congested, CrowdFlowObserved.staticSetCongested(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_congested)));
-			page.persistForClass(CrowdFlowObserved.VAR_dataProvider, CrowdFlowObserved.staticSetDataProvider(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_dataProvider)));
-			page.persistForClass(CrowdFlowObserved.VAR_dateCreated, CrowdFlowObserved.staticSetDateCreated(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_dateCreated)));
-			page.persistForClass(CrowdFlowObserved.VAR_dateModified, CrowdFlowObserved.staticSetDateModified(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_dateModified)));
-			page.persistForClass(CrowdFlowObserved.VAR_dateObserved, CrowdFlowObserved.staticSetDateObserved(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_dateObserved)));
-			page.persistForClass(CrowdFlowObserved.VAR_dateObservedFrom, CrowdFlowObserved.staticSetDateObservedFrom(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_dateObservedFrom)));
-			page.persistForClass(CrowdFlowObserved.VAR_dateObservedTo, CrowdFlowObserved.staticSetDateObservedTo(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_dateObservedTo)));
-			page.persistForClass(CrowdFlowObserved.VAR_direction, CrowdFlowObserved.staticSetDirection(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_direction)));
-			page.persistForClass(CrowdFlowObserved.VAR_occupancy, CrowdFlowObserved.staticSetOccupancy(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_occupancy)));
-			page.persistForClass(CrowdFlowObserved.VAR_owner, CrowdFlowObserved.staticSetOwner(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_owner)));
-			page.persistForClass(CrowdFlowObserved.VAR_peopleCount, CrowdFlowObserved.staticSetPeopleCount(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_peopleCount)));
-			page.persistForClass(CrowdFlowObserved.VAR_refRoadSegment, CrowdFlowObserved.staticSetRefRoadSegment(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_refRoadSegment)));
-			page.persistForClass(CrowdFlowObserved.VAR_seeAlso, CrowdFlowObserved.staticSetSeeAlso(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_seeAlso)));
-			page.persistForClass(CrowdFlowObserved.VAR_source, CrowdFlowObserved.staticSetSource(siteRequest2, (String)result.get(CrowdFlowObserved.VAR_source)));
+			page.persistForClass(FishingDock.VAR_name, FishingDock.staticSetName(siteRequest2, (String)result.get(FishingDock.VAR_name)));
+			page.persistForClass(FishingDock.VAR_description, FishingDock.staticSetDescription(siteRequest2, (String)result.get(FishingDock.VAR_description)));
+			page.persistForClass(FishingDock.VAR_created, FishingDock.staticSetCreated(siteRequest2, (String)result.get(FishingDock.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+			page.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));
+			page.persistForClass(FishingDock.VAR_archived, FishingDock.staticSetArchived(siteRequest2, (String)result.get(FishingDock.VAR_archived)));
+			page.persistForClass(FishingDock.VAR_sessionId, FishingDock.staticSetSessionId(siteRequest2, (String)result.get(FishingDock.VAR_sessionId)));
+			page.persistForClass(FishingDock.VAR_userKey, FishingDock.staticSetUserKey(siteRequest2, (String)result.get(FishingDock.VAR_userKey)));
+			page.persistForClass(FishingDock.VAR_objectTitle, FishingDock.staticSetObjectTitle(siteRequest2, (String)result.get(FishingDock.VAR_objectTitle)));
+			page.persistForClass(FishingDock.VAR_displayPage, FishingDock.staticSetDisplayPage(siteRequest2, (String)result.get(FishingDock.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

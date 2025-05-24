@@ -3360,6 +3360,8 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 	}
 
 	public static String descriptionFeedingOperation(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_name:
 			return "The name of this item";

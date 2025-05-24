@@ -824,6 +824,8 @@ public abstract class FishPopulationGenPageGen<DEV> extends PageLayout {
 	}
 
 	public static String descriptionFishPopulationGenPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return PageLayout.descriptionPageLayout(var);

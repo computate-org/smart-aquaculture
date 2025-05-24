@@ -1777,6 +1777,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	}
 
 	public static String descriptionSiteUser(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 		case VAR_userKeys:
 			return "User keys that relate to this user";

@@ -1,4 +1,4 @@
-package org.computate.smartaquaculture.model.fiware.crowdflowobserved;
+package org.computate.smartaquaculture.model.fiware.fishingdock;
 
 import io.vertx.ext.auth.authorization.AuthorizationProvider;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
@@ -17,5 +17,5 @@ import com.hubspot.jinjava.Jinjava;
 /**
  * Translate: false
  **/
-public class CrowdFlowObservedEnUSApiServiceImpl extends CrowdFlowObservedEnUSGenApiServiceImpl {
+public class FishingDockEnUSApiServiceImpl extends FishingDockEnUSGenApiServiceImpl {
 }

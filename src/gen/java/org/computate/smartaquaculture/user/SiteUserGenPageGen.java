@@ -824,6 +824,8 @@ public abstract class SiteUserGenPageGen<DEV> extends PageLayout {
 	}
 
 	public static String descriptionSiteUserGenPage(String var) {
+		if(var == null)
+			return null;
 		switch(var) {
 			default:
 				return PageLayout.descriptionPageLayout(var);

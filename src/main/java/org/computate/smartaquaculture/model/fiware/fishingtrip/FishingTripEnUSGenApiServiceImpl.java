@@ -1,5 +1,7 @@
 package org.computate.smartaquaculture.model.fiware.fishingtrip;
 
+import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.timezone.TimeZone;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
 import org.computate.vertx.api.ApiRequest;
@@ -438,7 +440,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFishingTrip.first());
 								apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
-								apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+								apiRequest.setSolrId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 
 								listPATCHFishingTrip(apiRequest, listFishingTrip).onSuccess(e -> {
@@ -565,7 +567,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
 							apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
 							FishingTrip o2 = jsonObject.mapTo(FishingTrip.class);
 							o2.setSiteRequest_(siteRequest);
@@ -664,7 +666,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -681,12 +683,35 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			for(String entityVar : methodNames) {
 				switch(entityVar) {
 					case "setTimeZone":
-							o2.setTimeZone(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_timeZone + "=$" + num);
-							num++;
-							bParams.add(o2.sqlTimeZone());
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								search(siteRequest).query(TimeZone.varIndexedTimeZone(TimeZone.VAR_id), TimeZone.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("TimeZone");
+									}
+									sql(siteRequest).update(FishingTrip.class, pk).set(FishingTrip.VAR_timeZone, TimeZone.class, solrId2, val).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
+						break;
+					case "removeTimeZone":
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(solrId2 -> {
+							futures2.add(Future.future(promise2 -> {
+								sql(siteRequest).update(FishingTrip.class, pk).setToNull(FishingTrip.VAR_timeZone, TimeZone.class, null).onSuccess(a -> {
+									promise2.complete();
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
 						break;
 					case "setCreated":
 							o2.setCreated(jsonObject.getString(entityVar));
@@ -904,7 +929,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						eventBus.request(FishingTrip.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFishingTripFuture")).onSuccess(a -> {
 							JsonObject responseMessage = (JsonObject)a.body();
 							JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
-							apiRequest.setPk(Long.parseLong(responseBody.getString("pk")));
+							apiRequest.setSolrId(responseBody.getString(FishingTrip.VAR_solrId));
 							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
 							LOG.debug(String.format("postFishingTrip succeeded. "));
 						}).onFailure(ex -> {
@@ -1077,7 +1102,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -1112,13 +1137,24 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				for(String entityVar : entityVars) {
 					switch(entityVar) {
 					case FishingTrip.VAR_timeZone:
-						o2.setTimeZone(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingTrip.VAR_timeZone + "=$" + num);
-						num++;
-						bParams.add(o2.sqlTimeZone());
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								search(siteRequest).query(TimeZone.varIndexedTimeZone(TimeZone.VAR_id), TimeZone.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("TimeZone");
+									}
+									sql(siteRequest).update(FishingTrip.class, pk).set(FishingTrip.VAR_timeZone, TimeZone.class, solrId2, val).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
 						break;
 					case FishingTrip.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
@@ -1327,7 +1363,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFishingTrip.first());
-								apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+								apiRequest.setSolrId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 
 								listDELETEFishingTrip(apiRequest, listFishingTrip).onSuccess(e -> {
@@ -1454,7 +1490,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
 							apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deleteFishingTripFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
@@ -1546,7 +1582,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -1563,6 +1599,26 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				Set<String> entityVars = jsonObject.fieldNames();
 				for(String entityVar : entityVars) {
 					switch(entityVar) {
+					case FishingTrip.VAR_timeZone:
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								search(siteRequest).query(TimeZone.varIndexedTimeZone(TimeZone.VAR_id), TimeZone.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("TimeZone");
+									}
+									sql(siteRequest).update(FishingTrip.class, pk).set(FishingTrip.VAR_timeZone, TimeZone.class, null, null).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
+						break;
 					}
 				}
 			}
@@ -1852,7 +1908,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 									if(result.size() >= 1) {
 										apiRequest.setOriginal(o);
 										apiRequest.setId(Optional.ofNullable(o.getPk()).map(v -> v.toString()).orElse(null));
-										apiRequest.setPk(o.getPk());
+										apiRequest.setSolrId(o.getSolrId());
 									}
 									siteRequest.setJsonObject(body2);
 									patchFishingTripFuture(o, true).onSuccess(b -> {
@@ -2316,7 +2372,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFishingTrip.first());
-								apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+								apiRequest.setSolrId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFishingTrip", JsonObject.mapFrom(apiRequest).toString());
 
 								listDELETEFilterFishingTrip(apiRequest, listFishingTrip).onSuccess(e -> {
@@ -2443,7 +2499,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
 							apiRequest.setId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk().toString()).orElse(null));
-							apiRequest.setPk(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getPk()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFishingTrip.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deletefilterFishingTripFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
 							}).onFailure(ex -> {
@@ -2535,7 +2591,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			SiteRequest siteRequest = o.getSiteRequest_();
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Integer num = 1;
@@ -2552,6 +2608,26 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				Set<String> entityVars = jsonObject.fieldNames();
 				for(String entityVar : entityVars) {
 					switch(entityVar) {
+					case FishingTrip.VAR_timeZone:
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								search(siteRequest).query(TimeZone.varIndexedTimeZone(TimeZone.VAR_id), TimeZone.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("TimeZone");
+									}
+									sql(siteRequest).update(FishingTrip.class, pk).set(FishingTrip.VAR_timeZone, TimeZone.class, null, null).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
+						break;
 					}
 				}
 			}
@@ -2974,7 +3050,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 
 	public Future<Void> relateFishingTrip(FishingTrip o) {
 		Promise<Void> promise = Promise.promise();
-			promise.complete();
+		promise.complete();
 		return promise.future();
 	}
 
@@ -3070,15 +3146,50 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		SiteRequest siteRequest = o.getSiteRequest_();
 		try {
 			ApiRequest apiRequest = siteRequest.getApiRequest_();
-			List<Long> pks = Optional.ofNullable(apiRequest).map(r -> r.getPks()).orElse(new ArrayList<>());
+			List<String> solrIds = Optional.ofNullable(apiRequest).map(r -> r.getSolrIds()).orElse(new ArrayList<>());
 			List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
 			Boolean refresh = !"false".equals(siteRequest.getRequestVars().get("refresh"));
 			if(refresh && !Optional.ofNullable(siteRequest.getJsonObject()).map(JsonObject::isEmpty).orElse(true)) {
 				List<Future> futures = new ArrayList<>();
 
-				for(int i=0; i < pks.size(); i++) {
-					Long pk2 = pks.get(i);
+				for(int i=0; i < solrIds.size(); i++) {
+					String solrId2 = solrIds.get(i);
 					String classSimpleName2 = classes.get(i);
+
+					if("TimeZone".equals(classSimpleName2) && solrId2 != null) {
+						SearchList<TimeZone> searchList2 = new SearchList<TimeZone>();
+						searchList2.setStore(true);
+						searchList2.q("*:*");
+						searchList2.setC(TimeZone.class);
+						searchList2.fq("solrId:" + solrId2);
+						searchList2.rows(1L);
+						futures.add(Future.future(promise2 -> {
+							searchList2.promiseDeepSearchList(siteRequest).onSuccess(b -> {
+								TimeZone o2 = searchList2.getList().stream().findFirst().orElse(null);
+								if(o2 != null) {
+									JsonObject params = new JsonObject();
+									params.put("body", new JsonObject());
+									params.put("cookie", new JsonObject());
+									params.put("path", new JsonObject());
+									params.put("query", new JsonObject().put("q", "*:*").put("fq", new JsonArray().add("solrId:" + solrId2)).put("var", new JsonArray().add("refresh:false")));
+									JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
+									JsonObject json = new JsonObject().put("context", context);
+									eventBus.request("smart-aquaculture-enUS-TimeZone", json, new DeliveryOptions().addHeader("action", "patchTimeZoneFuture")).onSuccess(c -> {
+										JsonObject responseMessage = (JsonObject)c.body();
+										Integer statusCode = responseMessage.getInteger("statusCode");
+										if(statusCode.equals(200))
+											promise2.complete();
+										else
+											promise2.fail(new RuntimeException(responseMessage.getString("statusMessage")));
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}
+							}).onFailure(ex -> {
+								promise2.fail(ex);
+							});
+						}));
+					}
 				}
 
 				CompositeFuture.all(futures).onSuccess(b -> {
