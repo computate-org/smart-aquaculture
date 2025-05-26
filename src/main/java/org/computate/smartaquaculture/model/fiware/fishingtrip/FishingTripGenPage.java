@@ -1,7 +1,6 @@
 package org.computate.smartaquaculture.model.fiware.fishingtrip;
 
 import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
-import java.lang.Long;
 import java.lang.String;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,6 +42,7 @@ import java.util.HashMap;
 import org.computate.search.tool.TimeTool;
 import org.computate.search.tool.SearchTool;
 import java.time.ZoneId;
+import io.vertx.pgclient.data.Point;
 
 
 /**
@@ -384,6 +384,8 @@ public class FishingTripGenPage extends FishingTripGenPageGen<PageLayout> {
 
   @Override
   protected void _DEFAULT_MAP_LOCATION(Wrap<JsonObject> w) {
+    Point point = FishingTrip.staticSetLocation(siteRequest_, Optional.ofNullable(siteRequest_.getRequestVars().get(VAR_DEFAULT_MAP_LOCATION)).orElse(siteRequest_.getConfig().getString(ConfigKeys.DEFAULT_MAP_LOCATION)));
+    w.o(new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))));
   }
 
   @Override
@@ -471,7 +473,7 @@ public class FishingTripGenPage extends FishingTripGenPageGen<PageLayout> {
    * Initialized: false
   **/
   protected void _result(Wrap<FishingTrip> w) {
-    if(resultCount >= 1 && Optional.ofNullable(siteRequest_.getServiceRequest().getParams().getJsonObject("path")).map(o -> o.getString("pk")).orElse(null) != null)
+    if(resultCount >= 1 && Optional.ofNullable(siteRequest_.getServiceRequest().getParams().getJsonObject("path")).map(o -> o.getString("entityShortId")).orElse(null) != null)
       w.o(searchListFishingTrip_.get(0));
   }
 

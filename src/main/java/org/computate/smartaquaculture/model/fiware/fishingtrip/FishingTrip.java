@@ -5,6 +5,7 @@ import java.time.ZonedDateTime;
 import org.computate.search.wrap.Wrap;
 import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.model.BaseModel;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 
 /**
  * Order: 5
@@ -14,7 +15,7 @@ import org.computate.smartaquaculture.model.BaseModel;
  * Rows: 100
  * 
  * SearchPageUri: /en-us/search/fishing-trip
- * EditPageUri: /en-us/edit/fishing-trip/{pk}
+ * EditPageUri: /en-us/edit/fishing-trip/{entityShortId}
  * ApiUri: /en-us/api/fishing-trip
  * ApiMethod:
  *   Search:
@@ -37,16 +38,15 @@ import org.computate.smartaquaculture.model.BaseModel;
  *     PUT:
  *     DELETE:
  *     Admin:
+ *   SuperAdmin:
+ *     POST:
+ *     PATCH:
+ *     GET:
+ *     PUT:
+ *     DELETE:
+ *     SuperAdmin:
  **/
-public class FishingTrip extends FishingTripGen<BaseModel> {
-
-  /**
-   * VarId: true
-   */
-  @Override
-  protected void _pk(Wrap<Long> w) {
-  super._pk(w);
-  }
+public class FishingTrip extends FishingTripGen<MapModel> {
 
 	/**
 	 * {@inheritDoc}
@@ -92,36 +92,5 @@ public class FishingTrip extends FishingTripGen<BaseModel> {
 	 * Facet: true
 	 **/
 	protected void _arrivalDate(Wrap<ZonedDateTime> w) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: name
-	 * Description: The name of this fishing trip. 
-	 * HtmRowTitleOpen: name and description
-	 * HtmColumn: 0
-	 * VarName: true
-	 * HtmRow: 4
-	 * HtmCell: 0
-	 * Facet: true
-	 **/
-	protected void _name(Wrap<String> w) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: description
-	 * Description: A description of this fishing trip. 
-	 * HtmColumn: 3
-	 * VarDescription: true
-	 * HtmRow: 4
-	 * HtmCell: 1
-	 * Facet: true
-	 **/
-	protected void _description(Wrap<String> w) {
 	}
 }

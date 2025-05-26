@@ -1,24 +1,20 @@
-package org.computate.smartaquaculture.model.fiware.fishfarm;
-
-import java.time.ZonedDateTime;
+package org.computate.smartaquaculture.model.fiware.fishprocessing;
 
 import org.computate.search.wrap.Wrap;
-import org.computate.smartaquaculture.config.ConfigKeys;
-import org.computate.smartaquaculture.model.BaseModel;
 import org.computate.smartaquaculture.model.mapmodel.MapModel;
 
 import io.vertx.core.json.JsonObject;
 
 /**
  * Order: 5
- * Description: A fish farm
- * AName: a fish farm
- * Icon: <i class="fa-duotone fa-regular fa-fish-fins"></i>
+ * Description: A fish processing plant
+ * AName: a fish processing plant
+ * Icon: <i class="fa-duotone fa-regular fa-industry-windows"></i>
  * Rows: 100
  * 
- * SearchPageUri: /en-us/search/fish-farm
- * EditPageUri: /en-us/edit/fish-farm/{entityShortId}
- * ApiUri: /en-us/api/fish-farm
+ * SearchPageUri: /en-us/search/fish-processing
+ * EditPageUri: /en-us/edit/fish-processing/{entityShortId}
+ * ApiUri: /en-us/api/fish-processing
  * ApiMethod:
  *   Search:
  *   GET:
@@ -27,9 +23,9 @@ import io.vertx.core.json.JsonObject;
  *   DELETE:
  *   PUTImport:
  * AuthGroup:
- *   FishFarmViewer:
+ *   FishProcessingViewer:
  *     GET:
- *   FishFarmEditor:
+ *   FishProcessingEditor:
  *     GET:
  *     POST:
  *     PATCH:
@@ -48,7 +44,7 @@ import io.vertx.core.json.JsonObject;
  *     DELETE:
  *     SuperAdmin:
  **/
-public class FishFarm extends FishFarmGen<MapModel> {
+public class FishProcessing extends FishProcessingGen<MapModel> {
 
 	/**
 	 * {@inheritDoc}
@@ -63,4 +59,9 @@ public class FishFarm extends FishFarmGen<MapModel> {
 	 **/
 	protected void _address(Wrap<JsonObject> w) {
 	}
+
+  @Override
+  protected void _color(Wrap<String> w) {
+    w.o("green");
+  }
 }

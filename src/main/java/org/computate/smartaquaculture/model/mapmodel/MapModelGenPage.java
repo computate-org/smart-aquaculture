@@ -1,9 +1,11 @@
-package org.computate.smartaquaculture.model.fiware.fishpopulation;
+package org.computate.smartaquaculture.model.mapmodel;
 
-import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
-import io.vertx.core.json.JsonObject;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import java.lang.String;
-import java.math.BigDecimal;
+import io.vertx.pgclient.data.Point;
+import java.util.List;
+import io.vertx.pgclient.data.Polygon;
+import io.vertx.core.json.JsonObject;
 import org.computate.smartaquaculture.page.PageLayout;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -27,11 +29,11 @@ import java.net.URLDecoder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import java.util.Map;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.math.MathContext;
 import java.util.Objects;
@@ -42,44 +44,43 @@ import java.util.HashMap;
 import org.computate.search.tool.TimeTool;
 import org.computate.search.tool.SearchTool;
 import java.time.ZoneId;
-import io.vertx.pgclient.data.Point;
 
 
 /**
  * Translate: false
  * Generated: true
  **/
-public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> {
+public class MapModelGenPage extends MapModelGenPageGen<PageLayout> {
 
   /**
    * {@inheritDoc}
    * Ignore: true
    **/
-  protected void _searchListFishPopulation_(Wrap<SearchList<FishPopulation>> w) {
+  protected void _searchListMapModel_(Wrap<SearchList<MapModel>> w) {
   }
 
   @Override
   protected void _pageResponse(Wrap<String> w) {
-    if(searchListFishPopulation_ != null)
-      w.o(Optional.ofNullable(searchListFishPopulation_.getResponse()).map(response -> JsonObject.mapFrom(response).toString()).orElse(null));
+    if(searchListMapModel_ != null)
+      w.o(Optional.ofNullable(searchListMapModel_.getResponse()).map(response -> JsonObject.mapFrom(response).toString()).orElse(null));
   }
 
   @Override
   protected void _stats(Wrap<SolrResponse.Stats> w) {
-    w.o(Optional.ofNullable(searchListFishPopulation_.getResponse()).map(response -> response.getStats()).orElse(null));
+    w.o(Optional.ofNullable(searchListMapModel_.getResponse()).map(response -> response.getStats()).orElse(null));
   }
 
   @Override
   protected void _facetCounts(Wrap<SolrResponse.FacetCounts> w) {
-    w.o(Optional.ofNullable(searchListFishPopulation_.getResponse()).map(response -> response.getFacetCounts()).orElse(null));
+    w.o(Optional.ofNullable(searchListMapModel_.getResponse()).map(response -> response.getFacetCounts()).orElse(null));
   }
 
   @Override
   protected void _pagination(JsonObject pagination) {
     JsonArray pages = new JsonArray();
-    Long start = searchListFishPopulation_.getStart().longValue();
-    Long rows = searchListFishPopulation_.getRows().longValue();
-    Long foundNum = Optional.ofNullable(searchListFishPopulation_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListFishPopulation_.getList().size()));
+    Long start = searchListMapModel_.getStart().longValue();
+    Long rows = searchListMapModel_.getRows().longValue();
+    Long foundNum = Optional.ofNullable(searchListMapModel_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListMapModel_.getList().size()));
     Long startNum = start + 1L;
     Long endNum = start + rows;
     Long floorMod = (rows == 0L ? 0L : Math.floorMod(foundNum, rows));
@@ -121,12 +122,12 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _varsQ(JsonObject vars) {
-    FishPopulation.varsQForClass().forEach(var -> {
+    MapModel.varsQForClass().forEach(var -> {
       JsonObject json = new JsonObject();
       json.put("var", var);
-      json.put("displayName", Optional.ofNullable(FishPopulation.displayNameFishPopulation(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
-      json.put("classSimpleName", Optional.ofNullable(FishPopulation.classSimpleNameFishPopulation(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
-      json.put("val", Optional.ofNullable(searchListFishPopulation_.getRequest().getQuery()).filter(fq -> fq.startsWith(FishPopulation.varIndexedFishPopulation(var) + ":")).map(s -> SearchTool.unescapeQueryChars(StringUtils.substringAfter(s, ":"))).orElse(null));
+      json.put("displayName", Optional.ofNullable(MapModel.displayNameMapModel(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
+      json.put("classSimpleName", Optional.ofNullable(MapModel.classSimpleNameMapModel(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
+      json.put("val", Optional.ofNullable(searchListMapModel_.getRequest().getQuery()).filter(fq -> fq.startsWith(MapModel.varIndexedMapModel(var) + ":")).map(s -> SearchTool.unescapeQueryChars(StringUtils.substringAfter(s, ":"))).orElse(null));
       vars.put(var, json);
     });
   }
@@ -139,17 +140,17 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
   protected void _varsFq(JsonObject vars) {
     Map<String, SolrResponse.FacetField> facetFields = Optional.ofNullable(facetCounts).map(c -> c.getFacetFields()).map(f -> f.getFacets()).orElse(new HashMap<String,SolrResponse.FacetField>());
     varsFqCount = 0;
-    for(String var : FishPopulation.varsFqForClass()) {
-      String varIndexed = FishPopulation.varIndexedFishPopulation(var);
-      String varStored = FishPopulation.varStoredFishPopulation(var);
+    for(String var : MapModel.varsFqForClass()) {
+      String varIndexed = MapModel.varIndexedMapModel(var);
+      String varStored = MapModel.varStoredMapModel(var);
       JsonObject json = new JsonObject();
       json.put("var", var);
       json.put("varStored", varStored);
       json.put("varIndexed", varIndexed);
       String type = StringUtils.substringAfterLast(varIndexed, "_");
-      json.put("displayName", Optional.ofNullable(FishPopulation.displayNameFishPopulation(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
-      json.put("classSimpleName", Optional.ofNullable(FishPopulation.classSimpleNameFishPopulation(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
-      Object v = searchListFishPopulation_.getRequest().getFilterQueries().stream().filter(fq -> fq.startsWith(FishPopulation.varIndexedFishPopulation(var) + ":")).findFirst().map(s -> SearchTool.unescapeQueryChars(StringUtils.substringAfter(s, ":"))).orElse(null);
+      json.put("displayName", Optional.ofNullable(MapModel.displayNameMapModel(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
+      json.put("classSimpleName", Optional.ofNullable(MapModel.classSimpleNameMapModel(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
+      Object v = searchListMapModel_.getRequest().getFilterQueries().stream().filter(fq -> fq.startsWith(MapModel.varIndexedMapModel(var) + ":")).findFirst().map(s -> SearchTool.unescapeQueryChars(StringUtils.substringAfter(s, ":"))).orElse(null);
       if(v != null) {
         json.put("val", v);
         varsFqCount++;
@@ -215,13 +216,13 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _varsRange(JsonObject vars) {
-    FishPopulation.varsRangeForClass().forEach(var -> {
-      String varIndexed = FishPopulation.varIndexedFishPopulation(var);
+    MapModel.varsRangeForClass().forEach(var -> {
+      String varIndexed = MapModel.varIndexedMapModel(var);
       JsonObject json = new JsonObject();
       json.put("var", var);
-      json.put("displayName", Optional.ofNullable(FishPopulation.displayNameFishPopulation(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
-      json.put("classSimpleName", Optional.ofNullable(FishPopulation.classSimpleNameFishPopulation(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
-      json.put("val", searchListFishPopulation_.getRequest().getFilterQueries().stream().filter(fq -> fq.startsWith(FishPopulation.varIndexedFishPopulation(var) + ":")).findFirst().map(s -> SearchTool.unescapeQueryChars(StringUtils.substringAfter(s, ":"))).orElse(null));
+      json.put("displayName", Optional.ofNullable(MapModel.displayNameMapModel(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
+      json.put("classSimpleName", Optional.ofNullable(MapModel.classSimpleNameMapModel(var)).map(d -> StringUtils.isBlank(d) ? var : d).orElse(var));
+      json.put("val", searchListMapModel_.getRequest().getFilterQueries().stream().filter(fq -> fq.startsWith(MapModel.varIndexedMapModel(var) + ":")).findFirst().map(s -> SearchTool.unescapeQueryChars(StringUtils.substringAfter(s, ":"))).orElse(null));
       vars.put(var, json);
     });
   }
@@ -232,7 +233,7 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
     JsonObject params = serviceRequest.getParams();
 
     JsonObject queryParams = Optional.ofNullable(serviceRequest).map(ServiceRequest::getParams).map(or -> or.getJsonObject("query")).orElse(new JsonObject());
-    Long num = Optional.ofNullable(searchListFishPopulation_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListFishPopulation_.getList().size()));
+    Long num = Optional.ofNullable(searchListMapModel_.getResponse()).map(response -> response.getResponse().getNumFound().longValue()).orElse(Long.valueOf(searchListMapModel_.getList().size()));
     String q = "*:*";
     String q1 = "objectText";
     String q2 = "";
@@ -260,28 +261,28 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
     }
     query.put("q", q);
 
-    Long rows1 = Optional.ofNullable(searchListFishPopulation_).map(l -> l.getRows()).orElse(10L);
-    Long start1 = Optional.ofNullable(searchListFishPopulation_).map(l -> l.getStart()).orElse(1L);
+    Long rows1 = Optional.ofNullable(searchListMapModel_).map(l -> l.getRows()).orElse(10L);
+    Long start1 = Optional.ofNullable(searchListMapModel_).map(l -> l.getStart()).orElse(1L);
     Long start2 = start1 - rows1;
     Long start3 = start1 + rows1;
     Long rows2 = rows1 / 2;
     Long rows3 = rows1 * 2;
     start2 = start2 < 0 ? 0 : start2;
     JsonObject fqs = new JsonObject();
-    for(String fq : Optional.ofNullable(searchListFishPopulation_).map(l -> l.getFilterQueries()).orElse(Arrays.asList())) {
+    for(String fq : Optional.ofNullable(searchListMapModel_).map(l -> l.getFilterQueries()).orElse(Arrays.asList())) {
       if(!StringUtils.contains(fq, "(")) {
-        String fq1 = FishPopulation.searchVarFishPopulation(StringUtils.substringBefore(fq, ":"));
+        String fq1 = MapModel.searchVarMapModel(StringUtils.substringBefore(fq, ":"));
         String fq2 = StringUtils.substringAfter(fq, ":");
         if(!StringUtils.startsWithAny(fq, "classCanonicalNames_", "archived_", "sessionId", "userKeys"))
-          fqs.put(fq1, new JsonObject().put("var", fq1).put("val", fq2).put("displayName", FishPopulation.displayNameForClass(fq1)));
+          fqs.put(fq1, new JsonObject().put("var", fq1).put("val", fq2).put("displayName", MapModel.displayNameForClass(fq1)));
         }
       }
     query.put("fq", fqs);
 
     JsonArray sorts = new JsonArray();
-    for(String sort : Optional.ofNullable(searchListFishPopulation_).map(l -> l.getSorts()).orElse(Arrays.asList())) {
-      String sort1 = FishPopulation.searchVarFishPopulation(StringUtils.substringBefore(sort, " "));
-      sorts.add(new JsonObject().put("var", sort1).put("order", StringUtils.substringAfter(sort, " ")).put("displayName", FishPopulation.displayNameForClass(sort1)));
+    for(String sort : Optional.ofNullable(searchListMapModel_).map(l -> l.getSorts()).orElse(Arrays.asList())) {
+      String sort1 = MapModel.searchVarMapModel(StringUtils.substringBefore(sort, " "));
+      sorts.add(new JsonObject().put("var", sort1).put("order", StringUtils.substringAfter(sort, " ")).put("displayName", MapModel.displayNameForClass(sort1)));
     }
     query.put("sort", sorts);
   }
@@ -315,31 +316,31 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
   @Override
   protected void _rows(Wrap<Long> w) {
     if(serviceRequest.getParams().getJsonObject("query").getString("rows", null) != null)
-      w.o(searchListFishPopulation_.getRows());
+      w.o(searchListMapModel_.getRows());
   }
 
   @Override
   protected void _start(Wrap<Long> w) {
     if(serviceRequest.getParams().getJsonObject("query").getString("start", null) != null)
-      w.o(searchListFishPopulation_.getStart());
+      w.o(searchListMapModel_.getStart());
   }
 
   @Override
   protected void _rangeGap(Wrap<String> w) {
     if(serviceRequest.getParams().getJsonObject("query").getString("facet.range.gap", null) != null)
-      w.o(Optional.ofNullable(searchListFishPopulation_.getFacetRangeGap()).orElse(null));
+      w.o(Optional.ofNullable(searchListMapModel_.getFacetRangeGap()).orElse(null));
   }
 
   @Override
   protected void _rangeEnd(Wrap<ZonedDateTime> w) {
     if(serviceRequest.getParams().getJsonObject("query").getString("facet.range.end", null) != null)
-      w.o(Optional.ofNullable(searchListFishPopulation_.getFacetRangeEnd()).map(s -> TimeTool.parseZonedDateTime(defaultTimeZone, s)).orElse(null));
+      w.o(Optional.ofNullable(searchListMapModel_.getFacetRangeEnd()).map(s -> TimeTool.parseZonedDateTime(defaultTimeZone, s)).orElse(null));
   }
 
   @Override
   protected void _rangeStart(Wrap<ZonedDateTime> w) {
     if(serviceRequest.getParams().getJsonObject("query").getString("facet.range.start", null) != null)
-      w.o(Optional.ofNullable(searchListFishPopulation_.getFacetRangeStart()).map(s -> TimeTool.parseZonedDateTime(defaultTimeZone, s)).orElse(null));
+      w.o(Optional.ofNullable(searchListMapModel_.getFacetRangeStart()).map(s -> TimeTool.parseZonedDateTime(defaultTimeZone, s)).orElse(null));
   }
 
   @Override
@@ -359,32 +360,32 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _defaultRangeVar(Wrap<String> w) {
-    w.o(Optional.ofNullable(searchListFishPopulation_.getFacetRanges()).orElse(Optional.ofNullable(defaultRangeStats).map(s -> Arrays.asList(s.getString("defaultRangeVar"))).orElse(Arrays.asList())).stream().findFirst().map(v -> { if(v.contains("}")) return StringUtils.substringBefore(StringUtils.substringAfterLast(v, "}"), "_"); else return FishPopulation.searchVarFishPopulation(v); }).orElse("created"));
+    w.o(Optional.ofNullable(searchListMapModel_.getFacetRanges()).orElse(Optional.ofNullable(defaultRangeStats).map(s -> Arrays.asList(s.getString("defaultRangeVar"))).orElse(Arrays.asList())).stream().findFirst().map(v -> { if(v.contains("}")) return StringUtils.substringBefore(StringUtils.substringAfterLast(v, "}"), "_"); else return MapModel.searchVarMapModel(v); }).orElse("created"));
   }
 
   @Override
   protected void _defaultFacetSort(Wrap<String> w) {
-    w.o(Optional.ofNullable(searchListFishPopulation_.getFacetSort()).orElse("index"));
+    w.o(Optional.ofNullable(searchListMapModel_.getFacetSort()).orElse("index"));
   }
 
   @Override
   protected void _defaultFacetLimit(Wrap<Integer> w) {
-    w.o(Optional.ofNullable(searchListFishPopulation_.getFacetLimit()).orElse(1));
+    w.o(Optional.ofNullable(searchListMapModel_.getFacetLimit()).orElse(1));
   }
 
   @Override
   protected void _defaultFacetMinCount(Wrap<Integer> w) {
-    w.o(Optional.ofNullable(searchListFishPopulation_.getFacetMinCount()).orElse(1));
+    w.o(Optional.ofNullable(searchListMapModel_.getFacetMinCount()).orElse(1));
   }
 
   @Override
   protected void _defaultPivotMinCount(Wrap<Integer> w) {
-    w.o(Optional.ofNullable(searchListFishPopulation_.getFacetPivotMinCount()).orElse(0));
+    w.o(Optional.ofNullable(searchListMapModel_.getFacetPivotMinCount()).orElse(0));
   }
 
   @Override
   protected void _DEFAULT_MAP_LOCATION(Wrap<JsonObject> w) {
-    Point point = FishPopulation.staticSetLocation(siteRequest_, Optional.ofNullable(siteRequest_.getRequestVars().get(VAR_DEFAULT_MAP_LOCATION)).orElse(siteRequest_.getConfig().getString(ConfigKeys.DEFAULT_MAP_LOCATION)));
+    Point point = MapModel.staticSetLocation(siteRequest_, Optional.ofNullable(siteRequest_.getRequestVars().get(VAR_DEFAULT_MAP_LOCATION)).orElse(siteRequest_.getConfig().getString(ConfigKeys.DEFAULT_MAP_LOCATION)));
     w.o(new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))));
   }
 
@@ -397,10 +398,10 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _defaultSortVars(List<String> l) {
-    if(!searchListFishPopulation_.getDefaultSort()) {
-      Optional.ofNullable(searchListFishPopulation_.getSorts()).orElse(Arrays.asList()).forEach(varSortStr -> {
+    if(!searchListMapModel_.getDefaultSort()) {
+      Optional.ofNullable(searchListMapModel_.getSorts()).orElse(Arrays.asList()).forEach(varSortStr -> {
         String varSortParts[] = varSortStr.split(" ");
-        String varSort = FishPopulation.searchVarFishPopulation(varSortParts[0]);
+        String varSort = MapModel.searchVarMapModel(varSortParts[0]);
         String varSortDirection = varSortParts[1];
         l.add(String.format("%s %s", varSort, varSortDirection));
       });
@@ -409,14 +410,14 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _defaultFieldListVars(List<String> l) {
-    Optional.ofNullable(searchListFishPopulation_.getFields()).orElse(Arrays.asList()).forEach(varStored -> {
+    Optional.ofNullable(searchListMapModel_.getFields()).orElse(Arrays.asList()).forEach(varStored -> {
       String varStored2 = varStored;
       if(StringUtils.contains(varStored2, "}"))
         varStored2 = StringUtils.substringAfterLast(varStored2, "}");
       String[] parts = varStored2.split(",");
       for(String part : parts) {
         if(StringUtils.isNotBlank(part)) {
-          String var = FishPopulation.searchVarFishPopulation(part);
+          String var = MapModel.searchVarMapModel(part);
           if(StringUtils.isNotBlank(var))
             l.add(var);
         }
@@ -426,14 +427,14 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _defaultStatsVars(List<String> l) {
-    Optional.ofNullable(searchListFishPopulation_.getStatsFields()).orElse(Arrays.asList()).forEach(varIndexed -> {
+    Optional.ofNullable(searchListMapModel_.getStatsFields()).orElse(Arrays.asList()).forEach(varIndexed -> {
       String varIndexed2 = varIndexed;
       if(StringUtils.contains(varIndexed2, "}"))
         varIndexed2 = StringUtils.substringAfterLast(varIndexed2, "}");
       String[] parts = varIndexed2.split(",");
       for(String part : parts) {
         if(StringUtils.isNotBlank(part)) {
-          String var = FishPopulation.searchVarFishPopulation(part);
+          String var = MapModel.searchVarMapModel(part);
           if(StringUtils.isNotBlank(var))
             l.add(var);
         }
@@ -443,14 +444,14 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _defaultPivotVars(List<String> l) {
-    Optional.ofNullable(searchListFishPopulation_.getFacetPivots()).orElse(Arrays.asList()).forEach(facetPivot -> {
+    Optional.ofNullable(searchListMapModel_.getFacetPivots()).orElse(Arrays.asList()).forEach(facetPivot -> {
       String facetPivot2 = facetPivot;
       if(StringUtils.contains(facetPivot2, "}"))
         facetPivot2 = StringUtils.substringAfterLast(facetPivot2, "}");
       String[] parts = facetPivot2.split(",");
       for(String part : parts) {
         if(StringUtils.isNotBlank(part)) {
-          String var = FishPopulation.searchVarFishPopulation(part);
+          String var = MapModel.searchVarMapModel(part);
           if(StringUtils.isNotBlank(var))
             l.add(var);
         }
@@ -461,20 +462,20 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
   /**
    * {@inheritDoc}
    **/
-  protected void _listFishPopulation(JsonArray l) {
-    Optional.ofNullable(searchListFishPopulation_).map(o -> o.getList()).orElse(Arrays.asList()).stream().map(o -> JsonObject.mapFrom(o)).forEach(o -> l.add(o));
+  protected void _listMapModel(JsonArray l) {
+    Optional.ofNullable(searchListMapModel_).map(o -> o.getList()).orElse(Arrays.asList()).stream().map(o -> JsonObject.mapFrom(o)).forEach(o -> l.add(o));
   }
 
   protected void _resultCount(Wrap<Integer> w) {
-    w.o(searchListFishPopulation_ == null ? 0 : searchListFishPopulation_.size());
+    w.o(searchListMapModel_ == null ? 0 : searchListMapModel_.size());
   }
 
   /**
    * Initialized: false
   **/
-  protected void _result(Wrap<FishPopulation> w) {
+  protected void _result(Wrap<MapModel> w) {
     if(resultCount >= 1 && Optional.ofNullable(siteRequest_.getServiceRequest().getParams().getJsonObject("path")).map(o -> o.getString("entityShortId")).orElse(null) != null)
-      w.o(searchListFishPopulation_.get(0));
+      w.o(searchListMapModel_.get(0));
   }
 
   protected void _pk(Wrap<Long> w) {
@@ -494,7 +495,7 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _classSimpleName(Wrap<String> w) {
-    w.o("FishPopulation");
+    w.o("MapModel");
   }
 
   @Override
@@ -502,21 +503,21 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
     if(result != null && result.getObjectTitle() != null)
       c.o(result.getObjectTitle());
     else if(result != null)
-      c.o("fish populations");
-    else if(searchListFishPopulation_ == null || resultCount == 0)
-      c.o("no fish population found");
+      c.o("map models");
+    else if(searchListMapModel_ == null || resultCount == 0)
+      c.o("no map model found");
     else
-      c.o("fish populations");
+      c.o("map models");
   }
 
   @Override
   protected void _pageUri(Wrap<String> c) {
-    c.o("/en-us/search/fish-population");
+    c.o("/en-us/search/map-model");
   }
 
   @Override
   protected void _apiUri(Wrap<String> c) {
-    c.o("/en-us/api/fish-population");
+    c.o("/en-us/api/map-model");
   }
 
   @Override
@@ -526,20 +527,20 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _pageDescription(Wrap<String> c) {
-      c.o("AName: a fish population");
+      c.o("A map model");
   }
 
   @Override
   protected void _pageImageUri(Wrap<String> c) {
-      c.o("/png/en-us/search/fish-population-999.png");
+      c.o("/png/en-us/search/map-model-999.png");
   }
 
   @Override
   protected void _classIcon(Wrap<String> c) {
-      c.o("<i class=\"fa-duotone fa-regular fa-fish\"></i>");
+      c.o("<i class=\"fa-duotone fa-regular fa-map-location-dot\"></i>");
   }
 
-  protected void _pageUriFishPopulation(Wrap<String> c) {
-      c.o("/en-us/search/fish-population");
+  protected void _pageUriMapModel(Wrap<String> c) {
+      c.o("/en-us/search/map-model");
   }
 }

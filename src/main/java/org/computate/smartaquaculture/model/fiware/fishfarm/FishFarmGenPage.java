@@ -1,7 +1,7 @@
 package org.computate.smartaquaculture.model.fiware.fishfarm;
 
 import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
-import java.lang.String;
+import io.vertx.core.json.JsonObject;
 import org.computate.smartaquaculture.page.PageLayout;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -19,7 +19,6 @@ import java.time.temporal.ChronoUnit;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.core.json.JsonArray;
 import java.net.URLDecoder;
@@ -42,6 +41,7 @@ import java.util.HashMap;
 import org.computate.search.tool.TimeTool;
 import org.computate.search.tool.SearchTool;
 import java.time.ZoneId;
+import io.vertx.pgclient.data.Point;
 
 
 /**
@@ -383,6 +383,8 @@ public class FishFarmGenPage extends FishFarmGenPageGen<PageLayout> {
 
   @Override
   protected void _DEFAULT_MAP_LOCATION(Wrap<JsonObject> w) {
+    Point point = FishFarm.staticSetLocation(siteRequest_, Optional.ofNullable(siteRequest_.getRequestVars().get(VAR_DEFAULT_MAP_LOCATION)).orElse(siteRequest_.getConfig().getString(ConfigKeys.DEFAULT_MAP_LOCATION)));
+    w.o(new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))));
   }
 
   @Override
@@ -470,7 +472,7 @@ public class FishFarmGenPage extends FishFarmGenPageGen<PageLayout> {
    * Initialized: false
   **/
   protected void _result(Wrap<FishFarm> w) {
-    if(resultCount >= 1 && Optional.ofNullable(siteRequest_.getServiceRequest().getParams().getJsonObject("path")).map(o -> o.getString("id")).orElse(null) != null)
+    if(resultCount >= 1 && Optional.ofNullable(siteRequest_.getServiceRequest().getParams().getJsonObject("path")).map(o -> o.getString("entityShortId")).orElse(null) != null)
       w.o(searchListFishFarm_.get(0));
   }
 

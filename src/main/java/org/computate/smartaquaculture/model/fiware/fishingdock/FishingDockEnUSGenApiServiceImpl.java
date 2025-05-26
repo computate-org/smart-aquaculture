@@ -120,7 +120,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 	public void searchFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -132,8 +132,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -228,8 +228,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			json.put("list", l);
 			response200Search(listFishingDock.getRequest(), listFishingDock.getResponse(), json);
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fishing dock", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fishing dock", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -283,7 +283,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 	public void getFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -295,8 +295,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -363,8 +363,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
 			JsonObject json = JsonObject.mapFrom(listFishingDock.getList().stream().findFirst().orElse(null));
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fishing dock", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fishing dock", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -385,7 +385,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		LOG.debug(String.format("patchFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -397,8 +397,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "PATCH"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "PATCH"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -437,7 +437,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFishingDock.first());
-								apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+								apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 								apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 
@@ -564,7 +564,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
 							FishingDock o2 = jsonObject.mapTo(FishingDock.class);
@@ -688,6 +688,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlName());
 						break;
+					case "setAddress":
+							o2.setAddress(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_address + "=$" + num);
+							num++;
+							bParams.add(o2.sqlAddress());
+						break;
 					case "setDescription":
 							o2.setDescription(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -704,13 +712,13 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlCreated());
 						break;
-					case "setId":
-							o2.setId(jsonObject.getString(entityVar));
+					case "setLocation":
+							o2.setLocation(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishingDock.VAR_id + "=$" + num);
+							bSql.append(FishingDock.VAR_location + "=$" + num);
 							num++;
-							bParams.add(o2.sqlId());
+							bParams.add(o2.sqlLocation());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -719,6 +727,22 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingDock.VAR_archived + "=$" + num);
 							num++;
 							bParams.add(o2.sqlArchived());
+						break;
+					case "setAreaServed":
+							o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_areaServed + "=$" + num);
+							num++;
+							bParams.add(o2.sqlAreaServed());
+						break;
+					case "setId":
+							o2.setId(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_id + "=$" + num);
+							num++;
+							bParams.add(o2.sqlId());
 						break;
 					case "setSessionId":
 							o2.setSessionId(jsonObject.getString(entityVar));
@@ -736,6 +760,30 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlUserKey());
 						break;
+					case "setNgsildTenant":
+							o2.setNgsildTenant(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_ngsildTenant + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildTenant());
+						break;
+					case "setNgsildPath":
+							o2.setNgsildPath(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_ngsildPath + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildPath());
+						break;
+					case "setNgsildContext":
+							o2.setNgsildContext(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_ngsildContext + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildContext());
+						break;
 					case "setObjectTitle":
 							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -744,6 +792,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlObjectTitle());
 						break;
+					case "setNgsildData":
+							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_ngsildData + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildData());
+						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -751,6 +807,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingDock.VAR_displayPage + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDisplayPage());
+						break;
+					case "setColor":
+							o2.setColor(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_color + "=$" + num);
+							num++;
+							bParams.add(o2.sqlColor());
 						break;
 				}
 			}
@@ -796,8 +860,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fishing dock", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fishing dock", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -818,7 +882,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		LOG.debug(String.format("postFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -830,8 +894,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "POST"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "POST"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -976,7 +1040,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		});
 	}
 
-	public Future<FishingDock> postFishingDockFuture(SiteRequest siteRequest, Boolean id) {
+	public Future<FishingDock> postFishingDockFuture(SiteRequest siteRequest, Boolean entityShortId) {
 		Promise<FishingDock> promise = Promise.promise();
 
 		try {
@@ -985,7 +1049,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				siteRequest.setSqlConnection(sqlConnection);
 				varsFishingDock(siteRequest).onSuccess(a -> {
 					createFishingDock(siteRequest).onSuccess(fishingDock -> {
-						sqlPOSTFishingDock(fishingDock, id).onSuccess(b -> {
+						sqlPOSTFishingDock(fishingDock, entityShortId).onSuccess(b -> {
 							persistFishingDock(fishingDock, false).onSuccess(c -> {
 								relateFishingDock(fishingDock).onSuccess(d -> {
 									indexFishingDock(fishingDock).onSuccess(o2 -> {
@@ -1104,6 +1168,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlName());
 						break;
+					case FishingDock.VAR_address:
+						o2.setAddress(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_address + "=$" + num);
+						num++;
+						bParams.add(o2.sqlAddress());
+						break;
 					case FishingDock.VAR_description:
 						o2.setDescription(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1122,14 +1195,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlCreated());
 						break;
-					case FishingDock.VAR_id:
-						o2.setId(jsonObject.getString(entityVar));
+					case FishingDock.VAR_location:
+						o2.setLocation(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishingDock.VAR_id + "=$" + num);
+						bSql.append(FishingDock.VAR_location + "=$" + num);
 						num++;
-						bParams.add(o2.sqlId());
+						bParams.add(o2.sqlLocation());
 						break;
 					case FishingDock.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1139,6 +1212,24 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingDock.VAR_archived + "=$" + num);
 						num++;
 						bParams.add(o2.sqlArchived());
+						break;
+					case FishingDock.VAR_areaServed:
+						o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_areaServed + "=$" + num);
+						num++;
+						bParams.add(o2.sqlAreaServed());
+						break;
+					case FishingDock.VAR_id:
+						o2.setId(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_id + "=$" + num);
+						num++;
+						bParams.add(o2.sqlId());
 						break;
 					case FishingDock.VAR_sessionId:
 						o2.setSessionId(jsonObject.getString(entityVar));
@@ -1158,6 +1249,33 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlUserKey());
 						break;
+					case FishingDock.VAR_ngsildTenant:
+						o2.setNgsildTenant(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_ngsildTenant + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildTenant());
+						break;
+					case FishingDock.VAR_ngsildPath:
+						o2.setNgsildPath(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_ngsildPath + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildPath());
+						break;
+					case FishingDock.VAR_ngsildContext:
+						o2.setNgsildContext(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_ngsildContext + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildContext());
+						break;
 					case FishingDock.VAR_objectTitle:
 						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1167,6 +1285,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
+					case FishingDock.VAR_ngsildData:
+						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_ngsildData + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildData());
+						break;
 					case FishingDock.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1175,6 +1302,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingDock.VAR_displayPage + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDisplayPage());
+						break;
+					case FishingDock.VAR_color:
+						o2.setColor(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_color + "=$" + num);
+						num++;
+						bParams.add(o2.sqlColor());
 						break;
 					}
 				}
@@ -1219,8 +1355,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			SiteRequest siteRequest = o.getSiteRequest_();
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fishing dock", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fishing dock", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1241,7 +1377,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		LOG.debug(String.format("deleteFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -1253,8 +1389,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "DELETE"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1419,7 +1555,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deleteFishingDockFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -1569,8 +1705,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fishing dock", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fishing dock", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1591,7 +1727,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		LOG.debug(String.format("putimportFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -1603,8 +1739,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "PUT"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "PUT"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1748,107 +1884,89 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				apiRequest.setNumPATCH(0L);
 				apiRequest.initDeepApiRequest(siteRequest);
 				siteRequest.setApiRequest_(apiRequest);
-				String id = Optional.ofNullable(body.getString(FishingDock.VAR_id)).orElse(body.getString(FishingDock.VAR_solrId));
+				String entityShortId = Optional.ofNullable(body.getString(FishingDock.VAR_entityShortId)).orElse(body.getString(FishingDock.VAR_solrId));
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-				pgPool.getConnection().onSuccess(sqlConnection -> {
-					String sqlQuery = String.format("select * from %s WHERE id=$1", FishingDock.CLASS_SIMPLE_NAME);
-					sqlConnection.preparedQuery(sqlQuery)
-							.execute(Tuple.tuple(Arrays.asList(id))
-							).onSuccess(result -> {
-						sqlConnection.close().onSuccess(a -> {
-							try {
-								if(result.size() >= 1) {
-									FishingDock o = new FishingDock();
-									o.setSiteRequest_(siteRequest);
-									for(Row definition : result.value()) {
-										for(Integer i = 0; i < definition.size(); i++) {
-											try {
-												String columnName = definition.getColumnName(i);
-												Object columnValue = definition.getValue(i);
-												o.persistForClass(columnName, columnValue);
-											} catch(Exception e) {
-												LOG.error(String.format("persistFishingDock failed. "), e);
-											}
-										}
-									}
-									FishingDock o2 = new FishingDock();
-									o2.setSiteRequest_(siteRequest);
-									JsonObject body2 = new JsonObject();
-									for(String f : body.fieldNames()) {
-										Object bodyVal = body.getValue(f);
-										if(bodyVal instanceof JsonArray) {
-											JsonArray bodyVals = (JsonArray)bodyVal;
-											Object valsObj = o.obtainForClass(f);
-											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-											if(vals != null && bodyVals.size() == vals.size()) {
-												Boolean match = true;
-												for(Object val : vals) {
-													if(val != null) {
-														if(!bodyVals.contains(val.toString())) {
-															match = false;
-															break;
-														}
-													} else {
-														match = false;
-														break;
-													}
+
+				SearchList<FishingDock> searchList = new SearchList<FishingDock>();
+				searchList.setStore(true);
+				searchList.q("*:*");
+				searchList.setC(FishingDock.class);
+				searchList.fq("archived_docvalues_boolean:false");
+				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
+				searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+					try {
+						if(searchList.size() >= 1) {
+							FishingDock o = searchList.getList().stream().findFirst().orElse(null);
+							FishingDock o2 = new FishingDock();
+							o2.setSiteRequest_(siteRequest);
+							JsonObject body2 = new JsonObject();
+							for(String f : body.fieldNames()) {
+								Object bodyVal = body.getValue(f);
+								if(bodyVal instanceof JsonArray) {
+									JsonArray bodyVals = (JsonArray)bodyVal;
+									Object valsObj = o.obtainForClass(f);
+									Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
+									if(vals != null && bodyVals.size() == vals.size()) {
+										Boolean match = true;
+										for(Object val : vals) {
+											if(val != null) {
+												if(!bodyVals.contains(val.toString())) {
+													match = false;
+													break;
 												}
-												vals.clear();
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 											} else {
-												if(vals != null)
-													vals.clear();
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+												match = false;
+												break;
 											}
-										} else {
-											o2.persistForClass(f, bodyVal);
-											o2.relateForClass(f, bodyVal);
-											if(!StringUtils.containsAny(f, "id", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 										}
+										vals.clear();
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
+									} else {
+										if(vals != null)
+											vals.clear();
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 									}
-									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
-										if(!body.fieldNames().contains(f)) {
-											if(!StringUtils.containsAny(f, "id", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-												body2.putNull("set" + StringUtils.capitalize(f));
-										}
-									}
-									if(result.size() >= 1) {
-										apiRequest.setOriginal(o);
-										apiRequest.setId(Optional.ofNullable(o.getId()).map(v -> v.toString()).orElse(null));
-										apiRequest.setSolrId(o.getSolrId());
-									}
-									siteRequest.setJsonObject(body2);
-									patchFishingDockFuture(o, true).onSuccess(b -> {
-										LOG.debug("Import FishingDock {} succeeded, modified FishingDock. ", body.getValue(FishingDock.VAR_id));
-										eventHandler.handle(Future.succeededFuture());
-									}).onFailure(ex -> {
-										LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
-										eventHandler.handle(Future.failedFuture(ex));
-									});
 								} else {
-									postFishingDockFuture(siteRequest, true).onSuccess(b -> {
-										LOG.debug("Import FishingDock {} succeeded, created new FishingDock. ", body.getValue(FishingDock.VAR_id));
-										eventHandler.handle(Future.succeededFuture());
-									}).onFailure(ex -> {
-										LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
-										eventHandler.handle(Future.failedFuture(ex));
-									});
+									o2.persistForClass(f, bodyVal);
+									o2.relateForClass(f, bodyVal);
+									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 								}
-							} catch(Exception ex) {
+							}
+							for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
+								if(!body.fieldNames().contains(f)) {
+									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+										body2.putNull("set" + StringUtils.capitalize(f));
+								}
+							}
+							if(searchList.size() == 1) {
+								apiRequest.setOriginal(o);
+								apiRequest.setId(Optional.ofNullable(o.getEntityShortId()).map(v -> v.toString()).orElse(null));
+								apiRequest.setSolrId(o.getSolrId());
+							}
+							siteRequest.setJsonObject(body2);
+							patchFishingDockFuture(o, true).onSuccess(b -> {
+								LOG.debug("Import FishingDock {} succeeded, modified FishingDock. ", body.getValue(FishingDock.VAR_entityShortId));
+								eventHandler.handle(Future.succeededFuture());
+							}).onFailure(ex -> {
 								LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
-							}
-						}).onFailure(ex -> {
-							LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
-							eventHandler.handle(Future.failedFuture(ex));
-						});
-					}).onFailure(ex -> {
+							});
+						} else {
+							postFishingDockFuture(siteRequest, true).onSuccess(b -> {
+								LOG.debug("Import FishingDock {} succeeded, created new FishingDock. ", body.getValue(FishingDock.VAR_entityShortId));
+								eventHandler.handle(Future.succeededFuture());
+							}).onFailure(ex -> {
+								LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
+								eventHandler.handle(Future.failedFuture(ex));
+							});
+						}
+					} catch(Exception ex) {
 						LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
-					});
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("putimportFishingDockFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
@@ -1888,8 +2006,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fishing dock", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fishing dock", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1909,7 +2027,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 	public void searchpageFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -1921,8 +2039,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2069,7 +2187,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 	public void editpageFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -2081,8 +2199,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2230,7 +2348,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		LOG.debug(String.format("deletefilterFishingDock started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -2242,8 +2360,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishingDock.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, id, "DELETE"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2408,7 +2526,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deletefilterFishingDockFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -2558,8 +2676,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fishing dock", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fishing dock", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2701,9 +2819,9 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				}
 			}
 
-			String id = serviceRequest.getParams().getJsonObject("path").getString("id");
-			if(id != null) {
-				searchList.fq("id_docvalues_string:" + SearchTool.escapeQueryChars(id));
+			String entityShortId = serviceRequest.getParams().getJsonObject("path").getString("entityShortId");
+			if(entityShortId != null) {
+				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
 			}
 
 			for(String paramName : serviceRequest.getParams().getJsonObject("query").fieldNames()) {
@@ -3103,14 +3221,22 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.setSiteRequest_((SiteRequest)siteRequest);
 
 			page.persistForClass(FishingDock.VAR_name, FishingDock.staticSetName(siteRequest2, (String)result.get(FishingDock.VAR_name)));
+			page.persistForClass(FishingDock.VAR_address, FishingDock.staticSetAddress(siteRequest2, (String)result.get(FishingDock.VAR_address)));
 			page.persistForClass(FishingDock.VAR_description, FishingDock.staticSetDescription(siteRequest2, (String)result.get(FishingDock.VAR_description)));
 			page.persistForClass(FishingDock.VAR_created, FishingDock.staticSetCreated(siteRequest2, (String)result.get(FishingDock.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-			page.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));
+			page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
 			page.persistForClass(FishingDock.VAR_archived, FishingDock.staticSetArchived(siteRequest2, (String)result.get(FishingDock.VAR_archived)));
+			page.persistForClass(FishingDock.VAR_areaServed, FishingDock.staticSetAreaServed(siteRequest2, (String)result.get(FishingDock.VAR_areaServed)));
+			page.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));
 			page.persistForClass(FishingDock.VAR_sessionId, FishingDock.staticSetSessionId(siteRequest2, (String)result.get(FishingDock.VAR_sessionId)));
 			page.persistForClass(FishingDock.VAR_userKey, FishingDock.staticSetUserKey(siteRequest2, (String)result.get(FishingDock.VAR_userKey)));
+			page.persistForClass(FishingDock.VAR_ngsildTenant, FishingDock.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingDock.VAR_ngsildTenant)));
+			page.persistForClass(FishingDock.VAR_ngsildPath, FishingDock.staticSetNgsildPath(siteRequest2, (String)result.get(FishingDock.VAR_ngsildPath)));
+			page.persistForClass(FishingDock.VAR_ngsildContext, FishingDock.staticSetNgsildContext(siteRequest2, (String)result.get(FishingDock.VAR_ngsildContext)));
 			page.persistForClass(FishingDock.VAR_objectTitle, FishingDock.staticSetObjectTitle(siteRequest2, (String)result.get(FishingDock.VAR_objectTitle)));
+			page.persistForClass(FishingDock.VAR_ngsildData, FishingDock.staticSetNgsildData(siteRequest2, (String)result.get(FishingDock.VAR_ngsildData)));
 			page.persistForClass(FishingDock.VAR_displayPage, FishingDock.staticSetDisplayPage(siteRequest2, (String)result.get(FishingDock.VAR_displayPage)));
+			page.persistForClass(FishingDock.VAR_color, FishingDock.staticSetColor(siteRequest2, (String)result.get(FishingDock.VAR_color)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

@@ -1,4 +1,4 @@
-package org.computate.smartaquaculture.model.fiware.fishingdock;
+package org.computate.smartaquaculture.model.fiware.fishprocessing;
 
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.model.mapmodel.MapModel;
@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import java.math.RoundingMode;
 import java.util.Map;
 import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
+import java.lang.String;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
@@ -47,22 +48,22 @@ import org.computate.search.response.solr.SolrResponse;
 /**
  * <ol>
 <h3>Suggestions that can generate more code for you: </h3> * </ol>
- * <li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class FishingDockGen into the class FishingDock. 
+ * <li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class FishProcessingGen into the class FishProcessing. 
  * </li>
- * <h3>About the FishingDock class and it's generated class FishingDockGen&lt;MapModel&gt;: </h3>extends FishingDockGen
+ * <h3>About the FishProcessing class and it's generated class FishProcessingGen&lt;MapModel&gt;: </h3>extends FishProcessingGen
  * <p>
- * This Java class extends a generated Java class FishingDockGen built by the <a href="https://github.com/computate-org/computate">https://github.com/computate-org/computate</a> project. 
+ * This Java class extends a generated Java class FishProcessingGen built by the <a href="https://github.com/computate-org/computate">https://github.com/computate-org/computate</a> project. 
  * Whenever this Java class is modified or touched, the watch service installed as described in the README, indexes all the information about this Java class in a local Apache Solr Search Engine. 
  * If you are running the service, you can see the indexed data about this Java Class here: 
  * </p>
- * <p><a href="https://solr.apps-crc.testing/solr/computate/select?q=*:*&fq=partEstClasse_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock">Find the class FishingDock in Solr. </a></p>
+ * <p><a href="https://solr.apps-crc.testing/solr/computate/select?q=*:*&fq=partEstClasse_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing">Find the class FishProcessing in Solr. </a></p>
  * <p>
  * The extended class ending with "Gen" did not exist at first, but was automatically created by the same watch service based on the data retrieved from the local Apache Server search engine. 
  * The extended class contains many generated fields, getters, setters, initialization code, and helper methods to help build a website and API fast, reactive, and scalable. 
  * </p>
- * extends FishingDockGen<MapModel>
- * <p>This <code>class FishingDock extends FishingDockGen&lt;MapModel&gt;</code>, which means it extends a newly generated FishingDockGen. 
- * The generated <code>class FishingDockGen extends MapModel</code> which means that FishingDock extends FishingDockGen which extends MapModel. 
+ * extends FishProcessingGen<MapModel>
+ * <p>This <code>class FishProcessing extends FishProcessingGen&lt;MapModel&gt;</code>, which means it extends a newly generated FishProcessingGen. 
+ * The generated <code>class FishProcessingGen extends MapModel</code> which means that FishProcessing extends FishProcessingGen which extends MapModel. 
  * This generated inheritance is a powerful feature that allows a lot of boiler plate code to be created for you automatically while still preserving inheritance through the power of Java Generic classes. 
  * </p>
  * <h2>Api: true</h2>
@@ -96,10 +97,10 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
  * </p>
  * <h2>ApiTag.enUS: true</h2>
- * <p>This class contains a comment <b>"ApiTag: fishing docks"</b>, which groups all of the OpenAPIs for FishingDock objects under the tag "fishing docks". 
+ * <p>This class contains a comment <b>"ApiTag: fish processing plants"</b>, which groups all of the OpenAPIs for FishProcessing objects under the tag "fish processing plants". 
  * </p>
- * <h2>ApiUri.enUS: /en-us/api/fishing-dock</h2>
- * <p>This class contains a comment <b>"ApiUri: /en-us/api/fishing-dock"</b>, which defines the base API URI for FishingDock objects as "/en-us/api/fishing-dock" in the OpenAPI spec. 
+ * <h2>ApiUri.enUS: /en-us/api/fish-processing</h2>
+ * <p>This class contains a comment <b>"ApiUri: /en-us/api/fish-processing"</b>, which defines the base API URI for FishProcessing objects as "/en-us/api/fish-processing" in the OpenAPI spec. 
  * </p>
  * <h2>Color: null</h2>
  * <h2>Indexed: true</h2>
@@ -107,10 +108,10 @@ import org.computate.search.response.solr.SolrResponse;
  * Every protected void method that begins with "_" that is marked to be searched with a comment like "Indexed: true", "Stored: true", or "DocValues: true" will be indexed in the search engine. 
  * </p>
  * <h2>{@inheritDoc}</h2>
- * <p>By adding a class comment "{@inheritDoc}", the FishingDock class will inherit the helpful inherited class comments from the super class FishingDockGen. 
+ * <p>By adding a class comment "{@inheritDoc}", the FishProcessing class will inherit the helpful inherited class comments from the super class FishProcessingGen. 
  * </p>
  * <h2>Rows: 100</h2>
- * <p>This class contains a comment <b>"Rows: 100"</b>, which means the FishingDock API will return a default of 100 records instead of 10 by default. 
+ * <p>This class contains a comment <b>"Rows: 100"</b>, which means the FishProcessing API will return a default of 100 records instead of 10 by default. 
  * Each API has built in pagination of the search records to ensure a user can query all the data a page at a time without running the application out of memory. 
  * </p>
  * <h2>Order: 5</h2>
@@ -126,17 +127,17 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Page: true</h2>
  * <p>This class contains a comment <b>"Page: true"</b>, which means this class will have webpage code generated for these objects. 
  * Java Vert.x backend API code, Handlebars HTML template frontend code, and JavaScript code will all generated and can be extended. 
- * This creates a new Java class org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockPage. 
+ * This creates a new Java class org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingPage. 
  * </p>
  * <h2>SuperPage.enUS: PageLayout</h2>
  * <p>This class contains a comment <b>"SuperPage.enUS: PageLayout"</b>, which identifies the Java super class of the page code by it's class simple name "PageLayout". 
- * This means that the newly created class org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockPage extends org.computate.smartaquaculture.page.PageLayout. 
+ * This means that the newly created class org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingPage extends org.computate.smartaquaculture.page.PageLayout. 
  * </p>
  * <h2>Promise: true</h2>
  * <p>
  *   This class contains a comment <b>"Promise: true"</b>
  *   Sometimes a Java class must be initialized asynchronously when it involves calling a blocking API. 
- *   This means that the FishingDock Java class has promiseDeep methods which must be initialized asynchronously as a Vert.x Promise  instead of initDeep methods which are a simple non-asynchronous method. 
+ *   This means that the FishProcessing Java class has promiseDeep methods which must be initialized asynchronously as a Vert.x Promise  instead of initDeep methods which are a simple non-asynchronous method. 
  * </p>
  * <p>
  *   Adding protected void methods beginning with an underscore with a Promise as the only parameter will automatically set `Promise: true`. 
@@ -155,16 +156,16 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>
  *   If a super class of this Java class with `Model: true`, then the child class will also inherit `Promise: true`. 
  * </p>
- * <h2>AName.enUS: a fishing dock</h2>
- * <p>This class contains a comment <b>"AName.enUS: a fishing dock"</b>, which identifies the language context to describe a FishingDock as "a fishing dock". 
+ * <h2>AName.enUS: a fish processing plant</h2>
+ * <p>This class contains a comment <b>"AName.enUS: a fish processing plant"</b>, which identifies the language context to describe a FishProcessing as "a fish processing plant". 
  * </p>
  * <p>
- * Delete the class FishingDock in Solr: 
- * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
+ * Delete the class FishProcessing in Solr: 
+ * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
  * </p>
  * <p>
- * Delete  the package org.computate.smartaquaculture.model.fiware.fishingdock in Solr: 
- * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomEnsemble_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
+ * Delete  the package org.computate.smartaquaculture.model.fiware.fishprocessing in Solr: 
+ * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomEnsemble_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishprocessing&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
  * </p>
  * <p>
  * Delete  the project smart-aquaculture in Solr: 
@@ -172,60 +173,60 @@ import org.computate.search.response.solr.SolrResponse;
  * </p>
  * Generated: true
  **/
-public abstract class FishingDockGen<DEV> extends MapModel {
-	protected static final Logger LOG = LoggerFactory.getLogger(FishingDock.class);
+public abstract class FishProcessingGen<DEV> extends MapModel {
+	protected static final Logger LOG = LoggerFactory.getLogger(FishProcessing.class);
 
-	public static final String Description_enUS = "A fishing dock";
-	public static final String AName_enUS = "a fishing dock";
+	public static final String Description_enUS = "A fish processing plant";
+	public static final String AName_enUS = "a fish processing plant";
 	public static final String This_enUS = "this ";
-	public static final String ThisName_enUS = "this fishing dock";
+	public static final String ThisName_enUS = "this fish processing plant";
 	public static final String A_enUS = "a ";
-	public static final String TheName_enUS = "the fishing dock";
-	public static final String SingularName_enUS = "fishing dock";
-	public static final String PluralName_enUS = "fishing docks";
-	public static final String NameActual_enUS = "current fishing dock";
-	public static final String AllName_enUS = "all fishing docks";
-	public static final String SearchAllNameBy_enUS = "search fishing docks by ";
-	public static final String SearchAllName_enUS = "search fishing docks";
-	public static final String Title_enUS = "fishing docks";
-	public static final String ThePluralName_enUS = "the fishing docks";
-	public static final String NoNameFound_enUS = "no fishing dock found";
-	public static final String ApiUri_enUS = "/en-us/api/fishing-dock";
-	public static final String ApiUriSearchPage_enUS = "/en-us/search/fishing-dock";
-	public static final String ApiUriEditPage_enUS = "/en-us/edit/fishing-dock/{entityShortId}";
-	public static final String OfName_enUS = "of fishing dock";
-	public static final String ANameAdjective_enUS = "a fishing dock";
-	public static final String NameAdjectiveSingular_enUS = "fishing dock";
-	public static final String NameAdjectivePlural_enUS = "fishing docks";
-	public static final String Search_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String Search_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
-	public static final String GET_enUS_OpenApiUri = "/en-us/api/fishing-dock/{entityShortId}";
-	public static final String GET_enUS_StringFormatUri = "/en-us/api/fishing-dock/%s";
-	public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock/%s";
-	public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String PATCH_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String PATCH_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
-	public static final String POST_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String POST_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
-	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fishing-dock/{entityShortId}";
-	public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fishing-dock/%s";
-	public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock/%s";
-	public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fishing-dock-import";
-	public static final String PUTImport_enUS_StringFormatUri = "/en-us/api/fishing-dock-import";
-	public static final String PUTImport_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock-import";
-	public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fishing-dock";
-	public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fishing-dock";
-	public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fishing-dock";
-	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fishing-dock/{entityShortId}";
-	public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fishing-dock/%s";
-	public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fishing-dock/%s";
-	public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String DELETEFilter_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String DELETEFilter_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
+	public static final String TheName_enUS = "the fish processing plant";
+	public static final String SingularName_enUS = "fish processing plant";
+	public static final String PluralName_enUS = "fish processing plants";
+	public static final String NameActual_enUS = "current fish processing plant";
+	public static final String AllName_enUS = "all fish processing plants";
+	public static final String SearchAllNameBy_enUS = "search fish processing plants by ";
+	public static final String SearchAllName_enUS = "search fish processing plants";
+	public static final String Title_enUS = "fish processing plants";
+	public static final String ThePluralName_enUS = "the fish processing plants";
+	public static final String NoNameFound_enUS = "no fish processing plant found";
+	public static final String ApiUri_enUS = "/en-us/api/fish-processing";
+	public static final String ApiUriSearchPage_enUS = "/en-us/search/fish-processing";
+	public static final String ApiUriEditPage_enUS = "/en-us/edit/fish-processing/{entityShortId}";
+	public static final String OfName_enUS = "of fish processing plant";
+	public static final String ANameAdjective_enUS = "a fish processing plant";
+	public static final String NameAdjectiveSingular_enUS = "fish processing plant";
+	public static final String NameAdjectivePlural_enUS = "fish processing plants";
+	public static final String Search_enUS_OpenApiUri = "/en-us/api/fish-processing";
+	public static final String Search_enUS_StringFormatUri = "/en-us/api/fish-processing";
+	public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fish-processing";
+	public static final String GET_enUS_OpenApiUri = "/en-us/api/fish-processing/{entityShortId}";
+	public static final String GET_enUS_StringFormatUri = "/en-us/api/fish-processing/%s";
+	public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fish-processing/%s";
+	public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fish-processing";
+	public static final String PATCH_enUS_StringFormatUri = "/en-us/api/fish-processing";
+	public static final String PATCH_enUS_StringFormatUrl = "%s/en-us/api/fish-processing";
+	public static final String POST_enUS_OpenApiUri = "/en-us/api/fish-processing";
+	public static final String POST_enUS_StringFormatUri = "/en-us/api/fish-processing";
+	public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fish-processing";
+	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fish-processing/{entityShortId}";
+	public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fish-processing/%s";
+	public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fish-processing/%s";
+	public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fish-processing-import";
+	public static final String PUTImport_enUS_StringFormatUri = "/en-us/api/fish-processing-import";
+	public static final String PUTImport_enUS_StringFormatUrl = "%s/en-us/api/fish-processing-import";
+	public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fish-processing";
+	public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fish-processing";
+	public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fish-processing";
+	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fish-processing/{entityShortId}";
+	public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fish-processing/%s";
+	public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fish-processing/%s";
+	public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fish-processing";
+	public static final String DELETEFilter_enUS_StringFormatUri = "/en-us/api/fish-processing";
+	public static final String DELETEFilter_enUS_StringFormatUrl = "%s/en-us/api/fish-processing";
 
-	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-lighthouse\"></i>";
+	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-industry-windows\"></i>";
 	public static final Integer Rows = 100;
 
 	/////////////
@@ -243,7 +244,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 
 	/**	<br> The entity address
 	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:address">Find the entity address in Solr</a>
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing&fq=entiteVar_enUS_indexed_string:address">Find the entity address in Solr</a>
 	 * <br>
 	 * @param w is for wrapping a value to assign to this entity during initialization. 
 	 **/
@@ -258,7 +259,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	}
 	@JsonIgnore
 	public void setAddress(String o) {
-		this.address = FishingDock.staticSetAddress(siteRequest_, o);
+		this.address = FishProcessing.staticSetAddress(siteRequest_, o);
 	}
 	public static JsonObject staticSetAddress(SiteRequest siteRequest_, String o) {
 		if(o != null) {
@@ -266,7 +267,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 		return null;
 	}
-	protected FishingDock addressInit() {
+	protected FishProcessing addressInit() {
 		Wrap<JsonObject> addressWrap = new Wrap<JsonObject>().var("address");
 		if(address == null) {
 			_address(addressWrap);
@@ -274,7 +275,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 				setAddress(o);
 			});
 		}
-		return (FishingDock)this;
+		return (FishProcessing)this;
 	}
 
 	public static String staticSearchAddress(SiteRequest siteRequest_, JsonObject o) {
@@ -286,7 +287,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	}
 
 	public static String staticSearchFqAddress(SiteRequest siteRequest_, String o) {
-		return FishingDock.staticSearchAddress(siteRequest_, FishingDock.staticSetAddress(siteRequest_, o)).toString();
+		return FishProcessing.staticSearchAddress(siteRequest_, FishProcessing.staticSetAddress(siteRequest_, o)).toString();
 	}
 
 	public JsonObject sqlAddress() {
@@ -297,15 +298,15 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	// initDeep //
 	//////////////
 
-	public Future<FishingDockGen<DEV>> promiseDeepFishingDock(SiteRequest siteRequest_) {
+	public Future<FishProcessingGen<DEV>> promiseDeepFishProcessing(SiteRequest siteRequest_) {
 		setSiteRequest_(siteRequest_);
-		return promiseDeepFishingDock();
+		return promiseDeepFishProcessing();
 	}
 
-	public Future<FishingDockGen<DEV>> promiseDeepFishingDock() {
-		Promise<FishingDockGen<DEV>> promise = Promise.promise();
+	public Future<FishProcessingGen<DEV>> promiseDeepFishProcessing() {
+		Promise<FishProcessingGen<DEV>> promise = Promise.promise();
 		Promise<Void> promise2 = Promise.promise();
-		promiseFishingDock(promise2);
+		promiseFishProcessing(promise2);
 		promise2.future().onSuccess(a -> {
 			super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
 				promise.complete(this);
@@ -318,7 +319,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		return promise.future();
 	}
 
-	public Future<Void> promiseFishingDock(Promise<Void> promise) {
+	public Future<Void> promiseFishProcessing(Promise<Void> promise) {
 		Future.future(a -> a.complete()).compose(a -> {
 			Promise<Void> promise2 = Promise.promise();
 			try {
@@ -336,20 +337,20 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		return promise.future();
 	}
 
-	@Override public Future<? extends FishingDockGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFishingDock(siteRequest_);
+	@Override public Future<? extends FishProcessingGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+		return promiseDeepFishProcessing(siteRequest_);
 	}
 
 	/////////////////
 	// siteRequest //
 	/////////////////
 
-	public void siteRequestFishingDock(SiteRequest siteRequest_) {
+	public void siteRequestFishProcessing(SiteRequest siteRequest_) {
 			super.siteRequestMapModel(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFishingDock(siteRequest_);
+		siteRequestFishProcessing(siteRequest_);
 	}
 
 	/////////////
@@ -361,7 +362,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		Object o = null;
 		for(String v : vars) {
 			if(o == null)
-				o = obtainFishingDock(v);
+				o = obtainFishProcessing(v);
 			else if(o instanceof BaseModel) {
 				BaseModel baseModel = (BaseModel)o;
 				o = baseModel.obtainForClass(v);
@@ -373,11 +374,11 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 		return o;
 	}
-	public Object obtainFishingDock(String var) {
-		FishingDock oFishingDock = (FishingDock)this;
+	public Object obtainFishProcessing(String var) {
+		FishProcessing oFishProcessing = (FishProcessing)this;
 		switch(var) {
 			case "address":
-				return oFishingDock.address;
+				return oFishProcessing.address;
 			default:
 				return super.obtainMapModel(var);
 		}
@@ -392,7 +393,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		Object o = null;
 		for(String v : vars) {
 			if(o == null)
-				o = relateFishingDock(v, val);
+				o = relateFishProcessing(v, val);
 			else if(o instanceof BaseModel) {
 				BaseModel baseModel = (BaseModel)o;
 				o = baseModel.relateForClass(v, val);
@@ -400,8 +401,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 		return o != null;
 	}
-	public Object relateFishingDock(String var, Object val) {
-		FishingDock oFishingDock = (FishingDock)this;
+	public Object relateFishProcessing(String var, Object val) {
+		FishProcessing oFishProcessing = (FishProcessing)this;
 		switch(var) {
 			default:
 				return super.relateMapModel(var, val);
@@ -412,13 +413,13 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	// staticSet //
 	///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingDock o) {
-		return staticSetFishingDock(entityVar,  siteRequest_, v, o);
+	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishProcessing o) {
+		return staticSetFishProcessing(entityVar,  siteRequest_, v, o);
 	}
-	public static Object staticSetFishingDock(String entityVar, SiteRequest siteRequest_, String v, FishingDock o) {
+	public static Object staticSetFishProcessing(String entityVar, SiteRequest siteRequest_, String v, FishProcessing o) {
 		switch(entityVar) {
 		case "address":
-			return FishingDock.staticSetAddress(siteRequest_, v);
+			return FishProcessing.staticSetAddress(siteRequest_, v);
 			default:
 				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
@@ -429,12 +430,12 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	////////////////
 
 	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFishingDock(entityVar,  siteRequest_, o);
+		return staticSearchFishProcessing(entityVar,  siteRequest_, o);
 	}
-	public static Object staticSearchFishingDock(String entityVar, SiteRequest siteRequest_, Object o) {
+	public static Object staticSearchFishProcessing(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
 		case "address":
-			return FishingDock.staticSearchAddress(siteRequest_, (JsonObject)o);
+			return FishProcessing.staticSearchAddress(siteRequest_, (JsonObject)o);
 			default:
 				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
@@ -445,12 +446,12 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	///////////////////
 
 	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFishingDock(entityVar,  siteRequest_, o);
+		return staticSearchStrFishProcessing(entityVar,  siteRequest_, o);
 	}
-	public static String staticSearchStrFishingDock(String entityVar, SiteRequest siteRequest_, Object o) {
+	public static String staticSearchStrFishProcessing(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
 		case "address":
-			return FishingDock.staticSearchStrAddress(siteRequest_, (String)o);
+			return FishProcessing.staticSearchStrAddress(siteRequest_, (String)o);
 			default:
 				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
@@ -461,12 +462,12 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	//////////////////
 
 	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFishingDock(entityVar,  siteRequest_, o);
+		return staticSearchFqFishProcessing(entityVar,  siteRequest_, o);
 	}
-	public static String staticSearchFqFishingDock(String entityVar, SiteRequest siteRequest_, String o) {
+	public static String staticSearchFqFishProcessing(String entityVar, SiteRequest siteRequest_, String o) {
 		switch(entityVar) {
 		case "address":
-			return FishingDock.staticSearchFqAddress(siteRequest_, o);
+			return FishProcessing.staticSearchFqAddress(siteRequest_, o);
 			default:
 				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
@@ -482,7 +483,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		if(val != null) {
 			for(String v : vars) {
 				if(o == null)
-					o = persistFishingDock(v, val);
+					o = persistFishProcessing(v, val);
 				else if(o instanceof BaseModel) {
 					BaseModel oBaseModel = (BaseModel)o;
 					o = oBaseModel.persistForClass(v, val);
@@ -491,7 +492,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 		return o != null;
 	}
-	public Object persistFishingDock(String var, Object val) {
+	public Object persistFishProcessing(String var, Object val) {
 		String varLower = var.toLowerCase();
 			if("address".equals(varLower)) {
 				if(val instanceof String) {
@@ -511,24 +512,24 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	/////////////
 
 	@Override public void populateForClass(SolrResponse.Doc doc) {
-		populateFishingDock(doc);
+		populateFishProcessing(doc);
 	}
-	public void populateFishingDock(SolrResponse.Doc doc) {
-		FishingDock oFishingDock = (FishingDock)this;
+	public void populateFishProcessing(SolrResponse.Doc doc) {
+		FishProcessing oFishProcessing = (FishProcessing)this;
 		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
 		if(saves != null) {
 
 			if(saves.contains("address")) {
 				String address = (String)doc.get("address_docvalues_string");
 				if(address != null)
-					oFishingDock.setAddress(address);
+					oFishProcessing.setAddress(address);
 			}
 		}
 
 		super.populateMapModel(doc);
 	}
 
-	public void indexFishingDock(JsonObject doc) {
+	public void indexFishProcessing(JsonObject doc) {
 		if(address != null) {
 			doc.put("address_docvalues_string", address.encode());
 		}
@@ -536,7 +537,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 
 	}
 
-	public static String varStoredFishingDock(String entityVar) {
+	public static String varStoredFishProcessing(String entityVar) {
 		switch(entityVar) {
 			case "address":
 				return "address_docvalues_string";
@@ -545,7 +546,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static String varIndexedFishingDock(String entityVar) {
+	public static String varIndexedFishProcessing(String entityVar) {
 		switch(entityVar) {
 			case "address":
 				return "address_docvalues_string";
@@ -554,7 +555,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static String searchVarFishingDock(String searchVar) {
+	public static String searchVarFishProcessing(String searchVar) {
 		switch(searchVar) {
 			case "address_docvalues_string":
 				return "address";
@@ -563,14 +564,14 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static String varSearchFishingDock(String entityVar) {
+	public static String varSearchFishProcessing(String entityVar) {
 		switch(entityVar) {
 			default:
 				return MapModel.varSearchMapModel(entityVar);
 		}
 	}
 
-	public static String varSuggestedFishingDock(String entityVar) {
+	public static String varSuggestedFishProcessing(String entityVar) {
 		switch(entityVar) {
 			default:
 				return MapModel.varSuggestedMapModel(entityVar);
@@ -582,13 +583,13 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	/////////////
 
 	@Override public void storeForClass(SolrResponse.Doc doc) {
-		storeFishingDock(doc);
+		storeFishProcessing(doc);
 	}
-	public void storeFishingDock(SolrResponse.Doc doc) {
-		FishingDock oFishingDock = (FishingDock)this;
-		SiteRequest siteRequest = oFishingDock.getSiteRequest_();
+	public void storeFishProcessing(SolrResponse.Doc doc) {
+		FishProcessing oFishProcessing = (FishProcessing)this;
+		SiteRequest siteRequest = oFishProcessing.getSiteRequest_();
 
-		oFishingDock.setAddress(Optional.ofNullable(doc.get("address_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oFishProcessing.setAddress(Optional.ofNullable(doc.get("address_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeMapModel(doc);
 	}
@@ -597,11 +598,11 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	// apiRequest //
 	//////////////////
 
-	public void apiRequestFishingDock() {
+	public void apiRequestFishProcessing() {
 		ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(r -> r.getApiRequest_()).orElse(null);
 		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
-		if(o != null && o instanceof FishingDock) {
-			FishingDock original = (FishingDock)o;
+		if(o != null && o instanceof FishProcessing) {
+			FishProcessing original = (FishProcessing)o;
 			if(!Objects.equals(address, original.getAddress()))
 				apiRequest.addVars("address");
 			super.apiRequestMapModel();
@@ -619,35 +620,35 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		return sb.toString();
 	}
 
-	public static final String CLASS_SIMPLE_NAME = "FishingDock";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock";
-	public static final String CLASS_API_ADDRESS_FishingDock = "smart-aquaculture-enUS-FishingDock";
+	public static final String CLASS_SIMPLE_NAME = "FishProcessing";
+	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing";
+	public static final String CLASS_API_ADDRESS_FishProcessing = "smart-aquaculture-enUS-FishProcessing";
 	public static String getClassApiAddress() {
-		return CLASS_API_ADDRESS_FishingDock;
+		return CLASS_API_ADDRESS_FishProcessing;
 	}
 	public static final String VAR_address = "address";
 
 	public static List<String> varsQForClass() {
-		return FishingDock.varsQFishingDock(new ArrayList<String>());
+		return FishProcessing.varsQFishProcessing(new ArrayList<String>());
 	}
-	public static List<String> varsQFishingDock(List<String> vars) {
+	public static List<String> varsQFishProcessing(List<String> vars) {
 		MapModel.varsQMapModel(vars);
 		return vars;
 	}
 
 	public static List<String> varsFqForClass() {
-		return FishingDock.varsFqFishingDock(new ArrayList<String>());
+		return FishProcessing.varsFqFishProcessing(new ArrayList<String>());
 	}
-	public static List<String> varsFqFishingDock(List<String> vars) {
+	public static List<String> varsFqFishProcessing(List<String> vars) {
 		vars.add(VAR_address);
 		MapModel.varsFqMapModel(vars);
 		return vars;
 	}
 
 	public static List<String> varsRangeForClass() {
-		return FishingDock.varsRangeFishingDock(new ArrayList<String>());
+		return FishProcessing.varsRangeFishProcessing(new ArrayList<String>());
 	}
-	public static List<String> varsRangeFishingDock(List<String> vars) {
+	public static List<String> varsRangeFishProcessing(List<String> vars) {
 		vars.add(VAR_address);
 		MapModel.varsRangeMapModel(vars);
 		return vars;
@@ -672,7 +673,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 
 	@Override
 	public String classNameAdjectiveSingularForClass() {
-		return FishingDock.NameAdjectiveSingular_enUS;
+		return FishProcessing.NameAdjectiveSingular_enUS;
 	}
 
 	@Override
@@ -682,7 +683,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 
 	@Override
 	public String classStringFormatUrlEditPageForClass() {
-		return "%s/en-us/edit/fishing-dock/%s";
+		return "%s/en-us/edit/fish-processing/%s";
 	}
 
 	@Override
@@ -701,9 +702,9 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	}
 
 	public static String displayNameForClass(String var) {
-		return FishingDock.displayNameFishingDock(var);
+		return FishProcessing.displayNameFishProcessing(var);
 	}
-	public static String displayNameFishingDock(String var) {
+	public static String displayNameFishProcessing(String var) {
 		switch(var) {
 		case VAR_address:
 			return DISPLAY_NAME_address;
@@ -712,7 +713,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static String descriptionFishingDock(String var) {
+	public static String descriptionFishProcessing(String var) {
 		if(var == null)
 			return null;
 		switch(var) {
@@ -723,7 +724,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static String classSimpleNameFishingDock(String var) {
+	public static String classSimpleNameFishProcessing(String var) {
 		switch(var) {
 		case VAR_address:
 			return "JsonObject";
@@ -732,14 +733,14 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static Integer htmColumnFishingDock(String var) {
+	public static Integer htmColumnFishProcessing(String var) {
 		switch(var) {
 			default:
 				return MapModel.htmColumnMapModel(var);
 		}
 	}
 
-	public static Integer htmRowFishingDock(String var) {
+	public static Integer htmRowFishProcessing(String var) {
 		switch(var) {
 		case VAR_address:
 			return 6;
@@ -748,7 +749,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static Integer htmCellFishingDock(String var) {
+	public static Integer htmCellFishProcessing(String var) {
 		switch(var) {
 		case VAR_address:
 			return 0;
@@ -757,28 +758,28 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		}
 	}
 
-	public static Integer lengthMinFishingDock(String var) {
+	public static Integer lengthMinFishProcessing(String var) {
 		switch(var) {
 			default:
 				return MapModel.lengthMinMapModel(var);
 		}
 	}
 
-	public static Integer lengthMaxFishingDock(String var) {
+	public static Integer lengthMaxFishProcessing(String var) {
 		switch(var) {
 			default:
 				return MapModel.lengthMaxMapModel(var);
 		}
 	}
 
-	public static Integer maxFishingDock(String var) {
+	public static Integer maxFishProcessing(String var) {
 		switch(var) {
 			default:
 				return MapModel.maxMapModel(var);
 		}
 	}
 
-	public static Integer minFishingDock(String var) {
+	public static Integer minFishProcessing(String var) {
 		switch(var) {
 			default:
 				return MapModel.minMapModel(var);

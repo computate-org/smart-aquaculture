@@ -1,6 +1,7 @@
 package org.computate.smartaquaculture.model.fiware.fishpopulation;
 
 import org.computate.smartaquaculture.request.SiteRequest;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.smartaquaculture.model.BaseModel;
 import io.vertx.core.json.JsonObject;
 import java.util.Date;
@@ -35,27 +36,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.math.RoundingMode;
 import java.util.Map;
-import java.lang.String;
-import io.vertx.pgclient.data.Point;
-import org.computate.vertx.serialize.pgclient.PgClientPointSerializer;
-import org.computate.vertx.serialize.pgclient.PgClientPointDeserializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.BeanDescription;
-import java.util.stream.Collectors;
-import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonArray;
-import io.vertx.pgclient.data.Polygon;
-import org.computate.vertx.serialize.pgclient.PgClientPolygonSerializer;
-import org.computate.vertx.serialize.pgclient.PgClientPolygonDeserializer;
 import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
+import java.lang.String;
 import java.math.BigDecimal;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import io.vertx.core.json.JsonArray;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -64,7 +51,7 @@ import org.computate.search.response.solr.SolrResponse;
 <h3>Suggestions that can generate more code for you: </h3> * </ol>
  * <li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class FishPopulationGen into the class FishPopulation. 
  * </li>
- * <h3>About the FishPopulation class and it's generated class FishPopulationGen&lt;BaseModel&gt;: </h3>extends FishPopulationGen
+ * <h3>About the FishPopulation class and it's generated class FishPopulationGen&lt;MapModel&gt;: </h3>extends FishPopulationGen
  * <p>
  * This Java class extends a generated Java class FishPopulationGen built by the <a href="https://github.com/computate-org/computate">https://github.com/computate-org/computate</a> project. 
  * Whenever this Java class is modified or touched, the watch service installed as described in the README, indexes all the information about this Java class in a local Apache Solr Search Engine. 
@@ -75,9 +62,9 @@ import org.computate.search.response.solr.SolrResponse;
  * The extended class ending with "Gen" did not exist at first, but was automatically created by the same watch service based on the data retrieved from the local Apache Server search engine. 
  * The extended class contains many generated fields, getters, setters, initialization code, and helper methods to help build a website and API fast, reactive, and scalable. 
  * </p>
- * extends FishPopulationGen<BaseModel>
- * <p>This <code>class FishPopulation extends FishPopulationGen&lt;BaseModel&gt;</code>, which means it extends a newly generated FishPopulationGen. 
- * The generated <code>class FishPopulationGen extends BaseModel</code> which means that FishPopulation extends FishPopulationGen which extends BaseModel. 
+ * extends FishPopulationGen<MapModel>
+ * <p>This <code>class FishPopulation extends FishPopulationGen&lt;MapModel&gt;</code>, which means it extends a newly generated FishPopulationGen. 
+ * The generated <code>class FishPopulationGen extends MapModel</code> which means that FishPopulation extends FishPopulationGen which extends MapModel. 
  * This generated inheritance is a powerful feature that allows a lot of boiler plate code to be created for you automatically while still preserving inheritance through the power of Java Generic classes. 
  * </p>
  * <h2>Api: true</h2>
@@ -187,7 +174,7 @@ import org.computate.search.response.solr.SolrResponse;
  * </p>
  * Generated: true
  **/
-public abstract class FishPopulationGen<DEV> extends BaseModel {
+public abstract class FishPopulationGen<DEV> extends MapModel {
 	protected static final Logger LOG = LoggerFactory.getLogger(FishPopulation.class);
 
 	public static final String Description_enUS = "AName: a fish population";
@@ -242,896 +229,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 
 	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-fish\"></i>";
 	public static final Integer Rows = 100;
-
-	//////////
-	// name //
-	//////////
-
-
-	/**	 The entity name
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String name;
-
-	/**	<br> The entity name
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:name">Find the entity name in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _name(Wrap<String> w);
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String o) {
-		this.name = FishPopulation.staticSetName(siteRequest_, o);
-	}
-	public static String staticSetName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishPopulation nameInit() {
-		Wrap<String> nameWrap = new Wrap<String>().var("name");
-		if(name == null) {
-			_name(nameWrap);
-			Optional.ofNullable(nameWrap.getO()).ifPresent(o -> {
-				setName(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqName(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchName(siteRequest_, FishPopulation.staticSetName(siteRequest_, o)).toString();
-	}
-
-	public String sqlName() {
-		return name;
-	}
-
-	/////////////////
-	// description //
-	/////////////////
-
-
-	/**	 The entity description
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String description;
-
-	/**	<br> The entity description
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:description">Find the entity description in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _description(Wrap<String> w);
-
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String o) {
-		this.description = FishPopulation.staticSetDescription(siteRequest_, o);
-	}
-	public static String staticSetDescription(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishPopulation descriptionInit() {
-		Wrap<String> descriptionWrap = new Wrap<String>().var("description");
-		if(description == null) {
-			_description(descriptionWrap);
-			Optional.ofNullable(descriptionWrap.getO()).ifPresent(o -> {
-				setDescription(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchDescription(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrDescription(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqDescription(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchDescription(siteRequest_, FishPopulation.staticSetDescription(siteRequest_, o)).toString();
-	}
-
-	public String sqlDescription() {
-		return description;
-	}
-
-	//////////////
-	// location //
-	//////////////
-
-
-	/**	 The entity location
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = PgClientPointDeserializer.class)
-	@JsonSerialize(using = PgClientPointSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Point location;
-
-	/**	<br> The entity location
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:location">Find the entity location in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _location(Wrap<Point> w);
-
-	public Point getLocation() {
-		return location;
-	}
-
-	public void setLocation(Point location) {
-		this.location = location;
-	}
-	@JsonIgnore
-	public void setLocation(String o) {
-		this.location = FishPopulation.staticSetLocation(siteRequest_, o);
-	}
-	public static Point staticSetLocation(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-			try {
-				Point shape = null;
-				if(StringUtils.isNotBlank(o)) {
-					ObjectMapper objectMapper = new ObjectMapper();
-					SimpleModule module = new SimpleModule();
-					module.setDeserializerModifier(new BeanDeserializerModifier() {
-						@Override
-						public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
-							if (beanDesc.getBeanClass() == Point.class) {
-								return new PgClientPointDeserializer();
-							}
-							return deserializer;
-						}
-					});
-					objectMapper.registerModule(module);
-					shape = objectMapper.readValue(Json.encode(o), Point.class);
-				}
-				return shape;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	@JsonIgnore
-	public void setLocation(JsonObject o) {
-		this.location = FishPopulation.staticSetLocation(siteRequest_, o);
-	}
-	public static Point staticSetLocation(SiteRequest siteRequest_, JsonObject o) {
-		if(o != null) {
-			try {
-				Point shape = new Point();
-				JsonArray coordinates = o.getJsonArray("coordinates");
-				shape.setX(coordinates.getDouble(0));
-				shape.setY(coordinates.getDouble(1));
-				return shape;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	protected FishPopulation locationInit() {
-		Wrap<Point> locationWrap = new Wrap<Point>().var("location");
-		if(location == null) {
-			_location(locationWrap);
-			Optional.ofNullable(locationWrap.getO()).ifPresent(o -> {
-				setLocation(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static Point staticSearchLocation(SiteRequest siteRequest_, Point o) {
-		return o;
-	}
-
-	public static String staticSearchStrLocation(SiteRequest siteRequest_, Point o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqLocation(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchLocation(siteRequest_, FishPopulation.staticSetLocation(siteRequest_, o)).toString();
-	}
-
-	public Point sqlLocation() {
-		return location;
-	}
-
-	//////////////////////
-	// areaServedColors //
-	//////////////////////
-
-
-	/**	 The entity areaServedColors
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedColors = new ArrayList<String>();
-
-	/**	<br> The entity areaServedColors
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedColors(List<String> l);
-
-	public List<String> getAreaServedColors() {
-		return areaServedColors;
-	}
-
-	public void setAreaServedColors(List<String> areaServedColors) {
-		this.areaServedColors = areaServedColors;
-	}
-	@JsonIgnore
-	public void setAreaServedColors(String o) {
-		String l = FishPopulation.staticSetAreaServedColors(siteRequest_, o);
-		if(l != null)
-			addAreaServedColors(l);
-	}
-	public static String staticSetAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public FishPopulation addAreaServedColors(String...objects) {
-		for(String o : objects) {
-			addAreaServedColors(o);
-		}
-		return (FishPopulation)this;
-	}
-	public FishPopulation addAreaServedColors(String o) {
-		if(o != null)
-			this.areaServedColors.add(o);
-		return (FishPopulation)this;
-	}
-	@JsonIgnore
-	public void setAreaServedColors(JsonArray objects) {
-		areaServedColors.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedColors(o);
-		}
-	}
-	protected FishPopulation areaServedColorsInit() {
-		_areaServedColors(areaServedColors);
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqAreaServedColors(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchAreaServedColors(siteRequest_, FishPopulation.staticSetAreaServedColors(siteRequest_, o)).toString();
-	}
-
-	//////////////////////
-	// areaServedTitles //
-	//////////////////////
-
-
-	/**	 The entity areaServedTitles
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedTitles = new ArrayList<String>();
-
-	/**	<br> The entity areaServedTitles
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedTitles(List<String> l);
-
-	public List<String> getAreaServedTitles() {
-		return areaServedTitles;
-	}
-
-	public void setAreaServedTitles(List<String> areaServedTitles) {
-		this.areaServedTitles = areaServedTitles;
-	}
-	@JsonIgnore
-	public void setAreaServedTitles(String o) {
-		String l = FishPopulation.staticSetAreaServedTitles(siteRequest_, o);
-		if(l != null)
-			addAreaServedTitles(l);
-	}
-	public static String staticSetAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public FishPopulation addAreaServedTitles(String...objects) {
-		for(String o : objects) {
-			addAreaServedTitles(o);
-		}
-		return (FishPopulation)this;
-	}
-	public FishPopulation addAreaServedTitles(String o) {
-		if(o != null)
-			this.areaServedTitles.add(o);
-		return (FishPopulation)this;
-	}
-	@JsonIgnore
-	public void setAreaServedTitles(JsonArray objects) {
-		areaServedTitles.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedTitles(o);
-		}
-	}
-	protected FishPopulation areaServedTitlesInit() {
-		_areaServedTitles(areaServedTitles);
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchAreaServedTitles(siteRequest_, FishPopulation.staticSetAreaServedTitles(siteRequest_, o)).toString();
-	}
-
-	/////////////////////
-	// areaServedLinks //
-	/////////////////////
-
-
-	/**	 The entity areaServedLinks
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedLinks = new ArrayList<String>();
-
-	/**	<br> The entity areaServedLinks
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedLinks(List<String> l);
-
-	public List<String> getAreaServedLinks() {
-		return areaServedLinks;
-	}
-
-	public void setAreaServedLinks(List<String> areaServedLinks) {
-		this.areaServedLinks = areaServedLinks;
-	}
-	@JsonIgnore
-	public void setAreaServedLinks(String o) {
-		String l = FishPopulation.staticSetAreaServedLinks(siteRequest_, o);
-		if(l != null)
-			addAreaServedLinks(l);
-	}
-	public static String staticSetAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public FishPopulation addAreaServedLinks(String...objects) {
-		for(String o : objects) {
-			addAreaServedLinks(o);
-		}
-		return (FishPopulation)this;
-	}
-	public FishPopulation addAreaServedLinks(String o) {
-		if(o != null)
-			this.areaServedLinks.add(o);
-		return (FishPopulation)this;
-	}
-	@JsonIgnore
-	public void setAreaServedLinks(JsonArray objects) {
-		areaServedLinks.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedLinks(o);
-		}
-	}
-	protected FishPopulation areaServedLinksInit() {
-		_areaServedLinks(areaServedLinks);
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchAreaServedLinks(siteRequest_, FishPopulation.staticSetAreaServedLinks(siteRequest_, o)).toString();
-	}
-
-	////////////////
-	// areaServed //
-	////////////////
-
-
-	/**	 The entity areaServed
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = PgClientPolygonDeserializer.class)
-	@JsonSerialize(using = PgClientPolygonSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Polygon areaServed;
-
-	/**	<br> The entity areaServed
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServed">Find the entity areaServed in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _areaServed(Wrap<Polygon> w);
-
-	public Polygon getAreaServed() {
-		return areaServed;
-	}
-
-	public void setAreaServed(Polygon areaServed) {
-		this.areaServed = areaServed;
-	}
-	@JsonIgnore
-	public void setAreaServed(String o) {
-		this.areaServed = FishPopulation.staticSetAreaServed(siteRequest_, o);
-	}
-	public static Polygon staticSetAreaServed(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-			try {
-				Polygon shape = null;
-				if(StringUtils.isNotBlank(o)) {
-					ObjectMapper objectMapper = new ObjectMapper();
-					SimpleModule module = new SimpleModule();
-					module.setDeserializerModifier(new BeanDeserializerModifier() {
-						@Override
-						public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
-							if (beanDesc.getBeanClass() == Polygon.class) {
-								return new PgClientPolygonDeserializer();
-							}
-							return deserializer;
-						}
-					});
-					objectMapper.registerModule(module);
-					shape = objectMapper.readValue(Json.encode(o), Polygon.class);
-				}
-				return shape;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	@JsonIgnore
-	public void setAreaServed(JsonObject o) {
-		this.areaServed = FishPopulation.staticSetAreaServed(siteRequest_, o);
-	}
-	public static Polygon staticSetAreaServed(SiteRequest siteRequest_, JsonObject o) {
-		if(o != null) {
-			try {
-				Polygon shape = new Polygon();
-				o.getJsonArray("coordinates").stream().map(a -> (JsonArray)a).forEach(g -> {
-					g.stream().map(a -> (JsonArray)a).forEach(points -> {
-						shape.addPoint(new Point(Double.parseDouble(points.getString(0)), Double.parseDouble(points.getString(1))));
-					});
-				});
-				return shape;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	protected FishPopulation areaServedInit() {
-		Wrap<Polygon> areaServedWrap = new Wrap<Polygon>().var("areaServed");
-		if(areaServed == null) {
-			_areaServed(areaServedWrap);
-			Optional.ofNullable(areaServedWrap.getO()).ifPresent(o -> {
-				setAreaServed(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static Polygon staticSearchAreaServed(SiteRequest siteRequest_, Polygon o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServed(SiteRequest siteRequest_, Polygon o) {
-		JsonArray pointsArray = new JsonArray();
-		o.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
-		return new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString();
-	}
-
-	public static String staticSearchFqAreaServed(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchAreaServed(siteRequest_, FishPopulation.staticSetAreaServed(siteRequest_, o)).toString();
-	}
-
-	public Polygon sqlAreaServed() {
-		return areaServed;
-	}
-
-	////////
-	// id //
-	////////
-
-
-	/**	 The entity id
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String id;
-
-	/**	<br> The entity id
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:id">Find the entity id in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _id(Wrap<String> w);
-
-	public String getId() {
-		return id;
-	}
-	public void setId(String o) {
-		this.id = FishPopulation.staticSetId(siteRequest_, o);
-	}
-	public static String staticSetId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishPopulation idInit() {
-		Wrap<String> idWrap = new Wrap<String>().var("id");
-		if(id == null) {
-			_id(idWrap);
-			Optional.ofNullable(idWrap.getO()).ifPresent(o -> {
-				setId(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqId(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchId(siteRequest_, FishPopulation.staticSetId(siteRequest_, o)).toString();
-	}
-
-	public String sqlId() {
-		return id;
-	}
-
-	///////////////////
-	// entityShortId //
-	///////////////////
-
-
-	/**	 The entity entityShortId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String entityShortId;
-
-	/**	<br> The entity entityShortId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:entityShortId">Find the entity entityShortId in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _entityShortId(Wrap<String> w);
-
-	public String getEntityShortId() {
-		return entityShortId;
-	}
-	public void setEntityShortId(String o) {
-		this.entityShortId = FishPopulation.staticSetEntityShortId(siteRequest_, o);
-	}
-	public static String staticSetEntityShortId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishPopulation entityShortIdInit() {
-		Wrap<String> entityShortIdWrap = new Wrap<String>().var("entityShortId");
-		if(entityShortId == null) {
-			_entityShortId(entityShortIdWrap);
-			Optional.ofNullable(entityShortIdWrap.getO()).ifPresent(o -> {
-				setEntityShortId(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchEntityShortId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrEntityShortId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqEntityShortId(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchEntityShortId(siteRequest_, FishPopulation.staticSetEntityShortId(siteRequest_, o)).toString();
-	}
-
-	//////////////////
-	// ngsildTenant //
-	//////////////////
-
-
-	/**	 The entity ngsildTenant
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String ngsildTenant;
-
-	/**	<br> The entity ngsildTenant
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:ngsildTenant">Find the entity ngsildTenant in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _ngsildTenant(Wrap<String> w);
-
-	public String getNgsildTenant() {
-		return ngsildTenant;
-	}
-	public void setNgsildTenant(String o) {
-		this.ngsildTenant = FishPopulation.staticSetNgsildTenant(siteRequest_, o);
-	}
-	public static String staticSetNgsildTenant(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishPopulation ngsildTenantInit() {
-		Wrap<String> ngsildTenantWrap = new Wrap<String>().var("ngsildTenant");
-		if(ngsildTenant == null) {
-			_ngsildTenant(ngsildTenantWrap);
-			Optional.ofNullable(ngsildTenantWrap.getO()).ifPresent(o -> {
-				setNgsildTenant(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchNgsildTenant(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrNgsildTenant(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqNgsildTenant(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchNgsildTenant(siteRequest_, FishPopulation.staticSetNgsildTenant(siteRequest_, o)).toString();
-	}
-
-	public String sqlNgsildTenant() {
-		return ngsildTenant;
-	}
-
-	////////////////
-	// ngsildPath //
-	////////////////
-
-
-	/**	 The entity ngsildPath
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String ngsildPath;
-
-	/**	<br> The entity ngsildPath
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:ngsildPath">Find the entity ngsildPath in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _ngsildPath(Wrap<String> w);
-
-	public String getNgsildPath() {
-		return ngsildPath;
-	}
-	public void setNgsildPath(String o) {
-		this.ngsildPath = FishPopulation.staticSetNgsildPath(siteRequest_, o);
-	}
-	public static String staticSetNgsildPath(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishPopulation ngsildPathInit() {
-		Wrap<String> ngsildPathWrap = new Wrap<String>().var("ngsildPath");
-		if(ngsildPath == null) {
-			_ngsildPath(ngsildPathWrap);
-			Optional.ofNullable(ngsildPathWrap.getO()).ifPresent(o -> {
-				setNgsildPath(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchNgsildPath(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrNgsildPath(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqNgsildPath(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchNgsildPath(siteRequest_, FishPopulation.staticSetNgsildPath(siteRequest_, o)).toString();
-	}
-
-	public String sqlNgsildPath() {
-		return ngsildPath;
-	}
-
-	///////////////////
-	// ngsildContext //
-	///////////////////
-
-
-	/**	 The entity ngsildContext
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String ngsildContext;
-
-	/**	<br> The entity ngsildContext
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:ngsildContext">Find the entity ngsildContext in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _ngsildContext(Wrap<String> w);
-
-	public String getNgsildContext() {
-		return ngsildContext;
-	}
-	public void setNgsildContext(String o) {
-		this.ngsildContext = FishPopulation.staticSetNgsildContext(siteRequest_, o);
-	}
-	public static String staticSetNgsildContext(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishPopulation ngsildContextInit() {
-		Wrap<String> ngsildContextWrap = new Wrap<String>().var("ngsildContext");
-		if(ngsildContext == null) {
-			_ngsildContext(ngsildContextWrap);
-			Optional.ofNullable(ngsildContextWrap.getO()).ifPresent(o -> {
-				setNgsildContext(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchNgsildContext(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrNgsildContext(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqNgsildContext(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchNgsildContext(siteRequest_, FishPopulation.staticSetNgsildContext(siteRequest_, o)).toString();
-	}
-
-	public String sqlNgsildContext() {
-		return ngsildContext;
-	}
-
-	////////////////
-	// ngsildData //
-	////////////////
-
-
-	/**	 The entity ngsildData
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonObjectDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonObject ngsildData;
-
-	/**	<br> The entity ngsildData
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:ngsildData">Find the entity ngsildData in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _ngsildData(Wrap<JsonObject> w);
-
-	public JsonObject getNgsildData() {
-		return ngsildData;
-	}
-
-	public void setNgsildData(JsonObject ngsildData) {
-		this.ngsildData = ngsildData;
-	}
-	@JsonIgnore
-	public void setNgsildData(String o) {
-		this.ngsildData = FishPopulation.staticSetNgsildData(siteRequest_, o);
-	}
-	public static JsonObject staticSetNgsildData(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonObject(o);
-		}
-		return null;
-	}
-	protected FishPopulation ngsildDataInit() {
-		Wrap<JsonObject> ngsildDataWrap = new Wrap<JsonObject>().var("ngsildData");
-		if(ngsildData == null) {
-			_ngsildData(ngsildDataWrap);
-			Optional.ofNullable(ngsildDataWrap.getO()).ifPresent(o -> {
-				setNgsildData(o);
-			});
-		}
-		return (FishPopulation)this;
-	}
-
-	public static String staticSearchNgsildData(SiteRequest siteRequest_, JsonObject o) {
-		return o.toString();
-	}
-
-	public static String staticSearchStrNgsildData(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqNgsildData(SiteRequest siteRequest_, String o) {
-		return FishPopulation.staticSearchNgsildData(siteRequest_, FishPopulation.staticSetNgsildData(siteRequest_, o)).toString();
-	}
-
-	public JsonObject sqlNgsildData() {
-		return ngsildData;
-	}
 
 	/////////////
 	// address //
@@ -2063,7 +1160,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		Promise<Void> promise2 = Promise.promise();
 		promiseFishPopulation(promise2);
 		promise2.future().onSuccess(a -> {
-			super.promiseDeepBaseModel(siteRequest_).onSuccess(b -> {
+			super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
 				promise.complete(this);
 			}).onFailure(ex -> {
 				promise.fail(ex);
@@ -2078,19 +1175,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		Future.future(a -> a.complete()).compose(a -> {
 			Promise<Void> promise2 = Promise.promise();
 			try {
-				nameInit();
-				descriptionInit();
-				locationInit();
-				areaServedColorsInit();
-				areaServedTitlesInit();
-				areaServedLinksInit();
-				areaServedInit();
-				idInit();
-				entityShortIdInit();
-				ngsildTenantInit();
-				ngsildPathInit();
-				ngsildContextInit();
-				ngsildDataInit();
 				addressInit();
 				alternateNameInit();
 				bodyMasseInit();
@@ -2127,7 +1211,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	/////////////////
 
 	public void siteRequestFishPopulation(SiteRequest siteRequest_) {
-			super.siteRequestBaseModel(siteRequest_);
+			super.siteRequestMapModel(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequest siteRequest_) {
@@ -2158,32 +1242,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	public Object obtainFishPopulation(String var) {
 		FishPopulation oFishPopulation = (FishPopulation)this;
 		switch(var) {
-			case "name":
-				return oFishPopulation.name;
-			case "description":
-				return oFishPopulation.description;
-			case "location":
-				return oFishPopulation.location;
-			case "areaServedColors":
-				return oFishPopulation.areaServedColors;
-			case "areaServedTitles":
-				return oFishPopulation.areaServedTitles;
-			case "areaServedLinks":
-				return oFishPopulation.areaServedLinks;
-			case "areaServed":
-				return oFishPopulation.areaServed;
-			case "id":
-				return oFishPopulation.id;
-			case "entityShortId":
-				return oFishPopulation.entityShortId;
-			case "ngsildTenant":
-				return oFishPopulation.ngsildTenant;
-			case "ngsildPath":
-				return oFishPopulation.ngsildPath;
-			case "ngsildContext":
-				return oFishPopulation.ngsildContext;
-			case "ngsildData":
-				return oFishPopulation.ngsildData;
 			case "address":
 				return oFishPopulation.address;
 			case "alternateName":
@@ -2213,7 +1271,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 			case "source":
 				return oFishPopulation.source;
 			default:
-				return super.obtainBaseModel(var);
+				return super.obtainMapModel(var);
 		}
 	}
 
@@ -2238,7 +1296,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		FishPopulation oFishPopulation = (FishPopulation)this;
 		switch(var) {
 			default:
-				return super.relateBaseModel(var, val);
+				return super.relateMapModel(var, val);
 		}
 	}
 
@@ -2251,32 +1309,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	}
 	public static Object staticSetFishPopulation(String entityVar, SiteRequest siteRequest_, String v, FishPopulation o) {
 		switch(entityVar) {
-		case "name":
-			return FishPopulation.staticSetName(siteRequest_, v);
-		case "description":
-			return FishPopulation.staticSetDescription(siteRequest_, v);
-		case "location":
-			return FishPopulation.staticSetLocation(siteRequest_, v);
-		case "areaServedColors":
-			return FishPopulation.staticSetAreaServedColors(siteRequest_, v);
-		case "areaServedTitles":
-			return FishPopulation.staticSetAreaServedTitles(siteRequest_, v);
-		case "areaServedLinks":
-			return FishPopulation.staticSetAreaServedLinks(siteRequest_, v);
-		case "areaServed":
-			return FishPopulation.staticSetAreaServed(siteRequest_, v);
-		case "id":
-			return FishPopulation.staticSetId(siteRequest_, v);
-		case "entityShortId":
-			return FishPopulation.staticSetEntityShortId(siteRequest_, v);
-		case "ngsildTenant":
-			return FishPopulation.staticSetNgsildTenant(siteRequest_, v);
-		case "ngsildPath":
-			return FishPopulation.staticSetNgsildPath(siteRequest_, v);
-		case "ngsildContext":
-			return FishPopulation.staticSetNgsildContext(siteRequest_, v);
-		case "ngsildData":
-			return FishPopulation.staticSetNgsildData(siteRequest_, v);
 		case "address":
 			return FishPopulation.staticSetAddress(siteRequest_, v);
 		case "alternateName":
@@ -2306,7 +1338,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case "source":
 			return FishPopulation.staticSetSource(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
+				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 
@@ -2319,32 +1351,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	}
 	public static Object staticSearchFishPopulation(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
-		case "name":
-			return FishPopulation.staticSearchName(siteRequest_, (String)o);
-		case "description":
-			return FishPopulation.staticSearchDescription(siteRequest_, (String)o);
-		case "location":
-			return FishPopulation.staticSearchLocation(siteRequest_, (Point)o);
-		case "areaServedColors":
-			return FishPopulation.staticSearchAreaServedColors(siteRequest_, (String)o);
-		case "areaServedTitles":
-			return FishPopulation.staticSearchAreaServedTitles(siteRequest_, (String)o);
-		case "areaServedLinks":
-			return FishPopulation.staticSearchAreaServedLinks(siteRequest_, (String)o);
-		case "areaServed":
-			return FishPopulation.staticSearchAreaServed(siteRequest_, (Polygon)o);
-		case "id":
-			return FishPopulation.staticSearchId(siteRequest_, (String)o);
-		case "entityShortId":
-			return FishPopulation.staticSearchEntityShortId(siteRequest_, (String)o);
-		case "ngsildTenant":
-			return FishPopulation.staticSearchNgsildTenant(siteRequest_, (String)o);
-		case "ngsildPath":
-			return FishPopulation.staticSearchNgsildPath(siteRequest_, (String)o);
-		case "ngsildContext":
-			return FishPopulation.staticSearchNgsildContext(siteRequest_, (String)o);
-		case "ngsildData":
-			return FishPopulation.staticSearchNgsildData(siteRequest_, (JsonObject)o);
 		case "address":
 			return FishPopulation.staticSearchAddress(siteRequest_, (JsonObject)o);
 		case "alternateName":
@@ -2374,7 +1380,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case "source":
 			return FishPopulation.staticSearchSource(siteRequest_, (String)o);
 			default:
-				return BaseModel.staticSearchBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -2387,32 +1393,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	}
 	public static String staticSearchStrFishPopulation(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
-		case "name":
-			return FishPopulation.staticSearchStrName(siteRequest_, (String)o);
-		case "description":
-			return FishPopulation.staticSearchStrDescription(siteRequest_, (String)o);
-		case "location":
-			return FishPopulation.staticSearchStrLocation(siteRequest_, (Point)o);
-		case "areaServedColors":
-			return FishPopulation.staticSearchStrAreaServedColors(siteRequest_, (String)o);
-		case "areaServedTitles":
-			return FishPopulation.staticSearchStrAreaServedTitles(siteRequest_, (String)o);
-		case "areaServedLinks":
-			return FishPopulation.staticSearchStrAreaServedLinks(siteRequest_, (String)o);
-		case "areaServed":
-			return FishPopulation.staticSearchStrAreaServed(siteRequest_, (Polygon)o);
-		case "id":
-			return FishPopulation.staticSearchStrId(siteRequest_, (String)o);
-		case "entityShortId":
-			return FishPopulation.staticSearchStrEntityShortId(siteRequest_, (String)o);
-		case "ngsildTenant":
-			return FishPopulation.staticSearchStrNgsildTenant(siteRequest_, (String)o);
-		case "ngsildPath":
-			return FishPopulation.staticSearchStrNgsildPath(siteRequest_, (String)o);
-		case "ngsildContext":
-			return FishPopulation.staticSearchStrNgsildContext(siteRequest_, (String)o);
-		case "ngsildData":
-			return FishPopulation.staticSearchStrNgsildData(siteRequest_, (String)o);
 		case "address":
 			return FishPopulation.staticSearchStrAddress(siteRequest_, (String)o);
 		case "alternateName":
@@ -2442,7 +1422,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case "source":
 			return FishPopulation.staticSearchStrSource(siteRequest_, (String)o);
 			default:
-				return BaseModel.staticSearchStrBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -2455,32 +1435,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	}
 	public static String staticSearchFqFishPopulation(String entityVar, SiteRequest siteRequest_, String o) {
 		switch(entityVar) {
-		case "name":
-			return FishPopulation.staticSearchFqName(siteRequest_, o);
-		case "description":
-			return FishPopulation.staticSearchFqDescription(siteRequest_, o);
-		case "location":
-			return FishPopulation.staticSearchFqLocation(siteRequest_, o);
-		case "areaServedColors":
-			return FishPopulation.staticSearchFqAreaServedColors(siteRequest_, o);
-		case "areaServedTitles":
-			return FishPopulation.staticSearchFqAreaServedTitles(siteRequest_, o);
-		case "areaServedLinks":
-			return FishPopulation.staticSearchFqAreaServedLinks(siteRequest_, o);
-		case "areaServed":
-			return FishPopulation.staticSearchFqAreaServed(siteRequest_, o);
-		case "id":
-			return FishPopulation.staticSearchFqId(siteRequest_, o);
-		case "entityShortId":
-			return FishPopulation.staticSearchFqEntityShortId(siteRequest_, o);
-		case "ngsildTenant":
-			return FishPopulation.staticSearchFqNgsildTenant(siteRequest_, o);
-		case "ngsildPath":
-			return FishPopulation.staticSearchFqNgsildPath(siteRequest_, o);
-		case "ngsildContext":
-			return FishPopulation.staticSearchFqNgsildContext(siteRequest_, o);
-		case "ngsildData":
-			return FishPopulation.staticSearchFqNgsildData(siteRequest_, o);
 		case "address":
 			return FishPopulation.staticSearchFqAddress(siteRequest_, o);
 		case "alternateName":
@@ -2510,7 +1464,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case "source":
 			return FishPopulation.staticSearchFqSource(siteRequest_, o);
 			default:
-				return BaseModel.staticSearchFqBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -2535,67 +1489,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	}
 	public Object persistFishPopulation(String var, Object val) {
 		String varLower = var.toLowerCase();
-			if("name".equals(varLower)) {
-				if(val instanceof String) {
-					setName((String)val);
-				}
-				saves.add("name");
-				return val;
-			} else if("description".equals(varLower)) {
-				if(val instanceof String) {
-					setDescription((String)val);
-				}
-				saves.add("description");
-				return val;
-			} else if("location".equals(varLower)) {
-				if(val instanceof String) {
-					setLocation((String)val);
-				} else if(val instanceof Point) {
-					setLocation((Point)val);
-				}
-				saves.add("location");
-				return val;
-			} else if("areaserved".equals(varLower)) {
-				if(val instanceof Polygon) {
-					setAreaServed((Polygon)val);
-				} else {
-					setAreaServed(val == null ? null : val.toString());
-				}
-				saves.add("areaServed");
-				return val;
-			} else if("id".equals(varLower)) {
-				if(val instanceof String) {
-					setId((String)val);
-				}
-				saves.add("id");
-				return val;
-			} else if("ngsildtenant".equals(varLower)) {
-				if(val instanceof String) {
-					setNgsildTenant((String)val);
-				}
-				saves.add("ngsildTenant");
-				return val;
-			} else if("ngsildpath".equals(varLower)) {
-				if(val instanceof String) {
-					setNgsildPath((String)val);
-				}
-				saves.add("ngsildPath");
-				return val;
-			} else if("ngsildcontext".equals(varLower)) {
-				if(val instanceof String) {
-					setNgsildContext((String)val);
-				}
-				saves.add("ngsildContext");
-				return val;
-			} else if("ngsilddata".equals(varLower)) {
-				if(val instanceof String) {
-					setNgsildData((String)val);
-				} else if(val instanceof JsonObject) {
-					setNgsildData((JsonObject)val);
-				}
-				saves.add("ngsildData");
-				return val;
-			} else if("address".equals(varLower)) {
+			if("address".equals(varLower)) {
 				if(val instanceof String) {
 					setAddress((String)val);
 				} else if(val instanceof JsonObject) {
@@ -2696,7 +1590,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 				saves.add("source");
 				return val;
 		} else {
-			return super.persistBaseModel(var, val);
+			return super.persistMapModel(var, val);
 		}
 	}
 
@@ -2711,93 +1605,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		FishPopulation oFishPopulation = (FishPopulation)this;
 		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
 		if(saves != null) {
-
-			if(saves.contains("name")) {
-				String name = (String)doc.get("name_docvalues_string");
-				if(name != null)
-					oFishPopulation.setName(name);
-			}
-
-			if(saves.contains("description")) {
-				String description = (String)doc.get("description_docvalues_string");
-				if(description != null)
-					oFishPopulation.setDescription(description);
-			}
-
-			if(saves.contains("location")) {
-				Point location = (Point)doc.get("location_docvalues_location");
-				if(location != null)
-					oFishPopulation.setLocation(location);
-			}
-
-			if(saves.contains("areaServedColors")) {
-				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
-				if(areaServedColors != null) {
-					areaServedColors.stream().forEach( v -> {
-						oFishPopulation.areaServedColors.add(FishPopulation.staticSetAreaServedColors(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("areaServedTitles")) {
-				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
-				if(areaServedTitles != null) {
-					areaServedTitles.stream().forEach( v -> {
-						oFishPopulation.areaServedTitles.add(FishPopulation.staticSetAreaServedTitles(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("areaServedLinks")) {
-				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
-				if(areaServedLinks != null) {
-					areaServedLinks.stream().forEach( v -> {
-						oFishPopulation.areaServedLinks.add(FishPopulation.staticSetAreaServedLinks(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("areaServed")) {
-				Polygon areaServed = (Polygon)doc.get("areaServed_docvalues_location");
-				if(areaServed != null)
-					oFishPopulation.setAreaServed(areaServed);
-			}
-
-			if(saves.contains("id")) {
-				String id = (String)doc.get("id_docvalues_string");
-				if(id != null)
-					oFishPopulation.setId(id);
-			}
-
-			if(saves.contains("entityShortId")) {
-				String entityShortId = (String)doc.get("entityShortId_docvalues_string");
-				if(entityShortId != null)
-					oFishPopulation.setEntityShortId(entityShortId);
-			}
-
-			if(saves.contains("ngsildTenant")) {
-				String ngsildTenant = (String)doc.get("ngsildTenant_docvalues_string");
-				if(ngsildTenant != null)
-					oFishPopulation.setNgsildTenant(ngsildTenant);
-			}
-
-			if(saves.contains("ngsildPath")) {
-				String ngsildPath = (String)doc.get("ngsildPath_docvalues_string");
-				if(ngsildPath != null)
-					oFishPopulation.setNgsildPath(ngsildPath);
-			}
-
-			if(saves.contains("ngsildContext")) {
-				String ngsildContext = (String)doc.get("ngsildContext_docvalues_string");
-				if(ngsildContext != null)
-					oFishPopulation.setNgsildContext(ngsildContext);
-			}
-
-			if(saves.contains("ngsildData")) {
-				String ngsildData = (String)doc.get("ngsildData_docvalues_string");
-				if(ngsildData != null)
-					oFishPopulation.setNgsildData(ngsildData);
-			}
 
 			if(saves.contains("address")) {
 				String address = (String)doc.get("address_docvalues_string");
@@ -2884,63 +1691,10 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 			}
 		}
 
-		super.populateBaseModel(doc);
+		super.populateMapModel(doc);
 	}
 
 	public void indexFishPopulation(JsonObject doc) {
-		if(name != null) {
-			doc.put("name_docvalues_string", name);
-		}
-		if(description != null) {
-			doc.put("description_docvalues_string", description);
-		}
-		if(location != null) {
-			doc.put("location_docvalues_location", String.format("%s,%s", location.getY(), location.getX()));
-		}
-		if(areaServedColors != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedColors_indexedstored_strings", l);
-			for(String o : areaServedColors) {
-				l.add(FishPopulation.staticSearchAreaServedColors(siteRequest_, o));
-			}
-		}
-		if(areaServedTitles != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedTitles_indexedstored_strings", l);
-			for(String o : areaServedTitles) {
-				l.add(FishPopulation.staticSearchAreaServedTitles(siteRequest_, o));
-			}
-		}
-		if(areaServedLinks != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedLinks_indexedstored_strings", l);
-			for(String o : areaServedLinks) {
-				l.add(FishPopulation.staticSearchAreaServedLinks(siteRequest_, o));
-			}
-		}
-		if(areaServed != null) {
-			JsonArray pointsArray = new JsonArray();
-			areaServed.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
-			doc.put("areaServed_docvalues_location", new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString());
-		}
-		if(id != null) {
-			doc.put("id_docvalues_string", id);
-		}
-		if(entityShortId != null) {
-			doc.put("entityShortId_docvalues_string", entityShortId);
-		}
-		if(ngsildTenant != null) {
-			doc.put("ngsildTenant_docvalues_string", ngsildTenant);
-		}
-		if(ngsildPath != null) {
-			doc.put("ngsildPath_docvalues_string", ngsildPath);
-		}
-		if(ngsildContext != null) {
-			doc.put("ngsildContext_docvalues_string", ngsildContext);
-		}
-		if(ngsildData != null) {
-			doc.put("ngsildData_docvalues_string", ngsildData.encode());
-		}
 		if(address != null) {
 			doc.put("address_docvalues_string", address.encode());
 		}
@@ -2983,38 +1737,12 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		if(source != null) {
 			doc.put("source_docvalues_string", source);
 		}
-		super.indexBaseModel(doc);
+		super.indexMapModel(doc);
 
 	}
 
 	public static String varStoredFishPopulation(String entityVar) {
 		switch(entityVar) {
-			case "name":
-				return "name_docvalues_string";
-			case "description":
-				return "description_docvalues_string";
-			case "location":
-				return "location_docvalues_location";
-			case "areaServedColors":
-				return "areaServedColors_indexedstored_strings";
-			case "areaServedTitles":
-				return "areaServedTitles_indexedstored_strings";
-			case "areaServedLinks":
-				return "areaServedLinks_indexedstored_strings";
-			case "areaServed":
-				return "areaServed_docvalues_location";
-			case "id":
-				return "id_docvalues_string";
-			case "entityShortId":
-				return "entityShortId_docvalues_string";
-			case "ngsildTenant":
-				return "ngsildTenant_docvalues_string";
-			case "ngsildPath":
-				return "ngsildPath_docvalues_string";
-			case "ngsildContext":
-				return "ngsildContext_docvalues_string";
-			case "ngsildData":
-				return "ngsildData_docvalues_string";
 			case "address":
 				return "address_docvalues_string";
 			case "alternateName":
@@ -3044,38 +1772,12 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 			case "source":
 				return "source_docvalues_string";
 			default:
-				return BaseModel.varStoredBaseModel(entityVar);
+				return MapModel.varStoredMapModel(entityVar);
 		}
 	}
 
 	public static String varIndexedFishPopulation(String entityVar) {
 		switch(entityVar) {
-			case "name":
-				return "name_docvalues_string";
-			case "description":
-				return "description_docvalues_string";
-			case "location":
-				return "location_docvalues_location";
-			case "areaServedColors":
-				return "areaServedColors_indexedstored_strings";
-			case "areaServedTitles":
-				return "areaServedTitles_indexedstored_strings";
-			case "areaServedLinks":
-				return "areaServedLinks_indexedstored_strings";
-			case "areaServed":
-				return "areaServed_docvalues_location";
-			case "id":
-				return "id_docvalues_string";
-			case "entityShortId":
-				return "entityShortId_docvalues_string";
-			case "ngsildTenant":
-				return "ngsildTenant_docvalues_string";
-			case "ngsildPath":
-				return "ngsildPath_docvalues_string";
-			case "ngsildContext":
-				return "ngsildContext_docvalues_string";
-			case "ngsildData":
-				return "ngsildData_docvalues_string";
 			case "address":
 				return "address_docvalues_string";
 			case "alternateName":
@@ -3105,38 +1807,12 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 			case "source":
 				return "source_docvalues_string";
 			default:
-				return BaseModel.varIndexedBaseModel(entityVar);
+				return MapModel.varIndexedMapModel(entityVar);
 		}
 	}
 
 	public static String searchVarFishPopulation(String searchVar) {
 		switch(searchVar) {
-			case "name_docvalues_string":
-				return "name";
-			case "description_docvalues_string":
-				return "description";
-			case "location_docvalues_location":
-				return "location";
-			case "areaServedColors_indexedstored_strings":
-				return "areaServedColors";
-			case "areaServedTitles_indexedstored_strings":
-				return "areaServedTitles";
-			case "areaServedLinks_indexedstored_strings":
-				return "areaServedLinks";
-			case "areaServed_docvalues_location":
-				return "areaServed";
-			case "id_docvalues_string":
-				return "id";
-			case "entityShortId_docvalues_string":
-				return "entityShortId";
-			case "ngsildTenant_docvalues_string":
-				return "ngsildTenant";
-			case "ngsildPath_docvalues_string":
-				return "ngsildPath";
-			case "ngsildContext_docvalues_string":
-				return "ngsildContext";
-			case "ngsildData_docvalues_string":
-				return "ngsildData";
 			case "address_docvalues_string":
 				return "address";
 			case "alternateName_docvalues_string":
@@ -3166,21 +1842,21 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 			case "source_docvalues_string":
 				return "source";
 			default:
-				return BaseModel.searchVarBaseModel(searchVar);
+				return MapModel.searchVarMapModel(searchVar);
 		}
 	}
 
 	public static String varSearchFishPopulation(String entityVar) {
 		switch(entityVar) {
 			default:
-				return BaseModel.varSearchBaseModel(entityVar);
+				return MapModel.varSearchMapModel(entityVar);
 		}
 	}
 
 	public static String varSuggestedFishPopulation(String entityVar) {
 		switch(entityVar) {
 			default:
-				return BaseModel.varSuggestedBaseModel(entityVar);
+				return MapModel.varSuggestedMapModel(entityVar);
 		}
 	}
 
@@ -3195,25 +1871,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		FishPopulation oFishPopulation = (FishPopulation)this;
 		SiteRequest siteRequest = oFishPopulation.getSiteRequest_();
 
-		oFishPopulation.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setDescription(Optional.ofNullable(doc.get("description_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setLocation(Optional.ofNullable(doc.get("location_docvalues_location")).map(v -> v.toString()).orElse(null));
-		Optional.ofNullable((List<?>)doc.get("areaServedColors_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oFishPopulation.addAreaServedColors(FishPopulation.staticSetAreaServedColors(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((List<?>)doc.get("areaServedTitles_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oFishPopulation.addAreaServedTitles(FishPopulation.staticSetAreaServedTitles(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((List<?>)doc.get("areaServedLinks_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oFishPopulation.addAreaServedLinks(FishPopulation.staticSetAreaServedLinks(siteRequest, v.toString()));
-		});
-		oFishPopulation.setAreaServed(Optional.ofNullable(doc.get("areaServed_docvalues_location")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setId(Optional.ofNullable(doc.get("id_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setEntityShortId(Optional.ofNullable(doc.get("entityShortId_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setNgsildTenant(Optional.ofNullable(doc.get("ngsildTenant_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setNgsildPath(Optional.ofNullable(doc.get("ngsildPath_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setNgsildContext(Optional.ofNullable(doc.get("ngsildContext_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishPopulation.setNgsildData(Optional.ofNullable(doc.get("ngsildData_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishPopulation.setAddress(Optional.ofNullable(doc.get("address_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishPopulation.setAlternateName(Optional.ofNullable(doc.get("alternateName_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishPopulation.setBodyMasse(Optional.ofNullable(doc.get("bodyMasse_docvalues_double")).map(v -> v.toString()).orElse(null));
@@ -3229,7 +1886,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		oFishPopulation.setSeeAlso(Optional.ofNullable(doc.get("seeAlso_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishPopulation.setSource(Optional.ofNullable(doc.get("source_docvalues_string")).map(v -> v.toString()).orElse(null));
 
-		super.storeBaseModel(doc);
+		super.storeMapModel(doc);
 	}
 
 	//////////////////
@@ -3241,32 +1898,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
 		if(o != null && o instanceof FishPopulation) {
 			FishPopulation original = (FishPopulation)o;
-			if(!Objects.equals(name, original.getName()))
-				apiRequest.addVars("name");
-			if(!Objects.equals(description, original.getDescription()))
-				apiRequest.addVars("description");
-			if(!Objects.equals(location, original.getLocation()))
-				apiRequest.addVars("location");
-			if(!Objects.equals(areaServedColors, original.getAreaServedColors()))
-				apiRequest.addVars("areaServedColors");
-			if(!Objects.equals(areaServedTitles, original.getAreaServedTitles()))
-				apiRequest.addVars("areaServedTitles");
-			if(!Objects.equals(areaServedLinks, original.getAreaServedLinks()))
-				apiRequest.addVars("areaServedLinks");
-			if(!Objects.equals(areaServed, original.getAreaServed()))
-				apiRequest.addVars("areaServed");
-			if(!Objects.equals(id, original.getId()))
-				apiRequest.addVars("id");
-			if(!Objects.equals(entityShortId, original.getEntityShortId()))
-				apiRequest.addVars("entityShortId");
-			if(!Objects.equals(ngsildTenant, original.getNgsildTenant()))
-				apiRequest.addVars("ngsildTenant");
-			if(!Objects.equals(ngsildPath, original.getNgsildPath()))
-				apiRequest.addVars("ngsildPath");
-			if(!Objects.equals(ngsildContext, original.getNgsildContext()))
-				apiRequest.addVars("ngsildContext");
-			if(!Objects.equals(ngsildData, original.getNgsildData()))
-				apiRequest.addVars("ngsildData");
 			if(!Objects.equals(address, original.getAddress()))
 				apiRequest.addVars("address");
 			if(!Objects.equals(alternateName, original.getAlternateName()))
@@ -3295,7 +1926,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 				apiRequest.addVars("seeAlso");
 			if(!Objects.equals(source, original.getSource()))
 				apiRequest.addVars("source");
-			super.apiRequestBaseModel();
+			super.apiRequestMapModel();
 		}
 	}
 
@@ -3306,19 +1937,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	@Override public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(description).map(v -> "description: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(location).map(v -> "location: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedColors).map(v -> "areaServedColors: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedTitles).map(v -> "areaServedTitles: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedLinks).map(v -> "areaServedLinks: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServed).map(v -> "areaServed: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(id).map(v -> "id: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(entityShortId).map(v -> "entityShortId: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(ngsildTenant).map(v -> "ngsildTenant: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(ngsildPath).map(v -> "ngsildPath: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(ngsildContext).map(v -> "ngsildContext: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(ngsildData).map(v -> "ngsildData: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(address).map(v -> "address: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(alternateName).map(v -> "alternateName: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(bodyMasse).map(v -> "bodyMasse: " + v + "\n").orElse(""));
@@ -3342,19 +1960,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishPopulation;
 	}
-	public static final String VAR_name = "name";
-	public static final String VAR_description = "description";
-	public static final String VAR_location = "location";
-	public static final String VAR_areaServedColors = "areaServedColors";
-	public static final String VAR_areaServedTitles = "areaServedTitles";
-	public static final String VAR_areaServedLinks = "areaServedLinks";
-	public static final String VAR_areaServed = "areaServed";
-	public static final String VAR_id = "id";
-	public static final String VAR_entityShortId = "entityShortId";
-	public static final String VAR_ngsildTenant = "ngsildTenant";
-	public static final String VAR_ngsildPath = "ngsildPath";
-	public static final String VAR_ngsildContext = "ngsildContext";
-	public static final String VAR_ngsildData = "ngsildData";
 	public static final String VAR_address = "address";
 	public static final String VAR_alternateName = "alternateName";
 	public static final String VAR_bodyMasse = "bodyMasse";
@@ -3374,7 +1979,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		return FishPopulation.varsQFishPopulation(new ArrayList<String>());
 	}
 	public static List<String> varsQFishPopulation(List<String> vars) {
-		BaseModel.varsQBaseModel(vars);
+		MapModel.varsQMapModel(vars);
 		return vars;
 	}
 
@@ -3382,16 +1987,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		return FishPopulation.varsFqFishPopulation(new ArrayList<String>());
 	}
 	public static List<String> varsFqFishPopulation(List<String> vars) {
-		vars.add(VAR_name);
-		vars.add(VAR_description);
-		vars.add(VAR_location);
-		vars.add(VAR_areaServed);
-		vars.add(VAR_id);
-		vars.add(VAR_entityShortId);
-		vars.add(VAR_ngsildTenant);
-		vars.add(VAR_ngsildPath);
-		vars.add(VAR_ngsildContext);
-		vars.add(VAR_ngsildData);
 		vars.add(VAR_address);
 		vars.add(VAR_alternateName);
 		vars.add(VAR_bodyMasse);
@@ -3406,7 +2001,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		vars.add(VAR_relatedSource);
 		vars.add(VAR_seeAlso);
 		vars.add(VAR_source);
-		BaseModel.varsFqBaseModel(vars);
+		MapModel.varsFqMapModel(vars);
 		return vars;
 	}
 
@@ -3414,8 +2009,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		return FishPopulation.varsRangeFishPopulation(new ArrayList<String>());
 	}
 	public static List<String> varsRangeFishPopulation(List<String> vars) {
-		vars.add(VAR_location);
-		vars.add(VAR_ngsildData);
 		vars.add(VAR_address);
 		vars.add(VAR_bodyMasse);
 		vars.add(VAR_culturedIn);
@@ -3424,23 +2017,10 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		vars.add(VAR_owner);
 		vars.add(VAR_refSpecie);
 		vars.add(VAR_relatedSource);
-		BaseModel.varsRangeBaseModel(vars);
+		MapModel.varsRangeMapModel(vars);
 		return vars;
 	}
 
-	public static final String DISPLAY_NAME_name = "name";
-	public static final String DISPLAY_NAME_description = "description";
-	public static final String DISPLAY_NAME_location = "location";
-	public static final String DISPLAY_NAME_areaServedColors = "area served colors";
-	public static final String DISPLAY_NAME_areaServedTitles = "area served titles";
-	public static final String DISPLAY_NAME_areaServedLinks = "area served links";
-	public static final String DISPLAY_NAME_areaServed = "area served";
-	public static final String DISPLAY_NAME_id = "id";
-	public static final String DISPLAY_NAME_entityShortId = "short entity ID";
-	public static final String DISPLAY_NAME_ngsildTenant = "NGSILD-Tenant";
-	public static final String DISPLAY_NAME_ngsildPath = "NGSILD-Path";
-	public static final String DISPLAY_NAME_ngsildContext = "NGSILD context";
-	public static final String DISPLAY_NAME_ngsildData = "NGSILD data";
 	public static final String DISPLAY_NAME_address = "address";
 	public static final String DISPLAY_NAME_alternateName = "alternate name";
 	public static final String DISPLAY_NAME_bodyMasse = "body masse";
@@ -3478,7 +2058,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 
 	@Override
 	public String descriptionForClass() {
-		return description;
+		return null;
 	}
 
 	@Override
@@ -3506,32 +2086,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 	}
 	public static String displayNameFishPopulation(String var) {
 		switch(var) {
-		case VAR_name:
-			return DISPLAY_NAME_name;
-		case VAR_description:
-			return DISPLAY_NAME_description;
-		case VAR_location:
-			return DISPLAY_NAME_location;
-		case VAR_areaServedColors:
-			return DISPLAY_NAME_areaServedColors;
-		case VAR_areaServedTitles:
-			return DISPLAY_NAME_areaServedTitles;
-		case VAR_areaServedLinks:
-			return DISPLAY_NAME_areaServedLinks;
-		case VAR_areaServed:
-			return DISPLAY_NAME_areaServed;
-		case VAR_id:
-			return DISPLAY_NAME_id;
-		case VAR_entityShortId:
-			return DISPLAY_NAME_entityShortId;
-		case VAR_ngsildTenant:
-			return DISPLAY_NAME_ngsildTenant;
-		case VAR_ngsildPath:
-			return DISPLAY_NAME_ngsildPath;
-		case VAR_ngsildContext:
-			return DISPLAY_NAME_ngsildContext;
-		case VAR_ngsildData:
-			return DISPLAY_NAME_ngsildData;
 		case VAR_address:
 			return DISPLAY_NAME_address;
 		case VAR_alternateName:
@@ -3561,7 +2115,7 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case VAR_source:
 			return DISPLAY_NAME_source;
 		default:
-			return BaseModel.displayNameBaseModel(var);
+			return MapModel.displayNameMapModel(var);
 		}
 	}
 
@@ -3569,32 +2123,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		if(var == null)
 			return null;
 		switch(var) {
-		case VAR_name:
-			return "The name of this item";
-		case VAR_description:
-			return "A description of this item";
-		case VAR_location:
-			return "Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon";
-		case VAR_areaServedColors:
-			return "The colors of each areaServed Paths. ";
-		case VAR_areaServedTitles:
-			return "The titles of each areaServed Paths. ";
-		case VAR_areaServedLinks:
-			return "The links of each areaServed Paths. ";
-		case VAR_areaServed:
-			return "The geographic area where a service or offered item is provided";
-		case VAR_id:
-			return "Unique identifier of the entity";
-		case VAR_entityShortId:
-			return "A short ID for this Smart Data Model";
-		case VAR_ngsildTenant:
-			return "The NGSILD-Tenant or Fiware-Service";
-		case VAR_ngsildPath:
-			return "The NGSILD-Path or Fiware-ServicePath";
-		case VAR_ngsildContext:
-			return "The NGSILD context URL for @context data";
-		case VAR_ngsildData:
-			return "The NGSILD data with @context from the context broker";
 		case VAR_address:
 			return "The mailing address";
 		case VAR_alternateName:
@@ -3624,38 +2152,12 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case VAR_source:
 			return "A sequence of characters giving the original source of the entity data as a URL. Recommended to be the fully qualified domain name of the source provider, or the URL to the source object";
 			default:
-				return BaseModel.descriptionBaseModel(var);
+				return MapModel.descriptionMapModel(var);
 		}
 	}
 
 	public static String classSimpleNameFishPopulation(String var) {
 		switch(var) {
-		case VAR_name:
-			return "String";
-		case VAR_description:
-			return "String";
-		case VAR_location:
-			return "Point";
-		case VAR_areaServedColors:
-			return "List";
-		case VAR_areaServedTitles:
-			return "List";
-		case VAR_areaServedLinks:
-			return "List";
-		case VAR_areaServed:
-			return "Polygon";
-		case VAR_id:
-			return "String";
-		case VAR_entityShortId:
-			return "String";
-		case VAR_ngsildTenant:
-			return "String";
-		case VAR_ngsildPath:
-			return "String";
-		case VAR_ngsildContext:
-			return "String";
-		case VAR_ngsildData:
-			return "JsonObject";
 		case VAR_address:
 			return "JsonObject";
 		case VAR_alternateName:
@@ -3685,38 +2187,12 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case VAR_source:
 			return "String";
 			default:
-				return BaseModel.classSimpleNameBaseModel(var);
+				return MapModel.classSimpleNameMapModel(var);
 		}
 	}
 
 	public static String ngsiType(String var) {
 		switch(var) {
-		case VAR_name:
-			return "Property";
-		case VAR_description:
-			return "Property";
-		case VAR_location:
-			return "GeoProperty";
-		case VAR_areaServedColors:
-			return "Property";
-		case VAR_areaServedTitles:
-			return "Property";
-		case VAR_areaServedLinks:
-			return "Property";
-		case VAR_areaServed:
-			return "GeoProperty";
-		case VAR_id:
-			return "Property";
-		case VAR_entityShortId:
-			return "Property";
-		case VAR_ngsildTenant:
-			return "Property";
-		case VAR_ngsildPath:
-			return "Property";
-		case VAR_ngsildContext:
-			return "Property";
-		case VAR_ngsildData:
-			return "Property";
 		case VAR_address:
 			return "Property";
 		case VAR_alternateName:
@@ -3752,34 +2228,6 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 
 	public static Object ngsiFishPopulation(String var, FishPopulation o) {
 		switch(var) {
-		case VAR_name:
-			return o.getName();
-		case VAR_description:
-			return o.getDescription();
-		case VAR_location:
-			return new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(Double.valueOf(o.getLocation().getX())).add(Double.valueOf(o.getLocation().getY())));
-		case VAR_areaServedColors:
-			return o.getAreaServedColors();
-		case VAR_areaServedTitles:
-			return o.getAreaServedTitles();
-		case VAR_areaServedLinks:
-			return o.getAreaServedLinks();
-		case VAR_areaServed:
-			JsonArray pointsArrayAreaServed = new JsonArray();
-			o.getAreaServed().getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArrayAreaServed.add(pointArray));
-			return new JsonObject().put("type", "LineString").put("coordinates", pointsArrayAreaServed);
-		case VAR_id:
-			return o.getId();
-		case VAR_entityShortId:
-			return o.getEntityShortId();
-		case VAR_ngsildTenant:
-			return o.getNgsildTenant();
-		case VAR_ngsildPath:
-			return o.getNgsildPath();
-		case VAR_ngsildContext:
-			return o.getNgsildContext();
-		case VAR_ngsildData:
-			return o.getNgsildData();
 		case VAR_address:
 			return o.getAddress();
 		case VAR_alternateName:
@@ -3815,35 +2263,13 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 
 	public static Integer htmColumnFishPopulation(String var) {
 		switch(var) {
-		case VAR_name:
-			return 1;
-		case VAR_description:
-			return 2;
 			default:
-				return BaseModel.htmColumnBaseModel(var);
+				return MapModel.htmColumnMapModel(var);
 		}
 	}
 
 	public static Integer htmRowFishPopulation(String var) {
 		switch(var) {
-		case VAR_name:
-			return 3;
-		case VAR_description:
-			return 3;
-		case VAR_location:
-			return 4;
-		case VAR_areaServed:
-			return 4;
-		case VAR_id:
-			return 5;
-		case VAR_ngsildTenant:
-			return 5;
-		case VAR_ngsildPath:
-			return 5;
-		case VAR_ngsildContext:
-			return 5;
-		case VAR_ngsildData:
-			return 5;
 		case VAR_address:
 			return 6;
 		case VAR_alternateName:
@@ -3873,30 +2299,12 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case VAR_source:
 			return 6;
 			default:
-				return BaseModel.htmRowBaseModel(var);
+				return MapModel.htmRowMapModel(var);
 		}
 	}
 
 	public static Integer htmCellFishPopulation(String var) {
 		switch(var) {
-		case VAR_name:
-			return 0;
-		case VAR_description:
-			return 1;
-		case VAR_location:
-			return 0;
-		case VAR_areaServed:
-			return 1;
-		case VAR_id:
-			return 0;
-		case VAR_ngsildTenant:
-			return 1;
-		case VAR_ngsildPath:
-			return 2;
-		case VAR_ngsildContext:
-			return 3;
-		case VAR_ngsildData:
-			return 4;
 		case VAR_address:
 			return 0;
 		case VAR_alternateName:
@@ -3926,35 +2334,35 @@ public abstract class FishPopulationGen<DEV> extends BaseModel {
 		case VAR_source:
 			return 13;
 			default:
-				return BaseModel.htmCellBaseModel(var);
+				return MapModel.htmCellMapModel(var);
 		}
 	}
 
 	public static Integer lengthMinFishPopulation(String var) {
 		switch(var) {
 			default:
-				return BaseModel.lengthMinBaseModel(var);
+				return MapModel.lengthMinMapModel(var);
 		}
 	}
 
 	public static Integer lengthMaxFishPopulation(String var) {
 		switch(var) {
 			default:
-				return BaseModel.lengthMaxBaseModel(var);
+				return MapModel.lengthMaxMapModel(var);
 		}
 	}
 
 	public static Integer maxFishPopulation(String var) {
 		switch(var) {
 			default:
-				return BaseModel.maxBaseModel(var);
+				return MapModel.maxMapModel(var);
 		}
 	}
 
 	public static Integer minFishPopulation(String var) {
 		switch(var) {
 			default:
-				return BaseModel.minBaseModel(var);
+				return MapModel.minMapModel(var);
 		}
 	}
 }

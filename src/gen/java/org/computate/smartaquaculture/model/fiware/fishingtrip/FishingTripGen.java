@@ -1,6 +1,7 @@
 package org.computate.smartaquaculture.model.fiware.fishingtrip;
 
 import org.computate.smartaquaculture.request.SiteRequest;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.smartaquaculture.model.BaseModel;
 import io.vertx.core.json.JsonObject;
 import java.util.Date;
@@ -35,7 +36,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.math.RoundingMode;
 import java.util.Map;
-import java.lang.Long;
 import java.lang.String;
 import org.computate.smartaquaculture.model.timezone.TimeZone;
 import java.time.ZonedDateTime;
@@ -60,7 +60,7 @@ import org.computate.search.response.solr.SolrResponse;
 <h3>Suggestions that can generate more code for you: </h3> * </ol>
  * <li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class FishingTripGen into the class FishingTrip. 
  * </li>
- * <h3>About the FishingTrip class and it's generated class FishingTripGen&lt;BaseModel&gt;: </h3>extends FishingTripGen
+ * <h3>About the FishingTrip class and it's generated class FishingTripGen&lt;MapModel&gt;: </h3>extends FishingTripGen
  * <p>
  * This Java class extends a generated Java class FishingTripGen built by the <a href="https://github.com/computate-org/computate">https://github.com/computate-org/computate</a> project. 
  * Whenever this Java class is modified or touched, the watch service installed as described in the README, indexes all the information about this Java class in a local Apache Solr Search Engine. 
@@ -71,9 +71,9 @@ import org.computate.search.response.solr.SolrResponse;
  * The extended class ending with "Gen" did not exist at first, but was automatically created by the same watch service based on the data retrieved from the local Apache Server search engine. 
  * The extended class contains many generated fields, getters, setters, initialization code, and helper methods to help build a website and API fast, reactive, and scalable. 
  * </p>
- * extends FishingTripGen<BaseModel>
- * <p>This <code>class FishingTrip extends FishingTripGen&lt;BaseModel&gt;</code>, which means it extends a newly generated FishingTripGen. 
- * The generated <code>class FishingTripGen extends BaseModel</code> which means that FishingTrip extends FishingTripGen which extends BaseModel. 
+ * extends FishingTripGen<MapModel>
+ * <p>This <code>class FishingTrip extends FishingTripGen&lt;MapModel&gt;</code>, which means it extends a newly generated FishingTripGen. 
+ * The generated <code>class FishingTripGen extends MapModel</code> which means that FishingTrip extends FishingTripGen which extends MapModel. 
  * This generated inheritance is a powerful feature that allows a lot of boiler plate code to be created for you automatically while still preserving inheritance through the power of Java Generic classes. 
  * </p>
  * <h2>Api: true</h2>
@@ -183,7 +183,7 @@ import org.computate.search.response.solr.SolrResponse;
  * </p>
  * Generated: true
  **/
-public abstract class FishingTripGen<DEV> extends BaseModel {
+public abstract class FishingTripGen<DEV> extends MapModel {
 	protected static final Logger LOG = LoggerFactory.getLogger(FishingTrip.class);
 
 	public static final String Description_enUS = "A fishing trip";
@@ -203,7 +203,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static final String NoNameFound_enUS = "no fishing trip found";
 	public static final String ApiUri_enUS = "/en-us/api/fishing-trip";
 	public static final String ApiUriSearchPage_enUS = "/en-us/search/fishing-trip";
-	public static final String ApiUriEditPage_enUS = "/en-us/edit/fishing-trip/{pk}";
+	public static final String ApiUriEditPage_enUS = "/en-us/edit/fishing-trip/{entityShortId}";
 	public static final String OfName_enUS = "of fishing trip";
 	public static final String ANameAdjective_enUS = "a fishing trip";
 	public static final String NameAdjectiveSingular_enUS = "fishing trip";
@@ -211,7 +211,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static final String Search_enUS_OpenApiUri = "/en-us/api/fishing-trip";
 	public static final String Search_enUS_StringFormatUri = "/en-us/api/fishing-trip";
 	public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
-	public static final String GET_enUS_OpenApiUri = "/en-us/api/fishing-trip/{pk}";
+	public static final String GET_enUS_OpenApiUri = "/en-us/api/fishing-trip/{entityShortId}";
 	public static final String GET_enUS_StringFormatUri = "/en-us/api/fishing-trip/%s";
 	public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip/%s";
 	public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fishing-trip";
@@ -220,7 +220,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static final String POST_enUS_OpenApiUri = "/en-us/api/fishing-trip";
 	public static final String POST_enUS_StringFormatUri = "/en-us/api/fishing-trip";
 	public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
-	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fishing-trip/{pk}";
+	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fishing-trip/{entityShortId}";
 	public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fishing-trip/%s";
 	public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip/%s";
 	public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fishing-trip-import";
@@ -229,7 +229,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fishing-trip";
 	public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fishing-trip";
 	public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fishing-trip";
-	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fishing-trip/{pk}";
+	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fishing-trip/{entityShortId}";
 	public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fishing-trip/%s";
 	public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fishing-trip/%s";
 	public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fishing-trip";
@@ -461,118 +461,6 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		return arrivalDate == null ? null : arrivalDate.toOffsetDateTime();
 	}
 
-	//////////
-	// name //
-	//////////
-
-
-	/**	 The entity name
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String name;
-
-	/**	<br> The entity name
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:name">Find the entity name in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _name(Wrap<String> w);
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String o) {
-		this.name = FishingTrip.staticSetName(siteRequest_, o);
-	}
-	public static String staticSetName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishingTrip nameInit() {
-		Wrap<String> nameWrap = new Wrap<String>().var("name");
-		if(name == null) {
-			_name(nameWrap);
-			Optional.ofNullable(nameWrap.getO()).ifPresent(o -> {
-				setName(o);
-			});
-		}
-		return (FishingTrip)this;
-	}
-
-	public static String staticSearchName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqName(SiteRequest siteRequest_, String o) {
-		return FishingTrip.staticSearchName(siteRequest_, FishingTrip.staticSetName(siteRequest_, o)).toString();
-	}
-
-	public String sqlName() {
-		return name;
-	}
-
-	/////////////////
-	// description //
-	/////////////////
-
-
-	/**	 The entity description
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String description;
-
-	/**	<br> The entity description
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:description">Find the entity description in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _description(Wrap<String> w);
-
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String o) {
-		this.description = FishingTrip.staticSetDescription(siteRequest_, o);
-	}
-	public static String staticSetDescription(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishingTrip descriptionInit() {
-		Wrap<String> descriptionWrap = new Wrap<String>().var("description");
-		if(description == null) {
-			_description(descriptionWrap);
-			Optional.ofNullable(descriptionWrap.getO()).ifPresent(o -> {
-				setDescription(o);
-			});
-		}
-		return (FishingTrip)this;
-	}
-
-	public static String staticSearchDescription(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrDescription(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqDescription(SiteRequest siteRequest_, String o) {
-		return FishingTrip.staticSearchDescription(siteRequest_, FishingTrip.staticSetDescription(siteRequest_, o)).toString();
-	}
-
-	public String sqlDescription() {
-		return description;
-	}
-
 	//////////////
 	// initDeep //
 	//////////////
@@ -587,7 +475,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		Promise<Void> promise2 = Promise.promise();
 		promiseFishingTrip(promise2);
 		promise2.future().onSuccess(a -> {
-			super.promiseDeepBaseModel(siteRequest_).onSuccess(b -> {
+			super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
 				promise.complete(this);
 			}).onFailure(ex -> {
 				promise.fail(ex);
@@ -605,8 +493,6 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				timeZoneInit();
 				departureDateInit();
 				arrivalDateInit();
-				nameInit();
-				descriptionInit();
 				promise2.complete();
 			} catch(Exception ex) {
 				promise2.fail(ex);
@@ -629,7 +515,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	/////////////////
 
 	public void siteRequestFishingTrip(SiteRequest siteRequest_) {
-			super.siteRequestBaseModel(siteRequest_);
+			super.siteRequestMapModel(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequest siteRequest_) {
@@ -666,12 +552,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				return oFishingTrip.departureDate;
 			case "arrivalDate":
 				return oFishingTrip.arrivalDate;
-			case "name":
-				return oFishingTrip.name;
-			case "description":
-				return oFishingTrip.description;
 			default:
-				return super.obtainBaseModel(var);
+				return super.obtainMapModel(var);
 		}
 	}
 
@@ -702,7 +584,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 					saves.add("timeZone");
 				return val;
 			default:
-				return super.relateBaseModel(var, val);
+				return super.relateMapModel(var, val);
 		}
 	}
 
@@ -721,12 +603,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return FishingTrip.staticSetDepartureDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 		case "arrivalDate":
 			return FishingTrip.staticSetArrivalDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-		case "name":
-			return FishingTrip.staticSetName(siteRequest_, v);
-		case "description":
-			return FishingTrip.staticSetDescription(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
+				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 
@@ -745,12 +623,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return FishingTrip.staticSearchDepartureDate(siteRequest_, (ZonedDateTime)o);
 		case "arrivalDate":
 			return FishingTrip.staticSearchArrivalDate(siteRequest_, (ZonedDateTime)o);
-		case "name":
-			return FishingTrip.staticSearchName(siteRequest_, (String)o);
-		case "description":
-			return FishingTrip.staticSearchDescription(siteRequest_, (String)o);
 			default:
-				return BaseModel.staticSearchBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -769,12 +643,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return FishingTrip.staticSearchStrDepartureDate(siteRequest_, (String)o);
 		case "arrivalDate":
 			return FishingTrip.staticSearchStrArrivalDate(siteRequest_, (String)o);
-		case "name":
-			return FishingTrip.staticSearchStrName(siteRequest_, (String)o);
-		case "description":
-			return FishingTrip.staticSearchStrDescription(siteRequest_, (String)o);
 			default:
-				return BaseModel.staticSearchStrBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -793,12 +663,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return FishingTrip.staticSearchFqDepartureDate(siteRequest_, o);
 		case "arrivalDate":
 			return FishingTrip.staticSearchFqArrivalDate(siteRequest_, o);
-		case "name":
-			return FishingTrip.staticSearchFqName(siteRequest_, o);
-		case "description":
-			return FishingTrip.staticSearchFqDescription(siteRequest_, o);
 			default:
-				return BaseModel.staticSearchFqBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -845,20 +711,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				}
 				saves.add("arrivalDate");
 				return val;
-			} else if("name".equals(varLower)) {
-				if(val instanceof String) {
-					setName((String)val);
-				}
-				saves.add("name");
-				return val;
-			} else if("description".equals(varLower)) {
-				if(val instanceof String) {
-					setDescription((String)val);
-				}
-				saves.add("description");
-				return val;
 		} else {
-			return super.persistBaseModel(var, val);
+			return super.persistMapModel(var, val);
 		}
 	}
 
@@ -889,21 +743,9 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				if(arrivalDate != null)
 					oFishingTrip.setArrivalDate(arrivalDate);
 			}
-
-			if(saves.contains("name")) {
-				String name = (String)doc.get("name_docvalues_string");
-				if(name != null)
-					oFishingTrip.setName(name);
-			}
-
-			if(saves.contains("description")) {
-				String description = (String)doc.get("description_docvalues_string");
-				if(description != null)
-					oFishingTrip.setDescription(description);
-			}
 		}
 
-		super.populateBaseModel(doc);
+		super.populateMapModel(doc);
 	}
 
 	public void indexFishingTrip(JsonObject doc) {
@@ -916,13 +758,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		if(arrivalDate != null) {
 			doc.put("arrivalDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(arrivalDate.toInstant(), ZoneId.of("UTC"))));
 		}
-		if(name != null) {
-			doc.put("name_docvalues_string", name);
-		}
-		if(description != null) {
-			doc.put("description_docvalues_string", description);
-		}
-		super.indexBaseModel(doc);
+		super.indexMapModel(doc);
 
 	}
 
@@ -934,12 +770,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				return "departureDate_docvalues_date";
 			case "arrivalDate":
 				return "arrivalDate_docvalues_date";
-			case "name":
-				return "name_docvalues_string";
-			case "description":
-				return "description_docvalues_string";
 			default:
-				return BaseModel.varStoredBaseModel(entityVar);
+				return MapModel.varStoredMapModel(entityVar);
 		}
 	}
 
@@ -951,12 +783,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				return "departureDate_docvalues_date";
 			case "arrivalDate":
 				return "arrivalDate_docvalues_date";
-			case "name":
-				return "name_docvalues_string";
-			case "description":
-				return "description_docvalues_string";
 			default:
-				return BaseModel.varIndexedBaseModel(entityVar);
+				return MapModel.varIndexedMapModel(entityVar);
 		}
 	}
 
@@ -968,26 +796,22 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				return "departureDate";
 			case "arrivalDate_docvalues_date":
 				return "arrivalDate";
-			case "name_docvalues_string":
-				return "name";
-			case "description_docvalues_string":
-				return "description";
 			default:
-				return BaseModel.searchVarBaseModel(searchVar);
+				return MapModel.searchVarMapModel(searchVar);
 		}
 	}
 
 	public static String varSearchFishingTrip(String entityVar) {
 		switch(entityVar) {
 			default:
-				return BaseModel.varSearchBaseModel(entityVar);
+				return MapModel.varSearchMapModel(entityVar);
 		}
 	}
 
 	public static String varSuggestedFishingTrip(String entityVar) {
 		switch(entityVar) {
 			default:
-				return BaseModel.varSuggestedBaseModel(entityVar);
+				return MapModel.varSuggestedMapModel(entityVar);
 		}
 	}
 
@@ -1005,10 +829,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		oFishingTrip.setTimeZone(Optional.ofNullable(doc.get("timeZone_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishingTrip.setDepartureDate(Optional.ofNullable(doc.get("departureDate_docvalues_date")).map(v -> v.toString()).orElse(null));
 		oFishingTrip.setArrivalDate(Optional.ofNullable(doc.get("arrivalDate_docvalues_date")).map(v -> v.toString()).orElse(null));
-		oFishingTrip.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishingTrip.setDescription(Optional.ofNullable(doc.get("description_docvalues_string")).map(v -> v.toString()).orElse(null));
 
-		super.storeBaseModel(doc);
+		super.storeMapModel(doc);
 	}
 
 	//////////////////
@@ -1026,11 +848,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 				apiRequest.addVars("departureDate");
 			if(!Objects.equals(arrivalDate, original.getArrivalDate()))
 				apiRequest.addVars("arrivalDate");
-			if(!Objects.equals(name, original.getName()))
-				apiRequest.addVars("name");
-			if(!Objects.equals(description, original.getDescription()))
-				apiRequest.addVars("description");
-			super.apiRequestBaseModel();
+			super.apiRequestMapModel();
 		}
 	}
 
@@ -1044,8 +862,6 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		sb.append(Optional.ofNullable(timeZone).map(v -> "timeZone: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(departureDate).map(v -> "departureDate: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(arrivalDate).map(v -> "arrivalDate: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(description).map(v -> "description: \"" + v + "\"\n" ).orElse(""));
 		return sb.toString();
 	}
 
@@ -1058,14 +874,12 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static final String VAR_timeZone = "timeZone";
 	public static final String VAR_departureDate = "departureDate";
 	public static final String VAR_arrivalDate = "arrivalDate";
-	public static final String VAR_name = "name";
-	public static final String VAR_description = "description";
 
 	public static List<String> varsQForClass() {
 		return FishingTrip.varsQFishingTrip(new ArrayList<String>());
 	}
 	public static List<String> varsQFishingTrip(List<String> vars) {
-		BaseModel.varsQBaseModel(vars);
+		MapModel.varsQMapModel(vars);
 		return vars;
 	}
 
@@ -1076,9 +890,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 		vars.add(VAR_timeZone);
 		vars.add(VAR_departureDate);
 		vars.add(VAR_arrivalDate);
-		vars.add(VAR_name);
-		vars.add(VAR_description);
-		BaseModel.varsFqBaseModel(vars);
+		MapModel.varsFqMapModel(vars);
 		return vars;
 	}
 
@@ -1088,19 +900,17 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 	public static List<String> varsRangeFishingTrip(List<String> vars) {
 		vars.add(VAR_departureDate);
 		vars.add(VAR_arrivalDate);
-		BaseModel.varsRangeBaseModel(vars);
+		MapModel.varsRangeMapModel(vars);
 		return vars;
 	}
 
 	public static final String DISPLAY_NAME_timeZone = "time zone";
 	public static final String DISPLAY_NAME_departureDate = "departure date";
 	public static final String DISPLAY_NAME_arrivalDate = "arrival date";
-	public static final String DISPLAY_NAME_name = "name";
-	public static final String DISPLAY_NAME_description = "description";
 
 	@Override
 	public String idForClass() {
-		return Optional.ofNullable(pk).map(o -> o.toString()).orElse(null);
+		return entityShortId;
 	}
 
 	@Override
@@ -1120,7 +930,7 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 
 	@Override
 	public String descriptionForClass() {
-		return description;
+		return null;
 	}
 
 	@Override
@@ -1154,12 +964,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return DISPLAY_NAME_departureDate;
 		case VAR_arrivalDate:
 			return DISPLAY_NAME_arrivalDate;
-		case VAR_name:
-			return DISPLAY_NAME_name;
-		case VAR_description:
-			return DISPLAY_NAME_description;
 		default:
-			return BaseModel.displayNameBaseModel(var);
+			return MapModel.displayNameMapModel(var);
 		}
 	}
 
@@ -1173,12 +979,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return "The date and time the fishing trip departed. ";
 		case VAR_arrivalDate:
 			return "The date and time the fishing trip returned. ";
-		case VAR_name:
-			return "The name of this fishing trip. ";
-		case VAR_description:
-			return "A description of this fishing trip. ";
 			default:
-				return BaseModel.descriptionBaseModel(var);
+				return MapModel.descriptionMapModel(var);
 		}
 	}
 
@@ -1190,12 +992,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return "ZonedDateTime";
 		case VAR_arrivalDate:
 			return "ZonedDateTime";
-		case VAR_name:
-			return "String";
-		case VAR_description:
-			return "String";
 			default:
-				return BaseModel.classSimpleNameBaseModel(var);
+				return MapModel.classSimpleNameMapModel(var);
 		}
 	}
 
@@ -1205,12 +1003,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return 1;
 		case VAR_arrivalDate:
 			return 2;
-		case VAR_name:
-			return 0;
-		case VAR_description:
-			return 3;
 			default:
-				return BaseModel.htmColumnBaseModel(var);
+				return MapModel.htmColumnMapModel(var);
 		}
 	}
 
@@ -1222,12 +1016,8 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return 3;
 		case VAR_arrivalDate:
 			return 3;
-		case VAR_name:
-			return 4;
-		case VAR_description:
-			return 4;
 			default:
-				return BaseModel.htmRowBaseModel(var);
+				return MapModel.htmRowMapModel(var);
 		}
 	}
 
@@ -1239,40 +1029,36 @@ public abstract class FishingTripGen<DEV> extends BaseModel {
 			return 1;
 		case VAR_arrivalDate:
 			return 2;
-		case VAR_name:
-			return 0;
-		case VAR_description:
-			return 1;
 			default:
-				return BaseModel.htmCellBaseModel(var);
+				return MapModel.htmCellMapModel(var);
 		}
 	}
 
 	public static Integer lengthMinFishingTrip(String var) {
 		switch(var) {
 			default:
-				return BaseModel.lengthMinBaseModel(var);
+				return MapModel.lengthMinMapModel(var);
 		}
 	}
 
 	public static Integer lengthMaxFishingTrip(String var) {
 		switch(var) {
 			default:
-				return BaseModel.lengthMaxBaseModel(var);
+				return MapModel.lengthMaxMapModel(var);
 		}
 	}
 
 	public static Integer maxFishingTrip(String var) {
 		switch(var) {
 			default:
-				return BaseModel.maxBaseModel(var);
+				return MapModel.maxMapModel(var);
 		}
 	}
 
 	public static Integer minFishingTrip(String var) {
 		switch(var) {
 			default:
-				return BaseModel.minBaseModel(var);
+				return MapModel.minMapModel(var);
 		}
 	}
 }

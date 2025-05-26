@@ -120,7 +120,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	public void searchFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -132,8 +132,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -228,8 +228,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			json.put("list", l);
 			response200Search(listFishFarm.getRequest(), listFishFarm.getResponse(), json);
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fish farm", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fish farm", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -283,7 +283,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	public void getFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -295,8 +295,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -363,8 +363,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
 			JsonObject json = JsonObject.mapFrom(listFishFarm.getList().stream().findFirst().orElse(null));
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fish farm", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fish farm", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -385,7 +385,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		LOG.debug(String.format("patchFishFarm started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -397,8 +397,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "PATCH"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "PATCH"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -437,7 +437,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 								siteRequest.setApiRequest_(apiRequest);
 								if(apiRequest.getNumFound() == 1L)
 									apiRequest.setOriginal(listFishFarm.first());
-								apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getId().toString()).orElse(null));
+								apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 								apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
 								eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
 
@@ -564,7 +564,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
 							FishFarm o2 = jsonObject.mapTo(FishFarm.class);
@@ -688,6 +688,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlName());
 						break;
+					case "setAddress":
+							o2.setAddress(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_address + "=$" + num);
+							num++;
+							bParams.add(o2.sqlAddress());
+						break;
 					case "setDescription":
 							o2.setDescription(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -704,13 +712,13 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlCreated());
 						break;
-					case "setId":
-							o2.setId(jsonObject.getString(entityVar));
+					case "setLocation":
+							o2.setLocation(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishFarm.VAR_id + "=$" + num);
+							bSql.append(FishFarm.VAR_location + "=$" + num);
 							num++;
-							bParams.add(o2.sqlId());
+							bParams.add(o2.sqlLocation());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -719,6 +727,22 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(FishFarm.VAR_archived + "=$" + num);
 							num++;
 							bParams.add(o2.sqlArchived());
+						break;
+					case "setAreaServed":
+							o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_areaServed + "=$" + num);
+							num++;
+							bParams.add(o2.sqlAreaServed());
+						break;
+					case "setId":
+							o2.setId(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_id + "=$" + num);
+							num++;
+							bParams.add(o2.sqlId());
 						break;
 					case "setSessionId":
 							o2.setSessionId(jsonObject.getString(entityVar));
@@ -736,6 +760,30 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlUserKey());
 						break;
+					case "setNgsildTenant":
+							o2.setNgsildTenant(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_ngsildTenant + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildTenant());
+						break;
+					case "setNgsildPath":
+							o2.setNgsildPath(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_ngsildPath + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildPath());
+						break;
+					case "setNgsildContext":
+							o2.setNgsildContext(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_ngsildContext + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildContext());
+						break;
 					case "setObjectTitle":
 							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -744,6 +792,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlObjectTitle());
 						break;
+					case "setNgsildData":
+							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_ngsildData + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildData());
+						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -751,6 +807,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(FishFarm.VAR_displayPage + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDisplayPage());
+						break;
+					case "setColor":
+							o2.setColor(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_color + "=$" + num);
+							num++;
+							bParams.add(o2.sqlColor());
 						break;
 				}
 			}
@@ -796,8 +860,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fish farm", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fish farm", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -818,7 +882,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		LOG.debug(String.format("postFishFarm started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -830,8 +894,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "POST"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "POST"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -976,7 +1040,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		});
 	}
 
-	public Future<FishFarm> postFishFarmFuture(SiteRequest siteRequest, Boolean id) {
+	public Future<FishFarm> postFishFarmFuture(SiteRequest siteRequest, Boolean entityShortId) {
 		Promise<FishFarm> promise = Promise.promise();
 
 		try {
@@ -985,7 +1049,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				siteRequest.setSqlConnection(sqlConnection);
 				varsFishFarm(siteRequest).onSuccess(a -> {
 					createFishFarm(siteRequest).onSuccess(fishFarm -> {
-						sqlPOSTFishFarm(fishFarm, id).onSuccess(b -> {
+						sqlPOSTFishFarm(fishFarm, entityShortId).onSuccess(b -> {
 							persistFishFarm(fishFarm, false).onSuccess(c -> {
 								relateFishFarm(fishFarm).onSuccess(d -> {
 									indexFishFarm(fishFarm).onSuccess(o2 -> {
@@ -1104,6 +1168,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlName());
 						break;
+					case FishFarm.VAR_address:
+						o2.setAddress(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_address + "=$" + num);
+						num++;
+						bParams.add(o2.sqlAddress());
+						break;
 					case FishFarm.VAR_description:
 						o2.setDescription(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1122,14 +1195,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlCreated());
 						break;
-					case FishFarm.VAR_id:
-						o2.setId(jsonObject.getString(entityVar));
+					case FishFarm.VAR_location:
+						o2.setLocation(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishFarm.VAR_id + "=$" + num);
+						bSql.append(FishFarm.VAR_location + "=$" + num);
 						num++;
-						bParams.add(o2.sqlId());
+						bParams.add(o2.sqlLocation());
 						break;
 					case FishFarm.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1139,6 +1212,24 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(FishFarm.VAR_archived + "=$" + num);
 						num++;
 						bParams.add(o2.sqlArchived());
+						break;
+					case FishFarm.VAR_areaServed:
+						o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_areaServed + "=$" + num);
+						num++;
+						bParams.add(o2.sqlAreaServed());
+						break;
+					case FishFarm.VAR_id:
+						o2.setId(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_id + "=$" + num);
+						num++;
+						bParams.add(o2.sqlId());
 						break;
 					case FishFarm.VAR_sessionId:
 						o2.setSessionId(jsonObject.getString(entityVar));
@@ -1158,6 +1249,33 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlUserKey());
 						break;
+					case FishFarm.VAR_ngsildTenant:
+						o2.setNgsildTenant(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_ngsildTenant + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildTenant());
+						break;
+					case FishFarm.VAR_ngsildPath:
+						o2.setNgsildPath(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_ngsildPath + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildPath());
+						break;
+					case FishFarm.VAR_ngsildContext:
+						o2.setNgsildContext(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_ngsildContext + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildContext());
+						break;
 					case FishFarm.VAR_objectTitle:
 						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1167,6 +1285,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
+					case FishFarm.VAR_ngsildData:
+						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_ngsildData + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildData());
+						break;
 					case FishFarm.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1175,6 +1302,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(FishFarm.VAR_displayPage + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDisplayPage());
+						break;
+					case FishFarm.VAR_color:
+						o2.setColor(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_color + "=$" + num);
+						num++;
+						bParams.add(o2.sqlColor());
 						break;
 					}
 				}
@@ -1219,8 +1355,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SiteRequest siteRequest = o.getSiteRequest_();
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fish farm", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fish farm", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1241,7 +1377,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		LOG.debug(String.format("deleteFishFarm started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -1253,8 +1389,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "DELETE"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1419,7 +1555,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deleteFishFarmFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -1569,8 +1705,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fish farm", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fish farm", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1591,7 +1727,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		LOG.debug(String.format("putimportFishFarm started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -1603,8 +1739,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "PUT"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "PUT"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1748,107 +1884,89 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				apiRequest.setNumPATCH(0L);
 				apiRequest.initDeepApiRequest(siteRequest);
 				siteRequest.setApiRequest_(apiRequest);
-				String id = Optional.ofNullable(body.getString(FishFarm.VAR_id)).orElse(body.getString(FishFarm.VAR_solrId));
+				String entityShortId = Optional.ofNullable(body.getString(FishFarm.VAR_entityShortId)).orElse(body.getString(FishFarm.VAR_solrId));
 				if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
 					siteRequest.getRequestVars().put( "refresh", "false" );
 				}
-				pgPool.getConnection().onSuccess(sqlConnection -> {
-					String sqlQuery = String.format("select * from %s WHERE id=$1", FishFarm.CLASS_SIMPLE_NAME);
-					sqlConnection.preparedQuery(sqlQuery)
-							.execute(Tuple.tuple(Arrays.asList(id))
-							).onSuccess(result -> {
-						sqlConnection.close().onSuccess(a -> {
-							try {
-								if(result.size() >= 1) {
-									FishFarm o = new FishFarm();
-									o.setSiteRequest_(siteRequest);
-									for(Row definition : result.value()) {
-										for(Integer i = 0; i < definition.size(); i++) {
-											try {
-												String columnName = definition.getColumnName(i);
-												Object columnValue = definition.getValue(i);
-												o.persistForClass(columnName, columnValue);
-											} catch(Exception e) {
-												LOG.error(String.format("persistFishFarm failed. "), e);
-											}
-										}
-									}
-									FishFarm o2 = new FishFarm();
-									o2.setSiteRequest_(siteRequest);
-									JsonObject body2 = new JsonObject();
-									for(String f : body.fieldNames()) {
-										Object bodyVal = body.getValue(f);
-										if(bodyVal instanceof JsonArray) {
-											JsonArray bodyVals = (JsonArray)bodyVal;
-											Object valsObj = o.obtainForClass(f);
-											Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
-											if(vals != null && bodyVals.size() == vals.size()) {
-												Boolean match = true;
-												for(Object val : vals) {
-													if(val != null) {
-														if(!bodyVals.contains(val.toString())) {
-															match = false;
-															break;
-														}
-													} else {
-														match = false;
-														break;
-													}
+
+				SearchList<FishFarm> searchList = new SearchList<FishFarm>();
+				searchList.setStore(true);
+				searchList.q("*:*");
+				searchList.setC(FishFarm.class);
+				searchList.fq("archived_docvalues_boolean:false");
+				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
+				searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+					try {
+						if(searchList.size() >= 1) {
+							FishFarm o = searchList.getList().stream().findFirst().orElse(null);
+							FishFarm o2 = new FishFarm();
+							o2.setSiteRequest_(siteRequest);
+							JsonObject body2 = new JsonObject();
+							for(String f : body.fieldNames()) {
+								Object bodyVal = body.getValue(f);
+								if(bodyVal instanceof JsonArray) {
+									JsonArray bodyVals = (JsonArray)bodyVal;
+									Object valsObj = o.obtainForClass(f);
+									Collection<?> vals = valsObj instanceof JsonArray ? ((JsonArray)valsObj).getList() : (Collection<?>)valsObj;
+									if(vals != null && bodyVals.size() == vals.size()) {
+										Boolean match = true;
+										for(Object val : vals) {
+											if(val != null) {
+												if(!bodyVals.contains(val.toString())) {
+													match = false;
+													break;
 												}
-												vals.clear();
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 											} else {
-												if(vals != null)
-													vals.clear();
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
+												match = false;
+												break;
 											}
-										} else {
-											o2.persistForClass(f, bodyVal);
-											o2.relateForClass(f, bodyVal);
-											if(!StringUtils.containsAny(f, "id", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-												body2.put("set" + StringUtils.capitalize(f), bodyVal);
 										}
+										vals.clear();
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
+									} else {
+										if(vals != null)
+											vals.clear();
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 									}
-									for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
-										if(!body.fieldNames().contains(f)) {
-											if(!StringUtils.containsAny(f, "id", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
-												body2.putNull("set" + StringUtils.capitalize(f));
-										}
-									}
-									if(result.size() >= 1) {
-										apiRequest.setOriginal(o);
-										apiRequest.setId(Optional.ofNullable(o.getId()).map(v -> v.toString()).orElse(null));
-										apiRequest.setSolrId(o.getSolrId());
-									}
-									siteRequest.setJsonObject(body2);
-									patchFishFarmFuture(o, true).onSuccess(b -> {
-										LOG.debug("Import FishFarm {} succeeded, modified FishFarm. ", body.getValue(FishFarm.VAR_id));
-										eventHandler.handle(Future.succeededFuture());
-									}).onFailure(ex -> {
-										LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
-										eventHandler.handle(Future.failedFuture(ex));
-									});
 								} else {
-									postFishFarmFuture(siteRequest, true).onSuccess(b -> {
-										LOG.debug("Import FishFarm {} succeeded, created new FishFarm. ", body.getValue(FishFarm.VAR_id));
-										eventHandler.handle(Future.succeededFuture());
-									}).onFailure(ex -> {
-										LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
-										eventHandler.handle(Future.failedFuture(ex));
-									});
+									o2.persistForClass(f, bodyVal);
+									o2.relateForClass(f, bodyVal);
+									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+										body2.put("set" + StringUtils.capitalize(f), bodyVal);
 								}
-							} catch(Exception ex) {
+							}
+							for(String f : Optional.ofNullable(o.getSaves()).orElse(new ArrayList<>())) {
+								if(!body.fieldNames().contains(f)) {
+									if(!StringUtils.containsAny(f, "entityShortId", "created", "setCreated") && !Objects.equals(o.obtainForClass(f), o2.obtainForClass(f)))
+										body2.putNull("set" + StringUtils.capitalize(f));
+								}
+							}
+							if(searchList.size() == 1) {
+								apiRequest.setOriginal(o);
+								apiRequest.setId(Optional.ofNullable(o.getEntityShortId()).map(v -> v.toString()).orElse(null));
+								apiRequest.setSolrId(o.getSolrId());
+							}
+							siteRequest.setJsonObject(body2);
+							patchFishFarmFuture(o, true).onSuccess(b -> {
+								LOG.debug("Import FishFarm {} succeeded, modified FishFarm. ", body.getValue(FishFarm.VAR_entityShortId));
+								eventHandler.handle(Future.succeededFuture());
+							}).onFailure(ex -> {
 								LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
 								eventHandler.handle(Future.failedFuture(ex));
-							}
-						}).onFailure(ex -> {
-							LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
-							eventHandler.handle(Future.failedFuture(ex));
-						});
-					}).onFailure(ex -> {
+							});
+						} else {
+							postFishFarmFuture(siteRequest, true).onSuccess(b -> {
+								LOG.debug("Import FishFarm {} succeeded, created new FishFarm. ", body.getValue(FishFarm.VAR_entityShortId));
+								eventHandler.handle(Future.succeededFuture());
+							}).onFailure(ex -> {
+								LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+								eventHandler.handle(Future.failedFuture(ex));
+							});
+						}
+					} catch(Exception ex) {
 						LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
 						eventHandler.handle(Future.failedFuture(ex));
-					});
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
 					eventHandler.handle(Future.failedFuture(ex));
@@ -1888,8 +2006,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fish farm", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fish farm", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1909,7 +2027,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	public void searchpageFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -1921,8 +2039,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2069,7 +2187,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	public void editpageFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -2081,8 +2199,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "GET"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2230,7 +2348,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		LOG.debug(String.format("deletefilterFishFarm started. "));
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
@@ -2242,8 +2360,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "DELETE"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PATCH"));
 			form.add("permission", String.format("%s#%s", FishFarm.CLASS_SIMPLE_NAME, "PUT"));
-			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, id, "DELETE"));
+			if(entityShortId != null)
+				form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2408,7 +2526,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							}
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getId().toString()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
 							apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
 							deletefilterFishFarmFuture(o).onSuccess(o2 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -2558,8 +2676,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		try {
 			JsonObject json = new JsonObject();
 			if(json == null) {
-				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "fish farm", id);
+				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+				String m = String.format("%s %s not found", "fish farm", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2701,9 +2819,9 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				}
 			}
 
-			String id = serviceRequest.getParams().getJsonObject("path").getString("id");
-			if(id != null) {
-				searchList.fq("id_docvalues_string:" + SearchTool.escapeQueryChars(id));
+			String entityShortId = serviceRequest.getParams().getJsonObject("path").getString("entityShortId");
+			if(entityShortId != null) {
+				searchList.fq("entityShortId_docvalues_string:" + SearchTool.escapeQueryChars(entityShortId));
 			}
 
 			for(String paramName : serviceRequest.getParams().getJsonObject("query").fieldNames()) {
@@ -3103,14 +3221,22 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.setSiteRequest_((SiteRequest)siteRequest);
 
 			page.persistForClass(FishFarm.VAR_name, FishFarm.staticSetName(siteRequest2, (String)result.get(FishFarm.VAR_name)));
+			page.persistForClass(FishFarm.VAR_address, FishFarm.staticSetAddress(siteRequest2, (String)result.get(FishFarm.VAR_address)));
 			page.persistForClass(FishFarm.VAR_description, FishFarm.staticSetDescription(siteRequest2, (String)result.get(FishFarm.VAR_description)));
 			page.persistForClass(FishFarm.VAR_created, FishFarm.staticSetCreated(siteRequest2, (String)result.get(FishFarm.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-			page.persistForClass(FishFarm.VAR_id, FishFarm.staticSetId(siteRequest2, (String)result.get(FishFarm.VAR_id)));
+			page.persistForClass(FishFarm.VAR_location, FishFarm.staticSetLocation(siteRequest2, (String)result.get(FishFarm.VAR_location)));
 			page.persistForClass(FishFarm.VAR_archived, FishFarm.staticSetArchived(siteRequest2, (String)result.get(FishFarm.VAR_archived)));
+			page.persistForClass(FishFarm.VAR_areaServed, FishFarm.staticSetAreaServed(siteRequest2, (String)result.get(FishFarm.VAR_areaServed)));
+			page.persistForClass(FishFarm.VAR_id, FishFarm.staticSetId(siteRequest2, (String)result.get(FishFarm.VAR_id)));
 			page.persistForClass(FishFarm.VAR_sessionId, FishFarm.staticSetSessionId(siteRequest2, (String)result.get(FishFarm.VAR_sessionId)));
 			page.persistForClass(FishFarm.VAR_userKey, FishFarm.staticSetUserKey(siteRequest2, (String)result.get(FishFarm.VAR_userKey)));
+			page.persistForClass(FishFarm.VAR_ngsildTenant, FishFarm.staticSetNgsildTenant(siteRequest2, (String)result.get(FishFarm.VAR_ngsildTenant)));
+			page.persistForClass(FishFarm.VAR_ngsildPath, FishFarm.staticSetNgsildPath(siteRequest2, (String)result.get(FishFarm.VAR_ngsildPath)));
+			page.persistForClass(FishFarm.VAR_ngsildContext, FishFarm.staticSetNgsildContext(siteRequest2, (String)result.get(FishFarm.VAR_ngsildContext)));
 			page.persistForClass(FishFarm.VAR_objectTitle, FishFarm.staticSetObjectTitle(siteRequest2, (String)result.get(FishFarm.VAR_objectTitle)));
+			page.persistForClass(FishFarm.VAR_ngsildData, FishFarm.staticSetNgsildData(siteRequest2, (String)result.get(FishFarm.VAR_ngsildData)));
 			page.persistForClass(FishFarm.VAR_displayPage, FishFarm.staticSetDisplayPage(siteRequest2, (String)result.get(FishFarm.VAR_displayPage)));
+			page.persistForClass(FishFarm.VAR_color, FishFarm.staticSetColor(siteRequest2, (String)result.get(FishFarm.VAR_color)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

@@ -1,6 +1,7 @@
 package org.computate.smartaquaculture.model.fiware.fishfarm;
 
 import org.computate.smartaquaculture.request.SiteRequest;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.smartaquaculture.model.BaseModel;
 import io.vertx.core.json.JsonObject;
 import java.util.Date;
@@ -35,7 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.math.RoundingMode;
 import java.util.Map;
-import java.lang.String;
+import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
@@ -48,7 +49,7 @@ import org.computate.search.response.solr.SolrResponse;
 <h3>Suggestions that can generate more code for you: </h3> * </ol>
  * <li>You can add a class comment "{@inheritDoc}" if you wish to inherit the helpful inherited class comments from class FishFarmGen into the class FishFarm. 
  * </li>
- * <h3>About the FishFarm class and it's generated class FishFarmGen&lt;BaseModel&gt;: </h3>extends FishFarmGen
+ * <h3>About the FishFarm class and it's generated class FishFarmGen&lt;MapModel&gt;: </h3>extends FishFarmGen
  * <p>
  * This Java class extends a generated Java class FishFarmGen built by the <a href="https://github.com/computate-org/computate">https://github.com/computate-org/computate</a> project. 
  * Whenever this Java class is modified or touched, the watch service installed as described in the README, indexes all the information about this Java class in a local Apache Solr Search Engine. 
@@ -59,9 +60,9 @@ import org.computate.search.response.solr.SolrResponse;
  * The extended class ending with "Gen" did not exist at first, but was automatically created by the same watch service based on the data retrieved from the local Apache Server search engine. 
  * The extended class contains many generated fields, getters, setters, initialization code, and helper methods to help build a website and API fast, reactive, and scalable. 
  * </p>
- * extends FishFarmGen<BaseModel>
- * <p>This <code>class FishFarm extends FishFarmGen&lt;BaseModel&gt;</code>, which means it extends a newly generated FishFarmGen. 
- * The generated <code>class FishFarmGen extends BaseModel</code> which means that FishFarm extends FishFarmGen which extends BaseModel. 
+ * extends FishFarmGen<MapModel>
+ * <p>This <code>class FishFarm extends FishFarmGen&lt;MapModel&gt;</code>, which means it extends a newly generated FishFarmGen. 
+ * The generated <code>class FishFarmGen extends MapModel</code> which means that FishFarm extends FishFarmGen which extends MapModel. 
  * This generated inheritance is a powerful feature that allows a lot of boiler plate code to be created for you automatically while still preserving inheritance through the power of Java Generic classes. 
  * </p>
  * <h2>Api: true</h2>
@@ -171,7 +172,7 @@ import org.computate.search.response.solr.SolrResponse;
  * </p>
  * Generated: true
  **/
-public abstract class FishFarmGen<DEV> extends BaseModel {
+public abstract class FishFarmGen<DEV> extends MapModel {
 	protected static final Logger LOG = LoggerFactory.getLogger(FishFarm.class);
 
 	public static final String Description_enUS = "A fish farm";
@@ -191,7 +192,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	public static final String NoNameFound_enUS = "no fish farm found";
 	public static final String ApiUri_enUS = "/en-us/api/fish-farm";
 	public static final String ApiUriSearchPage_enUS = "/en-us/search/fish-farm";
-	public static final String ApiUriEditPage_enUS = "/en-us/edit/fish-farm/{id}";
+	public static final String ApiUriEditPage_enUS = "/en-us/edit/fish-farm/{entityShortId}";
 	public static final String OfName_enUS = "of fish farm";
 	public static final String ANameAdjective_enUS = "a fish farm";
 	public static final String NameAdjectiveSingular_enUS = "fish farm";
@@ -199,7 +200,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	public static final String Search_enUS_OpenApiUri = "/en-us/api/fish-farm";
 	public static final String Search_enUS_StringFormatUri = "/en-us/api/fish-farm";
 	public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fish-farm";
-	public static final String GET_enUS_OpenApiUri = "/en-us/api/fish-farm/{id}";
+	public static final String GET_enUS_OpenApiUri = "/en-us/api/fish-farm/{entityShortId}";
 	public static final String GET_enUS_StringFormatUri = "/en-us/api/fish-farm/%s";
 	public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fish-farm/%s";
 	public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fish-farm";
@@ -208,7 +209,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	public static final String POST_enUS_OpenApiUri = "/en-us/api/fish-farm";
 	public static final String POST_enUS_StringFormatUri = "/en-us/api/fish-farm";
 	public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fish-farm";
-	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fish-farm/{id}";
+	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fish-farm/{entityShortId}";
 	public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fish-farm/%s";
 	public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fish-farm/%s";
 	public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fish-farm-import";
@@ -217,7 +218,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fish-farm";
 	public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fish-farm";
 	public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fish-farm";
-	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fish-farm/{id}";
+	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fish-farm/{entityShortId}";
 	public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fish-farm/%s";
 	public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fish-farm/%s";
 	public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fish-farm";
@@ -227,172 +228,69 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-fish-fins\"></i>";
 	public static final Integer Rows = 100;
 
-	//////////
-	// name //
-	//////////
+	/////////////
+	// address //
+	/////////////
 
 
-	/**	 The entity name
+	/**	 The entity address
 	 *	 is defined as null before being initialized. 
 	 */
 	@JsonProperty
+	@JsonDeserialize(using = JsonObjectDeserializer.class)
 	@JsonInclude(Include.NON_NULL)
-	protected String name;
+	protected JsonObject address;
 
-	/**	<br> The entity name
+	/**	<br> The entity address
 	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm&fq=entiteVar_enUS_indexed_string:name">Find the entity name in Solr</a>
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm&fq=entiteVar_enUS_indexed_string:address">Find the entity address in Solr</a>
 	 * <br>
 	 * @param w is for wrapping a value to assign to this entity during initialization. 
 	 **/
-	protected abstract void _name(Wrap<String> w);
+	protected abstract void _address(Wrap<JsonObject> w);
 
-	public String getName() {
-		return name;
+	public JsonObject getAddress() {
+		return address;
 	}
-	public void setName(String o) {
-		this.name = FishFarm.staticSetName(siteRequest_, o);
+
+	public void setAddress(JsonObject address) {
+		this.address = address;
 	}
-	public static String staticSetName(SiteRequest siteRequest_, String o) {
-		return o;
+	@JsonIgnore
+	public void setAddress(String o) {
+		this.address = FishFarm.staticSetAddress(siteRequest_, o);
 	}
-	protected FishFarm nameInit() {
-		Wrap<String> nameWrap = new Wrap<String>().var("name");
-		if(name == null) {
-			_name(nameWrap);
-			Optional.ofNullable(nameWrap.getO()).ifPresent(o -> {
-				setName(o);
+	public static JsonObject staticSetAddress(SiteRequest siteRequest_, String o) {
+		if(o != null) {
+				return new JsonObject(o);
+		}
+		return null;
+	}
+	protected FishFarm addressInit() {
+		Wrap<JsonObject> addressWrap = new Wrap<JsonObject>().var("address");
+		if(address == null) {
+			_address(addressWrap);
+			Optional.ofNullable(addressWrap.getO()).ifPresent(o -> {
+				setAddress(o);
 			});
 		}
 		return (FishFarm)this;
 	}
 
-	public static String staticSearchName(SiteRequest siteRequest_, String o) {
-		return o;
+	public static String staticSearchAddress(SiteRequest siteRequest_, JsonObject o) {
+		return o.toString();
 	}
 
-	public static String staticSearchStrName(SiteRequest siteRequest_, String o) {
+	public static String staticSearchStrAddress(SiteRequest siteRequest_, String o) {
 		return o == null ? null : o.toString();
 	}
 
-	public static String staticSearchFqName(SiteRequest siteRequest_, String o) {
-		return FishFarm.staticSearchName(siteRequest_, FishFarm.staticSetName(siteRequest_, o)).toString();
+	public static String staticSearchFqAddress(SiteRequest siteRequest_, String o) {
+		return FishFarm.staticSearchAddress(siteRequest_, FishFarm.staticSetAddress(siteRequest_, o)).toString();
 	}
 
-	public String sqlName() {
-		return name;
-	}
-
-	/////////////////
-	// description //
-	/////////////////
-
-
-	/**	 The entity description
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String description;
-
-	/**	<br> The entity description
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm&fq=entiteVar_enUS_indexed_string:description">Find the entity description in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _description(Wrap<String> w);
-
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String o) {
-		this.description = FishFarm.staticSetDescription(siteRequest_, o);
-	}
-	public static String staticSetDescription(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishFarm descriptionInit() {
-		Wrap<String> descriptionWrap = new Wrap<String>().var("description");
-		if(description == null) {
-			_description(descriptionWrap);
-			Optional.ofNullable(descriptionWrap.getO()).ifPresent(o -> {
-				setDescription(o);
-			});
-		}
-		return (FishFarm)this;
-	}
-
-	public static String staticSearchDescription(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrDescription(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqDescription(SiteRequest siteRequest_, String o) {
-		return FishFarm.staticSearchDescription(siteRequest_, FishFarm.staticSetDescription(siteRequest_, o)).toString();
-	}
-
-	public String sqlDescription() {
-		return description;
-	}
-
-	////////
-	// id //
-	////////
-
-
-	/**	 The entity id
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String id;
-
-	/**	<br> The entity id
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm&fq=entiteVar_enUS_indexed_string:id">Find the entity id in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _id(Wrap<String> w);
-
-	public String getId() {
-		return id;
-	}
-	public void setId(String o) {
-		this.id = FishFarm.staticSetId(siteRequest_, o);
-	}
-	public static String staticSetId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishFarm idInit() {
-		Wrap<String> idWrap = new Wrap<String>().var("id");
-		if(id == null) {
-			_id(idWrap);
-			Optional.ofNullable(idWrap.getO()).ifPresent(o -> {
-				setId(o);
-			});
-		}
-		return (FishFarm)this;
-	}
-
-	public static String staticSearchId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqId(SiteRequest siteRequest_, String o) {
-		return FishFarm.staticSearchId(siteRequest_, FishFarm.staticSetId(siteRequest_, o)).toString();
-	}
-
-	public String sqlId() {
-		return id;
+	public JsonObject sqlAddress() {
+		return address;
 	}
 
 	//////////////
@@ -409,7 +307,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		Promise<Void> promise2 = Promise.promise();
 		promiseFishFarm(promise2);
 		promise2.future().onSuccess(a -> {
-			super.promiseDeepBaseModel(siteRequest_).onSuccess(b -> {
+			super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
 				promise.complete(this);
 			}).onFailure(ex -> {
 				promise.fail(ex);
@@ -424,9 +322,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		Future.future(a -> a.complete()).compose(a -> {
 			Promise<Void> promise2 = Promise.promise();
 			try {
-				nameInit();
-				descriptionInit();
-				idInit();
+				addressInit();
 				promise2.complete();
 			} catch(Exception ex) {
 				promise2.fail(ex);
@@ -449,7 +345,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	/////////////////
 
 	public void siteRequestFishFarm(SiteRequest siteRequest_) {
-			super.siteRequestBaseModel(siteRequest_);
+			super.siteRequestMapModel(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequest siteRequest_) {
@@ -480,14 +376,10 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	public Object obtainFishFarm(String var) {
 		FishFarm oFishFarm = (FishFarm)this;
 		switch(var) {
-			case "name":
-				return oFishFarm.name;
-			case "description":
-				return oFishFarm.description;
-			case "id":
-				return oFishFarm.id;
+			case "address":
+				return oFishFarm.address;
 			default:
-				return super.obtainBaseModel(var);
+				return super.obtainMapModel(var);
 		}
 	}
 
@@ -512,7 +404,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		FishFarm oFishFarm = (FishFarm)this;
 		switch(var) {
 			default:
-				return super.relateBaseModel(var, val);
+				return super.relateMapModel(var, val);
 		}
 	}
 
@@ -525,14 +417,10 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	}
 	public static Object staticSetFishFarm(String entityVar, SiteRequest siteRequest_, String v, FishFarm o) {
 		switch(entityVar) {
-		case "name":
-			return FishFarm.staticSetName(siteRequest_, v);
-		case "description":
-			return FishFarm.staticSetDescription(siteRequest_, v);
-		case "id":
-			return FishFarm.staticSetId(siteRequest_, v);
+		case "address":
+			return FishFarm.staticSetAddress(siteRequest_, v);
 			default:
-				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
+				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
 	}
 
@@ -545,14 +433,10 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	}
 	public static Object staticSearchFishFarm(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
-		case "name":
-			return FishFarm.staticSearchName(siteRequest_, (String)o);
-		case "description":
-			return FishFarm.staticSearchDescription(siteRequest_, (String)o);
-		case "id":
-			return FishFarm.staticSearchId(siteRequest_, (String)o);
+		case "address":
+			return FishFarm.staticSearchAddress(siteRequest_, (JsonObject)o);
 			default:
-				return BaseModel.staticSearchBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -565,14 +449,10 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	}
 	public static String staticSearchStrFishFarm(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
-		case "name":
-			return FishFarm.staticSearchStrName(siteRequest_, (String)o);
-		case "description":
-			return FishFarm.staticSearchStrDescription(siteRequest_, (String)o);
-		case "id":
-			return FishFarm.staticSearchStrId(siteRequest_, (String)o);
+		case "address":
+			return FishFarm.staticSearchStrAddress(siteRequest_, (String)o);
 			default:
-				return BaseModel.staticSearchStrBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -585,14 +465,10 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	}
 	public static String staticSearchFqFishFarm(String entityVar, SiteRequest siteRequest_, String o) {
 		switch(entityVar) {
-		case "name":
-			return FishFarm.staticSearchFqName(siteRequest_, o);
-		case "description":
-			return FishFarm.staticSearchFqDescription(siteRequest_, o);
-		case "id":
-			return FishFarm.staticSearchFqId(siteRequest_, o);
+		case "address":
+			return FishFarm.staticSearchFqAddress(siteRequest_, o);
 			default:
-				return BaseModel.staticSearchFqBaseModel(entityVar,  siteRequest_, o);
+				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -617,26 +493,16 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	}
 	public Object persistFishFarm(String var, Object val) {
 		String varLower = var.toLowerCase();
-			if("name".equals(varLower)) {
+			if("address".equals(varLower)) {
 				if(val instanceof String) {
-					setName((String)val);
+					setAddress((String)val);
+				} else if(val instanceof JsonObject) {
+					setAddress((JsonObject)val);
 				}
-				saves.add("name");
-				return val;
-			} else if("description".equals(varLower)) {
-				if(val instanceof String) {
-					setDescription((String)val);
-				}
-				saves.add("description");
-				return val;
-			} else if("id".equals(varLower)) {
-				if(val instanceof String) {
-					setId((String)val);
-				}
-				saves.add("id");
+				saves.add("address");
 				return val;
 		} else {
-			return super.persistBaseModel(var, val);
+			return super.persistMapModel(var, val);
 		}
 	}
 
@@ -652,92 +518,62 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
 		if(saves != null) {
 
-			if(saves.contains("name")) {
-				String name = (String)doc.get("name_docvalues_string");
-				if(name != null)
-					oFishFarm.setName(name);
-			}
-
-			if(saves.contains("description")) {
-				String description = (String)doc.get("description_docvalues_string");
-				if(description != null)
-					oFishFarm.setDescription(description);
-			}
-
-			if(saves.contains("id")) {
-				String id = (String)doc.get("id_docvalues_string");
-				if(id != null)
-					oFishFarm.setId(id);
+			if(saves.contains("address")) {
+				String address = (String)doc.get("address_docvalues_string");
+				if(address != null)
+					oFishFarm.setAddress(address);
 			}
 		}
 
-		super.populateBaseModel(doc);
+		super.populateMapModel(doc);
 	}
 
 	public void indexFishFarm(JsonObject doc) {
-		if(name != null) {
-			doc.put("name_docvalues_string", name);
+		if(address != null) {
+			doc.put("address_docvalues_string", address.encode());
 		}
-		if(description != null) {
-			doc.put("description_docvalues_string", description);
-		}
-		if(id != null) {
-			doc.put("id_docvalues_string", id);
-		}
-		super.indexBaseModel(doc);
+		super.indexMapModel(doc);
 
 	}
 
 	public static String varStoredFishFarm(String entityVar) {
 		switch(entityVar) {
-			case "name":
-				return "name_docvalues_string";
-			case "description":
-				return "description_docvalues_string";
-			case "id":
-				return "id_docvalues_string";
+			case "address":
+				return "address_docvalues_string";
 			default:
-				return BaseModel.varStoredBaseModel(entityVar);
+				return MapModel.varStoredMapModel(entityVar);
 		}
 	}
 
 	public static String varIndexedFishFarm(String entityVar) {
 		switch(entityVar) {
-			case "name":
-				return "name_docvalues_string";
-			case "description":
-				return "description_docvalues_string";
-			case "id":
-				return "id_docvalues_string";
+			case "address":
+				return "address_docvalues_string";
 			default:
-				return BaseModel.varIndexedBaseModel(entityVar);
+				return MapModel.varIndexedMapModel(entityVar);
 		}
 	}
 
 	public static String searchVarFishFarm(String searchVar) {
 		switch(searchVar) {
-			case "name_docvalues_string":
-				return "name";
-			case "description_docvalues_string":
-				return "description";
-			case "id_docvalues_string":
-				return "id";
+			case "address_docvalues_string":
+				return "address";
 			default:
-				return BaseModel.searchVarBaseModel(searchVar);
+				return MapModel.searchVarMapModel(searchVar);
 		}
 	}
 
 	public static String varSearchFishFarm(String entityVar) {
 		switch(entityVar) {
 			default:
-				return BaseModel.varSearchBaseModel(entityVar);
+				return MapModel.varSearchMapModel(entityVar);
 		}
 	}
 
 	public static String varSuggestedFishFarm(String entityVar) {
 		switch(entityVar) {
 			default:
-				return BaseModel.varSuggestedBaseModel(entityVar);
+				return MapModel.varSuggestedMapModel(entityVar);
 		}
 	}
 
@@ -752,11 +588,9 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		FishFarm oFishFarm = (FishFarm)this;
 		SiteRequest siteRequest = oFishFarm.getSiteRequest_();
 
-		oFishFarm.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishFarm.setDescription(Optional.ofNullable(doc.get("description_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishFarm.setId(Optional.ofNullable(doc.get("id_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oFishFarm.setAddress(Optional.ofNullable(doc.get("address_docvalues_string")).map(v -> v.toString()).orElse(null));
 
-		super.storeBaseModel(doc);
+		super.storeMapModel(doc);
 	}
 
 	//////////////////
@@ -768,13 +602,9 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
 		if(o != null && o instanceof FishFarm) {
 			FishFarm original = (FishFarm)o;
-			if(!Objects.equals(name, original.getName()))
-				apiRequest.addVars("name");
-			if(!Objects.equals(description, original.getDescription()))
-				apiRequest.addVars("description");
-			if(!Objects.equals(id, original.getId()))
-				apiRequest.addVars("id");
-			super.apiRequestBaseModel();
+			if(!Objects.equals(address, original.getAddress()))
+				apiRequest.addVars("address");
+			super.apiRequestMapModel();
 		}
 	}
 
@@ -785,9 +615,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	@Override public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(description).map(v -> "description: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(id).map(v -> "id: \"" + v + "\"\n" ).orElse(""));
+		sb.append(Optional.ofNullable(address).map(v -> "address: " + v + "\n").orElse(""));
 		return sb.toString();
 	}
 
@@ -797,15 +625,13 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishFarm;
 	}
-	public static final String VAR_name = "name";
-	public static final String VAR_description = "description";
-	public static final String VAR_id = "id";
+	public static final String VAR_address = "address";
 
 	public static List<String> varsQForClass() {
 		return FishFarm.varsQFishFarm(new ArrayList<String>());
 	}
 	public static List<String> varsQFishFarm(List<String> vars) {
-		BaseModel.varsQBaseModel(vars);
+		MapModel.varsQMapModel(vars);
 		return vars;
 	}
 
@@ -813,10 +639,8 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		return FishFarm.varsFqFishFarm(new ArrayList<String>());
 	}
 	public static List<String> varsFqFishFarm(List<String> vars) {
-		vars.add(VAR_name);
-		vars.add(VAR_description);
-		vars.add(VAR_id);
-		BaseModel.varsFqBaseModel(vars);
+		vars.add(VAR_address);
+		MapModel.varsFqMapModel(vars);
 		return vars;
 	}
 
@@ -824,17 +648,16 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		return FishFarm.varsRangeFishFarm(new ArrayList<String>());
 	}
 	public static List<String> varsRangeFishFarm(List<String> vars) {
-		BaseModel.varsRangeBaseModel(vars);
+		vars.add(VAR_address);
+		MapModel.varsRangeMapModel(vars);
 		return vars;
 	}
 
-	public static final String DISPLAY_NAME_name = "name";
-	public static final String DISPLAY_NAME_description = "description";
-	public static final String DISPLAY_NAME_id = "ID";
+	public static final String DISPLAY_NAME_address = "address";
 
 	@Override
 	public String idForClass() {
-		return id;
+		return entityShortId;
 	}
 
 	@Override
@@ -854,7 +677,7 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 
 	@Override
 	public String descriptionForClass() {
-		return description;
+		return null;
 	}
 
 	@Override
@@ -882,14 +705,10 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 	}
 	public static String displayNameFishFarm(String var) {
 		switch(var) {
-		case VAR_name:
-			return DISPLAY_NAME_name;
-		case VAR_description:
-			return DISPLAY_NAME_description;
-		case VAR_id:
-			return DISPLAY_NAME_id;
+		case VAR_address:
+			return DISPLAY_NAME_address;
 		default:
-			return BaseModel.displayNameBaseModel(var);
+			return MapModel.displayNameMapModel(var);
 		}
 	}
 
@@ -897,92 +716,72 @@ public abstract class FishFarmGen<DEV> extends BaseModel {
 		if(var == null)
 			return null;
 		switch(var) {
-		case VAR_name:
-			return "The name of this fish farm";
-		case VAR_description:
-			return "The description of this fish farm";
-		case VAR_id:
-			return "The ID of this fish farm";
+		case VAR_address:
+			return "The mailing address";
 			default:
-				return BaseModel.descriptionBaseModel(var);
+				return MapModel.descriptionMapModel(var);
 		}
 	}
 
 	public static String classSimpleNameFishFarm(String var) {
 		switch(var) {
-		case VAR_name:
-			return "String";
-		case VAR_description:
-			return "String";
-		case VAR_id:
-			return "String";
+		case VAR_address:
+			return "JsonObject";
 			default:
-				return BaseModel.classSimpleNameBaseModel(var);
+				return MapModel.classSimpleNameMapModel(var);
 		}
 	}
 
 	public static Integer htmColumnFishFarm(String var) {
 		switch(var) {
-		case VAR_name:
-			return 0;
-		case VAR_description:
-			return 1;
 			default:
-				return BaseModel.htmColumnBaseModel(var);
+				return MapModel.htmColumnMapModel(var);
 		}
 	}
 
 	public static Integer htmRowFishFarm(String var) {
 		switch(var) {
-		case VAR_name:
-			return 3;
-		case VAR_description:
-			return 3;
-		case VAR_id:
-			return 3;
+		case VAR_address:
+			return 6;
 			default:
-				return BaseModel.htmRowBaseModel(var);
+				return MapModel.htmRowMapModel(var);
 		}
 	}
 
 	public static Integer htmCellFishFarm(String var) {
 		switch(var) {
-		case VAR_name:
+		case VAR_address:
 			return 0;
-		case VAR_description:
-			return 1;
-		case VAR_id:
-			return 2;
 			default:
-				return BaseModel.htmCellBaseModel(var);
+				return MapModel.htmCellMapModel(var);
 		}
 	}
 
 	public static Integer lengthMinFishFarm(String var) {
 		switch(var) {
 			default:
-				return BaseModel.lengthMinBaseModel(var);
+				return MapModel.lengthMinMapModel(var);
 		}
 	}
 
 	public static Integer lengthMaxFishFarm(String var) {
 		switch(var) {
 			default:
-				return BaseModel.lengthMaxBaseModel(var);
+				return MapModel.lengthMaxMapModel(var);
 		}
 	}
 
 	public static Integer maxFishFarm(String var) {
 		switch(var) {
 			default:
-				return BaseModel.maxBaseModel(var);
+				return MapModel.maxMapModel(var);
 		}
 	}
 
 	public static Integer minFishFarm(String var) {
 		switch(var) {
 			default:
-				return BaseModel.minBaseModel(var);
+				return MapModel.minMapModel(var);
 		}
 	}
 }

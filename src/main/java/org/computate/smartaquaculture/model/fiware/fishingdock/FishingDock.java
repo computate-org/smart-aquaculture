@@ -5,7 +5,10 @@ import java.time.ZonedDateTime;
 import org.computate.search.wrap.Wrap;
 import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.model.BaseModel;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.vertx.api.BaseApiServiceImpl;
+
+import io.vertx.core.json.JsonObject;
 
 /**
  * Order: 5
@@ -15,7 +18,7 @@ import org.computate.vertx.api.BaseApiServiceImpl;
  * Rows: 100
  * 
  * SearchPageUri: /en-us/search/fishing-dock
- * EditPageUri: /en-us/edit/fishing-dock/{id}
+ * EditPageUri: /en-us/edit/fishing-dock/{entityShortId}
  * ApiUri: /en-us/api/fishing-dock
  * ApiMethod:
  *   Search:
@@ -38,52 +41,27 @@ import org.computate.vertx.api.BaseApiServiceImpl;
  *     PUT:
  *     DELETE:
  *     Admin:
+ *   SuperAdmin:
+ *     POST:
+ *     PATCH:
+ *     GET:
+ *     PUT:
+ *     DELETE:
+ *     SuperAdmin:
  **/
-public class FishingDock extends FishingDockGen<BaseModel> {
+public class FishingDock extends FishingDockGen<MapModel> {
 
 	/**
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: name
-	 * Description: The name of this fishing dock
-	 * HtmRow: 3
+	 * DisplayName: address
+	 * Description: The mailing address
+	 * HtmRowTitleOpen: FishPopulation details
+	 * HtmRow: 6
 	 * HtmCell: 0
-	 * HtmColumn: 0
-	 * HtmRowTitleOpen: cluster details
 	 * Facet: true
-	 * VarName: true
 	 **/
-	protected void _name(Wrap<String> w) {
-    w.o(pk.toString());
-  }
-
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: description
-	 * Description: The description of this fishing dock
-	 * HtmRow: 3
-	 * HtmCell: 1
-	 * HtmColumn: 1
-	 * Facet: true
-	 * VarDescription: true
-	 **/
-	protected void _description(Wrap<String> w) {}
-
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: ID
-	 * Description: The ID of this fishing dock
-	 * HtmRow: 3
-	 * HtmCell: 2
-	 * Facet: true
-	 * VarId: true
-	 **/
-	protected void _id(Wrap<String> w) {
-    w.o(toId(name));
-  }
+	protected void _address(Wrap<JsonObject> w) {
+	}
 }

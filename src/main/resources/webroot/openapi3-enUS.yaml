@@ -3003,7 +3003,7 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/PUTImportFishFarmResponse'
-  /en-us/api/fish-farm/{id}:
+  /en-us/api/fish-farm/{entityShortId}:
     get:
       operationId: getFishFarm
       x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
@@ -3024,7 +3024,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: id
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -3057,7 +3057,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: id
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -3113,7 +3113,7 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/DELETEFishFarmResponse'
-  /en-us/edit/fish-farm/{id}:
+  /en-us/edit/fish-farm/{entityShortId}:
     get:
       operationId: editpageFishFarm
       x-vertx-event-bus: smart-aquaculture-enUS-FishFarm
@@ -3134,7 +3134,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: id
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -3726,7 +3726,7 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/PUTImportFishingDockResponse'
-  /en-us/api/fishing-dock/{id}:
+  /en-us/api/fishing-dock/{entityShortId}:
     get:
       operationId: getFishingDock
       x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
@@ -3747,7 +3747,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: id
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -3780,7 +3780,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: id
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -3836,7 +3836,7 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/DELETEFishingDockResponse'
-  /en-us/edit/fishing-dock/{id}:
+  /en-us/edit/fishing-dock/{entityShortId}:
     get:
       operationId: editpageFishingDock
       x-vertx-event-bus: smart-aquaculture-enUS-FishingDock
@@ -3857,7 +3857,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: id
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -4449,7 +4449,7 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/PUTImportFishingTripResponse'
-  /en-us/api/fishing-trip/{pk}:
+  /en-us/api/fishing-trip/{entityShortId}:
     get:
       operationId: getFishingTrip
       x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
@@ -4470,7 +4470,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: pk
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -4503,7 +4503,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: pk
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -4559,7 +4559,7 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/DELETEFishingTripResponse'
-  /en-us/edit/fishing-trip/{pk}:
+  /en-us/edit/fishing-trip/{entityShortId}:
     get:
       operationId: editpageFishingTrip
       x-vertx-event-bus: smart-aquaculture-enUS-FishingTrip
@@ -4580,7 +4580,7 @@ paths:
           in: cookie
           schema:
             type: string
-        - name: pk
+        - name: entityShortId
           in: path
           description: >+
           required: true
@@ -5640,6 +5640,1123 @@ paths:
             text/html; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/SearchPageFishPopulationResponse'
+  /en-us/api/fish-processing:
+    get:
+      operationId: searchFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchFishProcessingResponse'
+    patch:
+      operationId: patchFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHFishProcessingRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHFishProcessingResponse'
+    post:
+      operationId: postFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTFishProcessingRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTFishProcessingResponse'
+    delete:
+      operationId: deletefilterFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFilterFishProcessingResponse'
+  /en-us/api/fish-processing-import:
+    put:
+      operationId: putimportFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportFishProcessingRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportFishProcessingResponse'
+  /en-us/api/fish-processing/{entityShortId}:
+    get:
+      operationId: getFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: entityShortId
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETFishProcessingResponse'
+    delete:
+      operationId: deleteFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: entityShortId
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFishProcessingResponse'
+  /en-us/edit/fish-processing/{entityShortId}:
+    get:
+      operationId: editpageFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: entityShortId
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EditPageFishProcessingResponse'
+  /en-us/search/fish-processing:
+    get:
+      operationId: searchpageFishProcessing
+      x-vertx-event-bus: smart-aquaculture-enUS-FishProcessing
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - fishing docks
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageFishProcessingResponse'
+  /en-us/api/map-model:
+    get:
+      operationId: searchMapModel
+      x-vertx-event-bus: smart-aquaculture-enUS-MapModel
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - map models
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchMapModelResponse'
+  /en-us/api/map-model/{entityShortId}:
+    get:
+      operationId: getMapModel
+      x-vertx-event-bus: smart-aquaculture-enUS-MapModel
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - map models
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: entityShortId
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETMapModelResponse'
+  /en-us/search/map-model:
+    get:
+      operationId: searchpageMapModel
+      x-vertx-event-bus: smart-aquaculture-enUS-MapModel
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+      description: >+
+      summary: >+
+      tags:
+        - map models
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: fl
+          description: 'The field list parameter limits the information included in a query response to a specified list of fields. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: 'The sort parameter arranges search results in either ascending (asc) or descending (desc) order. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: 'The start parameter specifies an offset into a query result set and instructs Solr to begin displaying results from this offset. '
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+        - in: query
+          name: facet
+          description: 'The facet parameter enables facet counts in the query response. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: facet.range.start
+          description: 'The facet.range.start parameter specifies the lower bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: 'The facet.range.end specifies the upper bound of the ranges. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: 'The span of each range expressed as a value to be added to the lower bound. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: 'The facet.pivot parameter defines the fields to use for the pivot. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: 'The facet.range parameter defines the field for which Solr should create range facets. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: 'The facet.field parameter identifies a field that should be treated as a facet. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: d
+          description: 'The radial distance, usually in kilometers. '
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: pt
+          description: 'he center point using the format lat,lon if latitude & longitude. Otherwise, x,y for PointType or x y for RPT field types. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sfield
+          description: 'A spatial indexed field. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: score
+          description: '(Advanced option; not supported by LatLonType (deprecated) or PointType) If the query is used in a scoring context (e.g., as the main query in q), this local parameter determines what scores will be produced. Valid values are: none, kilometers, miles, degrees, distance, recipDistance, overlapRatio, area, area2D'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: distanceUnits
+          description: 'This is used to specify the units for distance measurements used throughout the use of this field. This can be degrees, kilometers or miles. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: stats
+          description: 'The Stats component returns simple statistics for numeric, string, and date fields within the document set. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: stats.field
+          description: 'Specifies a field for which statistics should be generated. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageMapModelResponse'
   /en-us/api/time-zone:
     get:
       operationId: searchTimeZone
@@ -7883,6 +9000,81 @@ components:
         text/html; charset=utf-8:
           schema:
             $ref: '#/components/schemas/SearchPageFishPopulationResponse'
+    SearchFishProcessingResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchFishProcessingResponse'
+    PATCHFishProcessingRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHFishProcessingRequest'
+    PATCHFishProcessingResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHFishProcessingResponse'
+    POSTFishProcessingRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTFishProcessingRequest'
+    POSTFishProcessingResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTFishProcessingResponse'
+    DELETEFilterFishProcessingResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFilterFishProcessingResponse'
+    PUTImportFishProcessingRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishProcessingRequest'
+    PUTImportFishProcessingResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportFishProcessingResponse'
+    GETFishProcessingResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETFishProcessingResponse'
+    DELETEFishProcessingResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFishProcessingResponse'
+    EditPageFishProcessingResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/EditPageFishProcessingResponse'
+    SearchPageFishProcessingResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageFishProcessingResponse'
+    SearchMapModelResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchMapModelResponse'
+    GETMapModelResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETMapModelResponse'
+    SearchPageMapModelResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageMapModelResponse'
     SearchTimeZoneResponse:
       content:
         application/json; charset=utf-8:
@@ -10655,6 +11847,7 @@ components:
         - type: string
     SearchFishFarmResponse:
       allOf:
+        - $ref: "#/components/schemas/SearchMapModelResponse"
         - type: object
           properties:
             startNum:
@@ -10671,92 +11864,48 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  id:
-                    type: string
+                  address:
+                    type: object
     PATCHFishFarmRequest:
       allOf:
         - type: object
           properties:
-            setName:
-              type: string
+            setAddress:
+              type: object
               nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
     PATCHFishFarmResponse:
       allOf:
         - type: object
           properties:
-            setName:
-              type: string
+            setAddress:
+              type: object
               nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
     POSTFishFarmRequest:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     POSTFishFarmResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     DELETEFilterFishFarmResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     PUTImportFishFarmRequest:
       allOf:
         - type: object
@@ -10766,42 +11915,27 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  id:
-                    type: string
+                  address:
+                    type: object
     PUTImportFishFarmResponse:
       allOf:
         - type: object
           properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  id:
-                    type: string
+                  address:
+                    type: object
     GETFishFarmResponse:
       allOf:
+        - $ref: "#/components/schemas/GETMapModelResponse"
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     DELETEFishFarmResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     EditPageFishFarmResponse:
       allOf:
         - type: string
@@ -10810,6 +11944,7 @@ components:
         - type: string
     SearchFishingDockResponse:
       allOf:
+        - $ref: "#/components/schemas/SearchMapModelResponse"
         - type: object
           properties:
             startNum:
@@ -10826,92 +11961,48 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  id:
-                    type: string
+                  address:
+                    type: object
     PATCHFishingDockRequest:
       allOf:
         - type: object
           properties:
-            setName:
-              type: string
+            setAddress:
+              type: object
               nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
     PATCHFishingDockResponse:
       allOf:
         - type: object
           properties:
-            setName:
-              type: string
+            setAddress:
+              type: object
               nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
     POSTFishingDockRequest:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     POSTFishingDockResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     DELETEFilterFishingDockResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     PUTImportFishingDockRequest:
       allOf:
         - type: object
@@ -10921,42 +12012,27 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  id:
-                    type: string
+                  address:
+                    type: object
     PUTImportFishingDockResponse:
       allOf:
         - type: object
           properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  id:
-                    type: string
+                  address:
+                    type: object
     GETFishingDockResponse:
       allOf:
+        - $ref: "#/components/schemas/GETMapModelResponse"
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     DELETEFishingDockResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            id:
-              type: string
+            address:
+              type: object
     EditPageFishingDockResponse:
       allOf:
         - type: string
@@ -10965,6 +12041,7 @@ components:
         - type: string
     SearchFishingTripResponse:
       allOf:
+        - $ref: "#/components/schemas/SearchMapModelResponse"
         - type: object
           properties:
             startNum:
@@ -10981,29 +12058,16 @@ components:
               items:
                 type: object
                 properties:
-                  pk:
-                    type: string
                   timeZone:
                     type: string
                   departureDate:
                     type: string
                   arrivalDate:
                     type: string
-                  name:
-                    type: string
-                  description:
-                    type: string
     PATCHFishingTripRequest:
       allOf:
         - type: object
           properties:
-            setPk:
-              type: string
-              nullable: true
-            removePk:
-              type: string
-            removeAllPk:
-              type: string
             setTimeZone:
               type: string
               nullable: true
@@ -11024,32 +12088,11 @@ components:
             removeArrivalDate:
               type: string
             removeAllArrivalDate:
-              type: string
-            setName:
-              type: string
-              nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
               type: string
     PATCHFishingTripResponse:
       allOf:
         - type: object
           properties:
-            setPk:
-              type: string
-              nullable: true
-            removePk:
-              type: string
-            removeAllPk:
-              type: string
             setTimeZone:
               type: string
               nullable: true
@@ -11071,67 +12114,35 @@ components:
               type: string
             removeAllArrivalDate:
               type: string
-            setName:
-              type: string
-              nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
     POSTFishingTripRequest:
       allOf:
         - type: object
           properties:
-            pk:
-              type: string
             timeZone:
               type: string
             departureDate:
               type: string
             arrivalDate:
-              type: string
-            name:
-              type: string
-            description:
               type: string
     POSTFishingTripResponse:
       allOf:
         - type: object
           properties:
-            pk:
-              type: string
             timeZone:
               type: string
             departureDate:
               type: string
             arrivalDate:
-              type: string
-            name:
-              type: string
-            description:
               type: string
     DELETEFilterFishingTripResponse:
       allOf:
         - type: object
           properties:
-            pk:
-              type: string
             timeZone:
               type: string
             departureDate:
               type: string
             arrivalDate:
-              type: string
-            name:
-              type: string
-            description:
               type: string
     PUTImportFishingTripRequest:
       allOf:
@@ -11142,65 +12153,42 @@ components:
               items:
                 type: object
                 properties:
-                  pk:
-                    type: string
                   timeZone:
                     type: string
                   departureDate:
                     type: string
                   arrivalDate:
-                    type: string
-                  name:
-                    type: string
-                  description:
                     type: string
     PUTImportFishingTripResponse:
       allOf:
         - type: object
           properties:
-                  pk:
-                    type: string
                   timeZone:
                     type: string
                   departureDate:
                     type: string
                   arrivalDate:
                     type: string
-                  name:
-                    type: string
-                  description:
-                    type: string
     GETFishingTripResponse:
       allOf:
+        - $ref: "#/components/schemas/GETMapModelResponse"
         - type: object
           properties:
-            pk:
-              type: string
             timeZone:
               type: string
             departureDate:
               type: string
             arrivalDate:
-              type: string
-            name:
-              type: string
-            description:
               type: string
     DELETEFishingTripResponse:
       allOf:
         - type: object
           properties:
-            pk:
-              type: string
             timeZone:
               type: string
             departureDate:
               type: string
             arrivalDate:
-              type: string
-            name:
-              type: string
-            description:
               type: string
     EditPageFishingTripResponse:
       allOf:
@@ -11210,6 +12198,7 @@ components:
         - type: string
     SearchFishPopulationResponse:
       allOf:
+        - $ref: "#/components/schemas/SearchMapModelResponse"
         - type: object
           properties:
             startNum:
@@ -11226,38 +12215,6 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: object
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildPath:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  ngsildData:
-                    type: object
                   address:
                     type: object
                   alternateName:
@@ -11290,127 +12247,6 @@ components:
       allOf:
         - type: object
           properties:
-            setName:
-              type: string
-              nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setLocation:
-              type: object
-              nullable: true
-            removeLocation:
-              type: object
-            removeAllLocation:
-              type: object
-            setAreaServedColors:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedColors:
-              type: string
-            removeAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            addAreaServedColors:
-              type: string
-            addAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            setAreaServedTitles:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedTitles:
-              type: string
-            removeAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            addAreaServedTitles:
-              type: string
-            addAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            setAreaServedLinks:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedLinks:
-              type: string
-            removeAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            addAreaServedLinks:
-              type: string
-            addAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            setAreaServed:
-              type: object
-              nullable: true
-            removeAreaServed:
-              type: object
-            removeAllAreaServed:
-              type: object
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
-              type: string
-            setNgsildData:
-              type: object
-              nullable: true
-            removeNgsildData:
-              type: object
-            removeAllNgsildData:
-              type: object
             setAddress:
               type: object
               nullable: true
@@ -11513,127 +12349,6 @@ components:
       allOf:
         - type: object
           properties:
-            setName:
-              type: string
-              nullable: true
-            removeName:
-              type: string
-            removeAllName:
-              type: string
-            setDescription:
-              type: string
-              nullable: true
-            removeDescription:
-              type: string
-            removeAllDescription:
-              type: string
-            setLocation:
-              type: object
-              nullable: true
-            removeLocation:
-              type: object
-            removeAllLocation:
-              type: object
-            setAreaServedColors:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedColors:
-              type: string
-            removeAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            addAreaServedColors:
-              type: string
-            addAllAreaServedColors:
-              type: array
-              items:
-                type: string
-            setAreaServedTitles:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedTitles:
-              type: string
-            removeAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            addAreaServedTitles:
-              type: string
-            addAllAreaServedTitles:
-              type: array
-              items:
-                type: string
-            setAreaServedLinks:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeAreaServedLinks:
-              type: string
-            removeAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            addAreaServedLinks:
-              type: string
-            addAllAreaServedLinks:
-              type: array
-              items:
-                type: string
-            setAreaServed:
-              type: object
-              nullable: true
-            removeAreaServed:
-              type: object
-            removeAllAreaServed:
-              type: object
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
-              type: string
-            setNgsildData:
-              type: object
-              nullable: true
-            removeNgsildData:
-              type: object
-            removeAllNgsildData:
-              type: object
             setAddress:
               type: object
               nullable: true
@@ -11736,38 +12451,6 @@ components:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -11800,38 +12483,6 @@ components:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -11864,38 +12515,6 @@ components:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -11933,38 +12552,6 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: object
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildPath:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  ngsildData:
-                    type: object
                   address:
                     type: object
                   alternateName:
@@ -11997,38 +12584,6 @@ components:
       allOf:
         - type: object
           properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: object
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildPath:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  ngsildData:
-                    type: object
                   address:
                     type: object
                   alternateName:
@@ -12059,40 +12614,9 @@ components:
                     type: string
     GETFishPopulationResponse:
       allOf:
+        - $ref: "#/components/schemas/GETMapModelResponse"
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -12125,38 +12649,6 @@ components:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: object
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildPath:
-              type: string
-            ngsildContext:
-              type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -12189,6 +12681,204 @@ components:
       allOf:
         - type: string
     SearchPageFishPopulationResponse:
+      allOf:
+        - type: string
+    SearchFishProcessingResponse:
+      allOf:
+        - $ref: "#/components/schemas/SearchMapModelResponse"
+        - type: object
+          properties:
+            startNum:
+              type: integer
+              minimum: 0
+            foundNum:
+              type: integer
+              minimum: 0
+            returnedNum:
+              type: integer
+              minimum: 0
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  address:
+                    type: object
+    PATCHFishProcessingRequest:
+      allOf:
+        - type: object
+          properties:
+            setAddress:
+              type: object
+              nullable: true
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
+    PATCHFishProcessingResponse:
+      allOf:
+        - type: object
+          properties:
+            setAddress:
+              type: object
+              nullable: true
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
+    POSTFishProcessingRequest:
+      allOf:
+        - type: object
+          properties:
+            address:
+              type: object
+    POSTFishProcessingResponse:
+      allOf:
+        - type: object
+          properties:
+            address:
+              type: object
+    DELETEFilterFishProcessingResponse:
+      allOf:
+        - type: object
+          properties:
+            address:
+              type: object
+    PUTImportFishProcessingRequest:
+      allOf:
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  address:
+                    type: object
+    PUTImportFishProcessingResponse:
+      allOf:
+        - type: object
+          properties:
+                  address:
+                    type: object
+    GETFishProcessingResponse:
+      allOf:
+        - $ref: "#/components/schemas/GETMapModelResponse"
+        - type: object
+          properties:
+            address:
+              type: object
+    DELETEFishProcessingResponse:
+      allOf:
+        - type: object
+          properties:
+            address:
+              type: object
+    EditPageFishProcessingResponse:
+      allOf:
+        - type: string
+    SearchPageFishProcessingResponse:
+      allOf:
+        - type: string
+    SearchMapModelResponse:
+      allOf:
+        - type: object
+          properties:
+            startNum:
+              type: integer
+              minimum: 0
+            foundNum:
+              type: integer
+              minimum: 0
+            returnedNum:
+              type: integer
+              minimum: 0
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  location:
+                    type: object
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
+                  id:
+                    type: string
+                  entityShortId:
+                    type: string
+                  ngsildTenant:
+                    type: string
+                  ngsildPath:
+                    type: string
+                  ngsildContext:
+                    type: string
+                  ngsildData:
+                    type: object
+                  color:
+                    type: string
+                  classCanonicalNames:
+                    type: array
+                    items:
+                      type: string
+    GETMapModelResponse:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            location:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
+            id:
+              type: string
+            entityShortId:
+              type: string
+            ngsildTenant:
+              type: string
+            ngsildPath:
+              type: string
+            ngsildContext:
+              type: string
+            ngsildData:
+              type: object
+            color:
+              type: string
+            classCanonicalNames:
+              type: array
+              items:
+                type: string
+    SearchPageMapModelResponse:
       allOf:
         - type: string
     SearchTimeZoneResponse:
