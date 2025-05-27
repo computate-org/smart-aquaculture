@@ -151,10 +151,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						if(!scopes2.contains("POST"))
-							scopes2.add("POST");
-						if(!scopes2.contains("PATCH"))
-							scopes2.add("PATCH");
 						searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
 							response200SearchSiteUser(listSiteUser).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -234,7 +230,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			response200Search(listSiteUser.getRequest(), listSiteUser.getResponse(), json);
 			if(json == null) {
 				String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-						String m = String.format("%s %s not found", "site user", userId);
+				String m = String.format("%s %s not found", "site user", userId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -332,10 +328,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					} else {
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						if(!scopes2.contains("POST"))
-							scopes2.add("POST");
-						if(!scopes2.contains("PATCH"))
-							scopes2.add("PATCH");
 						searchSiteUserList(siteRequest, false, true, true).onSuccess(listSiteUser -> {
 							try {
 								ApiRequest apiRequest = new ApiRequest();
@@ -669,13 +661,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setAwesomeEffect":
-							o2.setAwesomeEffect(jsonObject.getBoolean(entityVar));
+					case "setDisplayName":
+							o2.setDisplayName(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(SiteUser.VAR_awesomeEffect + "=$" + num);
+							bSql.append(SiteUser.VAR_displayName + "=$" + num);
 							num++;
-							bParams.add(o2.sqlAwesomeEffect());
+							bParams.add(o2.sqlDisplayName());
 						break;
 					case "setUserKey":
 							o2.setUserKey(jsonObject.getString(entityVar));
@@ -684,14 +676,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(SiteUser.VAR_userKey + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserKey());
-						break;
-					case "setDisplayName":
-							o2.setDisplayName(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(SiteUser.VAR_displayName + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDisplayName());
 						break;
 					case "setSiteTheme":
 							o2.setSiteTheme(jsonObject.getString(entityVar));
@@ -770,7 +754,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-						String m = String.format("%s %s not found", "site user", userId);
+				String m = String.format("%s %s not found", "site user", userId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -834,10 +818,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					} else {
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						if(!scopes2.contains("POST"))
-							scopes2.add("POST");
-						if(!scopes2.contains("PATCH"))
-							scopes2.add("PATCH");
 						ApiRequest apiRequest = new ApiRequest();
 						apiRequest.setRows(1L);
 						apiRequest.setNumFound(1L);
@@ -1171,14 +1151,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case SiteUser.VAR_awesomeEffect:
-						o2.setAwesomeEffect(jsonObject.getBoolean(entityVar));
+					case SiteUser.VAR_displayName:
+						o2.setDisplayName(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(SiteUser.VAR_awesomeEffect + "=$" + num);
+						bSql.append(SiteUser.VAR_displayName + "=$" + num);
 						num++;
-						bParams.add(o2.sqlAwesomeEffect());
+						bParams.add(o2.sqlDisplayName());
 						break;
 					case SiteUser.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
@@ -1188,15 +1168,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(SiteUser.VAR_userKey + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserKey());
-						break;
-					case SiteUser.VAR_displayName:
-						o2.setDisplayName(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(SiteUser.VAR_displayName + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDisplayName());
 						break;
 					case SiteUser.VAR_siteTheme:
 						o2.setSiteTheme(jsonObject.getString(entityVar));
@@ -1278,7 +1249,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
 				String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-						String m = String.format("%s %s not found", "site user", userId);
+				String m = String.format("%s %s not found", "site user", userId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1329,10 +1300,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						if(!scopes2.contains("POST"))
-							scopes2.add("POST");
-						if(!scopes2.contains("PATCH"))
-							scopes2.add("PATCH");
 						searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
 							response200SearchPageSiteUser(listSiteUser).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -1494,10 +1461,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					{
 						siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
 						List<String> scopes2 = siteRequest.getScopes();
-						if(!scopes2.contains("POST"))
-							scopes2.add("POST");
-						if(!scopes2.contains("PATCH"))
-							scopes2.add("PATCH");
 						searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
 							response200EditPageSiteUser(listSiteUser).onSuccess(response -> {
 								eventHandler.handle(Future.succeededFuture(response));
@@ -1994,7 +1957,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
 	public Future<Void> relateSiteUser(SiteUser o) {
 		Promise<Void> promise = Promise.promise();
-			promise.complete();
+		promise.complete();
 		return promise.future();
 	}
 
@@ -2132,9 +2095,8 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(SiteUser.VAR_userFullName, SiteUser.staticSetUserFullName(siteRequest2, (String)result.get(SiteUser.VAR_userFullName)));
 			page.persistForClass(SiteUser.VAR_seeArchived, SiteUser.staticSetSeeArchived(siteRequest2, (String)result.get(SiteUser.VAR_seeArchived)));
 			page.persistForClass(SiteUser.VAR_sessionId, SiteUser.staticSetSessionId(siteRequest2, (String)result.get(SiteUser.VAR_sessionId)));
-			page.persistForClass(SiteUser.VAR_awesomeEffect, SiteUser.staticSetAwesomeEffect(siteRequest2, (String)result.get(SiteUser.VAR_awesomeEffect)));
-			page.persistForClass(SiteUser.VAR_userKey, SiteUser.staticSetUserKey(siteRequest2, (String)result.get(SiteUser.VAR_userKey)));
 			page.persistForClass(SiteUser.VAR_displayName, SiteUser.staticSetDisplayName(siteRequest2, (String)result.get(SiteUser.VAR_displayName)));
+			page.persistForClass(SiteUser.VAR_userKey, SiteUser.staticSetUserKey(siteRequest2, (String)result.get(SiteUser.VAR_userKey)));
 			page.persistForClass(SiteUser.VAR_siteTheme, SiteUser.staticSetSiteTheme(siteRequest2, (String)result.get(SiteUser.VAR_siteTheme)));
 			page.persistForClass(SiteUser.VAR_webComponentsTheme, SiteUser.staticSetWebComponentsTheme(siteRequest2, (String)result.get(SiteUser.VAR_webComponentsTheme)));
 			page.persistForClass(SiteUser.VAR_objectTitle, SiteUser.staticSetObjectTitle(siteRequest2, (String)result.get(SiteUser.VAR_objectTitle)));

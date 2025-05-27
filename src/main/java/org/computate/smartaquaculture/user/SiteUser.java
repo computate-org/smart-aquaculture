@@ -109,19 +109,6 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * HtmRow: 4
-	 * HtmCell: 2
-	 * DisplayName: awesome effect (requires refresh)
-	 * Description: an awesome effect for the entire site
-	 */
-	protected void _awesomeEffect(Wrap<Boolean> w) {
-		w.o(false);
-	}
-
-	/**
 	 * DocValues: true
 	 * Persist: true
 	 * Description: The display name for this user
@@ -158,17 +145,17 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
 	 * Description: The web components theme for the site. 
 	 * Refresh: true
 	 * Radio:
-	 *   default: Default—Your trusty companion, like a perfectly broken-in pair of jeans.
-	 *   classic: Classic—Timeless elegance that never goes out of style.
-	 *   awesome: Awesome—Punchy and vibrant, the rockstar of themes.
-	 *   active: Active—Energetic and tactile, always in motion.
-	 *   brutalist: Brutalist—Sharp, square, and unapologetically bold.
-	 *   glossy: Glossy—Bustling with plenty of luster and shine.
-	 *   matter: Matter—Digital design inspired by the real world.
-	 *   mellow: Mellow—Soft and soothing, like a lazy Sunday morning.
-	 *   playful: Playful—Cheerful and engaging, like a playground on screen.
-	 *   premium: Premium—The ultimate in sophistication and style.
-	 *   tailspin: Tailspin—Like a bird in flight, guiding you from there to here.
+	 *   default: Default — "Your trusty companion, like a perfectly broken-in pair of jeans."
+	 *   classic: Classic — "Timeless elegance that never goes out of style."
+	 *   awesome: Awesome — "Punchy and vibrant, the rockstar of themes."
+	 *   active: Active — "Energetic and tactile, always in motion."
+	 *   brutalist: Brutalist — "Sharp, square, and unapologetically bold."
+	 *   glossy: Glossy — "Bustling with plenty of luster and shine."
+	 *   matter: Matter — "Digital design inspired by the real world."
+	 *   mellow: Mellow — "Soft and soothing, like a lazy Sunday morning."
+	 *   playful: Playful — "Cheerful and engaging, like a playground on screen."
+	 *   premium: Premium — "The ultimate in sophistication and style."
+	 *   tailspin: Tailspin — "Like a bird in flight, guiding you from there to here."
 	 */
 	protected void _webComponentsTheme(Wrap<String> w) {
 		w.o("glossy");
