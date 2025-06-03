@@ -1,3 +1,44 @@
+/**
+ * Order: 5
+ * Description: A fishing trip
+ * AName: a fishing trip
+ * Icon: <i class="fa-duotone fa-regular fa-fishing-rod"></i>
+ * Rows: 100
+ * LocationSvg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path class="fa-secondary" opacity=".4" d="M48 320l32 0 0 144-32 0 0-144z"/><path class="fa-primary" d="M280.4 48c-3.2 0-6.3 .5-9.3 1.4L206.6 69.2C136.1 90.9 88 156.1 88 229.8l0 42.9c22.7 3.8 40 23.6 40 47.3l0 144c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48L0 320c0-23.8 17.3-43.5 40-47.3l0-42.9C40 135 101.8 51.2 192.5 23.4L256.9 3.5C264.5 1.2 272.4 0 280.4 0c44 0 79.6 35.7 79.6 79.6l0 56.4c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-56.4C312 62.2 297.8 48 280.4 48zM48 320l0 144 32 0 0-144-32 0zm208 24c0-71.6 55.6-127.8 89-148.1c4.3-2.6 9.6-2.6 14 0c33.5 20.3 89 76.6 89 148.1c0 32-16 80-64 112l27.3 27.3c3 3 4.7 7.1 4.7 11.3l0 1.4c0 8.8-7.2 16-16 16l-96 0c-8.8 0-16-7.2-16-16l0-1.4c0-4.2 1.7-8.3 4.7-11.3L320 456c-48-32-64-80-64-112zm128-32a24 24 0 1 0 -48 0 24 24 0 1 0 48 0z"/></svg>
+ * LocationRadius: 100
+ * 
+ * SearchPageUri: /en-us/search/fishing-trip
+ * EditPageUri: /en-us/edit/fishing-trip/{entityShortId}
+ * ApiUri: /en-us/api/fishing-trip
+ * ApiMethod:
+ *   Search:
+ *   GET:
+ *   PATCH:
+ *   POST:
+ *   DELETE:
+ *   PUTImport:
+ * AuthGroup:
+ *   FishingTripViewer:
+ *     GET:
+ *   FishingTripEditor:
+ *     GET:
+ *     POST:
+ *     PATCH:
+ *   Admin:
+ *     POST:
+ *     PATCH:
+ *     GET:
+ *     PUT:
+ *     DELETE:
+ *     Admin:
+ *   SuperAdmin:
+ *     POST:
+ *     PATCH:
+ *     GET:
+ *     PUT:
+ *     DELETE:
+ *     SuperAdmin:
+ **/
 package org.computate.smartaquaculture.model.fiware.fishingtrip;
 
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
@@ -737,14 +778,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlDepartureDate());
 						break;
-					case "setCreated":
-							o2.setCreated(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_created + "=$" + num);
-							num++;
-							bParams.add(o2.sqlCreated());
-						break;
 					case "setLocation":
 							o2.setLocation(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
@@ -752,6 +785,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingTrip.VAR_location + "=$" + num);
 							num++;
 							bParams.add(o2.sqlLocation());
+						break;
+					case "setCreated":
+							o2.setCreated(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingTrip.VAR_created + "=$" + num);
+							num++;
+							bParams.add(o2.sqlCreated());
 						break;
 					case "setArrivalDate":
 							o2.setArrivalDate(jsonObject.getString(entityVar));
@@ -793,14 +834,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setUserKey":
-							o2.setUserKey(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_userKey + "=$" + num);
-							num++;
-							bParams.add(o2.sqlUserKey());
-						break;
 					case "setNgsildTenant":
 							o2.setNgsildTenant(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -808,6 +841,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingTrip.VAR_ngsildTenant + "=$" + num);
 							num++;
 							bParams.add(o2.sqlNgsildTenant());
+						break;
+					case "setUserKey":
+							o2.setUserKey(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingTrip.VAR_userKey + "=$" + num);
+							num++;
+							bParams.add(o2.sqlUserKey());
 						break;
 					case "setNgsildPath":
 							o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -825,14 +866,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlNgsildContext());
 						break;
-					case "setObjectTitle":
-							o2.setObjectTitle(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_objectTitle + "=$" + num);
-							num++;
-							bParams.add(o2.sqlObjectTitle());
-						break;
 					case "setNgsildData":
 							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
@@ -841,13 +874,13 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlNgsildData());
 						break;
-					case "setDisplayPage":
-							o2.setDisplayPage(jsonObject.getString(entityVar));
+					case "setObjectTitle":
+							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_displayPage + "=$" + num);
+							bSql.append(FishingTrip.VAR_objectTitle + "=$" + num);
 							num++;
-							bParams.add(o2.sqlDisplayPage());
+							bParams.add(o2.sqlObjectTitle());
 						break;
 					case "setColor":
 							o2.setColor(jsonObject.getString(entityVar));
@@ -856,6 +889,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingTrip.VAR_color + "=$" + num);
 							num++;
 							bParams.add(o2.sqlColor());
+						break;
+					case "setDisplayPage":
+							o2.setDisplayPage(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingTrip.VAR_displayPage + "=$" + num);
+							num++;
+							bParams.add(o2.sqlDisplayPage());
 						break;
 				}
 			}
@@ -1247,15 +1288,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlDepartureDate());
 						break;
-					case FishingTrip.VAR_created:
-						o2.setCreated(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingTrip.VAR_created + "=$" + num);
-						num++;
-						bParams.add(o2.sqlCreated());
-						break;
 					case FishingTrip.VAR_location:
 						o2.setLocation(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
@@ -1264,6 +1296,15 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingTrip.VAR_location + "=$" + num);
 						num++;
 						bParams.add(o2.sqlLocation());
+						break;
+					case FishingTrip.VAR_created:
+						o2.setCreated(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingTrip.VAR_created + "=$" + num);
+						num++;
+						bParams.add(o2.sqlCreated());
 						break;
 					case FishingTrip.VAR_arrivalDate:
 						o2.setArrivalDate(jsonObject.getString(entityVar));
@@ -1310,15 +1351,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case FishingTrip.VAR_userKey:
-						o2.setUserKey(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingTrip.VAR_userKey + "=$" + num);
-						num++;
-						bParams.add(o2.sqlUserKey());
-						break;
 					case FishingTrip.VAR_ngsildTenant:
 						o2.setNgsildTenant(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1327,6 +1359,15 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingTrip.VAR_ngsildTenant + "=$" + num);
 						num++;
 						bParams.add(o2.sqlNgsildTenant());
+						break;
+					case FishingTrip.VAR_userKey:
+						o2.setUserKey(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingTrip.VAR_userKey + "=$" + num);
+						num++;
+						bParams.add(o2.sqlUserKey());
 						break;
 					case FishingTrip.VAR_ngsildPath:
 						o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1346,15 +1387,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlNgsildContext());
 						break;
-					case FishingTrip.VAR_objectTitle:
-						o2.setObjectTitle(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingTrip.VAR_objectTitle + "=$" + num);
-						num++;
-						bParams.add(o2.sqlObjectTitle());
-						break;
 					case FishingTrip.VAR_ngsildData:
 						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
@@ -1364,14 +1396,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlNgsildData());
 						break;
-					case FishingTrip.VAR_displayPage:
-						o2.setDisplayPage(jsonObject.getString(entityVar));
+					case FishingTrip.VAR_objectTitle:
+						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishingTrip.VAR_displayPage + "=$" + num);
+						bSql.append(FishingTrip.VAR_objectTitle + "=$" + num);
 						num++;
-						bParams.add(o2.sqlDisplayPage());
+						bParams.add(o2.sqlObjectTitle());
 						break;
 					case FishingTrip.VAR_color:
 						o2.setColor(jsonObject.getString(entityVar));
@@ -1381,6 +1413,15 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingTrip.VAR_color + "=$" + num);
 						num++;
 						bParams.add(o2.sqlColor());
+						break;
+					case FishingTrip.VAR_displayPage:
+						o2.setDisplayPage(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingTrip.VAR_displayPage + "=$" + num);
+						num++;
+						bParams.add(o2.sqlDisplayPage());
 						break;
 					}
 				}
@@ -3369,21 +3410,21 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.persistForClass(FishingTrip.VAR_timeZone, FishingTrip.staticSetTimeZone(siteRequest2, (String)result.get(FishingTrip.VAR_timeZone)));
 			page.persistForClass(FishingTrip.VAR_description, FishingTrip.staticSetDescription(siteRequest2, (String)result.get(FishingTrip.VAR_description)));
 			page.persistForClass(FishingTrip.VAR_departureDate, FishingTrip.staticSetDepartureDate(siteRequest2, (String)result.get(FishingTrip.VAR_departureDate), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
-			page.persistForClass(FishingTrip.VAR_created, FishingTrip.staticSetCreated(siteRequest2, (String)result.get(FishingTrip.VAR_created), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
 			page.persistForClass(FishingTrip.VAR_location, FishingTrip.staticSetLocation(siteRequest2, (String)result.get(FishingTrip.VAR_location)));
+			page.persistForClass(FishingTrip.VAR_created, FishingTrip.staticSetCreated(siteRequest2, (String)result.get(FishingTrip.VAR_created), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
 			page.persistForClass(FishingTrip.VAR_arrivalDate, FishingTrip.staticSetArrivalDate(siteRequest2, (String)result.get(FishingTrip.VAR_arrivalDate), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
 			page.persistForClass(FishingTrip.VAR_archived, FishingTrip.staticSetArchived(siteRequest2, (String)result.get(FishingTrip.VAR_archived)));
 			page.persistForClass(FishingTrip.VAR_areaServed, FishingTrip.staticSetAreaServed(siteRequest2, (String)result.get(FishingTrip.VAR_areaServed)));
 			page.persistForClass(FishingTrip.VAR_id, FishingTrip.staticSetId(siteRequest2, (String)result.get(FishingTrip.VAR_id)));
 			page.persistForClass(FishingTrip.VAR_sessionId, FishingTrip.staticSetSessionId(siteRequest2, (String)result.get(FishingTrip.VAR_sessionId)));
-			page.persistForClass(FishingTrip.VAR_userKey, FishingTrip.staticSetUserKey(siteRequest2, (String)result.get(FishingTrip.VAR_userKey)));
 			page.persistForClass(FishingTrip.VAR_ngsildTenant, FishingTrip.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildTenant)));
+			page.persistForClass(FishingTrip.VAR_userKey, FishingTrip.staticSetUserKey(siteRequest2, (String)result.get(FishingTrip.VAR_userKey)));
 			page.persistForClass(FishingTrip.VAR_ngsildPath, FishingTrip.staticSetNgsildPath(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildPath)));
 			page.persistForClass(FishingTrip.VAR_ngsildContext, FishingTrip.staticSetNgsildContext(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildContext)));
-			page.persistForClass(FishingTrip.VAR_objectTitle, FishingTrip.staticSetObjectTitle(siteRequest2, (String)result.get(FishingTrip.VAR_objectTitle)));
 			page.persistForClass(FishingTrip.VAR_ngsildData, FishingTrip.staticSetNgsildData(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildData)));
-			page.persistForClass(FishingTrip.VAR_displayPage, FishingTrip.staticSetDisplayPage(siteRequest2, (String)result.get(FishingTrip.VAR_displayPage)));
+			page.persistForClass(FishingTrip.VAR_objectTitle, FishingTrip.staticSetObjectTitle(siteRequest2, (String)result.get(FishingTrip.VAR_objectTitle)));
 			page.persistForClass(FishingTrip.VAR_color, FishingTrip.staticSetColor(siteRequest2, (String)result.get(FishingTrip.VAR_color)));
+			page.persistForClass(FishingTrip.VAR_displayPage, FishingTrip.staticSetDisplayPage(siteRequest2, (String)result.get(FishingTrip.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

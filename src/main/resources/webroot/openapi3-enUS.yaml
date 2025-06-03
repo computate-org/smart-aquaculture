@@ -5651,7 +5651,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -5830,7 +5830,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -5887,7 +5887,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -5921,7 +5921,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -5992,7 +5992,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -6050,7 +6050,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -6083,7 +6083,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -6160,7 +6160,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -6194,7 +6194,7 @@ paths:
       description: >+
       summary: >+
       tags:
-        - fishing docks
+        - fish processing plants
       parameters:
         - name: vertx-web.session
           in: cookie
@@ -12704,6 +12704,8 @@ components:
                 properties:
                   address:
                     type: object
+                  color:
+                    type: string
     PATCHFishProcessingRequest:
       allOf:
         - type: object
@@ -12715,6 +12717,13 @@ components:
               type: object
             removeAllAddress:
               type: object
+            setColor:
+              type: string
+              nullable: true
+            removeColor:
+              type: string
+            removeAllColor:
+              type: string
     PATCHFishProcessingResponse:
       allOf:
         - type: object
@@ -12726,24 +12735,37 @@ components:
               type: object
             removeAllAddress:
               type: object
+            setColor:
+              type: string
+              nullable: true
+            removeColor:
+              type: string
+            removeAllColor:
+              type: string
     POSTFishProcessingRequest:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     POSTFishProcessingResponse:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     DELETEFilterFishProcessingResponse:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     PUTImportFishProcessingRequest:
       allOf:
         - type: object
@@ -12755,12 +12777,16 @@ components:
                 properties:
                   address:
                     type: object
+                  color:
+                    type: string
     PUTImportFishProcessingResponse:
       allOf:
         - type: object
           properties:
                   address:
                     type: object
+                  color:
+                    type: string
     GETFishProcessingResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -12768,12 +12794,16 @@ components:
           properties:
             address:
               type: object
+            color:
+              type: string
     DELETEFishProcessingResponse:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     EditPageFishProcessingResponse:
       allOf:
         - type: string
@@ -13644,9 +13674,9 @@ components:
                     type: string
                   seeArchived:
                     type: boolean
-                  awesomeEffect:
-                    type: boolean
                   displayName:
+                    type: string
+                  siteFontSize:
                     type: string
                   siteTheme:
                     type: string
@@ -13722,19 +13752,19 @@ components:
               type: boolean
             removeAllSeeArchived:
               type: boolean
-            setAwesomeEffect:
-              type: boolean
-              nullable: true
-            removeAwesomeEffect:
-              type: boolean
-            removeAllAwesomeEffect:
-              type: boolean
             setDisplayName:
               type: string
               nullable: true
             removeDisplayName:
               type: string
             removeAllDisplayName:
+              type: string
+            setSiteFontSize:
+              type: string
+              nullable: true
+            removeSiteFontSize:
+              type: string
+            removeAllSiteFontSize:
               type: string
             setSiteTheme:
               type: string
@@ -13820,19 +13850,19 @@ components:
               type: boolean
             removeAllSeeArchived:
               type: boolean
-            setAwesomeEffect:
-              type: boolean
-              nullable: true
-            removeAwesomeEffect:
-              type: boolean
-            removeAllAwesomeEffect:
-              type: boolean
             setDisplayName:
               type: string
               nullable: true
             removeDisplayName:
               type: string
             removeAllDisplayName:
+              type: string
+            setSiteFontSize:
+              type: string
+              nullable: true
+            removeSiteFontSize:
+              type: string
+            removeAllSiteFontSize:
               type: string
             setSiteTheme:
               type: string
@@ -13870,9 +13900,9 @@ components:
               type: string
             seeArchived:
               type: boolean
-            awesomeEffect:
-              type: boolean
             displayName:
+              type: string
+            siteFontSize:
               type: string
             siteTheme:
               type: string
@@ -13900,9 +13930,9 @@ components:
               type: string
             seeArchived:
               type: boolean
-            awesomeEffect:
-              type: boolean
             displayName:
+              type: string
+            siteFontSize:
               type: string
             siteTheme:
               type: string

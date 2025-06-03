@@ -123,6 +123,24 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
 	 * DocValues: true
 	 * Persist: true
 	 * HtmRow: 4
+	 * HtmCell: 1
+	 * DisplayName: font size
+	 * Description: The default font size for the site (small, medium, large). 
+	 * Refresh: true
+	 * Radio:
+	 *   s: small
+	 *   m: medium
+	 *   l: large
+	 */
+	protected void _siteFontSize(Wrap<String> w) {
+		w.o("m");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * HtmRow: 4
 	 * HtmCell: 2
 	 * DisplayName: site theme
 	 * Description: The site theme, either light or dark. 

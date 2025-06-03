@@ -589,14 +589,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlUserId());
 						break;
-					case "setCreated":
-							o2.setCreated(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(SiteUser.VAR_created + "=$" + num);
-							num++;
-							bParams.add(o2.sqlCreated());
-						break;
 					case "setUserName":
 							o2.setUserName(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -604,6 +596,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(SiteUser.VAR_userName + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserName());
+						break;
+					case "setCreated":
+							o2.setCreated(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(SiteUser.VAR_created + "=$" + num);
+							num++;
+							bParams.add(o2.sqlCreated());
 						break;
 					case "setUserEmail":
 							o2.setUserEmail(jsonObject.getString(entityVar));
@@ -613,14 +613,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlUserEmail());
 						break;
-					case "setArchived":
-							o2.setArchived(jsonObject.getBoolean(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(SiteUser.VAR_archived + "=$" + num);
-							num++;
-							bParams.add(o2.sqlArchived());
-						break;
 					case "setUserFirstName":
 							o2.setUserFirstName(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -628,6 +620,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(SiteUser.VAR_userFirstName + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserFirstName());
+						break;
+					case "setArchived":
+							o2.setArchived(jsonObject.getBoolean(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(SiteUser.VAR_archived + "=$" + num);
+							num++;
+							bParams.add(o2.sqlArchived());
 						break;
 					case "setUserLastName":
 							o2.setUserLastName(jsonObject.getString(entityVar));
@@ -653,6 +653,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlSeeArchived());
 						break;
+					case "setDisplayName":
+							o2.setDisplayName(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(SiteUser.VAR_displayName + "=$" + num);
+							num++;
+							bParams.add(o2.sqlDisplayName());
+						break;
 					case "setSessionId":
 							o2.setSessionId(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -661,13 +669,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setDisplayName":
-							o2.setDisplayName(jsonObject.getString(entityVar));
+					case "setSiteFontSize":
+							o2.setSiteFontSize(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(SiteUser.VAR_displayName + "=$" + num);
+							bSql.append(SiteUser.VAR_siteFontSize + "=$" + num);
 							num++;
-							bParams.add(o2.sqlDisplayName());
+							bParams.add(o2.sqlSiteFontSize());
 						break;
 					case "setUserKey":
 							o2.setUserKey(jsonObject.getString(entityVar));
@@ -1070,15 +1078,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlUserId());
 						break;
-					case SiteUser.VAR_created:
-						o2.setCreated(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(SiteUser.VAR_created + "=$" + num);
-						num++;
-						bParams.add(o2.sqlCreated());
-						break;
 					case SiteUser.VAR_userName:
 						o2.setUserName(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1087,6 +1086,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(SiteUser.VAR_userName + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserName());
+						break;
+					case SiteUser.VAR_created:
+						o2.setCreated(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SiteUser.VAR_created + "=$" + num);
+						num++;
+						bParams.add(o2.sqlCreated());
 						break;
 					case SiteUser.VAR_userEmail:
 						o2.setUserEmail(jsonObject.getString(entityVar));
@@ -1097,15 +1105,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlUserEmail());
 						break;
-					case SiteUser.VAR_archived:
-						o2.setArchived(jsonObject.getBoolean(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(SiteUser.VAR_archived + "=$" + num);
-						num++;
-						bParams.add(o2.sqlArchived());
-						break;
 					case SiteUser.VAR_userFirstName:
 						o2.setUserFirstName(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1114,6 +1113,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(SiteUser.VAR_userFirstName + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserFirstName());
+						break;
+					case SiteUser.VAR_archived:
+						o2.setArchived(jsonObject.getBoolean(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SiteUser.VAR_archived + "=$" + num);
+						num++;
+						bParams.add(o2.sqlArchived());
 						break;
 					case SiteUser.VAR_userLastName:
 						o2.setUserLastName(jsonObject.getString(entityVar));
@@ -1142,6 +1150,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlSeeArchived());
 						break;
+					case SiteUser.VAR_displayName:
+						o2.setDisplayName(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SiteUser.VAR_displayName + "=$" + num);
+						num++;
+						bParams.add(o2.sqlDisplayName());
+						break;
 					case SiteUser.VAR_sessionId:
 						o2.setSessionId(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1151,14 +1168,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case SiteUser.VAR_displayName:
-						o2.setDisplayName(jsonObject.getString(entityVar));
+					case SiteUser.VAR_siteFontSize:
+						o2.setSiteFontSize(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(SiteUser.VAR_displayName + "=$" + num);
+						bSql.append(SiteUser.VAR_siteFontSize + "=$" + num);
 						num++;
-						bParams.add(o2.sqlDisplayName());
+						bParams.add(o2.sqlSiteFontSize());
 						break;
 					case SiteUser.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
@@ -2086,16 +2103,17 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.setSiteRequest_((SiteRequest)siteRequest);
 
 			page.persistForClass(SiteUser.VAR_userId, SiteUser.staticSetUserId(siteRequest2, (String)result.get(SiteUser.VAR_userId)));
-			page.persistForClass(SiteUser.VAR_created, SiteUser.staticSetCreated(siteRequest2, (String)result.get(SiteUser.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(SiteUser.VAR_userName, SiteUser.staticSetUserName(siteRequest2, (String)result.get(SiteUser.VAR_userName)));
+			page.persistForClass(SiteUser.VAR_created, SiteUser.staticSetCreated(siteRequest2, (String)result.get(SiteUser.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(SiteUser.VAR_userEmail, SiteUser.staticSetUserEmail(siteRequest2, (String)result.get(SiteUser.VAR_userEmail)));
-			page.persistForClass(SiteUser.VAR_archived, SiteUser.staticSetArchived(siteRequest2, (String)result.get(SiteUser.VAR_archived)));
 			page.persistForClass(SiteUser.VAR_userFirstName, SiteUser.staticSetUserFirstName(siteRequest2, (String)result.get(SiteUser.VAR_userFirstName)));
+			page.persistForClass(SiteUser.VAR_archived, SiteUser.staticSetArchived(siteRequest2, (String)result.get(SiteUser.VAR_archived)));
 			page.persistForClass(SiteUser.VAR_userLastName, SiteUser.staticSetUserLastName(siteRequest2, (String)result.get(SiteUser.VAR_userLastName)));
 			page.persistForClass(SiteUser.VAR_userFullName, SiteUser.staticSetUserFullName(siteRequest2, (String)result.get(SiteUser.VAR_userFullName)));
 			page.persistForClass(SiteUser.VAR_seeArchived, SiteUser.staticSetSeeArchived(siteRequest2, (String)result.get(SiteUser.VAR_seeArchived)));
-			page.persistForClass(SiteUser.VAR_sessionId, SiteUser.staticSetSessionId(siteRequest2, (String)result.get(SiteUser.VAR_sessionId)));
 			page.persistForClass(SiteUser.VAR_displayName, SiteUser.staticSetDisplayName(siteRequest2, (String)result.get(SiteUser.VAR_displayName)));
+			page.persistForClass(SiteUser.VAR_sessionId, SiteUser.staticSetSessionId(siteRequest2, (String)result.get(SiteUser.VAR_sessionId)));
+			page.persistForClass(SiteUser.VAR_siteFontSize, SiteUser.staticSetSiteFontSize(siteRequest2, (String)result.get(SiteUser.VAR_siteFontSize)));
 			page.persistForClass(SiteUser.VAR_userKey, SiteUser.staticSetUserKey(siteRequest2, (String)result.get(SiteUser.VAR_userKey)));
 			page.persistForClass(SiteUser.VAR_siteTheme, SiteUser.staticSetSiteTheme(siteRequest2, (String)result.get(SiteUser.VAR_siteTheme)));
 			page.persistForClass(SiteUser.VAR_webComponentsTheme, SiteUser.staticSetWebComponentsTheme(siteRequest2, (String)result.get(SiteUser.VAR_webComponentsTheme)));

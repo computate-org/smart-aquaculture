@@ -193,7 +193,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			response200Search(listSitePage.getRequest(), listSitePage.getResponse(), json);
 			if(json == null) {
 				String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
-						String m = String.format("%s %s not found", "article", pageId);
+				String m = String.format("%s %s not found", "article", pageId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -292,7 +292,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = JsonObject.mapFrom(listSitePage.getList().stream().findFirst().orElse(null));
 			if(json == null) {
 				String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
-						String m = String.format("%s %s not found", "article", pageId);
+				String m = String.format("%s %s not found", "article", pageId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -557,7 +557,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
-						String m = String.format("%s %s not found", "article", pageId);
+				String m = String.format("%s %s not found", "article", pageId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -766,7 +766,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
 				String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
-						String m = String.format("%s %s not found", "article", pageId);
+				String m = String.format("%s %s not found", "article", pageId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1066,7 +1066,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
-						String m = String.format("%s %s not found", "article", pageId);
+				String m = String.format("%s %s not found", "article", pageId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));

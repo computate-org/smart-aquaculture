@@ -1294,6 +1294,58 @@ public abstract class PageLayoutGen<DEV> extends Object {
 		return PageLayout.staticSearchUserEmail(siteRequest_, PageLayout.staticSetUserEmail(siteRequest_, o)).toString();
 	}
 
+	//////////////////
+	// userFontSize //
+	//////////////////
+
+
+	/**	 The entity userFontSize
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String userFontSize;
+
+	/**	<br> The entity userFontSize
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userFontSize">Find the entity userFontSize in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _userFontSize(Wrap<String> w);
+
+	public String getUserFontSize() {
+		return userFontSize;
+	}
+	public void setUserFontSize(String o) {
+		this.userFontSize = PageLayout.staticSetUserFontSize(siteRequest_, o);
+	}
+	public static String staticSetUserFontSize(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected PageLayout userFontSizeInit() {
+		Wrap<String> userFontSizeWrap = new Wrap<String>().var("userFontSize");
+		if(userFontSize == null) {
+			_userFontSize(userFontSizeWrap);
+			Optional.ofNullable(userFontSizeWrap.getO()).ifPresent(o -> {
+				setUserFontSize(o);
+			});
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSearchUserFontSize(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrUserFontSize(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqUserFontSize(SiteRequest siteRequest_, String o) {
+		return PageLayout.staticSearchUserFontSize(siteRequest_, PageLayout.staticSetUserFontSize(siteRequest_, o)).toString();
+	}
+
 	////////////////////////////
 	// userWebComponentsTheme //
 	////////////////////////////
@@ -4267,6 +4319,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 				userNameInit();
 				userIdInit();
 				userEmailInit();
+				userFontSizeInit();
 				userWebComponentsThemeInit();
 				userSiteThemeInit();
 				logoutUrlInit();
@@ -4445,6 +4498,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 				return oPageLayout.userId;
 			case "userEmail":
 				return oPageLayout.userEmail;
+			case "userFontSize":
+				return oPageLayout.userFontSize;
 			case "userWebComponentsTheme":
 				return oPageLayout.userWebComponentsTheme;
 			case "userSiteTheme":
@@ -4620,6 +4675,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSetUserId(siteRequest_, v);
 		case "userEmail":
 			return PageLayout.staticSetUserEmail(siteRequest_, v);
+		case "userFontSize":
+			return PageLayout.staticSetUserFontSize(siteRequest_, v);
 		case "userWebComponentsTheme":
 			return PageLayout.staticSetUserWebComponentsTheme(siteRequest_, v);
 		case "userSiteTheme":
@@ -4754,6 +4811,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchUserId(siteRequest_, (String)o);
 		case "userEmail":
 			return PageLayout.staticSearchUserEmail(siteRequest_, (String)o);
+		case "userFontSize":
+			return PageLayout.staticSearchUserFontSize(siteRequest_, (String)o);
 		case "userWebComponentsTheme":
 			return PageLayout.staticSearchUserWebComponentsTheme(siteRequest_, (String)o);
 		case "userSiteTheme":
@@ -4892,6 +4951,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchStrUserId(siteRequest_, (String)o);
 		case "userEmail":
 			return PageLayout.staticSearchStrUserEmail(siteRequest_, (String)o);
+		case "userFontSize":
+			return PageLayout.staticSearchStrUserFontSize(siteRequest_, (String)o);
 		case "userWebComponentsTheme":
 			return PageLayout.staticSearchStrUserWebComponentsTheme(siteRequest_, (String)o);
 		case "userSiteTheme":
@@ -5030,6 +5091,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchFqUserId(siteRequest_, o);
 		case "userEmail":
 			return PageLayout.staticSearchFqUserEmail(siteRequest_, o);
+		case "userFontSize":
+			return PageLayout.staticSearchFqUserFontSize(siteRequest_, o);
 		case "userWebComponentsTheme":
 			return PageLayout.staticSearchFqUserWebComponentsTheme(siteRequest_, o);
 		case "userSiteTheme":
@@ -5157,6 +5220,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	public static final String VAR_userName = "userName";
 	public static final String VAR_userId = "userId";
 	public static final String VAR_userEmail = "userEmail";
+	public static final String VAR_userFontSize = "userFontSize";
 	public static final String VAR_userWebComponentsTheme = "userWebComponentsTheme";
 	public static final String VAR_userSiteTheme = "userSiteTheme";
 	public static final String VAR_logoutUrl = "logoutUrl";
@@ -5231,6 +5295,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	public static final String DISPLAY_NAME_userName = "";
 	public static final String DISPLAY_NAME_userId = "";
 	public static final String DISPLAY_NAME_userEmail = "";
+	public static final String DISPLAY_NAME_userFontSize = "";
 	public static final String DISPLAY_NAME_userWebComponentsTheme = "";
 	public static final String DISPLAY_NAME_userSiteTheme = "";
 	public static final String DISPLAY_NAME_logoutUrl = "";
@@ -5369,6 +5434,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return DISPLAY_NAME_userId;
 		case VAR_userEmail:
 			return DISPLAY_NAME_userEmail;
+		case VAR_userFontSize:
+			return DISPLAY_NAME_userFontSize;
 		case VAR_userWebComponentsTheme:
 			return DISPLAY_NAME_userWebComponentsTheme;
 		case VAR_userSiteTheme:
@@ -5510,6 +5577,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return "The current user's id";
 		case VAR_userEmail:
 			return "The current user's email";
+		case VAR_userFontSize:
+			return "The user's default font size. ";
 		case VAR_userWebComponentsTheme:
 			return "The user's web components theme";
 		case VAR_userSiteTheme:
@@ -5600,6 +5669,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 		case VAR_userId:
 			return "String";
 		case VAR_userEmail:
+			return "String";
+		case VAR_userFontSize:
 			return "String";
 		case VAR_userWebComponentsTheme:
 			return "String";

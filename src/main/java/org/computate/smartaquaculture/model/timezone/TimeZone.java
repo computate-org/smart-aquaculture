@@ -39,6 +39,7 @@ public class TimeZone extends TimeZoneGen<BaseResult> {
 	 * HtmRowTitleOpen: time zone details
 	 * HtmRow: 3
 	 * HtmCell: 0
+	 * HtmColumn: 0
 	 * Facet: true
 	 * DisplayName: id
 	 * Description: The id for this time zone. 

@@ -193,7 +193,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			response200Search(listTimeZone.getRequest(), listTimeZone.getResponse(), json);
 			if(json == null) {
 				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "time zone", id);
+				String m = String.format("%s %s not found", "time zone", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -292,7 +292,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = JsonObject.mapFrom(listTimeZone.getList().stream().findFirst().orElse(null));
 			if(json == null) {
 				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "time zone", id);
+				String m = String.format("%s %s not found", "time zone", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -557,7 +557,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "time zone", id);
+				String m = String.format("%s %s not found", "time zone", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -766,7 +766,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
 				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "time zone", id);
+				String m = String.format("%s %s not found", "time zone", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1015,7 +1015,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "time zone", id);
+				String m = String.format("%s %s not found", "time zone", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1315,7 +1315,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "time zone", id);
+				String m = String.format("%s %s not found", "time zone", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1844,7 +1844,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-						String m = String.format("%s %s not found", "time zone", id);
+				String m = String.format("%s %s not found", "time zone", id);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));

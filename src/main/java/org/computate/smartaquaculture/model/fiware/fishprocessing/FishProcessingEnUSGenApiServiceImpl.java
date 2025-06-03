@@ -745,14 +745,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
-					case "setCreated":
-							o2.setCreated(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishProcessing.VAR_created + "=$" + num);
-							num++;
-							bParams.add(o2.sqlCreated());
-						break;
 					case "setLocation":
 							o2.setLocation(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
@@ -760,6 +752,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							bSql.append(FishProcessing.VAR_location + "=$" + num);
 							num++;
 							bParams.add(o2.sqlLocation());
+						break;
+					case "setCreated":
+							o2.setCreated(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishProcessing.VAR_created + "=$" + num);
+							num++;
+							bParams.add(o2.sqlCreated());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -793,14 +793,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setUserKey":
-							o2.setUserKey(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishProcessing.VAR_userKey + "=$" + num);
-							num++;
-							bParams.add(o2.sqlUserKey());
-						break;
 					case "setNgsildTenant":
 							o2.setNgsildTenant(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -808,6 +800,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
 							num++;
 							bParams.add(o2.sqlNgsildTenant());
+						break;
+					case "setUserKey":
+							o2.setUserKey(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishProcessing.VAR_userKey + "=$" + num);
+							num++;
+							bParams.add(o2.sqlUserKey());
 						break;
 					case "setNgsildPath":
 							o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -825,14 +825,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlNgsildContext());
 						break;
-					case "setObjectTitle":
-							o2.setObjectTitle(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishProcessing.VAR_objectTitle + "=$" + num);
-							num++;
-							bParams.add(o2.sqlObjectTitle());
-						break;
 					case "setNgsildData":
 							o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
@@ -841,13 +833,13 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlNgsildData());
 						break;
-					case "setDisplayPage":
-							o2.setDisplayPage(jsonObject.getString(entityVar));
+					case "setObjectTitle":
+							o2.setObjectTitle(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishProcessing.VAR_displayPage + "=$" + num);
+							bSql.append(FishProcessing.VAR_objectTitle + "=$" + num);
 							num++;
-							bParams.add(o2.sqlDisplayPage());
+							bParams.add(o2.sqlObjectTitle());
 						break;
 					case "setColor":
 							o2.setColor(jsonObject.getString(entityVar));
@@ -856,6 +848,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							bSql.append(FishProcessing.VAR_color + "=$" + num);
 							num++;
 							bParams.add(o2.sqlColor());
+						break;
+					case "setDisplayPage":
+							o2.setDisplayPage(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishProcessing.VAR_displayPage + "=$" + num);
+							num++;
+							bParams.add(o2.sqlDisplayPage());
 						break;
 				}
 			}
@@ -1227,15 +1227,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case FishProcessing.VAR_created:
-						o2.setCreated(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishProcessing.VAR_created + "=$" + num);
-						num++;
-						bParams.add(o2.sqlCreated());
-						break;
 					case FishProcessing.VAR_location:
 						o2.setLocation(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
@@ -1244,6 +1235,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						bSql.append(FishProcessing.VAR_location + "=$" + num);
 						num++;
 						bParams.add(o2.sqlLocation());
+						break;
+					case FishProcessing.VAR_created:
+						o2.setCreated(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishProcessing.VAR_created + "=$" + num);
+						num++;
+						bParams.add(o2.sqlCreated());
 						break;
 					case FishProcessing.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1281,15 +1281,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case FishProcessing.VAR_userKey:
-						o2.setUserKey(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishProcessing.VAR_userKey + "=$" + num);
-						num++;
-						bParams.add(o2.sqlUserKey());
-						break;
 					case FishProcessing.VAR_ngsildTenant:
 						o2.setNgsildTenant(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1298,6 +1289,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
 						num++;
 						bParams.add(o2.sqlNgsildTenant());
+						break;
+					case FishProcessing.VAR_userKey:
+						o2.setUserKey(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishProcessing.VAR_userKey + "=$" + num);
+						num++;
+						bParams.add(o2.sqlUserKey());
 						break;
 					case FishProcessing.VAR_ngsildPath:
 						o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1317,15 +1317,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlNgsildContext());
 						break;
-					case FishProcessing.VAR_objectTitle:
-						o2.setObjectTitle(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishProcessing.VAR_objectTitle + "=$" + num);
-						num++;
-						bParams.add(o2.sqlObjectTitle());
-						break;
 					case FishProcessing.VAR_ngsildData:
 						o2.setNgsildData(jsonObject.getJsonObject(entityVar));
 						if(bParams.size() > 0) {
@@ -1335,14 +1326,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlNgsildData());
 						break;
-					case FishProcessing.VAR_displayPage:
-						o2.setDisplayPage(jsonObject.getString(entityVar));
+					case FishProcessing.VAR_objectTitle:
+						o2.setObjectTitle(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishProcessing.VAR_displayPage + "=$" + num);
+						bSql.append(FishProcessing.VAR_objectTitle + "=$" + num);
 						num++;
-						bParams.add(o2.sqlDisplayPage());
+						bParams.add(o2.sqlObjectTitle());
 						break;
 					case FishProcessing.VAR_color:
 						o2.setColor(jsonObject.getString(entityVar));
@@ -1352,6 +1343,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						bSql.append(FishProcessing.VAR_color + "=$" + num);
 						num++;
 						bParams.add(o2.sqlColor());
+						break;
+					case FishProcessing.VAR_displayPage:
+						o2.setDisplayPage(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishProcessing.VAR_displayPage + "=$" + num);
+						num++;
+						bParams.add(o2.sqlDisplayPage());
 						break;
 					}
 				}
@@ -3264,20 +3264,20 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			page.persistForClass(FishProcessing.VAR_name, FishProcessing.staticSetName(siteRequest2, (String)result.get(FishProcessing.VAR_name)));
 			page.persistForClass(FishProcessing.VAR_address, FishProcessing.staticSetAddress(siteRequest2, (String)result.get(FishProcessing.VAR_address)));
 			page.persistForClass(FishProcessing.VAR_description, FishProcessing.staticSetDescription(siteRequest2, (String)result.get(FishProcessing.VAR_description)));
-			page.persistForClass(FishProcessing.VAR_created, FishProcessing.staticSetCreated(siteRequest2, (String)result.get(FishProcessing.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(FishProcessing.VAR_location, FishProcessing.staticSetLocation(siteRequest2, (String)result.get(FishProcessing.VAR_location)));
+			page.persistForClass(FishProcessing.VAR_created, FishProcessing.staticSetCreated(siteRequest2, (String)result.get(FishProcessing.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(FishProcessing.VAR_archived, FishProcessing.staticSetArchived(siteRequest2, (String)result.get(FishProcessing.VAR_archived)));
 			page.persistForClass(FishProcessing.VAR_areaServed, FishProcessing.staticSetAreaServed(siteRequest2, (String)result.get(FishProcessing.VAR_areaServed)));
 			page.persistForClass(FishProcessing.VAR_id, FishProcessing.staticSetId(siteRequest2, (String)result.get(FishProcessing.VAR_id)));
 			page.persistForClass(FishProcessing.VAR_sessionId, FishProcessing.staticSetSessionId(siteRequest2, (String)result.get(FishProcessing.VAR_sessionId)));
-			page.persistForClass(FishProcessing.VAR_userKey, FishProcessing.staticSetUserKey(siteRequest2, (String)result.get(FishProcessing.VAR_userKey)));
 			page.persistForClass(FishProcessing.VAR_ngsildTenant, FishProcessing.staticSetNgsildTenant(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildTenant)));
+			page.persistForClass(FishProcessing.VAR_userKey, FishProcessing.staticSetUserKey(siteRequest2, (String)result.get(FishProcessing.VAR_userKey)));
 			page.persistForClass(FishProcessing.VAR_ngsildPath, FishProcessing.staticSetNgsildPath(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildPath)));
 			page.persistForClass(FishProcessing.VAR_ngsildContext, FishProcessing.staticSetNgsildContext(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildContext)));
-			page.persistForClass(FishProcessing.VAR_objectTitle, FishProcessing.staticSetObjectTitle(siteRequest2, (String)result.get(FishProcessing.VAR_objectTitle)));
 			page.persistForClass(FishProcessing.VAR_ngsildData, FishProcessing.staticSetNgsildData(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildData)));
-			page.persistForClass(FishProcessing.VAR_displayPage, FishProcessing.staticSetDisplayPage(siteRequest2, (String)result.get(FishProcessing.VAR_displayPage)));
+			page.persistForClass(FishProcessing.VAR_objectTitle, FishProcessing.staticSetObjectTitle(siteRequest2, (String)result.get(FishProcessing.VAR_objectTitle)));
 			page.persistForClass(FishProcessing.VAR_color, FishProcessing.staticSetColor(siteRequest2, (String)result.get(FishProcessing.VAR_color)));
+			page.persistForClass(FishProcessing.VAR_displayPage, FishProcessing.staticSetDisplayPage(siteRequest2, (String)result.get(FishProcessing.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

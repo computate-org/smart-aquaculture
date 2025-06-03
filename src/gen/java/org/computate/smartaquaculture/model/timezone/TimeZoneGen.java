@@ -719,6 +719,8 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static Integer htmColumnTimeZone(String var) {
 		switch(var) {
+		case VAR_id:
+			return 0;
 			default:
 				return BaseResult.htmColumnBaseResult(var);
 		}

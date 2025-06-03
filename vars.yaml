@@ -558,3 +558,14 @@ ENABLE_AWESOME_EFFECTS: false
 WRITE_API: true
 # Write code comments into generated code. 
 WRITE_COMMENTS: true
+
+###########
+# Imports #
+###########
+
+PLAQUEMINES_PARISH_API_PORT: 443
+PLAQUEMINES_PARISH_API_SSL: true
+PLAQUEMINES_PARISH_API_HOST_NAME: plaqueminesparishmaps.azurewebsites.net
+ARCGIS_API_PORT: 443
+ARCGIS_API_SSL: true
+ARCGIS_API_HOST_NAME: services1.arcgis.com
