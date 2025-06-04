@@ -174,7 +174,6 @@ ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS ngsildPath text;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS ngsildContext text;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS ngsildData jsonb;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS color text;
-ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS timeZone text references TimeZone(id);
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS departureDate timestamp with time zone;
 ALTER TABLE FishingTrip ADD COLUMN IF NOT EXISTS arrivalDate timestamp with time zone;
 
