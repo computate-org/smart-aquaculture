@@ -19,7 +19,10 @@ spec:
       app.kubernetes.io/name: smartaquaculture
       deployment: smartaquaculture
   strategy:
-    type: Recreate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       creationTimestamp: null
@@ -30,7 +33,7 @@ spec:
         deployment: smartaquaculture
     spec:
       containers:
-        envFrom:
+      - envFrom:
         - secretRef:
             name: smartaquaculture-zookeeper
         - secretRef:
@@ -44,8 +47,10 @@ spec:
         - secretRef:
             name: smartaquaculture-context-broker
         - secretRef:
+            name: smartaquaculture-site
+        - secretRef:
             name: font-awesome
-        image: quay.io/computateorg/smartaquaculture:latest
+        image: quay.io/computateorg/smart-aquaculture:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 10
@@ -57,7 +62,7 @@ spec:
           timeoutSeconds: 10
         name: smartaquaculture
         ports:
-        - containerPort: 10200
+        - containerPort: 10230
           name: http
           protocol: TCP
         readinessProbe:

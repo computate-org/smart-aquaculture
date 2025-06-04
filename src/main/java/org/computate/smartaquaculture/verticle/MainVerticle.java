@@ -449,22 +449,22 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 							transactionFuture.onSuccess(transaction -> {
 								transaction.commit().onSuccess(c -> {
 									LOG.info("All database schema statements ran successfully.");
-									promise.complete();
+									promise1.complete();
 								}).onFailure(ex -> {
 									LOG.error("Could not initialize the database schema.", ex);
-									promise.fail(ex);
+									promise1.fail(ex);
 								});
 							}).onFailure(ex -> {
 								LOG.error("Could not initialize the database schema.", ex);
-								promise.fail(ex);
+								promise1.fail(ex);
 							});
 						}).onFailure(ex -> {
 							LOG.error("Could not initialize the database schema.", ex);
-							promise.fail(ex);
+							promise1.fail(ex);
 						});
 					} catch (Exception ex) {
 						LOG.error("Could not initialize the database schema.", ex);
-						promise.fail(ex);
+						promise1.fail(ex);
 					}
 					return promise1.future();
 				}).onSuccess(a -> {
