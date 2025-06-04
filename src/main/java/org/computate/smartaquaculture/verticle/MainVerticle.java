@@ -278,7 +278,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 	 * Description: Add Keycloak authorization resources, policies, and permissions for a data model. 
 	 * Val.Fail.enUS: Adding Keycloak authorization resources, policies, and permissions failed. 
 	 **/
-	private static Future<Void> authorizeData(Vertx vertx, JsonObject config, WebClient webClient) {
+	public static Future<Void> authorizeData(Vertx vertx, JsonObject config, WebClient webClient) {
 		Promise<Void> promise = Promise.promise();
 		try {
 			SiteRequest siteRequest = new SiteRequest();
