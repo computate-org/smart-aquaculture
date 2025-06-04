@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: smartaquaculture
+    app.kubernetes.io/instance: smartaquaculture
+    app.kubernetes.io/name: smartaquaculture
+    deployment: smartaquaculture
+  name: smartaquaculture
+  namespace: smartaquaculture
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: smartaquaculture
+      app.kubernetes.io/instance: smartaquaculture
+      app.kubernetes.io/name: smartaquaculture
+      deployment: smartaquaculture
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: smartaquaculture
+        app.kubernetes.io/instance: smartaquaculture
+        app.kubernetes.io/name: smartaquaculture
+        deployment: smartaquaculture
+    spec:
+      containers:
+        envFrom:
+        - secretRef:
+            name: smartaquaculture-zookeeper
+        - secretRef:
+            name: smartaquaculture-solr
+        - secretRef:
+            name: smartaquaculture-database
+        - secretRef:
+            name: smartaquaculture-auth
+        - secretRef:
+            name: smartaquaculture-rabbitmq
+        - secretRef:
+            name: smartaquaculture-context-broker
+        - secretRef:
+            name: font-awesome
+        image: quay.io/computateorg/smartaquaculture:latest
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 10
+        name: smartaquaculture
+        ports:
+        - containerPort: 10200
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: 750m
+            ephemeral-storage: 1Gi
+            memory: 768Mi
+          requests:
+            cpu: 750m
+            ephemeral-storage: 1Gi
+            memory: 768Mi
+        securityContext:
+          capabilities:
+            drop:
+            - NET_RAW
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      hostAliases:
+      - hostnames:
+        - sso.computate.org
+        ip: 34.36.213.80
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.io/arch
+        operator: Equal
+        value: amd64

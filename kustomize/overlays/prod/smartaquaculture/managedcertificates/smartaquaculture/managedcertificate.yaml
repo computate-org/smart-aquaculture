@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: smartaquaculture
+  namespace: smartaquaculture
+spec:
+  domains:
+    - smaq.computate.org

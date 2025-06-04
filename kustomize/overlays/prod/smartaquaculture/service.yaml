@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: smartaquaculture
+  name: smartaquaculture
+  labels:
+    app.kubernetes.io/instance: smartaquaculture
+    app.kubernetes.io/name: smartaquaculture
+    deployment: smartaquaculture
+    app: smartaquaculture
+spec:
+  ports:
+    - name: http
+      port: 10230
+      protocol: TCP
+      targetPort: 10230
+    - name: cluster
+      port: 10231
+      protocol: TCP
+      targetPort: 10231
+  selector:
+    app.kubernetes.io/instance: smartaquaculture
+    app.kubernetes.io/name: smartaquaculture
+    deployment: smartaquaculture
+    app: smartaquaculture
+  sessionAffinity: None
+  type: ClusterIP
