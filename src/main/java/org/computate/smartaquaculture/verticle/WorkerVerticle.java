@@ -151,8 +151,10 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 									configureMqtt().onSuccess(g -> 
 										configureAmqp().onSuccess(h -> 
 											configureRabbitmq().onSuccess(i -> 
-												importData().onSuccess(j -> 
-													startPromise.complete()
+												MainVerticle.authorizeData(vertx, config(), webClient).onComplete(j -> 
+													importData().onSuccess(k -> 
+														startPromise.complete()
+													).onFailure(ex -> startPromise.fail(ex))
 												).onFailure(ex -> startPromise.fail(ex))
 											).onFailure(ex -> startPromise.fail(ex))
 										).onFailure(ex -> startPromise.fail(ex))
@@ -283,13 +285,8 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			pgPool = PgBuilder.pool().connectingTo(pgOptions).with(poolOptions).using(vertx).build();
 
 			MainVerticle.configureDatabaseSchema(vertx, config()).onComplete(a -> {
-				MainVerticle.authorizeData(vertx, config(), webClient).onComplete(b -> {
-					LOG.info(configureDataInitSuccess);
-					promise.complete();
-				}).onFailure(ex -> {
-					LOG.error(configureDataInitError, ex);
-					promise.fail(ex);
-				});
+				LOG.info(configureDataInitSuccess);
+				promise.complete();
 			}).onFailure(ex -> {
 				LOG.error(configureDataInitError, ex);
 				promise.fail(ex);
