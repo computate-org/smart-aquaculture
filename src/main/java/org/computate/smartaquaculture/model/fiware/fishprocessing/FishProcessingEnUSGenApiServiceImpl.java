@@ -1,4 +1,5 @@
 /**
+ * Fiware: true
  * Order: 5
  * Description: A fish processing plant
  * AName: a fish processing plant
@@ -646,19 +647,68 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
 				varsFishProcessing(siteRequest).onSuccess(a -> {
-					sqlPATCHFishProcessing(o, inheritPrimaryKey).onSuccess(fishProcessing -> {
-						persistFishProcessing(fishProcessing, true).onSuccess(c -> {
-							relateFishProcessing(fishProcessing).onSuccess(d -> {
-								indexFishProcessing(fishProcessing).onSuccess(o2 -> {
-									if(apiRequest != null) {
-										apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-										if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-											o2.apiRequestFishProcessing();
-											if(apiRequest.getVars().size() > 0)
-												eventBus.publish("websocketFishProcessing", JsonObject.mapFrom(apiRequest).toString());
+					JsonObject jsonObject = o.getSiteRequest_().getJsonObject();
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						ngsildGetEntity(o).compose(ngsildData -> {
+							Promise<JsonObject> promise2 = Promise.promise();
+							if(ngsildData == null) {
+								promise2.complete(jsonObject);
+							} else {
+								String setNgsildData = String.format("set%s",StringUtils.capitalize(FishProcessing.VAR_ngsildData));
+								jsonObject.put(setNgsildData, ngsildData);
+								promise2.complete(jsonObject);
+							}
+							return promise2.future();
+						}).compose(ngsildData -> {
+							Promise<FishProcessing> promise2 = Promise.promise();
+							sqlPATCHFishProcessing(o, inheritPrimaryKey).onSuccess(fishProcessing -> {
+								persistFishProcessing(fishProcessing, true).onSuccess(c -> {
+									relateFishProcessing(fishProcessing).onSuccess(d -> {
+										indexFishProcessing(fishProcessing).onSuccess(o2 -> {
+											if(apiRequest != null) {
+												apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+												if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+													o2.apiRequestFishProcessing();
+													if(apiRequest.getVars().size() > 0)
+														eventBus.publish("websocketFishProcessing", JsonObject.mapFrom(apiRequest).toString());
+												}
+											}
+											promise2.complete(fishProcessing);
+										}).onFailure(ex -> {
+											promise2.fail(ex);
+										});
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}).onFailure(ex -> {
+								promise2.fail(ex);
+							});
+							return promise2.future();
+						}).onSuccess(o2 -> {
+							promise1.complete(o2);
+						}).onFailure(ex -> {
+							promise1.fail(ex);
+						});
+					} else {
+						sqlPATCHFishProcessing(o, inheritPrimaryKey).onSuccess(fishProcessing -> {
+							persistFishProcessing(fishProcessing, true).onSuccess(c -> {
+								relateFishProcessing(fishProcessing).onSuccess(d -> {
+									indexFishProcessing(fishProcessing).onSuccess(o2 -> {
+										if(apiRequest != null) {
+											apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+											if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+												o2.apiRequestFishProcessing();
+												if(apiRequest.getVars().size() > 0)
+													eventBus.publish("websocketFishProcessing", JsonObject.mapFrom(apiRequest).toString());
+											}
 										}
-									}
-									promise1.complete(fishProcessing);
+										promise1.complete(fishProcessing);
+									}).onFailure(ex -> {
+										promise1.fail(ex);
+									});
 								}).onFailure(ex -> {
 									promise1.fail(ex);
 								});
@@ -668,9 +718,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						}).onFailure(ex -> {
 							promise1.fail(ex);
 						});
-					}).onFailure(ex -> {
-						promise1.fail(ex);
-					});
+					}
 				}).onFailure(ex -> {
 					promise1.fail(ex);
 				});
@@ -745,14 +793,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
-					case "setLocation":
-							o2.setLocation(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishProcessing.VAR_location + "=$" + num);
-							num++;
-							bParams.add(o2.sqlLocation());
-						break;
 					case "setCreated":
 							o2.setCreated(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -760,6 +800,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 							bSql.append(FishProcessing.VAR_created + "=$" + num);
 							num++;
 							bParams.add(o2.sqlCreated());
+						break;
+					case "setLocation":
+							o2.setLocation(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishProcessing.VAR_location + "=$" + num);
+							num++;
+							bParams.add(o2.sqlLocation());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1227,15 +1275,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case FishProcessing.VAR_location:
-						o2.setLocation(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishProcessing.VAR_location + "=$" + num);
-						num++;
-						bParams.add(o2.sqlLocation());
-						break;
 					case FishProcessing.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1244,6 +1283,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						bSql.append(FishProcessing.VAR_created + "=$" + num);
 						num++;
 						bParams.add(o2.sqlCreated());
+						break;
+					case FishProcessing.VAR_location:
+						o2.setLocation(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishProcessing.VAR_location + "=$" + num);
+						num++;
+						bParams.add(o2.sqlLocation());
 						break;
 					case FishProcessing.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1725,7 +1773,16 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					promise.complete();
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETEFishProcessing failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
+						promise.complete();
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETEFishProcessing failed. "), ex);
 					promise.fail(ex);
@@ -2169,7 +2226,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			page.setVertx(vertx);
 			page.promiseDeepFishProcessingPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2329,7 +2386,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			page.setVertx(vertx);
 			page.promiseDeepFishProcessingPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2696,7 +2753,16 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					promise.complete();
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETEFilterFishProcessing failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
+						promise.complete();
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETEFilterFishProcessing failed. "), ex);
 					promise.fail(ex);
@@ -3076,7 +3142,16 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 						}
 					}
 					o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-						promise.complete();
+						if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+							cbUpsertEntity(o, patch).onSuccess(b -> {
+								promise.complete();
+							}).onFailure(ex -> {
+								LOG.error(String.format("persistFishProcessing failed. "), ex);
+								promise.fail(ex);
+							});
+						} else {
+							promise.complete();
+						}
 					}).onFailure(ex -> {
 						LOG.error(String.format("persistFishProcessing failed. "), ex);
 						promise.fail(ex);
@@ -3092,6 +3167,145 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			});
 		} catch(Exception ex) {
 			LOG.error(String.format("persistFishProcessing failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<Void> cbUpsertEntity(FishProcessing o, Boolean patch) {
+		Promise<Void> promise = Promise.promise();
+		try {
+			ZonedDateTime observedAt = ZonedDateTime.now(ZoneId.of("UTC"));
+			String observedAtStr = observedAt.format(ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER);
+			JsonArray entityArray = new JsonArray();
+			JsonObject entityBody = new JsonObject();
+			entityBody.put("@context", config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT));
+			entityBody.put("id", o.getId());
+			entityBody.put("type", FishProcessing.CLASS_SIMPLE_NAME);
+			entityBody.put("NGSILD-Tenant"
+					, new JsonObject()
+					.put("type", "Property")
+					.put("value", o.getNgsildTenant())
+					.put("observedAt", observedAtStr)
+					);
+			entityBody.put("NGSILD-Path"
+					, new JsonObject()
+					.put("type", "Property")
+					.put("value", o.getNgsildPath())
+					.put("observedAt", observedAtStr)
+					);
+
+			List<String> vars = FishProcessing.varsFqForClass();
+			for (String var : vars) {
+				String ngsiType = FishProcessing.ngsiType(var);
+				String displayName = Optional.ofNullable(FishProcessing.displayNameFishProcessing(var)).orElse(var);
+				if (ngsiType != null && displayName != null && !var.equals("id") && !var.equals("ngsildData")) {
+					Object value = o.obtainForClass(var);
+					if(value != null) {
+						Object ngsildVal = FishProcessing.ngsiFishProcessing(var, o);
+						String ngsildType = FishProcessing.ngsiType(var);
+						entityBody.put(displayName
+								, new JsonObject()
+								.put("type", ngsildType)
+								.put("value", ngsildVal)
+								.put("observedAt", observedAtStr)
+								);
+					}
+				}
+			}
+			entityArray.add(entityBody);
+			LOG.info(entityArray.encodePrettily());
+			webClient.post(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, "/ngsi-ld/v1/entityOperations/upsert/"
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.sendJson(entityArray)
+					.expecting(HttpResponseExpectation.SC_NO_CONTENT.or(HttpResponseExpectation.SC_CREATED)).onSuccess(b -> {
+				promise.complete();
+			}).onFailure(ex -> {
+				LOG.error(String.format("cbUpsertEntity failed. "), ex);
+				promise.fail(ex);
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("cbUpsertEntity failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<JsonObject> ngsildGetEntity(FishProcessing o) {
+		Promise<JsonObject> promise = Promise.promise();
+		try {
+			String entityName = o.getName();
+			String entityType = FishProcessing.CLASS_SIMPLE_NAME;
+			String entityId = o.getId();
+			String ngsildUri = String.format("/ngsi-ld/v1/entities/%s", urlEncode(entityId));
+			String ngsildContext = config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT);
+			String link = String.format("<%s>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"", ngsildContext);
+
+			webClient.get(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, ngsildUri
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.putHeader("Link", link)
+					.putHeader("Accept", "*/*")
+					.send()
+					.expecting(HttpResponseExpectation.SC_OK.or(HttpResponseExpectation.SC_NOT_FOUND)).onSuccess(entityResponse -> {
+				JsonObject entity = entityResponse.bodyAsJsonObject();
+				entity.remove("NGSILD data");
+				promise.complete(entity);
+			}).onFailure(ex -> {
+				LOG.error(String.format("postIotServiceFuture failed. "), ex);
+				promise.fail(ex);
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("postIotServiceFuture failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<Void> cbDeleteEntity(FishProcessing o) {
+		Promise<Void> promise = Promise.promise();
+		try {
+			webClient.delete(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, String.format("/ngsi-ld/v1/entities/%s", urlEncode(o.getId()))
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.send()
+					.expecting(HttpResponseExpectation.SC_NO_CONTENT).onSuccess(b -> {
+				promise.complete();
+			}).onFailure(ex -> {
+				if("Response status code 404 is not equal to 204".equals(ex.getMessage())) {
+					promise.complete();
+				} else {
+					LOG.error(String.format("cbDeleteEntity failed. "), ex);
+					promise.fail(ex);
+				}
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("cbDeleteEntity failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -3264,8 +3478,8 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 			page.persistForClass(FishProcessing.VAR_name, FishProcessing.staticSetName(siteRequest2, (String)result.get(FishProcessing.VAR_name)));
 			page.persistForClass(FishProcessing.VAR_address, FishProcessing.staticSetAddress(siteRequest2, (String)result.get(FishProcessing.VAR_address)));
 			page.persistForClass(FishProcessing.VAR_description, FishProcessing.staticSetDescription(siteRequest2, (String)result.get(FishProcessing.VAR_description)));
-			page.persistForClass(FishProcessing.VAR_location, FishProcessing.staticSetLocation(siteRequest2, (String)result.get(FishProcessing.VAR_location)));
 			page.persistForClass(FishProcessing.VAR_created, FishProcessing.staticSetCreated(siteRequest2, (String)result.get(FishProcessing.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+			page.persistForClass(FishProcessing.VAR_location, FishProcessing.staticSetLocation(siteRequest2, (String)result.get(FishProcessing.VAR_location)));
 			page.persistForClass(FishProcessing.VAR_archived, FishProcessing.staticSetArchived(siteRequest2, (String)result.get(FishProcessing.VAR_archived)));
 			page.persistForClass(FishProcessing.VAR_areaServed, FishProcessing.staticSetAreaServed(siteRequest2, (String)result.get(FishProcessing.VAR_areaServed)));
 			page.persistForClass(FishProcessing.VAR_id, FishProcessing.staticSetId(siteRequest2, (String)result.get(FishProcessing.VAR_id)));

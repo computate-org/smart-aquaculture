@@ -485,7 +485,7 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.setVertx(vertx);
 			page.promiseDeepMapModelPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -985,14 +985,14 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(MapModel.VAR_areaServed, MapModel.staticSetAreaServed(siteRequest2, (String)result.get(MapModel.VAR_areaServed)));
 			page.persistForClass(MapModel.VAR_id, MapModel.staticSetId(siteRequest2, (String)result.get(MapModel.VAR_id)));
 			page.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
-			page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
 			page.persistForClass(MapModel.VAR_ngsildTenant, MapModel.staticSetNgsildTenant(siteRequest2, (String)result.get(MapModel.VAR_ngsildTenant)));
+			page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
 			page.persistForClass(MapModel.VAR_ngsildPath, MapModel.staticSetNgsildPath(siteRequest2, (String)result.get(MapModel.VAR_ngsildPath)));
 			page.persistForClass(MapModel.VAR_ngsildContext, MapModel.staticSetNgsildContext(siteRequest2, (String)result.get(MapModel.VAR_ngsildContext)));
-			page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
 			page.persistForClass(MapModel.VAR_ngsildData, MapModel.staticSetNgsildData(siteRequest2, (String)result.get(MapModel.VAR_ngsildData)));
-			page.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
+			page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
 			page.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
+			page.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

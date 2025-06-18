@@ -208,7 +208,7 @@ public class PageLayout extends PageLayoutGen<Object> {
 	 * Description: The user's web components theme
 	 */
 	protected void _userWebComponentsTheme(Wrap<String> w) {
-		w.o(Optional.ofNullable(siteRequest_.getSiteUser_()).map(user -> user.getWebComponentsTheme()).orElse("default"));
+		w.o(Optional.ofNullable(siteRequest_.getSiteUser_()).map(user -> user.getWebComponentsTheme()).orElse("glossy"));
 	}
 
 	/**

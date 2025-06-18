@@ -1,4 +1,5 @@
 /**
+ * Fiware: true
  * Order: 5
  * Description: A fishing dock
  * AName: a fishing dock

@@ -437,10 +437,6 @@ NGSILD_TENANT: "{{ lookup('env', NGSILD_TENANT_ENV) | default('', true) }}"
 # The default NGSI-LD path
 NGSILD_PATH: "{{ lookup('env', NGSILD_PATH_ENV) | default('', true) }}"
 
-#################
-# iotagent-json #
-#################
-
 ##############
 # Kafka vars #
 ##############

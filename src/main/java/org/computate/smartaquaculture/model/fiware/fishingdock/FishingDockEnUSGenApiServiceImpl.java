@@ -1,4 +1,5 @@
 /**
+ * Fiware: true
  * Order: 5
  * Description: A fishing dock
  * AName: a fishing dock
@@ -41,69 +42,110 @@
  **/
 package org.computate.smartaquaculture.model.fiware.fishingdock;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.computate.search.response.solr.SolrResponse;
-import org.computate.search.response.solr.SolrResponse.StatsField;
-import org.computate.search.serialize.ComputateZonedDateTimeSerializer;
-import org.computate.search.tool.SearchTool;
-import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
 import org.computate.vertx.api.ApiRequest;
+import org.computate.vertx.search.list.SearchResult;
+import org.computate.vertx.verticle.EmailVerticle;
+import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.vertx.api.BaseApiServiceImpl;
-import org.computate.vertx.config.ComputateConfigKeys;
+import io.vertx.ext.web.client.WebClient;
+import java.util.Objects;
+import io.vertx.core.WorkerExecutor;
+import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.pgclient.PgPool;
+import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
+import io.vertx.kafka.client.producer.KafkaProducer;
+import io.vertx.mqtt.MqttClient;
+import io.vertx.amqp.AmqpSender;
+import io.vertx.rabbitmq.RabbitMQClient;
+import io.vertx.core.json.impl.JsonUtil;
+import io.vertx.ext.auth.authorization.AuthorizationProvider;
+import com.hubspot.jinjava.Jinjava;
+import io.vertx.core.eventbus.DeliveryOptions;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.time.Instant;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import org.computate.search.response.solr.SolrResponse.StatsField;
+import java.util.stream.Collectors;
+import io.vertx.core.json.Json;
+import org.apache.commons.lang3.StringUtils;
+import java.security.Principal;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import java.io.PrintWriter;
+import java.util.Collection;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Date;
+import org.computate.search.serialize.ComputateZonedDateTimeSerializer;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+import io.vertx.core.Handler;
+import io.vertx.ext.web.RoutingContext;
+import org.apache.commons.lang3.math.NumberUtils;
+import io.vertx.ext.web.Router;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import com.google.common.io.Resources;
+import java.nio.charset.StandardCharsets;
 import org.computate.vertx.request.ComputateSiteRequest;
-import org.computate.vertx.search.list.SearchList;
+import org.computate.vertx.config.ComputateConfigKeys;
+import io.vertx.ext.reactivestreams.ReactiveReadStream;
+import io.vertx.ext.reactivestreams.ReactiveWriteStream;
+import io.vertx.core.MultiMap;
+import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.Resources;
-
-import io.vertx.core.AsyncResult;
-import io.vertx.core.CompositeFuture;
-import io.vertx.core.Future;
-import io.vertx.core.Handler;
-import io.vertx.core.MultiMap;
-import io.vertx.core.Promise;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.core.eventbus.DeliveryOptions;
-import io.vertx.core.http.HttpHeaders;
-import io.vertx.core.http.HttpResponseExpectation;
+import io.vertx.sqlclient.Transaction;
+import io.vertx.sqlclient.SqlConnection;
+import io.vertx.sqlclient.Tuple;
+import io.vertx.sqlclient.Row;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.core.json.impl.JsonUtil;
-import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.sql.Timestamp;
+import io.vertx.core.Future;
+import io.vertx.core.Promise;
+import io.vertx.core.AsyncResult;
+import java.net.URLEncoder;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.CompositeFuture;
+import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.http.HttpResponseExpectation;
+import java.nio.charset.Charset;
+import io.vertx.ext.auth.authorization.RoleBasedAuthorization;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.api.service.ServiceResponse;
 import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.SqlConnection;
-import io.vertx.sqlclient.Tuple;
+import io.vertx.ext.web.client.predicate.ResponsePredicate;
+import java.util.HashMap;
+import io.vertx.ext.auth.User;
+import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
+import java.util.Optional;
+import java.util.stream.Stream;
+import java.net.URLDecoder;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.util.Map.Entry;
+import java.util.Iterator;
+import org.computate.search.tool.SearchTool;
+import org.computate.search.response.solr.SolrResponse;
+import java.util.Base64;
+import java.time.ZonedDateTime;
+import org.apache.commons.lang3.BooleanUtils;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockPage;
 
 
 /**
@@ -605,19 +647,68 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			pgPool.withTransaction(sqlConnection -> {
 				siteRequest.setSqlConnection(sqlConnection);
 				varsFishingDock(siteRequest).onSuccess(a -> {
-					sqlPATCHFishingDock(o, inheritPrimaryKey).onSuccess(fishingDock -> {
-						persistFishingDock(fishingDock, true).onSuccess(c -> {
-							relateFishingDock(fishingDock).onSuccess(d -> {
-								indexFishingDock(fishingDock).onSuccess(o2 -> {
-									if(apiRequest != null) {
-										apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-										if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-											o2.apiRequestFishingDock();
-											if(apiRequest.getVars().size() > 0)
-												eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+					JsonObject jsonObject = o.getSiteRequest_().getJsonObject();
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						ngsildGetEntity(o).compose(ngsildData -> {
+							Promise<JsonObject> promise2 = Promise.promise();
+							if(ngsildData == null) {
+								promise2.complete(jsonObject);
+							} else {
+								String setNgsildData = String.format("set%s",StringUtils.capitalize(FishingDock.VAR_ngsildData));
+								jsonObject.put(setNgsildData, ngsildData);
+								promise2.complete(jsonObject);
+							}
+							return promise2.future();
+						}).compose(ngsildData -> {
+							Promise<FishingDock> promise2 = Promise.promise();
+							sqlPATCHFishingDock(o, inheritPrimaryKey).onSuccess(fishingDock -> {
+								persistFishingDock(fishingDock, true).onSuccess(c -> {
+									relateFishingDock(fishingDock).onSuccess(d -> {
+										indexFishingDock(fishingDock).onSuccess(o2 -> {
+											if(apiRequest != null) {
+												apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+												if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+													o2.apiRequestFishingDock();
+													if(apiRequest.getVars().size() > 0)
+														eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+												}
+											}
+											promise2.complete(fishingDock);
+										}).onFailure(ex -> {
+											promise2.fail(ex);
+										});
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}).onFailure(ex -> {
+								promise2.fail(ex);
+							});
+							return promise2.future();
+						}).onSuccess(o2 -> {
+							promise1.complete(o2);
+						}).onFailure(ex -> {
+							promise1.fail(ex);
+						});
+					} else {
+						sqlPATCHFishingDock(o, inheritPrimaryKey).onSuccess(fishingDock -> {
+							persistFishingDock(fishingDock, true).onSuccess(c -> {
+								relateFishingDock(fishingDock).onSuccess(d -> {
+									indexFishingDock(fishingDock).onSuccess(o2 -> {
+										if(apiRequest != null) {
+											apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+											if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+												o2.apiRequestFishingDock();
+												if(apiRequest.getVars().size() > 0)
+													eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+											}
 										}
-									}
-									promise1.complete(fishingDock);
+										promise1.complete(fishingDock);
+									}).onFailure(ex -> {
+										promise1.fail(ex);
+									});
 								}).onFailure(ex -> {
 									promise1.fail(ex);
 								});
@@ -627,9 +718,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						}).onFailure(ex -> {
 							promise1.fail(ex);
 						});
-					}).onFailure(ex -> {
-						promise1.fail(ex);
-					});
+					}
 				}).onFailure(ex -> {
 					promise1.fail(ex);
 				});
@@ -704,14 +793,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
-					case "setLocation":
-							o2.setLocation(jsonObject.getJsonObject(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingDock.VAR_location + "=$" + num);
-							num++;
-							bParams.add(o2.sqlLocation());
-						break;
 					case "setCreated":
 							o2.setCreated(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -719,6 +800,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingDock.VAR_created + "=$" + num);
 							num++;
 							bParams.add(o2.sqlCreated());
+						break;
+					case "setLocation":
+							o2.setLocation(jsonObject.getJsonObject(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingDock.VAR_location + "=$" + num);
+							num++;
+							bParams.add(o2.sqlLocation());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1186,15 +1275,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case FishingDock.VAR_location:
-						o2.setLocation(jsonObject.getJsonObject(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingDock.VAR_location + "=$" + num);
-						num++;
-						bParams.add(o2.sqlLocation());
-						break;
 					case FishingDock.VAR_created:
 						o2.setCreated(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1203,6 +1283,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingDock.VAR_created + "=$" + num);
 						num++;
 						bParams.add(o2.sqlCreated());
+						break;
+					case FishingDock.VAR_location:
+						o2.setLocation(jsonObject.getJsonObject(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingDock.VAR_location + "=$" + num);
+						num++;
+						bParams.add(o2.sqlLocation());
 						break;
 					case FishingDock.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
@@ -1684,7 +1773,16 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					promise.complete();
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
+						promise.complete();
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
 					promise.fail(ex);
@@ -2128,7 +2226,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.setVertx(vertx);
 			page.promiseDeepFishingDockPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2288,7 +2386,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.setVertx(vertx);
 			page.promiseDeepFishingDockPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2655,7 +2753,16 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			}));
 			CompositeFuture.all(futures1).onSuccess(a -> {
 				CompositeFuture.all(futures2).onSuccess(b -> {
-					promise.complete();
+					if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+						cbDeleteEntity(o).onSuccess(c -> {
+							promise.complete();
+						}).onFailure(ex -> {
+							LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
+							promise.fail(ex);
+						});
+					} else {
+						promise.complete();
+					}
 				}).onFailure(ex -> {
 					LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
 					promise.fail(ex);
@@ -3035,7 +3142,16 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						}
 					}
 					o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-						promise.complete();
+						if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+							cbUpsertEntity(o, patch).onSuccess(b -> {
+								promise.complete();
+							}).onFailure(ex -> {
+								LOG.error(String.format("persistFishingDock failed. "), ex);
+								promise.fail(ex);
+							});
+						} else {
+							promise.complete();
+						}
 					}).onFailure(ex -> {
 						LOG.error(String.format("persistFishingDock failed. "), ex);
 						promise.fail(ex);
@@ -3051,6 +3167,145 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			});
 		} catch(Exception ex) {
 			LOG.error(String.format("persistFishingDock failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<Void> cbUpsertEntity(FishingDock o, Boolean patch) {
+		Promise<Void> promise = Promise.promise();
+		try {
+			ZonedDateTime observedAt = ZonedDateTime.now(ZoneId.of("UTC"));
+			String observedAtStr = observedAt.format(ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER);
+			JsonArray entityArray = new JsonArray();
+			JsonObject entityBody = new JsonObject();
+			entityBody.put("@context", config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT));
+			entityBody.put("id", o.getId());
+			entityBody.put("type", FishingDock.CLASS_SIMPLE_NAME);
+			entityBody.put("NGSILD-Tenant"
+					, new JsonObject()
+					.put("type", "Property")
+					.put("value", o.getNgsildTenant())
+					.put("observedAt", observedAtStr)
+					);
+			entityBody.put("NGSILD-Path"
+					, new JsonObject()
+					.put("type", "Property")
+					.put("value", o.getNgsildPath())
+					.put("observedAt", observedAtStr)
+					);
+
+			List<String> vars = FishingDock.varsFqForClass();
+			for (String var : vars) {
+				String ngsiType = FishingDock.ngsiType(var);
+				String displayName = Optional.ofNullable(FishingDock.displayNameFishingDock(var)).orElse(var);
+				if (ngsiType != null && displayName != null && !var.equals("id") && !var.equals("ngsildData")) {
+					Object value = o.obtainForClass(var);
+					if(value != null) {
+						Object ngsildVal = FishingDock.ngsiFishingDock(var, o);
+						String ngsildType = FishingDock.ngsiType(var);
+						entityBody.put(displayName
+								, new JsonObject()
+								.put("type", ngsildType)
+								.put("value", ngsildVal)
+								.put("observedAt", observedAtStr)
+								);
+					}
+				}
+			}
+			entityArray.add(entityBody);
+			LOG.info(entityArray.encodePrettily());
+			webClient.post(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, "/ngsi-ld/v1/entityOperations/upsert/"
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.sendJson(entityArray)
+					.expecting(HttpResponseExpectation.SC_NO_CONTENT.or(HttpResponseExpectation.SC_CREATED)).onSuccess(b -> {
+				promise.complete();
+			}).onFailure(ex -> {
+				LOG.error(String.format("cbUpsertEntity failed. "), ex);
+				promise.fail(ex);
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("cbUpsertEntity failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<JsonObject> ngsildGetEntity(FishingDock o) {
+		Promise<JsonObject> promise = Promise.promise();
+		try {
+			String entityName = o.getName();
+			String entityType = FishingDock.CLASS_SIMPLE_NAME;
+			String entityId = o.getId();
+			String ngsildUri = String.format("/ngsi-ld/v1/entities/%s", urlEncode(entityId));
+			String ngsildContext = config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT);
+			String link = String.format("<%s>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"", ngsildContext);
+
+			webClient.get(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, ngsildUri
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.putHeader("Link", link)
+					.putHeader("Accept", "*/*")
+					.send()
+					.expecting(HttpResponseExpectation.SC_OK.or(HttpResponseExpectation.SC_NOT_FOUND)).onSuccess(entityResponse -> {
+				JsonObject entity = entityResponse.bodyAsJsonObject();
+				entity.remove("NGSILD data");
+				promise.complete(entity);
+			}).onFailure(ex -> {
+				LOG.error(String.format("postIotServiceFuture failed. "), ex);
+				promise.fail(ex);
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("postIotServiceFuture failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<Void> cbDeleteEntity(FishingDock o) {
+		Promise<Void> promise = Promise.promise();
+		try {
+			webClient.delete(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, String.format("/ngsi-ld/v1/entities/%s", urlEncode(o.getId()))
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.send()
+					.expecting(HttpResponseExpectation.SC_NO_CONTENT).onSuccess(b -> {
+				promise.complete();
+			}).onFailure(ex -> {
+				if("Response status code 404 is not equal to 204".equals(ex.getMessage())) {
+					promise.complete();
+				} else {
+					LOG.error(String.format("cbDeleteEntity failed. "), ex);
+					promise.fail(ex);
+				}
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("cbDeleteEntity failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -3223,8 +3478,8 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.persistForClass(FishingDock.VAR_name, FishingDock.staticSetName(siteRequest2, (String)result.get(FishingDock.VAR_name)));
 			page.persistForClass(FishingDock.VAR_address, FishingDock.staticSetAddress(siteRequest2, (String)result.get(FishingDock.VAR_address)));
 			page.persistForClass(FishingDock.VAR_description, FishingDock.staticSetDescription(siteRequest2, (String)result.get(FishingDock.VAR_description)));
-			page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
 			page.persistForClass(FishingDock.VAR_created, FishingDock.staticSetCreated(siteRequest2, (String)result.get(FishingDock.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+			page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
 			page.persistForClass(FishingDock.VAR_archived, FishingDock.staticSetArchived(siteRequest2, (String)result.get(FishingDock.VAR_archived)));
 			page.persistForClass(FishingDock.VAR_areaServed, FishingDock.staticSetAreaServed(siteRequest2, (String)result.get(FishingDock.VAR_areaServed)));
 			page.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));

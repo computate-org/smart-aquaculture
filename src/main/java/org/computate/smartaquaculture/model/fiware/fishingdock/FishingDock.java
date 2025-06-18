@@ -6,6 +6,7 @@ import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import io.vertx.core.json.JsonObject;
 
 /**
+ * Fiware: true
  * Order: 5
  * Description: A fishing dock
  * AName: a fishing dock

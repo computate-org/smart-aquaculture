@@ -1,4 +1,5 @@
 /**
+ * Fiware: true
  * Order: 5
  * Description: A fishing dock
  * AName: a fishing dock
@@ -770,6 +771,24 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 			return "JsonObject";
 			default:
 				return MapModel.classSimpleNameMapModel(var);
+		}
+	}
+
+	public static String ngsiType(String var) {
+		switch(var) {
+		case VAR_address:
+			return "Property";
+			default:
+				return null;
+		}
+	}
+
+	public static Object ngsiFishingDock(String var, FishingDock o) {
+		switch(var) {
+		case VAR_address:
+			return o.getAddress();
+			default:
+				return null;
 		}
 	}
 

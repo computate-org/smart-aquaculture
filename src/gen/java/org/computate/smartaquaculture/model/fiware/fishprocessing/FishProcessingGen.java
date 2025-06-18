@@ -1,4 +1,5 @@
 /**
+ * Fiware: true
  * Order: 5
  * Description: A fish processing plant
  * AName: a fish processing plant
@@ -771,6 +772,24 @@ public abstract class FishProcessingGen<DEV> extends MapModel {
 			return "JsonObject";
 			default:
 				return MapModel.classSimpleNameMapModel(var);
+		}
+	}
+
+	public static String ngsiType(String var) {
+		switch(var) {
+		case VAR_address:
+			return "Property";
+			default:
+				return null;
+		}
+	}
+
+	public static Object ngsiFishProcessing(String var, FishProcessing o) {
+		switch(var) {
+		case VAR_address:
+			return o.getAddress();
+			default:
+				return null;
 		}
 	}
 

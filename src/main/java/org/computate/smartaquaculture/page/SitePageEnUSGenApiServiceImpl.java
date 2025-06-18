@@ -1149,7 +1149,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.setVertx(vertx);
 			page.promiseDeepSitePagePage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -1307,7 +1307,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.setVertx(vertx);
 			page.promiseDeepSitePagePage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -1429,7 +1429,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.setVertx(vertx);
 			page.promiseDeepSitePagePage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -1932,12 +1932,16 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(SitePage.VAR_courseNum, SitePage.staticSetCourseNum(siteRequest2, (String)result.get(SitePage.VAR_courseNum)));
 			page.persistForClass(SitePage.VAR_lessonNum, SitePage.staticSetLessonNum(siteRequest2, (String)result.get(SitePage.VAR_lessonNum)));
 			page.persistForClass(SitePage.VAR_name, SitePage.staticSetName(siteRequest2, (String)result.get(SitePage.VAR_name)));
-			page.persistForClass(SitePage.VAR_author, SitePage.staticSetAuthor(siteRequest2, (String)result.get(SitePage.VAR_author)));
-			page.persistForClass(SitePage.VAR_pageId, SitePage.staticSetPageId(siteRequest2, (String)result.get(SitePage.VAR_pageId)));
+			page.persistForClass(SitePage.VAR_description, SitePage.staticSetDescription(siteRequest2, (String)result.get(SitePage.VAR_description)));
+			page.persistForClass(SitePage.VAR_authorName, SitePage.staticSetAuthorName(siteRequest2, (String)result.get(SitePage.VAR_authorName)));
 			page.persistForClass(SitePage.VAR_solrId, SitePage.staticSetSolrId(siteRequest2, (String)result.get(SitePage.VAR_solrId)));
+			page.persistForClass(SitePage.VAR_authorUrl, SitePage.staticSetAuthorUrl(siteRequest2, (String)result.get(SitePage.VAR_authorUrl)));
+			page.persistForClass(SitePage.VAR_pageId, SitePage.staticSetPageId(siteRequest2, (String)result.get(SitePage.VAR_pageId)));
 			page.persistForClass(SitePage.VAR_h1, SitePage.staticSetH1(siteRequest2, (String)result.get(SitePage.VAR_h1)));
 			page.persistForClass(SitePage.VAR_h2, SitePage.staticSetH2(siteRequest2, (String)result.get(SitePage.VAR_h2)));
 			page.persistForClass(SitePage.VAR_pageImageUri, SitePage.staticSetPageImageUri(siteRequest2, (String)result.get(SitePage.VAR_pageImageUri)));
+			page.persistForClass(SitePage.VAR_pageImageAlt, SitePage.staticSetPageImageAlt(siteRequest2, (String)result.get(SitePage.VAR_pageImageAlt)));
+			page.persistForClass(SitePage.VAR_relatedArticleIds, SitePage.staticSetRelatedArticleIds(siteRequest2, (String)result.get(SitePage.VAR_relatedArticleIds)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

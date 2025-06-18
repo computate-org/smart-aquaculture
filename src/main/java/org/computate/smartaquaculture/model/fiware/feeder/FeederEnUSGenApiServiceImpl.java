@@ -229,7 +229,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			response200Search(listFeeder.getRequest(), listFeeder.getResponse(), json);
 			if(json == null) {
 				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String m = String.format("%s %s not found", "Feeder", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -364,7 +364,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			JsonObject json = JsonObject.mapFrom(listFeeder.getList().stream().findFirst().orElse(null));
 			if(json == null) {
 				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String m = String.format("%s %s not found", "Feeder", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -964,7 +964,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String m = String.format("%s %s not found", "Feeder", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1522,7 +1522,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			JsonObject json = JsonObject.mapFrom(o);
 			if(json == null) {
 				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String m = String.format("%s %s not found", "Feeder", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1881,7 +1881,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String m = String.format("%s %s not found", "Feeder", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2200,7 +2200,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String m = String.format("%s %s not found", "Feeder", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2321,7 +2321,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			page.setVertx(vertx);
 			page.promiseDeepFeederPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2481,7 +2481,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			page.setVertx(vertx);
 			page.promiseDeepFeederPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2879,7 +2879,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			JsonObject json = new JsonObject();
 			if(json == null) {
 				String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-						String m = String.format("%s %s not found", "Feeder", entityShortId);
+				String m = String.format("%s %s not found", "Feeder", entityShortId);
 				promise.complete(new ServiceResponse(404
 						, m
 						, Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -3408,7 +3408,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 
 	public Future<Void> relateFeeder(Feeder o) {
 		Promise<Void> promise = Promise.promise();
-			promise.complete();
+		promise.complete();
 		return promise.future();
 	}
 

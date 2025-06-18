@@ -834,14 +834,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlSessionId());
 						break;
-					case "setNgsildTenant":
-							o2.setNgsildTenant(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingTrip.VAR_ngsildTenant + "=$" + num);
-							num++;
-							bParams.add(o2.sqlNgsildTenant());
-						break;
 					case "setUserKey":
 							o2.setUserKey(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -849,6 +841,14 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingTrip.VAR_userKey + "=$" + num);
 							num++;
 							bParams.add(o2.sqlUserKey());
+						break;
+					case "setNgsildTenant":
+							o2.setNgsildTenant(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingTrip.VAR_ngsildTenant + "=$" + num);
+							num++;
+							bParams.add(o2.sqlNgsildTenant());
 						break;
 					case "setNgsildPath":
 							o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1351,15 +1351,6 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlSessionId());
 						break;
-					case FishingTrip.VAR_ngsildTenant:
-						o2.setNgsildTenant(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingTrip.VAR_ngsildTenant + "=$" + num);
-						num++;
-						bParams.add(o2.sqlNgsildTenant());
-						break;
 					case FishingTrip.VAR_userKey:
 						o2.setUserKey(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1368,6 +1359,15 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingTrip.VAR_userKey + "=$" + num);
 						num++;
 						bParams.add(o2.sqlUserKey());
+						break;
+					case FishingTrip.VAR_ngsildTenant:
+						o2.setNgsildTenant(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingTrip.VAR_ngsildTenant + "=$" + num);
+						num++;
+						bParams.add(o2.sqlNgsildTenant());
 						break;
 					case FishingTrip.VAR_ngsildPath:
 						o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -2259,7 +2259,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.setVertx(vertx);
 			page.promiseDeepFishingTripPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2419,7 +2419,7 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.setVertx(vertx);
 			page.promiseDeepFishingTripPage(siteRequest).onSuccess(a -> {
 				try {
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config);
+					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					String renderedTemplate = jinjava.render(template, ctx.getMap());
 					Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -3417,8 +3417,8 @@ public class FishingTripEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.persistForClass(FishingTrip.VAR_areaServed, FishingTrip.staticSetAreaServed(siteRequest2, (String)result.get(FishingTrip.VAR_areaServed)));
 			page.persistForClass(FishingTrip.VAR_id, FishingTrip.staticSetId(siteRequest2, (String)result.get(FishingTrip.VAR_id)));
 			page.persistForClass(FishingTrip.VAR_sessionId, FishingTrip.staticSetSessionId(siteRequest2, (String)result.get(FishingTrip.VAR_sessionId)));
-			page.persistForClass(FishingTrip.VAR_ngsildTenant, FishingTrip.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildTenant)));
 			page.persistForClass(FishingTrip.VAR_userKey, FishingTrip.staticSetUserKey(siteRequest2, (String)result.get(FishingTrip.VAR_userKey)));
+			page.persistForClass(FishingTrip.VAR_ngsildTenant, FishingTrip.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildTenant)));
 			page.persistForClass(FishingTrip.VAR_ngsildPath, FishingTrip.staticSetNgsildPath(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildPath)));
 			page.persistForClass(FishingTrip.VAR_ngsildContext, FishingTrip.staticSetNgsildContext(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildContext)));
 			page.persistForClass(FishingTrip.VAR_ngsildData, FishingTrip.staticSetNgsildData(siteRequest2, (String)result.get(FishingTrip.VAR_ngsildData)));

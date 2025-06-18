@@ -3348,6 +3348,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -3527,6 +3543,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -3584,6 +3616,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -3616,6 +3664,22 @@ paths:
             type: string
         - name: sessionIdBefore
           in: cookie
+          schema:
+            type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
           schema:
             type: string
         - in: query
@@ -3689,6 +3753,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -3747,6 +3827,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -3778,6 +3874,22 @@ paths:
             type: string
         - name: sessionIdBefore
           in: cookie
+          schema:
+            type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
           schema:
             type: string
         - name: entityShortId
@@ -3857,6 +3969,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -3889,6 +4017,22 @@ paths:
             type: string
         - name: sessionIdBefore
           in: cookie
+          schema:
+            type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
           schema:
             type: string
         - in: query
@@ -5661,6 +5805,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -5840,6 +6000,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -5897,6 +6073,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -5929,6 +6121,22 @@ paths:
             type: string
         - name: sessionIdBefore
           in: cookie
+          schema:
+            type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
           schema:
             type: string
         - in: query
@@ -6002,6 +6210,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -6060,6 +6284,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -6091,6 +6331,22 @@ paths:
             type: string
         - name: sessionIdBefore
           in: cookie
+          schema:
+            type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
           schema:
             type: string
         - name: entityShortId
@@ -6170,6 +6426,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -6202,6 +6474,22 @@ paths:
             type: string
         - name: sessionIdBefore
           in: cookie
+          schema:
+            type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
           schema:
             type: string
         - in: query
@@ -7536,7 +7824,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -7925,7 +8213,7 @@ paths:
           required: false
           schema:
             type: integer
-            default: 10
+            default: 100
             minimum: 0
         - in: query
           name: facet
@@ -10103,8 +10391,6 @@ components:
                     type: string
                   ngsildTenant:
                     type: string
-                  ngsildPath:
-                    type: string
                   ngsildContext:
                     type: string
                   ngsildData:
@@ -10126,6 +10412,8 @@ components:
                   seeAlso:
                     type: string
                   source:
+                    type: string
+                  ngsildPath:
                     type: string
     PATCHFeederRequest:
       allOf:
@@ -10231,13 +10519,6 @@ components:
               type: string
             removeAllNgsildTenant:
               type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
-              type: string
             setNgsildContext:
               type: string
               nullable: true
@@ -10314,6 +10595,13 @@ components:
             removeSource:
               type: string
             removeAllSource:
+              type: string
+            setNgsildPath:
+              type: string
+              nullable: true
+            removeNgsildPath:
+              type: string
+            removeAllNgsildPath:
               type: string
     PATCHFeederResponse:
       allOf:
@@ -10419,13 +10707,6 @@ components:
               type: string
             removeAllNgsildTenant:
               type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
-              type: string
             setNgsildContext:
               type: string
               nullable: true
@@ -10503,6 +10784,13 @@ components:
               type: string
             removeAllSource:
               type: string
+            setNgsildPath:
+              type: string
+              nullable: true
+            removeNgsildPath:
+              type: string
+            removeAllNgsildPath:
+              type: string
     POSTFeederRequest:
       allOf:
         - type: object
@@ -10533,8 +10821,6 @@ components:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
             ngsildData:
@@ -10556,6 +10842,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            ngsildPath:
               type: string
     POSTFeederResponse:
       allOf:
@@ -10587,8 +10875,6 @@ components:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
             ngsildData:
@@ -10610,6 +10896,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            ngsildPath:
               type: string
     DELETEFilterFeederResponse:
       allOf:
@@ -10641,8 +10929,6 @@ components:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
             ngsildData:
@@ -10664,6 +10950,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            ngsildPath:
               type: string
     PUTImportFeederRequest:
       allOf:
@@ -10700,8 +10988,6 @@ components:
                     type: string
                   ngsildTenant:
                     type: string
-                  ngsildPath:
-                    type: string
                   ngsildContext:
                     type: string
                   ngsildData:
@@ -10723,6 +11009,8 @@ components:
                   seeAlso:
                     type: string
                   source:
+                    type: string
+                  ngsildPath:
                     type: string
     PUTImportFeederResponse:
       allOf:
@@ -10754,8 +11042,6 @@ components:
                     type: string
                   ngsildTenant:
                     type: string
-                  ngsildPath:
-                    type: string
                   ngsildContext:
                     type: string
                   ngsildData:
@@ -10777,6 +11063,8 @@ components:
                   seeAlso:
                     type: string
                   source:
+                    type: string
+                  ngsildPath:
                     type: string
     GETFeederResponse:
       allOf:
@@ -10808,8 +11096,6 @@ components:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
             ngsildData:
@@ -10831,6 +11117,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            ngsildPath:
               type: string
     DELETEFeederResponse:
       allOf:
@@ -10862,8 +11150,6 @@ components:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
             ngsildData:
@@ -10885,6 +11171,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            ngsildPath:
               type: string
     EditPageFeederResponse:
       allOf:
@@ -12832,13 +13120,7 @@ components:
                     type: string
                   description:
                     type: string
-                  location:
-                    type: object
                   areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
                     type: array
                     items:
                       type: string
@@ -12848,8 +13130,6 @@ components:
                       type: string
                   areaServed:
                     type: object
-                  id:
-                    type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -12866,6 +13146,14 @@ components:
                     type: array
                     items:
                       type: string
+                  location:
+                    type: object
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  id:
+                    type: string
     GETMapModelResponse:
       allOf:
         - type: object
@@ -12874,13 +13162,7 @@ components:
               type: string
             description:
               type: string
-            location:
-              type: object
             areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
               type: array
               items:
                 type: string
@@ -12890,8 +13172,6 @@ components:
                 type: string
             areaServed:
               type: object
-            id:
-              type: string
             entityShortId:
               type: string
             ngsildTenant:
@@ -12908,6 +13188,14 @@ components:
               type: array
               items:
                 type: string
+            location:
+              type: object
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            id:
+              type: string
     SearchPageMapModelResponse:
       allOf:
         - type: string
@@ -13052,7 +13340,11 @@ components:
                     type: string
                   name:
                     type: string
-                  author:
+                  description:
+                    type: string
+                  authorName:
+                    type: string
+                  authorUrl:
                     type: string
                   pageId:
                     type: string
@@ -13068,6 +13360,18 @@ components:
                     type: string
                   pageImageType:
                     type: string
+                  pageImageAlt:
+                    type: string
+                  relatedArticleIds:
+                    type: string
+                  relatedArticles:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
     PATCHSitePageRequest:
       allOf:
         - type: object
@@ -13170,12 +13474,26 @@ components:
               type: string
             removeAllName:
               type: string
-            setAuthor:
+            setDescription:
               type: string
               nullable: true
-            removeAuthor:
+            removeDescription:
               type: string
-            removeAllAuthor:
+            removeAllDescription:
+              type: string
+            setAuthorName:
+              type: string
+              nullable: true
+            removeAuthorName:
+              type: string
+            removeAllAuthorName:
+              type: string
+            setAuthorUrl:
+              type: string
+              nullable: true
+            removeAuthorUrl:
+              type: string
+            removeAllAuthorUrl:
               type: string
             setPageId:
               type: string
@@ -13226,6 +13544,45 @@ components:
               type: string
             removeAllPageImageType:
               type: string
+            setPageImageAlt:
+              type: string
+              nullable: true
+            removePageImageAlt:
+              type: string
+            removeAllPageImageAlt:
+              type: string
+            setRelatedArticleIds:
+              type: string
+              nullable: true
+            removeRelatedArticleIds:
+              type: string
+            removeAllRelatedArticleIds:
+              type: string
+            setRelatedArticles:
+              type: array
+              nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            removeRelatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            removeAllRelatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
     PATCHSitePageResponse:
       allOf:
         - type: object
@@ -13328,12 +13685,26 @@ components:
               type: string
             removeAllName:
               type: string
-            setAuthor:
+            setDescription:
               type: string
               nullable: true
-            removeAuthor:
+            removeDescription:
               type: string
-            removeAllAuthor:
+            removeAllDescription:
+              type: string
+            setAuthorName:
+              type: string
+              nullable: true
+            removeAuthorName:
+              type: string
+            removeAllAuthorName:
+              type: string
+            setAuthorUrl:
+              type: string
+              nullable: true
+            removeAuthorUrl:
+              type: string
+            removeAllAuthorUrl:
               type: string
             setPageId:
               type: string
@@ -13384,6 +13755,45 @@ components:
               type: string
             removeAllPageImageType:
               type: string
+            setPageImageAlt:
+              type: string
+              nullable: true
+            removePageImageAlt:
+              type: string
+            removeAllPageImageAlt:
+              type: string
+            setRelatedArticleIds:
+              type: string
+              nullable: true
+            removeRelatedArticleIds:
+              type: string
+            removeAllRelatedArticleIds:
+              type: string
+            setRelatedArticles:
+              type: array
+              nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            removeRelatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            removeAllRelatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
     POSTSitePageRequest:
       allOf:
         - type: object
@@ -13416,7 +13826,11 @@ components:
               type: string
             name:
               type: string
-            author:
+            description:
+              type: string
+            authorName:
+              type: string
+            authorUrl:
               type: string
             pageId:
               type: string
@@ -13432,6 +13846,18 @@ components:
               type: string
             pageImageType:
               type: string
+            pageImageAlt:
+              type: string
+            relatedArticleIds:
+              type: string
+            relatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
     POSTSitePageResponse:
       allOf:
         - type: object
@@ -13464,7 +13890,11 @@ components:
               type: string
             name:
               type: string
-            author:
+            description:
+              type: string
+            authorName:
+              type: string
+            authorUrl:
               type: string
             pageId:
               type: string
@@ -13480,6 +13910,18 @@ components:
               type: string
             pageImageType:
               type: string
+            pageImageAlt:
+              type: string
+            relatedArticleIds:
+              type: string
+            relatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
     PUTImportSitePageRequest:
       allOf:
         - type: object
@@ -13517,7 +13959,11 @@ components:
                     type: string
                   name:
                     type: string
-                  author:
+                  description:
+                    type: string
+                  authorName:
+                    type: string
+                  authorUrl:
                     type: string
                   pageId:
                     type: string
@@ -13533,6 +13979,18 @@ components:
                     type: string
                   pageImageType:
                     type: string
+                  pageImageAlt:
+                    type: string
+                  relatedArticleIds:
+                    type: string
+                  relatedArticles:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
     PUTImportSitePageResponse:
       allOf:
         - type: object
@@ -13565,7 +14023,11 @@ components:
                     type: string
                   name:
                     type: string
-                  author:
+                  description:
+                    type: string
+                  authorName:
+                    type: string
+                  authorUrl:
                     type: string
                   pageId:
                     type: string
@@ -13581,6 +14043,18 @@ components:
                     type: string
                   pageImageType:
                     type: string
+                  pageImageAlt:
+                    type: string
+                  relatedArticleIds:
+                    type: string
+                  relatedArticles:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
     GETSitePageResponse:
       allOf:
         - type: object
@@ -13613,7 +14087,11 @@ components:
               type: string
             name:
               type: string
-            author:
+            description:
+              type: string
+            authorName:
+              type: string
+            authorUrl:
               type: string
             pageId:
               type: string
@@ -13629,6 +14107,18 @@ components:
               type: string
             pageImageType:
               type: string
+            pageImageAlt:
+              type: string
+            relatedArticleIds:
+              type: string
+            relatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
     EditPageSitePageResponse:
       allOf:
         - type: string
@@ -13656,10 +14146,6 @@ components:
               items:
                 type: object
                 properties:
-                  userKeys:
-                    type: array
-                    items:
-                      type: string
                   userId:
                     type: string
                   userName:
@@ -13668,12 +14154,8 @@ components:
                     type: string
                   userFirstName:
                     type: string
-                  userLastName:
-                    type: string
                   userFullName:
                     type: string
-                  seeArchived:
-                    type: boolean
                   displayName:
                     type: string
                   siteFontSize:
@@ -13682,27 +14164,18 @@ components:
                     type: string
                   webComponentsTheme:
                     type: string
+                  userKeys:
+                    type: array
+                    items:
+                      type: string
+                  userLastName:
+                    type: string
+                  seeArchived:
+                    type: boolean
     PATCHSiteUserRequest:
       allOf:
         - type: object
           properties:
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
             setUserId:
               type: string
               nullable: true
@@ -13731,13 +14204,6 @@ components:
               type: string
             removeAllUserFirstName:
               type: string
-            setUserLastName:
-              type: string
-              nullable: true
-            removeUserLastName:
-              type: string
-            removeAllUserLastName:
-              type: string
             setUserFullName:
               type: string
               nullable: true
@@ -13745,13 +14211,6 @@ components:
               type: string
             removeAllUserFullName:
               type: string
-            setSeeArchived:
-              type: boolean
-              nullable: true
-            removeSeeArchived:
-              type: boolean
-            removeAllSeeArchived:
-              type: boolean
             setDisplayName:
               type: string
               nullable: true
@@ -13780,27 +14239,41 @@ components:
               type: string
             removeAllWebComponentsTheme:
               type: string
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserLastName:
+              type: string
+              nullable: true
+            removeUserLastName:
+              type: string
+            removeAllUserLastName:
+              type: string
+            setSeeArchived:
+              type: boolean
+              nullable: true
+            removeSeeArchived:
+              type: boolean
+            removeAllSeeArchived:
+              type: boolean
     PATCHSiteUserResponse:
       allOf:
         - type: object
           properties:
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
             setUserId:
               type: string
               nullable: true
@@ -13829,13 +14302,6 @@ components:
               type: string
             removeAllUserFirstName:
               type: string
-            setUserLastName:
-              type: string
-              nullable: true
-            removeUserLastName:
-              type: string
-            removeAllUserLastName:
-              type: string
             setUserFullName:
               type: string
               nullable: true
@@ -13843,13 +14309,6 @@ components:
               type: string
             removeAllUserFullName:
               type: string
-            setSeeArchived:
-              type: boolean
-              nullable: true
-            removeSeeArchived:
-              type: boolean
-            removeAllSeeArchived:
-              type: boolean
             setDisplayName:
               type: string
               nullable: true
@@ -13878,14 +14337,41 @@ components:
               type: string
             removeAllWebComponentsTheme:
               type: string
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserLastName:
+              type: string
+              nullable: true
+            removeUserLastName:
+              type: string
+            removeAllUserLastName:
+              type: string
+            setSeeArchived:
+              type: boolean
+              nullable: true
+            removeSeeArchived:
+              type: boolean
+            removeAllSeeArchived:
+              type: boolean
     POSTSiteUserRequest:
       allOf:
         - type: object
           properties:
-            userKeys:
-              type: array
-              items:
-                type: string
             userId:
               type: string
             userName:
@@ -13894,12 +14380,8 @@ components:
               type: string
             userFirstName:
               type: string
-            userLastName:
-              type: string
             userFullName:
               type: string
-            seeArchived:
-              type: boolean
             displayName:
               type: string
             siteFontSize:
@@ -13908,14 +14390,18 @@ components:
               type: string
             webComponentsTheme:
               type: string
+            userKeys:
+              type: array
+              items:
+                type: string
+            userLastName:
+              type: string
+            seeArchived:
+              type: boolean
     POSTSiteUserResponse:
       allOf:
         - type: object
           properties:
-            userKeys:
-              type: array
-              items:
-                type: string
             userId:
               type: string
             userName:
@@ -13924,12 +14410,8 @@ components:
               type: string
             userFirstName:
               type: string
-            userLastName:
-              type: string
             userFullName:
               type: string
-            seeArchived:
-              type: boolean
             displayName:
               type: string
             siteFontSize:
@@ -13938,6 +14420,14 @@ components:
               type: string
             webComponentsTheme:
               type: string
+            userKeys:
+              type: array
+              items:
+                type: string
+            userLastName:
+              type: string
+            seeArchived:
+              type: boolean
     EditPageSiteUserResponse:
       allOf:
         - type: string
