@@ -65,6 +65,6 @@ public class FishProcessing extends FishProcessingGen<MapModel> {
 
   @Override
   protected void _color(Wrap<String> w) {
-    w.o("#03673000");
+    w.o("#036730ff");
   }
 }
