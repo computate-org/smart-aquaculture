@@ -6672,6 +6672,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -6852,6 +6868,22 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -6884,6 +6916,22 @@ paths:
             type: string
         - name: sessionIdBefore
           in: cookie
+          schema:
+            type: string
+        - name: Fiware-Service
+          in: header
+          schema:
+            type: string
+        - name: Fiware-ServicePath
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Tenant
+          in: header
+          schema:
+            type: string
+        - name: NGSILD-Path
+          in: header
           schema:
             type: string
         - in: query
@@ -12251,6 +12299,8 @@ components:
                 properties:
                   address:
                     type: object
+                  color:
+                    type: string
     PATCHFishingDockRequest:
       allOf:
         - type: object
@@ -12262,6 +12312,13 @@ components:
               type: object
             removeAllAddress:
               type: object
+            setColor:
+              type: string
+              nullable: true
+            removeColor:
+              type: string
+            removeAllColor:
+              type: string
     PATCHFishingDockResponse:
       allOf:
         - type: object
@@ -12273,24 +12330,37 @@ components:
               type: object
             removeAllAddress:
               type: object
+            setColor:
+              type: string
+              nullable: true
+            removeColor:
+              type: string
+            removeAllColor:
+              type: string
     POSTFishingDockRequest:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     POSTFishingDockResponse:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     DELETEFilterFishingDockResponse:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     PUTImportFishingDockRequest:
       allOf:
         - type: object
@@ -12302,12 +12372,16 @@ components:
                 properties:
                   address:
                     type: object
+                  color:
+                    type: string
     PUTImportFishingDockResponse:
       allOf:
         - type: object
           properties:
                   address:
                     type: object
+                  color:
+                    type: string
     GETFishingDockResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -12315,12 +12389,16 @@ components:
           properties:
             address:
               type: object
+            color:
+              type: string
     DELETEFishingDockResponse:
       allOf:
         - type: object
           properties:
             address:
               type: object
+            color:
+              type: string
     EditPageFishingDockResponse:
       allOf:
         - type: string
@@ -13120,7 +13198,13 @@ components:
                     type: string
                   description:
                     type: string
+                  location:
+                    type: object
                   areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
                     type: array
                     items:
                       type: string
@@ -13130,6 +13214,8 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  id:
+                    type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -13146,14 +13232,6 @@ components:
                     type: array
                     items:
                       type: string
-                  location:
-                    type: object
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  id:
-                    type: string
     GETMapModelResponse:
       allOf:
         - type: object
@@ -13162,7 +13240,13 @@ components:
               type: string
             description:
               type: string
+            location:
+              type: object
             areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
               type: array
               items:
                 type: string
@@ -13172,6 +13256,8 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
             entityShortId:
               type: string
             ngsildTenant:
@@ -13188,14 +13274,6 @@ components:
               type: array
               items:
                 type: string
-            location:
-              type: object
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            id:
-              type: string
     SearchPageMapModelResponse:
       allOf:
         - type: string

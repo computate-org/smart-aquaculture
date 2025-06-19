@@ -57,7 +57,7 @@ SITE_HOST_NAME: "{{ lookup('env', 'SITE_HOST_NAME') | default('localhost', true)
 # The base URL of the site. 
 SITE_BASE_URL: "{{ lookup('env', 'SITE_BASE_URL') | default('http://' + SITE_HOST_NAME + ':' + (SITE_PORT | string), true) }}"
 # The public facing URL for the site. 
-SITE_PUBLIC_URL: "https://{{ SITE_SHORT_NAME }}.{{ DOMAIN_NAME }}"
+SITE_PUBLIC_URL: "https://smaq.{{ DOMAIN_NAME }}"
 # The port of the Zookeeper cluster manager. 
 CLUSTER_PORT: "{{ (SITE_PORT | int) + 1 }}"
 # The public port of the Zookeeper cluster manager. 
@@ -428,6 +428,8 @@ CONTEXT_BROKER_PORT: "{{ lookup('env', 'CONTEXT_BROKER_PORT') | default('443', t
 CONTEXT_BROKER_DELAY_MILLIS: 0
 # The Context Broker namespace. 
 CONTEXT_BROKER_CONTEXT: "https://smaq.computate.org/static/fiware/context.jsonld"
+# The base URL where the project will put NGSI-LD context information public on the Internet. 
+NGSILD_BASE_URL: "{{ lookup('env', 'NGSILD_BASE_URL') | default(SITE_PUBLIC_URL + '/static/fiware', true) }}"
 # The default NGSI-LD tenant environment variable
 NGSILD_TENANT_ENV: "{{ lookup('env', 'NGSILD_TENANT_ENV') | default('NGSILD_TENANT', true) }}"
 # The default NGSI-LD path
