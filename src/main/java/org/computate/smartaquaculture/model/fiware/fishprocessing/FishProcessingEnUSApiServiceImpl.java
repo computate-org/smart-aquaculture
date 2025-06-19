@@ -85,8 +85,8 @@ public class FishProcessingEnUSApiServiceImpl extends FishProcessingEnUSGenApiSe
               JsonObject areaServed = GeoJsonUtil.merkatorRingsToGeoJsonPolygon(geometry);
               JsonObject location = GeoJsonUtil.convertCentroidOfPolygonToGeoJsonPoint(areaServed);
               JsonObject body = new JsonObject();
-              String entityShortId = String.format("%s %s", result.getString(FishProcessing.VAR_id), result.getString(FishProcessing.VAR_name));
               String name = String.format("%s %s", result.getString(FishProcessing.VAR_id), result.getString(FishProcessing.VAR_name));
+              String entityShortId = FishProcessing.toId(name);
               body.put(FishProcessing.VAR_entityShortId, entityShortId);
               body.put(FishProcessing.VAR_name, name);
               body.put(FishProcessing.VAR_areaServed, areaServed);
@@ -94,6 +94,7 @@ public class FishProcessingEnUSApiServiceImpl extends FishProcessingEnUSGenApiSe
 
               JsonObject pageParams = new JsonObject();
               pageParams.put("body", body);
+              pageParams.put("scopes", new JsonArray().add("GET").add("POST").add("PATCH").add("DELETE"));
               pageParams.put("path", new JsonObject());
               pageParams.put("cookie", new JsonObject());
               pageParams.put("query",

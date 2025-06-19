@@ -85,8 +85,8 @@ public class FishingDockEnUSApiServiceImpl extends FishingDockEnUSGenApiServiceI
               JsonObject areaServed = GeoJsonUtil.merkatorRingsToGeoJsonPolygon(geometry);
               JsonObject location = GeoJsonUtil.convertCentroidOfPolygonToGeoJsonPoint(areaServed);
               JsonObject body = new JsonObject();
-              String entityShortId = String.format("%s %s", result.getString(FishingDock.VAR_id), result.getString(FishingDock.VAR_name));
               String name = String.format("%s %s", result.getString(FishingDock.VAR_id), result.getString(FishingDock.VAR_name));
+              String entityShortId = FishingDock.toId(name);
               body.put(FishingDock.VAR_entityShortId, entityShortId);
               body.put(FishingDock.VAR_name, name);
               body.put(FishingDock.VAR_areaServed, areaServed);
@@ -94,6 +94,7 @@ public class FishingDockEnUSApiServiceImpl extends FishingDockEnUSGenApiServiceI
 
               JsonObject pageParams = new JsonObject();
               pageParams.put("body", body);
+              pageParams.put("scopes", new JsonArray().add("GET").add("POST").add("PATCH").add("DELETE"));
               pageParams.put("path", new JsonObject());
               pageParams.put("cookie", new JsonObject());
               pageParams.put("query",

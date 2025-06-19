@@ -62,4 +62,9 @@ public class FishingDock extends FishingDockGen<MapModel> {
 	 **/
 	protected void _address(Wrap<JsonObject> w) {
 	}
+
+	@Override
+	protected void _color(Wrap<String> w) {
+		w.o("#003f9cff");
+	}
 }

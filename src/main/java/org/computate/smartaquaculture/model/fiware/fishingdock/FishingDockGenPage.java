@@ -44,6 +44,7 @@ package org.computate.smartaquaculture.model.fiware.fishingdock;
 
 import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock;
 import io.vertx.core.json.JsonObject;
+import java.lang.String;
 import org.computate.smartaquaculture.page.PageLayout;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;

@@ -743,7 +743,7 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 	public static String staticSearchStrAreaServed(SiteRequest siteRequest_, Polygon o) {
 		JsonArray pointsArray = new JsonArray();
 		o.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
-		return new JsonObject().put("type", "LineString").put("coordinates", new JsonArray().add(pointsArray)).toString();
+		return new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString();
 	}
 
 	public static String staticSearchFqAreaServed(SiteRequest siteRequest_, String o) {
@@ -1708,7 +1708,7 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 		if(areaServed != null) {
 			JsonArray pointsArray = new JsonArray();
 			areaServed.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
-			doc.put("areaServed_docvalues_location", new JsonObject().put("type", "LineString").put("coordinates", new JsonArray().add(pointsArray)).toString());
+			doc.put("areaServed_docvalues_location", new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString());
 		}
 		if(id != null) {
 			doc.put("id_docvalues_string", id);
@@ -2159,8 +2159,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return "List";
 		case VAR_areaServedLinks:
 			return "List";
-		case VAR_areaServed:
-			return "Polygon";
+		// case VAR_areaServed:
+		// 	return "Polygon";
 		case VAR_id:
 			return "String";
 		case VAR_entityShortId:
@@ -2194,8 +2194,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return "Property";
 		case VAR_areaServedLinks:
 			return "Property";
-		case VAR_areaServed:
-			return "GeoProperty";
+		// case VAR_areaServed:
+		// 	return "GeoProperty";
 		case VAR_id:
 			return "Property";
 		case VAR_entityShortId:

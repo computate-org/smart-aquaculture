@@ -415,7 +415,7 @@ SOLR_URL_FIWARE: "{{ ('https://' if SOLR_SSL_FIWARE | bool == True else 'http://
 # Enable context broker integration in the Fiware enabled Smart Data Model APIs. 
 ENABLE_CONTEXT_BROKER: true
 # Enable sending context broker data. 
-ENABLE_CONTEXT_BROKER_SEND: false
+ENABLE_CONTEXT_BROKER_SEND: true
 # The Context Broker namespace. 
 CONTEXT_BROKER_NAMESPACE: "scorpiobroker"
 # Whether to use SSL when connecting to the Context Broker. 
@@ -427,7 +427,7 @@ CONTEXT_BROKER_PORT: "{{ lookup('env', 'CONTEXT_BROKER_PORT') | default('443', t
 # The delay between messages and requerying entity @context. 
 CONTEXT_BROKER_DELAY_MILLIS: 0
 # The Context Broker namespace. 
-CONTEXT_BROKER_CONTEXT: "{{ STATIC_BASE_URL }}/fiware/context.jsonld"
+CONTEXT_BROKER_CONTEXT: "https://smaq.computate.org/static/fiware/context.jsonld"
 # The default NGSI-LD tenant environment variable
 NGSILD_TENANT_ENV: "{{ lookup('env', 'NGSILD_TENANT_ENV') | default('NGSILD_TENANT', true) }}"
 # The default NGSI-LD path
