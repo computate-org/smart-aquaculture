@@ -779,7 +779,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		case VAR_address:
 			return "Property";
 			default:
-				return null;
+				return MapModel.ngsiType(var);
 		}
 	}
 
@@ -788,7 +788,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		case VAR_address:
 			return o.getAddress();
 			default:
-				return null;
+				return ngsiMapModel(var, o);
 		}
 	}
 

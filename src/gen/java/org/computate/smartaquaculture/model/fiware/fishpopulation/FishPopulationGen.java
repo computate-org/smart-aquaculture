@@ -2267,7 +2267,7 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 		case VAR_source:
 			return "Property";
 			default:
-				return null;
+				return MapModel.ngsiType(var);
 		}
 	}
 
@@ -2302,7 +2302,7 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 		case VAR_source:
 			return o.getSource();
 			default:
-				return null;
+				return ngsiMapModel(var, o);
 		}
 	}
 

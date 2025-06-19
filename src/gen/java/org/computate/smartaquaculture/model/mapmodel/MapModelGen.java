@@ -2180,6 +2180,78 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 		}
 	}
 
+	public static String ngsiType(String var) {
+		switch(var) {
+		case VAR_name:
+			return "Property";
+		case VAR_description:
+			return "Property";
+		case VAR_location:
+			return "GeoProperty";
+		case VAR_areaServedColors:
+			return "Property";
+		case VAR_areaServedTitles:
+			return "Property";
+		case VAR_areaServedLinks:
+			return "Property";
+		case VAR_areaServed:
+			return "GeoProperty";
+		case VAR_id:
+			return "Property";
+		case VAR_entityShortId:
+			return "Property";
+		case VAR_ngsildTenant:
+			return "Property";
+		case VAR_ngsildPath:
+			return "Property";
+		case VAR_ngsildContext:
+			return "Property";
+		case VAR_ngsildData:
+			return "Property";
+		case VAR_color:
+			return "Property";
+			default:
+				return null;
+		}
+	}
+
+	public static Object ngsiMapModel(String var, MapModel o) {
+		switch(var) {
+		case VAR_name:
+			return o.getName();
+		case VAR_description:
+			return o.getDescription();
+		case VAR_location:
+			return new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(Double.valueOf(o.getLocation().getX())).add(Double.valueOf(o.getLocation().getY())));
+		case VAR_areaServedColors:
+			return o.getAreaServedColors();
+		case VAR_areaServedTitles:
+			return o.getAreaServedTitles();
+		case VAR_areaServedLinks:
+			return o.getAreaServedLinks();
+		case VAR_areaServed:
+			JsonArray pointsArrayAreaServed = new JsonArray();
+			o.getAreaServed().getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArrayAreaServed.add(pointArray));
+			return new JsonObject().put("type", "LineString").put("coordinates", pointsArrayAreaServed);
+		case VAR_id:
+			return o.getId();
+		case VAR_entityShortId:
+			return o.getEntityShortId();
+		case VAR_ngsildTenant:
+			return o.getNgsildTenant();
+		case VAR_ngsildPath:
+			return o.getNgsildPath();
+		case VAR_ngsildContext:
+			return o.getNgsildContext();
+		case VAR_ngsildData:
+			return o.getNgsildData();
+		case VAR_color:
+			return o.getColor();
+			default:
+				return null;
+		}
+	}
+
 	public static Integer htmColumnMapModel(String var) {
 		switch(var) {
 		case VAR_name:

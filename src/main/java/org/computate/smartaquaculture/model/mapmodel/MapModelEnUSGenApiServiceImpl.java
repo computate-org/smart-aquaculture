@@ -853,7 +853,16 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						}
 					}
 					o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-						promise.complete();
+						if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+							cbUpsertEntity(o, patch).onSuccess(b -> {
+								promise.complete();
+							}).onFailure(ex -> {
+								LOG.error(String.format("persistMapModel failed. "), ex);
+								promise.fail(ex);
+							});
+						} else {
+							promise.complete();
+						}
 					}).onFailure(ex -> {
 						LOG.error(String.format("persistMapModel failed. "), ex);
 						promise.fail(ex);
@@ -869,6 +878,145 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			});
 		} catch(Exception ex) {
 			LOG.error(String.format("persistMapModel failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<Void> cbUpsertEntity(MapModel o, Boolean patch) {
+		Promise<Void> promise = Promise.promise();
+		try {
+			ZonedDateTime observedAt = ZonedDateTime.now(ZoneId.of("UTC"));
+			String observedAtStr = observedAt.format(ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER);
+			JsonArray entityArray = new JsonArray();
+			JsonObject entityBody = new JsonObject();
+			entityBody.put("@context", config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT));
+			entityBody.put("id", o.getId());
+			entityBody.put("type", MapModel.CLASS_SIMPLE_NAME);
+			entityBody.put("NGSILD-Tenant"
+					, new JsonObject()
+					.put("type", "Property")
+					.put("value", o.getNgsildTenant())
+					.put("observedAt", observedAtStr)
+					);
+			entityBody.put("NGSILD-Path"
+					, new JsonObject()
+					.put("type", "Property")
+					.put("value", o.getNgsildPath())
+					.put("observedAt", observedAtStr)
+					);
+
+			List<String> vars = MapModel.varsFqForClass();
+			for (String var : vars) {
+				String ngsiType = MapModel.ngsiType(var);
+				String displayName = Optional.ofNullable(MapModel.displayNameMapModel(var)).orElse(var);
+				if (ngsiType != null && displayName != null && !var.equals("id") && !var.equals("ngsildData")) {
+					Object value = o.obtainForClass(var);
+					if(value != null) {
+						Object ngsildVal = MapModel.ngsiMapModel(var, o);
+						String ngsildType = MapModel.ngsiType(var);
+						entityBody.put(displayName
+								, new JsonObject()
+								.put("type", ngsildType)
+								.put("value", ngsildVal)
+								.put("observedAt", observedAtStr)
+								);
+					}
+				}
+			}
+			entityArray.add(entityBody);
+			LOG.info(entityArray.encodePrettily());
+			webClient.post(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, "/ngsi-ld/v1/entityOperations/upsert/"
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.sendJson(entityArray)
+					.expecting(HttpResponseExpectation.SC_NO_CONTENT.or(HttpResponseExpectation.SC_CREATED)).onSuccess(b -> {
+				promise.complete();
+			}).onFailure(ex -> {
+				LOG.error(String.format("cbUpsertEntity failed. "), ex);
+				promise.fail(ex);
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("cbUpsertEntity failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<JsonObject> ngsildGetEntity(MapModel o) {
+		Promise<JsonObject> promise = Promise.promise();
+		try {
+			String entityName = o.getName();
+			String entityType = MapModel.CLASS_SIMPLE_NAME;
+			String entityId = o.getId();
+			String ngsildUri = String.format("/ngsi-ld/v1/entities/%s", urlEncode(entityId));
+			String ngsildContext = config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT);
+			String link = String.format("<%s>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"", ngsildContext);
+
+			webClient.get(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, ngsildUri
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.putHeader("Link", link)
+					.putHeader("Accept", "*/*")
+					.send()
+					.expecting(HttpResponseExpectation.SC_OK.or(HttpResponseExpectation.SC_NOT_FOUND)).onSuccess(entityResponse -> {
+				JsonObject entity = entityResponse.bodyAsJsonObject();
+				entity.remove("NGSILD data");
+				promise.complete(entity);
+			}).onFailure(ex -> {
+				LOG.error(String.format("postIotServiceFuture failed. "), ex);
+				promise.fail(ex);
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("postIotServiceFuture failed. "), ex);
+			promise.fail(ex);
+		}
+		return promise.future();
+	}
+
+	public Future<Void> cbDeleteEntity(MapModel o) {
+		Promise<Void> promise = Promise.promise();
+		try {
+			webClient.delete(
+					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+					, String.format("/ngsi-ld/v1/entities/%s", urlEncode(o.getId()))
+					)
+					.ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+					.putHeader("Content-Type", "application/ld+json")
+					.putHeader("Fiware-Service", o.getNgsildTenant())
+					.putHeader("Fiware-ServicePath", o.getNgsildPath())
+					.putHeader("NGSILD-Tenant", o.getNgsildTenant())
+					.putHeader("NGSILD-Path", o.getNgsildPath())
+					.send()
+					.expecting(HttpResponseExpectation.SC_NO_CONTENT).onSuccess(b -> {
+				promise.complete();
+			}).onFailure(ex -> {
+				if("Response status code 404 is not equal to 204".equals(ex.getMessage())) {
+					promise.complete();
+				} else {
+					LOG.error(String.format("cbDeleteEntity failed. "), ex);
+					promise.fail(ex);
+				}
+			});
+		} catch(Throwable ex) {
+			LOG.error(String.format("cbDeleteEntity failed. "), ex);
 			promise.fail(ex);
 		}
 		return promise.future();
@@ -985,14 +1133,14 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(MapModel.VAR_areaServed, MapModel.staticSetAreaServed(siteRequest2, (String)result.get(MapModel.VAR_areaServed)));
 			page.persistForClass(MapModel.VAR_id, MapModel.staticSetId(siteRequest2, (String)result.get(MapModel.VAR_id)));
 			page.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
-			page.persistForClass(MapModel.VAR_ngsildTenant, MapModel.staticSetNgsildTenant(siteRequest2, (String)result.get(MapModel.VAR_ngsildTenant)));
 			page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
+			page.persistForClass(MapModel.VAR_ngsildTenant, MapModel.staticSetNgsildTenant(siteRequest2, (String)result.get(MapModel.VAR_ngsildTenant)));
 			page.persistForClass(MapModel.VAR_ngsildPath, MapModel.staticSetNgsildPath(siteRequest2, (String)result.get(MapModel.VAR_ngsildPath)));
 			page.persistForClass(MapModel.VAR_ngsildContext, MapModel.staticSetNgsildContext(siteRequest2, (String)result.get(MapModel.VAR_ngsildContext)));
-			page.persistForClass(MapModel.VAR_ngsildData, MapModel.staticSetNgsildData(siteRequest2, (String)result.get(MapModel.VAR_ngsildData)));
 			page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
-			page.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
+			page.persistForClass(MapModel.VAR_ngsildData, MapModel.staticSetNgsildData(siteRequest2, (String)result.get(MapModel.VAR_ngsildData)));
 			page.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
+			page.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
 				try {

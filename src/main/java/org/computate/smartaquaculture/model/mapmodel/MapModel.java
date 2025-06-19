@@ -12,6 +12,7 @@ import io.vertx.pgclient.data.Point;
 import io.vertx.pgclient.data.Polygon;
 
 /**
+ * Fiware: true
  * Order: 5
  * Description: A map model
  * AName: a map model
