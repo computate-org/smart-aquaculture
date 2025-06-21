@@ -9599,13 +9599,7 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
+                    type: object
                   id:
                     type: string
                   entityShortId:
@@ -9713,30 +9707,12 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: array
+              type: object
               nullable: true
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             removeAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             removeAllAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             setId:
               type: string
               nullable: true
@@ -9919,30 +9895,12 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: array
+              type: object
               nullable: true
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             removeAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             removeAllAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             setId:
               type: string
               nullable: true
@@ -10071,13 +10029,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             id:
               type: string
             entityShortId:
@@ -10131,13 +10083,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             id:
               type: string
             entityShortId:
@@ -10191,13 +10137,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             id:
               type: string
             entityShortId:
@@ -10256,13 +10196,7 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
+                    type: object
                   id:
                     type: string
                   entityShortId:
@@ -10316,13 +10250,7 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
+                    type: object
                   id:
                     type: string
                   entityShortId:
@@ -10376,13 +10304,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             id:
               type: string
             entityShortId:
@@ -10436,13 +10358,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             id:
               type: string
             entityShortId:
@@ -10516,15 +10432,7 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
-                  id:
-                    type: string
+                    type: object
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -10552,6 +10460,8 @@ components:
                   seeAlso:
                     type: string
                   source:
+                    type: string
+                  id:
                     type: string
     PATCHFeederRequest:
       allOf:
@@ -10630,37 +10540,12 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: array
+              type: object
               nullable: true
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             removeAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             removeAllAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
+              type: object
             setEntityShortId:
               type: string
               nullable: true
@@ -10758,6 +10643,13 @@ components:
             removeSource:
               type: string
             removeAllSource:
+              type: string
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
               type: string
     PATCHFeederResponse:
       allOf:
@@ -10836,37 +10728,12 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: array
+              type: object
               nullable: true
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             removeAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             removeAllAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
+              type: object
             setEntityShortId:
               type: string
               nullable: true
@@ -10965,6 +10832,13 @@ components:
               type: string
             removeAllSource:
               type: string
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
     POSTFeederRequest:
       allOf:
         - type: object
@@ -10988,15 +10862,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            id:
-              type: string
+              type: object
             entityShortId:
               type: string
             ngsildTenant:
@@ -11024,6 +10890,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            id:
               type: string
     POSTFeederResponse:
       allOf:
@@ -11048,15 +10916,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            id:
-              type: string
+              type: object
             entityShortId:
               type: string
             ngsildTenant:
@@ -11084,6 +10944,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            id:
               type: string
     DELETEFilterFeederResponse:
       allOf:
@@ -11108,15 +10970,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            id:
-              type: string
+              type: object
             entityShortId:
               type: string
             ngsildTenant:
@@ -11144,6 +10998,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            id:
               type: string
     PUTImportFeederRequest:
       allOf:
@@ -11173,15 +11029,7 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
-                  id:
-                    type: string
+                    type: object
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -11209,6 +11057,8 @@ components:
                   seeAlso:
                     type: string
                   source:
+                    type: string
+                  id:
                     type: string
     PUTImportFeederResponse:
       allOf:
@@ -11233,15 +11083,7 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
-                  id:
-                    type: string
+                    type: object
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -11270,6 +11112,8 @@ components:
                     type: string
                   source:
                     type: string
+                  id:
+                    type: string
     GETFeederResponse:
       allOf:
         - type: object
@@ -11293,15 +11137,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            id:
-              type: string
+              type: object
             entityShortId:
               type: string
             ngsildTenant:
@@ -11329,6 +11165,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            id:
               type: string
     DELETEFeederResponse:
       allOf:
@@ -11353,15 +11191,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            id:
-              type: string
+              type: object
             entityShortId:
               type: string
             ngsildTenant:
@@ -11389,6 +11219,8 @@ components:
             seeAlso:
               type: string
             source:
+              type: string
+            id:
               type: string
     EditPageFeederResponse:
       allOf:
@@ -11414,44 +11246,14 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
                   id:
                     type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
                     type: string
-                  ngsildPath:
-                    type: string
                   ngsildContext:
                     type: string
-                  ngsildData:
-                    type: object
                   address:
                     type: object
                   alternateName:
@@ -11472,16 +11274,152 @@ components:
                     type: object
                   relatedSource:
                     type: object
-                  seeAlso:
-                    type: string
                   source:
                     type: string
                   version:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  location:
+                    type: object
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
+                  ngsildPath:
+                    type: string
+                  ngsildData:
+                    type: object
+                  seeAlso:
                     type: string
     PATCHFeedingOperationRequest:
       allOf:
         - type: object
           properties:
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+            setEntityShortId:
+              type: string
+              nullable: true
+            removeEntityShortId:
+              type: string
+            removeAllEntityShortId:
+              type: string
+            setNgsildTenant:
+              type: string
+              nullable: true
+            removeNgsildTenant:
+              type: string
+            removeAllNgsildTenant:
+              type: string
+            setNgsildContext:
+              type: string
+              nullable: true
+            removeNgsildContext:
+              type: string
+            removeAllNgsildContext:
+              type: string
+            setAddress:
+              type: object
+              nullable: true
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
+            setAlternateName:
+              type: string
+              nullable: true
+            removeAlternateName:
+              type: string
+            removeAllAlternateName:
+              type: string
+            setCategory:
+              type: object
+              nullable: true
+            removeCategory:
+              type: object
+            removeAllCategory:
+              type: object
+            setDataProvider:
+              type: string
+              nullable: true
+            removeDataProvider:
+              type: string
+            removeAllDataProvider:
+              type: string
+            setDateCreated:
+              type: string
+              nullable: true
+            removeDateCreated:
+              type: string
+            removeAllDateCreated:
+              type: string
+            setDateModified:
+              type: string
+              nullable: true
+            removeDateModified:
+              type: string
+            removeAllDateModified:
+              type: string
+            setEndpoint:
+              type: string
+              nullable: true
+            removeEndpoint:
+              type: string
+            removeAllEndpoint:
+              type: string
+            setHasProvider:
+              type: string
+              nullable: true
+            removeHasProvider:
+              type: string
+            removeAllHasProvider:
+              type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
+            setRelatedSource:
+              type: object
+              nullable: true
+            removeRelatedSource:
+              type: object
+            removeAllRelatedSource:
+              type: object
+            setSource:
+              type: string
+              nullable: true
+            removeSource:
+              type: string
+            removeAllSource:
+              type: string
+            setVersion:
+              type: string
+              nullable: true
+            removeVersion:
+              type: string
+            removeAllVersion:
+              type: string
             setName:
               type: string
               nullable: true
@@ -11555,64 +11493,18 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: array
+              type: object
               nullable: true
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             removeAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             removeAllAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
+              type: object
             setNgsildPath:
               type: string
               nullable: true
             removeNgsildPath:
               type: string
             removeAllNgsildPath:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
               type: string
             setNgsildData:
               type: object
@@ -11621,101 +11513,129 @@ components:
               type: object
             removeAllNgsildData:
               type: object
-            setAddress:
-              type: object
-              nullable: true
-            removeAddress:
-              type: object
-            removeAllAddress:
-              type: object
-            setAlternateName:
-              type: string
-              nullable: true
-            removeAlternateName:
-              type: string
-            removeAllAlternateName:
-              type: string
-            setCategory:
-              type: object
-              nullable: true
-            removeCategory:
-              type: object
-            removeAllCategory:
-              type: object
-            setDataProvider:
-              type: string
-              nullable: true
-            removeDataProvider:
-              type: string
-            removeAllDataProvider:
-              type: string
-            setDateCreated:
-              type: string
-              nullable: true
-            removeDateCreated:
-              type: string
-            removeAllDateCreated:
-              type: string
-            setDateModified:
-              type: string
-              nullable: true
-            removeDateModified:
-              type: string
-            removeAllDateModified:
-              type: string
-            setEndpoint:
-              type: string
-              nullable: true
-            removeEndpoint:
-              type: string
-            removeAllEndpoint:
-              type: string
-            setHasProvider:
-              type: string
-              nullable: true
-            removeHasProvider:
-              type: string
-            removeAllHasProvider:
-              type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
-            setRelatedSource:
-              type: object
-              nullable: true
-            removeRelatedSource:
-              type: object
-            removeAllRelatedSource:
-              type: object
             setSeeAlso:
               type: string
               nullable: true
             removeSeeAlso:
               type: string
             removeAllSeeAlso:
-              type: string
-            setSource:
-              type: string
-              nullable: true
-            removeSource:
-              type: string
-            removeAllSource:
-              type: string
-            setVersion:
-              type: string
-              nullable: true
-            removeVersion:
-              type: string
-            removeAllVersion:
               type: string
     PATCHFeedingOperationResponse:
       allOf:
         - type: object
           properties:
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+            setEntityShortId:
+              type: string
+              nullable: true
+            removeEntityShortId:
+              type: string
+            removeAllEntityShortId:
+              type: string
+            setNgsildTenant:
+              type: string
+              nullable: true
+            removeNgsildTenant:
+              type: string
+            removeAllNgsildTenant:
+              type: string
+            setNgsildContext:
+              type: string
+              nullable: true
+            removeNgsildContext:
+              type: string
+            removeAllNgsildContext:
+              type: string
+            setAddress:
+              type: object
+              nullable: true
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
+            setAlternateName:
+              type: string
+              nullable: true
+            removeAlternateName:
+              type: string
+            removeAllAlternateName:
+              type: string
+            setCategory:
+              type: object
+              nullable: true
+            removeCategory:
+              type: object
+            removeAllCategory:
+              type: object
+            setDataProvider:
+              type: string
+              nullable: true
+            removeDataProvider:
+              type: string
+            removeAllDataProvider:
+              type: string
+            setDateCreated:
+              type: string
+              nullable: true
+            removeDateCreated:
+              type: string
+            removeAllDateCreated:
+              type: string
+            setDateModified:
+              type: string
+              nullable: true
+            removeDateModified:
+              type: string
+            removeAllDateModified:
+              type: string
+            setEndpoint:
+              type: string
+              nullable: true
+            removeEndpoint:
+              type: string
+            removeAllEndpoint:
+              type: string
+            setHasProvider:
+              type: string
+              nullable: true
+            removeHasProvider:
+              type: string
+            removeAllHasProvider:
+              type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
+            setRelatedSource:
+              type: object
+              nullable: true
+            removeRelatedSource:
+              type: object
+            removeAllRelatedSource:
+              type: object
+            setSource:
+              type: string
+              nullable: true
+            removeSource:
+              type: string
+            removeAllSource:
+              type: string
+            setVersion:
+              type: string
+              nullable: true
+            removeVersion:
+              type: string
+            removeAllVersion:
+              type: string
             setName:
               type: string
               nullable: true
@@ -11789,64 +11709,18 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: array
+              type: object
               nullable: true
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             removeAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             removeAllAreaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
+              type: object
             setNgsildPath:
               type: string
               nullable: true
             removeNgsildPath:
               type: string
             removeAllNgsildPath:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
               type: string
             setNgsildData:
               type: object
@@ -11855,76 +11729,6 @@ components:
               type: object
             removeAllNgsildData:
               type: object
-            setAddress:
-              type: object
-              nullable: true
-            removeAddress:
-              type: object
-            removeAllAddress:
-              type: object
-            setAlternateName:
-              type: string
-              nullable: true
-            removeAlternateName:
-              type: string
-            removeAllAlternateName:
-              type: string
-            setCategory:
-              type: object
-              nullable: true
-            removeCategory:
-              type: object
-            removeAllCategory:
-              type: object
-            setDataProvider:
-              type: string
-              nullable: true
-            removeDataProvider:
-              type: string
-            removeAllDataProvider:
-              type: string
-            setDateCreated:
-              type: string
-              nullable: true
-            removeDateCreated:
-              type: string
-            removeAllDateCreated:
-              type: string
-            setDateModified:
-              type: string
-              nullable: true
-            removeDateModified:
-              type: string
-            removeAllDateModified:
-              type: string
-            setEndpoint:
-              type: string
-              nullable: true
-            removeEndpoint:
-              type: string
-            removeAllEndpoint:
-              type: string
-            setHasProvider:
-              type: string
-              nullable: true
-            removeHasProvider:
-              type: string
-            removeAllHasProvider:
-              type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
-            setRelatedSource:
-              type: object
-              nullable: true
-            removeRelatedSource:
-              type: object
-            removeAllRelatedSource:
-              type: object
             setSeeAlso:
               type: string
               nullable: true
@@ -11932,62 +11736,18 @@ components:
               type: string
             removeAllSeeAlso:
               type: string
-            setSource:
-              type: string
-              nullable: true
-            removeSource:
-              type: string
-            removeAllSource:
-              type: string
-            setVersion:
-              type: string
-              nullable: true
-            removeVersion:
-              type: string
-            removeAllVersion:
-              type: string
     POSTFeedingOperationRequest:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -12008,54 +11768,48 @@ components:
               type: object
             relatedSource:
               type: object
-            seeAlso:
-              type: string
             source:
               type: string
             version:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            location:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
+            ngsildPath:
+              type: string
+            ngsildData:
+              type: object
+            seeAlso:
               type: string
     POSTFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -12076,54 +11830,48 @@ components:
               type: object
             relatedSource:
               type: object
-            seeAlso:
-              type: string
             source:
               type: string
             version:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            location:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
+            ngsildPath:
+              type: string
+            ngsildData:
+              type: object
+            seeAlso:
               type: string
     DELETEFilterFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -12144,11 +11892,35 @@ components:
               type: object
             relatedSource:
               type: object
-            seeAlso:
-              type: string
             source:
               type: string
             version:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            location:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
+            ngsildPath:
+              type: string
+            ngsildData:
+              type: object
+            seeAlso:
               type: string
     PUTImportFeedingOperationRequest:
       allOf:
@@ -12159,44 +11931,14 @@ components:
               items:
                 type: object
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
                   id:
                     type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
                     type: string
-                  ngsildPath:
-                    type: string
                   ngsildContext:
                     type: string
-                  ngsildData:
-                    type: object
                   address:
                     type: object
                   alternateName:
@@ -12217,54 +11959,48 @@ components:
                     type: object
                   relatedSource:
                     type: object
-                  seeAlso:
-                    type: string
                   source:
                     type: string
                   version:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  location:
+                    type: object
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
+                  ngsildPath:
+                    type: string
+                  ngsildData:
+                    type: object
+                  seeAlso:
                     type: string
     PUTImportFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  location:
-                    type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
                   id:
                     type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
                     type: string
-                  ngsildPath:
-                    type: string
                   ngsildContext:
                     type: string
-                  ngsildData:
-                    type: object
                   address:
                     type: object
                   alternateName:
@@ -12285,54 +12021,48 @@ components:
                     type: object
                   relatedSource:
                     type: object
-                  seeAlso:
-                    type: string
                   source:
                     type: string
                   version:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  location:
+                    type: object
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
+                  ngsildPath:
+                    type: string
+                  ngsildData:
+                    type: object
+                  seeAlso:
                     type: string
     GETFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -12353,54 +12083,48 @@ components:
               type: object
             relatedSource:
               type: object
-            seeAlso:
-              type: string
             source:
               type: string
             version:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            location:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
+            ngsildPath:
+              type: string
+            ngsildData:
+              type: object
+            seeAlso:
               type: string
     DELETEFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            name:
-              type: string
-            description:
-              type: string
-            location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
               type: string
-            ngsildPath:
-              type: string
             ngsildContext:
               type: string
-            ngsildData:
-              type: object
             address:
               type: object
             alternateName:
@@ -12421,11 +12145,35 @@ components:
               type: object
             relatedSource:
               type: object
-            seeAlso:
-              type: string
             source:
               type: string
             version:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            location:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
+            ngsildPath:
+              type: string
+            ngsildData:
+              type: object
+            seeAlso:
               type: string
     EditPageFeedingOperationResponse:
       allOf:
@@ -13465,13 +13213,7 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: array
-                    items:
-                      anyOf:
-                        - type: string
-                        - type: number
-                        - type: string
-                        - type: boolean
+                    type: object
                   id:
                     type: string
                   entityShortId:
@@ -13513,13 +13255,7 @@ components:
               items:
                 type: string
             areaServed:
-              type: array
-              items:
-                anyOf:
-                  - type: string
-                  - type: number
-                  - type: string
-                  - type: boolean
+              type: object
             id:
               type: string
             entityShortId:
