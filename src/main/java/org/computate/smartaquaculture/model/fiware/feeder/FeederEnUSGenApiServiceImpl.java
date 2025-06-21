@@ -771,7 +771,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							o2.setAreaServed(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(Feeder.VAR_areaServed + "=$" + num);
+							bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", Feeder.VAR_areaServed, num));
 							num++;
 							bParams.add(o2.sqlAreaServed());
 						break;
@@ -1099,6 +1099,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -1194,7 +1199,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						promise2.complete(feeder);
 					} catch(Exception ex) {
 						LOG.error(String.format("postFeederFuture failed. "), ex);
-						promise.fail(ex);
+						promise2.fail(ex);
 					}
 				}).onFailure(ex -> {
 					promise2.fail(ex);
@@ -2053,6 +2058,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -3218,7 +3228,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT * FROM Feeder WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, address, alternateName, dataProvider, dateCreated, dateModified, owner, relatedSource, seeAlso, source FROM Feeder WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -3299,17 +3309,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 					if(value != null) {
 						Object ngsildVal = Feeder.ngsiFeeder(var, o);
 						String ngsildType = Feeder.ngsiType(var);
-						entityBody.put(displayName
-								, new JsonObject()
-								.put("type", ngsildType)
-								.put("value", ngsildVal)
-								.put("observedAt", observedAtStr)
-								);
+						if(ngsildVal != null) {
+							entityBody.put(displayName
+									, new JsonObject()
+									.put("type", ngsildType)
+									.put("value", ngsildVal)
+									.put("observedAt", observedAtStr)
+									);
+						}
 					}
 				}
 			}
 			entityArray.add(entityBody);
-			LOG.info(entityArray.encodePrettily());
+			LOG.debug(entityArray.encodePrettily());
 			webClient.post(
 					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
 					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)

@@ -9599,7 +9599,13 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
@@ -9707,12 +9713,30 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: object
+              type: array
               nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAllAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             setId:
               type: string
               nullable: true
@@ -9895,12 +9919,30 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: object
+              type: array
               nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAllAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             setId:
               type: string
               nullable: true
@@ -10029,7 +10071,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -10083,7 +10131,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -10137,7 +10191,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -10196,7 +10256,13 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
@@ -10250,7 +10316,13 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
@@ -10304,7 +10376,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -10358,7 +10436,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -10432,12 +10516,20 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
+                    type: string
+                  ngsildPath:
                     type: string
                   ngsildContext:
                     type: string
@@ -10460,8 +10552,6 @@ components:
                   seeAlso:
                     type: string
                   source:
-                    type: string
-                  ngsildPath:
                     type: string
     PATCHFeederRequest:
       allOf:
@@ -10540,12 +10630,30 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: object
+              type: array
               nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAllAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             setId:
               type: string
               nullable: true
@@ -10566,6 +10674,13 @@ components:
             removeNgsildTenant:
               type: string
             removeAllNgsildTenant:
+              type: string
+            setNgsildPath:
+              type: string
+              nullable: true
+            removeNgsildPath:
+              type: string
+            removeAllNgsildPath:
               type: string
             setNgsildContext:
               type: string
@@ -10643,13 +10758,6 @@ components:
             removeSource:
               type: string
             removeAllSource:
-              type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
               type: string
     PATCHFeederResponse:
       allOf:
@@ -10728,12 +10836,30 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: object
+              type: array
               nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAllAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             setId:
               type: string
               nullable: true
@@ -10754,6 +10880,13 @@ components:
             removeNgsildTenant:
               type: string
             removeAllNgsildTenant:
+              type: string
+            setNgsildPath:
+              type: string
+              nullable: true
+            removeNgsildPath:
+              type: string
+            removeAllNgsildPath:
               type: string
             setNgsildContext:
               type: string
@@ -10832,13 +10965,6 @@ components:
               type: string
             removeAllSource:
               type: string
-            setNgsildPath:
-              type: string
-              nullable: true
-            removeNgsildPath:
-              type: string
-            removeAllNgsildPath:
-              type: string
     POSTFeederRequest:
       allOf:
         - type: object
@@ -10862,12 +10988,20 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
+              type: string
+            ngsildPath:
               type: string
             ngsildContext:
               type: string
@@ -10890,8 +11024,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            ngsildPath:
               type: string
     POSTFeederResponse:
       allOf:
@@ -10916,12 +11048,20 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
+              type: string
+            ngsildPath:
               type: string
             ngsildContext:
               type: string
@@ -10944,8 +11084,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            ngsildPath:
               type: string
     DELETEFilterFeederResponse:
       allOf:
@@ -10970,12 +11108,20 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
+              type: string
+            ngsildPath:
               type: string
             ngsildContext:
               type: string
@@ -10998,8 +11144,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            ngsildPath:
               type: string
     PUTImportFeederRequest:
       allOf:
@@ -11029,12 +11173,20 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
+                    type: string
+                  ngsildPath:
                     type: string
                   ngsildContext:
                     type: string
@@ -11057,8 +11209,6 @@ components:
                   seeAlso:
                     type: string
                   source:
-                    type: string
-                  ngsildPath:
                     type: string
     PUTImportFeederResponse:
       allOf:
@@ -11083,12 +11233,20 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
+                    type: string
+                  ngsildPath:
                     type: string
                   ngsildContext:
                     type: string
@@ -11111,8 +11269,6 @@ components:
                   seeAlso:
                     type: string
                   source:
-                    type: string
-                  ngsildPath:
                     type: string
     GETFeederResponse:
       allOf:
@@ -11137,12 +11293,20 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
+              type: string
+            ngsildPath:
               type: string
             ngsildContext:
               type: string
@@ -11165,8 +11329,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            ngsildPath:
               type: string
     DELETEFeederResponse:
       allOf:
@@ -11191,12 +11353,20 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
               type: string
             ngsildTenant:
+              type: string
+            ngsildPath:
               type: string
             ngsildContext:
               type: string
@@ -11219,8 +11389,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            ngsildPath:
               type: string
     EditPageFeederResponse:
       allOf:
@@ -11265,7 +11433,13 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
@@ -11381,12 +11555,30 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: object
+              type: array
               nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAllAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             setId:
               type: string
               nullable: true
@@ -11597,12 +11789,30 @@ components:
               items:
                 type: string
             setAreaServed:
-              type: object
+              type: array
               nullable: true
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             removeAllAreaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             setId:
               type: string
               nullable: true
@@ -11759,7 +11969,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -11821,7 +12037,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -11883,7 +12105,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -11950,7 +12178,13 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
@@ -12012,7 +12246,13 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
@@ -12074,7 +12314,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -12136,7 +12382,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:
@@ -12587,27 +12839,27 @@ components:
                     type: string
                   bodyMasse:
                     type: string
-                  culturedIn:
-                    type: string
                   dataProvider:
                     type: string
                   dateCreated:
                     type: string
                   dateModified:
                     type: string
-                  fishRemoved:
-                    type: string
                   initialNumber:
                     type: string
                   owner:
                     type: object
-                  refSpecie:
-                    type: string
                   relatedSource:
                     type: object
                   seeAlso:
                     type: string
+                  fishRemoved:
+                    type: string
+                  refSpecie:
+                    type: string
                   source:
+                    type: string
+                  culturedIn:
                     type: string
     PATCHFishPopulationRequest:
       allOf:
@@ -12634,13 +12886,6 @@ components:
               type: string
             removeAllBodyMasse:
               type: string
-            setCulturedIn:
-              type: string
-              nullable: true
-            removeCulturedIn:
-              type: string
-            removeAllCulturedIn:
-              type: string
             setDataProvider:
               type: string
               nullable: true
@@ -12662,13 +12907,6 @@ components:
               type: string
             removeAllDateModified:
               type: string
-            setFishRemoved:
-              type: string
-              nullable: true
-            removeFishRemoved:
-              type: string
-            removeAllFishRemoved:
-              type: string
             setInitialNumber:
               type: string
               nullable: true
@@ -12683,13 +12921,6 @@ components:
               type: object
             removeAllOwner:
               type: object
-            setRefSpecie:
-              type: string
-              nullable: true
-            removeRefSpecie:
-              type: string
-            removeAllRefSpecie:
-              type: string
             setRelatedSource:
               type: object
               nullable: true
@@ -12704,12 +12935,33 @@ components:
               type: string
             removeAllSeeAlso:
               type: string
+            setFishRemoved:
+              type: string
+              nullable: true
+            removeFishRemoved:
+              type: string
+            removeAllFishRemoved:
+              type: string
+            setRefSpecie:
+              type: string
+              nullable: true
+            removeRefSpecie:
+              type: string
+            removeAllRefSpecie:
+              type: string
             setSource:
               type: string
               nullable: true
             removeSource:
               type: string
             removeAllSource:
+              type: string
+            setCulturedIn:
+              type: string
+              nullable: true
+            removeCulturedIn:
+              type: string
+            removeAllCulturedIn:
               type: string
     PATCHFishPopulationResponse:
       allOf:
@@ -12736,13 +12988,6 @@ components:
               type: string
             removeAllBodyMasse:
               type: string
-            setCulturedIn:
-              type: string
-              nullable: true
-            removeCulturedIn:
-              type: string
-            removeAllCulturedIn:
-              type: string
             setDataProvider:
               type: string
               nullable: true
@@ -12764,13 +13009,6 @@ components:
               type: string
             removeAllDateModified:
               type: string
-            setFishRemoved:
-              type: string
-              nullable: true
-            removeFishRemoved:
-              type: string
-            removeAllFishRemoved:
-              type: string
             setInitialNumber:
               type: string
               nullable: true
@@ -12785,13 +13023,6 @@ components:
               type: object
             removeAllOwner:
               type: object
-            setRefSpecie:
-              type: string
-              nullable: true
-            removeRefSpecie:
-              type: string
-            removeAllRefSpecie:
-              type: string
             setRelatedSource:
               type: object
               nullable: true
@@ -12806,12 +13037,33 @@ components:
               type: string
             removeAllSeeAlso:
               type: string
+            setFishRemoved:
+              type: string
+              nullable: true
+            removeFishRemoved:
+              type: string
+            removeAllFishRemoved:
+              type: string
+            setRefSpecie:
+              type: string
+              nullable: true
+            removeRefSpecie:
+              type: string
+            removeAllRefSpecie:
+              type: string
             setSource:
               type: string
               nullable: true
             removeSource:
               type: string
             removeAllSource:
+              type: string
+            setCulturedIn:
+              type: string
+              nullable: true
+            removeCulturedIn:
+              type: string
+            removeAllCulturedIn:
               type: string
     POSTFishPopulationRequest:
       allOf:
@@ -12823,27 +13075,27 @@ components:
               type: string
             bodyMasse:
               type: string
-            culturedIn:
-              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
-            fishRemoved:
-              type: string
             initialNumber:
               type: string
             owner:
               type: object
-            refSpecie:
-              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
+            fishRemoved:
+              type: string
+            refSpecie:
+              type: string
             source:
+              type: string
+            culturedIn:
               type: string
     POSTFishPopulationResponse:
       allOf:
@@ -12855,27 +13107,27 @@ components:
               type: string
             bodyMasse:
               type: string
-            culturedIn:
-              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
-            fishRemoved:
-              type: string
             initialNumber:
               type: string
             owner:
               type: object
-            refSpecie:
-              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
+            fishRemoved:
+              type: string
+            refSpecie:
+              type: string
             source:
+              type: string
+            culturedIn:
               type: string
     DELETEFilterFishPopulationResponse:
       allOf:
@@ -12887,27 +13139,27 @@ components:
               type: string
             bodyMasse:
               type: string
-            culturedIn:
-              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
-            fishRemoved:
-              type: string
             initialNumber:
               type: string
             owner:
               type: object
-            refSpecie:
-              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
+            fishRemoved:
+              type: string
+            refSpecie:
+              type: string
             source:
+              type: string
+            culturedIn:
               type: string
     PUTImportFishPopulationRequest:
       allOf:
@@ -12924,27 +13176,27 @@ components:
                     type: string
                   bodyMasse:
                     type: string
-                  culturedIn:
-                    type: string
                   dataProvider:
                     type: string
                   dateCreated:
                     type: string
                   dateModified:
                     type: string
-                  fishRemoved:
-                    type: string
                   initialNumber:
                     type: string
                   owner:
                     type: object
-                  refSpecie:
-                    type: string
                   relatedSource:
                     type: object
                   seeAlso:
                     type: string
+                  fishRemoved:
+                    type: string
+                  refSpecie:
+                    type: string
                   source:
+                    type: string
+                  culturedIn:
                     type: string
     PUTImportFishPopulationResponse:
       allOf:
@@ -12956,27 +13208,27 @@ components:
                     type: string
                   bodyMasse:
                     type: string
-                  culturedIn:
-                    type: string
                   dataProvider:
                     type: string
                   dateCreated:
                     type: string
                   dateModified:
                     type: string
-                  fishRemoved:
-                    type: string
                   initialNumber:
                     type: string
                   owner:
                     type: object
-                  refSpecie:
-                    type: string
                   relatedSource:
                     type: object
                   seeAlso:
                     type: string
+                  fishRemoved:
+                    type: string
+                  refSpecie:
+                    type: string
                   source:
+                    type: string
+                  culturedIn:
                     type: string
     GETFishPopulationResponse:
       allOf:
@@ -12989,27 +13241,27 @@ components:
               type: string
             bodyMasse:
               type: string
-            culturedIn:
-              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
-            fishRemoved:
-              type: string
             initialNumber:
               type: string
             owner:
               type: object
-            refSpecie:
-              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
+            fishRemoved:
+              type: string
+            refSpecie:
+              type: string
             source:
+              type: string
+            culturedIn:
               type: string
     DELETEFishPopulationResponse:
       allOf:
@@ -13021,27 +13273,27 @@ components:
               type: string
             bodyMasse:
               type: string
-            culturedIn:
-              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
-            fishRemoved:
-              type: string
             initialNumber:
               type: string
             owner:
               type: object
-            refSpecie:
-              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
+            fishRemoved:
+              type: string
+            refSpecie:
+              type: string
             source:
+              type: string
+            culturedIn:
               type: string
     EditPageFishPopulationResponse:
       allOf:
@@ -13213,7 +13465,13 @@ components:
                     items:
                       type: string
                   areaServed:
-                    type: object
+                    type: array
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: string
+                        - type: boolean
                   id:
                     type: string
                   entityShortId:
@@ -13255,7 +13513,13 @@ components:
               items:
                 type: string
             areaServed:
-              type: object
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
             id:
               type: string
             entityShortId:

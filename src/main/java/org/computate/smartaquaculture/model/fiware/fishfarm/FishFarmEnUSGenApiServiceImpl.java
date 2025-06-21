@@ -773,7 +773,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							o2.setAreaServed(jsonObject.getJsonObject(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishFarm.VAR_areaServed + "=$" + num);
+							bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishFarm.VAR_areaServed, num));
 							num++;
 							bParams.add(o2.sqlAreaServed());
 						break;
@@ -1037,6 +1037,11 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -1132,7 +1137,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						promise2.complete(fishFarm);
 					} catch(Exception ex) {
 						LOG.error(String.format("postFishFarmFuture failed. "), ex);
-						promise.fail(ex);
+						promise2.fail(ex);
 					}
 				}).onFailure(ex -> {
 					promise2.fail(ex);
@@ -1919,6 +1924,11 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -3057,7 +3067,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT * FROM FishFarm WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT name, address, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, color FROM FishFarm WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {

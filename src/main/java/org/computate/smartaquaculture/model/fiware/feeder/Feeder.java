@@ -158,7 +158,7 @@ public class Feeder extends FeederGen<BaseModel> {
 	 * HtmCell: 1
 	 * Facet: true
 	 **/
-	protected void _areaServed(Wrap<Polygon> w) {
+	protected void _areaServed(List<Polygon> l) {
 	}
 
 

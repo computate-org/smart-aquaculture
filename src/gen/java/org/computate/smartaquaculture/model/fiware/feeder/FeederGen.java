@@ -689,37 +689,52 @@ public abstract class FeederGen<DEV> extends BaseModel {
 
 
 	/**	 The entity areaServed
-	 *	 is defined as null before being initialized. 
+	 *	 It is constructed before being initialized with the constructor by default. 
 	 */
 	@JsonProperty
 	@JsonDeserialize(using = PgClientPolygonDeserializer.class)
 	@JsonSerialize(using = PgClientPolygonSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
 	@JsonInclude(Include.NON_NULL)
-	protected Polygon areaServed;
+	protected List<Polygon> areaServed = new ArrayList<Polygon>();
 
 	/**	<br> The entity areaServed
-	 *  is defined as null before being initialized. 
+	 *  It is constructed before being initialized with the constructor by default. 
 	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feeder.Feeder&fq=entiteVar_enUS_indexed_string:areaServed">Find the entity areaServed in Solr</a>
 	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 * @param l is the entity already constructed. 
 	 **/
-	protected abstract void _areaServed(Wrap<Polygon> w);
+	protected abstract void _areaServed(List<Polygon> l);
 
-	public Polygon getAreaServed() {
+	public List<Polygon> getAreaServed() {
 		return areaServed;
 	}
+	public JsonObject geojsonAreaServed() {
+		if(areaServed == null)
+			return null;
+		JsonArray coordinates = new JsonArray();
+		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
+		for(Polygon o : areaServed) {
+			JsonArray coordinates2 = new JsonArray();
+			coordinates.add(coordinates2);
+			o.getPoints().forEach(point -> {
+				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
+			});
+		}
+		if(coordinates.size() == 0)
+			return null;
+		else
+			return json;
+	}
 
-	public void setAreaServed(Polygon areaServed) {
+	public void setAreaServed(List<Polygon> areaServed) {
 		this.areaServed = areaServed;
 	}
 	@JsonIgnore
-	public void setAreaServed(String o) {
-		this.areaServed = Feeder.staticSetAreaServed(siteRequest_, o);
-	}
-	public static Polygon staticSetAreaServed(SiteRequest siteRequest_, String o) {
+	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, String o) {
 		if(o != null) {
 			try {
-				Polygon shape = null;
+				List<Polygon> shape = null;
 				if(StringUtils.isNotBlank(o)) {
 					ObjectMapper objectMapper = new ObjectMapper();
 					SimpleModule module = new SimpleModule();
@@ -733,7 +748,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 						}
 					});
 					objectMapper.registerModule(module);
-					shape = objectMapper.readValue(Json.encode(o), Polygon.class);
+					shape = (List<Polygon>)objectMapper.readValue(Json.encode(o), Polygon.class);
 				}
 				return shape;
 			} catch(Exception ex) {
@@ -746,30 +761,37 @@ public abstract class FeederGen<DEV> extends BaseModel {
 	public void setAreaServed(JsonObject o) {
 		this.areaServed = Feeder.staticSetAreaServed(siteRequest_, o);
 	}
-	public static Polygon staticSetAreaServed(SiteRequest siteRequest_, JsonObject o) {
+	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, JsonObject o) {
 		if(o != null) {
 			try {
-				Polygon shape = new Polygon();
+				List<Polygon> shapes = new ArrayList<>();
 				o.getJsonArray("coordinates").stream().map(a -> (JsonArray)a).forEach(g -> {
+					Polygon shape = new Polygon();
 					g.stream().map(a -> (JsonArray)a).forEach(points -> {
 						shape.addPoint(new Point(Double.parseDouble(points.getString(0)), Double.parseDouble(points.getString(1))));
 					});
+						shapes.add(shape);
 				});
-				return shape;
+				return shapes;
 			} catch(Exception ex) {
 				ExceptionUtils.rethrow(ex);
 			}
 		}
 		return null;
 	}
-	protected Feeder areaServedInit() {
-		Wrap<Polygon> areaServedWrap = new Wrap<Polygon>().var("areaServed");
-		if(areaServed == null) {
-			_areaServed(areaServedWrap);
-			Optional.ofNullable(areaServedWrap.getO()).ifPresent(o -> {
-				setAreaServed(o);
-			});
+	public Feeder addAreaServed(Polygon...objects) {
+		for(Polygon o : objects) {
+			addAreaServed(o);
 		}
+		return (Feeder)this;
+	}
+	public Feeder addAreaServed(Polygon o) {
+		if(o != null)
+			this.areaServed.add(o);
+		return (Feeder)this;
+	}
+	protected Feeder areaServedInit() {
+		_areaServed(areaServed);
 		return (Feeder)this;
 	}
 
@@ -784,11 +806,20 @@ public abstract class FeederGen<DEV> extends BaseModel {
 	}
 
 	public static String staticSearchFqAreaServed(SiteRequest siteRequest_, String o) {
-		return Feeder.staticSearchAreaServed(siteRequest_, Feeder.staticSetAreaServed(siteRequest_, o)).toString();
+		return o;
 	}
 
-	public Polygon sqlAreaServed() {
-		return areaServed;
+	public String sqlAreaServed() {
+		JsonArray coordinates = new JsonArray();
+		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
+		for(Polygon o : areaServed) {
+			JsonArray coordinates2 = new JsonArray();
+			coordinates.add(coordinates2);
+			o.getPoints().forEach(point -> {
+				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
+			});
+		}
+		return json.toString();
 	}
 
 	////////
@@ -2115,12 +2146,18 @@ public abstract class FeederGen<DEV> extends BaseModel {
 				saves.add("location");
 				return val;
 			} else if("areaserved".equals(varLower)) {
-				if(val instanceof Polygon) {
-					setAreaServed((Polygon)val);
-				} else {
-					setAreaServed(val == null ? null : val.toString());
+				if(val instanceof List<?>) {
+					((List<Polygon>)val).stream().forEach(v -> addAreaServed(v));
+				} else if(val instanceof Polygon[]) {
+					Arrays.asList((Polygon[])val).stream().forEach(v -> addAreaServed((Polygon)v));
+				} else if(val instanceof JsonObject) {
+					staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v));
+				} else if(val instanceof String) {
+					staticSetAreaServed(siteRequest_, (String)val).stream().forEach(v -> addAreaServed(v));
 				}
-				saves.add("areaServed");
+				if(!saves.contains("areaServed")) {
+					saves.add("areaServed");
+				}
 				return val;
 			} else if("id".equals(varLower)) {
 				if(val instanceof String) {
@@ -2277,9 +2314,12 @@ public abstract class FeederGen<DEV> extends BaseModel {
 			}
 
 			if(saves.contains("areaServed")) {
-				Polygon areaServed = (Polygon)doc.get("areaServed_docvalues_location");
-				if(areaServed != null)
-					oFeeder.setAreaServed(areaServed);
+				List<Polygon> areaServed = (List<Polygon>)doc.get("areaServed_docvalues_location");
+				if(areaServed != null) {
+					areaServed.stream().forEach( v -> {
+						oFeeder.areaServed.add(v);
+					});
+				}
 			}
 
 			if(saves.contains("id")) {
@@ -2408,9 +2448,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 			}
 		}
 		if(areaServed != null) {
-			JsonArray pointsArray = new JsonArray();
-			areaServed.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
-			doc.put("areaServed_docvalues_location", new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString());
+			doc.put("areaServed_docvalues_location", Optional.ofNullable(geojsonAreaServed()).map(geojson -> geojson.toString()).orElse(null));
 		}
 		if(id != null) {
 			doc.put("id_docvalues_string", id);
@@ -2651,7 +2689,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 		Optional.ofNullable((List<?>)doc.get("areaServedLinks_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
 			oFeeder.addAreaServedLinks(Feeder.staticSetAreaServedLinks(siteRequest, v.toString()));
 		});
-		oFeeder.setAreaServed(Optional.ofNullable(doc.get("areaServed_docvalues_location")).map(v -> v.toString()).orElse(null));
+		Optional.ofNullable((String)doc.get("areaServed_docvalues_location")).ifPresent(val -> staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v)));
 		oFeeder.setId(Optional.ofNullable(doc.get("id_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFeeder.setEntityShortId(Optional.ofNullable(doc.get("entityShortId_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFeeder.setNgsildTenant(Optional.ofNullable(doc.get("ngsildTenant_docvalues_string")).map(v -> v.toString()).orElse(null));
@@ -3027,7 +3065,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 		case VAR_areaServedLinks:
 			return "List";
 		case VAR_areaServed:
-			return "Polygon";
+			return "List";
 		case VAR_id:
 			return "String";
 		case VAR_entityShortId:
@@ -3129,9 +3167,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 		case VAR_areaServedLinks:
 			return o.getAreaServedLinks();
 		case VAR_areaServed:
-			JsonArray pointsArrayAreaServed = new JsonArray();
-			o.getAreaServed().getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArrayAreaServed.add(pointArray));
-			return new JsonObject().put("type", "LineString").put("coordinates", pointsArrayAreaServed);
+			return o.geojsonAreaServed();
 		case VAR_id:
 			return o.getId();
 		case VAR_entityShortId:

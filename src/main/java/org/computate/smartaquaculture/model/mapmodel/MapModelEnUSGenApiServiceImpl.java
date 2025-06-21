@@ -834,7 +834,7 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT * FROM MapModel WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, color FROM MapModel WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -925,7 +925,7 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				}
 			}
 			entityArray.add(entityBody);
-			LOG.info(entityArray.encodePrettily());
+			LOG.debug(entityArray.encodePrettily());
 			webClient.post(
 					Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
 					, config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
