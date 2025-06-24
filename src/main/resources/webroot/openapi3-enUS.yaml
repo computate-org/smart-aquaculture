@@ -24,6 +24,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -219,6 +231,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -292,6 +316,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -339,6 +375,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -429,6 +477,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -503,6 +563,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -549,6 +621,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -645,6 +729,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -692,6 +788,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -891,6 +999,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1086,6 +1206,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1159,6 +1291,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1206,6 +1350,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -1296,6 +1452,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1370,6 +1538,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1416,6 +1596,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -1512,6 +1704,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1559,6 +1763,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -1758,6 +1974,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -1953,6 +2181,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2026,6 +2266,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2073,6 +2325,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -2163,6 +2427,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2237,6 +2513,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2283,6 +2571,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -2379,6 +2679,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -2426,6 +2738,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -2625,6 +2949,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -2804,6 +3140,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -2861,6 +3209,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -2892,6 +3252,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -2966,6 +3338,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -3024,6 +3408,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -3054,6 +3450,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -3134,6 +3542,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -3165,6 +3585,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -3345,6 +3777,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -3543,6 +3987,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3616,6 +4072,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3663,6 +4131,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -3753,6 +4233,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3827,6 +4319,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -3873,6 +4377,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -3969,6 +4485,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -4016,6 +4544,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -4215,6 +4755,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -4394,6 +4946,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -4451,6 +5015,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -4482,6 +5058,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -4556,6 +5144,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -4614,6 +5214,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -4644,6 +5256,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -4724,6 +5348,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: entityShortId
           in: path
           description: >+
@@ -4755,6 +5391,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -4935,6 +5583,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -5133,6 +5793,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -5206,6 +5878,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -5253,6 +5937,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -5343,6 +6039,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -5417,6 +6125,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -5463,6 +6183,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -5559,6 +6291,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -5606,6 +6350,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -5805,6 +6561,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6000,6 +6768,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6073,6 +6853,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6120,6 +6912,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -6210,6 +7014,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6284,6 +7100,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6330,6 +7158,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -6426,6 +7266,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6473,6 +7325,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -6672,6 +7536,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6868,6 +7744,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: Fiware-Service
           in: header
           schema:
@@ -6915,6 +7803,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -7110,6 +8010,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -7289,6 +8201,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -7346,6 +8270,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -7377,6 +8313,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -7451,6 +8399,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -7505,6 +8465,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: id
           in: path
           description: >+
@@ -7535,6 +8507,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -7615,6 +8599,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: id
           in: path
           description: >+
@@ -7642,6 +8638,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -7818,6 +8826,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -8000,6 +9020,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -8057,6 +9089,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -8089,6 +9133,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -8146,6 +9202,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: pageId
           in: path
           description: >+
@@ -8180,6 +9248,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: pageId
           in: path
           description: >+
@@ -8207,6 +9287,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -8386,6 +9478,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: pageId
           in: path
           description: >+
@@ -8417,6 +9521,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -8599,6 +9715,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - in: query
           name: q
           description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
@@ -8656,6 +9784,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
       requestBody:
         description: >+
         required: true
@@ -8691,6 +9831,18 @@ paths:
           in: cookie
           schema:
             type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
         - name: userId
           in: path
           description: >+
@@ -8722,6 +9874,18 @@ paths:
           schema:
             type: string
         - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
           in: cookie
           schema:
             type: string
@@ -10433,6 +11597,8 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  id:
+                    type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -10460,8 +11626,6 @@ components:
                   seeAlso:
                     type: string
                   source:
-                    type: string
-                  id:
                     type: string
     PATCHFeederRequest:
       allOf:
@@ -10546,6 +11710,13 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
             setEntityShortId:
               type: string
               nullable: true
@@ -10643,13 +11814,6 @@ components:
             removeSource:
               type: string
             removeAllSource:
-              type: string
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
               type: string
     PATCHFeederResponse:
       allOf:
@@ -10734,6 +11898,13 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
             setEntityShortId:
               type: string
               nullable: true
@@ -10832,13 +12003,6 @@ components:
               type: string
             removeAllSource:
               type: string
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
     POSTFeederRequest:
       allOf:
         - type: object
@@ -10863,6 +12027,8 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
             entityShortId:
               type: string
             ngsildTenant:
@@ -10890,8 +12056,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            id:
               type: string
     POSTFeederResponse:
       allOf:
@@ -10917,6 +12081,8 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
             entityShortId:
               type: string
             ngsildTenant:
@@ -10944,8 +12110,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            id:
               type: string
     DELETEFilterFeederResponse:
       allOf:
@@ -10971,6 +12135,8 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
             entityShortId:
               type: string
             ngsildTenant:
@@ -10998,8 +12164,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            id:
               type: string
     PUTImportFeederRequest:
       allOf:
@@ -11030,6 +12194,8 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  id:
+                    type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -11057,8 +12223,6 @@ components:
                   seeAlso:
                     type: string
                   source:
-                    type: string
-                  id:
                     type: string
     PUTImportFeederResponse:
       allOf:
@@ -11084,6 +12248,8 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  id:
+                    type: string
                   entityShortId:
                     type: string
                   ngsildTenant:
@@ -11111,8 +12277,6 @@ components:
                   seeAlso:
                     type: string
                   source:
-                    type: string
-                  id:
                     type: string
     GETFeederResponse:
       allOf:
@@ -11138,6 +12302,8 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
             entityShortId:
               type: string
             ngsildTenant:
@@ -11165,8 +12331,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            id:
               type: string
     DELETEFeederResponse:
       allOf:
@@ -11192,6 +12356,8 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
             entityShortId:
               type: string
             ngsildTenant:
@@ -11219,8 +12385,6 @@ components:
             seeAlso:
               type: string
             source:
-              type: string
-            id:
               type: string
     EditPageFeederResponse:
       allOf:
@@ -11246,38 +12410,6 @@ components:
               items:
                 type: object
                 properties:
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  address:
-                    type: object
-                  alternateName:
-                    type: string
-                  category:
-                    type: object
-                  dataProvider:
-                    type: string
-                  dateCreated:
-                    type: string
-                  dateModified:
-                    type: string
-                  endpoint:
-                    type: string
-                  hasProvider:
-                    type: string
-                  owner:
-                    type: object
-                  relatedSource:
-                    type: object
-                  source:
-                    type: string
-                  version:
-                    type: string
                   name:
                     type: string
                   description:
@@ -11298,128 +12430,48 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  id:
+                    type: string
+                  entityShortId:
+                    type: string
+                  ngsildTenant:
+                    type: string
                   ngsildPath:
+                    type: string
+                  ngsildContext:
                     type: string
                   ngsildData:
                     type: object
+                  address:
+                    type: object
+                  alternateName:
+                    type: string
+                  category:
+                    type: object
+                  dataProvider:
+                    type: string
+                  dateCreated:
+                    type: string
+                  dateModified:
+                    type: string
+                  endpoint:
+                    type: string
+                  hasProvider:
+                    type: string
+                  owner:
+                    type: object
+                  relatedSource:
+                    type: object
                   seeAlso:
+                    type: string
+                  source:
+                    type: string
+                  version:
                     type: string
     PATCHFeedingOperationRequest:
       allOf:
         - type: object
           properties:
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
-              type: string
-            setAddress:
-              type: object
-              nullable: true
-            removeAddress:
-              type: object
-            removeAllAddress:
-              type: object
-            setAlternateName:
-              type: string
-              nullable: true
-            removeAlternateName:
-              type: string
-            removeAllAlternateName:
-              type: string
-            setCategory:
-              type: object
-              nullable: true
-            removeCategory:
-              type: object
-            removeAllCategory:
-              type: object
-            setDataProvider:
-              type: string
-              nullable: true
-            removeDataProvider:
-              type: string
-            removeAllDataProvider:
-              type: string
-            setDateCreated:
-              type: string
-              nullable: true
-            removeDateCreated:
-              type: string
-            removeAllDateCreated:
-              type: string
-            setDateModified:
-              type: string
-              nullable: true
-            removeDateModified:
-              type: string
-            removeAllDateModified:
-              type: string
-            setEndpoint:
-              type: string
-              nullable: true
-            removeEndpoint:
-              type: string
-            removeAllEndpoint:
-              type: string
-            setHasProvider:
-              type: string
-              nullable: true
-            removeHasProvider:
-              type: string
-            removeAllHasProvider:
-              type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
-            setRelatedSource:
-              type: object
-              nullable: true
-            removeRelatedSource:
-              type: object
-            removeAllRelatedSource:
-              type: object
-            setSource:
-              type: string
-              nullable: true
-            removeSource:
-              type: string
-            removeAllSource:
-              type: string
-            setVersion:
-              type: string
-              nullable: true
-            removeVersion:
-              type: string
-            removeAllVersion:
-              type: string
             setName:
               type: string
               nullable: true
@@ -11499,12 +12551,40 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+            setEntityShortId:
+              type: string
+              nullable: true
+            removeEntityShortId:
+              type: string
+            removeAllEntityShortId:
+              type: string
+            setNgsildTenant:
+              type: string
+              nullable: true
+            removeNgsildTenant:
+              type: string
+            removeAllNgsildTenant:
+              type: string
             setNgsildPath:
               type: string
               nullable: true
             removeNgsildPath:
               type: string
             removeAllNgsildPath:
+              type: string
+            setNgsildContext:
+              type: string
+              nullable: true
+            removeNgsildContext:
+              type: string
+            removeAllNgsildContext:
               type: string
             setNgsildData:
               type: object
@@ -11513,129 +12593,101 @@ components:
               type: object
             removeAllNgsildData:
               type: object
+            setAddress:
+              type: object
+              nullable: true
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
+            setAlternateName:
+              type: string
+              nullable: true
+            removeAlternateName:
+              type: string
+            removeAllAlternateName:
+              type: string
+            setCategory:
+              type: object
+              nullable: true
+            removeCategory:
+              type: object
+            removeAllCategory:
+              type: object
+            setDataProvider:
+              type: string
+              nullable: true
+            removeDataProvider:
+              type: string
+            removeAllDataProvider:
+              type: string
+            setDateCreated:
+              type: string
+              nullable: true
+            removeDateCreated:
+              type: string
+            removeAllDateCreated:
+              type: string
+            setDateModified:
+              type: string
+              nullable: true
+            removeDateModified:
+              type: string
+            removeAllDateModified:
+              type: string
+            setEndpoint:
+              type: string
+              nullable: true
+            removeEndpoint:
+              type: string
+            removeAllEndpoint:
+              type: string
+            setHasProvider:
+              type: string
+              nullable: true
+            removeHasProvider:
+              type: string
+            removeAllHasProvider:
+              type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
+            setRelatedSource:
+              type: object
+              nullable: true
+            removeRelatedSource:
+              type: object
+            removeAllRelatedSource:
+              type: object
             setSeeAlso:
               type: string
               nullable: true
             removeSeeAlso:
               type: string
             removeAllSeeAlso:
+              type: string
+            setSource:
+              type: string
+              nullable: true
+            removeSource:
+              type: string
+            removeAllSource:
+              type: string
+            setVersion:
+              type: string
+              nullable: true
+            removeVersion:
+              type: string
+            removeAllVersion:
               type: string
     PATCHFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            setId:
-              type: string
-              nullable: true
-            removeId:
-              type: string
-            removeAllId:
-              type: string
-            setEntityShortId:
-              type: string
-              nullable: true
-            removeEntityShortId:
-              type: string
-            removeAllEntityShortId:
-              type: string
-            setNgsildTenant:
-              type: string
-              nullable: true
-            removeNgsildTenant:
-              type: string
-            removeAllNgsildTenant:
-              type: string
-            setNgsildContext:
-              type: string
-              nullable: true
-            removeNgsildContext:
-              type: string
-            removeAllNgsildContext:
-              type: string
-            setAddress:
-              type: object
-              nullable: true
-            removeAddress:
-              type: object
-            removeAllAddress:
-              type: object
-            setAlternateName:
-              type: string
-              nullable: true
-            removeAlternateName:
-              type: string
-            removeAllAlternateName:
-              type: string
-            setCategory:
-              type: object
-              nullable: true
-            removeCategory:
-              type: object
-            removeAllCategory:
-              type: object
-            setDataProvider:
-              type: string
-              nullable: true
-            removeDataProvider:
-              type: string
-            removeAllDataProvider:
-              type: string
-            setDateCreated:
-              type: string
-              nullable: true
-            removeDateCreated:
-              type: string
-            removeAllDateCreated:
-              type: string
-            setDateModified:
-              type: string
-              nullable: true
-            removeDateModified:
-              type: string
-            removeAllDateModified:
-              type: string
-            setEndpoint:
-              type: string
-              nullable: true
-            removeEndpoint:
-              type: string
-            removeAllEndpoint:
-              type: string
-            setHasProvider:
-              type: string
-              nullable: true
-            removeHasProvider:
-              type: string
-            removeAllHasProvider:
-              type: string
-            setOwner:
-              type: object
-              nullable: true
-            removeOwner:
-              type: object
-            removeAllOwner:
-              type: object
-            setRelatedSource:
-              type: object
-              nullable: true
-            removeRelatedSource:
-              type: object
-            removeAllRelatedSource:
-              type: object
-            setSource:
-              type: string
-              nullable: true
-            removeSource:
-              type: string
-            removeAllSource:
-              type: string
-            setVersion:
-              type: string
-              nullable: true
-            removeVersion:
-              type: string
-            removeAllVersion:
-              type: string
             setName:
               type: string
               nullable: true
@@ -11715,12 +12767,40 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setId:
+              type: string
+              nullable: true
+            removeId:
+              type: string
+            removeAllId:
+              type: string
+            setEntityShortId:
+              type: string
+              nullable: true
+            removeEntityShortId:
+              type: string
+            removeAllEntityShortId:
+              type: string
+            setNgsildTenant:
+              type: string
+              nullable: true
+            removeNgsildTenant:
+              type: string
+            removeAllNgsildTenant:
+              type: string
             setNgsildPath:
               type: string
               nullable: true
             removeNgsildPath:
               type: string
             removeAllNgsildPath:
+              type: string
+            setNgsildContext:
+              type: string
+              nullable: true
+            removeNgsildContext:
+              type: string
+            removeAllNgsildContext:
               type: string
             setNgsildData:
               type: object
@@ -11729,6 +12809,76 @@ components:
               type: object
             removeAllNgsildData:
               type: object
+            setAddress:
+              type: object
+              nullable: true
+            removeAddress:
+              type: object
+            removeAllAddress:
+              type: object
+            setAlternateName:
+              type: string
+              nullable: true
+            removeAlternateName:
+              type: string
+            removeAllAlternateName:
+              type: string
+            setCategory:
+              type: object
+              nullable: true
+            removeCategory:
+              type: object
+            removeAllCategory:
+              type: object
+            setDataProvider:
+              type: string
+              nullable: true
+            removeDataProvider:
+              type: string
+            removeAllDataProvider:
+              type: string
+            setDateCreated:
+              type: string
+              nullable: true
+            removeDateCreated:
+              type: string
+            removeAllDateCreated:
+              type: string
+            setDateModified:
+              type: string
+              nullable: true
+            removeDateModified:
+              type: string
+            removeAllDateModified:
+              type: string
+            setEndpoint:
+              type: string
+              nullable: true
+            removeEndpoint:
+              type: string
+            removeAllEndpoint:
+              type: string
+            setHasProvider:
+              type: string
+              nullable: true
+            removeHasProvider:
+              type: string
+            removeAllHasProvider:
+              type: string
+            setOwner:
+              type: object
+              nullable: true
+            removeOwner:
+              type: object
+            removeAllOwner:
+              type: object
+            setRelatedSource:
+              type: object
+              nullable: true
+            removeRelatedSource:
+              type: object
+            removeAllRelatedSource:
+              type: object
             setSeeAlso:
               type: string
               nullable: true
@@ -11736,42 +12886,24 @@ components:
               type: string
             removeAllSeeAlso:
               type: string
+            setSource:
+              type: string
+              nullable: true
+            removeSource:
+              type: string
+            removeAllSource:
+              type: string
+            setVersion:
+              type: string
+              nullable: true
+            removeVersion:
+              type: string
+            removeAllVersion:
+              type: string
     POSTFeedingOperationRequest:
       allOf:
         - type: object
           properties:
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildContext:
-              type: string
-            address:
-              type: object
-            alternateName:
-              type: string
-            category:
-              type: object
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            endpoint:
-              type: string
-            hasProvider:
-              type: string
-            owner:
-              type: object
-            relatedSource:
-              type: object
-            source:
-              type: string
-            version:
-              type: string
             name:
               type: string
             description:
@@ -11792,48 +12924,48 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
+            entityShortId:
+              type: string
+            ngsildTenant:
+              type: string
             ngsildPath:
+              type: string
+            ngsildContext:
               type: string
             ngsildData:
               type: object
+            address:
+              type: object
+            alternateName:
+              type: string
+            category:
+              type: object
+            dataProvider:
+              type: string
+            dateCreated:
+              type: string
+            dateModified:
+              type: string
+            endpoint:
+              type: string
+            hasProvider:
+              type: string
+            owner:
+              type: object
+            relatedSource:
+              type: object
             seeAlso:
+              type: string
+            source:
+              type: string
+            version:
               type: string
     POSTFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildContext:
-              type: string
-            address:
-              type: object
-            alternateName:
-              type: string
-            category:
-              type: object
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            endpoint:
-              type: string
-            hasProvider:
-              type: string
-            owner:
-              type: object
-            relatedSource:
-              type: object
-            source:
-              type: string
-            version:
-              type: string
             name:
               type: string
             description:
@@ -11854,48 +12986,48 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
+            entityShortId:
+              type: string
+            ngsildTenant:
+              type: string
             ngsildPath:
+              type: string
+            ngsildContext:
               type: string
             ngsildData:
               type: object
+            address:
+              type: object
+            alternateName:
+              type: string
+            category:
+              type: object
+            dataProvider:
+              type: string
+            dateCreated:
+              type: string
+            dateModified:
+              type: string
+            endpoint:
+              type: string
+            hasProvider:
+              type: string
+            owner:
+              type: object
+            relatedSource:
+              type: object
             seeAlso:
+              type: string
+            source:
+              type: string
+            version:
               type: string
     DELETEFilterFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildContext:
-              type: string
-            address:
-              type: object
-            alternateName:
-              type: string
-            category:
-              type: object
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            endpoint:
-              type: string
-            hasProvider:
-              type: string
-            owner:
-              type: object
-            relatedSource:
-              type: object
-            source:
-              type: string
-            version:
-              type: string
             name:
               type: string
             description:
@@ -11916,11 +13048,43 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
+            entityShortId:
+              type: string
+            ngsildTenant:
+              type: string
             ngsildPath:
+              type: string
+            ngsildContext:
               type: string
             ngsildData:
               type: object
+            address:
+              type: object
+            alternateName:
+              type: string
+            category:
+              type: object
+            dataProvider:
+              type: string
+            dateCreated:
+              type: string
+            dateModified:
+              type: string
+            endpoint:
+              type: string
+            hasProvider:
+              type: string
+            owner:
+              type: object
+            relatedSource:
+              type: object
             seeAlso:
+              type: string
+            source:
+              type: string
+            version:
               type: string
     PUTImportFeedingOperationRequest:
       allOf:
@@ -11931,38 +13095,6 @@ components:
               items:
                 type: object
                 properties:
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  address:
-                    type: object
-                  alternateName:
-                    type: string
-                  category:
-                    type: object
-                  dataProvider:
-                    type: string
-                  dateCreated:
-                    type: string
-                  dateModified:
-                    type: string
-                  endpoint:
-                    type: string
-                  hasProvider:
-                    type: string
-                  owner:
-                    type: object
-                  relatedSource:
-                    type: object
-                  source:
-                    type: string
-                  version:
-                    type: string
                   name:
                     type: string
                   description:
@@ -11983,48 +13115,48 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  id:
+                    type: string
+                  entityShortId:
+                    type: string
+                  ngsildTenant:
+                    type: string
                   ngsildPath:
+                    type: string
+                  ngsildContext:
                     type: string
                   ngsildData:
                     type: object
+                  address:
+                    type: object
+                  alternateName:
+                    type: string
+                  category:
+                    type: object
+                  dataProvider:
+                    type: string
+                  dateCreated:
+                    type: string
+                  dateModified:
+                    type: string
+                  endpoint:
+                    type: string
+                  hasProvider:
+                    type: string
+                  owner:
+                    type: object
+                  relatedSource:
+                    type: object
                   seeAlso:
+                    type: string
+                  source:
+                    type: string
+                  version:
                     type: string
     PUTImportFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-                  id:
-                    type: string
-                  entityShortId:
-                    type: string
-                  ngsildTenant:
-                    type: string
-                  ngsildContext:
-                    type: string
-                  address:
-                    type: object
-                  alternateName:
-                    type: string
-                  category:
-                    type: object
-                  dataProvider:
-                    type: string
-                  dateCreated:
-                    type: string
-                  dateModified:
-                    type: string
-                  endpoint:
-                    type: string
-                  hasProvider:
-                    type: string
-                  owner:
-                    type: object
-                  relatedSource:
-                    type: object
-                  source:
-                    type: string
-                  version:
-                    type: string
                   name:
                     type: string
                   description:
@@ -12045,48 +13177,48 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  id:
+                    type: string
+                  entityShortId:
+                    type: string
+                  ngsildTenant:
+                    type: string
                   ngsildPath:
+                    type: string
+                  ngsildContext:
                     type: string
                   ngsildData:
                     type: object
+                  address:
+                    type: object
+                  alternateName:
+                    type: string
+                  category:
+                    type: object
+                  dataProvider:
+                    type: string
+                  dateCreated:
+                    type: string
+                  dateModified:
+                    type: string
+                  endpoint:
+                    type: string
+                  hasProvider:
+                    type: string
+                  owner:
+                    type: object
+                  relatedSource:
+                    type: object
                   seeAlso:
+                    type: string
+                  source:
+                    type: string
+                  version:
                     type: string
     GETFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildContext:
-              type: string
-            address:
-              type: object
-            alternateName:
-              type: string
-            category:
-              type: object
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            endpoint:
-              type: string
-            hasProvider:
-              type: string
-            owner:
-              type: object
-            relatedSource:
-              type: object
-            source:
-              type: string
-            version:
-              type: string
             name:
               type: string
             description:
@@ -12107,48 +13239,48 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
+            entityShortId:
+              type: string
+            ngsildTenant:
+              type: string
             ngsildPath:
+              type: string
+            ngsildContext:
               type: string
             ngsildData:
               type: object
+            address:
+              type: object
+            alternateName:
+              type: string
+            category:
+              type: object
+            dataProvider:
+              type: string
+            dateCreated:
+              type: string
+            dateModified:
+              type: string
+            endpoint:
+              type: string
+            hasProvider:
+              type: string
+            owner:
+              type: object
+            relatedSource:
+              type: object
             seeAlso:
+              type: string
+            source:
+              type: string
+            version:
               type: string
     DELETEFeedingOperationResponse:
       allOf:
         - type: object
           properties:
-            id:
-              type: string
-            entityShortId:
-              type: string
-            ngsildTenant:
-              type: string
-            ngsildContext:
-              type: string
-            address:
-              type: object
-            alternateName:
-              type: string
-            category:
-              type: object
-            dataProvider:
-              type: string
-            dateCreated:
-              type: string
-            dateModified:
-              type: string
-            endpoint:
-              type: string
-            hasProvider:
-              type: string
-            owner:
-              type: object
-            relatedSource:
-              type: object
-            source:
-              type: string
-            version:
-              type: string
             name:
               type: string
             description:
@@ -12169,11 +13301,43 @@ components:
                 type: string
             areaServed:
               type: object
+            id:
+              type: string
+            entityShortId:
+              type: string
+            ngsildTenant:
+              type: string
             ngsildPath:
+              type: string
+            ngsildContext:
               type: string
             ngsildData:
               type: object
+            address:
+              type: object
+            alternateName:
+              type: string
+            category:
+              type: object
+            dataProvider:
+              type: string
+            dateCreated:
+              type: string
+            dateModified:
+              type: string
+            endpoint:
+              type: string
+            hasProvider:
+              type: string
+            owner:
+              type: object
+            relatedSource:
+              type: object
             seeAlso:
+              type: string
+            source:
+              type: string
+            version:
               type: string
     EditPageFeedingOperationResponse:
       allOf:
@@ -12587,27 +13751,27 @@ components:
                     type: string
                   bodyMasse:
                     type: string
+                  culturedIn:
+                    type: string
                   dataProvider:
                     type: string
                   dateCreated:
                     type: string
                   dateModified:
                     type: string
+                  fishRemoved:
+                    type: string
                   initialNumber:
                     type: string
                   owner:
                     type: object
+                  refSpecie:
+                    type: string
                   relatedSource:
                     type: object
                   seeAlso:
                     type: string
-                  fishRemoved:
-                    type: string
-                  refSpecie:
-                    type: string
                   source:
-                    type: string
-                  culturedIn:
                     type: string
     PATCHFishPopulationRequest:
       allOf:
@@ -12634,6 +13798,13 @@ components:
               type: string
             removeAllBodyMasse:
               type: string
+            setCulturedIn:
+              type: string
+              nullable: true
+            removeCulturedIn:
+              type: string
+            removeAllCulturedIn:
+              type: string
             setDataProvider:
               type: string
               nullable: true
@@ -12655,6 +13826,13 @@ components:
               type: string
             removeAllDateModified:
               type: string
+            setFishRemoved:
+              type: string
+              nullable: true
+            removeFishRemoved:
+              type: string
+            removeAllFishRemoved:
+              type: string
             setInitialNumber:
               type: string
               nullable: true
@@ -12669,6 +13847,13 @@ components:
               type: object
             removeAllOwner:
               type: object
+            setRefSpecie:
+              type: string
+              nullable: true
+            removeRefSpecie:
+              type: string
+            removeAllRefSpecie:
+              type: string
             setRelatedSource:
               type: object
               nullable: true
@@ -12683,33 +13868,12 @@ components:
               type: string
             removeAllSeeAlso:
               type: string
-            setFishRemoved:
-              type: string
-              nullable: true
-            removeFishRemoved:
-              type: string
-            removeAllFishRemoved:
-              type: string
-            setRefSpecie:
-              type: string
-              nullable: true
-            removeRefSpecie:
-              type: string
-            removeAllRefSpecie:
-              type: string
             setSource:
               type: string
               nullable: true
             removeSource:
               type: string
             removeAllSource:
-              type: string
-            setCulturedIn:
-              type: string
-              nullable: true
-            removeCulturedIn:
-              type: string
-            removeAllCulturedIn:
               type: string
     PATCHFishPopulationResponse:
       allOf:
@@ -12736,6 +13900,13 @@ components:
               type: string
             removeAllBodyMasse:
               type: string
+            setCulturedIn:
+              type: string
+              nullable: true
+            removeCulturedIn:
+              type: string
+            removeAllCulturedIn:
+              type: string
             setDataProvider:
               type: string
               nullable: true
@@ -12757,6 +13928,13 @@ components:
               type: string
             removeAllDateModified:
               type: string
+            setFishRemoved:
+              type: string
+              nullable: true
+            removeFishRemoved:
+              type: string
+            removeAllFishRemoved:
+              type: string
             setInitialNumber:
               type: string
               nullable: true
@@ -12771,6 +13949,13 @@ components:
               type: object
             removeAllOwner:
               type: object
+            setRefSpecie:
+              type: string
+              nullable: true
+            removeRefSpecie:
+              type: string
+            removeAllRefSpecie:
+              type: string
             setRelatedSource:
               type: object
               nullable: true
@@ -12785,33 +13970,12 @@ components:
               type: string
             removeAllSeeAlso:
               type: string
-            setFishRemoved:
-              type: string
-              nullable: true
-            removeFishRemoved:
-              type: string
-            removeAllFishRemoved:
-              type: string
-            setRefSpecie:
-              type: string
-              nullable: true
-            removeRefSpecie:
-              type: string
-            removeAllRefSpecie:
-              type: string
             setSource:
               type: string
               nullable: true
             removeSource:
               type: string
             removeAllSource:
-              type: string
-            setCulturedIn:
-              type: string
-              nullable: true
-            removeCulturedIn:
-              type: string
-            removeAllCulturedIn:
               type: string
     POSTFishPopulationRequest:
       allOf:
@@ -12823,27 +13987,27 @@ components:
               type: string
             bodyMasse:
               type: string
+            culturedIn:
+              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
+            fishRemoved:
+              type: string
             initialNumber:
               type: string
             owner:
               type: object
+            refSpecie:
+              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
-            fishRemoved:
-              type: string
-            refSpecie:
-              type: string
             source:
-              type: string
-            culturedIn:
               type: string
     POSTFishPopulationResponse:
       allOf:
@@ -12855,27 +14019,27 @@ components:
               type: string
             bodyMasse:
               type: string
+            culturedIn:
+              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
+            fishRemoved:
+              type: string
             initialNumber:
               type: string
             owner:
               type: object
+            refSpecie:
+              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
-            fishRemoved:
-              type: string
-            refSpecie:
-              type: string
             source:
-              type: string
-            culturedIn:
               type: string
     DELETEFilterFishPopulationResponse:
       allOf:
@@ -12887,27 +14051,27 @@ components:
               type: string
             bodyMasse:
               type: string
+            culturedIn:
+              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
+            fishRemoved:
+              type: string
             initialNumber:
               type: string
             owner:
               type: object
+            refSpecie:
+              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
-            fishRemoved:
-              type: string
-            refSpecie:
-              type: string
             source:
-              type: string
-            culturedIn:
               type: string
     PUTImportFishPopulationRequest:
       allOf:
@@ -12924,27 +14088,27 @@ components:
                     type: string
                   bodyMasse:
                     type: string
+                  culturedIn:
+                    type: string
                   dataProvider:
                     type: string
                   dateCreated:
                     type: string
                   dateModified:
                     type: string
+                  fishRemoved:
+                    type: string
                   initialNumber:
                     type: string
                   owner:
                     type: object
+                  refSpecie:
+                    type: string
                   relatedSource:
                     type: object
                   seeAlso:
                     type: string
-                  fishRemoved:
-                    type: string
-                  refSpecie:
-                    type: string
                   source:
-                    type: string
-                  culturedIn:
                     type: string
     PUTImportFishPopulationResponse:
       allOf:
@@ -12956,27 +14120,27 @@ components:
                     type: string
                   bodyMasse:
                     type: string
+                  culturedIn:
+                    type: string
                   dataProvider:
                     type: string
                   dateCreated:
                     type: string
                   dateModified:
                     type: string
+                  fishRemoved:
+                    type: string
                   initialNumber:
                     type: string
                   owner:
                     type: object
+                  refSpecie:
+                    type: string
                   relatedSource:
                     type: object
                   seeAlso:
                     type: string
-                  fishRemoved:
-                    type: string
-                  refSpecie:
-                    type: string
                   source:
-                    type: string
-                  culturedIn:
                     type: string
     GETFishPopulationResponse:
       allOf:
@@ -12989,27 +14153,27 @@ components:
               type: string
             bodyMasse:
               type: string
+            culturedIn:
+              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
+            fishRemoved:
+              type: string
             initialNumber:
               type: string
             owner:
               type: object
+            refSpecie:
+              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
-            fishRemoved:
-              type: string
-            refSpecie:
-              type: string
             source:
-              type: string
-            culturedIn:
               type: string
     DELETEFishPopulationResponse:
       allOf:
@@ -13021,27 +14185,27 @@ components:
               type: string
             bodyMasse:
               type: string
+            culturedIn:
+              type: string
             dataProvider:
               type: string
             dateCreated:
               type: string
             dateModified:
               type: string
+            fishRemoved:
+              type: string
             initialNumber:
               type: string
             owner:
               type: object
+            refSpecie:
+              type: string
             relatedSource:
               type: object
             seeAlso:
               type: string
-            fishRemoved:
-              type: string
-            refSpecie:
-              type: string
             source:
-              type: string
-            culturedIn:
               type: string
     EditPageFishPopulationResponse:
       allOf:
@@ -14224,6 +15388,10 @@ components:
               items:
                 type: object
                 properties:
+                  userKeys:
+                    type: array
+                    items:
+                      type: string
                   userId:
                     type: string
                   userName:
@@ -14232,8 +15400,12 @@ components:
                     type: string
                   userFirstName:
                     type: string
+                  userLastName:
+                    type: string
                   userFullName:
                     type: string
+                  seeArchived:
+                    type: boolean
                   displayName:
                     type: string
                   siteFontSize:
@@ -14242,18 +15414,27 @@ components:
                     type: string
                   webComponentsTheme:
                     type: string
-                  userKeys:
-                    type: array
-                    items:
-                      type: string
-                  userLastName:
-                    type: string
-                  seeArchived:
-                    type: boolean
     PATCHSiteUserRequest:
       allOf:
         - type: object
           properties:
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
             setUserId:
               type: string
               nullable: true
@@ -14282,6 +15463,13 @@ components:
               type: string
             removeAllUserFirstName:
               type: string
+            setUserLastName:
+              type: string
+              nullable: true
+            removeUserLastName:
+              type: string
+            removeAllUserLastName:
+              type: string
             setUserFullName:
               type: string
               nullable: true
@@ -14289,6 +15477,13 @@ components:
               type: string
             removeAllUserFullName:
               type: string
+            setSeeArchived:
+              type: boolean
+              nullable: true
+            removeSeeArchived:
+              type: boolean
+            removeAllSeeArchived:
+              type: boolean
             setDisplayName:
               type: string
               nullable: true
@@ -14317,41 +15512,27 @@ components:
               type: string
             removeAllWebComponentsTheme:
               type: string
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
-            setUserLastName:
-              type: string
-              nullable: true
-            removeUserLastName:
-              type: string
-            removeAllUserLastName:
-              type: string
-            setSeeArchived:
-              type: boolean
-              nullable: true
-            removeSeeArchived:
-              type: boolean
-            removeAllSeeArchived:
-              type: boolean
     PATCHSiteUserResponse:
       allOf:
         - type: object
           properties:
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
             setUserId:
               type: string
               nullable: true
@@ -14380,6 +15561,13 @@ components:
               type: string
             removeAllUserFirstName:
               type: string
+            setUserLastName:
+              type: string
+              nullable: true
+            removeUserLastName:
+              type: string
+            removeAllUserLastName:
+              type: string
             setUserFullName:
               type: string
               nullable: true
@@ -14387,6 +15575,13 @@ components:
               type: string
             removeAllUserFullName:
               type: string
+            setSeeArchived:
+              type: boolean
+              nullable: true
+            removeSeeArchived:
+              type: boolean
+            removeAllSeeArchived:
+              type: boolean
             setDisplayName:
               type: string
               nullable: true
@@ -14415,41 +15610,14 @@ components:
               type: string
             removeAllWebComponentsTheme:
               type: string
-            setUserKeys:
-              type: array
-              nullable: true
-              items:
-                type: string
-            removeUserKeys:
-              type: string
-            removeAllUserKeys:
-              type: array
-              items:
-                type: string
-            addUserKeys:
-              type: string
-            addAllUserKeys:
-              type: array
-              items:
-                type: string
-            setUserLastName:
-              type: string
-              nullable: true
-            removeUserLastName:
-              type: string
-            removeAllUserLastName:
-              type: string
-            setSeeArchived:
-              type: boolean
-              nullable: true
-            removeSeeArchived:
-              type: boolean
-            removeAllSeeArchived:
-              type: boolean
     POSTSiteUserRequest:
       allOf:
         - type: object
           properties:
+            userKeys:
+              type: array
+              items:
+                type: string
             userId:
               type: string
             userName:
@@ -14458,8 +15626,12 @@ components:
               type: string
             userFirstName:
               type: string
+            userLastName:
+              type: string
             userFullName:
               type: string
+            seeArchived:
+              type: boolean
             displayName:
               type: string
             siteFontSize:
@@ -14468,18 +15640,14 @@ components:
               type: string
             webComponentsTheme:
               type: string
-            userKeys:
-              type: array
-              items:
-                type: string
-            userLastName:
-              type: string
-            seeArchived:
-              type: boolean
     POSTSiteUserResponse:
       allOf:
         - type: object
           properties:
+            userKeys:
+              type: array
+              items:
+                type: string
             userId:
               type: string
             userName:
@@ -14488,8 +15656,12 @@ components:
               type: string
             userFirstName:
               type: string
+            userLastName:
+              type: string
             userFullName:
               type: string
+            seeArchived:
+              type: boolean
             displayName:
               type: string
             siteFontSize:
@@ -14498,14 +15670,6 @@ components:
               type: string
             webComponentsTheme:
               type: string
-            userKeys:
-              type: array
-              items:
-                type: string
-            userLastName:
-              type: string
-            seeArchived:
-              type: boolean
     EditPageSiteUserResponse:
       allOf:
         - type: string

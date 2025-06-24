@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.computate.search.wrap.Wrap;
 import org.computate.vertx.api.ApiRequest;
+import org.computate.vertx.config.ComputateConfigKeys;
 import org.computate.vertx.model.user.ComputateSiteUser;
 import org.computate.vertx.request.ComputateSiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -78,6 +79,42 @@ public class SiteRequest extends SiteRequestGen<Object> implements ComputateSite
 	 * Description: The Vert.x service request
 	 **/
 	protected void _serviceRequest(Wrap<ServiceRequest> c) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Description: The session site font size. 
+	 **/
+	protected void _sessionSiteFontSize(Wrap<String> w) {
+		String s = null;
+		if(serviceRequest != null) {
+			s = serviceRequest.getParams().getJsonObject("cookie").getString(ComputateConfigKeys.SITE_FONT_SIZE);
+		}
+		w.o(Optional.ofNullable(s).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_FONT_SIZE)));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Description: The session site font size. 
+	 **/
+	protected void _sessionWebComponentsTheme(Wrap<String> w) {
+		String s = null;
+		if(serviceRequest != null) {
+			s = serviceRequest.getParams().getJsonObject("cookie").getString(ComputateConfigKeys.WEB_COMPONENTS_THEME);
+		}
+		w.o(Optional.ofNullable(s).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.WEB_COMPONENTS_THEME)));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Description: The session site theme. 
+	 **/
+	protected void _sessionSiteTheme(Wrap<String> w) {
+		String s = null;
+		if(serviceRequest != null) {
+			s = serviceRequest.getParams().getJsonObject("cookie").getString(ComputateConfigKeys.SITE_THEME);
+		}
+		w.o(Optional.ofNullable(s).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_THEME)));
 	}
 
 	/**

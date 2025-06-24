@@ -53,6 +53,7 @@ import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
 import org.computate.smartaquaculture.model.timezone.TimeZone;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSGenApiService;
+import org.computate.smartaquaculture.page.PageLayout;
 import org.computate.smartaquaculture.page.SitePage;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
@@ -1186,6 +1187,12 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 						}
 	
 						final String state = ctx.request().getParam("state");
+						if(ctx.request().getCookie(ConfigKeys.SITE_FONT_SIZE).getValue() == null)
+							Cookie.cookie(ConfigKeys.SITE_FONT_SIZE, config().getString(ConfigKeys.SITE_FONT_SIZE));
+						if(ctx.request().getCookie(ConfigKeys.WEB_COMPONENTS_THEME).getValue() == null)
+							Cookie.cookie(ConfigKeys.WEB_COMPONENTS_THEME, config().getString(ConfigKeys.WEB_COMPONENTS_THEME));
+						if(ctx.request().getCookie(ConfigKeys.WEB_COMPONENTS_THEME).getValue() == null)
+							Cookie.cookie(ConfigKeys.SITE_THEME, config().getString(ConfigKeys.SITE_THEME));
 	
 						final JsonObject config = new JsonObject().put("code", code);
 	
@@ -1485,15 +1492,54 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 			router.get("/").handler(handler -> {
 				try {
-					String siteTemplatePath = config().getString(ConfigKeys.TEMPLATE_PATH);
-					String pageTemplateUri = "/en-us/HomePage.htm";
-					Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-					String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config());
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					handler.response().putHeader("Content-Type", "text/html");
-					handler.end(buffer);
+					// Map<String, Object> sessionData = handler.session().data();
+					// if(handler.request().getCookie(ConfigKeys.SITE_FONT_SIZE) == null) {
+					// 	handler.response().addCookie(Cookie.cookie(ConfigKeys.SITE_FONT_SIZE, config().getString(ConfigKeys.SITE_FONT_SIZE)));
+					// }
+					// if(handler.request().getCookie(ConfigKeys.WEB_COMPONENTS_THEME) == null) {
+					// 	handler.response().addCookie(Cookie.cookie(ConfigKeys.WEB_COMPONENTS_THEME, config().getString(ConfigKeys.WEB_COMPONENTS_THEME)));
+					// }
+					// if(handler.request().getCookie(ConfigKeys.SITE_THEME) == null) {
+					// 	handler.response().addCookie(Cookie.cookie(ConfigKeys.SITE_THEME, config().getString(ConfigKeys.SITE_THEME)));
+					// }
+					JsonObject params = new JsonObject();
+					MultiMap headers = handler.request().headers();
+					JsonObject user = handler.user().principal();
+					JsonObject extra = new JsonObject();
+					ServiceRequest serviceRequest = new ServiceRequest(params, headers, user, extra);
+
+					SiteRequest siteRequest = new SiteRequest();
+					siteRequest.setConfig(config());
+					siteRequest.setWebClient(webClient);
+					siteRequest.setServiceRequest(serviceRequest);
+					siteRequest.initDeepSiteRequest();
+					PageLayout page = new PageLayout();
+					MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+					siteRequest.setRequestHeaders(requestHeaders);
+
+					page.setSiteRequest_(siteRequest);
+					page.setServiceRequest(siteRequest.getServiceRequest());
+					page.setWebClient(webClient);
+					page.setVertx(vertx);
+					page.promiseDeepPageLayout(siteRequest).onSuccess(a -> {
+						try {
+							JsonObject ctx = ConfigKeys.getPageContext(config());
+							ctx.mergeIn(JsonObject.mapFrom(page));
+							String siteTemplatePath = config().getString(ConfigKeys.TEMPLATE_PATH);
+							String pageTemplateUri = "/en-us/HomePage.htm";
+							Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+							String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+							String renderedTemplate = jinjava.render(template, ctx.getMap());
+							Buffer buffer = Buffer.buffer(renderedTemplate);
+							handler.response().putHeader("Content-Type", "text/html");
+							handler.end(buffer);
+						} catch(Exception ex) {
+							LOG.error(String.format("Loading the home page failed. "), ex);
+							promise.fail(ex);
+						}
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error("Failed to load page. ", ex);
 					handler.fail(ex);
