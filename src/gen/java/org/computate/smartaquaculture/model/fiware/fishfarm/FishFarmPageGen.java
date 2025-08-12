@@ -293,6 +293,7 @@ public abstract class FishFarmPageGen<DEV> extends FishFarmGenPage {
 
 	public static final String CLASS_SIMPLE_NAME = "FishFarmPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

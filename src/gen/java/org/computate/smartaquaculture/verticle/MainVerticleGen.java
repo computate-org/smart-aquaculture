@@ -248,6 +248,7 @@ public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
 
 	public static final String CLASS_SIMPLE_NAME = "MainVerticle";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.verticle.MainVerticle";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	public String idForClass() {

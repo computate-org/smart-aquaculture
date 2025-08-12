@@ -1994,6 +1994,7 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 
 	public static final String CLASS_SIMPLE_NAME = "MapModel";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.mapmodel.MapModel";
+	public static final String CLASS_AUTH_RESOURCE = "MAPMODEL";
 	public static final String CLASS_API_ADDRESS_MapModel = "smart-aquaculture-enUS-MapModel";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_MapModel;

@@ -314,19 +314,20 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
 			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_SIMPLE_NAME, id, "PATCH"));
+				form.add("permission", String.format("%s#%s", id, "PATCH"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -340,7 +341,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("PATCH")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -579,19 +580,20 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
 			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_SIMPLE_NAME, id, "POST"));
+				form.add("permission", String.format("%s#%s", id, "POST"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -605,7 +607,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("POST")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -691,6 +693,11 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -788,19 +795,20 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
 			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_SIMPLE_NAME, id, "DELETE"));
+				form.add("permission", String.format("%s#%s", id, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -814,7 +822,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("DELETE")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -1037,19 +1045,20 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
 			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_SIMPLE_NAME, id, "PUT"));
+				form.add("permission", String.format("%s#%s", id, "PUT"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1063,7 +1072,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("PUT")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -1187,6 +1196,11 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			try {
+				Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
+					scopes.stream().map(v -> v.toString()).forEach(scope -> {
+						siteRequest.addScopes(scope);
+					});
+				});
 				ApiRequest apiRequest = new ApiRequest();
 				apiRequest.setRows(1L);
 				apiRequest.setNumFound(1L);
@@ -1458,19 +1472,20 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
 			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_SIMPLE_NAME, id, "GET"));
+				form.add("permission", String.format("%s#%s", id, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1617,19 +1632,20 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = true;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+			String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", TimeZone.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
 			if(id != null)
-				form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_SIMPLE_NAME, id, "DELETE"));
+				form.add("permission", String.format("%s#%s", id, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1643,7 +1659,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("DELETE")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -2118,7 +2134,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						max = max.plus(2, ChronoUnit.DAYS);
 					}
 					Duration duration = Duration.between(min, max);
-					String gap = "DAY";
+					String gap = "HOUR";
 					if(duration.toDays() >= 365)
 						gap = "YEAR";
 					else if(duration.toDays() >= 28)

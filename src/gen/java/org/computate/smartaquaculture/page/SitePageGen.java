@@ -2756,6 +2756,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
 	public static final String CLASS_SIMPLE_NAME = "SitePage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.page.SitePage";
+	public static final String CLASS_AUTH_RESOURCE = "SITEPAGE";
 	public static final String CLASS_API_ADDRESS_SitePage = "smart-aquaculture-enUS-SitePage";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_SitePage;

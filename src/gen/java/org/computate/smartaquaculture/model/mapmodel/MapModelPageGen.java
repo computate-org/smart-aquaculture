@@ -293,6 +293,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
 
 	public static final String CLASS_SIMPLE_NAME = "MapModelPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.mapmodel.MapModelPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

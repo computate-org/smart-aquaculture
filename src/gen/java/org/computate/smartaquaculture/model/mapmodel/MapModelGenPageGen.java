@@ -738,6 +738,7 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "MapModelGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.mapmodel.MapModelGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListMapModel_ = "searchListMapModel_";
 	public static final String VAR_listMapModel = "listMapModel";
 	public static final String VAR_resultCount = "resultCount";

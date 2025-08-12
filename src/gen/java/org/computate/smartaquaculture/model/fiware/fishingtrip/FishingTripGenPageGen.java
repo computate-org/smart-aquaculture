@@ -779,6 +779,7 @@ public abstract class FishingTripGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "FishingTripGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListFishingTrip_ = "searchListFishingTrip_";
 	public static final String VAR_listFishingTrip = "listFishingTrip";
 	public static final String VAR_resultCount = "resultCount";

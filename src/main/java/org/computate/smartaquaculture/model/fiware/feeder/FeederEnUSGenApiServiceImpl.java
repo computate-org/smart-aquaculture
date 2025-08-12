@@ -121,19 +121,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -284,19 +285,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -386,19 +388,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "PATCH"));
+				form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -412,7 +415,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("PATCH")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -760,7 +763,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 							bParams.add(o2.sqlLocation());
 						break;
 					case "setArchived":
-							o2.setArchived(jsonObject.getBoolean(entityVar));
+							o2.setArchived(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
 							bSql.append(Feeder.VAR_archived + "=$" + num);
@@ -986,19 +989,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "POST"));
+				form.add("permission", String.format("%s#%s", entityShortId, "POST"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1012,7 +1016,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("POST")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -1304,7 +1308,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						bParams.add(o2.sqlLocation());
 						break;
 					case Feeder.VAR_archived:
-						o2.setArchived(jsonObject.getBoolean(entityVar));
+						o2.setArchived(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
@@ -1549,19 +1553,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
+				form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1575,7 +1580,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("DELETE")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -1908,19 +1913,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "PUT"));
+				form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1934,7 +1940,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("PUT")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -2231,19 +2237,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2391,19 +2398,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2552,19 +2560,20 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", Feeder.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_SIMPLE_NAME, entityShortId, "DELETE"));
+				form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2578,7 +2587,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 				try {
 					HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
 					JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-					if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+					if(authorizationDecisionResponse.failed() && !scopes.contains("DELETE")) {
 						String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
 						eventHandler.handle(Future.succeededFuture(
 							new ServiceResponse(403, "FORBIDDEN",
@@ -3178,7 +3187,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 						max = max.plus(2, ChronoUnit.DAYS);
 					}
 					Duration duration = Duration.between(min, max);
-					String gap = "DAY";
+					String gap = "HOUR";
 					if(duration.toDays() >= 365)
 						gap = "YEAR";
 					else if(duration.toDays() >= 28)

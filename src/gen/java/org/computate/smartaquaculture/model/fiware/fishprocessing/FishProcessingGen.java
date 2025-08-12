@@ -664,6 +664,7 @@ public abstract class FishProcessingGen<DEV> extends MapModel {
 
 	public static final String CLASS_SIMPLE_NAME = "FishProcessing";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing";
+	public static final String CLASS_AUTH_RESOURCE = "FISHPROCESSING";
 	public static final String CLASS_API_ADDRESS_FishProcessing = "smart-aquaculture-enUS-FishProcessing";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishProcessing;

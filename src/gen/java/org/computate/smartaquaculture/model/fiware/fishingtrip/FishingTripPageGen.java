@@ -293,6 +293,7 @@ public abstract class FishingTripPageGen<DEV> extends FishingTripGenPage {
 
 	public static final String CLASS_SIMPLE_NAME = "FishingTripPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

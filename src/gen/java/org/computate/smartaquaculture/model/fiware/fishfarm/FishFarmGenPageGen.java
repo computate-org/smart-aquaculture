@@ -779,6 +779,7 @@ public abstract class FishFarmGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "FishFarmGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListFishFarm_ = "searchListFishFarm_";
 	public static final String VAR_listFishFarm = "listFishFarm";
 	public static final String VAR_resultCount = "resultCount";

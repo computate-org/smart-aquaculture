@@ -293,6 +293,7 @@ public abstract class FeederPageGen<DEV> extends FeederGenPage {
 
 	public static final String CLASS_SIMPLE_NAME = "FeederPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feeder.FeederPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

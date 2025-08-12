@@ -908,6 +908,7 @@ public abstract class FishingTripGen<DEV> extends MapModel {
 
 	public static final String CLASS_SIMPLE_NAME = "FishingTrip";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip";
+	public static final String CLASS_AUTH_RESOURCE = "FISHINGTRIP";
 	public static final String CLASS_API_ADDRESS_FishingTrip = "smart-aquaculture-enUS-FishingTrip";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishingTrip;

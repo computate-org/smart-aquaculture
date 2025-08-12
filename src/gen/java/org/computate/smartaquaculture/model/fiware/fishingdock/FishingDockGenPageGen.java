@@ -780,6 +780,7 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "FishingDockGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListFishingDock_ = "searchListFishingDock_";
 	public static final String VAR_listFishingDock = "listFishingDock";
 	public static final String VAR_resultCount = "resultCount";

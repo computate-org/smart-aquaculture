@@ -607,6 +607,7 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static final String CLASS_SIMPLE_NAME = "TimeZone";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.timezone.TimeZone";
+	public static final String CLASS_AUTH_RESOURCE = "TIMEZONE";
 	public static final String CLASS_API_ADDRESS_TimeZone = "smart-aquaculture-enUS-TimeZone";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_TimeZone;

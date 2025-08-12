@@ -293,6 +293,7 @@ public abstract class FishProcessingPageGen<DEV> extends FishProcessingGenPage {
 
 	public static final String CLASS_SIMPLE_NAME = "FishProcessingPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

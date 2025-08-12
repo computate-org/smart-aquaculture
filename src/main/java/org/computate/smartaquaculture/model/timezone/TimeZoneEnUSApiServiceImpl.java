@@ -65,7 +65,7 @@ public class TimeZoneEnUSApiServiceImpl extends TimeZoneEnUSGenApiServiceImpl {
 
   @Override
   protected Future<Void> importData(Path pagePath, Vertx vertx, ComputateSiteRequest siteRequest,
-      String classCanonicalName, String classSimpleName, String classApiAddress, String varPageId, String varUserUrl,
+      String classCanonicalName, String classSimpleName, String classApiAddress, String classAuthResource, String varPageId, String varUserUrl,
       String varDownload) {
 		Promise<Void> promise = Promise.promise();
 		try {

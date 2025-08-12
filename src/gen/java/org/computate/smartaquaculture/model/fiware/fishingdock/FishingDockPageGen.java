@@ -293,6 +293,7 @@ public abstract class FishingDockPageGen<DEV> extends FishingDockGenPage {
 
 	public static final String CLASS_SIMPLE_NAME = "FishingDockPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

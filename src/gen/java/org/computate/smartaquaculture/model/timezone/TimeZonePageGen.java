@@ -293,6 +293,7 @@ public abstract class TimeZonePageGen<DEV> extends TimeZoneGenPage {
 
 	public static final String CLASS_SIMPLE_NAME = "TimeZonePage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.timezone.TimeZonePage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

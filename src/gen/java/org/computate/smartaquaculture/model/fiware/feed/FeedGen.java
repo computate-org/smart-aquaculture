@@ -2800,6 +2800,7 @@ public abstract class FeedGen<DEV> extends BaseModel {
 
 	public static final String CLASS_SIMPLE_NAME = "Feed";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feed.Feed";
+	public static final String CLASS_AUTH_RESOURCE = "FEED";
 	public static final String CLASS_API_ADDRESS_Feed = "smart-aquaculture-enUS-Feed";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_Feed;

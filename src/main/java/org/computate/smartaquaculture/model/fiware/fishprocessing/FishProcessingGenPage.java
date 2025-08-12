@@ -386,7 +386,7 @@ public class FishProcessingGenPage extends FishProcessingGenPageGen<PageLayout> 
 
   @Override
   protected void _defaultRangeGap(Wrap<String> w) {
-    w.o(Optional.ofNullable(rangeGap).orElse(Optional.ofNullable(defaultRangeStats).map(s -> s.getString("defaultRangeGap")).orElse("+1DAY")));
+    w.o(Optional.ofNullable(rangeGap).orElse(Optional.ofNullable(defaultRangeStats).map(s -> s.getString("defaultRangeGap")).orElse("+1HOUR")));
   }
 
   @Override

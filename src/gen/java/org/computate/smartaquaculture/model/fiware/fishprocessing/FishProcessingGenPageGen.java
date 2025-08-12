@@ -780,6 +780,7 @@ public abstract class FishProcessingGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "FishProcessingGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListFishProcessing_ = "searchListFishProcessing_";
 	public static final String VAR_listFishProcessing = "listFishProcessing";
 	public static final String VAR_resultCount = "resultCount";

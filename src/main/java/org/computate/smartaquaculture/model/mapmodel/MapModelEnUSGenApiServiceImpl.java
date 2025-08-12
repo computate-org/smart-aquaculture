@@ -121,19 +121,20 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", MapModel.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -284,19 +285,20 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", MapModel.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -385,19 +387,20 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		Boolean classPublicRead = false;
 		user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
 			String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+			String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
 			MultiMap form = MultiMap.caseInsensitiveMultiMap();
 			form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
 			form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
 			form.add("response_mode", "permissions");
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "GET"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "POST"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "DELETE"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "PATCH"));
-			form.add("permission", String.format("%s#%s", MapModel.CLASS_SIMPLE_NAME, "PUT"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
+			form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
 			if(entityShortId != null)
-				form.add("permission", String.format("%s-%s#%s", MapModel.CLASS_SIMPLE_NAME, entityShortId, "GET"));
+				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
 					config.getInteger(ComputateConfigKeys.AUTH_PORT)
 					, config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -784,7 +787,7 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						max = max.plus(2, ChronoUnit.DAYS);
 					}
 					Duration duration = Duration.between(min, max);
-					String gap = "DAY";
+					String gap = "HOUR";
 					if(duration.toDays() >= 365)
 						gap = "YEAR";
 					else if(duration.toDays() >= 28)
@@ -915,12 +918,14 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					if(value != null) {
 						Object ngsildVal = MapModel.ngsiMapModel(var, o);
 						String ngsildType = MapModel.ngsiType(var);
-						entityBody.put(displayName
-								, new JsonObject()
-								.put("type", ngsildType)
-								.put("value", ngsildVal)
-								.put("observedAt", observedAtStr)
-								);
+						if(ngsildVal != null) {
+							entityBody.put(displayName
+									, new JsonObject()
+									.put("type", ngsildType)
+									.put("value", ngsildVal)
+									.put("observedAt", observedAtStr)
+									);
+						}
 					}
 				}
 			}

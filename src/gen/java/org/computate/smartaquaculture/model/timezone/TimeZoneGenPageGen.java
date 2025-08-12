@@ -667,6 +667,7 @@ public abstract class TimeZoneGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "TimeZoneGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.timezone.TimeZoneGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListTimeZone_ = "searchListTimeZone_";
 	public static final String VAR_listTimeZone = "listTimeZone";
 	public static final String VAR_resultCount = "resultCount";

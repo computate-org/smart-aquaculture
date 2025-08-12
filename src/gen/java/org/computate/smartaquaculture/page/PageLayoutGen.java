@@ -40,8 +40,8 @@ import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.core.json.JsonObject;
 import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
 import java.lang.Long;
-import java.lang.Void;
 import io.vertx.core.json.JsonArray;
+import java.lang.Void;
 import org.computate.search.response.solr.SolrResponse.Stats;
 import org.computate.search.response.solr.SolrResponse.FacetCounts;
 import java.lang.Integer;
@@ -1292,6 +1292,87 @@ public abstract class PageLayoutGen<DEV> extends Object {
 
 	public static String staticSearchFqUserEmail(SiteRequest siteRequest_, String o) {
 		return PageLayout.staticSearchUserEmail(siteRequest_, PageLayout.staticSetUserEmail(siteRequest_, o)).toString();
+	}
+
+	////////////////
+	// userGroups //
+	////////////////
+
+
+	/**	 The entity userGroups
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> userGroups;
+
+	/**	<br> The entity userGroups
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userGroups">Find the entity userGroups in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _userGroups(Wrap<List<String>> w);
+
+	public List<String> getUserGroups() {
+		return userGroups;
+	}
+
+	public void setUserGroups(List<String> userGroups) {
+		this.userGroups = userGroups;
+	}
+	@JsonIgnore
+	public void setUserGroups(String o) {
+		String l = PageLayout.staticSetUserGroups(siteRequest_, o);
+		if(l != null)
+			addUserGroups(l);
+	}
+	public static String staticSetUserGroups(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public PageLayout addUserGroups(String...objects) {
+		for(String o : objects) {
+			addUserGroups(o);
+		}
+		return (PageLayout)this;
+	}
+	public PageLayout addUserGroups(String o) {
+		if(o != null)
+			this.userGroups.add(o);
+		return (PageLayout)this;
+	}
+	@JsonIgnore
+	public void setUserGroups(JsonArray objects) {
+		userGroups.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addUserGroups(o);
+		}
+	}
+	protected PageLayout userGroupsInit() {
+		Wrap<List<String>> userGroupsWrap = new Wrap<List<String>>().var("userGroups");
+		if(userGroups == null) {
+			_userGroups(userGroupsWrap);
+			Optional.ofNullable(userGroupsWrap.getO()).ifPresent(o -> {
+				setUserGroups(o);
+			});
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSearchUserGroups(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrUserGroups(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqUserGroups(SiteRequest siteRequest_, String o) {
+		return PageLayout.staticSearchUserGroups(siteRequest_, PageLayout.staticSetUserGroups(siteRequest_, o)).toString();
 	}
 
 	//////////////////
@@ -4319,6 +4400,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 				userNameInit();
 				userIdInit();
 				userEmailInit();
+				userGroupsInit();
 				userFontSizeInit();
 				userWebComponentsThemeInit();
 				userSiteThemeInit();
@@ -4498,6 +4580,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 				return oPageLayout.userId;
 			case "userEmail":
 				return oPageLayout.userEmail;
+			case "userGroups":
+				return oPageLayout.userGroups;
 			case "userFontSize":
 				return oPageLayout.userFontSize;
 			case "userWebComponentsTheme":
@@ -4675,6 +4759,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSetUserId(siteRequest_, v);
 		case "userEmail":
 			return PageLayout.staticSetUserEmail(siteRequest_, v);
+		case "userGroups":
+			return PageLayout.staticSetUserGroups(siteRequest_, v);
 		case "userFontSize":
 			return PageLayout.staticSetUserFontSize(siteRequest_, v);
 		case "userWebComponentsTheme":
@@ -4811,6 +4897,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchUserId(siteRequest_, (String)o);
 		case "userEmail":
 			return PageLayout.staticSearchUserEmail(siteRequest_, (String)o);
+		case "userGroups":
+			return PageLayout.staticSearchUserGroups(siteRequest_, (String)o);
 		case "userFontSize":
 			return PageLayout.staticSearchUserFontSize(siteRequest_, (String)o);
 		case "userWebComponentsTheme":
@@ -4951,6 +5039,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchStrUserId(siteRequest_, (String)o);
 		case "userEmail":
 			return PageLayout.staticSearchStrUserEmail(siteRequest_, (String)o);
+		case "userGroups":
+			return PageLayout.staticSearchStrUserGroups(siteRequest_, (String)o);
 		case "userFontSize":
 			return PageLayout.staticSearchStrUserFontSize(siteRequest_, (String)o);
 		case "userWebComponentsTheme":
@@ -5091,6 +5181,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchFqUserId(siteRequest_, o);
 		case "userEmail":
 			return PageLayout.staticSearchFqUserEmail(siteRequest_, o);
+		case "userGroups":
+			return PageLayout.staticSearchFqUserGroups(siteRequest_, o);
 		case "userFontSize":
 			return PageLayout.staticSearchFqUserFontSize(siteRequest_, o);
 		case "userWebComponentsTheme":
@@ -5197,6 +5289,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 
 	public static final String CLASS_SIMPLE_NAME = "PageLayout";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.page.PageLayout";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_webClient = "webClient";
 	public static final String VAR_vertx = "vertx";
 	public static final String VAR_siteRequest_ = "siteRequest_";
@@ -5220,6 +5313,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	public static final String VAR_userName = "userName";
 	public static final String VAR_userId = "userId";
 	public static final String VAR_userEmail = "userEmail";
+	public static final String VAR_userGroups = "userGroups";
 	public static final String VAR_userFontSize = "userFontSize";
 	public static final String VAR_userWebComponentsTheme = "userWebComponentsTheme";
 	public static final String VAR_userSiteTheme = "userSiteTheme";
@@ -5295,6 +5389,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	public static final String DISPLAY_NAME_userName = "";
 	public static final String DISPLAY_NAME_userId = "";
 	public static final String DISPLAY_NAME_userEmail = "";
+	public static final String DISPLAY_NAME_userGroups = "";
 	public static final String DISPLAY_NAME_userFontSize = "";
 	public static final String DISPLAY_NAME_userWebComponentsTheme = "";
 	public static final String DISPLAY_NAME_userSiteTheme = "";
@@ -5434,6 +5529,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return DISPLAY_NAME_userId;
 		case VAR_userEmail:
 			return DISPLAY_NAME_userEmail;
+		case VAR_userGroups:
+			return DISPLAY_NAME_userGroups;
 		case VAR_userFontSize:
 			return DISPLAY_NAME_userFontSize;
 		case VAR_userWebComponentsTheme:
@@ -5577,6 +5674,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return "The current user's id";
 		case VAR_userEmail:
 			return "The current user's email";
+		case VAR_userGroups:
+			return "The current user's groups";
 		case VAR_userFontSize:
 			return "The user's default font size. ";
 		case VAR_userWebComponentsTheme:
@@ -5670,6 +5769,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return "String";
 		case VAR_userEmail:
 			return "String";
+		case VAR_userGroups:
+			return "List";
 		case VAR_userFontSize:
 			return "String";
 		case VAR_userWebComponentsTheme:

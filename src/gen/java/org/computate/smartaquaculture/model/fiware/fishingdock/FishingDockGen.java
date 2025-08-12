@@ -664,6 +664,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 
 	public static final String CLASS_SIMPLE_NAME = "FishingDock";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock";
+	public static final String CLASS_AUTH_RESOURCE = "FISHINGDOCK";
 	public static final String CLASS_API_ADDRESS_FishingDock = "smart-aquaculture-enUS-FishingDock";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishingDock;

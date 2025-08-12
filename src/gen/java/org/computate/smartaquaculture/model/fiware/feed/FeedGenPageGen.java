@@ -738,6 +738,7 @@ public abstract class FeedGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "FeedGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feed.FeedGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListFeed_ = "searchListFeed_";
 	public static final String VAR_listFeed = "listFeed";
 	public static final String VAR_resultCount = "resultCount";

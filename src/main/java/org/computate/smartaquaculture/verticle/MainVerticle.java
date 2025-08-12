@@ -1,80 +1,63 @@
 package org.computate.smartaquaculture.verticle;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.DateFormat;
 import java.text.Normalizer;
+import java.text.NumberFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.computate.search.serialize.ComputateLocalTimeSerializer;
+import org.computate.search.serialize.ComputateZonedDateTimeSerializer;
 import org.computate.search.tool.SearchTool;
-import org.computate.smartaquaculture.config.ConfigKeys;
-import org.computate.smartaquaculture.model.fiware.feed.Feed;
-import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
-import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock;
-import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
-import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
-import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing;
-import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSGenApiService;
-import org.computate.smartaquaculture.model.mapmodel.MapModel;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
-import org.computate.smartaquaculture.model.timezone.TimeZone;
-import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSGenApiService;
-import org.computate.smartaquaculture.page.SitePage;
-import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
-import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
-import org.computate.smartaquaculture.request.SiteRequest;
-import org.computate.smartaquaculture.result.BaseResult;
-import org.computate.smartaquaculture.user.SiteUser;
-import org.computate.smartaquaculture.user.SiteUserEnUSApiServiceImpl;
-import org.computate.smartaquaculture.user.SiteUserEnUSGenApiService;
+import org.computate.vertx.api.BaseApiServiceImpl;
 import org.computate.vertx.api.BaseApiServiceInterface;
 import org.computate.vertx.config.ComputateConfigKeys;
+import org.computate.vertx.model.base.ComputateBaseModel;
+import org.computate.vertx.model.user.ComputateSiteUser;
 import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
 import org.computate.vertx.openapi.OpenApi3Generator;
+import org.computate.vertx.request.ComputateSiteRequest;
+import org.computate.vertx.result.base.ComputateBaseResult;
 import org.computate.vertx.search.list.SearchList;
 import org.computate.vertx.verticle.EmailVerticle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
 
 import com.google.common.io.Resources;
 import com.hubspot.jinjava.Jinjava;
 import com.hubspot.jinjava.loader.FileLocator;
 
+import org.yaml.snakeyaml.Yaml;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.propagation.ContextPropagators;
@@ -87,11 +70,21 @@ import io.opentelemetry.sdk.trace.export.SimpleSpanProcessor;
 import io.vertx.amqp.AmqpClient;
 import io.vertx.amqp.AmqpClientOptions;
 import io.vertx.amqp.AmqpSender;
+import io.vertx.rabbitmq.RabbitMQClient;
+import io.vertx.rabbitmq.RabbitMQOptions;
+import io.vertx.serviceproxy.ServiceBinder;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.AMQP.BasicProperties;
+
+import io.vertx.amqp.AmqpMessage;
+import io.vertx.amqp.AmqpMessageBuilder;
 import io.vertx.amqp.AmqpSenderOptions;
+import io.vertx.codegen.annotations.Nullable;
 import io.vertx.config.ConfigRetriever;
 import io.vertx.config.ConfigRetrieverOptions;
 import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.CompositeFuture;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.MultiMap;
@@ -102,23 +95,33 @@ import io.vertx.core.VertxBuilder;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.WorkerExecutor;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBusOptions;
+import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.Cookie;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.impl.VertxImpl;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.PemKeyCertOptions;
+import io.vertx.core.shareddata.SharedData;
 import io.vertx.core.spi.cluster.ClusterManager;
 import io.vertx.core.spi.cluster.NodeInfo;
+import io.opentelemetry.api.trace.Tracer;
+import io.vertx.core.streams.Pump;
+import io.vertx.core.tracing.TracingPolicy;
+import io.vertx.core.tracing.TracingOptions;
+import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authorization.AuthorizationProvider;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import io.vertx.ext.auth.oauth2.OAuth2Options;
 import io.vertx.ext.auth.oauth2.Oauth2Credentials;
 import io.vertx.ext.auth.oauth2.authorization.KeycloakAuthorization;
+import io.vertx.ext.auth.oauth2.impl.OAuth2AuthProviderImpl;
 import io.vertx.ext.auth.oauth2.providers.OpenIDConnectAuth;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.healthchecks.HealthCheckHandler;
@@ -127,6 +130,8 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
 import io.vertx.ext.web.api.service.ServiceRequest;
+import io.vertx.ext.web.api.service.ServiceResponse;
+import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
@@ -134,24 +139,66 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.OAuth2AuthHandler;
 import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.ext.web.handler.TemplateHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
+import io.vertx.ext.web.impl.RoutingContextImpl;
 import io.vertx.ext.web.openapi.RouterBuilder;
 import io.vertx.ext.web.sstore.LocalSessionStore;
-import io.vertx.kafka.client.consumer.KafkaConsumer;
 import io.vertx.kafka.client.producer.KafkaProducer;
+import io.vertx.kafka.client.consumer.KafkaConsumer;
+import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.mqtt.MqttClient;
-import io.vertx.pgclient.PgBuilder;
 import io.vertx.pgclient.PgConnectOptions;
-import io.vertx.rabbitmq.RabbitMQClient;
-import io.vertx.rabbitmq.RabbitMQOptions;
-import io.vertx.serviceproxy.ServiceBinder;
+import io.vertx.pgclient.PgBuilder;
 import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
 import io.vertx.tracing.opentelemetry.OpenTelemetryOptions;
+import io.vertx.tracing.opentracing.OpenTracingTracerFactory;
+
+import org.computate.smartaquaculture.config.ConfigKeys;
+import org.computate.smartaquaculture.request.SiteRequest;
+import org.computate.smartaquaculture.user.SiteUser;
+import org.computate.smartaquaculture.user.SiteUserEnUSGenApiService;
+import org.computate.smartaquaculture.user.SiteUserEnUSApiServiceImpl;
+import org.computate.smartaquaculture.result.BaseResult;
+import org.computate.smartaquaculture.model.BaseModel;
+import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSGenApiService;
+import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.timezone.TimeZone;
+import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.feed.Feed;
+import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
+import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
+import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
+import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
+import org.computate.smartaquaculture.page.SitePage;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock;
+import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
+import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 
 
 /**
@@ -293,6 +340,14 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			apiFeed.setVertx(vertx);
 			apiFeed.setConfig(config);
 			apiFeed.setWebClient(webClient);
+			FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
+			apiFishPopulation.setVertx(vertx);
+			apiFishPopulation.setConfig(config);
+			apiFishPopulation.setWebClient(webClient);
+			FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
+			apiFeedingOperation.setVertx(vertx);
+			apiFeedingOperation.setConfig(config);
+			apiFeedingOperation.setWebClient(webClient);
 			FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
 			apiFeeder.setVertx(vertx);
 			apiFeeder.setConfig(config);
@@ -301,26 +356,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			apiSiteUser.setVertx(vertx);
 			apiSiteUser.setConfig(config);
 			apiSiteUser.setWebClient(webClient);
-			FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
-			apiFeedingOperation.setVertx(vertx);
-			apiFeedingOperation.setConfig(config);
-			apiFeedingOperation.setWebClient(webClient);
-			FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
-			apiFishPopulation.setVertx(vertx);
-			apiFishPopulation.setConfig(config);
-			apiFishPopulation.setWebClient(webClient);
 			SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
 			apiSitePage.setVertx(vertx);
 			apiSitePage.setConfig(config);
 			apiSitePage.setWebClient(webClient);
-			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
-			apiFishingTrip.setVertx(vertx);
-			apiFishingTrip.setConfig(config);
-			apiFishingTrip.setWebClient(webClient);
-			FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
-			apiFishFarm.setVertx(vertx);
-			apiFishFarm.setConfig(config);
-			apiFishFarm.setWebClient(webClient);
 			FishingDockEnUSApiServiceImpl apiFishingDock = new FishingDockEnUSApiServiceImpl();
 			apiFishingDock.setVertx(vertx);
 			apiFishingDock.setConfig(config);
@@ -329,66 +368,74 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			apiFishProcessing.setVertx(vertx);
 			apiFishProcessing.setConfig(config);
 			apiFishProcessing.setWebClient(webClient);
+			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
+			apiFishingTrip.setVertx(vertx);
+			apiFishingTrip.setConfig(config);
+			apiFishingTrip.setWebClient(webClient);
+			FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
+			apiFishFarm.setVertx(vertx);
+			apiFishFarm.setConfig(config);
+			apiFishFarm.setWebClient(webClient);
 			MapModelEnUSApiServiceImpl apiMapModel = new MapModelEnUSApiServiceImpl();
 			apiMapModel.setVertx(vertx);
 			apiMapModel.setConfig(config);
 			apiMapModel.setWebClient(webClient);
 			apiSiteUser.createAuthorizationScopes().onSuccess(authToken -> {
-				apiTimeZone.authorizeGroupData(authToken, TimeZone.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" })
+				apiTimeZone.authorizeGroupData(authToken, TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" })
 						.onSuccess(q1 -> {
-					apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "FeedViewer", new String[] { "GET" })
-							.compose(q2 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "FeedEditor", new String[] { "GET", "POST", "PATCH" }))
-							.compose(q2 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-							.compose(q2 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+					apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "FeedViewer", new String[] { "GET" })
+							.compose(q2 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "FeedEditor", new String[] { "GET", "POST", "PATCH" }))
+							.compose(q2 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+							.compose(q2 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
 							.onSuccess(q2 -> {
-						apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "FeederViewer", new String[] { "GET" })
-								.compose(q3 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "FeederEditor", new String[] { "GET", "POST", "PATCH" }))
-								.compose(q3 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-								.compose(q3 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+						apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "FishPopulationViewer", new String[] { "GET" })
+								.compose(q3 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "FishPopulationEditor", new String[] { "GET", "POST", "PATCH" }))
+								.compose(q3 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+								.compose(q3 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
 								.onSuccess(q3 -> {
-								apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_SIMPLE_NAME, "FeedingOperationViewer", new String[] { "GET" })
-										.compose(q5 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_SIMPLE_NAME, "FeedingOperationEditor", new String[] { "GET", "POST", "PATCH" }))
-										.compose(q5 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-										.compose(q5 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+							apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "FeedingOperationViewer", new String[] { "GET" })
+									.compose(q4 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "FeedingOperationEditor", new String[] { "GET", "POST", "PATCH" }))
+									.compose(q4 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+									.compose(q4 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+									.onSuccess(q4 -> {
+								apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "FeederViewer", new String[] { "GET" })
+										.compose(q5 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "FeederEditor", new String[] { "GET", "POST", "PATCH" }))
+										.compose(q5 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+										.compose(q5 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
 										.onSuccess(q5 -> {
-									apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_SIMPLE_NAME, "FishPopulationViewer", new String[] { "GET" })
-											.compose(q6 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_SIMPLE_NAME, "FishPopulationEditor", new String[] { "GET", "POST", "PATCH" }))
-											.compose(q6 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-											.compose(q6 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-											.onSuccess(q6 -> {
-										apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
-												.compose(q7 -> apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
+										apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
+												.compose(q7 -> apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
 												.onSuccess(q7 -> {
-											apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "FishingTripViewer", new String[] { "GET" })
-													.compose(q8 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "FishingTripEditor", new String[] { "GET", "POST", "PATCH" }))
-													.compose(q8 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-													.compose(q8 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+											apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "FishingDockViewer", new String[] { "GET" })
+													.compose(q8 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "FishingDockEditor", new String[] { "GET", "POST", "PATCH" }))
+													.compose(q8 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+													.compose(q8 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 													.onSuccess(q8 -> {
-												apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_SIMPLE_NAME, "FishFarmViewer", new String[] { "GET" })
-														.compose(q9 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_SIMPLE_NAME, "FishFarmEditor", new String[] { "GET", "POST", "PATCH" }))
-														.compose(q9 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-														.compose(q9 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+												apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "FishProcessingViewer", new String[] { "GET" })
+														.compose(q9 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "FishProcessingEditor", new String[] { "GET", "POST", "PATCH" }))
+														.compose(q9 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+														.compose(q9 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 														.onSuccess(q9 -> {
-													apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_SIMPLE_NAME, "FishingDockViewer", new String[] { "GET" })
-															.compose(q10 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_SIMPLE_NAME, "FishingDockEditor", new String[] { "GET", "POST", "PATCH" }))
-															.compose(q10 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-															.compose(q10 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+													apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "FishingTripViewer", new String[] { "GET" })
+															.compose(q10 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "FishingTripEditor", new String[] { "GET", "POST", "PATCH" }))
+															.compose(q10 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+															.compose(q10 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 															.onSuccess(q10 -> {
-														apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_SIMPLE_NAME, "FishProcessingViewer", new String[] { "GET" })
-																.compose(q11 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_SIMPLE_NAME, "FishProcessingEditor", new String[] { "GET", "POST", "PATCH" }))
-																.compose(q11 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_SIMPLE_NAME, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-																.compose(q11 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_SIMPLE_NAME, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+														apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "FishFarmViewer", new String[] { "GET" })
+																.compose(q11 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "FishFarmEditor", new String[] { "GET", "POST", "PATCH" }))
+																.compose(q11 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+																.compose(q11 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 																.onSuccess(q11 -> {
-															apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_SIMPLE_NAME, "MapModelViewer", new String[] { "GET" })
-																	.compose(q12 -> apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_SIMPLE_NAME, "Admin", new String[] { "GET" }))
+															apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_AUTH_RESOURCE, "MapModelViewer", new String[] { "GET" })
+																	.compose(q12 -> apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_AUTH_RESOURCE, "Admin", new String[] { "GET" }))
 																	.onSuccess(q12 -> {
 																LOG.info("authorize data complete");
 																promise.complete();
 															}).onFailure(ex -> promise.fail(ex));
 														}).onFailure(ex -> promise.fail(ex));
 													}).onFailure(ex -> promise.fail(ex));
+												}).onFailure(ex -> promise.fail(ex));
 											}).onFailure(ex -> promise.fail(ex));
-										}).onFailure(ex -> promise.fail(ex));
 									}).onFailure(ex -> promise.fail(ex));
 								}).onFailure(ex -> promise.fail(ex));
 							}).onFailure(ex -> promise.fail(ex));
@@ -603,7 +650,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 				zkConfig.put("zookeeperHosts", zookeeperHosts);
 				zkConfig.put("sessionTimeout", zookeeperSessionTimeoutMillis);
 				zkConfig.put("connectTimeout", zookeeperConnectionTimeoutMillis);
-				zkConfig.put("rootPath", config.getString(ConfigKeys.ZOOKEEPER_ROOT_PATH));
+				zkConfig.put("rootPath", config.getString(ConfigKeys.SITE_NAME));
 				zkConfig.put("retry", new JsonObject()
 						.put("policy", zookeeperRetryPolicy)
 						.put("initialSleepTime", zookeeperBaseSleepTimeMillis)
@@ -1402,7 +1449,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		Promise<Void> promise = Promise.promise();
 		try {
 			List<Future<?>> futures = new ArrayList<>();
-			List<String> authResources = Arrays.asList("TimeZone","Feed","Feeder","FeedingOperation","FishPopulation","SitePage","FishingTrip","FishFarm","FishingDock","FishProcessing","MapModel");
+			List<String> authResources = Arrays.asList("TimeZone","Feed","FishPopulation","FeedingOperation","Feeder","SitePage","FishingDock","FishProcessing","FishingTrip","FishFarm","MapModel");
 			List<String> publicResources = Arrays.asList("TimeZone","SitePage");
 			SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
 			initializeApiService(apiSiteUser);
@@ -1418,29 +1465,21 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			initializeApiService(apiFeed);
 			registerApiService(FeedEnUSGenApiService.class, apiFeed, Feed.getClassApiAddress());
 
-			FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
-			initializeApiService(apiFeeder);
-			registerApiService(FeederEnUSGenApiService.class, apiFeeder, Feeder.getClassApiAddress());
+			FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
+			initializeApiService(apiFishPopulation);
+			registerApiService(FishPopulationEnUSGenApiService.class, apiFishPopulation, FishPopulation.getClassApiAddress());
 
 			FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
 			initializeApiService(apiFeedingOperation);
 			registerApiService(FeedingOperationEnUSGenApiService.class, apiFeedingOperation, FeedingOperation.getClassApiAddress());
 
-			FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
-			initializeApiService(apiFishPopulation);
-			registerApiService(FishPopulationEnUSGenApiService.class, apiFishPopulation, FishPopulation.getClassApiAddress());
+			FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
+			initializeApiService(apiFeeder);
+			registerApiService(FeederEnUSGenApiService.class, apiFeeder, Feeder.getClassApiAddress());
 
 			SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
 			initializeApiService(apiSitePage);
 			registerApiService(SitePageEnUSGenApiService.class, apiSitePage, SitePage.getClassApiAddress());
-
-			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
-			initializeApiService(apiFishingTrip);
-			registerApiService(FishingTripEnUSGenApiService.class, apiFishingTrip, FishingTrip.getClassApiAddress());
-
-			FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
-			initializeApiService(apiFishFarm);
-			registerApiService(FishFarmEnUSGenApiService.class, apiFishFarm, FishFarm.getClassApiAddress());
 
 			FishingDockEnUSApiServiceImpl apiFishingDock = new FishingDockEnUSApiServiceImpl();
 			initializeApiService(apiFishingDock);
@@ -1449,6 +1488,14 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			FishProcessingEnUSApiServiceImpl apiFishProcessing = new FishProcessingEnUSApiServiceImpl();
 			initializeApiService(apiFishProcessing);
 			registerApiService(FishProcessingEnUSGenApiService.class, apiFishProcessing, FishProcessing.getClassApiAddress());
+
+			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
+			initializeApiService(apiFishingTrip);
+			registerApiService(FishingTripEnUSGenApiService.class, apiFishingTrip, FishingTrip.getClassApiAddress());
+
+			FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
+			initializeApiService(apiFishFarm);
+			registerApiService(FishFarmEnUSGenApiService.class, apiFishFarm, FishFarm.getClassApiAddress());
 
 			MapModelEnUSApiServiceImpl apiMapModel = new MapModelEnUSApiServiceImpl();
 			initializeApiService(apiMapModel);
@@ -1482,23 +1529,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 				staticHandler.setFilesReadOnly(true);
 			}
 			router.route("/static/*").handler(staticHandler);
-
-			router.get("/").handler(handler -> {
-				try {
-					String siteTemplatePath = config().getString(ConfigKeys.TEMPLATE_PATH);
-					String pageTemplateUri = "/en-us/HomePage.htm";
-					Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-					String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-					JsonObject ctx = ComputateConfigKeys.getPageContext(config());
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					handler.response().putHeader("Content-Type", "text/html");
-					handler.end(buffer);
-				} catch(Exception ex) {
-					LOG.error("Failed to load page. ", ex);
-					handler.fail(ex);
-				}
-			});
 
 			router.getWithRegex("\\/en-us/download(?<uri>.*)").handler(oauth2AuthHandler).handler(handler -> {
 				String originalUri = handler.pathParam("uri");
@@ -1609,7 +1639,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 			SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
 			initializeApiService(apiSiteUser);
-			SiteRoutes.routes(router, oauth2AuthHandler, config(), webClient, apiSiteUser);
+			SiteRoutes.routes(router, oauth2AuthHandler, config(), webClient, jinjava, apiSiteUser);
 
 			LOG.info("The UI was configured properly.");
 			promise.complete();

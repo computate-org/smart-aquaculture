@@ -662,6 +662,7 @@ public abstract class FishFarmGen<DEV> extends MapModel {
 
 	public static final String CLASS_SIMPLE_NAME = "FishFarm";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm";
+	public static final String CLASS_AUTH_RESOURCE = "FISHFARM";
 	public static final String CLASS_API_ADDRESS_FishFarm = "smart-aquaculture-enUS-FishFarm";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishFarm;
