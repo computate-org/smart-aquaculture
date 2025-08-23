@@ -209,6 +209,11 @@ public class TimeZoneGenPage extends TimeZoneGenPageGen<PageLayout> {
       if(defaultPivotVars.contains(var)) {
         json.put("pivot", true);
       }
+      if(defaultSortVars.contains(String.format("%s asc", var))) {
+        json.put("sort", "asc");
+      } else if(defaultSortVars.contains(String.format("%s desc", var))) {
+        json.put("sort", "desc");
+      }
       vars.put(var, json);
     }
   }
@@ -519,7 +524,7 @@ public class TimeZoneGenPage extends TimeZoneGenPageGen<PageLayout> {
 
   @Override
   protected void _pageDescription(Wrap<String> c) {
-      c.o("AName: a time zone");
+      c.o("A timezone");
   }
 
   @Override

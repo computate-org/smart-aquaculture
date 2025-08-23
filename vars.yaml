@@ -297,7 +297,7 @@ SOLR_CONFIGSET: "computate"
 # The Solr admin username
 SOLR_USERNAME: admin
 # The Solr admin password
-SOLR_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name='solr', namespace=SOLR_NAMESPACE)[0].data['solr-password'] | b64decode }}"
+SOLR_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name='solr-admin', namespace=SOLR_NAMESPACE)[0].data['password'] | b64decode }}"
 
 # Whether to use SSL when connecting to Solr. 
 SOLR_SSL_COMPUTATE: "{{ lookup('env', 'SOLR_SSL_COMPUTATE') | default(SOLR_SSL, true) | bool }}"
@@ -319,7 +319,7 @@ ENABLE_DATABASE: true
 # The namespace of the database in OpenShift. 
 DATABASE_NAMESPACE: postgres
 # The PostgreSQL database host name. 
-DATABASE_HOST_NAME: "{{ lookup('env', 'DATABASE_HOST_NAME') | default('postgres.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+DATABASE_HOST_NAME: "{{ lookup('env', 'DATABASE_HOST_NAME') | default('console-openshift-console.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The PostgreSQL database port. 
 DATABASE_PORT: "{{ lookup('env', 'DATABASE_PORT') | default('30432', true) }}"
 # The PostgreSQL database user name of the site. 
@@ -364,7 +364,7 @@ AUTH_SECRET: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(AUTH
 # The Auth openshift secret with the admin credentials. 
 AUTH_ADMIN_OPENSHIFT_SECRET: "{{ lookup('env', 'AUTH_ADMIN_OPENSHIFT_SECRET_' + SITE_SHORT_NAME) | default('keycloak-initial-admin', true) }}"
 # The Auth admin username. 
-AUTH_ADMIN_USERNAME: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=AUTH_NAMESPACE)[0].data['username'] | b64decode }}"
+AUTH_ADMIN_USERNAME: "admin"
 # The Auth admin password. 
 AUTH_ADMIN_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=AUTH_NAMESPACE)[0].data['password'] | b64decode }}"
 # The Auth URL. 

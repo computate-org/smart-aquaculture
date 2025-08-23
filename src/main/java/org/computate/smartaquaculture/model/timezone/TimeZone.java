@@ -5,7 +5,7 @@ import org.computate.smartaquaculture.result.BaseResult;
 
 /**
  * Order: 0
- * Description: 
+ * Description: A timezone
  * AName: a time zone
  * Icon: <i class="fa-duotone fa-regular fa-globe"></i>
  * Rows: 10

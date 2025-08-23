@@ -3179,6 +3179,7 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 
 	public static final String CLASS_SIMPLE_NAME = "FeedingOperation";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation";
+	public static final String CLASS_AUTH_RESOURCE = "FEEDINGOPERATION";
 	public static final String CLASS_API_ADDRESS_FeedingOperation = "smart-aquaculture-enUS-FeedingOperation";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FeedingOperation;

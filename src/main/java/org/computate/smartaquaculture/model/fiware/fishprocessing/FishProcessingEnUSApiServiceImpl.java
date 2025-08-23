@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,35 +83,39 @@ public class FishProcessingEnUSApiServiceImpl extends FishProcessingEnUSGenApiSe
             try {
               JsonObject arcgisBody = response.bodyAsJsonObject();
               JsonObject geometry = arcgisBody.getJsonArray("features").stream().map(o -> (JsonObject)o).filter(feature -> feature.containsKey("geometry")).findFirst().map(feature -> feature.getJsonObject("geometry")).orElse(null);
-              JsonObject areaServed = GeoJsonUtil.merkatorRingsToGeoJsonPolygon(geometry);
-              JsonObject location = GeoJsonUtil.convertCentroidOfPolygonToGeoJsonPoint(areaServed);
-              JsonObject body = new JsonObject();
-              String name = String.format("%s %s", result.getString(FishProcessing.VAR_id), result.getString(FishProcessing.VAR_name));
-              String entityShortId = FishProcessing.toId(name);
-              body.put(FishProcessing.VAR_entityShortId, entityShortId);
-              body.put(FishProcessing.VAR_name, name);
-              body.put(FishProcessing.VAR_areaServed, areaServed);
-              body.put(FishProcessing.VAR_location, location);
+              JsonObject areaServed = Optional.ofNullable(geometry).map(g -> GeoJsonUtil.merkatorRingsToGeoJsonPolygon(g)).orElse(null);
+              JsonObject location = Optional.ofNullable(areaServed).map(a -> GeoJsonUtil.convertCentroidOfPolygonToGeoJsonPoint(a)).orElse(null);
+              if(location == null) {
+                promise.complete();
+              } else {
+                JsonObject body = new JsonObject();
+                String name = String.format("%s %s", result.getString(FishProcessing.VAR_id), result.getString(FishProcessing.VAR_name));
+                String entityShortId = FishProcessing.toId(name);
+                body.put(FishProcessing.VAR_entityShortId, entityShortId);
+                body.put(FishProcessing.VAR_name, name);
+                body.put(FishProcessing.VAR_areaServed, areaServed);
+                body.put(FishProcessing.VAR_location, location);
 
-              JsonObject pageParams = new JsonObject();
-              pageParams.put("body", body);
-              pageParams.put("scopes", new JsonArray().add("GET").add("POST").add("PATCH").add("DELETE"));
-              pageParams.put("path", new JsonObject());
-              pageParams.put("cookie", new JsonObject());
-              pageParams.put("query",
-              new JsonObject().put("softCommit", true).put("q", "*:*").put("var", new JsonArray().add("refresh:false")));
-              JsonObject pageContext = new JsonObject().put("params", pageParams);
-              JsonObject pageRequest = new JsonObject().put("context", pageContext);
+                JsonObject pageParams = new JsonObject();
+                pageParams.put("body", body);
+                pageParams.put("scopes", new JsonArray().add("GET").add("POST").add("PATCH").add("DELETE"));
+                pageParams.put("path", new JsonObject());
+                pageParams.put("cookie", new JsonObject());
+                pageParams.put("query",
+                new JsonObject().put("softCommit", true).put("q", "*:*").put("var", new JsonArray().add("refresh:false")));
+                JsonObject pageContext = new JsonObject().put("params", pageParams);
+                JsonObject pageRequest = new JsonObject().put("context", pageContext);
 
-              vertx.eventBus().request(classApiAddress, pageRequest, new DeliveryOptions()
-                  .setSendTimeout(config.getLong(ComputateConfigKeys.VERTX_MAX_EVENT_LOOP_EXECUTE_TIME) * 1000)
-                  .addHeader("action", String.format("putimport%sFuture", classSimpleName))).onSuccess(message -> {
-                    // LOG.info(String.format("Imported %s %s", FishProcessing.SingularName_enUS, nodeName));
-                    promise.complete();
-              }).onFailure(ex -> {
-                LOG.error(String.format(importDataFail, classSimpleName), ex);
-                promise.fail(ex);
-              });
+                vertx.eventBus().request(classApiAddress, pageRequest, new DeliveryOptions()
+                    .setSendTimeout(config.getLong(ComputateConfigKeys.VERTX_MAX_EVENT_LOOP_EXECUTE_TIME) * 1000)
+                    .addHeader("action", String.format("putimport%sFuture", classSimpleName))).onSuccess(message -> {
+                      // LOG.info(String.format("Imported %s %s", FishProcessing.SingularName_enUS, nodeName));
+                      promise.complete();
+                }).onFailure(ex -> {
+                  LOG.error(String.format(importDataFail, classSimpleName), ex);
+                  promise.fail(ex);
+                });
+              }
             } catch (Exception ex) {
               LOG.error(String.format(importDataFail, classSimpleName), ex);
               promise.fail(ex);

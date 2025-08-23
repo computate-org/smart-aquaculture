@@ -172,7 +172,7 @@ import io.vertx.core.json.JsonObject;
 public abstract class TimeZoneGen<DEV> extends BaseResult {
 	protected static final Logger LOG = LoggerFactory.getLogger(TimeZone.class);
 
-	public static final String Description_enUS = "AName: a time zone";
+	public static final String Description_enUS = "A timezone";
 	public static final String AName_enUS = "a time zone";
 	public static final String This_enUS = "this ";
 	public static final String ThisName_enUS = "this time zone";

@@ -2001,6 +2001,7 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 
 	public static final String CLASS_SIMPLE_NAME = "FishPopulation";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation";
+	public static final String CLASS_AUTH_RESOURCE = "FISHPOPULATION";
 	public static final String CLASS_API_ADDRESS_FishPopulation = "smart-aquaculture-enUS-FishPopulation";
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_FishPopulation;

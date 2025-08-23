@@ -293,6 +293,7 @@ public abstract class FeedingOperationPageGen<DEV> extends FeedingOperationGenPa
 
 	public static final String CLASS_SIMPLE_NAME = "FeedingOperationPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 
 
 	@Override

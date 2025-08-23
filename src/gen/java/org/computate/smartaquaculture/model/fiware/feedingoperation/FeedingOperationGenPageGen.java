@@ -738,6 +738,7 @@ public abstract class FeedingOperationGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "FeedingOperationGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListFeedingOperation_ = "searchListFeedingOperation_";
 	public static final String VAR_listFeedingOperation = "listFeedingOperation";
 	public static final String VAR_resultCount = "resultCount";

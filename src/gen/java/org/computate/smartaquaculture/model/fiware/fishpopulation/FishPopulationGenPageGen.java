@@ -783,6 +783,7 @@ public abstract class FishPopulationGenPageGen<DEV> extends PageLayout {
 
 	public static final String CLASS_SIMPLE_NAME = "FishPopulationGenPage";
 	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationGenPage";
+	public static final String CLASS_AUTH_RESOURCE = "";
 	public static final String VAR_searchListFishPopulation_ = "searchListFishPopulation_";
 	public static final String VAR_listFishPopulation = "listFishPopulation";
 	public static final String VAR_resultCount = "resultCount";

@@ -1868,8 +1868,6 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
 	public void siteRequestSitePage(SiteRequest siteRequest_) {
 			super.siteRequestBaseResult(siteRequest_);
-		if(relatedArticleSearch != null)
-			relatedArticleSearch.setSiteRequest_(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequest siteRequest_) {
