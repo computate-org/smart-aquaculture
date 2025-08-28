@@ -7,7 +7,7 @@ import io.vertx.core.json.JsonObject;
 
 /**
  * Fiware: true
- * Order: 5
+ * Order: 8
  * Description: A fishing dock
  * AName: a fishing dock
  * Icon: <i class="fa-duotone fa-regular fa-bridge-water"></i>

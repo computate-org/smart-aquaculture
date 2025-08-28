@@ -11,7 +11,7 @@ import io.vertx.core.json.JsonObject;
  * SmartDataModel: FishPopulation - Aquaculture - SmartAgrifood
  * Fiware: true
  *
- * Order: 1
+ * Order: 6
  * Description: 
  * AName: a fish population
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>

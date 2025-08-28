@@ -7,7 +7,7 @@ import io.vertx.core.json.JsonObject;
 
 /**
  * Fiware: true
- * Order: 5
+ * Order: 9
  * Description: A fish processing plant
  * AName: a fish processing plant
  * Icon: <i class="fa-duotone fa-regular fa-industry-windows"></i>

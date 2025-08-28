@@ -187,24 +187,20 @@ CONTAINER_URI: "{{ CONTAINER_REGISTRY }}/{{ CONTAINER_ORG }}/{{ CONTAINER_NAME }
 # Static content defaults #
 ###########################
 
-WEB_COMPONENTS_SECRET: "font-awesome"
+WEB_COMPONENTS_SECRET: "local-font-awesome"
 # Switch between Shoelace "sl-" and Web Awesome "wa-" element prefixes. 
 WEB_COMPONENTS_PREFIX: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_PREFIX | default('') | b64decode | default('sl-', true) }}"
 # WEB_COMPONENTS_PREFIX: sl-
 # An optional link element to either a Shoelace web components JavaScript or a Web Awesome Backer web components JavaScript. 
 WEB_COMPONENTS_JS: >-
   {{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_JS | default('') | b64decode | default('<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.0/cdn/shoelace-autoloader.js"></script>', true) }}
-# WEB_COMPONENTS_JS: >-
-#   <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.0/cdn/shoelace-autoloader.js"></script>
 # An optional link element to either a Shoelace web components stylesheet or a Web Awesome Backer web components stylesheet. 
 WEB_COMPONENTS_CSS: >-
   {{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_CSS | default('') | b64decode| default('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.0/cdn/themes/dark.css" />', true) }}
-# WEB_COMPONENTS_CSS: >-
-#   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.0/cdn/themes/dark.css" />
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 
 FONTAWESOME_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_KIT | default('', true) | b64decode | default('', true) }}"
 # A default FontAwesome style. 
-FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('default', true) }}"
+FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('fa-duotone fa-regular ', true) }}"
 # Site default theme, light or dark. 
 SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('', true) | b64decode | default('dark', true) }}"
 # The site logo relative URI
@@ -325,9 +321,9 @@ DATABASE_PORT: "{{ lookup('env', 'DATABASE_PORT') | default('30432', true) }}"
 # The PostgreSQL database user name of the site. 
 DATABASE_USERNAME: "{{ lookup('env', 'DATABASE_USERNAME_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
 # The database secret containing the user password to connect to the database. 
-DATABASE_SECRET: "postgres-pguser-{{ DATABASE_USERNAME }}"
+DATABASE_SECRET: "local-database"
 # The PostgreSQL database password of the site. 
-DATABASE_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(DATABASE_SECRET), namespace=SITE_NAMESPACE)[0].data.password | b64decode }}"
+DATABASE_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(DATABASE_SECRET), namespace=SITE_NAMESPACE)[0].data.DATABASE_PASSWORD | b64decode }}"
 # The PostgreSQL database name of the site. 
 DATABASE_DATABASE: "{{ lookup('env', 'DATABASE_DATABASE_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
 # The PostgreSQL database max pool size. 
@@ -358,15 +354,15 @@ AUTH_REALM: "{{ lookup('env', 'AUTH_REALM_' + SITE_SHORT_NAME) | default(SITE_SH
 # The Auth client. 
 AUTH_CLIENT: "{{ lookup('env', 'AUTH_CLIENT_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
 # The Auth openshift secret with the client secret credentials. 
-AUTH_OPENSHIFT_SECRET: "{{ lookup('env', 'AUTH_OPENSHIFT_SECRET_' + SITE_SHORT_NAME) | default('keycloak-client-' + AUTH_CLIENT, true) }}"
+AUTH_OPENSHIFT_SECRET: "local-auth"
 # The Auth secret. 
-AUTH_SECRET: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(AUTH_OPENSHIFT_SECRET), namespace=SITE_NAMESPACE)[0].data.clientSecret | b64decode }}"
+AUTH_SECRET: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(AUTH_OPENSHIFT_SECRET), namespace=SITE_NAMESPACE)[0].data.AUTH_SECRET | b64decode }}"
 # The Auth openshift secret with the admin credentials. 
-AUTH_ADMIN_OPENSHIFT_SECRET: "{{ lookup('env', 'AUTH_ADMIN_OPENSHIFT_SECRET_' + SITE_SHORT_NAME) | default('keycloak-initial-admin', true) }}"
+AUTH_ADMIN_OPENSHIFT_SECRET: "local-auth"
 # The Auth admin username. 
-AUTH_ADMIN_USERNAME: "admin"
+AUTH_ADMIN_USERNAME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.AUTH_ADMIN_USERNAME | b64decode | default('admin') }}"
 # The Auth admin password. 
-AUTH_ADMIN_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=AUTH_NAMESPACE)[0].data['password'] | b64decode }}"
+AUTH_ADMIN_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=SITE_NAMESPACE)[0].data.AUTH_ADMIN_PASSWORD | b64decode }}"
 # The Auth URL. 
 AUTH_URL: "https://{{ AUTH_HOST_NAME }}"
 # The Auth URL to retrieve tokens. 

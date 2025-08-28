@@ -2,7 +2,7 @@
  * SmartDataModel: FishPopulation - Aquaculture - SmartAgrifood
  * Fiware: true
  *
- * Order: 1
+ * Order: 6
  * Description: 
  * AName: a fish population
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
@@ -160,11 +160,11 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>This class contains a comment <b>"Rows: 100"</b>, which means the FishPopulation API will return a default of 100 records instead of 10 by default. 
  * Each API has built in pagination of the search records to ensure a user can query all the data a page at a time without running the application out of memory. 
  * </p>
- * <h2>Order: 1</h2>
- * <p>This class contains a comment <b>"Order: 1"</b>, which means this class will be sorted by the given number 1 ascending when code that relates to multiple classes at the same time is generated. 
+ * <h2>Order: 6</h2>
+ * <p>This class contains a comment <b>"Order: 6"</b>, which means this class will be sorted by the given number 6 ascending when code that relates to multiple classes at the same time is generated. 
  * </p>
- * <h2>SqlOrder: 1</h2>
- * <p>This class contains a comment <b>"SqlOrder: 1"</b>, which means this class will be sorted by the given number 1 ascending when SQL code to create and drop the tables is generated. 
+ * <h2>SqlOrder: 6</h2>
+ * <p>This class contains a comment <b>"SqlOrder: 6"</b>, which means this class will be sorted by the given number 6 ascending when SQL code to create and drop the tables is generated. 
  * </p>
  * <h2>Model: true</h2>
  * <p>This class contains a comment <b>"Model: true"</b>, which means this class will be stored in the database. 

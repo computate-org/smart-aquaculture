@@ -25,6 +25,7 @@ import io.vertx.pgclient.data.Polygon;
  * AName: a Feeder
  * Icon: <i class="fa-duotone fa-regular fa-fish-cooked"></i>
  * Rows: 100
+ * Ignore: true
  * 
  * SearchPageUri: /en-us/search/feeder
  * EditPageUri: /en-us/edit/feeder/{entityShortId}

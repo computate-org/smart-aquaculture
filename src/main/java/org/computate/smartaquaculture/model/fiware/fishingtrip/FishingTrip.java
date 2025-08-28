@@ -7,7 +7,7 @@ import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.model.mapmodel.MapModel;
 
 /**
- * Order: 5
+ * Order: 10
  * Description: A fishing trip
  * AName: a fishing trip
  * Icon: <i class="fa-duotone fa-regular fa-fishing-rod"></i>
