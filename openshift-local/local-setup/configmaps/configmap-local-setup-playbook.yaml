@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: local-setup-playbook
+  namespace: smartaquaculture
+data:
+  local-setup.yaml: |
+    ---
+    - name: local-setup
+      hosts: localhost
+      connection: local
+      gather_facts: false
+      roles:
+        - local-setup

@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: smartaquaculture
+    app.kubernetes.io/instance: smartaquaculture
+    app.kubernetes.io/name: smartaquaculture
+    deployment: smartaquaculture
+  name: smartaquaculture
+  namespace: smartaquaculture
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: smartaquaculture
+      app.kubernetes.io/instance: smartaquaculture
+      app.kubernetes.io/name: smartaquaculture
+      deployment: smartaquaculture
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: smartaquaculture
+        app.kubernetes.io/instance: smartaquaculture
+        app.kubernetes.io/name: smartaquaculture
+        deployment: smartaquaculture
+    spec:
+      containers:
+      - env:
+        - name: IMPORT_DATA_PERIOD_FishProcessing
+          value: 1 hour
+        - name: IMPORT_DATA_PERIOD_FishingDock
+          value: 1 hour
+        - name: IMPORT_DATA_START_TIME_FishProcessing
+          value: 00:53 America/Denver
+        - name: IMPORT_DATA_START_TIME_FishingDock
+          value: 00:53 America/Denver
+        envFrom:
+        - secretRef:
+            name: smartaquaculture-zookeeper
+        - secretRef:
+            name: smartaquaculture-solr
+        - secretRef:
+            name: smartaquaculture-database
+        - secretRef:
+            name: smartaquaculture-auth
+        - secretRef:
+            name: smartaquaculture-context-broker
+        - secretRef:
+            name: smartaquaculture-site
+        - secretRef:
+            name: font-awesome
+        image: quay.io/computateorg/smart-aquaculture:latest
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 10
+        name: smartaquaculture
+        ports:
+        - containerPort: 10230
+          name: http
+          protocol: TCP
+        - containerPort: 10231
+          name: cluster
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: 750m
+            ephemeral-storage: 1Gi
+            memory: 768Mi
+          requests:
+            cpu: 750m
+            ephemeral-storage: 1Gi
+            memory: 768Mi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

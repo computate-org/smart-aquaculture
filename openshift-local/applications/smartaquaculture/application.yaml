@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: smartaquaculture
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/computate-org/computate-gitops.git
+    targetRevision: HEAD
+    path: openshift-local/smartaquaculture/base/
+  destination:
+    namespace: smartaquaculture
+    server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    automated:
+      # resources that no longer exist get deleted on sync
+      prune: true
+      # sync will be attempted again on failure after self heal timeout (5 seconds by default)
+      selfHeal: true
+    retry:
+      limit: 50
+      backoff:
+        duration: 30s # Initial duration
+        factor: 2 # Factor to multiply duration by on each retry
+        maxDuration: 5m # Maximum duration between retries
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        database-engine-admin: 'true'

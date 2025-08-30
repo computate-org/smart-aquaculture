@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: solr-setup-playbook
+  namespace: smartaquaculture
+data:
+  solr-setup.yaml: |
+    ---
+    - name: solr-setup
+      hosts: localhost
+      connection: local
+      gather_facts: false
+      roles:
+        - solr-setup

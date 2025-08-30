@@ -1,0 +1,102 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: smartaquaculture
+  name: local-setup-exec
+rules:
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["get", "create"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "create", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: smartaquaculture
+  name: local-setup-exec
+subjects:
+- kind: ServiceAccount
+  name: local-setup
+  namespace: smartaquaculture
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: local-setup-exec
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: postgres
+  name: local-setup-postgres-secrets
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: postgres
+  name: local-setup-postgres-secrets
+subjects:
+- kind: ServiceAccount
+  name: local-setup
+  namespace: smartaquaculture
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: local-setup-postgres-secrets
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: solr
+  name: local-setup-solr-secrets
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: solr
+  name: local-setup-solr-secrets
+subjects:
+- kind: ServiceAccount
+  name: local-setup
+  namespace: smartaquaculture
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: local-setup-solr-secrets
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: keycloak
+  name: local-setup-keycloak-secrets
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: keycloak
+  name: local-setup-keycloak-secrets
+subjects:
+- kind: ServiceAccount
+  name: local-setup
+  namespace: smartaquaculture
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: local-setup-keycloak-secrets

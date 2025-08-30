@@ -1,0 +1,300 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: local-setup-templates
+  namespace: smartaquaculture
+data:
+  keycloak-redirect-uris.yaml: |
+    - "https://oauth-openshift.{{ OPENSHIFT_APPS_DOMAIN }}/oauth2callback/Keycloak"
+    - "http://{{ SITE_HOST_NAME }}:{{ SITE_PORT }}/callback"
+    - "http://{{ SITE_HOST_NAME }}:{{ SITE_PORT }}/logout"
+  oauthclient.yaml: |
+    kind: OAuthClient
+    apiVersion: oauth.openshift.io/v1
+    metadata:
+      name: keycloak
+    secret: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters') }}"
+    redirectURIs:
+      - '{{ AUTH_URL }}/realms/{{ AUTH_REALM }}/broker/openshift/endpoint'
+    grantMethod: prompt
+  openshift-group-sync-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      namespace: group-sync-operator
+      name: openshift-group-sync
+    type: Opaque
+    stringData:
+      username: "{{ AUTH_ADMIN_USERNAME }}"
+      password: "{{ AUTH_ADMIN_PASSWORD }}"
+  groupsync.yaml: |
+    apiVersion: redhatcop.redhat.io/v1alpha1
+    kind: GroupSync
+    metadata:
+      name: github
+      namespace: group-sync-operator
+    spec:
+      schedule: "*/10 * * * *"
+      providers:
+        - name: keycloak
+          keycloak:
+            realm: {{ AUTH_REALM }}
+            credentialsSecret:
+              name: openshift-group-sync
+              namespace: group-sync-operator
+            url: {{ AUTH_URL }}
+  zookeeper-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: local-zookeeper
+      namespace: {{ SITE_NAMESPACE }}
+    type: Opaque
+    stringData:
+      ZOOKEEPER_NAMESPACE: "{{ ZOOKEEPER_NAMESPACE }}"
+      ZOOKEEPER_HOST_NAME: "{{ ZOOKEEPER_HOST_NAME }}"
+      ZOOKEEPER_PORT: "{{ ZOOKEEPER_PORT }}"
+      ZOOKEEPER_MAX_RETRIES: "{{ ZOOKEEPER_MAX_RETRIES }}"
+      ZOOKEEPER_BASE_SLEEP_TIME_MILLIS: "{{ ZOOKEEPER_BASE_SLEEP_TIME_MILLIS }}"
+      ZOOKEEPER_MAX_SLEEP_MILLIS: "{{ ZOOKEEPER_MAX_SLEEP_MILLIS }}"
+      ZOOKEEPER_CONNECTION_TIMEOUT_MILLIS: "{{ ZOOKEEPER_CONNECTION_TIMEOUT_MILLIS }}"
+      ZOOKEEPER_SESSION_TIMEOUT_MILLIS: "{{ ZOOKEEPER_SESSION_TIMEOUT_MILLIS }}"
+  solr-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: local-solr
+      namespace: {{ SITE_NAMESPACE }}
+    type: Opaque
+    stringData:
+      SOLR_ID: "{{ SOLR_ID }}"
+      SOLR_NAMESPACE: "{{ SOLR_NAMESPACE }}"
+      SOLR_SSL: "{{ SOLR_SSL }}"
+      SOLR_HOST_NAME: "{{ SOLR_HOST_NAME }}"
+      SOLR_PORT: "{{ SOLR_PORT }}"
+      SOLR_COLLECTION: "{{ SOLR_COLLECTION }}"
+      SOLR_URL: "{{ SOLR_URL }}"
+      SOLR_POD_NAME: "{{ SOLR_POD_NAME }}"
+      SOLR_WORKER_COMMIT_WITHIN_MILLIS: "{{ SOLR_WORKER_COMMIT_WITHIN_MILLIS }}"
+      SOLR_CONFIGSET: "{{ SOLR_CONFIGSET }}"
+      SOLR_USERNAME: "{{ SOLR_USERNAME }}"
+      SOLR_PASSWORD: "{{ SOLR_PASSWORD }}"
+      SOLR_SSL_COMPUTATE: "{{ SOLR_SSL_COMPUTATE }}"
+      SOLR_HOST_NAME_COMPUTATE: "{{ SOLR_HOST_NAME_COMPUTATE }}"
+      SOLR_PORT_COMPUTATE: "{{ SOLR_PORT_COMPUTATE }}"
+      SOLR_COLLECTION_COMPUTATE: "{{ SOLR_COLLECTION_COMPUTATE }}"
+      SOLR_URL_COMPUTATE: "{{ SOLR_URL_COMPUTATE }}"
+  database-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: local-database
+      namespace: {{ SITE_NAMESPACE }}
+    type: Opaque
+    stringData:
+      DATABASE_DATABASE: "{{ DATABASE_DATABASE }}"
+      DATABASE_USERNAME: "{{ DATABASE_USERNAME }}"
+      DATABASE_PASSWORD: "{{ DATABASE_PASSWORD }}"
+      ENABLE_DATABASE: "{{ ENABLE_DATABASE }}"
+      DATABASE_HOST_NAME: "{{ DATABASE_HOST_NAME }}"
+      DATABASE_PORT: "{{ DATABASE_PORT }}"
+      DATABASE_MAX_POOL_SIZE: "{{ DATABASE_MAX_POOL_SIZE }}"
+      DATABASE_MAX_WAIT_QUEUE_SIZE: "{{ DATABASE_MAX_WAIT_QUEUE_SIZE }}"
+      DATABASE_MAX_IDLE_TIME: "{{ DATABASE_MAX_IDLE_TIME }}"
+      DATABASE_CONNECT_TIMEOUT: "{{ DATABASE_CONNECT_TIMEOUT }}"
+  auth-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: local-auth
+      namespace: {{ SITE_NAMESPACE }}
+    type: Opaque
+    stringData:
+      AUTH_NAMESPACE: "{{ AUTH_NAMESPACE }}"
+      AUTH_HOST_NAME: "{{ AUTH_HOST_NAME }}"
+      AUTH_PORT: "{{ AUTH_PORT }}"
+      AUTH_SSL: "{{ AUTH_SSL }}"
+      AUTH_SSL_REQUIRED: "{{ AUTH_SSL_REQUIRED }}"
+      AUTH_REALM: "{{ AUTH_REALM }}"
+      AUTH_CLIENT: "{{ AUTH_CLIENT }}"
+      AUTH_OPENSHIFT_SECRET: "{{ AUTH_OPENSHIFT_SECRET }}"
+      AUTH_SECRET: "{{ AUTH_SECRET }}"
+      AUTH_ADMIN_OPENSHIFT_SECRET: "{{ AUTH_ADMIN_OPENSHIFT_SECRET }}"
+      AUTH_ADMIN_USERNAME: "{{ AUTH_ADMIN_USERNAME }}"
+      AUTH_ADMIN_PASSWORD: "{{ AUTH_ADMIN_PASSWORD }}"
+      AUTH_URL: "{{ AUTH_URL }}"
+      AUTH_TOKEN_URI: "{{ AUTH_TOKEN_URI }}"
+      AUTH_OPEN_API_ID: "{{ AUTH_OPEN_API_ID }}"
+      AUTH_CALLBACK_URI: "{{ AUTH_CALLBACK_URI }}"
+      AUTH_LOGOUT_URI: "{{ AUTH_LOGOUT_URI }}"
+      AUTH_SCOPE_ADMIN: "{{ AUTH_SCOPE_ADMIN }}"
+      AUTH_SCOPE_SUPER_ADMIN: "{{ AUTH_SCOPE_SUPER_ADMIN }}"
+      AUTH_FINE_GRAINED_POLICY_PERMISSIONS: "{{ AUTH_FINE_GRAINED_POLICY_PERMISSIONS }}"
+  context-broker-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: local-context-broker
+      namespace: {{ SITE_NAMESPACE }}
+    type: Opaque
+    stringData:
+      ENABLE_FIWARE: "{{ ENABLE_FIWARE }}"
+      SMART_DATA_MODELS_SRC: "{{ SMART_DATA_MODELS_SRC }}"
+      DEFAULT_MAP_LOCATION: >-
+        {{ DEFAULT_MAP_LOCATION }}
+      DEFAULT_MAP_ZOOM: "{{ DEFAULT_MAP_ZOOM }}"
+      SOLR_SSL_FIWARE: "{{ SOLR_SSL_FIWARE }}"
+      SOLR_HOST_NAME_FIWARE: "{{ SOLR_HOST_NAME_FIWARE }}"
+      SOLR_PORT_FIWARE: "{{ SOLR_PORT_FIWARE }}"
+      SOLR_COLLECTION_FIWARE: "{{ SOLR_COLLECTION_FIWARE }}"
+      SOLR_URL_FIWARE: "{{ SOLR_URL_FIWARE }}"
+      ENABLE_CONTEXT_BROKER: "{{ ENABLE_CONTEXT_BROKER }}"
+      ENABLE_CONTEXT_BROKER_SEND: "{{ ENABLE_CONTEXT_BROKER_SEND }}"
+      CONTEXT_BROKER_NAMESPACE: "{{ CONTEXT_BROKER_NAMESPACE }}"
+      CONTEXT_BROKER_SSL: "{{ CONTEXT_BROKER_SSL }}"
+      CONTEXT_BROKER_HOST_NAME: "{{ CONTEXT_BROKER_HOST_NAME }}"
+      CONTEXT_BROKER_PORT: "{{ CONTEXT_BROKER_PORT }}"
+      CONTEXT_BROKER_DELAY_MILLIS: "{{ CONTEXT_BROKER_DELAY_MILLIS }}"
+      CONTEXT_BROKER_CONTEXT: "{{ CONTEXT_BROKER_CONTEXT }}"
+      NGSILD_BASE_URL: "{{ NGSILD_BASE_URL }}"
+      NGSILD_TENANT_ENV: "{{ NGSILD_TENANT_ENV }}"
+      NGSILD_PATH_ENV: "{{ NGSILD_PATH_ENV }}"
+      NGSILD_TENANT: "{{ NGSILD_TENANT }}"
+      NGSILD_PATH: "{{ NGSILD_PATH }}"
+  site-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: local-site
+      namespace: {{ SITE_NAMESPACE }}
+    type: Opaque
+    stringData:
+      OVERLAY_SITE_PATH: "{{ OVERLAY_SITE_PATH }}"
+      OPENSHIFT_APPS_DOMAIN: "{{ OPENSHIFT_APPS_DOMAIN }}"
+      USING_OPENSHIFT_AI: "{{ USING_OPENSHIFT_AI }}"
+      OPENSHIFT_AI_WORKBENCH: "{{ OPENSHIFT_AI_WORKBENCH }}"
+      WORKBENCH_ADMIN: "{{ WORKBENCH_ADMIN }}"
+      SITE_NAME: "{{ SITE_NAME }}"
+      SITE_SRC: "{{ SITE_SRC }}"
+      PARENT_SRC: "{{ PARENT_SRC }}"
+      VARS_FILENAME: "{{ VARS_FILENAME }}"
+      VARS_PATH: "{{ VARS_PATH }}"
+      SITE_SHORT_NAME: "{{ SITE_SHORT_NAME }}"
+      SITE_DISPLAY_NAME: "{{ SITE_DISPLAY_NAME }}"
+      SITE_DESCRIPTION: "{{ SITE_DESCRIPTION }}"
+      SITE_NAMESPACE: "{{ SITE_NAMESPACE }}"
+      SITE_LOCALE: "{{ SITE_LOCALE }}"
+      SITE_LANG: "{{ SITE_LANG }}"
+      SITE_ZONE: "{{ SITE_ZONE }}"
+      DOMAIN_NAME: "{{ DOMAIN_NAME }}"
+      GITHUB_ORG: "{{ GITHUB_ORG }}"
+      SITE_REPO: "{{ SITE_REPO }}"
+      SITE_REPO_HTTPS: "{{ SITE_REPO_HTTPS }}"
+      SITE_PORT: "{{ SITE_PORT }}"
+      SITE_HOST_NAME: "{{ SITE_HOST_NAME }}"
+      SITE_BASE_URL: "{{ SITE_BASE_URL }}"
+      SITE_PUBLIC_URL: "{{ SITE_PUBLIC_URL }}"
+      CLUSTER_PORT: "{{ CLUSTER_PORT }}"
+      CLUSTER_PUBLIC_PORT: "{{ CLUSTER_PUBLIC_PORT }}"
+      ZOOKEEPER_ROOT_PATH: "{{ ZOOKEEPER_ROOT_PATH }}"
+      SSL_VERIFY: "{{ SSL_VERIFY }}"
+      PUBLIC_SEARCH_URI: "{{ PUBLIC_SEARCH_URI }}"
+      USER_SEARCH_URI: "{{ USER_SEARCH_URI }}"
+      MAILING_LIST_URL: "{{ MAILING_LIST_URL }}"
+      MAILING_LIST_EMAIL: "{{ MAILING_LIST_EMAIL }}"
+      API_VERSION: "{{ API_VERSION }}"
+      API_TITLE: "{{ API_TITLE }}"
+      API_CONTACT_EMAIL: "{{ API_CONTACT_EMAIL }}"
+      SITE_POM_GROUP_ID: "{{ SITE_POM_GROUP_ID }}"
+      SITE_POM_ARTIFACT_ID: "{{ SITE_POM_ARTIFACT_ID }}"
+      SITE_POM_VERSION: "{{ SITE_POM_VERSION }}"
+      SITE_JAVA_PACKAGE: "{{ SITE_JAVA_PACKAGE }}"
+      SITE_MAIN_VERTICLE_PACKAGE: "{{ SITE_MAIN_VERTICLE_PACKAGE }}"
+      SITE_CONFIG_KEYS_PACKAGE: "{{ SITE_CONFIG_KEYS_PACKAGE }}"
+      SITE_REQUEST_PACKAGE: "{{ SITE_REQUEST_PACKAGE }}"
+      SITE_BASE_MODEL_PACKAGE: "{{ SITE_BASE_MODEL_PACKAGE }}"
+      SITE_BASE_RESULT_PACKAGE: "{{ SITE_BASE_RESULT_PACKAGE }}"
+      SITE_PAGE_LAYOUT_PACKAGE: "{{ SITE_PAGE_LAYOUT_PACKAGE }}"
+      SITE_PAGE_READER_PACKAGE: "{{ SITE_PAGE_READER_PACKAGE }}"
+      SITE_USER_PACKAGE: "{{ SITE_USER_PACKAGE }}"
+      SUFFIX_SRC_MAIN_JAVA: "{{ SUFFIX_SRC_MAIN_JAVA }}"
+      SUFFIX_SRC_GEN_JAVA: "{{ SUFFIX_SRC_GEN_JAVA }}"
+      RELATIVE_PATHS_TO_WATCH: "{{ RELATIVE_PATHS_TO_WATCH }}"
+      COMPUTATE_SRC: "{{ COMPUTATE_SRC }}"
+      COMPUTATE_SEARCH_SRC: "{{ COMPUTATE_SEARCH_SRC }}"
+      COMPUTATE_VERTX_SRC: "{{ COMPUTATE_VERTX_SRC }}"
+      I18N_PATHS: "{{ I18N_PATHS }}"
+      JAVA_MAIN_CLASS: "{{ JAVA_MAIN_CLASS }}"
+      ENABLE_VERTX: "{{ ENABLE_VERTX }}"
+      ENABLE_QUARKUS: "{{ ENABLE_QUARKUS }}"
+      ENABLE_WORKER_VERTICLE: "{{ ENABLE_WORKER_VERTICLE }}"
+      SITE_INSTANCES: "{{ SITE_INSTANCES }}"
+      WORKER_POOL_SIZE: "{{ WORKER_POOL_SIZE }}"
+      VERTX_MAX_EVENT_LOOP_EXECUTE_TIME: "{{ VERTX_MAX_EVENT_LOOP_EXECUTE_TIME }}"
+      VERTX_MAX_WORKER_EXECUTE_TIME: "{{ VERTX_MAX_WORKER_EXECUTE_TIME }}"
+      VERTX_WARNING_EXCEPTION_SECONDS: "{{ VERTX_WARNING_EXCEPTION_SECONDS }}"
+      NUMBER_EXECUTORS: "{{ NUMBER_EXECUTORS }}"
+      SITE_LICENSE_NAME: "{{ SITE_LICENSE_NAME }}"
+      SITE_LICENSE_URL: "{{ SITE_LICENSE_URL }}"
+      CONTAINER_REGISTRY: "{{ CONTAINER_REGISTRY }}"
+      CONTAINER_ORG: "{{ CONTAINER_ORG }}"
+      CONTAINER_NAME: "{{ CONTAINER_NAME }}"
+      CONTAINER_VERSION: "{{ CONTAINER_VERSION }}"
+      CONTAINER_URI: "{{ CONTAINER_URI }}"
+      SITE_LOGO_URI: "{{ SITE_LOGO_URI }}"
+      SITE_STATIC_NAME: "{{ SITE_STATIC_NAME }}"
+      SITE_STATIC_REPO: "{{ SITE_STATIC_REPO }}"
+      STATIC_BASE_URL: "{{ STATIC_BASE_URL }}"
+      STATIC_PATH: "{{ STATIC_PATH }}"
+      TEMPLATE_PATH: "{{ TEMPLATE_PATH }}"
+      DEVELOPER_NAME: "{{ DEVELOPER_NAME }}"
+      DEVELOPER_ORG_NAME: "{{ DEVELOPER_ORG_NAME }}"
+      DEVELOPER_ORG_URL: "{{ DEVELOPER_ORG_URL }}"
+      ENABLE_SYSTEMD: "{{ ENABLE_SYSTEMD }}"
+      SITE_SERVICE: "{{ SITE_SERVICE }}"
+      SITE_POWERED_BY_NAME: "{{ SITE_POWERED_BY_NAME }}"
+      SITE_POWERED_BY_URL: "{{ SITE_POWERED_BY_URL }}"
+      SITE_POWERED_BY_IMAGE: >-
+        {{ SITE_POWERED_BY_IMAGE }}
+      SITE_REQUESTS_MEMORY: "{{ SITE_REQUESTS_MEMORY }}"
+      SITE_LIMITS_MEMORY: "{{ SITE_LIMITS_MEMORY }}"
+      SITE_REQUESTS_CPU: "{{ SITE_REQUESTS_CPU }}"
+      SITE_LIMITS_CPU: "{{ SITE_LIMITS_CPU }}"
+      SITE_REPLICAS: "{{ SITE_REPLICAS }}"
+      ENABLE_IMPORT_DATA: "{{ ENABLE_IMPORT_DATA }}"
+      ENABLE_ZOOKEEPER_CLUSTER: "{{ ENABLE_ZOOKEEPER_CLUSTER }}"
+      ENABLE_OPEN_TELEMETRY: "{{ ENABLE_OPEN_TELEMETRY }}"
+      ENABLE_LOGIN: "{{ ENABLE_LOGIN }}"
+      ENABLE_CODE_GENERATION_SERVICE: "{{ ENABLE_CODE_GENERATION_SERVICE }}"
+      ENABLE_USER_KEY: "{{ ENABLE_USER_KEY }}"
+      ENABLE_SESSION_ID: "{{ ENABLE_SESSION_ID }}"
+      ENABLE_ARCHIVED: "{{ ENABLE_ARCHIVED }}"
+      ENABLE_ROLE_ADMIN: "{{ ENABLE_ROLE_ADMIN }}"
+      ENABLE_ROLE_SUPER_ADMIN: "{{ ENABLE_ROLE_SUPER_ADMIN }}"
+      ENABLE_OPENID_CONNECT: "{{ ENABLE_OPENID_CONNECT }}"
+      ENABLE_AWESOME_EFFECTS: "{{ ENABLE_AWESOME_EFFECTS }}"
+      WRITE_API: "{{ WRITE_API }}"
+      WRITE_COMMENTS: "{{ WRITE_COMMENTS }}"
+      PLAQUEMINES_PARISH_API_PORT: "{{ PLAQUEMINES_PARISH_API_PORT }}"
+      PLAQUEMINES_PARISH_API_SSL: "{{ PLAQUEMINES_PARISH_API_SSL }}"
+      PLAQUEMINES_PARISH_API_HOST_NAME: "{{ PLAQUEMINES_PARISH_API_HOST_NAME }}"
+      ARCGIS_API_PORT: "{{ ARCGIS_API_PORT }}"
+      ARCGIS_API_SSL: "{{ ARCGIS_API_SSL }}"
+      ARCGIS_API_HOST_NAME: "{{ ARCGIS_API_HOST_NAME }}"
+  font-awesome-secret.yaml: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: local-font-awesome
+      namespace: {{ SITE_NAMESPACE }}
+    type: Opaque
+    stringData:
+      WEB_COMPONENTS_SECRET: "{{ WEB_COMPONENTS_SECRET }}"
+      WEB_COMPONENTS_PREFIX: "{{ WEB_COMPONENTS_PREFIX }}"
+      WEB_COMPONENTS_JS: >-
+        {{ WEB_COMPONENTS_JS }}
+      WEB_COMPONENTS_CSS: >-
+        {{ WEB_COMPONENTS_CSS }}
+      FONTAWESOME_KIT: "{{ FONTAWESOME_KIT }}"
+      FONTAWESOME_STYLE: "{{ FONTAWESOME_STYLE }}"
+      SITE_THEME: "{{ SITE_THEME }}"
