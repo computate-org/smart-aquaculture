@@ -5,4 +5,4 @@ resources:
   - database-setup/
   - solr-setup/
   - local-setup/
-#  - smart-aquaculture/
+  - smart-aquaculture/

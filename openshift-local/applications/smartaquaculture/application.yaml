@@ -9,9 +9,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/computate-org/computate-gitops.git
+    repoURL: https://github.com/computate-org/smart-aquaculture.git
     targetRevision: HEAD
-    path: openshift-local/smartaquaculture/base/
+    path: openshift-local/base/
   destination:
     namespace: smartaquaculture
     server: 'https://kubernetes.default.svc'
