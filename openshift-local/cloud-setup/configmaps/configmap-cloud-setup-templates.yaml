@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: local-setup-templates
+  name: cloud-setup-templates
   namespace: smartaquaculture
 data:
   keycloak-redirect-uris.yaml: |
@@ -47,7 +47,7 @@ data:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: local-zookeeper
+      name: cloud-zookeeper
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:
@@ -63,7 +63,7 @@ data:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: local-solr
+      name: cloud-solr
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:
@@ -88,7 +88,7 @@ data:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: local-database
+      name: cloud-database
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:
@@ -106,7 +106,7 @@ data:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: local-auth
+      name: cloud-auth
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:
@@ -134,7 +134,7 @@ data:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: local-context-broker
+      name: cloud-context-broker
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:
@@ -165,7 +165,7 @@ data:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: local-site
+      name: cloud-site
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:
@@ -177,8 +177,6 @@ data:
       SITE_NAME: "{{ SITE_NAME }}"
       SITE_SRC: "{{ SITE_SRC }}"
       PARENT_SRC: "{{ PARENT_SRC }}"
-      VARS_FILENAME: "{{ VARS_FILENAME }}"
-      VARS_PATH: "{{ VARS_PATH }}"
       SITE_SHORT_NAME: "{{ SITE_SHORT_NAME }}"
       SITE_DISPLAY_NAME: "{{ SITE_DISPLAY_NAME }}"
       SITE_DESCRIPTION: "{{ SITE_DESCRIPTION }}"
@@ -285,7 +283,7 @@ data:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: local-font-awesome
+      name: cloud-font-awesome
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:

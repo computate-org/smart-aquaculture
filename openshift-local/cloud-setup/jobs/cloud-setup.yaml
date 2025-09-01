@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cloud-setup
+  namespace: smartaquaculture
+spec:
+  backoffLimit: 1000
+  template:
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: cloud-setup
+      volumes:
+        - name: cloud-setup-playbook
+          configMap:
+            name: cloud-setup-playbook
+        - name: cloud-setup-defaults
+          configMap:
+            name: cloud-setup-defaults
+        - name: cloud-setup-templates
+          configMap:
+            name: cloud-setup-templates
+        - name: cloud-setup-tasks
+          configMap:
+            name: cloud-setup-tasks
+        - name: home
+          emptyDir: {}
+        - name: ansible-tmp
+          emptyDir: {}
+      containers:
+        - name: cloud-setup
+          image: quay.io/nerc-images/keycloak-ansible:ansible-collection-upgrade
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: cloud-setup-playbook
+              mountPath: /home/ansible/.ansible/playbooks/
+            - name: cloud-setup-tasks
+              mountPath: /home/ansible/.ansible/roles/cloud-setup/tasks/
+            - name: cloud-setup-defaults
+              mountPath: /home/ansible/.ansible/roles/cloud-setup/defaults/
+            - name: cloud-setup-templates
+              mountPath: /home/ansible/.ansible/roles/cloud-setup/templates/
+            - name: home
+              mountPath: /home/ansible
+            - name: ansible-tmp
+              mountPath: /home/ansible/.ansible/tmp/
+          env:
+            - name: ANSIBLE_ROLES_PATH
+              value: /home/ansible/.ansible/roles
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command: ["/bin/bash", "-c", "--"]
+          args:
+            - |
+                ansible-playbook /home/ansible/.ansible/playbooks/cloud-setup.yaml

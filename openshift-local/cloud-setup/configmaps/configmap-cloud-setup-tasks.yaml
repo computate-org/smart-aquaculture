@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloud-setup-tasks
+  namespace: smartaquaculture
+data:
+  main.yaml: |
+    ---
+
+    - name: Get a new Keycloak client secret, passing client_id instead of id
+      community.general.keycloak_clientsecret_info:
+        validate_certs: false
+        auth_client_id: admin-cli
+        auth_keycloak_url: "{{ AUTH_URL }}"
+        auth_realm: master
+        auth_username: "{{ AUTH_ADMIN_USERNAME }}"
+        auth_password: "{{ AUTH_ADMIN_PASSWORD }}"
+        client_id: '{{ AUTH_CLIENT }}'
+        realm: "{{ AUTH_REALM }}"
+      register: AUTH_CLIENT_SECRET
+    - name: Set AUTH_SECRET variable
+      set_fact:
+        AUTH_SECRET: "{{ AUTH_CLIENT_SECRET.clientsecret_info.value }}"
+
+    - name: "Create a zookeeper secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'zookeeper-secret.yaml') }}"
+        validate_certs: false
+    - name: "Create a solr secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'solr-secret.yaml') }}"
+        validate_certs: false
+    - name: "Create a database secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'database-secret.yaml') }}"
+        validate_certs: false
+    - name: "Create a auth secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'auth-secret.yaml') }}"
+        validate_certs: false
+    - name: "Create a context-broker secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'context-broker-secret.yaml') }}"
+        validate_certs: false
+    - name: "Create a site secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'site-secret.yaml') }}"
+        validate_certs: false
+    - name: "Create a font-awesome secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'font-awesome-secret.yaml') }}"
+        validate_certs: false
+      when: query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | length == 0

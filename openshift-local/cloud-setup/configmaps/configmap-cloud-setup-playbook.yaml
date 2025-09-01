@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloud-setup-playbook
+  namespace: smartaquaculture
+data:
+  cloud-setup.yaml: |
+    ---
+    - name: cloud-setup
+      hosts: localhost
+      connection: local
+      gather_facts: false
+      roles:
+        - cloud-setup

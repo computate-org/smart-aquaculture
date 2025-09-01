@@ -44,19 +44,19 @@ spec:
           value: 00:53 America/Denver
         envFrom:
         - secretRef:
-            name: smartaquaculture-zookeeper
+            name: cloud-zookeeper
         - secretRef:
-            name: smartaquaculture-solr
+            name: cloud-solr
         - secretRef:
-            name: smartaquaculture-database
+            name: cloud-database
         - secretRef:
-            name: smartaquaculture-auth
+            name: cloud-auth
         - secretRef:
-            name: smartaquaculture-context-broker
+            name: cloud-context-broker
         - secretRef:
-            name: smartaquaculture-site
+            name: cloud-site
         - secretRef:
-            name: font-awesome
+            name: cloud-font-awesome
         image: quay.io/computateorg/smart-aquaculture:latest
         imagePullPolicy: Always
         livenessProbe:
