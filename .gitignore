@@ -1,3 +1,5 @@
+computate-smart-website-builder/
+computate-smart-cloud-deployer/
 target/**
 .flattened-pom.xml
 .vscode
