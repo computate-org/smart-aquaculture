@@ -6,8 +6,10 @@ metadata:
 data:
   keycloak-redirect-uris.yaml: |
     - "https://oauth-openshift.{{ OPENSHIFT_APPS_DOMAIN }}/oauth2callback/Keycloak"
-    - "http://{{ SITE_HOST_NAME }}:{{ SITE_PORT }}/callback"
-    - "http://{{ SITE_HOST_NAME }}:{{ SITE_PORT }}/logout"
+    - "https://{{ SITE_HOST_NAME }}/callback"
+    - "https://{{ SITE_HOST_NAME }}/logout"
+    - "http://localhost:{{ SITE_PORT }}/callback"
+    - "http://localhost:{{ SITE_PORT }}/logout"
   oauthclient.yaml: |
     kind: OAuthClient
     apiVersion: oauth.openshift.io/v1

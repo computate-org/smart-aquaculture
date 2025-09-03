@@ -4,10 +4,6 @@ metadata:
   name: local-setup-templates
   namespace: smartaquaculture
 data:
-  keycloak-redirect-uris.yaml: |
-    - "https://oauth-openshift.{{ OPENSHIFT_APPS_DOMAIN }}/oauth2callback/Keycloak"
-    - "http://{{ SITE_HOST_NAME }}:{{ SITE_PORT }}/callback"
-    - "http://{{ SITE_HOST_NAME }}:{{ SITE_PORT }}/logout"
   oauthclient.yaml: |
     kind: OAuthClient
     apiVersion: oauth.openshift.io/v1
