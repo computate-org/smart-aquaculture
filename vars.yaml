@@ -323,7 +323,7 @@ DATABASE_USERNAME: "{{ lookup('env', 'DATABASE_USERNAME_' + SITE_SHORT_NAME) | d
 # The database secret containing the user password to connect to the database. 
 DATABASE_SECRET: "local-database"
 # The PostgreSQL database password of the site. 
-DATABASE_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(DATABASE_SECRET), namespace=SITE_NAMESPACE)[0].data.DATABASE_PASSWORD | b64decode }}"
+DATABASE_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=DATABASE_SECRET, namespace=SITE_NAMESPACE)[0].data.DATABASE_PASSWORD | b64decode }}"
 # The PostgreSQL database name of the site. 
 DATABASE_DATABASE: "{{ lookup('env', 'DATABASE_DATABASE_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
 # The PostgreSQL database max pool size. 
@@ -356,13 +356,13 @@ AUTH_CLIENT: "{{ lookup('env', 'AUTH_CLIENT_' + SITE_SHORT_NAME) | default(SITE_
 # The Auth openshift secret with the client secret credentials. 
 AUTH_OPENSHIFT_SECRET: "local-auth"
 # The Auth secret. 
-AUTH_SECRET: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=(AUTH_OPENSHIFT_SECRET), namespace=SITE_NAMESPACE)[0].data.AUTH_SECRET | b64decode }}"
+AUTH_SECRET: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_OPENSHIFT_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.AUTH_SECRET | b64decode }}"
 # The Auth openshift secret with the admin credentials. 
 AUTH_ADMIN_OPENSHIFT_SECRET: "local-auth"
 # The Auth admin username. 
 AUTH_ADMIN_USERNAME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.AUTH_ADMIN_USERNAME | b64decode | default('admin') }}"
 # The Auth admin password. 
-AUTH_ADMIN_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=SITE_NAMESPACE)[0].data.AUTH_ADMIN_PASSWORD | b64decode }}"
+AUTH_ADMIN_PASSWORD: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.AUTH_ADMIN_PASSWORD | b64decode }}"
 # The Auth URL. 
 AUTH_URL: "https://{{ AUTH_HOST_NAME }}"
 # The Auth URL to retrieve tokens. 
