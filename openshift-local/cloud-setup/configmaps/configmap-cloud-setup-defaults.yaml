@@ -193,16 +193,13 @@ data:
     WEB_COMPONENTS_SECRET: "cloud-font-awesome"
     # Switch between Shoelace "sl-" and Web Awesome "wa-" element prefixes. 
     WEB_COMPONENTS_PREFIX: wa-
-    # An optional link element to either a Shoelace web components JavaScript or a Web Awesome Backer web components JavaScript. 
-    WEB_COMPONENTS_JS: >-
-      <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.4/dist/webawesome.loader.js"></script>
-    WEB_COMPONENTS_CSS: >-
-      <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.4/dist/styles/webawesome.css" />
-    FONTAWESOME_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_KIT | default('', true) | b64decode | default('', true) }}"
+    # Web components default theme. 
+    WEB_COMPONENTS_THEME: glossy
+    FONTAWESOME_KIT: ""
     # A default FontAwesome style. 
-    FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('fa-duotone fa-regular ', true) }}"
+    FONTAWESOME_STYLE: "fa-regular "
     # Site default theme, light or dark. 
-    SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('', true) | b64decode | default('dark', true) }}"
+    SITE_THEME: dark
     # The site logo relative URI
     SITE_LOGO_URI: "/svg/logo-{{ SITE_THEME }}.svg"
     # The name of the repository containing the web static content. 

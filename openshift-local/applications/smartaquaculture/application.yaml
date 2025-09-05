@@ -27,8 +27,3 @@ spec:
         duration: 30s # Initial duration
         factor: 2 # Factor to multiply duration by on each retry
         maxDuration: 5m # Maximum duration between retries
-    syncOptions:
-      - CreateNamespace=true
-    managedNamespaceMetadata:
-      labels:
-        database-engine-admin: 'true'
