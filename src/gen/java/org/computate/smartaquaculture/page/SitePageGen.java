@@ -35,6 +35,7 @@ import java.math.RoundingMode;
 import java.util.Map;
 import java.lang.Boolean;
 import java.lang.String;
+import java.math.BigDecimal;
 import java.lang.Integer;
 import org.computate.vertx.search.list.SearchList;
 import org.computate.smartaquaculture.page.SitePage;
@@ -799,6 +800,83 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
 	public static String staticSearchFqSiteBaseUrl(SiteRequest siteRequest_, String o) {
 		return SitePage.staticSearchSiteBaseUrl(siteRequest_, SitePage.staticSetSiteBaseUrl(siteRequest_, o)).toString();
+	}
+
+	////////////////
+	// importance //
+	////////////////
+
+
+	/**	 The entity importance
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonSerialize(using = ToStringSerializer.class)
+	@JsonInclude(Include.NON_NULL)
+	protected BigDecimal importance;
+
+	/**	<br> The entity importance
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:importance">Find the entity importance in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _importance(Wrap<BigDecimal> w);
+
+	public BigDecimal getImportance() {
+		return importance;
+	}
+
+	public void setImportance(BigDecimal importance) {
+		this.importance = importance;
+	}
+	@JsonIgnore
+	public void setImportance(String o) {
+		this.importance = SitePage.staticSetImportance(siteRequest_, o);
+	}
+	public static BigDecimal staticSetImportance(SiteRequest siteRequest_, String o) {
+		o = StringUtils.removeAll(o, "[^\\d\\.]");
+		if(NumberUtils.isParsable(o))
+			return new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP);
+		return null;
+	}
+	@JsonIgnore
+	public void setImportance(Double o) {
+		setImportance(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+	}
+	@JsonIgnore
+	public void setImportance(Integer o) {
+		setImportance(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+	}
+	@JsonIgnore
+	public void setImportance(Number o) {
+		setImportance(new BigDecimal(o.doubleValue(), MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+	}
+	protected SitePage importanceInit() {
+		Wrap<BigDecimal> importanceWrap = new Wrap<BigDecimal>().var("importance");
+		if(importance == null) {
+			_importance(importanceWrap);
+			Optional.ofNullable(importanceWrap.getO()).ifPresent(o -> {
+				setImportance(o);
+			});
+		}
+		return (SitePage)this;
+	}
+
+	public static Double staticSearchImportance(SiteRequest siteRequest_, BigDecimal o) {
+		return o == null ? null : o.doubleValue();
+	}
+
+	public static String staticSearchStrImportance(SiteRequest siteRequest_, Double o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqImportance(SiteRequest siteRequest_, String o) {
+		return SitePage.staticSearchImportance(siteRequest_, SitePage.staticSetImportance(siteRequest_, o)).toString();
+	}
+
+	public BigDecimal sqlImportance() {
+		return importance;
 	}
 
 	///////////////
@@ -1941,6 +2019,141 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		return SitePage.staticSearchNextArticles(siteRequest_, SitePage.staticSetNextArticles(siteRequest_, o)).toString();
 	}
 
+	//////////////////
+	// labelsString //
+	//////////////////
+
+
+	/**	 The entity labelsString
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String labelsString;
+
+	/**	<br> The entity labelsString
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:labelsString">Find the entity labelsString in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _labelsString(Wrap<String> w);
+
+	public String getLabelsString() {
+		return labelsString;
+	}
+	public void setLabelsString(String o) {
+		this.labelsString = SitePage.staticSetLabelsString(siteRequest_, o);
+	}
+	public static String staticSetLabelsString(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected SitePage labelsStringInit() {
+		Wrap<String> labelsStringWrap = new Wrap<String>().var("labelsString");
+		if(labelsString == null) {
+			_labelsString(labelsStringWrap);
+			Optional.ofNullable(labelsStringWrap.getO()).ifPresent(o -> {
+				setLabelsString(o);
+			});
+		}
+		return (SitePage)this;
+	}
+
+	public static String staticSearchLabelsString(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrLabelsString(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqLabelsString(SiteRequest siteRequest_, String o) {
+		return SitePage.staticSearchLabelsString(siteRequest_, SitePage.staticSetLabelsString(siteRequest_, o)).toString();
+	}
+
+	public String sqlLabelsString() {
+		return labelsString;
+	}
+
+	////////////
+	// labels //
+	////////////
+
+
+	/**	 The entity labels
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> labels = new ArrayList<String>();
+
+	/**	<br> The entity labels
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:labels">Find the entity labels in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _labels(List<String> l);
+
+	public List<String> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(List<String> labels) {
+		this.labels = labels;
+	}
+	@JsonIgnore
+	public void setLabels(String o) {
+		String l = SitePage.staticSetLabels(siteRequest_, o);
+		if(l != null)
+			addLabels(l);
+	}
+	public static String staticSetLabels(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public SitePage addLabels(String...objects) {
+		for(String o : objects) {
+			addLabels(o);
+		}
+		return (SitePage)this;
+	}
+	public SitePage addLabels(String o) {
+		if(o != null)
+			this.labels.add(o);
+		return (SitePage)this;
+	}
+	@JsonIgnore
+	public void setLabels(JsonArray objects) {
+		labels.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addLabels(o);
+		}
+	}
+	protected SitePage labelsInit() {
+		_labels(labels);
+		return (SitePage)this;
+	}
+
+	public static String staticSearchLabels(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrLabels(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqLabels(SiteRequest siteRequest_, String o) {
+		return SitePage.staticSearchLabels(siteRequest_, SitePage.staticSetLabels(siteRequest_, o)).toString();
+	}
+
+	public String[] sqlLabels() {
+		return labels.stream().map(v -> (String)v).toArray(String[]::new);
+	}
+
 	///////////////////////
 	// relatedArticleIds //
 	///////////////////////
@@ -2149,6 +2362,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				staticBaseUrlInit();
 				staticPathInit();
 				siteBaseUrlInit();
+				importanceInit();
 				courseNumInit();
 				lessonNumInit();
 				nameInit();
@@ -2199,6 +2413,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			Promise<Void> promise2 = Promise.promise();
 			try {
 				nextArticlesInit();
+				labelsStringInit();
+				labelsInit();
 				relatedArticleIdsInit();
 				promise2.complete();
 			} catch(Exception ex) {
@@ -2292,6 +2508,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				return oSitePage.staticPath;
 			case "siteBaseUrl":
 				return oSitePage.siteBaseUrl;
+			case "importance":
+				return oSitePage.importance;
 			case "courseNum":
 				return oSitePage.courseNum;
 			case "lessonNum":
@@ -2332,6 +2550,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				return oSitePage.nextArticleSearch;
 			case "nextArticles":
 				return oSitePage.nextArticles;
+			case "labelsString":
+				return oSitePage.labelsString;
+			case "labels":
+				return oSitePage.labels;
 			case "relatedArticleIds":
 				return oSitePage.relatedArticleIds;
 			case "relatedArticleSearch":
@@ -2399,6 +2621,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSetStaticPath(siteRequest_, v);
 		case "siteBaseUrl":
 			return SitePage.staticSetSiteBaseUrl(siteRequest_, v);
+		case "importance":
+			return SitePage.staticSetImportance(siteRequest_, v);
 		case "courseNum":
 			return SitePage.staticSetCourseNum(siteRequest_, v);
 		case "lessonNum":
@@ -2435,6 +2659,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSetNextArticleIds(siteRequest_, v);
 		case "nextArticles":
 			return SitePage.staticSetNextArticles(siteRequest_, v);
+		case "labelsString":
+			return SitePage.staticSetLabelsString(siteRequest_, v);
+		case "labels":
+			return SitePage.staticSetLabels(siteRequest_, v);
 		case "relatedArticleIds":
 			return SitePage.staticSetRelatedArticleIds(siteRequest_, v);
 		case "relatedArticles":
@@ -2475,6 +2703,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSearchStaticPath(siteRequest_, (String)o);
 		case "siteBaseUrl":
 			return SitePage.staticSearchSiteBaseUrl(siteRequest_, (String)o);
+		case "importance":
+			return SitePage.staticSearchImportance(siteRequest_, (BigDecimal)o);
 		case "courseNum":
 			return SitePage.staticSearchCourseNum(siteRequest_, (Integer)o);
 		case "lessonNum":
@@ -2511,6 +2741,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSearchNextArticleIds(siteRequest_, (String)o);
 		case "nextArticles":
 			return SitePage.staticSearchNextArticles(siteRequest_, (JsonArray)o);
+		case "labelsString":
+			return SitePage.staticSearchLabelsString(siteRequest_, (String)o);
+		case "labels":
+			return SitePage.staticSearchLabels(siteRequest_, (String)o);
 		case "relatedArticleIds":
 			return SitePage.staticSearchRelatedArticleIds(siteRequest_, (String)o);
 		case "relatedArticles":
@@ -2551,6 +2785,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSearchStrStaticPath(siteRequest_, (String)o);
 		case "siteBaseUrl":
 			return SitePage.staticSearchStrSiteBaseUrl(siteRequest_, (String)o);
+		case "importance":
+			return SitePage.staticSearchStrImportance(siteRequest_, (Double)o);
 		case "courseNum":
 			return SitePage.staticSearchStrCourseNum(siteRequest_, (Integer)o);
 		case "lessonNum":
@@ -2587,6 +2823,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSearchStrNextArticleIds(siteRequest_, (String)o);
 		case "nextArticles":
 			return SitePage.staticSearchStrNextArticles(siteRequest_, (String)o);
+		case "labelsString":
+			return SitePage.staticSearchStrLabelsString(siteRequest_, (String)o);
+		case "labels":
+			return SitePage.staticSearchStrLabels(siteRequest_, (String)o);
 		case "relatedArticleIds":
 			return SitePage.staticSearchStrRelatedArticleIds(siteRequest_, (String)o);
 		case "relatedArticles":
@@ -2627,6 +2867,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSearchFqStaticPath(siteRequest_, o);
 		case "siteBaseUrl":
 			return SitePage.staticSearchFqSiteBaseUrl(siteRequest_, o);
+		case "importance":
+			return SitePage.staticSearchFqImportance(siteRequest_, o);
 		case "courseNum":
 			return SitePage.staticSearchFqCourseNum(siteRequest_, o);
 		case "lessonNum":
@@ -2663,6 +2905,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return SitePage.staticSearchFqNextArticleIds(siteRequest_, o);
 		case "nextArticles":
 			return SitePage.staticSearchFqNextArticles(siteRequest_, o);
+		case "labelsString":
+			return SitePage.staticSearchFqLabelsString(siteRequest_, o);
+		case "labels":
+			return SitePage.staticSearchFqLabels(siteRequest_, o);
 		case "relatedArticleIds":
 			return SitePage.staticSearchFqRelatedArticleIds(siteRequest_, o);
 		case "relatedArticles":
@@ -2693,7 +2939,15 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	}
 	public Object persistSitePage(String var, Object val) {
 		String varLower = var.toLowerCase();
-			if("coursenum".equals(varLower)) {
+			if("importance".equals(varLower)) {
+				if(val instanceof String) {
+					setImportance((String)val);
+				} else if(val instanceof Number) {
+					setImportance(new BigDecimal(((Number)val).doubleValue()));
+				}
+				saves.add("importance");
+				return val;
+			} else if("coursenum".equals(varLower)) {
 				if(val instanceof Integer) {
 					setCourseNum((Integer)val);
 				} else {
@@ -2775,6 +3029,24 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				}
 				saves.add("nextArticleIds");
 				return val;
+			} else if("labelsstring".equals(varLower)) {
+				if(val instanceof String) {
+					setLabelsString((String)val);
+				}
+				saves.add("labelsString");
+				return val;
+			} else if("labels".equals(varLower)) {
+				if(val instanceof List<?>) {
+					((List<String>)val).stream().forEach(v -> addLabels(v));
+				} else if(val instanceof String[]) {
+					Arrays.asList((String[])val).stream().forEach(v -> addLabels((String)v));
+				} else if(val instanceof JsonArray) {
+					((JsonArray)val).stream().forEach(v -> addLabels(staticSetLabels(siteRequest_, v.toString())));
+				}
+				if(!saves.contains("labels")) {
+					saves.add("labels");
+				}
+				return val;
 			} else if("relatedarticleids".equals(varLower)) {
 				if(val instanceof String) {
 					setRelatedArticleIds((String)val);
@@ -2797,6 +3069,12 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		SitePage oSitePage = (SitePage)this;
 		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
 		if(saves != null) {
+
+			if(saves.contains("importance")) {
+				Double importance = (Double)doc.get("importance_docvalues_double");
+				if(importance != null)
+					oSitePage.setImportance(importance);
+			}
 
 			if(saves.contains("courseNum")) {
 				Integer courseNum = (Integer)doc.get("courseNum_docvalues_int");
@@ -2906,6 +3184,21 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 					oSitePage.setNextArticles(nextArticles);
 			}
 
+			if(saves.contains("labelsString")) {
+				String labelsString = (String)doc.get("labelsString_docvalues_string");
+				if(labelsString != null)
+					oSitePage.setLabelsString(labelsString);
+			}
+
+			if(saves.contains("labels")) {
+				List<String> labels = (List<String>)doc.get("labels_docvalues_strings");
+				if(labels != null) {
+					labels.stream().forEach( v -> {
+						oSitePage.labels.add(SitePage.staticSetLabels(siteRequest_, v));
+					});
+				}
+			}
+
 			if(saves.contains("relatedArticleIds")) {
 				String relatedArticleIds = (String)doc.get("relatedArticleIds_docvalues_string");
 				if(relatedArticleIds != null)
@@ -2923,6 +3216,9 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	}
 
 	public void indexSitePage(JsonObject doc) {
+		if(importance != null) {
+			doc.put("importance_docvalues_double", importance.doubleValue());
+		}
 		if(courseNum != null) {
 			doc.put("courseNum_docvalues_int", courseNum);
 		}
@@ -2977,6 +3273,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		if(nextArticles != null) {
 			doc.put("nextArticles_stored_string", nextArticles.toString());
 		}
+		if(labelsString != null) {
+			doc.put("labelsString_docvalues_string", labelsString);
+		}
+		if(labels != null) {
+			JsonArray l = new JsonArray();
+			doc.put("labels_docvalues_strings", l);
+			for(String o : labels) {
+				l.add(SitePage.staticSearchLabels(siteRequest_, o));
+			}
+		}
 		if(relatedArticleIds != null) {
 			doc.put("relatedArticleIds_docvalues_string", relatedArticleIds);
 		}
@@ -2989,6 +3295,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
 	public static String varStoredSitePage(String entityVar) {
 		switch(entityVar) {
+			case "importance":
+				return "importance_docvalues_double";
 			case "courseNum":
 				return "courseNum_docvalues_int";
 			case "lessonNum":
@@ -3025,6 +3333,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				return "nextArticleIds_docvalues_string";
 			case "nextArticles":
 				return "nextArticles_stored_string";
+			case "labelsString":
+				return "labelsString_docvalues_string";
+			case "labels":
+				return "labels_docvalues_strings";
 			case "relatedArticleIds":
 				return "relatedArticleIds_docvalues_string";
 			case "relatedArticles":
@@ -3036,6 +3348,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
 	public static String varIndexedSitePage(String entityVar) {
 		switch(entityVar) {
+			case "importance":
+				return "importance_docvalues_double";
 			case "courseNum":
 				return "courseNum_docvalues_int";
 			case "lessonNum":
@@ -3068,6 +3382,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				return "prerequisiteArticleIds_docvalues_string";
 			case "nextArticleIds":
 				return "nextArticleIds_docvalues_string";
+			case "labelsString":
+				return "labelsString_docvalues_string";
+			case "labels":
+				return "labels_docvalues_strings";
 			case "relatedArticleIds":
 				return "relatedArticleIds_docvalues_string";
 			default:
@@ -3077,6 +3395,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
 	public static String searchVarSitePage(String searchVar) {
 		switch(searchVar) {
+			case "importance_docvalues_double":
+				return "importance";
 			case "courseNum_docvalues_int":
 				return "courseNum";
 			case "lessonNum_docvalues_int":
@@ -3109,6 +3429,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				return "prerequisiteArticleIds";
 			case "nextArticleIds_docvalues_string":
 				return "nextArticleIds";
+			case "labelsString_docvalues_string":
+				return "labelsString";
+			case "labels_docvalues_strings":
+				return "labels";
 			case "relatedArticleIds_docvalues_string":
 				return "relatedArticleIds";
 			default:
@@ -3141,6 +3465,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		SitePage oSitePage = (SitePage)this;
 		SiteRequest siteRequest = oSitePage.getSiteRequest_();
 
+		oSitePage.setImportance(Optional.ofNullable(doc.get("importance_docvalues_double")).map(v -> v.toString()).orElse(null));
 		oSitePage.setCourseNum(Optional.ofNullable(doc.get("courseNum_docvalues_int")).map(v -> v.toString()).orElse(null));
 		oSitePage.setLessonNum(Optional.ofNullable(doc.get("lessonNum_docvalues_int")).map(v -> v.toString()).orElse(null));
 		oSitePage.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
@@ -3159,6 +3484,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		oSitePage.setPrerequisiteArticles(Optional.ofNullable(doc.get("prerequisiteArticles_stored_string")).map(v -> v.toString()).orElse(null));
 		oSitePage.setNextArticleIds(Optional.ofNullable(doc.get("nextArticleIds_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oSitePage.setNextArticles(Optional.ofNullable(doc.get("nextArticles_stored_string")).map(v -> v.toString()).orElse(null));
+		oSitePage.setLabelsString(Optional.ofNullable(doc.get("labelsString_docvalues_string")).map(v -> v.toString()).orElse(null));
+		Optional.ofNullable((List<?>)doc.get("labels_docvalues_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oSitePage.addLabels(SitePage.staticSetLabels(siteRequest, v.toString()));
+		});
 		oSitePage.setRelatedArticleIds(Optional.ofNullable(doc.get("relatedArticleIds_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oSitePage.setRelatedArticles(Optional.ofNullable(doc.get("relatedArticles_stored_string")).map(v -> v.toString()).orElse(null));
 
@@ -3174,6 +3503,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
 		if(o != null && o instanceof SitePage) {
 			SitePage original = (SitePage)o;
+			if(!Objects.equals(importance, original.getImportance()) && importance != null && original.getImportance() != null && importance.compareTo(original.getImportance()) != 0)
+				apiRequest.addVars("importance");
 			if(!Objects.equals(courseNum, original.getCourseNum()))
 				apiRequest.addVars("courseNum");
 			if(!Objects.equals(lessonNum, original.getLessonNum()))
@@ -3210,6 +3541,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 				apiRequest.addVars("nextArticleIds");
 			if(!Objects.equals(nextArticles, original.getNextArticles()))
 				apiRequest.addVars("nextArticles");
+			if(!Objects.equals(labelsString, original.getLabelsString()))
+				apiRequest.addVars("labelsString");
+			if(!Objects.equals(labels, original.getLabels()))
+				apiRequest.addVars("labels");
 			if(!Objects.equals(relatedArticleIds, original.getRelatedArticleIds()))
 				apiRequest.addVars("relatedArticleIds");
 			if(!Objects.equals(relatedArticles, original.getRelatedArticles()))
@@ -3225,6 +3560,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	@Override public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
+		sb.append(Optional.ofNullable(importance).map(v -> "importance: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(courseNum).map(v -> "courseNum: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(lessonNum).map(v -> "lessonNum: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
@@ -3243,6 +3579,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		sb.append(Optional.ofNullable(prerequisiteArticles).map(v -> "prerequisiteArticles: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(nextArticleIds).map(v -> "nextArticleIds: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(nextArticles).map(v -> "nextArticles: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(labelsString).map(v -> "labelsString: \"" + v + "\"\n" ).orElse(""));
+		sb.append(Optional.ofNullable(labels).map(v -> "labels: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(relatedArticleIds).map(v -> "relatedArticleIds: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(relatedArticles).map(v -> "relatedArticles: " + v + "\n").orElse(""));
 		return sb.toString();
@@ -3266,6 +3604,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	public static final String VAR_staticBaseUrl = "staticBaseUrl";
 	public static final String VAR_staticPath = "staticPath";
 	public static final String VAR_siteBaseUrl = "siteBaseUrl";
+	public static final String VAR_importance = "importance";
 	public static final String VAR_courseNum = "courseNum";
 	public static final String VAR_lessonNum = "lessonNum";
 	public static final String VAR_name = "name";
@@ -3286,6 +3625,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	public static final String VAR_nextArticleIds = "nextArticleIds";
 	public static final String VAR_nextArticleSearch = "nextArticleSearch";
 	public static final String VAR_nextArticles = "nextArticles";
+	public static final String VAR_labelsString = "labelsString";
+	public static final String VAR_labels = "labels";
 	public static final String VAR_relatedArticleIds = "relatedArticleIds";
 	public static final String VAR_relatedArticleSearch = "relatedArticleSearch";
 	public static final String VAR_relatedArticles = "relatedArticles";
@@ -3302,6 +3643,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		return SitePage.varsFqSitePage(new ArrayList<String>());
 	}
 	public static List<String> varsFqSitePage(List<String> vars) {
+		vars.add(VAR_importance);
 		vars.add(VAR_courseNum);
 		vars.add(VAR_lessonNum);
 		vars.add(VAR_authorName);
@@ -3316,6 +3658,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		return SitePage.varsRangeSitePage(new ArrayList<String>());
 	}
 	public static List<String> varsRangeSitePage(List<String> vars) {
+		vars.add(VAR_importance);
 		vars.add(VAR_courseNum);
 		vars.add(VAR_lessonNum);
 		BaseResult.varsRangeBaseResult(vars);
@@ -3333,6 +3676,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	public static final String DISPLAY_NAME_staticBaseUrl = "";
 	public static final String DISPLAY_NAME_staticPath = "";
 	public static final String DISPLAY_NAME_siteBaseUrl = "";
+	public static final String DISPLAY_NAME_importance = "importance";
 	public static final String DISPLAY_NAME_courseNum = "Course Number";
 	public static final String DISPLAY_NAME_lessonNum = "Lesson Number";
 	public static final String DISPLAY_NAME_name = "title";
@@ -3353,6 +3697,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	public static final String DISPLAY_NAME_nextArticleIds = "next article IDs";
 	public static final String DISPLAY_NAME_nextArticleSearch = "";
 	public static final String DISPLAY_NAME_nextArticles = "next articles";
+	public static final String DISPLAY_NAME_labelsString = "labels string";
+	public static final String DISPLAY_NAME_labels = "labels";
 	public static final String DISPLAY_NAME_relatedArticleIds = "related article IDs";
 	public static final String DISPLAY_NAME_relatedArticleSearch = "";
 	public static final String DISPLAY_NAME_relatedArticles = "related articles";
@@ -3429,6 +3775,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return DISPLAY_NAME_staticPath;
 		case VAR_siteBaseUrl:
 			return DISPLAY_NAME_siteBaseUrl;
+		case VAR_importance:
+			return DISPLAY_NAME_importance;
 		case VAR_courseNum:
 			return DISPLAY_NAME_courseNum;
 		case VAR_lessonNum:
@@ -3469,6 +3817,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return DISPLAY_NAME_nextArticleSearch;
 		case VAR_nextArticles:
 			return DISPLAY_NAME_nextArticles;
+		case VAR_labelsString:
+			return DISPLAY_NAME_labelsString;
+		case VAR_labels:
+			return DISPLAY_NAME_labels;
 		case VAR_relatedArticleIds:
 			return DISPLAY_NAME_relatedArticleIds;
 		case VAR_relatedArticleSearch:
@@ -3484,6 +3836,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 		if(var == null)
 			return null;
 		switch(var) {
+		case VAR_importance:
+			return "The importance of this page. ";
 		case VAR_courseNum:
 			return "The course number for this page. ";
 		case VAR_lessonNum:
@@ -3520,6 +3874,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return "The next article IDs comma-separated. ";
 		case VAR_nextArticles:
 			return "A JSON array of next articles. ";
+		case VAR_labelsString:
+			return "The labels String for this article comma-separated. ";
+		case VAR_labels:
+			return "The labels for this article. ";
 		case VAR_relatedArticleIds:
 			return "The related article IDs comma-separated. ";
 		case VAR_relatedArticles:
@@ -3553,6 +3911,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return "String";
 		case VAR_siteBaseUrl:
 			return "String";
+		case VAR_importance:
+			return "BigDecimal";
 		case VAR_courseNum:
 			return "Integer";
 		case VAR_lessonNum:
@@ -3593,6 +3953,10 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 			return "SearchList";
 		case VAR_nextArticles:
 			return "JsonArray";
+		case VAR_labelsString:
+			return "String";
+		case VAR_labels:
+			return "List";
 		case VAR_relatedArticleIds:
 			return "String";
 		case VAR_relatedArticleSearch:

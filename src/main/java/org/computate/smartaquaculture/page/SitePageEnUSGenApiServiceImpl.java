@@ -1137,7 +1137,8 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		});
 	}
 
-	public void searchpageSitePagePageInit(SitePagePage page, SearchList<SitePage> listSitePage) {
+	public void searchpageSitePagePageInit(SitePagePage page, SearchList<SitePage> listSitePage, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateSearchPageSitePage(ServiceRequest serviceRequest) {
@@ -1164,9 +1165,15 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					searchpageSitePagePageInit(page, listSitePage, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200SearchPageSitePage failed. "), ex);
 					promise.fail(ex);
@@ -1296,7 +1303,8 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		});
 	}
 
-	public void editpageSitePagePageInit(SitePagePage page, SearchList<SitePage> listSitePage) {
+	public void editpageSitePagePageInit(SitePagePage page, SearchList<SitePage> listSitePage, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateEditPageSitePage(ServiceRequest serviceRequest) {
@@ -1323,9 +1331,15 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					editpageSitePagePageInit(page, listSitePage, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200EditPageSitePage failed. "), ex);
 					promise.fail(ex);
@@ -1418,7 +1432,8 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		});
 	}
 
-	public void displaypageSitePagePageInit(SitePagePage page, SearchList<SitePage> listSitePage) {
+	public void displaypageSitePagePageInit(SitePagePage page, SearchList<SitePage> listSitePage, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateDisplayPageSitePage(ServiceRequest serviceRequest) {
@@ -1445,9 +1460,15 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					displaypageSitePagePageInit(page, listSitePage, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200DisplayPageSitePage failed. "), ex);
 					promise.fail(ex);
@@ -1943,12 +1964,13 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(SitePage.VAR_archived, SitePage.staticSetArchived(siteRequest2, (String)result.get(SitePage.VAR_archived)));
 			page.persistForClass(SitePage.VAR_objectTitle, SitePage.staticSetObjectTitle(siteRequest2, (String)result.get(SitePage.VAR_objectTitle)));
 			page.persistForClass(SitePage.VAR_displayPage, SitePage.staticSetDisplayPage(siteRequest2, (String)result.get(SitePage.VAR_displayPage)));
+			page.persistForClass(SitePage.VAR_importance, SitePage.staticSetImportance(siteRequest2, (String)result.get(SitePage.VAR_importance)));
 			page.persistForClass(SitePage.VAR_courseNum, SitePage.staticSetCourseNum(siteRequest2, (String)result.get(SitePage.VAR_courseNum)));
 			page.persistForClass(SitePage.VAR_lessonNum, SitePage.staticSetLessonNum(siteRequest2, (String)result.get(SitePage.VAR_lessonNum)));
 			page.persistForClass(SitePage.VAR_name, SitePage.staticSetName(siteRequest2, (String)result.get(SitePage.VAR_name)));
 			page.persistForClass(SitePage.VAR_description, SitePage.staticSetDescription(siteRequest2, (String)result.get(SitePage.VAR_description)));
-			page.persistForClass(SitePage.VAR_authorName, SitePage.staticSetAuthorName(siteRequest2, (String)result.get(SitePage.VAR_authorName)));
 			page.persistForClass(SitePage.VAR_solrId, SitePage.staticSetSolrId(siteRequest2, (String)result.get(SitePage.VAR_solrId)));
+			page.persistForClass(SitePage.VAR_authorName, SitePage.staticSetAuthorName(siteRequest2, (String)result.get(SitePage.VAR_authorName)));
 			page.persistForClass(SitePage.VAR_authorUrl, SitePage.staticSetAuthorUrl(siteRequest2, (String)result.get(SitePage.VAR_authorUrl)));
 			page.persistForClass(SitePage.VAR_pageId, SitePage.staticSetPageId(siteRequest2, (String)result.get(SitePage.VAR_pageId)));
 			page.persistForClass(SitePage.VAR_h1, SitePage.staticSetH1(siteRequest2, (String)result.get(SitePage.VAR_h1)));
@@ -1957,6 +1979,8 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(SitePage.VAR_pageImageAlt, SitePage.staticSetPageImageAlt(siteRequest2, (String)result.get(SitePage.VAR_pageImageAlt)));
 			page.persistForClass(SitePage.VAR_prerequisiteArticleIds, SitePage.staticSetPrerequisiteArticleIds(siteRequest2, (String)result.get(SitePage.VAR_prerequisiteArticleIds)));
 			page.persistForClass(SitePage.VAR_nextArticleIds, SitePage.staticSetNextArticleIds(siteRequest2, (String)result.get(SitePage.VAR_nextArticleIds)));
+			page.persistForClass(SitePage.VAR_labelsString, SitePage.staticSetLabelsString(siteRequest2, (String)result.get(SitePage.VAR_labelsString)));
+			page.persistForClass(SitePage.VAR_labels, SitePage.staticSetLabels(siteRequest2, (String)result.get(SitePage.VAR_labels)));
 			page.persistForClass(SitePage.VAR_relatedArticleIds, SitePage.staticSetRelatedArticleIds(siteRequest2, (String)result.get(SitePage.VAR_relatedArticleIds)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {

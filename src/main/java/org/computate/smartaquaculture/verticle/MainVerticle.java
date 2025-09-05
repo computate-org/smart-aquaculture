@@ -187,9 +187,6 @@ import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
-import org.computate.smartaquaculture.model.event.CompanyEventEnUSGenApiService;
-import org.computate.smartaquaculture.model.event.CompanyEventEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.event.CompanyEvent;
 import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
@@ -202,6 +199,9 @@ import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing
 import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
+import org.computate.smartaquaculture.model.event.CompanyEventEnUSGenApiService;
+import org.computate.smartaquaculture.model.event.CompanyEventEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.event.CompanyEvent;
 
 
 /**
@@ -367,10 +367,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			apiFishPopulation.setVertx(vertx);
 			apiFishPopulation.setConfig(config);
 			apiFishPopulation.setWebClient(webClient);
-			CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
-			apiCompanyEvent.setVertx(vertx);
-			apiCompanyEvent.setConfig(config);
-			apiCompanyEvent.setWebClient(webClient);
 			FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
 			apiFishFarm.setVertx(vertx);
 			apiFishFarm.setConfig(config);
@@ -387,6 +383,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			apiFishingTrip.setVertx(vertx);
 			apiFishingTrip.setConfig(config);
 			apiFishingTrip.setWebClient(webClient);
+			CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
+			apiCompanyEvent.setVertx(vertx);
+			apiCompanyEvent.setConfig(config);
+			apiCompanyEvent.setWebClient(webClient);
 			apiSiteUser.createAuthorizationScopes().onSuccess(authToken -> {
 				apiTimeZone.authorizeGroupData(authToken, TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" })
 						.onSuccess(q1 -> {
@@ -416,28 +416,28 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 													.compose(q8 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
 													.compose(q8 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
 													.onSuccess(q8 -> {
-												apiCompanyEvent.authorizeGroupData(authToken, CompanyEvent.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
-														.compose(q9 -> apiCompanyEvent.authorizeGroupData(authToken, CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
+												apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "FishFarmViewer", new String[] { "GET" })
+														.compose(q9 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "FishFarmEditor", new String[] { "GET", "POST", "PATCH" }))
+														.compose(q9 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+														.compose(q9 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 														.onSuccess(q9 -> {
-													apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "FishFarmViewer", new String[] { "GET" })
-															.compose(q10 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "FishFarmEditor", new String[] { "GET", "POST", "PATCH" }))
-															.compose(q10 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-															.compose(q10 -> apiFishFarm.authorizeGroupData(authToken, FishFarm.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+													apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "FishingDockViewer", new String[] { "GET" })
+															.compose(q10 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "FishingDockEditor", new String[] { "GET", "POST", "PATCH" }))
+															.compose(q10 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+															.compose(q10 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 															.onSuccess(q10 -> {
-														apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "FishingDockViewer", new String[] { "GET" })
-																.compose(q11 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "FishingDockEditor", new String[] { "GET", "POST", "PATCH" }))
-																.compose(q11 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-																.compose(q11 -> apiFishingDock.authorizeGroupData(authToken, FishingDock.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+														apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "FishProcessingViewer", new String[] { "GET" })
+																.compose(q11 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "FishProcessingEditor", new String[] { "GET", "POST", "PATCH" }))
+																.compose(q11 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+																.compose(q11 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 																.onSuccess(q11 -> {
-															apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "FishProcessingViewer", new String[] { "GET" })
-																	.compose(q12 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "FishProcessingEditor", new String[] { "GET", "POST", "PATCH" }))
-																	.compose(q12 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-																	.compose(q12 -> apiFishProcessing.authorizeGroupData(authToken, FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+															apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "FishingTripViewer", new String[] { "GET" })
+																	.compose(q12 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "FishingTripEditor", new String[] { "GET", "POST", "PATCH" }))
+																	.compose(q12 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+																	.compose(q12 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
 																	.onSuccess(q12 -> {
-																apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "FishingTripViewer", new String[] { "GET" })
-																		.compose(q13 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "FishingTripEditor", new String[] { "GET", "POST", "PATCH" }))
-																		.compose(q13 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-																		.compose(q13 -> apiFishingTrip.authorizeGroupData(authToken, FishingTrip.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin" }))
+																apiCompanyEvent.authorizeGroupData(authToken, CompanyEvent.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
+																		.compose(q13 -> apiCompanyEvent.authorizeGroupData(authToken, CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
 																		.onSuccess(q13 -> {
 																	LOG.info("authorize data complete");
 																	promise.complete();
@@ -1450,8 +1450,8 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		Promise<Void> promise = Promise.promise();
 		try {
 			List<Future<?>> futures = new ArrayList<>();
-			List<String> authClassSimpleNames = Arrays.asList("SitePage","MapModel","FishPopulation","CompanyEvent","FishFarm","FishingDock","FishProcessing","FishingTrip");
-			List<String> authResources = Arrays.asList("SITEPAGE","MAPMODEL","FISHPOPULATION","COMPANYEVENT","FISHFARM","FISHINGDOCK","FISHPROCESSING","FISHINGTRIP");
+			List<String> authClassSimpleNames = Arrays.asList("SitePage","MapModel","FishPopulation","FishFarm","FishingDock","FishProcessing","FishingTrip","CompanyEvent");
+			List<String> authResources = Arrays.asList("SITEPAGE","MAPMODEL","FISHPOPULATION","FISHFARM","FISHINGDOCK","FISHPROCESSING","FISHINGTRIP","COMPANYEVENT");
 			List<String> publicClassSimpleNames = Arrays.asList("SitePage","CompanyEvent");
 			SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
 			initializeApiService(apiSiteUser);
@@ -1487,10 +1487,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			initializeApiService(apiFishPopulation);
 			registerApiService(FishPopulationEnUSGenApiService.class, apiFishPopulation, FishPopulation.getClassApiAddress());
 
-			CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
-			initializeApiService(apiCompanyEvent);
-			registerApiService(CompanyEventEnUSGenApiService.class, apiCompanyEvent, CompanyEvent.getClassApiAddress());
-
 			FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
 			initializeApiService(apiFishFarm);
 			registerApiService(FishFarmEnUSGenApiService.class, apiFishFarm, FishFarm.getClassApiAddress());
@@ -1506,6 +1502,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
 			initializeApiService(apiFishingTrip);
 			registerApiService(FishingTripEnUSGenApiService.class, apiFishingTrip, FishingTrip.getClassApiAddress());
+
+			CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
+			initializeApiService(apiCompanyEvent);
+			registerApiService(CompanyEventEnUSGenApiService.class, apiCompanyEvent, CompanyEvent.getClassApiAddress());
 
 			Future.all(futures).onSuccess( a -> {
 				LOG.info("The API was configured properly.");

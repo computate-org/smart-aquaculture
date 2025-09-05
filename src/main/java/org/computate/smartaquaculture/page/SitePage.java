@@ -4,6 +4,7 @@ package org.computate.smartaquaculture.page;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -146,6 +147,17 @@ public class SitePage extends SitePageGen<BaseResult> {
    */
   protected void _siteBaseUrl(Wrap<String> w) {
     w.o(siteRequest_.getConfig().getString(ConfigKeys.SITE_BASE_URL));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: importance
+   * Description: The importance of this page. 
+   */
+  protected void _importance(Wrap<BigDecimal> w) {
   }
 
   /**
@@ -416,6 +428,29 @@ public class SitePage extends SitePageGen<BaseResult> {
         array.add(obj2);
     });
     w.o(array);
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: labels string
+   * Description: The labels String for this article comma-separated. 
+   */
+  protected void _labelsString(Wrap<String> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: labels
+   * Description: The labels for this article. 
+   */
+  protected void _labels(List<String> l) {
+    if(labelsString != null) {
+      l.addAll(Arrays.asList(StringUtils.split(labelsString, ",")).stream().map(id -> id.trim()).collect(Collectors.toList()));
+    }
   }
 
   /**
