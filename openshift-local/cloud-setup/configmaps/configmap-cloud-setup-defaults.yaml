@@ -353,7 +353,7 @@ data:
     # The Auth openshift secret with the admin credentials. 
     AUTH_ADMIN_OPENSHIFT_SECRET: "{{ lookup('env', 'AUTH_ADMIN_OPENSHIFT_SECRET_' + SITE_SHORT_NAME) | default('keycloak-initial-admin', true) }}"
     # The Auth admin username. 
-    AUTH_ADMIN_USERNAME: "admin"
+    AUTH_ADMIN_USERNAME: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=AUTH_NAMESPACE)[0].data['username'] | b64decode }}"
     # The Auth admin password. 
     AUTH_ADMIN_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=AUTH_ADMIN_OPENSHIFT_SECRET, namespace=AUTH_NAMESPACE)[0].data['password'] | b64decode }}"
     # The Auth URL. 
