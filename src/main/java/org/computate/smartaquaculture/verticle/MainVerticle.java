@@ -1645,7 +1645,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 			SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
 			initializeApiService(apiSiteUser);
-			SiteRoutes.routes(router, oauth2AuthHandler, config(), webClient, jinjava, apiSiteUser);
+			SiteRoutes.routes(vertx, router, oauth2AuthHandler, config(), webClient, jinjava, apiSiteUser);
 
 			LOG.info("The UI was configured properly.");
 			promise.complete();
