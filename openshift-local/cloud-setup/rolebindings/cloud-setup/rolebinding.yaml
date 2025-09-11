@@ -57,7 +57,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: solr
-  name: cloud-setup-solr-secrets
+  name: smartaquaculture-cloud-setup-solr-secrets
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -67,7 +67,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   namespace: solr
-  name: cloud-setup-solr-secrets
+  name: smartaquaculture-cloud-setup-solr-secrets
 subjects:
 - kind: ServiceAccount
   name: cloud-setup
@@ -75,7 +75,7 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: cloud-setup-solr-secrets
+  name: smartaquaculture-cloud-setup-solr-secrets
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
