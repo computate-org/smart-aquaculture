@@ -218,6 +218,8 @@ TEMPLATE_PATH: "{{ STATIC_PATH }}/templates"
 # Developer defaults #
 ######################
 
+# The developer tools repo for this site. 
+DEVELOPER_REPO: "git@github.com:{{ GITHUB_ORG }}/{{ SITE_NAME }}-developer.git"
 # The software developer name. 
 DEVELOPER_NAME: ''
 # The software organization name. 
@@ -550,9 +552,9 @@ WRITE_API: true
 # Write code comments into generated code. 
 WRITE_COMMENTS: true
 
-###########
-# Imports #
-###########
+##############
+# extra vars #
+##############
 
 PLAQUEMINES_PARISH_API_PORT: 443
 PLAQUEMINES_PARISH_API_SSL: true
