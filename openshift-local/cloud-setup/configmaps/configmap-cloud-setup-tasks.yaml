@@ -7,6 +7,67 @@ data:
   main.yaml: |
     ---
 
+    - name: Get postgres pod by label
+      kubernetes.core.k8s_info:
+        kind: Pod
+        namespace: postgres
+        label_selectors:
+          - postgres-operator.crunchydata.com/role=master
+      register: postgres_pod_info
+    - name: Set postgres pod name
+      set_fact:
+        POSTGRES_POD_NAME: "{{ postgres_pod_info.resources[0].metadata.name }}"
+    - name: "Create database user {{ DATABASE_USERNAME }}"
+      kubernetes.core.k8s_exec:
+        namespace: postgres
+        pod: "{{ POSTGRES_POD_NAME }}"
+        command: >-
+          env psql -U postgres postgres -c 
+          "create user {{ DATABASE_USERNAME }} password '{{ DATABASE_PASSWORD }}';"
+      ignore_errors: true
+      register: create_database_user
+    - name: Test create database user
+      fail:
+        msg: "{{ command_status }}"
+      when: create_database_user.failed and create_database_user is not search("already exists")
+    - name: "Create database {{ DATABASE_DATABASE }}"
+      kubernetes.core.k8s_exec:
+        namespace: postgres
+        pod: "{{ POSTGRES_POD_NAME }}"
+        command: >-
+          env psql -U postgres postgres -c 
+          "create database {{ DATABASE_DATABASE }} owner {{ DATABASE_USERNAME }};"
+      ignore_errors: true
+      register: create_database
+    - name: Test create database
+      fail:
+        msg: "{{ command_status }}"
+      when: create_database.failed and create_database is not search("already exists")
+
+    - name: >-
+        Create {{ SOLR_COLLECTION }} collection: 
+        SOLR_AUTH_TYPE=basic 
+        SOLR_AUTHENTICATION_OPTS="-Dbasicauth=admin:$(cat /opt/bitnami/solr/secrets/pass/password)" 
+        /opt/bitnami/solr/bin/solr create_collection --solr-url http://localhost:8983 -c {{ SOLR_COLLECTION }} -n computate'
+      kubernetes.core.k8s_exec:
+        namespace: solr
+        pod: solr-0
+        command: >-
+          bash -c '
+          SOLR_AUTH_TYPE=basic
+          SOLR_AUTHENTICATION_OPTS="-Dbasicauth=admin:$(cat /opt/bitnami/solr/secrets/pass/password)" 
+          /opt/bitnami/solr/bin/solr create_collection --solr-url http://localhost:8983 -c {{ SOLR_COLLECTION }} -n computate
+          '
+      register: create_collection
+      ignore_errors: true
+    - name: Debug create_collection
+      debug:
+        var: create_collection
+    - name: Test create {{ SOLR_COLLECTION }} collection success
+      fail:
+        msg: "{{ command_status }}"
+      when: create_collection.failed and create_collection is not search("already exists")
+
     - name: Configure keycloak realm
       community.general.keycloak_realm:
         validate_certs: false
@@ -20,7 +81,7 @@ data:
         realm: "{{ AUTH_REALM }}"
         enabled: true
         displayName: "{{ AUTH_REALM }}"
-        registrationAllowed: false
+        registrationAllowed: true
         resetPasswordAllowed: true
         editUsernameAllowed: false
         rememberMe: true
@@ -69,6 +130,89 @@ data:
     #    verifyEmail: false
     #    loginWithEmailAllowed: false
     #    browserFlow: browser-PATCH
+
+    - name: Enable Unmanaged Attributes
+      community.general.keycloak_userprofile:
+        validate_certs: false
+        auth_client_id: admin-cli
+        auth_keycloak_url: "{{ AUTH_URL }}"
+        auth_realm: master
+        auth_username: "{{ AUTH_ADMIN_USERNAME }}"
+        auth_password: "{{ AUTH_ADMIN_PASSWORD }}"
+        state: present
+        parent_id: "{{ AUTH_REALM }}"
+        config:
+          kc_user_profile_config:
+            - unmanagedAttributePolicy: ENABLED
+              attributes:
+                - name: username
+                  displayName: ${username}
+                  validations:
+                    length:
+                      min: 3
+                      max: 255
+                    username_prohibited_characters: {}
+                    up_username_not_idn_homograph: {}
+                  annotations: {}
+                  permissions:
+                    view:
+                      - admin
+                      - user
+                    edit: []
+                  multivalued: false
+                - name: email
+                  displayName: ${email}
+                  validations:
+                    email: {}
+                    length:
+                      max: 255
+                  annotations: {}
+                  required:
+                    roles:
+                      - user
+                  permissions:
+                    view:
+                      - admin
+                      - user
+                    edit: []
+                  multivalued: false
+                - name: firstName
+                  displayName: ${firstName}
+                  validations:
+                    length:
+                      max: 255
+                    person_name_prohibited_characters: {}
+                  annotations: {}
+                  required:
+                    roles:
+                      - user
+                  permissions:
+                    view:
+                      - admin
+                      - user
+                    edit: []
+                  multivalued: false
+                - name: lastName
+                  displayName: ${lastName}
+                  validations:
+                    length:
+                      max: 255
+                    person_name_prohibited_characters: {}
+                  annotations: {}
+                  required:
+                    roles:
+                      - user
+                  permissions:
+                    view:
+                      - admin
+                      - user
+                    edit: []
+                  multivalued: false
+              groups:
+                - name: user-metadata
+                  displayHeader: User metadata
+                  displayDescription: Attributes, which refer to user metadata
+                  annotations: {}
 
     - name: "Configure keycloak client scope openid"
       community.general.keycloak_clientscope:
@@ -133,6 +277,38 @@ data:
             protocol: openid-connect
             protocolMapper: oidc-group-membership-mapper
 
+    - name: "Configure keycloak client scope customerProfileId"
+      community.general.keycloak_clientscope:
+        validate_certs: false
+        auth_client_id: admin-cli
+        auth_keycloak_url: "{{ AUTH_URL }}"
+        auth_realm: master
+        auth_username: "{{ AUTH_ADMIN_USERNAME }}"
+        auth_password: "{{ AUTH_ADMIN_PASSWORD }}"
+        state: present
+        id: "{{ AUTH_REALM }}-customerProfileId"
+        realm: "{{ AUTH_REALM }}"
+        name: "customerProfileId"
+        description: A customerProfileId client scope
+        protocol: openid-connect
+        attributes:
+          include.in.token.scope: 'true'
+          display.on.consent.screen: 'true'
+        protocolMappers:
+          - config:
+              introspection.token.claim: 'true'
+              access.token.claim: 'true'
+              id.token.claim: 'true'
+              userinfo.token.claim: 'true'
+              lightweight.claim: 'false'
+              claim.name: customerProfileId
+              jsonType.label: String
+              user.attribute: customerProfileId
+            id: "{{ AUTH_REALM }}-customerProfileId"
+            name: customerProfileId
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-attribute-mapper
+
     - name: "Disable RSA-OAEP key component from {{ AUTH_REALM }}"
       community.general.keycloak_component:
         validate_certs: false
@@ -170,6 +346,7 @@ data:
         defaultClientScopes:
           - openid
           - profile
+          - customerProfileId
           - "{{ AUTH_CLIENT }}"
         authorizationSettings:
           decisionStrategy: AFFIRMATIVE
@@ -268,3 +445,9 @@ data:
         definition: "{{ lookup('template', 'font-awesome-secret.yaml') }}"
         validate_certs: false
       when: query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | length == 0
+    - name: "Create an extra secret in namespace {{ SITE_NAMESPACE }}"
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('template', 'extra-secret.yaml') }}"
+        validate_certs: false
+      when: query('kubernetes.core.k8s', kind='Secret', resource_name='cloud-extra', namespace=SITE_NAMESPACE) | length == 0

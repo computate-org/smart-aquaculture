@@ -21,7 +21,7 @@ WORKBENCH_ADMIN: "{{ lookup('env', 'WORKBENCH_ADMIN') | bool }}"
 # The name of this application. 
 SITE_NAME: smart-aquaculture
 # The source code directory for the project. 
-SITE_SRC: "{{ lookup('env', 'HOME') + ('/' if USING_OPENSHIFT_AI | bool else '/.local/src/') + SITE_NAME }}"
+SITE_SRC: "{{ lookup('env', 'HOME') + ('/' if USING_OPENSHIFT_AI | bool else '/.local/src/') + SITE_NAME + '-developer/' + SITE_NAME }}"
 # The parent source directory. 
 PARENT_SRC: "{{ (SITE_SRC + '/..') | realpath }}"
 # The vars.yaml filename to load when running in development. 

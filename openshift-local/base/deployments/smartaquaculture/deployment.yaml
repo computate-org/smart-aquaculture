@@ -57,6 +57,8 @@ spec:
             name: cloud-site
         - secretRef:
             name: cloud-font-awesome
+        - secretRef:
+            name: cloud-extra
         image: quay.io/computateorg/smart-aquaculture:latest
         imagePullPolicy: Always
         livenessProbe:

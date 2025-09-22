@@ -3,6 +3,63 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: smartaquaculture
+  name: database-setup-exec
+rules:
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["get", "create"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: smartaquaculture
+  name: database-setup-exec
+subjects:
+- kind: ServiceAccount
+  name: cloud-setup
+  namespace: smartaquaculture
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: database-setup-exec
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: postgres
+  name: smartaquaculture-database-setup-exec
+rules:
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["get", "create"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: postgres
+  name: smartaquaculture-database-setup-exec
+subjects:
+- kind: ServiceAccount
+  name: cloud-setup
+  namespace: smartaquaculture
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: smartaquaculture-database-setup-exec
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: smartaquaculture
   name: cloud-setup-exec
 rules:
 - apiGroups: [""]
@@ -52,6 +109,33 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: smartaquaculture-cloud-setup-postgres-secrets
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: solr
+  name: solr-setup-smartaquaculture-exec
+rules:
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["get", "create"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: solr
+  name: solr-setup-smartaquaculture-exec
+subjects:
+- kind: ServiceAccount
+  name: cloud-setup
+  namespace: smartaquaculture
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: solr-setup-smartaquaculture-exec
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
