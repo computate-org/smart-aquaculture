@@ -281,7 +281,7 @@ SOLR_NAMESPACE: "{{ lookup('env', 'SOLR_NAMESPACE') | default('solr', true) }}"
 # Whether to use SSL when connecting to Solr. 
 SOLR_SSL: "{{ (lookup('env', 'SOLR_SSL') | lower) != 'false' }}"
 # The host name to connect to Solr in OpenShift. 
-SOLR_HOST_NAME: "{{ lookup('env', 'SOLR_HOST_NAME') | default('solr-solr.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+SOLR_HOST_NAME: "{{ lookup('env', 'SOLR_HOST_NAME') | default('solr.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The default port that Solr runs. 
 SOLR_PORT: "{{ lookup('env', 'SOLR_PORT') | default('443', true) }}"
 # The solr collection to use for the site. 
