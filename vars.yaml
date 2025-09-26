@@ -20,8 +20,12 @@ WORKBENCH_ADMIN: "{{ lookup('env', 'WORKBENCH_ADMIN') | bool }}"
 
 # The name of this application. 
 SITE_NAME: smart-aquaculture
+# The source code directory for the developer project. 
+DEVELOPER_PROJECT_NAME: "{{ SITE_NAME + '-developer' }}"
+# The source code directory for the developer project. 
+DEVELOPER_SRC: "{{ lookup('env', 'HOME') + ('/' if USING_OPENSHIFT_AI | bool else '/.local/src/') + DEVELOPER_PROJECT_NAME }}"
 # The source code directory for the project. 
-SITE_SRC: "{{ lookup('env', 'HOME') + ('/' if USING_OPENSHIFT_AI | bool else '/.local/src/') + SITE_NAME + '-developer/' + SITE_NAME }}"
+SITE_SRC: "{{ DEVELOPER_SRC + '/' + SITE_NAME }}"
 # The parent source directory. 
 PARENT_SRC: "{{ (SITE_SRC + '/..') | realpath }}"
 # The vars.yaml filename to load when running in development. 
@@ -126,7 +130,7 @@ SUFFIX_SRC_GEN_JAVA: /src/gen/java
 # The relative paths in the project to watch for changes. 
 RELATIVE_PATHS_TO_WATCH: "src/main/java/{{ SITE_JAVA_PACKAGE | replace('.', '/') }}"
 # The default source code directory for the computate application which helps generate and translate most the code. 
-COMPUTATE_SRC: "{{ (PARENT_SRC + '/computate') | realpath }}"
+COMPUTATE_SRC: "{{ lookup('env', 'HOME') + '/.local/src/computate' | realpath }}"
 # The default source code directory for the computate-search application. 
 COMPUTATE_SEARCH_SRC: "{{ lookup('env', 'HOME') + '/.local/src/computate-search' | realpath }}"
 # The default source code directory for the computate-vertx application. 
