@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: smartaquaculture
-  name: database-setup-exec
+  name: database-cloud-setup-exec
 rules:
 - apiGroups: [""]
   resources: ["pods/exec"]
@@ -19,7 +19,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   namespace: smartaquaculture
-  name: database-setup-exec
+  name: database-cloud-setup-exec
 subjects:
 - kind: ServiceAccount
   name: cloud-setup
@@ -27,13 +27,13 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: database-setup-exec
+  name: database-cloud-setup-exec
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: postgres
-  name: smartaquaculture-database-setup-exec
+  name: smartaquaculture-database-cloud-setup-exec
 rules:
 - apiGroups: [""]
   resources: ["pods/exec"]
@@ -46,7 +46,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   namespace: postgres
-  name: smartaquaculture-database-setup-exec
+  name: smartaquaculture-database-cloud-setup-exec
 subjects:
 - kind: ServiceAccount
   name: cloud-setup
@@ -54,7 +54,7 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: smartaquaculture-database-setup-exec
+  name: smartaquaculture-database-cloud-setup-exec
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -114,7 +114,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: solr
-  name: solr-setup-smartaquaculture-exec
+  name: solr-cloud-setup-smartaquaculture-exec
 rules:
 - apiGroups: [""]
   resources: ["pods/exec"]
@@ -127,7 +127,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   namespace: solr
-  name: solr-setup-smartaquaculture-exec
+  name: solr-cloud-setup-smartaquaculture-exec
 subjects:
 - kind: ServiceAccount
   name: cloud-setup
@@ -135,7 +135,7 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: solr-setup-smartaquaculture-exec
+  name: solr-cloud-setup-smartaquaculture-exec
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
