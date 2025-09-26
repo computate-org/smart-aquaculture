@@ -207,7 +207,7 @@ data:
     # The static files git repository for the project. 
     SITE_STATIC_REPO: "git@github.com:computate-org/smart-aquaculture-static.git"
     # The base URL to the static files. 
-    STATIC_BASE_URL: "http://localhost:10230/static"
+    STATIC_BASE_URL: "{{ SITE_BASE_URL }}/static"
     # The path to the static files. 
     STATIC_PATH: "{{ (SITE_SRC + '/../' + SITE_STATIC_NAME + '/' + ('webawesome' if WEB_COMPONENTS_PREFIX == 'wa-' else 'shoelace')) | realpath }}"
     # The path to the template files. 
@@ -272,15 +272,15 @@ data:
     # Whether to use SSL when connecting to Solr. 
     SOLR_SSL: "{{ (lookup('env', 'SOLR_SSL') | lower) | default(false) }}"
     # The host name to connect to Solr in OpenShift. 
-    SOLR_HOST_NAME: "{{ lookup('env', 'SOLR_HOST_NAME') | default('solr.solr.svc', true) }}"
+    SOLR_HOST_NAME: "{{ lookup('env', 'SOLR_HOST_NAME') | default('solr-solrcloud-common.solr.svc', true) }}"
     # The default port that Solr runs. 
-    SOLR_PORT: "{{ lookup('env', 'SOLR_PORT') | default('8983', true) }}"
+    SOLR_PORT: "{{ lookup('env', 'SOLR_PORT') | default('80', true) }}"
     # The solr collection to use for the site. 
     SOLR_COLLECTION: "{{ lookup('env', 'SOLR_COLLECTION_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME + 'cloud', true) }}"
     # The URL to the Solr collection. 
     SOLR_URL: "{{ ('https://' if SOLR_SSL | bool == True else 'http://') + SOLR_HOST_NAME + ('' if SOLR_PORT | int == 443 else (':' + (SOLR_PORT | string))) }}/solr/{{ SOLR_COLLECTION }}"
     # The solr pod name to connect and create Solr configsets and collections. 
-    SOLR_POD_NAME: "solr-0"
+    SOLR_POD_NAME: "solr-solrcloud-0"
     # The time before committing Solr data in milliseconds. 
     SOLR_WORKER_COMMIT_WITHIN_MILLIS: 10000
     # The solr configset to use for the site. 
@@ -288,7 +288,7 @@ data:
     # The Solr admin username
     SOLR_USERNAME: "admin"
     # The Solr admin password
-    SOLR_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name='solr-admin', namespace=SOLR_NAMESPACE)[0].data['password'] | b64decode }}"
+    SOLR_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name='solr-solrcloud-security-bootstrap', namespace=SOLR_NAMESPACE)[0].data['admin'] | b64decode }}"
 
     # Whether to use SSL when connecting to Solr. 
     SOLR_SSL_COMPUTATE: "{{ lookup('env', 'SOLR_SSL_COMPUTATE') | default(SOLR_SSL, true) | bool }}"
@@ -416,7 +416,7 @@ data:
     # The delay between messages and requerying entity @context. 
     CONTEXT_BROKER_DELAY_MILLIS: 0
     # The Context Broker namespace. 
-    CONTEXT_BROKER_CONTEXT: "http://localhost:10230/static/fiware/context.jsonld"
+    CONTEXT_BROKER_CONTEXT: "{{ SITE_BASE_URL }}/static/fiware/context.jsonld"
     # The base URL where the project will put NGSI-LD context information public on the Internet. 
     NGSILD_BASE_URL: "{{ lookup('env', 'NGSILD_BASE_URL') | default(SITE_PUBLIC_URL + '/static/fiware', true) }}"
     # The default NGSI-LD tenant environment variable

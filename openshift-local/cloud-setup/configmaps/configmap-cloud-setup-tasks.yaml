@@ -47,16 +47,16 @@ data:
     - name: >-
         Create {{ SOLR_COLLECTION }} collection: 
         SOLR_AUTH_TYPE=basic 
-        SOLR_AUTHENTICATION_OPTS="-Dbasicauth=admin:$(cat /opt/bitnami/solr/secrets/pass/password)" 
-        /opt/bitnami/solr/bin/solr create_collection --solr-url http://localhost:8983 -c {{ SOLR_COLLECTION }} -n computate'
+        SOLR_AUTHENTICATION_OPTS="-Dbasicauth=admin:{{ SOLR_PASSWORD }}" 
+        /opt/solr/bin/solr create_collection --solr-url http://localhost:8983 -c {{ SOLR_COLLECTION }} -n computate'
       kubernetes.core.k8s_exec:
         namespace: solr
-        pod: solr-0
+        pod: solr-solrcloud-0
         command: >-
           bash -c '
           SOLR_AUTH_TYPE=basic
-          SOLR_AUTHENTICATION_OPTS="-Dbasicauth=admin:$(cat /opt/bitnami/solr/secrets/pass/password)" 
-          /opt/bitnami/solr/bin/solr create_collection --solr-url http://localhost:8983 -c {{ SOLR_COLLECTION }} -n computate
+          SOLR_AUTHENTICATION_OPTS="-Dbasicauth=admin:{{ SOLR_PASSWORD }}" 
+          /opt/solr/bin/solr create_collection --solr-url http://localhost:8983 -c {{ SOLR_COLLECTION }} -n computate
           '
       register: create_collection
       ignore_errors: true

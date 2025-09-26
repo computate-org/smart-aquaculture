@@ -128,9 +128,9 @@ RELATIVE_PATHS_TO_WATCH: "src/main/java/{{ SITE_JAVA_PACKAGE | replace('.', '/')
 # The default source code directory for the computate application which helps generate and translate most the code. 
 COMPUTATE_SRC: "{{ (PARENT_SRC + '/computate') | realpath }}"
 # The default source code directory for the computate-search application. 
-COMPUTATE_SEARCH_SRC: "{{ (PARENT_SRC + '/computate-search') | realpath }}"
+COMPUTATE_SEARCH_SRC: "{{ lookup('env', 'HOME') + '/.local/src/computate-search' | realpath }}"
 # The default source code directory for the computate-vertx application. 
-COMPUTATE_VERTX_SRC: "{{ (PARENT_SRC + '/computate-vertx') | realpath }}"
+COMPUTATE_VERTX_SRC: "{{ lookup('env', 'HOME') + '/.local/src/computate-vertx' | realpath }}"
 # The paths to the internationalization for this project. 
 I18N_PATHS: ["{{ COMPUTATE_VERTX_SRC }}/src/main/resources/org/computate/i18n/i18n_{{ SITE_LANG }}.yaml"]
 # The Java main class of the site. 
@@ -187,9 +187,10 @@ CONTAINER_URI: "{{ CONTAINER_REGISTRY }}/{{ CONTAINER_ORG }}/{{ CONTAINER_NAME }
 # Static content defaults #
 ###########################
 
-WEB_COMPONENTS_SECRET: "local-font-awesome"
+# A secret with links to web components. 
+WEB_COMPONENTS_SECRET: "{{ lookup('env', 'WEB_COMPONENTS_SECRET') | default('local-font-awesome', true) }}"
 # Switch between Shoelace "sl-" and Web Awesome "wa-" element prefixes. 
-WEB_COMPONENTS_PREFIX: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_PREFIX | default('') | b64decode | default('sl-', true) }}"
+WEB_COMPONENTS_PREFIX: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_PREFIX | default('') | b64decode | default('wa-', true) }}"
 # Web components default theme. 
 WEB_COMPONENTS_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_THEME | default('', true) | b64decode | default('glossy', true) }}"
 # Site default font size. 
@@ -197,7 +198,7 @@ SITE_FONT_SIZE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=W
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 
 FONTAWESOME_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_KIT | default('', true) | b64decode | default('', true) }}"
 # A default FontAwesome style. 
-FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('fa-duotone fa-regular ', true) }}"
+FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('default', true) }}"
 # Site default theme, light or dark. 
 SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('', true) | b64decode | default('dark', true) }}"
 # The site logo relative URI
@@ -276,23 +277,23 @@ SOLR_NAMESPACE: "{{ lookup('env', 'SOLR_NAMESPACE') | default('solr', true) }}"
 # Whether to use SSL when connecting to Solr. 
 SOLR_SSL: "{{ (lookup('env', 'SOLR_SSL') | lower) != 'false' }}"
 # The host name to connect to Solr in OpenShift. 
-SOLR_HOST_NAME: "{{ lookup('env', 'SOLR_HOST_NAME') | default('solr.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+SOLR_HOST_NAME: "{{ lookup('env', 'SOLR_HOST_NAME') | default('solr-solr.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The default port that Solr runs. 
 SOLR_PORT: "{{ lookup('env', 'SOLR_PORT') | default('443', true) }}"
 # The solr collection to use for the site. 
-SOLR_COLLECTION: "{{ lookup('env', 'SOLR_COLLECTION_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
+SOLR_COLLECTION: "{{ lookup('env', 'SOLR_COLLECTION_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME + 'local', true) }}"
 # The URL to the Solr collection. 
 SOLR_URL: "{{ ('https://' if SOLR_SSL | bool == True else 'http://') + SOLR_HOST_NAME + ('' if SOLR_PORT | int == 443 else (':' + (SOLR_PORT | string))) }}/solr/{{ SOLR_COLLECTION }}"
 # The solr pod name to connect and create Solr configsets and collections. 
-SOLR_POD_NAME: "solr-0"
+SOLR_POD_NAME: "solr-solrcloud-0"
 # The time before committing Solr data in milliseconds. 
 SOLR_WORKER_COMMIT_WITHIN_MILLIS: 10000
 # The solr configset to use for the site. 
 SOLR_CONFIGSET: "computate"
 # The Solr admin username
-SOLR_USERNAME: admin
+SOLR_USERNAME: "admin"
 # The Solr admin password
-SOLR_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name='solr-admin', namespace=SOLR_NAMESPACE)[0].data['password'] | b64decode }}"
+SOLR_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name='solr-solrcloud-security-bootstrap', namespace=SOLR_NAMESPACE)[0].data['admin'] | b64decode }}"
 
 # Whether to use SSL when connecting to Solr. 
 SOLR_SSL_COMPUTATE: "{{ lookup('env', 'SOLR_SSL_COMPUTATE') | default(SOLR_SSL, true) | bool }}"
@@ -324,7 +325,7 @@ DATABASE_SECRET: "local-database"
 # The PostgreSQL database password of the site. 
 DATABASE_PASSWORD: "{{ query('kubernetes.core.k8s', kind='Secret', resource_name=DATABASE_SECRET, namespace=SITE_NAMESPACE)[0].data.DATABASE_PASSWORD | b64decode }}"
 # The PostgreSQL database name of the site. 
-DATABASE_DATABASE: "{{ lookup('env', 'DATABASE_DATABASE_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME, true) }}"
+DATABASE_DATABASE: "{{ lookup('env', 'DATABASE_DATABASE_' + SITE_SHORT_NAME) | default(SITE_SHORT_NAME + 'local', true) }}"
 # The PostgreSQL database max pool size. 
 DATABASE_MAX_POOL_SIZE: 10
 # The PostgreSQL database max wait queue size. 

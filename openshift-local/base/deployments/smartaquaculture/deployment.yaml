@@ -33,15 +33,7 @@ spec:
         deployment: smartaquaculture
     spec:
       containers:
-      - env:
-        - name: IMPORT_DATA_PERIOD_FishProcessing
-          value: 1 hour
-        - name: IMPORT_DATA_PERIOD_FishingDock
-          value: 1 hour
-        - name: IMPORT_DATA_START_TIME_FishProcessing
-          value: 00:53 America/Denver
-        - name: IMPORT_DATA_START_TIME_FishingDock
-          value: 00:53 America/Denver
+      - name: smartaquaculture
         envFrom:
         - secretRef:
             name: cloud-zookeeper
@@ -69,7 +61,6 @@ spec:
           tcpSocket:
             port: http
           timeoutSeconds: 10
-        name: smartaquaculture
         ports:
         - containerPort: 10230
           name: http
