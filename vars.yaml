@@ -25,7 +25,7 @@ DEVELOPER_PROJECT_NAME: "{{ SITE_NAME + '-developer' }}"
 # The source code directory for the developer project. 
 DEVELOPER_SRC: "{{ lookup('env', 'HOME') + ('/' if USING_OPENSHIFT_AI | bool else '/.local/src/') + DEVELOPER_PROJECT_NAME }}"
 # The source code directory for the project. 
-SITE_SRC: "{{ DEVELOPER_SRC + '/' + SITE_NAME }}"
+SITE_SRC: "{{ lookup('env', 'HOME') + ('/' if USING_OPENSHIFT_AI | bool else '/.local/src/') + SITE_NAME }}"
 # The parent source directory. 
 PARENT_SRC: "{{ (SITE_SRC + '/..') | realpath }}"
 # The vars.yaml filename to load when running in development. 
