@@ -267,6 +267,13 @@ public class PageLayout extends PageLayoutGen<Object> {
 	/**
 	 * Description: The user request scopes
 	 */
+	protected void _filteredScope(Wrap<Boolean> w) {
+		w.o(siteRequest_.getFilteredScope());
+	}
+
+	/**
+	 * Description: The user request scopes
+	 */
 	protected void _scopes(List<String> l) {
 		l.addAll(siteRequest_.getScopes());
 	}

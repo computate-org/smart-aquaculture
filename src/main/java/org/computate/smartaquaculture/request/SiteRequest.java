@@ -229,6 +229,14 @@ public class SiteRequest extends SiteRequestGen<Object> implements ComputateSite
 
   /**
    * {@inheritDoc}
+   * Description: Whether the scopes are filtered by specific IDs. 
+   **/
+  protected void _filteredScope(Wrap<Boolean> w) {
+    w.o(false);
+  }
+
+  /**
+   * {@inheritDoc}
    * Description: The user auth scopes for the current request within the SSO realm
    **/
   protected void _scopes(List<String> o) {
