@@ -158,7 +158,8 @@ data:
                     view:
                       - admin
                       - user
-                    edit: []
+                    edit:
+                      - admin
                   multivalued: false
                 - name: email
                   displayName: ${email}
@@ -174,7 +175,9 @@ data:
                     view:
                       - admin
                       - user
-                    edit: []
+                    edit:
+                      - admin
+                      - user
                   multivalued: false
                 - name: firstName
                   displayName: ${firstName}
@@ -190,7 +193,9 @@ data:
                     view:
                       - admin
                       - user
-                    edit: []
+                    edit:
+                      - admin
+                      - user
                   multivalued: false
                 - name: lastName
                   displayName: ${lastName}
@@ -206,7 +211,25 @@ data:
                     view:
                       - admin
                       - user
-                    edit: []
+                    edit:
+                      - admin
+                      - user
+                  multivalued: false
+                - name: customerProfileId
+                  displayName: ${customerProfileId}
+                  validations:
+                    length:
+                      max: 255
+                    person_name_prohibited_characters: {}
+                  annotations: {}
+                  required:
+                    roles:
+                      - user
+                  permissions:
+                    view:
+                      - admin
+                    edit:
+                      - admin
                   multivalued: false
               groups:
                 - name: user-metadata
