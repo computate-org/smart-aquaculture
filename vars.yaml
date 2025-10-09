@@ -82,7 +82,7 @@ USER_SEARCH_URI: "/user-search"
 # The URL to sign up for the mailing list. 
 MAILING_LIST_URL: https://computate.topicbox.com/groups/computate
 # The email address of the mailing list. 
-MAILING_LIST_EMAIL: smart-aquaculture@computate.topicbox.com
+MAILING_LIST_EMAIL: smart-aquaculture@group.computate.org
 
 ################
 # API defaults #
@@ -224,7 +224,7 @@ TEMPLATE_PATH: "{{ STATIC_PATH }}/templates"
 ######################
 
 # The developer tools repo for this site. 
-DEVELOPER_REPO: "git@github.com:{{ GITHUB_ORG }}/{{ SITE_NAME }}-developer.git"
+DEVELOPER_REPO: "git@github.com:{{ GITHUB_ORG }}/{{ DEVELOPER_PROJECT_NAME }}.git"
 # The software developer name. 
 DEVELOPER_NAME: ''
 # The software organization name. 

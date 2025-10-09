@@ -40,8 +40,8 @@ import io.vertx.ext.web.api.service.ServiceRequest;
 import java.lang.String;
 import io.vertx.ext.auth.User;
 import java.lang.Long;
-import io.vertx.core.json.JsonArray;
 import java.lang.Boolean;
+import io.vertx.core.json.JsonArray;
 import org.computate.smartaquaculture.user.SiteUser;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.core.MultiMap;
@@ -1183,6 +1183,63 @@ public abstract class SiteRequestGen<DEV> extends Object {
 		return SiteRequest.staticSearchUserEmail(siteRequest_, SiteRequest.staticSetUserEmail(siteRequest_, o)).toString();
 	}
 
+	///////////////////
+	// filteredScope //
+	///////////////////
+
+
+	/**	 The entity filteredScope
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected Boolean filteredScope;
+
+	/**	<br> The entity filteredScope
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:filteredScope">Find the entity filteredScope in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _filteredScope(Wrap<Boolean> w);
+
+	public Boolean getFilteredScope() {
+		return filteredScope;
+	}
+
+	public void setFilteredScope(Boolean filteredScope) {
+		this.filteredScope = filteredScope;
+	}
+	@JsonIgnore
+	public void setFilteredScope(String o) {
+		this.filteredScope = SiteRequest.staticSetFilteredScope(siteRequest_, o);
+	}
+	public static Boolean staticSetFilteredScope(SiteRequest siteRequest_, String o) {
+		return Boolean.parseBoolean(o);
+	}
+	protected SiteRequest filteredScopeInit() {
+		Wrap<Boolean> filteredScopeWrap = new Wrap<Boolean>().var("filteredScope");
+		if(filteredScope == null) {
+			_filteredScope(filteredScopeWrap);
+			Optional.ofNullable(filteredScopeWrap.getO()).ifPresent(o -> {
+				setFilteredScope(o);
+			});
+		}
+		return (SiteRequest)this;
+	}
+
+	public static Boolean staticSearchFilteredScope(SiteRequest siteRequest_, Boolean o) {
+		return o;
+	}
+
+	public static String staticSearchStrFilteredScope(SiteRequest siteRequest_, Boolean o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqFilteredScope(SiteRequest siteRequest_, String o) {
+		return SiteRequest.staticSearchFilteredScope(siteRequest_, SiteRequest.staticSetFilteredScope(siteRequest_, o)).toString();
+	}
+
 	////////////
 	// scopes //
 	////////////
@@ -1861,6 +1918,7 @@ public abstract class SiteRequestGen<DEV> extends Object {
 				userFirstNameInit();
 				userFullNameInit();
 				userEmailInit();
+				filteredScopeInit();
 				scopesInit();
 				groupsInit();
 				publicReadInit();
@@ -1956,6 +2014,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 				return oSiteRequest.userFullName;
 			case "userEmail":
 				return oSiteRequest.userEmail;
+			case "filteredScope":
+				return oSiteRequest.filteredScope;
 			case "scopes":
 				return oSiteRequest.scopes;
 			case "groups":
@@ -2051,6 +2111,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 			return SiteRequest.staticSetUserFullName(siteRequest_, v);
 		case "userEmail":
 			return SiteRequest.staticSetUserEmail(siteRequest_, v);
+		case "filteredScope":
+			return SiteRequest.staticSetFilteredScope(siteRequest_, v);
 		case "scopes":
 			return SiteRequest.staticSetScopes(siteRequest_, v);
 		case "groups":
@@ -2113,6 +2175,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 			return SiteRequest.staticSearchUserFullName(siteRequest_, (String)o);
 		case "userEmail":
 			return SiteRequest.staticSearchUserEmail(siteRequest_, (String)o);
+		case "filteredScope":
+			return SiteRequest.staticSearchFilteredScope(siteRequest_, (Boolean)o);
 		case "scopes":
 			return SiteRequest.staticSearchScopes(siteRequest_, (String)o);
 		case "groups":
@@ -2175,6 +2239,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 			return SiteRequest.staticSearchStrUserFullName(siteRequest_, (String)o);
 		case "userEmail":
 			return SiteRequest.staticSearchStrUserEmail(siteRequest_, (String)o);
+		case "filteredScope":
+			return SiteRequest.staticSearchStrFilteredScope(siteRequest_, (Boolean)o);
 		case "scopes":
 			return SiteRequest.staticSearchStrScopes(siteRequest_, (String)o);
 		case "groups":
@@ -2237,6 +2303,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 			return SiteRequest.staticSearchFqUserFullName(siteRequest_, o);
 		case "userEmail":
 			return SiteRequest.staticSearchFqUserEmail(siteRequest_, o);
+		case "filteredScope":
+			return SiteRequest.staticSearchFqFilteredScope(siteRequest_, o);
 		case "scopes":
 			return SiteRequest.staticSearchFqScopes(siteRequest_, o);
 		case "groups":
@@ -2291,6 +2359,7 @@ public abstract class SiteRequestGen<DEV> extends Object {
 	public static final String VAR_userFirstName = "userFirstName";
 	public static final String VAR_userFullName = "userFullName";
 	public static final String VAR_userEmail = "userEmail";
+	public static final String VAR_filteredScope = "filteredScope";
 	public static final String VAR_scopes = "scopes";
 	public static final String VAR_groups = "groups";
 	public static final String VAR_publicRead = "publicRead";
@@ -2325,6 +2394,7 @@ public abstract class SiteRequestGen<DEV> extends Object {
 	public static final String DISPLAY_NAME_userFirstName = "";
 	public static final String DISPLAY_NAME_userFullName = "";
 	public static final String DISPLAY_NAME_userEmail = "";
+	public static final String DISPLAY_NAME_filteredScope = "";
 	public static final String DISPLAY_NAME_scopes = "";
 	public static final String DISPLAY_NAME_groups = "";
 	public static final String DISPLAY_NAME_publicRead = "";
@@ -2421,6 +2491,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 			return DISPLAY_NAME_userFullName;
 		case VAR_userEmail:
 			return DISPLAY_NAME_userEmail;
+		case VAR_filteredScope:
+			return DISPLAY_NAME_filteredScope;
 		case VAR_scopes:
 			return DISPLAY_NAME_scopes;
 		case VAR_groups:
@@ -2496,6 +2568,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 			return "The full name of the user";
 		case VAR_userEmail:
 			return "The user email";
+		case VAR_filteredScope:
+			return "Whether the scopes are filtered by specific IDs. ";
 		case VAR_scopes:
 			return "The user auth scopes for the current request within the SSO realm";
 		case VAR_groups:
@@ -2569,6 +2643,8 @@ public abstract class SiteRequestGen<DEV> extends Object {
 			return "String";
 		case VAR_userEmail:
 			return "String";
+		case VAR_filteredScope:
+			return "Boolean";
 		case VAR_scopes:
 			return "List";
 		case VAR_groups:

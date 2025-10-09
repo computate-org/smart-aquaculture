@@ -81,7 +81,7 @@ data:
     # The URL to sign up for the mailing list. 
     MAILING_LIST_URL: "https://computate.topicbox.com/groups/computate"
     # The email address of the mailing list. 
-    MAILING_LIST_EMAIL: "smart-aquaculture@computate.topicbox.com"
+    MAILING_LIST_EMAIL: "smart-aquaculture@group.computate.org"
 
     ################
     # API defaults #
@@ -92,7 +92,7 @@ data:
     # The Site OpenAPI title. 
     API_TITLE: "Smart Aquaculture"
     # The API contact email. 
-    API_CONTACT_EMAIL: "smart-aquaculture@computate.topicbox.com"
+    API_CONTACT_EMAIL: "smart-aquaculture@group.computate.org"
 
     #################
     # Java defaults #
@@ -435,11 +435,11 @@ data:
     # Enable Kafka message integration. 
     ENABLE_KAFKA: false
     # The namespace in OpenShift where Kafka will run. 
-    KAFKA_NAMESPACE: "kafka"
+    KAFKA_NAMESPACE: "{{ KAFKA_NAMESPACE }}"
     # The Kafka SSL KeyStore secret name. 
-    KAFKA_SSL_KEYSTORE_SECRET: "smartaquaculture-kafka"
+    KAFKA_SSL_KEYSTORE_SECRET: "{{ SITE_SHORT_NAME }}-kafka"
     # The Kafka SSL TrustStore secret name. 
-    KAFKA_SSL_TRUSTSTORE_SECRET: "default-cluster-ca-cert"
+    KAFKA_SSL_TRUSTSTORE_SECRET: "{{ KAFKA_SSL_TRUSTSTORE_SECRET }}"
     # The Kafka port. 
     KAFKA_PORT: 9093
 

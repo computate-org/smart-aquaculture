@@ -297,9 +297,9 @@ data:
       namespace: {{ SITE_NAMESPACE }}
     type: Opaque
     stringData:
-      PLAQUEMINES_PARISH_API_PORT: "{{ PLAQUEMINES_PARISH_API_PORT }}"
-      PLAQUEMINES_PARISH_API_SSL: "{{ PLAQUEMINES_PARISH_API_SSL }}"
-      PLAQUEMINES_PARISH_API_HOST_NAME: "{{ PLAQUEMINES_PARISH_API_HOST_NAME }}"
-      ARCGIS_API_PORT: "{{ ARCGIS_API_PORT }}"
-      ARCGIS_API_SSL: "{{ ARCGIS_API_SSL }}"
-      ARCGIS_API_HOST_NAME: "{{ ARCGIS_API_HOST_NAME }}"
+      PLAQUEMINES_PARISH_API_PORT: '{{ PLAQUEMINES_PARISH_API_PORT | replace("'", "\\'") }}'
+      PLAQUEMINES_PARISH_API_SSL: '{{ PLAQUEMINES_PARISH_API_SSL | replace("'", "\\'") }}'
+      PLAQUEMINES_PARISH_API_HOST_NAME: '{{ PLAQUEMINES_PARISH_API_HOST_NAME | replace("'", "\\'") }}'
+      ARCGIS_API_PORT: '{{ ARCGIS_API_PORT | replace("'", "\\'") }}'
+      ARCGIS_API_SSL: '{{ ARCGIS_API_SSL | replace("'", "\\'") }}'
+      ARCGIS_API_HOST_NAME: '{{ ARCGIS_API_HOST_NAME | replace("'", "\\'") }}'
