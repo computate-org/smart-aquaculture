@@ -433,7 +433,7 @@ data:
     ##############
 
     # Enable Kafka message integration. 
-    ENABLE_KAFKA: {{ ENABLE_KAFKA | lower }}
+    ENABLE_KAFKA: false
     # The namespace in OpenShift where Kafka will run. 
     KAFKA_NAMESPACE: "{{ KAFKA_NAMESPACE }}"
     # The Kafka SSL KeyStore secret name. 
@@ -441,7 +441,7 @@ data:
     # The Kafka SSL TrustStore secret name. 
     KAFKA_SSL_TRUSTSTORE_SECRET: "{{ KAFKA_SSL_TRUSTSTORE_SECRET }}"
     # The Kafka port. 
-    KAFKA_PORT: {{ KAFKA_PORT }}
+    KAFKA_PORT: 9093
 
     #############
     # MQTT vars #
