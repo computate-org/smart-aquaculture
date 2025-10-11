@@ -616,6 +616,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 											apiFishingDock.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingDock.CLASS_CANONICAL_NAME, FishingDock.CLASS_SIMPLE_NAME, FishingDock.CLASS_API_ADDRESS_FishingDock, FishingDock.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q9 -> {
 												apiFishProcessing.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishProcessing.CLASS_CANONICAL_NAME, FishProcessing.CLASS_SIMPLE_NAME, FishProcessing.CLASS_API_ADDRESS_FishProcessing, FishProcessing.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q10 -> {
 													apiFishingTrip.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingTrip.CLASS_CANONICAL_NAME, FishingTrip.CLASS_SIMPLE_NAME, FishingTrip.CLASS_API_ADDRESS_FishingTrip, FishingTrip.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q11 -> {
+														LOG.info(String.format("The HTTP server is running: %s", config().getString(ConfigKeys.SITE_BASE_URL)));
 														LOG.info("data import complete");
 														promise.complete();
 													}).onFailure(ex -> promise.fail(ex));
