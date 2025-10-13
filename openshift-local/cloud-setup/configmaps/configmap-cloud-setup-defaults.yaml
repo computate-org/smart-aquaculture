@@ -416,7 +416,7 @@ data:
     # The delay between messages and requerying entity @context. 
     CONTEXT_BROKER_DELAY_MILLIS: 0
     # The Context Broker namespace. 
-    CONTEXT_BROKER_CONTEXT: "{{ SITE_BASE_URL }}/static/fiware/context.jsonld"
+    CONTEXT_BROKER_CONTEXT: "https://smaq.computate.org/static/fiware/context.jsonld"
     # The base URL where the project will put NGSI-LD context information public on the Internet. 
     NGSILD_BASE_URL: "{{ lookup('env', 'NGSILD_BASE_URL') | default(SITE_PUBLIC_URL + '/static/fiware', true) }}"
     # The default NGSI-LD tenant environment variable
