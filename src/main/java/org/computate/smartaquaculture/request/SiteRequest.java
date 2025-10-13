@@ -189,6 +189,14 @@ public class SiteRequest extends SiteRequestGen<Object> implements ComputateSite
 
   /**
    * {@inheritDoc}
+   * Description: The customer profile ID of the user
+   **/
+  protected void _customerProfileId(Wrap<String> c) {
+    c.o(Optional.ofNullable(user).map(u -> u.attributes()).map(a -> a.getJsonObject("accessToken")).map(a -> a.getString("customerProfileId")).orElse(null));
+  }
+
+  /**
+   * {@inheritDoc}
    * Description: The username of the user
    **/
   protected void _userName(Wrap<String> c) {

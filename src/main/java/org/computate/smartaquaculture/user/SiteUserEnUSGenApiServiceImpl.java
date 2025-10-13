@@ -518,7 +518,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 										apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 										if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
 											o2.apiRequestSiteUser();
-											if(apiRequest.getVars().size() > 0)
+											if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(false))
 												eventBus.publish("websocketSiteUser", JsonObject.mapFrom(apiRequest).toString());
 										}
 									}
@@ -712,6 +712,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(SiteUser.VAR_objectTitle + "=$" + num);
 							num++;
 							bParams.add(o2.sqlObjectTitle());
+						break;
+					case "setCustomerProfileId":
+							o2.setCustomerProfileId(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(SiteUser.VAR_customerProfileId + "=$" + num);
+							num++;
+							bParams.add(o2.sqlCustomerProfileId());
 						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -1225,6 +1233,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
+					case SiteUser.VAR_customerProfileId:
+						o2.setCustomerProfileId(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SiteUser.VAR_customerProfileId + "=$" + num);
+						num++;
+						bParams.add(o2.sqlCustomerProfileId());
+						break;
 					case SiteUser.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1374,7 +1391,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		});
 	}
 
-	public void searchpageSiteUserPageInit(SiteUserPage page, SearchList<SiteUser> listSiteUser, Promise<Void> promise) {
+	public void searchpageSiteUserPageInit(JsonObject ctx, SiteUserPage page, SearchList<SiteUser> listSiteUser, Promise<Void> promise) {
 		promise.complete();
 	}
 
@@ -1405,7 +1422,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					Promise<Void> promise1 = Promise.promise();
-					searchpageSiteUserPageInit(page, listSiteUser, promise1);
+					searchpageSiteUserPageInit(ctx, page, listSiteUser, promise1);
 					promise1.future().onSuccess(b -> {
 						String renderedTemplate = jinjava.render(template, ctx.getMap());
 						Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -1543,7 +1560,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 		});
 	}
 
-	public void editpageSiteUserPageInit(SiteUserPage page, SearchList<SiteUser> listSiteUser, Promise<Void> promise) {
+	public void editpageSiteUserPageInit(JsonObject ctx, SiteUserPage page, SearchList<SiteUser> listSiteUser, Promise<Void> promise) {
 		promise.complete();
 	}
 
@@ -1574,7 +1591,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
 					Promise<Void> promise1 = Promise.promise();
-					editpageSiteUserPageInit(page, listSiteUser, promise1);
+					editpageSiteUserPageInit(ctx, page, listSiteUser, promise1);
 					promise1.future().onSuccess(b -> {
 						String renderedTemplate = jinjava.render(template, ctx.getMap());
 						Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -1960,7 +1977,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT userId, created, userName, userEmail, archived, userFirstName, userLastName, userFullName, seeArchived, sessionId, displayName, userKey, siteFontSize, siteTheme, webComponentsTheme, objectTitle, displayPage FROM SiteUser WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT userId, created, userName, userEmail, archived, userFirstName, userLastName, userFullName, seeArchived, sessionId, displayName, userKey, siteFontSize, siteTheme, webComponentsTheme, objectTitle, customerProfileId, displayPage FROM SiteUser WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -2146,11 +2163,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(SiteUser.VAR_siteTheme, SiteUser.staticSetSiteTheme(siteRequest2, (String)result.get(SiteUser.VAR_siteTheme)));
 			page.persistForClass(SiteUser.VAR_webComponentsTheme, SiteUser.staticSetWebComponentsTheme(siteRequest2, (String)result.get(SiteUser.VAR_webComponentsTheme)));
 			page.persistForClass(SiteUser.VAR_objectTitle, SiteUser.staticSetObjectTitle(siteRequest2, (String)result.get(SiteUser.VAR_objectTitle)));
+			page.persistForClass(SiteUser.VAR_customerProfileId, SiteUser.staticSetCustomerProfileId(siteRequest2, (String)result.get(SiteUser.VAR_customerProfileId)));
 			page.persistForClass(SiteUser.VAR_displayPage, SiteUser.staticSetDisplayPage(siteRequest2, (String)result.get(SiteUser.VAR_displayPage)));
 
-			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
+			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
 				try {
-					JsonObject data = JsonObject.mapFrom(result);
+					JsonObject data = JsonObject.mapFrom(o);
+					ctx.put("result", data.getMap());
 					promise.complete(data);
 				} catch(Exception ex) {
 					LOG.error(String.format(importModelFail, classSimpleName), ex);

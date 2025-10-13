@@ -909,6 +909,62 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		return webComponentsTheme;
 	}
 
+	///////////////////////
+	// customerProfileId //
+	///////////////////////
+
+
+	/**	 The entity customerProfileId
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String customerProfileId;
+
+	/**	<br> The entity customerProfileId
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:customerProfileId">Find the entity customerProfileId in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _customerProfileId(Wrap<String> w);
+
+	public String getCustomerProfileId() {
+		return customerProfileId;
+	}
+	public void setCustomerProfileId(String o) {
+		this.customerProfileId = SiteUser.staticSetCustomerProfileId(siteRequest_, o);
+	}
+	public static String staticSetCustomerProfileId(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected SiteUser customerProfileIdInit() {
+		Wrap<String> customerProfileIdWrap = new Wrap<String>().var("customerProfileId");
+		if(customerProfileId == null) {
+			_customerProfileId(customerProfileIdWrap);
+			Optional.ofNullable(customerProfileIdWrap.getO()).ifPresent(o -> {
+				setCustomerProfileId(o);
+			});
+		}
+		return (SiteUser)this;
+	}
+
+	public static String staticSearchCustomerProfileId(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrCustomerProfileId(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqCustomerProfileId(SiteRequest siteRequest_, String o) {
+		return SiteUser.staticSearchCustomerProfileId(siteRequest_, SiteUser.staticSetCustomerProfileId(siteRequest_, o)).toString();
+	}
+
+	public String sqlCustomerProfileId() {
+		return customerProfileId;
+	}
+
 	//////////////
 	// initDeep //
 	//////////////
@@ -950,6 +1006,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				siteFontSizeInit();
 				siteThemeInit();
 				webComponentsThemeInit();
+				customerProfileIdInit();
 				promise2.complete();
 			} catch(Exception ex) {
 				promise2.fail(ex);
@@ -1027,6 +1084,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return oSiteUser.siteTheme;
 			case "webComponentsTheme":
 				return oSiteUser.webComponentsTheme;
+			case "customerProfileId":
+				return oSiteUser.customerProfileId;
 			default:
 				return super.obtainBaseModel(var);
 		}
@@ -1090,6 +1149,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSetSiteTheme(siteRequest_, v);
 		case "webComponentsTheme":
 			return SiteUser.staticSetWebComponentsTheme(siteRequest_, v);
+		case "customerProfileId":
+			return SiteUser.staticSetCustomerProfileId(siteRequest_, v);
 			default:
 				return BaseModel.staticSetBaseModel(entityVar,  siteRequest_, v, o);
 		}
@@ -1128,6 +1189,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSearchSiteTheme(siteRequest_, (String)o);
 		case "webComponentsTheme":
 			return SiteUser.staticSearchWebComponentsTheme(siteRequest_, (String)o);
+		case "customerProfileId":
+			return SiteUser.staticSearchCustomerProfileId(siteRequest_, (String)o);
 			default:
 				return BaseModel.staticSearchBaseModel(entityVar,  siteRequest_, o);
 		}
@@ -1166,6 +1229,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSearchStrSiteTheme(siteRequest_, (String)o);
 		case "webComponentsTheme":
 			return SiteUser.staticSearchStrWebComponentsTheme(siteRequest_, (String)o);
+		case "customerProfileId":
+			return SiteUser.staticSearchStrCustomerProfileId(siteRequest_, (String)o);
 			default:
 				return BaseModel.staticSearchStrBaseModel(entityVar,  siteRequest_, o);
 		}
@@ -1204,6 +1269,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return SiteUser.staticSearchFqSiteTheme(siteRequest_, o);
 		case "webComponentsTheme":
 			return SiteUser.staticSearchFqWebComponentsTheme(siteRequest_, o);
+		case "customerProfileId":
+			return SiteUser.staticSearchFqCustomerProfileId(siteRequest_, o);
 			default:
 				return BaseModel.staticSearchFqBaseModel(entityVar,  siteRequest_, o);
 		}
@@ -1298,6 +1365,12 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				}
 				saves.add("webComponentsTheme");
 				return val;
+			} else if("customerprofileid".equals(varLower)) {
+				if(val instanceof String) {
+					setCustomerProfileId((String)val);
+				}
+				saves.add("customerProfileId");
+				return val;
 		} else {
 			return super.persistBaseModel(var, val);
 		}
@@ -1389,6 +1462,12 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				if(webComponentsTheme != null)
 					oSiteUser.setWebComponentsTheme(webComponentsTheme);
 			}
+
+			if(saves.contains("customerProfileId")) {
+				String customerProfileId = (String)doc.get("customerProfileId_docvalues_string");
+				if(customerProfileId != null)
+					oSiteUser.setCustomerProfileId(customerProfileId);
+			}
 		}
 
 		super.populateBaseModel(doc);
@@ -1435,6 +1514,9 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		if(webComponentsTheme != null) {
 			doc.put("webComponentsTheme_docvalues_string", webComponentsTheme);
 		}
+		if(customerProfileId != null) {
+			doc.put("customerProfileId_docvalues_string", customerProfileId);
+		}
 		super.indexBaseModel(doc);
 
 	}
@@ -1465,6 +1547,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return "siteTheme_docvalues_string";
 			case "webComponentsTheme":
 				return "webComponentsTheme_docvalues_string";
+			case "customerProfileId":
+				return "customerProfileId_docvalues_string";
 			default:
 				return BaseModel.varStoredBaseModel(entityVar);
 		}
@@ -1496,6 +1580,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return "siteTheme_docvalues_string";
 			case "webComponentsTheme":
 				return "webComponentsTheme_docvalues_string";
+			case "customerProfileId":
+				return "customerProfileId_docvalues_string";
 			default:
 				return BaseModel.varIndexedBaseModel(entityVar);
 		}
@@ -1527,6 +1613,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				return "siteTheme";
 			case "webComponentsTheme_docvalues_string":
 				return "webComponentsTheme";
+			case "customerProfileId_docvalues_string":
+				return "customerProfileId";
 			default:
 				return BaseModel.searchVarBaseModel(searchVar);
 		}
@@ -1571,6 +1659,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		oSiteUser.setSiteFontSize(Optional.ofNullable(doc.get("siteFontSize_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oSiteUser.setSiteTheme(Optional.ofNullable(doc.get("siteTheme_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oSiteUser.setWebComponentsTheme(Optional.ofNullable(doc.get("webComponentsTheme_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSiteUser.setCustomerProfileId(Optional.ofNullable(doc.get("customerProfileId_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(doc);
 	}
@@ -1608,6 +1697,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 				apiRequest.addVars("siteTheme");
 			if(!Objects.equals(webComponentsTheme, original.getWebComponentsTheme()))
 				apiRequest.addVars("webComponentsTheme");
+			if(!Objects.equals(customerProfileId, original.getCustomerProfileId()))
+				apiRequest.addVars("customerProfileId");
 			super.apiRequestBaseModel();
 		}
 	}
@@ -1631,6 +1722,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		sb.append(Optional.ofNullable(siteFontSize).map(v -> "siteFontSize: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(siteTheme).map(v -> "siteTheme: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(webComponentsTheme).map(v -> "webComponentsTheme: \"" + v + "\"\n" ).orElse(""));
+		sb.append(Optional.ofNullable(customerProfileId).map(v -> "customerProfileId: \"" + v + "\"\n" ).orElse(""));
 		return sb.toString();
 	}
 
@@ -1653,6 +1745,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	public static final String VAR_siteFontSize = "siteFontSize";
 	public static final String VAR_siteTheme = "siteTheme";
 	public static final String VAR_webComponentsTheme = "webComponentsTheme";
+	public static final String VAR_customerProfileId = "customerProfileId";
 
 	public static List<String> varsQForClass() {
 		return SiteUser.varsQSiteUser(new ArrayList<String>());
@@ -1690,6 +1783,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	public static final String DISPLAY_NAME_siteFontSize = "font size";
 	public static final String DISPLAY_NAME_siteTheme = "site theme";
 	public static final String DISPLAY_NAME_webComponentsTheme = "web components theme";
+	public static final String DISPLAY_NAME_customerProfileId = "customer profile ID";
 
 	@Override
 	public String idForClass() {
@@ -1765,6 +1859,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return DISPLAY_NAME_siteTheme;
 		case VAR_webComponentsTheme:
 			return DISPLAY_NAME_webComponentsTheme;
+		case VAR_customerProfileId:
+			return DISPLAY_NAME_customerProfileId;
 		default:
 			return BaseModel.displayNameBaseModel(var);
 		}
@@ -1798,6 +1894,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 			return "The site theme, either light or dark. ";
 		case VAR_webComponentsTheme:
 			return "The web components theme for the site. ";
+		case VAR_customerProfileId:
+			return "Authorize.net customer profile ID. ";
 			default:
 				return BaseModel.descriptionBaseModel(var);
 		}
@@ -1828,6 +1926,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 		case VAR_siteTheme:
 			return "String";
 		case VAR_webComponentsTheme:
+			return "String";
+		case VAR_customerProfileId:
 			return "String";
 			default:
 				return BaseModel.classSimpleNameBaseModel(var);
