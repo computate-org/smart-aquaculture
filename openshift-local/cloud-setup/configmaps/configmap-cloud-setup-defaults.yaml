@@ -404,7 +404,7 @@ data:
     # Enable context broker integration in the Fiware enabled Smart Data Model APIs. 
     ENABLE_CONTEXT_BROKER: true
     # Enable sending context broker data. 
-    ENABLE_CONTEXT_BROKER_SEND: true
+    ENABLE_CONTEXT_BROKER_SEND: false
     # The Context Broker namespace. 
     CONTEXT_BROKER_NAMESPACE: "scorpiobroker"
     # Whether to use SSL when connecting to the Context Broker. 
