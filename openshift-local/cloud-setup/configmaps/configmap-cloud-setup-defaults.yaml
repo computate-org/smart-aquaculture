@@ -66,7 +66,7 @@ data:
     # The public port of the Zookeeper cluster manager. 
     CLUSTER_PUBLIC_PORT: "{{ (SITE_PORT | int) + 1 }}"
     # Zookeeper root path to avoid conflicts with other apps using Zookeeper for clustering. 
-    ZOOKEEPER_ROOT_PATH: "{{ lookup('env', 'ZOOKEEPER_ROOT_PATH') | default(SITE_NAME, true) }}"
+    ZOOKEEPER_ROOT_PATH: "{{ lookup('env', 'ZOOKEEPER_ROOT_PATH') | default(SITE_NAME + '-cloud', true) }}"
     # Verify SSL connections. 
     SSL_VERIFY: "{{ lookup('env', 'SSL_VERIFY') | default('false', true) | bool }}"
     # The public search endpoint for searching public items in the site. 
@@ -144,6 +144,10 @@ data:
     ENABLE_QUARKUS: false
     # Enables the worker verticle. 
     ENABLE_WORKER_VERTICLE: true
+    # During import processes like DbToSolrSync, fetch a batch of this many results. 
+    API_COUNTER_FETCH: 200
+    # During import processes like DbToSolrSync, perform another fetch when there are this many results left in the queue. 
+    API_COUNTER_RESUME: 100
 
     ###################
     # Vert.x defaults #
@@ -252,7 +256,7 @@ data:
     # The namespace in OpenShift where Zookeeper will run. 
     ZOOKEEPER_NAMESPACE: "{{ lookup('env', 'ZOOKEEPER_NAMESPACE') | default('zookeeper', true) }}"
     # The default hostname for the Zookeeper cluster manager. 
-    ZOOKEEPER_HOST_NAME: "{{ lookup('env', 'ZOOKEEPER_HOST_NAME') | default('zookeeper.zookeeper.svc', true) }}"
+    ZOOKEEPER_HOST_NAME: "{{ lookup('env', 'ZOOKEEPER_HOST_NAME') | default('zookeeper-client.zookeeper.svc', true) }}"
     # The default port that Zookeeper runs to manage the cluster. 
     ZOOKEEPER_PORT: "{{ lookup('env', 'ZOOKEEPER_PORT') | default('2181', true) }}"
     ZOOKEEPER_MAX_RETRIES: 0
@@ -416,7 +420,7 @@ data:
     # The delay between messages and requerying entity @context. 
     CONTEXT_BROKER_DELAY_MILLIS: 0
     # The Context Broker namespace. 
-    CONTEXT_BROKER_CONTEXT: "https://smaq.computate.org/static/fiware/context.jsonld"
+    CONTEXT_BROKER_CONTEXT: "{{ SITE_PUBLIC_URL }}/static/fiware/context.jsonld"
     # The base URL where the project will put NGSI-LD context information public on the Internet. 
     NGSILD_BASE_URL: "{{ lookup('env', 'NGSILD_BASE_URL') | default(SITE_PUBLIC_URL + '/static/fiware', true) }}"
     # The default NGSI-LD tenant environment variable
@@ -520,7 +524,7 @@ data:
     # Enable data import in the site. 
     ENABLE_IMPORT_DATA: true
     # Enable the Zookeeper cluster manager. 
-    ENABLE_ZOOKEEPER_CLUSTER: false
+    ENABLE_ZOOKEEPER_CLUSTER: true
     # Enable support for Open Telemetry in the application. 
     ENABLE_OPEN_TELEMETRY: false
     # Enable a login link and Keycloak integration in the application. 

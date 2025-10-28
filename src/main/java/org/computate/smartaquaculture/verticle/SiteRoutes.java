@@ -69,6 +69,30 @@ public class SiteRoutes {
     return promise.future();
   }
 
+  public static Future<SearchList<SitePage>> freeTrainingCourses(SiteRequest siteRequest, Router router, ComputateOAuth2AuthHandlerImpl oauth2AuthHandler, JsonObject config, WebClient webClient, Jinjava jinjava, SiteUserEnUSApiServiceImpl apiSiteUser) {
+    Promise<SearchList<SitePage>> promise = Promise.promise();
+    try {
+      SearchList<SitePage> searchList = new SearchList<SitePage>();
+      searchList.setStore(true);
+      searchList.q("*:*");
+      searchList.sort("importance_docvalues_double", "desc");
+      searchList.sort("created_docvalues_date", "desc");
+      searchList.fq("labels_docvalues_strings:free-course");
+      searchList.setC(SitePage.class);
+      searchList.setSiteRequest_(siteRequest);
+      searchList.promiseDeepForClass(siteRequest).onSuccess(searchList2 -> {
+        promise.complete(searchList);
+      }).onFailure(ex -> {
+        LOG.error(String.format("searchSitePage failed. "), ex);
+        promise.fail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("searchSitePage failed. "), ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
+
   public static Future<SolrResponse> facetAll(SiteRequest siteRequest, Router router, ComputateOAuth2AuthHandlerImpl oauth2AuthHandler, JsonObject config, WebClient webClient, Jinjava jinjava, SiteUserEnUSApiServiceImpl apiSiteUser) {
     Promise<SolrResponse> promise = Promise.promise();
     try {
@@ -110,38 +134,43 @@ public class SiteRoutes {
         siteRequest.addScopes("GET");
         facetAll(siteRequest, router, oauth2AuthHandler, config, webClient, jinjava, apiSiteUser).onSuccess(facetResponse -> {
           searchRecentArticles(siteRequest, router, oauth2AuthHandler, config, webClient, jinjava, apiSiteUser).onSuccess(pathToComputerEnlightenment -> {
-            try {
-              PageLayout page = new PageLayout();
-              MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
-              siteRequest.setRequestHeaders(requestHeaders);
-              page.setSiteRequest_(siteRequest);
-              page.setServiceRequest(siteRequest.getServiceRequest());
-              page.setWebClient(webClient);
-              page.promiseDeepPageLayout(siteRequest).onSuccess(a -> {
-                try {
-                  JsonObject ctx = ConfigKeys.getPageContext(config);
-                  ctx.mergeIn(JsonObject.mapFrom(page));
+            freeTrainingCourses(siteRequest, router, oauth2AuthHandler, config, webClient, jinjava, apiSiteUser).onSuccess(freeTrainingCourses -> {
+              try {
+                PageLayout page = new PageLayout();
+                MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+                siteRequest.setRequestHeaders(requestHeaders);
+                page.setSiteRequest_(siteRequest);
+                page.setServiceRequest(siteRequest.getServiceRequest());
+                page.setWebClient(webClient);
+                page.promiseDeepPageLayout(siteRequest).onSuccess(a -> {
+                  try {
+                    JsonObject ctx = ConfigKeys.getPageContext(config);
+                    ctx.mergeIn(JsonObject.mapFrom(page));
 
-                  FacetField facetClass = facetResponse.getFacetField("classSimpleName_docvalues_string");
-                  ctx.put("facetClass", facetClass);
-                  ctx.put("recentArticles", pathToComputerEnlightenment);
+                    FacetField facetClass = facetResponse.getFacetField("classSimpleName_docvalues_string");
+                    ctx.put("facetClass", facetClass);
+                    ctx.put("recentArticles", pathToComputerEnlightenment);
+                    ctx.put("freeTrainingCourses", freeTrainingCourses);
 
-                  Path resourceTemplatePath = Path.of(config.getString(ConfigKeys.TEMPLATE_PATH), "/en-us/HomePage.htm");
-                  String template = Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-                  String renderedTemplate = jinjava.render(template, ctx.getMap());
-                  Buffer buffer = Buffer.buffer(renderedTemplate);
-                  eventHandler.response().putHeader("Content-Type", "text/html");
-                  eventHandler.end(buffer);
-                } catch(Exception ex) {
+                    Path resourceTemplatePath = Path.of(config.getString(ConfigKeys.TEMPLATE_PATH), "/en-us/HomePage.htm");
+                    String template = Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+                    String renderedTemplate = jinjava.render(template, ctx.getMap());
+                    Buffer buffer = Buffer.buffer(renderedTemplate);
+                    eventHandler.response().putHeader("Content-Type", "text/html");
+                    eventHandler.end(buffer);
+                  } catch(Exception ex) {
+                    LOG.error(String.format("GET home page failed. "), ex);
+                  }
+                }).onFailure(ex -> {
                   LOG.error(String.format("GET home page failed. "), ex);
-                }
-              }).onFailure(ex -> {
-                LOG.error(String.format("GET home page failed. "), ex);
-              });
-            } catch(Exception ex) {
-              LOG.error("Failed to load page. ", ex);
-              eventHandler.fail(ex);
-            }
+                });
+              } catch(Exception ex) {
+                LOG.error("Failed to load page. ", ex);
+                eventHandler.fail(ex);
+              }
+            }).onFailure(ex -> {
+              LOG.error(String.format("Search failed. "), new RuntimeException(ex));
+            });
           }).onFailure(ex -> {
             LOG.error(String.format("Search failed. "), new RuntimeException(ex));
           });

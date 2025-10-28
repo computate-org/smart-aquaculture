@@ -43,6 +43,9 @@ find \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/event/CompanyEventGenPage.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/event/CompanyEventEnUSGenApiServiceImpl.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/event/CompanyEventEnUSGenApiService.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/fishingboat/FishingBoatGenPage.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/fishingboat/FishingBoatEnUSGenApiServiceImpl.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/fishingboat/FishingBoatEnUSGenApiService.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/page/ \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/request/ \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/result/ \
@@ -137,5 +140,12 @@ find \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/event/CompanyEventSearchButtons.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/event/CompanyEventSearchForm.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/event/CompanyEventSidebar.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/edit/fishing-boat/FishingBoatGenEditPage.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/fishing-boat/FishingBoatGenSearchPage.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/fishing-boat/FishingBoatLocation.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/fishing-boat/FishingBoatPaginationButtons.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/fishing-boat/FishingBoatSearchButtons.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/fishing-boat/FishingBoatSearchForm.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/fishing-boat/FishingBoatSidebar.htm \
     -type f -exec wc -l {} +
 echo AI generated

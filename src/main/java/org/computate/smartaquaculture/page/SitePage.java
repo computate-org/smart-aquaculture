@@ -55,6 +55,7 @@ import io.vertx.core.json.JsonObject;
  *   PATCH:
  *   POST:
  *   PUTImport:
+ *   DELETE:
  * 
  * AuthGroup:
  *   Admin:

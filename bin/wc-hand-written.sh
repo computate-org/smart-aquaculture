@@ -39,5 +39,8 @@ find \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/event/CompanyEvent.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/event/CompanyEventPage.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/event/CompanyEventEnUSApiServiceImpl.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/fishingboat/FishingBoat.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/fishingboat/FishingBoatPage.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/fishingboat/FishingBoatEnUSApiServiceImpl.java \
       -type f -exec wc -l {} +
 echo hand written

@@ -57,9 +57,6 @@ import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
-import org.computate.smartaquaculture.model.event.CompanyEvent;
-import org.computate.smartaquaculture.model.event.CompanyEventEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.event.CompanyEventEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
 import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSGenApiService;
@@ -72,6 +69,12 @@ import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing
 import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
 import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
+import org.computate.smartaquaculture.model.event.CompanyEvent;
+import org.computate.smartaquaculture.model.event.CompanyEventEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.event.CompanyEventEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat;
+import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatEnUSGenApiService;
 import org.computate.vertx.api.ApiCounter;
 import org.computate.vertx.api.ApiRequest;
 import org.computate.vertx.config.ComputateConfigKeys;
@@ -594,8 +597,6 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			initializeApiService(apiSitePage);
 			FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
 			initializeApiService(apiFishPopulation);
-			CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
-			initializeApiService(apiCompanyEvent);
 			FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
 			initializeApiService(apiFishFarm);
 			FishingDockEnUSApiServiceImpl apiFishingDock = new FishingDockEnUSApiServiceImpl();
@@ -604,6 +605,10 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 			initializeApiService(apiFishProcessing);
 			FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
 			initializeApiService(apiFishingTrip);
+			CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
+			initializeApiService(apiCompanyEvent);
+			FishingBoatEnUSApiServiceImpl apiFishingBoat = new FishingBoatEnUSApiServiceImpl();
+			initializeApiService(apiFishingBoat);
 
 			apiTimeZone.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, TimeZone.CLASS_CANONICAL_NAME, TimeZone.CLASS_SIMPLE_NAME, TimeZone.CLASS_API_ADDRESS_TimeZone, TimeZone.CLASS_AUTH_RESOURCE, "id", "userPage", "download").onSuccess(q1 -> {
 				apiFeedingOperation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FeedingOperation.CLASS_CANONICAL_NAME, FeedingOperation.CLASS_SIMPLE_NAME, FeedingOperation.CLASS_API_ADDRESS_FeedingOperation, FeedingOperation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q2 -> {
@@ -611,14 +616,15 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
 						apiFeed.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feed.CLASS_CANONICAL_NAME, Feed.CLASS_SIMPLE_NAME, Feed.CLASS_API_ADDRESS_Feed, Feed.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q4 -> {
 							apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, SitePage.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q5 -> {
 								apiFishPopulation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishPopulation.CLASS_CANONICAL_NAME, FishPopulation.CLASS_SIMPLE_NAME, FishPopulation.CLASS_API_ADDRESS_FishPopulation, FishPopulation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q6 -> {
-									apiCompanyEvent.importTimer(Paths.get(templatePath, "/en-us/shop/event"), vertx, siteRequest, CompanyEvent.CLASS_CANONICAL_NAME, CompanyEvent.CLASS_SIMPLE_NAME, CompanyEvent.CLASS_API_ADDRESS_CompanyEvent, CompanyEvent.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q7 -> {
-										apiFishFarm.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishFarm.CLASS_CANONICAL_NAME, FishFarm.CLASS_SIMPLE_NAME, FishFarm.CLASS_API_ADDRESS_FishFarm, FishFarm.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q8 -> {
-											apiFishingDock.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingDock.CLASS_CANONICAL_NAME, FishingDock.CLASS_SIMPLE_NAME, FishingDock.CLASS_API_ADDRESS_FishingDock, FishingDock.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q9 -> {
-												apiFishProcessing.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishProcessing.CLASS_CANONICAL_NAME, FishProcessing.CLASS_SIMPLE_NAME, FishProcessing.CLASS_API_ADDRESS_FishProcessing, FishProcessing.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q10 -> {
-													apiFishingTrip.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingTrip.CLASS_CANONICAL_NAME, FishingTrip.CLASS_SIMPLE_NAME, FishingTrip.CLASS_API_ADDRESS_FishingTrip, FishingTrip.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q11 -> {
-														LOG.info(String.format("The HTTP server is running: %s", config().getString(ConfigKeys.SITE_BASE_URL)));
-														LOG.info("data import complete");
-														promise.complete();
+									apiFishFarm.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishFarm.CLASS_CANONICAL_NAME, FishFarm.CLASS_SIMPLE_NAME, FishFarm.CLASS_API_ADDRESS_FishFarm, FishFarm.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q7 -> {
+										apiFishingDock.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingDock.CLASS_CANONICAL_NAME, FishingDock.CLASS_SIMPLE_NAME, FishingDock.CLASS_API_ADDRESS_FishingDock, FishingDock.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q8 -> {
+											apiFishProcessing.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishProcessing.CLASS_CANONICAL_NAME, FishProcessing.CLASS_SIMPLE_NAME, FishProcessing.CLASS_API_ADDRESS_FishProcessing, FishProcessing.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q9 -> {
+												apiFishingTrip.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingTrip.CLASS_CANONICAL_NAME, FishingTrip.CLASS_SIMPLE_NAME, FishingTrip.CLASS_API_ADDRESS_FishingTrip, FishingTrip.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q10 -> {
+													apiCompanyEvent.importTimer(Paths.get(templatePath, "/en-us/shop/event"), vertx, siteRequest, CompanyEvent.CLASS_CANONICAL_NAME, CompanyEvent.CLASS_SIMPLE_NAME, CompanyEvent.CLASS_API_ADDRESS_CompanyEvent, CompanyEvent.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q11 -> {
+														apiFishingBoat.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingBoat.CLASS_CANONICAL_NAME, FishingBoat.CLASS_SIMPLE_NAME, FishingBoat.CLASS_API_ADDRESS_FishingBoat, FishingBoat.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q12 -> {
+															LOG.info("data import complete");
+															promise.complete();
+														}).onFailure(ex -> promise.fail(ex));
 													}).onFailure(ex -> promise.fail(ex));
 												}).onFailure(ex -> promise.fail(ex));
 											}).onFailure(ex -> promise.fail(ex));

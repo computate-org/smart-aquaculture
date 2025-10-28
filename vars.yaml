@@ -67,7 +67,7 @@ CLUSTER_PORT: "{{ (SITE_PORT | int) + 1 }}"
 # The public port of the Zookeeper cluster manager. 
 CLUSTER_PUBLIC_PORT: "{{ (SITE_PORT | int) + 1 }}"
 # Zookeeper root path to avoid conflicts with other apps using Zookeeper for clustering. 
-ZOOKEEPER_ROOT_PATH: "{{ lookup('env', 'ZOOKEEPER_ROOT_PATH') | default(SITE_NAME, true) }}"
+ZOOKEEPER_ROOT_PATH: "{{ lookup('env', 'ZOOKEEPER_ROOT_PATH') | default(SITE_NAME + '-local', true) }}"
 # Verify SSL connections. 
 SSL_VERIFY: "{{ lookup('env', 'SSL_VERIFY') | default('false', true) | bool }}"
 # The public search endpoint for searching public items in the site. 
@@ -145,6 +145,10 @@ ENABLE_VERTX: true
 ENABLE_QUARKUS: false
 # Enables the worker verticle. 
 ENABLE_WORKER_VERTICLE: true
+# During import processes like DbToSolrSync, fetch a batch of this many results. 
+API_COUNTER_FETCH: 200
+# During import processes like DbToSolrSync, perform another fetch when there are this many results left in the queue. 
+API_COUNTER_RESUME: 100
 
 ###################
 # Vert.x defaults #
@@ -261,7 +265,7 @@ SITE_POWERED_BY_IMAGE: "{{ lookup('env', 'SITE_POWERED_BY_IMAGE') | default('<im
 # The namespace in OpenShift where Zookeeper will run. 
 ZOOKEEPER_NAMESPACE: "{{ lookup('env', 'ZOOKEEPER_NAMESPACE') | default('zookeeper', true) }}"
 # The default hostname for the Zookeeper cluster manager. 
-ZOOKEEPER_HOST_NAME: "{{ lookup('env', 'ZOOKEEPER_HOST_NAME') | default('zookeeper.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+ZOOKEEPER_HOST_NAME: "{{ lookup('env', 'ZOOKEEPER_HOST_NAME') | default('console-openshift-console.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The default port that Zookeeper runs to manage the cluster. 
 ZOOKEEPER_PORT: "{{ lookup('env', 'ZOOKEEPER_PORT') | default('30081', true) }}"
 ZOOKEEPER_MAX_RETRIES: 0
@@ -465,7 +469,7 @@ MQTT_NAMESPACE: "{{ lookup('env', 'MQTT_NAMESPACE') | default('amq-broker', true
 # The MQTT port (default 1883). 
 MQTT_PORT: "{{ lookup('env', 'MQTT_PORT') | default('30083', true) }}"
 # The MQTT host name. 
-MQTT_HOST_NAME: "{{ lookup('env', 'MQTT_HOST_NAME') | default('import-broker-mqtt-0-svc.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+MQTT_HOST_NAME: "{{ lookup('env', 'MQTT_HOST_NAME') | default('console-openshift-console.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The MQTT user. 
 MQTT_USERNAME: "{{ lookup('env', 'MQTT_USERNAME') | default('user', true) }}"
 # The MQTT password. 
@@ -482,7 +486,7 @@ AMQP_NAMESPACE: "{{ lookup('env', 'AMQP_NAMESPACE') | default('amq-broker', true
 # The AMQP port (default 5672). 
 AMQP_PORT: "{{ lookup('env', 'AMQP_PORT') | default('30072', true) }}"
 # The AMQP host name. 
-AMQP_HOST_NAME: "{{ lookup('env', 'AMQP_HOST_NAME') | default('import-broker-AMQP-0-svc.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+AMQP_HOST_NAME: "{{ lookup('env', 'AMQP_HOST_NAME') | default('console-openshift-console.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The AMQP user. 
 AMQP_USERNAME: "{{ lookup('env', 'AMQP_USERNAME') | default('user', true) }}"
 # The AMQP password. 
@@ -501,7 +505,7 @@ RABBITMQ_NAMESPACE: "{{ lookup('env', 'RABBITMQ_NAMESPACE') | default('rabbitmq'
 # The RabbitMQ port (default 5672). 
 RABBITMQ_PORT: "{{ lookup('env', 'RABBITMQ_PORT') | default('30072', true) }}"
 # The RabbitMQ host name. 
-RABBITMQ_HOST_NAME: "{{ lookup('env', 'RABBITMQ_HOST_NAME') | default('rabbitmq.' + OPENSHIFT_APPS_DOMAIN, true) }}"
+RABBITMQ_HOST_NAME: "{{ lookup('env', 'RABBITMQ_HOST_NAME') | default('console-openshift-console.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The RabbitMQ user. 
 RABBITMQ_USERNAME: "{{ lookup('env', 'RABBITMQ_USERNAME') | default('user', true) }}"
 # The RabbitMQ password. 
@@ -531,7 +535,7 @@ SITE_REPLICAS: 1
 # Enable data import in the site. 
 ENABLE_IMPORT_DATA: true
 # Enable the Zookeeper cluster manager. 
-ENABLE_ZOOKEEPER_CLUSTER: false
+ENABLE_ZOOKEEPER_CLUSTER: true
 # Enable support for Open Telemetry in the application. 
 ENABLE_OPEN_TELEMETRY: false
 # Enable a login link and Keycloak integration in the application. 

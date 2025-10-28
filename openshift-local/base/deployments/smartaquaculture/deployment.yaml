@@ -34,6 +34,20 @@ spec:
     spec:
       containers:
       - name: smartaquaculture
+        env:
+          - name: ENABLE_ZOOKEEPER_CLUSTER
+            value: 'true'
+          - name: CLUSTER_HOST_NAME
+            value: 0.0.0.0
+          - name: CLUSTER_PORT
+            value: '10231'
+          - name: CLUSTER_PUBLIC_HOST_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: CLUSTER_PUBLIC_PORT
+            value: '10231'
         envFrom:
         - secretRef:
             name: cloud-zookeeper

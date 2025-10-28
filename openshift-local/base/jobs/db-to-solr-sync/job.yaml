@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-to-solr-sync
+  namespace: smartaquaculture
+spec:
+  backoffLimit: 1000
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: db-to-solr-sync
+        env:
+          - name: ENABLE_ZOOKEEPER_CLUSTER
+            value: 'true'
+          - name: CLUSTER_HOST_NAME
+            value: 0.0.0.0
+          - name: CLUSTER_PORT
+            value: '10231'
+          - name: CLUSTER_PUBLIC_HOST_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: CLUSTER_PUBLIC_PORT
+            value: '10231'
+        envFrom:
+        - secretRef:
+            name: cloud-zookeeper
+        - secretRef:
+            name: cloud-solr
+        - secretRef:
+            name: cloud-database
+        - secretRef:
+            name: cloud-auth
+        - secretRef:
+            name: cloud-context-broker
+        - secretRef:
+            name: cloud-site
+        - secretRef:
+            name: cloud-font-awesome
+        - secretRef:
+            name: cloud-extra
+        image: quay.io/computateorg/smart-aquaculture:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 750m
+            ephemeral-storage: 1Gi
+            memory: 768Mi
+          requests:
+            cpu: 750m
+            ephemeral-storage: 1Gi
+            memory: 768Mi
+        ports:
+        - containerPort: 10231
+          name: cluster
+          protocol: TCP
+        command: ["/bin/bash", "-c", "--"]
+        args:
+          - >-
+              java -cp "$(cat /home/default/smart-aquaculture/cp.txt):/home/default/smart-aquaculture/target/classes" org.computate.smartaquaculture.verticle.DbToSolrSync
