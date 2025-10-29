@@ -676,7 +676,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
         zkConfig.put("zookeeperHosts", zookeeperHosts);
         zkConfig.put("sessionTimeout", zookeeperSessionTimeoutMillis);
         zkConfig.put("connectTimeout", zookeeperConnectionTimeoutMillis);
-        zkConfig.put("rootPath", config.getString(ConfigKeys.SITE_NAME));
+        zkConfig.put("rootPath", config.getString(ConfigKeys.ZOOKEEPER_ROOT_PATH));
         zkConfig.put("retry", new JsonObject()
             .put("policy", zookeeperRetryPolicy)
             .put("initialSleepTime", zookeeperBaseSleepTimeMillis)

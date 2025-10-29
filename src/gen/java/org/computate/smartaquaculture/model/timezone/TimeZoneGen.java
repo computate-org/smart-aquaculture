@@ -225,6 +225,230 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-globe\"></i>";
 	public static final Integer Rows = 10;
 
+	//////////////////
+	// abbreviation //
+	//////////////////
+
+
+	/**	 The entity abbreviation
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String abbreviation;
+
+	/**	<br> The entity abbreviation
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZone&fq=entiteVar_enUS_indexed_string:abbreviation">Find the entity abbreviation in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _abbreviation(Wrap<String> w);
+
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+	public void setAbbreviation(String o) {
+		this.abbreviation = TimeZone.staticSetAbbreviation(siteRequest_, o);
+	}
+	public static String staticSetAbbreviation(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected TimeZone abbreviationInit() {
+		Wrap<String> abbreviationWrap = new Wrap<String>().var("abbreviation");
+		if(abbreviation == null) {
+			_abbreviation(abbreviationWrap);
+			Optional.ofNullable(abbreviationWrap.getO()).ifPresent(o -> {
+				setAbbreviation(o);
+			});
+		}
+		return (TimeZone)this;
+	}
+
+	public static String staticSearchAbbreviation(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrAbbreviation(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAbbreviation(SiteRequest siteRequest_, String o) {
+		return TimeZone.staticSearchAbbreviation(siteRequest_, TimeZone.staticSetAbbreviation(siteRequest_, o)).toString();
+	}
+
+	public String sqlAbbreviation() {
+		return abbreviation;
+	}
+
+	//////////////
+	// location //
+	//////////////
+
+
+	/**	 The entity location
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String location;
+
+	/**	<br> The entity location
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZone&fq=entiteVar_enUS_indexed_string:location">Find the entity location in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _location(Wrap<String> w);
+
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String o) {
+		this.location = TimeZone.staticSetLocation(siteRequest_, o);
+	}
+	public static String staticSetLocation(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected TimeZone locationInit() {
+		Wrap<String> locationWrap = new Wrap<String>().var("location");
+		if(location == null) {
+			_location(locationWrap);
+			Optional.ofNullable(locationWrap.getO()).ifPresent(o -> {
+				setLocation(o);
+			});
+		}
+		return (TimeZone)this;
+	}
+
+	public static String staticSearchLocation(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrLocation(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqLocation(SiteRequest siteRequest_, String o) {
+		return TimeZone.staticSearchLocation(siteRequest_, TimeZone.staticSetLocation(siteRequest_, o)).toString();
+	}
+
+	public String sqlLocation() {
+		return location;
+	}
+
+	//////////
+	// name //
+	//////////
+
+
+	/**	 The entity name
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String name;
+
+	/**	<br> The entity name
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZone&fq=entiteVar_enUS_indexed_string:name">Find the entity name in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _name(Wrap<String> w);
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String o) {
+		this.name = TimeZone.staticSetName(siteRequest_, o);
+	}
+	public static String staticSetName(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected TimeZone nameInit() {
+		Wrap<String> nameWrap = new Wrap<String>().var("name");
+		if(name == null) {
+			_name(nameWrap);
+			Optional.ofNullable(nameWrap.getO()).ifPresent(o -> {
+				setName(o);
+			});
+		}
+		return (TimeZone)this;
+	}
+
+	public static String staticSearchName(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrName(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqName(SiteRequest siteRequest_, String o) {
+		return TimeZone.staticSearchName(siteRequest_, TimeZone.staticSetName(siteRequest_, o)).toString();
+	}
+
+	public String sqlName() {
+		return name;
+	}
+
+	/////////////////
+	// displayName //
+	/////////////////
+
+
+	/**	 The entity displayName
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String displayName;
+
+	/**	<br> The entity displayName
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZone&fq=entiteVar_enUS_indexed_string:displayName">Find the entity displayName in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _displayName(Wrap<String> w);
+
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String o) {
+		this.displayName = TimeZone.staticSetDisplayName(siteRequest_, o);
+	}
+	public static String staticSetDisplayName(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected TimeZone displayNameInit() {
+		Wrap<String> displayNameWrap = new Wrap<String>().var("displayName");
+		if(displayName == null) {
+			_displayName(displayNameWrap);
+			Optional.ofNullable(displayNameWrap.getO()).ifPresent(o -> {
+				setDisplayName(o);
+			});
+		}
+		return (TimeZone)this;
+	}
+
+	public static String staticSearchDisplayName(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrDisplayName(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqDisplayName(SiteRequest siteRequest_, String o) {
+		return TimeZone.staticSearchDisplayName(siteRequest_, TimeZone.staticSetDisplayName(siteRequest_, o)).toString();
+	}
+
+	public String sqlDisplayName() {
+		return displayName;
+	}
+
 	////////
 	// id //
 	////////
@@ -310,6 +534,10 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 		Future.future(a -> a.complete()).compose(a -> {
 			Promise<Void> promise2 = Promise.promise();
 			try {
+				abbreviationInit();
+				locationInit();
+				nameInit();
+				displayNameInit();
 				idInit();
 				promise2.complete();
 			} catch(Exception ex) {
@@ -364,6 +592,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	public Object obtainTimeZone(String var) {
 		TimeZone oTimeZone = (TimeZone)this;
 		switch(var) {
+			case "abbreviation":
+				return oTimeZone.abbreviation;
+			case "location":
+				return oTimeZone.location;
+			case "name":
+				return oTimeZone.name;
+			case "displayName":
+				return oTimeZone.displayName;
 			case "id":
 				return oTimeZone.id;
 			default:
@@ -405,6 +641,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	}
 	public static Object staticSetTimeZone(String entityVar, SiteRequest siteRequest_, String v, TimeZone o) {
 		switch(entityVar) {
+		case "abbreviation":
+			return TimeZone.staticSetAbbreviation(siteRequest_, v);
+		case "location":
+			return TimeZone.staticSetLocation(siteRequest_, v);
+		case "name":
+			return TimeZone.staticSetName(siteRequest_, v);
+		case "displayName":
+			return TimeZone.staticSetDisplayName(siteRequest_, v);
 		case "id":
 			return TimeZone.staticSetId(siteRequest_, v);
 			default:
@@ -421,6 +665,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	}
 	public static Object staticSearchTimeZone(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
+		case "abbreviation":
+			return TimeZone.staticSearchAbbreviation(siteRequest_, (String)o);
+		case "location":
+			return TimeZone.staticSearchLocation(siteRequest_, (String)o);
+		case "name":
+			return TimeZone.staticSearchName(siteRequest_, (String)o);
+		case "displayName":
+			return TimeZone.staticSearchDisplayName(siteRequest_, (String)o);
 		case "id":
 			return TimeZone.staticSearchId(siteRequest_, (String)o);
 			default:
@@ -437,6 +689,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	}
 	public static String staticSearchStrTimeZone(String entityVar, SiteRequest siteRequest_, Object o) {
 		switch(entityVar) {
+		case "abbreviation":
+			return TimeZone.staticSearchStrAbbreviation(siteRequest_, (String)o);
+		case "location":
+			return TimeZone.staticSearchStrLocation(siteRequest_, (String)o);
+		case "name":
+			return TimeZone.staticSearchStrName(siteRequest_, (String)o);
+		case "displayName":
+			return TimeZone.staticSearchStrDisplayName(siteRequest_, (String)o);
 		case "id":
 			return TimeZone.staticSearchStrId(siteRequest_, (String)o);
 			default:
@@ -453,6 +713,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	}
 	public static String staticSearchFqTimeZone(String entityVar, SiteRequest siteRequest_, String o) {
 		switch(entityVar) {
+		case "abbreviation":
+			return TimeZone.staticSearchFqAbbreviation(siteRequest_, o);
+		case "location":
+			return TimeZone.staticSearchFqLocation(siteRequest_, o);
+		case "name":
+			return TimeZone.staticSearchFqName(siteRequest_, o);
+		case "displayName":
+			return TimeZone.staticSearchFqDisplayName(siteRequest_, o);
 		case "id":
 			return TimeZone.staticSearchFqId(siteRequest_, o);
 			default:
@@ -481,7 +749,31 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	}
 	public Object persistTimeZone(String var, Object val) {
 		String varLower = var.toLowerCase();
-			if("id".equals(varLower)) {
+			if("abbreviation".equals(varLower)) {
+				if(val instanceof String) {
+					setAbbreviation((String)val);
+				}
+				saves.add("abbreviation");
+				return val;
+			} else if("location".equals(varLower)) {
+				if(val instanceof String) {
+					setLocation((String)val);
+				}
+				saves.add("location");
+				return val;
+			} else if("name".equals(varLower)) {
+				if(val instanceof String) {
+					setName((String)val);
+				}
+				saves.add("name");
+				return val;
+			} else if("displayname".equals(varLower)) {
+				if(val instanceof String) {
+					setDisplayName((String)val);
+				}
+				saves.add("displayName");
+				return val;
+			} else if("id".equals(varLower)) {
 				if(val instanceof String) {
 					setId((String)val);
 				}
@@ -504,6 +796,30 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
 		if(saves != null) {
 
+			if(saves.contains("abbreviation")) {
+				String abbreviation = (String)doc.get("abbreviation_docvalues_string");
+				if(abbreviation != null)
+					oTimeZone.setAbbreviation(abbreviation);
+			}
+
+			if(saves.contains("location")) {
+				String location = (String)doc.get("location_docvalues_string");
+				if(location != null)
+					oTimeZone.setLocation(location);
+			}
+
+			if(saves.contains("name")) {
+				String name = (String)doc.get("name_docvalues_string");
+				if(name != null)
+					oTimeZone.setName(name);
+			}
+
+			if(saves.contains("displayName")) {
+				String displayName = (String)doc.get("displayName_docvalues_string");
+				if(displayName != null)
+					oTimeZone.setDisplayName(displayName);
+			}
+
 			if(saves.contains("id")) {
 				String id = (String)doc.get("id_docvalues_string");
 				if(id != null)
@@ -515,6 +831,18 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	}
 
 	public void indexTimeZone(JsonObject doc) {
+		if(abbreviation != null) {
+			doc.put("abbreviation_docvalues_string", abbreviation);
+		}
+		if(location != null) {
+			doc.put("location_docvalues_string", location);
+		}
+		if(name != null) {
+			doc.put("name_docvalues_string", name);
+		}
+		if(displayName != null) {
+			doc.put("displayName_docvalues_string", displayName);
+		}
 		if(id != null) {
 			doc.put("id_docvalues_string", id);
 		}
@@ -524,6 +852,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static String varStoredTimeZone(String entityVar) {
 		switch(entityVar) {
+			case "abbreviation":
+				return "abbreviation_docvalues_string";
+			case "location":
+				return "location_docvalues_string";
+			case "name":
+				return "name_docvalues_string";
+			case "displayName":
+				return "displayName_docvalues_string";
 			case "id":
 				return "id_docvalues_string";
 			default:
@@ -533,6 +869,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static String varIndexedTimeZone(String entityVar) {
 		switch(entityVar) {
+			case "abbreviation":
+				return "abbreviation_docvalues_string";
+			case "location":
+				return "location_docvalues_string";
+			case "name":
+				return "name_docvalues_string";
+			case "displayName":
+				return "displayName_docvalues_string";
 			case "id":
 				return "id_docvalues_string";
 			default:
@@ -542,6 +886,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static String searchVarTimeZone(String searchVar) {
 		switch(searchVar) {
+			case "abbreviation_docvalues_string":
+				return "abbreviation";
+			case "location_docvalues_string":
+				return "location";
+			case "name_docvalues_string":
+				return "name";
+			case "displayName_docvalues_string":
+				return "displayName";
 			case "id_docvalues_string":
 				return "id";
 			default:
@@ -574,6 +926,10 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 		TimeZone oTimeZone = (TimeZone)this;
 		SiteRequest siteRequest = oTimeZone.getSiteRequest_();
 
+		oTimeZone.setAbbreviation(Optional.ofNullable(doc.get("abbreviation_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oTimeZone.setLocation(Optional.ofNullable(doc.get("location_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oTimeZone.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oTimeZone.setDisplayName(Optional.ofNullable(doc.get("displayName_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oTimeZone.setId(Optional.ofNullable(doc.get("id_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseResult(doc);
@@ -588,6 +944,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
 		if(o != null && o instanceof TimeZone) {
 			TimeZone original = (TimeZone)o;
+			if(!Objects.equals(abbreviation, original.getAbbreviation()))
+				apiRequest.addVars("abbreviation");
+			if(!Objects.equals(location, original.getLocation()))
+				apiRequest.addVars("location");
+			if(!Objects.equals(name, original.getName()))
+				apiRequest.addVars("name");
+			if(!Objects.equals(displayName, original.getDisplayName()))
+				apiRequest.addVars("displayName");
 			if(!Objects.equals(id, original.getId()))
 				apiRequest.addVars("id");
 			super.apiRequestBaseResult();
@@ -601,6 +965,10 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	@Override public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
+		sb.append(Optional.ofNullable(abbreviation).map(v -> "abbreviation: \"" + v + "\"\n" ).orElse(""));
+		sb.append(Optional.ofNullable(location).map(v -> "location: \"" + v + "\"\n" ).orElse(""));
+		sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
+		sb.append(Optional.ofNullable(displayName).map(v -> "displayName: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(id).map(v -> "id: \"" + v + "\"\n" ).orElse(""));
 		return sb.toString();
 	}
@@ -612,6 +980,10 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	public static String getClassApiAddress() {
 		return CLASS_API_ADDRESS_TimeZone;
 	}
+	public static final String VAR_abbreviation = "abbreviation";
+	public static final String VAR_location = "location";
+	public static final String VAR_name = "name";
+	public static final String VAR_displayName = "displayName";
 	public static final String VAR_id = "id";
 
 	public static List<String> varsQForClass() {
@@ -626,6 +998,10 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 		return TimeZone.varsFqTimeZone(new ArrayList<String>());
 	}
 	public static List<String> varsFqTimeZone(List<String> vars) {
+		vars.add(VAR_abbreviation);
+		vars.add(VAR_location);
+		vars.add(VAR_name);
+		vars.add(VAR_displayName);
 		vars.add(VAR_id);
 		BaseResult.varsFqBaseResult(vars);
 		return vars;
@@ -639,6 +1015,10 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 		return vars;
 	}
 
+	public static final String DISPLAY_NAME_abbreviation = "abbreviation";
+	public static final String DISPLAY_NAME_location = "location";
+	public static final String DISPLAY_NAME_name = "name";
+	public static final String DISPLAY_NAME_displayName = "display name";
 	public static final String DISPLAY_NAME_id = "id";
 
 	@Override
@@ -653,7 +1033,7 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	@Override
 	public String nameForClass() {
-		return id;
+		return displayName;
 	}
 
 	@Override
@@ -691,6 +1071,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 	}
 	public static String displayNameTimeZone(String var) {
 		switch(var) {
+		case VAR_abbreviation:
+			return DISPLAY_NAME_abbreviation;
+		case VAR_location:
+			return DISPLAY_NAME_location;
+		case VAR_name:
+			return DISPLAY_NAME_name;
+		case VAR_displayName:
+			return DISPLAY_NAME_displayName;
 		case VAR_id:
 			return DISPLAY_NAME_id;
 		default:
@@ -702,6 +1090,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 		if(var == null)
 			return null;
 		switch(var) {
+		case VAR_abbreviation:
+			return "The abbreviation for this time zone. ";
+		case VAR_location:
+			return "The location for this time zone. ";
+		case VAR_name:
+			return "The name for this time zone. ";
+		case VAR_displayName:
+			return "The display name for this time zone. ";
 		case VAR_id:
 			return "The id for this time zone. ";
 			default:
@@ -711,6 +1107,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static String classSimpleNameTimeZone(String var) {
 		switch(var) {
+		case VAR_abbreviation:
+			return "String";
+		case VAR_location:
+			return "String";
+		case VAR_name:
+			return "String";
+		case VAR_displayName:
+			return "String";
 		case VAR_id:
 			return "String";
 			default:
@@ -720,6 +1124,12 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static Integer htmColumnTimeZone(String var) {
 		switch(var) {
+		case VAR_abbreviation:
+			return 1;
+		case VAR_location:
+			return 2;
+		case VAR_name:
+			return 3;
 		case VAR_id:
 			return 0;
 			default:
@@ -729,6 +1139,12 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static Integer htmRowTimeZone(String var) {
 		switch(var) {
+		case VAR_abbreviation:
+			return 3;
+		case VAR_location:
+			return 3;
+		case VAR_name:
+			return 3;
 		case VAR_id:
 			return 3;
 			default:
@@ -738,8 +1154,14 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
 	public static Integer htmCellTimeZone(String var) {
 		switch(var) {
-		case VAR_id:
+		case VAR_abbreviation:
 			return 0;
+		case VAR_location:
+			return 1;
+		case VAR_name:
+			return 2;
+		case VAR_id:
+			return 2;
 			default:
 				return BaseResult.htmCellBaseResult(var);
 		}

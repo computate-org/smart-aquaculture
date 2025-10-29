@@ -130,11 +130,11 @@ SUFFIX_SRC_GEN_JAVA: /src/gen/java
 # The relative paths in the project to watch for changes. 
 RELATIVE_PATHS_TO_WATCH: "src/main/java/{{ SITE_JAVA_PACKAGE | replace('.', '/') }}"
 # The default source code directory for the computate application which helps generate and translate most the code. 
-COMPUTATE_SRC: "{{ lookup('env', 'HOME') + '/.local/src/computate' | realpath }}"
+COMPUTATE_SRC: "{{ lookup('env', 'COMPUTATE_SRC') | default(lookup('env', 'HOME') + '/.local/src/computate', true) | realpath }}"
 # The default source code directory for the computate-search application. 
-COMPUTATE_SEARCH_SRC: "{{ lookup('env', 'HOME') + '/.local/src/computate-search' | realpath }}"
+COMPUTATE_SEARCH_SRC: "{{ lookup('env', 'COMPUTATE_SEARCH_SRC') | default(lookup('env', 'HOME') + '/.local/src/computate-search', true) | realpath }}"
 # The default source code directory for the computate-vertx application. 
-COMPUTATE_VERTX_SRC: "{{ lookup('env', 'HOME') + '/.local/src/computate-vertx' | realpath }}"
+COMPUTATE_VERTX_SRC: "{{ lookup('env', 'COMPUTATE_VERTX_SRC') | default(lookup('env', 'HOME') + '/.local/src/computate-vertx', true) | realpath }}"
 # The paths to the internationalization for this project. 
 I18N_PATHS: ["{{ COMPUTATE_VERTX_SRC }}/src/main/resources/org/computate/i18n/i18n_{{ SITE_LANG }}.yaml"]
 # The Java main class of the site. 
@@ -201,6 +201,8 @@ WEB_COMPONENTS_SECRET: "{{ lookup('env', 'WEB_COMPONENTS_SECRET') | default('loc
 WEB_COMPONENTS_PREFIX: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_PREFIX | default('') | b64decode | default('wa-', true) }}"
 # Web components default theme. 
 WEB_COMPONENTS_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_THEME | default('', true) | b64decode | default('glossy', true) }}"
+# An optional FontAwesome Pro Kit for additional FontAwesome icons. 
+WEB_COMPONENTS_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_KIT | default('', true) | b64decode | default('', true) }}"
 # Site default font size. 
 SITE_FONT_SIZE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_FONT_SIZE | default('', true) | b64decode | default('m', true) }}"
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 

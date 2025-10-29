@@ -33,20 +33,75 @@ import org.computate.smartaquaculture.result.BaseResult;
  **/
 public class TimeZone extends TimeZoneGen<BaseResult> {
   
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * HtmRowTitleOpen: time zone details
-	 * HtmRow: 3
-	 * HtmCell: 0
-	 * HtmColumn: 0
-	 * Facet: true
-	 * DisplayName: id
-	 * Description: The id for this time zone. 
-	 * VarId: true
-	 * VarName: true
-	 */
-	protected void _id(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRowTitleOpen: time zone details
+   * HtmRow: 3
+   * HtmCell: 0
+   * HtmColumn: 1
+   * Facet: true
+   * DisplayName: abbreviation
+   * Description: The abbreviation for this time zone. 
+   */
+  protected void _abbreviation(Wrap<String> w) {
+  }
+  
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRow: 3
+   * HtmCell: 1
+   * HtmColumn: 2
+   * Facet: true
+   * DisplayName: location
+   * Description: The location for this time zone. 
+   */
+  protected void _location(Wrap<String> w) {
+  }
+  
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRow: 3
+   * HtmCell: 2
+   * HtmColumn: 3
+   * Facet: true
+   * DisplayName: name
+   * Description: The name for this time zone. 
+   */
+  protected void _name(Wrap<String> w) {
+  }
+  
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: display name
+   * Description: The display name for this time zone. 
+   * VarName: true
+   */
+  protected void _displayName(Wrap<String> w) {
+    w.o(String.format("%s %s %s", location, name, abbreviation));
+  }
+  
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRow: 3
+   * HtmCell: 2
+   * HtmColumn: 0
+   * Facet: true
+   * DisplayName: id
+   * Description: The id for this time zone. 
+   * VarId: true
+   */
+  protected void _id(Wrap<String> w) {
+    w.o(toId(displayName));
+  }
 }
