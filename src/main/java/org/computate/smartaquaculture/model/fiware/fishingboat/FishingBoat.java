@@ -50,105 +50,119 @@ import org.computate.smartaquaculture.model.mapmodel.MapModel;
  */
 public class FishingBoat extends FishingBoatGen<MapModel> {
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: time zone
-	 * Description: The local time zone the fishing trip departure and arrival dates are based on. 
-	 * HtmRowTitleOpen: departure/arrival
-	 * HtmRow: 3
-	 * HtmCell: 0
-	 * Facet: true
-	 * Zone: true
-	 * Relate: TimeZone.id
-	 **/
-	protected void _timeZone(Wrap<String> w) {
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: time zone
+   * Description: The local time zone the fishing trip departure and arrival dates are based on. 
+   * HtmRowTitleOpen: departure/arrival
+   * HtmRow: 3
+   * HtmCell: 0
+   * Facet: true
+   * Zone: true
+   * Relate: TimeZone.id
+   **/
+  protected void _timeZone(Wrap<String> w) {
     w.o(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE));
-	}
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: departure date
-	 * Description: The date and time the fishing trip departed. 
-	 * HtmColumn: 1
-	 * HtmRow: 3
-	 * HtmCell: 1
-	 * Facet: true
-	 **/
-	protected void _departureDate(Wrap<ZonedDateTime> w) {
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: fishing dock
+   * Description: The primary fishing dock of this boat. 
+   * HtmRow: 3
+   * HtmCell: 0
+   * Relate: FishingDock.entityShortId
+   * Facet: true
+   **/
+  protected void _fishingDockId(Wrap<String> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: departure date
+   * Description: The date and time the fishing trip departed. 
+   * HtmColumn: 1
+   * HtmRow: 3
+   * HtmCell: 1
+   * Facet: true
+   **/
+  protected void _departureDate(Wrap<ZonedDateTime> w) {
     w.o(created);
-	}
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: arrival date
-	 * Description: The date and time the fishing trip returned. 
-	 * HtmColumn: 2
-	 * HtmRow: 3
-	 * HtmCell: 2
-	 * Facet: true
-	 **/
-	protected void _arrivalDate(Wrap<ZonedDateTime> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: arrival date
+   * Description: The date and time the fishing trip returned. 
+   * HtmColumn: 2
+   * HtmRow: 3
+   * HtmCell: 2
+   * Facet: true
+   **/
+  protected void _arrivalDate(Wrap<ZonedDateTime> w) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: average speed (MPH)
-	 * Description: The average speed of the boat in miles per hour. 
-	 * HtmColumn: 2
-	 * HtmRow: 3
-	 * HtmCell: 2
-	 * Facet: true
-	 **/
-	protected void _avgSpeedInMph(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: average speed (MPH)
+   * Description: The average speed of the boat in miles per hour. 
+   * HtmColumn: 2
+   * HtmRow: 3
+   * HtmCell: 2
+   * Facet: true
+   **/
+  protected void _avgSpeedInMph(Wrap<BigDecimal> w) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: max speed (MPH)
-	 * Description: The max speed of the boat in miles per hour. 
-	 * HtmColumn: 2
-	 * HtmRow: 3
-	 * HtmCell: 2
-	 * Facet: true
-	 **/
-	protected void _maxSpeedInMph(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: max speed (MPH)
+   * Description: The max speed of the boat in miles per hour. 
+   * HtmColumn: 2
+   * HtmRow: 3
+   * HtmCell: 2
+   * Facet: true
+   **/
+  protected void _maxSpeedInMph(Wrap<BigDecimal> w) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: miles per gallon (MPG)
-	 * Description: The miles per gallon of the boat. 
-	 * HtmColumn: 2
-	 * HtmRow: 3
-	 * HtmCell: 2
-	 * Facet: true
-	 **/
-	protected void _milesPerGallon(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: miles per gallon (MPG)
+   * Description: The miles per gallon of the boat. 
+   * HtmColumn: 2
+   * HtmRow: 3
+   * HtmCell: 2
+   * Facet: true
+   **/
+  protected void _milesPerGallon(Wrap<BigDecimal> w) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: gallons of gas
-	 * Description: The number of gallons of gas in the boat. 
-	 * HtmColumn: 2
-	 * HtmRow: 3
-	 * HtmCell: 2
-	 * Facet: true
-	 **/
-	protected void _gallonsOfGas(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: gallons of gas
+   * Description: The number of gallons of gas in the boat. 
+   * HtmColumn: 2
+   * HtmRow: 3
+   * HtmCell: 2
+   * Facet: true
+   **/
+  protected void _gallonsOfGas(Wrap<BigDecimal> w) {
+  }
 }

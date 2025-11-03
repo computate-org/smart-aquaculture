@@ -80,6 +80,7 @@ import java.math.RoundingMode;
 import java.util.Map;
 import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
 import java.lang.String;
+import org.computate.smartaquaculture.model.timezone.TimeZone;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
@@ -337,6 +338,62 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	}
 
 	//////////////
+	// timeZone //
+	//////////////
+
+
+	/**	 The entity timeZone
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String timeZone;
+
+	/**	<br> The entity timeZone
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _timeZone(Wrap<String> w);
+
+	public String getTimeZone() {
+		return timeZone;
+	}
+	public void setTimeZone(String o) {
+		this.timeZone = FishingDock.staticSetTimeZone(siteRequest_, o);
+	}
+	public static String staticSetTimeZone(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	protected FishingDock timeZoneInit() {
+		Wrap<String> timeZoneWrap = new Wrap<String>().var("timeZone");
+		if(timeZone == null) {
+			_timeZone(timeZoneWrap);
+			Optional.ofNullable(timeZoneWrap.getO()).ifPresent(o -> {
+				setTimeZone(o);
+			});
+		}
+		return (FishingDock)this;
+	}
+
+	public static String staticSearchTimeZone(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrTimeZone(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqTimeZone(SiteRequest siteRequest_, String o) {
+		return FishingDock.staticSearchTimeZone(siteRequest_, FishingDock.staticSetTimeZone(siteRequest_, o)).toString();
+	}
+
+	public String sqlTimeZone() {
+		return timeZone;
+	}
+
+	//////////////
 	// initDeep //
 	//////////////
 
@@ -366,6 +423,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 			Promise<Void> promise2 = Promise.promise();
 			try {
 				addressInit();
+				timeZoneInit();
 				promise2.complete();
 			} catch(Exception ex) {
 				promise2.fail(ex);
@@ -421,6 +479,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(var) {
 			case "address":
 				return oFishingDock.address;
+			case "timeZone":
+				return oFishingDock.timeZone;
 			default:
 				return super.obtainMapModel(var);
 		}
@@ -446,6 +506,12 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	public Object relateFishingDock(String var, Object val) {
 		FishingDock oFishingDock = (FishingDock)this;
 		switch(var) {
+			case "timeZone":
+				if(oFishingDock.getTimeZone() == null)
+					oFishingDock.setTimeZone(Optional.ofNullable(val).map(v -> v.toString()).orElse(null));
+				if(!saves.contains("timeZone"))
+					saves.add("timeZone");
+				return val;
 			default:
 				return super.relateMapModel(var, val);
 		}
@@ -462,6 +528,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(entityVar) {
 		case "address":
 			return FishingDock.staticSetAddress(siteRequest_, v);
+		case "timeZone":
+			return FishingDock.staticSetTimeZone(siteRequest_, v);
 			default:
 				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
@@ -478,6 +546,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(entityVar) {
 		case "address":
 			return FishingDock.staticSearchAddress(siteRequest_, (JsonObject)o);
+		case "timeZone":
+			return FishingDock.staticSearchTimeZone(siteRequest_, (String)o);
 			default:
 				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
@@ -494,6 +564,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(entityVar) {
 		case "address":
 			return FishingDock.staticSearchStrAddress(siteRequest_, (String)o);
+		case "timeZone":
+			return FishingDock.staticSearchStrTimeZone(siteRequest_, (String)o);
 			default:
 				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
@@ -510,6 +582,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(entityVar) {
 		case "address":
 			return FishingDock.staticSearchFqAddress(siteRequest_, o);
+		case "timeZone":
+			return FishingDock.staticSearchFqTimeZone(siteRequest_, o);
 			default:
 				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
@@ -544,6 +618,12 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 				}
 				saves.add("address");
 				return val;
+			} else if("timezone".equals(varLower)) {
+				if(val instanceof String) {
+					setTimeZone((String)val);
+				}
+				saves.add("timeZone");
+				return val;
 		} else {
 			return super.persistMapModel(var, val);
 		}
@@ -566,6 +646,10 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 				if(address != null)
 					oFishingDock.setAddress(address);
 			}
+
+			String timeZone = (String)doc.get("timeZone_docvalues_string");
+			if(timeZone != null)
+				oFishingDock.setTimeZone(timeZone);
 		}
 
 		super.populateMapModel(doc);
@@ -575,6 +659,9 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		if(address != null) {
 			doc.put("address_docvalues_string", address.encode());
 		}
+		if(timeZone != null) {
+			doc.put("timeZone_docvalues_string", timeZone);
+		}
 		super.indexMapModel(doc);
 
 	}
@@ -583,6 +670,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(entityVar) {
 			case "address":
 				return "address_docvalues_string";
+			case "timeZone":
+				return "timeZone_docvalues_string";
 			default:
 				return MapModel.varStoredMapModel(entityVar);
 		}
@@ -592,6 +681,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(entityVar) {
 			case "address":
 				return "address_docvalues_string";
+			case "timeZone":
+				return "timeZone_docvalues_string";
 			default:
 				return MapModel.varIndexedMapModel(entityVar);
 		}
@@ -601,6 +692,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(searchVar) {
 			case "address_docvalues_string":
 				return "address";
+			case "timeZone_docvalues_string":
+				return "timeZone";
 			default:
 				return MapModel.searchVarMapModel(searchVar);
 		}
@@ -632,6 +725,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		SiteRequest siteRequest = oFishingDock.getSiteRequest_();
 
 		oFishingDock.setAddress(Optional.ofNullable(doc.get("address_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oFishingDock.setTimeZone(Optional.ofNullable(doc.get("timeZone_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeMapModel(doc);
 	}
@@ -647,6 +741,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 			FishingDock original = (FishingDock)o;
 			if(!Objects.equals(address, original.getAddress()))
 				apiRequest.addVars("address");
+			if(!Objects.equals(timeZone, original.getTimeZone()))
+				apiRequest.addVars("timeZone");
 			super.apiRequestMapModel();
 		}
 	}
@@ -659,6 +755,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
 		sb.append(Optional.ofNullable(address).map(v -> "address: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(timeZone).map(v -> "timeZone: \"" + v + "\"\n" ).orElse(""));
 		return sb.toString();
 	}
 
@@ -670,6 +767,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		return CLASS_API_ADDRESS_FishingDock;
 	}
 	public static final String VAR_address = "address";
+	public static final String VAR_timeZone = "timeZone";
 
 	public static List<String> varsQForClass() {
 		return FishingDock.varsQFishingDock(new ArrayList<String>());
@@ -684,6 +782,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	}
 	public static List<String> varsFqFishingDock(List<String> vars) {
 		vars.add(VAR_address);
+		vars.add(VAR_timeZone);
 		MapModel.varsFqMapModel(vars);
 		return vars;
 	}
@@ -698,6 +797,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	}
 
 	public static final String DISPLAY_NAME_address = "address";
+	public static final String DISPLAY_NAME_timeZone = "time zone";
 
 	@Override
 	public String idForClass() {
@@ -751,6 +851,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(var) {
 		case VAR_address:
 			return DISPLAY_NAME_address;
+		case VAR_timeZone:
+			return DISPLAY_NAME_timeZone;
 		default:
 			return MapModel.displayNameMapModel(var);
 		}
@@ -762,6 +864,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(var) {
 		case VAR_address:
 			return "The mailing address";
+		case VAR_timeZone:
+			return "The local time zone of the dock. ";
 			default:
 				return MapModel.descriptionMapModel(var);
 		}
@@ -771,6 +875,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(var) {
 		case VAR_address:
 			return "JsonObject";
+		case VAR_timeZone:
+			return "String";
 			default:
 				return MapModel.classSimpleNameMapModel(var);
 		}
@@ -779,6 +885,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	public static String ngsiType(String var) {
 		switch(var) {
 		case VAR_address:
+			return "Property";
+		case VAR_timeZone:
 			return "Property";
 			default:
 				return MapModel.ngsiType(var);
@@ -789,6 +897,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(var) {
 		case VAR_address:
 			return o.getAddress();
+		case VAR_timeZone:
+			return o.getTimeZone();
 			default:
 				return ngsiMapModel(var, o);
 		}
@@ -804,7 +914,9 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	public static Integer htmRowFishingDock(String var) {
 		switch(var) {
 		case VAR_address:
-			return 6;
+			return 3;
+		case VAR_timeZone:
+			return 3;
 			default:
 				return MapModel.htmRowMapModel(var);
 		}
@@ -814,6 +926,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 		switch(var) {
 		case VAR_address:
 			return 0;
+		case VAR_timeZone:
+			return 1;
 			default:
 				return MapModel.htmCellMapModel(var);
 		}

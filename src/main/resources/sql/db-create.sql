@@ -195,6 +195,7 @@ ALTER TABLE FishingDock ADD COLUMN IF NOT EXISTS ngsildContext text;
 ALTER TABLE FishingDock ADD COLUMN IF NOT EXISTS ngsildData jsonb;
 ALTER TABLE FishingDock ADD COLUMN IF NOT EXISTS color text;
 ALTER TABLE FishingDock ADD COLUMN IF NOT EXISTS address jsonb;
+ALTER TABLE FishingDock ADD COLUMN IF NOT EXISTS timeZone text;
 
 CREATE TABLE IF NOT EXISTS FishProcessing();
 ALTER TABLE FishProcessing ADD COLUMN IF NOT EXISTS pk bigserial primary key;
@@ -257,6 +258,7 @@ ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS ngsildContext text;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS ngsildData jsonb;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS color text;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS timeZone text;
+ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS fishingDockId text;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS departureDate timestamp with time zone;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS arrivalDate timestamp with time zone;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS avgSpeedInMph decimal;

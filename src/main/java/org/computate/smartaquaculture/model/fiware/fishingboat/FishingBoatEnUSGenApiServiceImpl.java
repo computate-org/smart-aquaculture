@@ -43,6 +43,8 @@ package org.computate.smartaquaculture.model.fiware.fishingboat;
 
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.timezone.TimeZone;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
 import org.computate.vertx.api.ApiRequest;
@@ -616,15 +618,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							JsonObject jsonObject = JsonObject.mapFrom(o);
 							o2 = jsonObject.mapTo(FishingBoat.class);
 							o2.setSiteRequest_(siteRequest);
+							patchFishingBoatFuture(o2, false).onSuccess(o3 -> {
+								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
+							}).onFailure(ex -> {
+								eventHandler.handle(Future.failedFuture(ex));
+							});
 						} else {
-							o2 = body.mapTo(FishingBoat.class);
-							o2.setSiteRequest_(siteRequest);
+							String m = String.format("%s %s not found", "fishing boat", null);
+							eventHandler.handle(Future.failedFuture(m));
 						}
-						patchFishingBoatFuture(o2, false).onSuccess(o3 -> {
-							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
-						}).onFailure(ex -> {
-							eventHandler.handle(Future.failedFuture(ex));
-						});
 					} catch(Exception ex) {
 						LOG.error(String.format("patchFishingBoat failed. "), ex);
 						error(siteRequest, eventHandler, ex);
@@ -775,13 +777,36 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlDescription());
 						break;
-					case "setDepartureDate":
-							o2.setDepartureDate(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingBoat.VAR_departureDate + "=$" + num);
-							num++;
-							bParams.add(o2.sqlDepartureDate());
+					case "setFishingDockId":
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								searchResult(siteRequest).query(FishingDock.varIndexedFishingDock(FishingDock.VAR_entityShortId), FishingDock.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("FishingDock");
+									}
+									sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, solrId2, val).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
+						break;
+					case "removeFishingDockId":
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(solrId2 -> {
+							futures2.add(Future.future(promise2 -> {
+								sql(siteRequest).update(FishingBoat.class, pk).setToNull(FishingBoat.VAR_fishingDockId, FishingDock.class, null).onSuccess(a -> {
+									promise2.complete();
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
 						break;
 					case "setLocation":
 							o2.setLocation(jsonObject.getJsonObject(entityVar));
@@ -799,6 +824,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlCreated());
 						break;
+					case "setDepartureDate":
+							o2.setDepartureDate(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingBoat.VAR_departureDate + "=$" + num);
+							num++;
+							bParams.add(o2.sqlDepartureDate());
+						break;
 					case "setArrivalDate":
 							o2.setArrivalDate(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -806,14 +839,6 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingBoat.VAR_arrivalDate + "=$" + num);
 							num++;
 							bParams.add(o2.sqlArrivalDate());
-						break;
-					case "setAvgSpeedInMph":
-							o2.setAvgSpeedInMph(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingBoat.VAR_avgSpeedInMph + "=$" + num);
-							num++;
-							bParams.add(o2.sqlAvgSpeedInMph());
 						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getString(entityVar));
@@ -823,6 +848,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlArchived());
 						break;
+					case "setAvgSpeedInMph":
+							o2.setAvgSpeedInMph(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingBoat.VAR_avgSpeedInMph + "=$" + num);
+							num++;
+							bParams.add(o2.sqlAvgSpeedInMph());
+						break;
 					case "setMaxSpeedInMph":
 							o2.setMaxSpeedInMph(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -830,14 +863,6 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingBoat.VAR_maxSpeedInMph + "=$" + num);
 							num++;
 							bParams.add(o2.sqlMaxSpeedInMph());
-						break;
-					case "setMilesPerGallon":
-							o2.setMilesPerGallon(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishingBoat.VAR_milesPerGallon + "=$" + num);
-							num++;
-							bParams.add(o2.sqlMilesPerGallon());
 						break;
 					case "setAreaServed":
 							o2.setAreaServed(jsonObject.getJsonObject(entityVar));
@@ -847,13 +872,13 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlAreaServed());
 						break;
-					case "setGallonsOfGas":
-							o2.setGallonsOfGas(jsonObject.getString(entityVar));
+					case "setMilesPerGallon":
+							o2.setMilesPerGallon(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishingBoat.VAR_gallonsOfGas + "=$" + num);
+							bSql.append(FishingBoat.VAR_milesPerGallon + "=$" + num);
 							num++;
-							bParams.add(o2.sqlGallonsOfGas());
+							bParams.add(o2.sqlMilesPerGallon());
 						break;
 					case "setId":
 							o2.setId(jsonObject.getString(entityVar));
@@ -862,6 +887,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingBoat.VAR_id + "=$" + num);
 							num++;
 							bParams.add(o2.sqlId());
+						break;
+					case "setGallonsOfGas":
+							o2.setGallonsOfGas(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingBoat.VAR_gallonsOfGas + "=$" + num);
+							num++;
+							bParams.add(o2.sqlGallonsOfGas());
 						break;
 					case "setSessionId":
 							o2.setSessionId(jsonObject.getString(entityVar));
@@ -1322,14 +1355,25 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlDescription());
 						break;
-					case FishingBoat.VAR_departureDate:
-						o2.setDepartureDate(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingBoat.VAR_departureDate + "=$" + num);
-						num++;
-						bParams.add(o2.sqlDepartureDate());
+					case FishingBoat.VAR_fishingDockId:
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								searchResult(siteRequest).query(FishingDock.varIndexedFishingDock(FishingDock.VAR_entityShortId), FishingDock.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("FishingDock");
+									}
+									sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, solrId2, val).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
 						break;
 					case FishingBoat.VAR_location:
 						o2.setLocation(jsonObject.getJsonObject(entityVar));
@@ -1349,6 +1393,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlCreated());
 						break;
+					case FishingBoat.VAR_departureDate:
+						o2.setDepartureDate(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingBoat.VAR_departureDate + "=$" + num);
+						num++;
+						bParams.add(o2.sqlDepartureDate());
+						break;
 					case FishingBoat.VAR_arrivalDate:
 						o2.setArrivalDate(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1357,15 +1410,6 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingBoat.VAR_arrivalDate + "=$" + num);
 						num++;
 						bParams.add(o2.sqlArrivalDate());
-						break;
-					case FishingBoat.VAR_avgSpeedInMph:
-						o2.setAvgSpeedInMph(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingBoat.VAR_avgSpeedInMph + "=$" + num);
-						num++;
-						bParams.add(o2.sqlAvgSpeedInMph());
 						break;
 					case FishingBoat.VAR_archived:
 						o2.setArchived(jsonObject.getString(entityVar));
@@ -1376,6 +1420,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlArchived());
 						break;
+					case FishingBoat.VAR_avgSpeedInMph:
+						o2.setAvgSpeedInMph(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingBoat.VAR_avgSpeedInMph + "=$" + num);
+						num++;
+						bParams.add(o2.sqlAvgSpeedInMph());
+						break;
 					case FishingBoat.VAR_maxSpeedInMph:
 						o2.setMaxSpeedInMph(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1384,15 +1437,6 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingBoat.VAR_maxSpeedInMph + "=$" + num);
 						num++;
 						bParams.add(o2.sqlMaxSpeedInMph());
-						break;
-					case FishingBoat.VAR_milesPerGallon:
-						o2.setMilesPerGallon(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishingBoat.VAR_milesPerGallon + "=$" + num);
-						num++;
-						bParams.add(o2.sqlMilesPerGallon());
 						break;
 					case FishingBoat.VAR_areaServed:
 						o2.setAreaServed(jsonObject.getJsonObject(entityVar));
@@ -1403,14 +1447,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlAreaServed());
 						break;
-					case FishingBoat.VAR_gallonsOfGas:
-						o2.setGallonsOfGas(jsonObject.getString(entityVar));
+					case FishingBoat.VAR_milesPerGallon:
+						o2.setMilesPerGallon(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishingBoat.VAR_gallonsOfGas + "=$" + num);
+						bSql.append(FishingBoat.VAR_milesPerGallon + "=$" + num);
 						num++;
-						bParams.add(o2.sqlGallonsOfGas());
+						bParams.add(o2.sqlMilesPerGallon());
 						break;
 					case FishingBoat.VAR_id:
 						o2.setId(jsonObject.getString(entityVar));
@@ -1420,6 +1464,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingBoat.VAR_id + "=$" + num);
 						num++;
 						bParams.add(o2.sqlId());
+						break;
+					case FishingBoat.VAR_gallonsOfGas:
+						o2.setGallonsOfGas(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingBoat.VAR_gallonsOfGas + "=$" + num);
+						num++;
+						bParams.add(o2.sqlGallonsOfGas());
 						break;
 					case FishingBoat.VAR_sessionId:
 						o2.setSessionId(jsonObject.getString(entityVar));
@@ -1866,6 +1919,26 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 										classes.add("TimeZone");
 									}
 									sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_timeZone, TimeZone.class, null, null).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
+						break;
+					case FishingBoat.VAR_fishingDockId:
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								searchResult(siteRequest).query(FishingDock.varIndexedFishingDock(FishingDock.VAR_entityShortId), FishingDock.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("FishingDock");
+									}
+									sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, null, null).onSuccess(a -> {
 										promise2.complete();
 									}).onFailure(ex -> {
 										promise2.fail(ex);
@@ -2891,6 +2964,26 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							}));
 						});
 						break;
+					case FishingBoat.VAR_fishingDockId:
+						Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
+							futures1.add(Future.future(promise2 -> {
+								searchResult(siteRequest).query(FishingDock.varIndexedFishingDock(FishingDock.VAR_entityShortId), FishingDock.class, val).onSuccess(o3 -> {
+									String solrId2 = Optional.ofNullable(o3).map(o4 -> o4.getSolrId()).filter(solrId3 -> !solrIds.contains(solrId3)).orElse(null);
+									if(solrId2 != null) {
+										solrIds.add(solrId2);
+										classes.add("FishingDock");
+									}
+									sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, null, null).onSuccess(a -> {
+										promise2.complete();
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}).onFailure(ex -> {
+									promise2.fail(ex);
+								});
+							}));
+						});
+						break;
 					}
 				}
 			}
@@ -3271,7 +3364,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT name, timeZone, description, departureDate, location, created, arrivalDate, avgSpeedInMph, archived, maxSpeedInMph, milesPerGallon, ST_AsGeoJSON(areaServed) as areaServed, gallonsOfGas, id, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, color, displayPage FROM FishingBoat WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT name, timeZone, description, fishingDockId, location, created, departureDate, arrivalDate, archived, avgSpeedInMph, maxSpeedInMph, ST_AsGeoJSON(areaServed) as areaServed, milesPerGallon, id, gallonsOfGas, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, color, displayPage FROM FishingBoat WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -3453,6 +3546,41 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							});
 						}));
 					}
+
+					if("FishingDock".equals(classSimpleName2) && solrId2 != null) {
+						SearchList<FishingDock> searchList2 = new SearchList<FishingDock>();
+						searchList2.setStore(true);
+						searchList2.q("*:*");
+						searchList2.setC(FishingDock.class);
+						searchList2.fq("solrId:" + solrId2);
+						searchList2.rows(1L);
+						futures.add(Future.future(promise2 -> {
+							searchList2.promiseDeepSearchList(siteRequest).onSuccess(b -> {
+								FishingDock o2 = searchList2.getList().stream().findFirst().orElse(null);
+								if(o2 != null) {
+									JsonObject params = new JsonObject();
+									params.put("body", new JsonObject());
+									params.put("cookie", new JsonObject());
+									params.put("path", new JsonObject());
+									params.put("query", new JsonObject().put("q", "*:*").put("fq", new JsonArray().add("solrId:" + solrId2)).put("var", new JsonArray().add("refresh:false")));
+									JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
+									JsonObject json = new JsonObject().put("context", context);
+									eventBus.request("smart-aquaculture-enUS-FishingDock", json, new DeliveryOptions().addHeader("action", "patchFishingDockFuture")).onSuccess(c -> {
+										JsonObject responseMessage = (JsonObject)c.body();
+										Integer statusCode = responseMessage.getInteger("statusCode");
+										if(statusCode.equals(200))
+											promise2.complete();
+										else
+											promise2.fail(new RuntimeException(responseMessage.getString("statusMessage")));
+									}).onFailure(ex -> {
+										promise2.fail(ex);
+									});
+								}
+							}).onFailure(ex -> {
+								promise2.fail(ex);
+							});
+						}));
+					}
 				}
 
 				CompositeFuture.all(futures).onSuccess(b -> {
@@ -3462,6 +3590,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 					params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
 					params.put("form", new JsonObject());
 					params.put("path", new JsonObject());
+					params.put("scopes", new JsonArray().add("GET").add("PATCH"));
 					JsonObject query = new JsonObject();
 					Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
 					Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
@@ -3513,17 +3642,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.persistForClass(FishingBoat.VAR_name, FishingBoat.staticSetName(siteRequest2, (String)result.get(FishingBoat.VAR_name)));
 			page.persistForClass(FishingBoat.VAR_timeZone, FishingBoat.staticSetTimeZone(siteRequest2, (String)result.get(FishingBoat.VAR_timeZone)));
 			page.persistForClass(FishingBoat.VAR_description, FishingBoat.staticSetDescription(siteRequest2, (String)result.get(FishingBoat.VAR_description)));
-			page.persistForClass(FishingBoat.VAR_departureDate, FishingBoat.staticSetDepartureDate(siteRequest2, (String)result.get(FishingBoat.VAR_departureDate), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
+			page.persistForClass(FishingBoat.VAR_fishingDockId, FishingBoat.staticSetFishingDockId(siteRequest2, (String)result.get(FishingBoat.VAR_fishingDockId)));
 			page.persistForClass(FishingBoat.VAR_location, FishingBoat.staticSetLocation(siteRequest2, (String)result.get(FishingBoat.VAR_location)));
 			page.persistForClass(FishingBoat.VAR_created, FishingBoat.staticSetCreated(siteRequest2, (String)result.get(FishingBoat.VAR_created), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
+			page.persistForClass(FishingBoat.VAR_departureDate, FishingBoat.staticSetDepartureDate(siteRequest2, (String)result.get(FishingBoat.VAR_departureDate), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
 			page.persistForClass(FishingBoat.VAR_arrivalDate, FishingBoat.staticSetArrivalDate(siteRequest2, (String)result.get(FishingBoat.VAR_arrivalDate), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
-			page.persistForClass(FishingBoat.VAR_avgSpeedInMph, FishingBoat.staticSetAvgSpeedInMph(siteRequest2, (String)result.get(FishingBoat.VAR_avgSpeedInMph)));
 			page.persistForClass(FishingBoat.VAR_archived, FishingBoat.staticSetArchived(siteRequest2, (String)result.get(FishingBoat.VAR_archived)));
+			page.persistForClass(FishingBoat.VAR_avgSpeedInMph, FishingBoat.staticSetAvgSpeedInMph(siteRequest2, (String)result.get(FishingBoat.VAR_avgSpeedInMph)));
 			page.persistForClass(FishingBoat.VAR_maxSpeedInMph, FishingBoat.staticSetMaxSpeedInMph(siteRequest2, (String)result.get(FishingBoat.VAR_maxSpeedInMph)));
-			page.persistForClass(FishingBoat.VAR_milesPerGallon, FishingBoat.staticSetMilesPerGallon(siteRequest2, (String)result.get(FishingBoat.VAR_milesPerGallon)));
 			page.persistForClass(FishingBoat.VAR_areaServed, FishingBoat.staticSetAreaServed(siteRequest2, (String)result.get(FishingBoat.VAR_areaServed)));
-			page.persistForClass(FishingBoat.VAR_gallonsOfGas, FishingBoat.staticSetGallonsOfGas(siteRequest2, (String)result.get(FishingBoat.VAR_gallonsOfGas)));
+			page.persistForClass(FishingBoat.VAR_milesPerGallon, FishingBoat.staticSetMilesPerGallon(siteRequest2, (String)result.get(FishingBoat.VAR_milesPerGallon)));
 			page.persistForClass(FishingBoat.VAR_id, FishingBoat.staticSetId(siteRequest2, (String)result.get(FishingBoat.VAR_id)));
+			page.persistForClass(FishingBoat.VAR_gallonsOfGas, FishingBoat.staticSetGallonsOfGas(siteRequest2, (String)result.get(FishingBoat.VAR_gallonsOfGas)));
 			page.persistForClass(FishingBoat.VAR_sessionId, FishingBoat.staticSetSessionId(siteRequest2, (String)result.get(FishingBoat.VAR_sessionId)));
 			page.persistForClass(FishingBoat.VAR_ngsildTenant, FishingBoat.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildTenant)));
 			page.persistForClass(FishingBoat.VAR_userKey, FishingBoat.staticSetUserKey(siteRequest2, (String)result.get(FishingBoat.VAR_userKey)));

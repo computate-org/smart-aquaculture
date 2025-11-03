@@ -1,6 +1,7 @@
 package org.computate.smartaquaculture.model.fiware.fishingdock;
 
 import org.computate.search.wrap.Wrap;
+import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.model.mapmodel.MapModel;
 
 import io.vertx.core.json.JsonObject;
@@ -55,8 +56,8 @@ public class FishingDock extends FishingDockGen<MapModel> {
 	 * Persist: true
 	 * DisplayName: address
 	 * Description: The mailing address
-	 * HtmRowTitleOpen: FishPopulation details
-	 * HtmRow: 6
+	 * HtmRowTitleOpen: fishing dock details
+	 * HtmRow: 3
 	 * HtmCell: 0
 	 * Facet: true
 	 **/
@@ -67,4 +68,20 @@ public class FishingDock extends FishingDockGen<MapModel> {
 	protected void _color(Wrap<String> w) {
 		w.o("#003f9cff");
 	}
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: time zone
+   * Description: The local time zone of the dock. 
+   * HtmRow: 3
+   * HtmCell: 1
+   * Facet: true
+   * Zone: true
+   * Relate: TimeZone.id
+   **/
+  protected void _timeZone(Wrap<String> w) {
+    w.o(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE));
+  }
 }
