@@ -555,22 +555,23 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 				searchFeedList(siteRequest, false, true, true).onSuccess(listFeed -> {
 					try {
 						Feed o = listFeed.first();
-						if(o != null && listFeed.getResponse().getResponse().getNumFound() == 1) {
-							ApiRequest apiRequest = new ApiRequest();
-							apiRequest.setRows(1L);
-							apiRequest.setNumFound(1L);
-							apiRequest.setNumPATCH(0L);
-							apiRequest.initDeepApiRequest(siteRequest);
-							siteRequest.setApiRequest_(apiRequest);
-							if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
-								siteRequest.getRequestVars().put( "refresh", "false" );
-							}
+						ApiRequest apiRequest = new ApiRequest();
+						apiRequest.setRows(1L);
+						apiRequest.setNumFound(1L);
+						apiRequest.setNumPATCH(0L);
+						apiRequest.initDeepApiRequest(siteRequest);
+						siteRequest.setApiRequest_(apiRequest);
+						if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
+							siteRequest.getRequestVars().put( "refresh", "false" );
+						}
+						Feed o2;
+						if(o != null) {
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listFeed.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-							apiRequest.setSolrId(Optional.ofNullable(listFeed.first()).map(o2 -> o2.getSolrId()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listFeed.first()).map(o3 -> o3.getEntityShortId().toString()).orElse(null));
+							apiRequest.setSolrId(Optional.ofNullable(listFeed.first()).map(o3 -> o3.getSolrId()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
-							Feed o2 = jsonObject.mapTo(Feed.class);
+							o2 = jsonObject.mapTo(Feed.class);
 							o2.setSiteRequest_(siteRequest);
 							patchFeedFuture(o2, false).onSuccess(o3 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -578,7 +579,8 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 								eventHandler.handle(Future.failedFuture(ex));
 							});
 						} else {
-							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
+							String m = String.format("%s %s not found", "Feed", null);
+							eventHandler.handle(Future.failedFuture(m));
 						}
 					} catch(Exception ex) {
 						LOG.error(String.format("patchFeed failed. "), ex);
@@ -630,7 +632,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 												apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 												if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
 													o2.apiRequestFeed();
-													if(apiRequest.getVars().size() > 0)
+													if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
 														eventBus.publish("websocketFeed", JsonObject.mapFrom(apiRequest).toString());
 												}
 											}
@@ -662,7 +664,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 											apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 											if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
 												o2.apiRequestFeed();
-												if(apiRequest.getVars().size() > 0)
+												if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
 													eventBus.publish("websocketFeed", JsonObject.mapFrom(apiRequest).toString());
 											}
 										}
@@ -1776,7 +1778,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 									apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 									if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
 										o2.apiRequestFeed();
-										if(apiRequest.getVars().size() > 0)
+										if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
 											eventBus.publish("websocketFeed", JsonObject.mapFrom(apiRequest).toString());
 									}
 								}
@@ -2311,7 +2313,8 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 		});
 	}
 
-	public void searchpageFeedPageInit(FeedPage page, SearchList<Feed> listFeed) {
+	public void searchpageFeedPageInit(JsonObject ctx, FeedPage page, SearchList<Feed> listFeed, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateSearchPageFeed(ServiceRequest serviceRequest) {
@@ -2340,9 +2343,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					searchpageFeedPageInit(ctx, page, listFeed, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200SearchPageFeed failed. "), ex);
 					promise.fail(ex);
@@ -2410,6 +2419,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 			form.add("permission", String.format("%s#%s", Feed.CLASS_AUTH_RESOURCE, "DELETE"));
 			form.add("permission", String.format("%s#%s", Feed.CLASS_AUTH_RESOURCE, "PATCH"));
 			form.add("permission", String.format("%s#%s", Feed.CLASS_AUTH_RESOURCE, "PUT"));
+			form.add("permission", String.format("%s-%s#%s", Feed.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
 			if(entityShortId != null)
 				form.add("permission", String.format("%s#%s", entityShortId, "GET"));
 			webClient.post(
@@ -2472,7 +2482,8 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 		});
 	}
 
-	public void editpageFeedPageInit(FeedPage page, SearchList<Feed> listFeed) {
+	public void editpageFeedPageInit(JsonObject ctx, FeedPage page, SearchList<Feed> listFeed, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateEditPageFeed(ServiceRequest serviceRequest) {
@@ -2501,9 +2512,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					editpageFeedPageInit(ctx, page, listFeed, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200EditPageFeed failed. "), ex);
 					promise.fail(ex);
@@ -2783,7 +2800,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 									apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 									if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
 										o2.apiRequestFeed();
-										if(apiRequest.getVars().size() > 0)
+										if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
 											eventBus.publish("websocketFeed", JsonObject.mapFrom(apiRequest).toString());
 									}
 								}
@@ -3543,6 +3560,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 					params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
 					params.put("form", new JsonObject());
 					params.put("path", new JsonObject());
+					params.put("scopes", new JsonArray().add("GET").add("PATCH"));
 					JsonObject query = new JsonObject();
 					Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
 					Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
@@ -3616,9 +3634,10 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 			page.persistForClass(Feed.VAR_seeAlso, Feed.staticSetSeeAlso(siteRequest2, (String)result.get(Feed.VAR_seeAlso)));
 			page.persistForClass(Feed.VAR_source, Feed.staticSetSource(siteRequest2, (String)result.get(Feed.VAR_source)));
 
-			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
+			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
 				try {
-					JsonObject data = JsonObject.mapFrom(result);
+					JsonObject data = JsonObject.mapFrom(o);
+					ctx.put("result", data.getMap());
 					promise.complete(data);
 				} catch(Exception ex) {
 					LOG.error(String.format(importModelFail, classSimpleName), ex);

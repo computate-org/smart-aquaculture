@@ -480,21 +480,22 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 				searchCompanyEventList(siteRequest, false, true, true).onSuccess(listCompanyEvent -> {
 					try {
 						CompanyEvent o = listCompanyEvent.first();
-						if(o != null && listCompanyEvent.getResponse().getResponse().getNumFound() == 1) {
-							ApiRequest apiRequest = new ApiRequest();
-							apiRequest.setRows(1L);
-							apiRequest.setNumFound(1L);
-							apiRequest.setNumPATCH(0L);
-							apiRequest.initDeepApiRequest(siteRequest);
-							siteRequest.setApiRequest_(apiRequest);
-							if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
-								siteRequest.getRequestVars().put( "refresh", "false" );
-							}
+						ApiRequest apiRequest = new ApiRequest();
+						apiRequest.setRows(1L);
+						apiRequest.setNumFound(1L);
+						apiRequest.setNumPATCH(0L);
+						apiRequest.initDeepApiRequest(siteRequest);
+						siteRequest.setApiRequest_(apiRequest);
+						if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
+							siteRequest.getRequestVars().put( "refresh", "false" );
+						}
+						CompanyEvent o2;
+						if(o != null) {
 							if(apiRequest.getNumFound() == 1L)
 								apiRequest.setOriginal(o);
-							apiRequest.setId(Optional.ofNullable(listCompanyEvent.first()).map(o2 -> o2.getPageId().toString()).orElse(null));
+							apiRequest.setId(Optional.ofNullable(listCompanyEvent.first()).map(o3 -> o3.getPageId().toString()).orElse(null));
 							JsonObject jsonObject = JsonObject.mapFrom(o);
-							CompanyEvent o2 = jsonObject.mapTo(CompanyEvent.class);
+							o2 = jsonObject.mapTo(CompanyEvent.class);
 							o2.setSiteRequest_(siteRequest);
 							patchCompanyEventFuture(o2, false).onSuccess(o3 -> {
 								eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
@@ -502,7 +503,8 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 								eventHandler.handle(Future.failedFuture(ex));
 							});
 						} else {
-							eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
+							String m = String.format("%s %s not found", "event", null);
+							eventHandler.handle(Future.failedFuture(m));
 						}
 					} catch(Exception ex) {
 						LOG.error(String.format("patchCompanyEvent failed. "), ex);
@@ -534,7 +536,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 						apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
 						if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
 							o.apiRequestCompanyEvent();
-							if(apiRequest.getVars().size() > 0)
+							if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
 								eventBus.publish("websocketCompanyEvent", JsonObject.mapFrom(apiRequest).toString());
 						}
 					}
@@ -1387,7 +1389,8 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 		});
 	}
 
-	public void searchpageCompanyEventPageInit(CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent) {
+	public void searchpageCompanyEventPageInit(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateSearchPageCompanyEvent(ServiceRequest serviceRequest) {
@@ -1414,9 +1417,15 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					searchpageCompanyEventPageInit(ctx, page, listCompanyEvent, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200SearchPageCompanyEvent failed. "), ex);
 					promise.fail(ex);
@@ -1484,6 +1493,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 			form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "DELETE"));
 			form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "PATCH"));
 			form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "PUT"));
+			form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "GET"));
 			if(pageId != null)
 				form.add("permission", String.format("%s#%s", pageId, "GET"));
 			webClient.post(
@@ -1546,7 +1556,8 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 		});
 	}
 
-	public void editpageCompanyEventPageInit(CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent) {
+	public void editpageCompanyEventPageInit(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateEditPageCompanyEvent(ServiceRequest serviceRequest) {
@@ -1573,9 +1584,15 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					editpageCompanyEventPageInit(ctx, page, listCompanyEvent, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200EditPageCompanyEvent failed. "), ex);
 					promise.fail(ex);
@@ -1668,11 +1685,12 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 		});
 	}
 
-	public void displaypageCompanyEventPageInit(CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent) {
+	public void displaypageCompanyEventPageInit(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateDisplayPageCompanyEvent(ServiceRequest serviceRequest) {
-		return String.format("%s.htm", serviceRequest.getExtra().getString("uri").substring(1));
+		return String.format("%s.htm", StringUtils.substringBefore(serviceRequest.getExtra().getString("uri").substring(1), "?"));
 	}
 	public Future<ServiceResponse> response200DisplayPageCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
 		Promise<ServiceResponse> promise = Promise.promise();
@@ -1695,9 +1713,15 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					displaypageCompanyEventPageInit(ctx, page, listCompanyEvent, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200DisplayPageCompanyEvent failed. "), ex);
 					promise.fail(ex);
@@ -1765,6 +1789,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 			form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "DELETE"));
 			form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "PATCH"));
 			form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "PUT"));
+			form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "GET"));
 			if(pageId != null)
 				form.add("permission", String.format("%s#%s", pageId, "GET"));
 			webClient.post(
@@ -1827,11 +1852,12 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 		});
 	}
 
-	public void userpageCompanyEventPageInit(CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent) {
+	public void userpageCompanyEventPageInit(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<Void> promise) {
+		promise.complete();
 	}
 
 	public String templateUserPageCompanyEvent(ServiceRequest serviceRequest) {
-		return String.format("%s.htm", serviceRequest.getExtra().getString("uri").substring(1));
+		return String.format("%s.htm", StringUtils.substringBefore(serviceRequest.getExtra().getString("uri").substring(1), "?"));
 	}
 	public Future<ServiceResponse> response200UserPageCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
 		Promise<ServiceResponse> promise = Promise.promise();
@@ -1854,9 +1880,15 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 				try {
 					JsonObject ctx = ConfigKeys.getPageContext(config);
 					ctx.mergeIn(JsonObject.mapFrom(page));
-					String renderedTemplate = jinjava.render(template, ctx.getMap());
-					Buffer buffer = Buffer.buffer(renderedTemplate);
-					promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					Promise<Void> promise1 = Promise.promise();
+					userpageCompanyEventPageInit(ctx, page, listCompanyEvent, promise1);
+					promise1.future().onSuccess(b -> {
+						String renderedTemplate = jinjava.render(template, ctx.getMap());
+						Buffer buffer = Buffer.buffer(renderedTemplate);
+						promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+					}).onFailure(ex -> {
+						promise.fail(ex);
+					});
 				} catch(Exception ex) {
 					LOG.error(String.format("response200UserPageCompanyEvent failed. "), ex);
 					promise.fail(ex);
@@ -2612,9 +2644,10 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 			page.persistForClass(CompanyEvent.VAR_displayPage, CompanyEvent.staticSetDisplayPage(siteRequest2, (String)result.get(CompanyEvent.VAR_displayPage)));
 			page.persistForClass(CompanyEvent.VAR_solrId, CompanyEvent.staticSetSolrId(siteRequest2, (String)result.get(CompanyEvent.VAR_solrId)));
 
-			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(a -> {
+			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
 				try {
-					JsonObject data = JsonObject.mapFrom(result);
+					JsonObject data = JsonObject.mapFrom(o);
+					ctx.put("result", data.getMap());
 					promise.complete(data);
 				} catch(Exception ex) {
 					LOG.error(String.format(importModelFail, classSimpleName), ex);

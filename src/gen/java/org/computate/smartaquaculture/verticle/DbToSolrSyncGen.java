@@ -90,6 +90,8 @@ import io.vertx.core.json.JsonArray;
  **/
 public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
 	protected static final Logger LOG = LoggerFactory.getLogger(DbToSolrSync.class);
+
+	public static final String SITE_NAME = "smart-aquaculture";
 	public static final String runDbToSolrSyncComplete1 = "database to solr sync completed. ";
 	public static final String runDbToSolrSyncComplete = runDbToSolrSyncComplete1;
 

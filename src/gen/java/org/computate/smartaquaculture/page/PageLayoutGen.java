@@ -42,6 +42,7 @@ import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
 import java.lang.Long;
 import io.vertx.core.json.JsonArray;
 import java.lang.Void;
+import java.lang.Boolean;
 import org.computate.search.response.solr.SolrResponse.Stats;
 import org.computate.search.response.solr.SolrResponse.FacetCounts;
 import java.lang.Integer;
@@ -1728,6 +1729,63 @@ public abstract class PageLayoutGen<DEV> extends Object {
 
 	public static String staticSearchFqPageTitle(SiteRequest siteRequest_, String o) {
 		return PageLayout.staticSearchPageTitle(siteRequest_, PageLayout.staticSetPageTitle(siteRequest_, o)).toString();
+	}
+
+	///////////////////
+	// filteredScope //
+	///////////////////
+
+
+	/**	 The entity filteredScope
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected Boolean filteredScope;
+
+	/**	<br> The entity filteredScope
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:filteredScope">Find the entity filteredScope in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _filteredScope(Wrap<Boolean> w);
+
+	public Boolean getFilteredScope() {
+		return filteredScope;
+	}
+
+	public void setFilteredScope(Boolean filteredScope) {
+		this.filteredScope = filteredScope;
+	}
+	@JsonIgnore
+	public void setFilteredScope(String o) {
+		this.filteredScope = PageLayout.staticSetFilteredScope(siteRequest_, o);
+	}
+	public static Boolean staticSetFilteredScope(SiteRequest siteRequest_, String o) {
+		return Boolean.parseBoolean(o);
+	}
+	protected PageLayout filteredScopeInit() {
+		Wrap<Boolean> filteredScopeWrap = new Wrap<Boolean>().var("filteredScope");
+		if(filteredScope == null) {
+			_filteredScope(filteredScopeWrap);
+			Optional.ofNullable(filteredScopeWrap.getO()).ifPresent(o -> {
+				setFilteredScope(o);
+			});
+		}
+		return (PageLayout)this;
+	}
+
+	public static Boolean staticSearchFilteredScope(SiteRequest siteRequest_, Boolean o) {
+		return o;
+	}
+
+	public static String staticSearchStrFilteredScope(SiteRequest siteRequest_, Boolean o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqFilteredScope(SiteRequest siteRequest_, String o) {
+		return PageLayout.staticSearchFilteredScope(siteRequest_, PageLayout.staticSetFilteredScope(siteRequest_, o)).toString();
 	}
 
 	////////////
@@ -4423,6 +4481,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			try {
 				classSimpleNameInit();
 				pageTitleInit();
+				filteredScopeInit();
 				scopesInit();
 				roleForWriteInit();
 				roleForReadInit();
@@ -4596,6 +4655,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 				return oPageLayout.classSimpleName;
 			case "pageTitle":
 				return oPageLayout.pageTitle;
+			case "filteredScope":
+				return oPageLayout.filteredScope;
 			case "scopes":
 				return oPageLayout.scopes;
 			case "roleForWrite":
@@ -4773,6 +4834,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSetClassSimpleName(siteRequest_, v);
 		case "pageTitle":
 			return PageLayout.staticSetPageTitle(siteRequest_, v);
+		case "filteredScope":
+			return PageLayout.staticSetFilteredScope(siteRequest_, v);
 		case "scopes":
 			return PageLayout.staticSetScopes(siteRequest_, v);
 		case "roleForWrite":
@@ -4911,6 +4974,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchClassSimpleName(siteRequest_, (String)o);
 		case "pageTitle":
 			return PageLayout.staticSearchPageTitle(siteRequest_, (String)o);
+		case "filteredScope":
+			return PageLayout.staticSearchFilteredScope(siteRequest_, (Boolean)o);
 		case "scopes":
 			return PageLayout.staticSearchScopes(siteRequest_, (String)o);
 		case "roleForWrite":
@@ -5053,6 +5118,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchStrClassSimpleName(siteRequest_, (String)o);
 		case "pageTitle":
 			return PageLayout.staticSearchStrPageTitle(siteRequest_, (String)o);
+		case "filteredScope":
+			return PageLayout.staticSearchStrFilteredScope(siteRequest_, (Boolean)o);
 		case "scopes":
 			return PageLayout.staticSearchStrScopes(siteRequest_, (String)o);
 		case "roleForWrite":
@@ -5195,6 +5262,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSearchFqClassSimpleName(siteRequest_, o);
 		case "pageTitle":
 			return PageLayout.staticSearchFqPageTitle(siteRequest_, o);
+		case "filteredScope":
+			return PageLayout.staticSearchFqFilteredScope(siteRequest_, o);
 		case "scopes":
 			return PageLayout.staticSearchFqScopes(siteRequest_, o);
 		case "roleForWrite":
@@ -5321,6 +5390,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	public static final String VAR_promiseBefore = "promiseBefore";
 	public static final String VAR_classSimpleName = "classSimpleName";
 	public static final String VAR_pageTitle = "pageTitle";
+	public static final String VAR_filteredScope = "filteredScope";
 	public static final String VAR_scopes = "scopes";
 	public static final String VAR_roleForWrite = "roleForWrite";
 	public static final String VAR_roleForRead = "roleForRead";
@@ -5397,6 +5467,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	public static final String DISPLAY_NAME_promiseBefore = "";
 	public static final String DISPLAY_NAME_classSimpleName = "";
 	public static final String DISPLAY_NAME_pageTitle = "";
+	public static final String DISPLAY_NAME_filteredScope = "";
 	public static final String DISPLAY_NAME_scopes = "";
 	public static final String DISPLAY_NAME_roleForWrite = "";
 	public static final String DISPLAY_NAME_roleForRead = "";
@@ -5545,6 +5616,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return DISPLAY_NAME_classSimpleName;
 		case VAR_pageTitle:
 			return DISPLAY_NAME_pageTitle;
+		case VAR_filteredScope:
+			return DISPLAY_NAME_filteredScope;
 		case VAR_scopes:
 			return DISPLAY_NAME_scopes;
 		case VAR_roleForWrite:
@@ -5690,6 +5763,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return "The simple name of this Java class";
 		case VAR_pageTitle:
 			return "The page title to override";
+		case VAR_filteredScope:
+			return "The user request scopes";
 		case VAR_scopes:
 			return "The user request scopes";
 		case VAR_roleForWrite:
@@ -5785,6 +5860,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return "String";
 		case VAR_pageTitle:
 			return "String";
+		case VAR_filteredScope:
+			return "Boolean";
 		case VAR_scopes:
 			return "List";
 		case VAR_roleForWrite:

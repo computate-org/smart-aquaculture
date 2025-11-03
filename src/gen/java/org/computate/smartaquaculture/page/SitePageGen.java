@@ -89,6 +89,9 @@ import io.vertx.core.json.JsonObject;
  * <h2>ApiMethode: PUTImport</h2>
  * <p>This class contains a comment <b>"ApiMethod: PUTImport"</b>, which creates an API "PUTImport". 
  * </p>
+ * <h2>ApiMethode: DELETE</h2>
+ * <p>This class contains a comment <b>"ApiMethod: DELETE"</b>, which creates an API "DELETE". 
+ * </p>
  * <h2>ApiMethode: SearchPage</h2>
  * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
  * </p>
@@ -97,6 +100,9 @@ import io.vertx.core.json.JsonObject;
  * </p>
  * <h2>ApiMethode: DisplayPage</h2>
  * <p>This class contains a comment <b>"ApiMethod: DisplayPage"</b>, which creates an API "DisplayPage". 
+ * </p>
+ * <h2>ApiMethode: DELETEFilter</h2>
+ * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
  * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: articles"</b>, which groups all of the OpenAPIs for SitePage objects under the tag "articles". 
@@ -212,6 +218,9 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/article-import";
 	public static final String PUTImport_enUS_StringFormatUri = "/en-us/api/article-import";
 	public static final String PUTImport_enUS_StringFormatUrl = "%s/en-us/api/article-import";
+	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/article/{pageId}";
+	public static final String DELETE_enUS_StringFormatUri = "/en-us/api/article/%s";
+	public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/article/%s";
 	public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/article";
 	public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/article";
 	public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/article";
@@ -221,6 +230,9 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	public static final String DisplayPage_enUS_OpenApiUri = "/en-us/view/article/{pageId}";
 	public static final String DisplayPage_enUS_StringFormatUri = "/en-us/view/article/%s";
 	public static final String DisplayPage_enUS_StringFormatUrl = "%s/en-us/view/article/%s";
+	public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/article";
+	public static final String DELETEFilter_enUS_StringFormatUri = "/en-us/api/article";
+	public static final String DELETEFilter_enUS_StringFormatUrl = "%s/en-us/api/article";
 
 	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-newspaper\"></i>";
 	public static final Integer Rows = 100;
@@ -2456,6 +2468,12 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
 	public void siteRequestSitePage(SiteRequest siteRequest_) {
 			super.siteRequestBaseResult(siteRequest_);
+		if(prerequisiteArticleSearch != null)
+			prerequisiteArticleSearch.setSiteRequest_(siteRequest_);
+		if(nextArticleSearch != null)
+			nextArticleSearch.setSiteRequest_(siteRequest_);
+		if(relatedArticleSearch != null)
+			relatedArticleSearch.setSiteRequest_(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequest siteRequest_) {
