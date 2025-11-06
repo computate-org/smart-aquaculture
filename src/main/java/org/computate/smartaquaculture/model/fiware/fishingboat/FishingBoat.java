@@ -2,10 +2,13 @@ package org.computate.smartaquaculture.model.fiware.fishingboat;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import org.computate.search.wrap.Wrap;
 import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.model.mapmodel.MapModel;
+
+import io.vertx.pgclient.data.Path;
 
 /**
  * Order: 12
@@ -165,4 +168,53 @@ public class FishingBoat extends FishingBoatGen<MapModel> {
    **/
   protected void _gallonsOfGas(Wrap<BigDecimal> w) {
   }
+
+	/**
+	 * {@inheritDoc}
+	
+	 * LocationColor: true
+	 * Indexed: true
+	 * Stored: true
+	 * DisplayName: area served colors
+	 * Description: The colors of each areaServed Paths. 
+	 */
+	protected void _areaServedColors(List<String> l) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * LocationTitle: true
+	 * Indexed: true
+	 * Stored: true
+	 * DisplayName: area served titles
+	 * Description: The titles of each areaServed Paths. 
+	 */
+	protected void _areaServedTitles(List<String> l) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * LocationUrl: true
+	 * Indexed: true
+	 * Stored: true
+	 * DisplayName: area served links
+	 * Description: The links of each areaServed Paths. 
+	 */
+	protected void _areaServedLinks(List<String> l) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * FiwareType: geo:linestring
+	 * Area: true
+	 * DocValues: true
+	 * Persist: true
+	 * DisplayName: path
+	 * Description: The geographic area where the boat goes fishing. 
+	 * HtmRow: 4
+	 * HtmCell: 1
+	 * Facet: true
+	 **/
+	protected void _path(Wrap<Path> w) {
+	}
 }

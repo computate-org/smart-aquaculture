@@ -766,6 +766,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlCreated());
 						break;
+					case "setId":
+							o2.setId(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_id + "=$" + num);
+							num++;
+							bParams.add(o2.sqlId());
+						break;
 					case "setArchived":
 							o2.setArchived(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -782,22 +790,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlAreaServed());
 						break;
-					case "setId":
-							o2.setId(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishFarm.VAR_id + "=$" + num);
-							num++;
-							bParams.add(o2.sqlId());
-						break;
-					case "setSessionId":
-							o2.setSessionId(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishFarm.VAR_sessionId + "=$" + num);
-							num++;
-							bParams.add(o2.sqlSessionId());
-						break;
 					case "setNgsildTenant":
 							o2.setNgsildTenant(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -805,14 +797,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(FishFarm.VAR_ngsildTenant + "=$" + num);
 							num++;
 							bParams.add(o2.sqlNgsildTenant());
-						break;
-					case "setUserKey":
-							o2.setUserKey(jsonObject.getString(entityVar));
-							if(bParams.size() > 0)
-								bSql.append(", ");
-							bSql.append(FishFarm.VAR_userKey + "=$" + num);
-							num++;
-							bParams.add(o2.sqlUserKey());
 						break;
 					case "setNgsildPath":
 							o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -838,13 +822,13 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							num++;
 							bParams.add(o2.sqlNgsildData());
 						break;
-					case "setObjectTitle":
-							o2.setObjectTitle(jsonObject.getString(entityVar));
+					case "setSessionId":
+							o2.setSessionId(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
 								bSql.append(", ");
-							bSql.append(FishFarm.VAR_objectTitle + "=$" + num);
+							bSql.append(FishFarm.VAR_sessionId + "=$" + num);
 							num++;
-							bParams.add(o2.sqlObjectTitle());
+							bParams.add(o2.sqlSessionId());
 						break;
 					case "setColor":
 							o2.setColor(jsonObject.getString(entityVar));
@@ -853,6 +837,22 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 							bSql.append(FishFarm.VAR_color + "=$" + num);
 							num++;
 							bParams.add(o2.sqlColor());
+						break;
+					case "setUserKey":
+							o2.setUserKey(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_userKey + "=$" + num);
+							num++;
+							bParams.add(o2.sqlUserKey());
+						break;
+					case "setObjectTitle":
+							o2.setObjectTitle(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishFarm.VAR_objectTitle + "=$" + num);
+							num++;
+							bParams.add(o2.sqlObjectTitle());
 						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -1256,6 +1256,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlCreated());
 						break;
+					case FishFarm.VAR_id:
+						o2.setId(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_id + "=$" + num);
+						num++;
+						bParams.add(o2.sqlId());
+						break;
 					case FishFarm.VAR_archived:
 						o2.setArchived(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1274,24 +1283,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlAreaServed());
 						break;
-					case FishFarm.VAR_id:
-						o2.setId(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishFarm.VAR_id + "=$" + num);
-						num++;
-						bParams.add(o2.sqlId());
-						break;
-					case FishFarm.VAR_sessionId:
-						o2.setSessionId(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishFarm.VAR_sessionId + "=$" + num);
-						num++;
-						bParams.add(o2.sqlSessionId());
-						break;
 					case FishFarm.VAR_ngsildTenant:
 						o2.setNgsildTenant(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1300,15 +1291,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(FishFarm.VAR_ngsildTenant + "=$" + num);
 						num++;
 						bParams.add(o2.sqlNgsildTenant());
-						break;
-					case FishFarm.VAR_userKey:
-						o2.setUserKey(jsonObject.getString(entityVar));
-						if(bParams.size() > 0) {
-							bSql.append(", ");
-						}
-						bSql.append(FishFarm.VAR_userKey + "=$" + num);
-						num++;
-						bParams.add(o2.sqlUserKey());
 						break;
 					case FishFarm.VAR_ngsildPath:
 						o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1337,14 +1319,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlNgsildData());
 						break;
-					case FishFarm.VAR_objectTitle:
-						o2.setObjectTitle(jsonObject.getString(entityVar));
+					case FishFarm.VAR_sessionId:
+						o2.setSessionId(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
 							bSql.append(", ");
 						}
-						bSql.append(FishFarm.VAR_objectTitle + "=$" + num);
+						bSql.append(FishFarm.VAR_sessionId + "=$" + num);
 						num++;
-						bParams.add(o2.sqlObjectTitle());
+						bParams.add(o2.sqlSessionId());
 						break;
 					case FishFarm.VAR_color:
 						o2.setColor(jsonObject.getString(entityVar));
@@ -1354,6 +1336,24 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(FishFarm.VAR_color + "=$" + num);
 						num++;
 						bParams.add(o2.sqlColor());
+						break;
+					case FishFarm.VAR_userKey:
+						o2.setUserKey(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_userKey + "=$" + num);
+						num++;
+						bParams.add(o2.sqlUserKey());
+						break;
+					case FishFarm.VAR_objectTitle:
+						o2.setObjectTitle(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishFarm.VAR_objectTitle + "=$" + num);
+						num++;
+						bParams.add(o2.sqlObjectTitle());
 						break;
 					case FishFarm.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -3093,7 +3093,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT name, address, description, location, created, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, color, displayPage FROM FishFarm WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT name, address, description, location, created, id, archived, ST_AsGeoJSON(areaServed) as areaServed, ngsildTenant, ngsildPath, ngsildContext, ngsildData, sessionId, color, userKey, objectTitle, displayPage FROM FishFarm WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -3303,17 +3303,17 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(FishFarm.VAR_description, FishFarm.staticSetDescription(siteRequest2, (String)result.get(FishFarm.VAR_description)));
 			page.persistForClass(FishFarm.VAR_location, FishFarm.staticSetLocation(siteRequest2, (String)result.get(FishFarm.VAR_location)));
 			page.persistForClass(FishFarm.VAR_created, FishFarm.staticSetCreated(siteRequest2, (String)result.get(FishFarm.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+			page.persistForClass(FishFarm.VAR_id, FishFarm.staticSetId(siteRequest2, (String)result.get(FishFarm.VAR_id)));
 			page.persistForClass(FishFarm.VAR_archived, FishFarm.staticSetArchived(siteRequest2, (String)result.get(FishFarm.VAR_archived)));
 			page.persistForClass(FishFarm.VAR_areaServed, FishFarm.staticSetAreaServed(siteRequest2, (String)result.get(FishFarm.VAR_areaServed)));
-			page.persistForClass(FishFarm.VAR_id, FishFarm.staticSetId(siteRequest2, (String)result.get(FishFarm.VAR_id)));
-			page.persistForClass(FishFarm.VAR_sessionId, FishFarm.staticSetSessionId(siteRequest2, (String)result.get(FishFarm.VAR_sessionId)));
 			page.persistForClass(FishFarm.VAR_ngsildTenant, FishFarm.staticSetNgsildTenant(siteRequest2, (String)result.get(FishFarm.VAR_ngsildTenant)));
-			page.persistForClass(FishFarm.VAR_userKey, FishFarm.staticSetUserKey(siteRequest2, (String)result.get(FishFarm.VAR_userKey)));
 			page.persistForClass(FishFarm.VAR_ngsildPath, FishFarm.staticSetNgsildPath(siteRequest2, (String)result.get(FishFarm.VAR_ngsildPath)));
 			page.persistForClass(FishFarm.VAR_ngsildContext, FishFarm.staticSetNgsildContext(siteRequest2, (String)result.get(FishFarm.VAR_ngsildContext)));
 			page.persistForClass(FishFarm.VAR_ngsildData, FishFarm.staticSetNgsildData(siteRequest2, (String)result.get(FishFarm.VAR_ngsildData)));
-			page.persistForClass(FishFarm.VAR_objectTitle, FishFarm.staticSetObjectTitle(siteRequest2, (String)result.get(FishFarm.VAR_objectTitle)));
+			page.persistForClass(FishFarm.VAR_sessionId, FishFarm.staticSetSessionId(siteRequest2, (String)result.get(FishFarm.VAR_sessionId)));
 			page.persistForClass(FishFarm.VAR_color, FishFarm.staticSetColor(siteRequest2, (String)result.get(FishFarm.VAR_color)));
+			page.persistForClass(FishFarm.VAR_userKey, FishFarm.staticSetUserKey(siteRequest2, (String)result.get(FishFarm.VAR_userKey)));
+			page.persistForClass(FishFarm.VAR_objectTitle, FishFarm.staticSetObjectTitle(siteRequest2, (String)result.get(FishFarm.VAR_objectTitle)));
 			page.persistForClass(FishFarm.VAR_displayPage, FishFarm.staticSetDisplayPage(siteRequest2, (String)result.get(FishFarm.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {

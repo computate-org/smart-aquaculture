@@ -11640,6 +11640,89 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/POSTSitePageResponse'
+    delete:
+      operationId: deletefilterSitePage
+      x-vertx-event-bus: smart-aquaculture-enUS-SitePage
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+          - customerProfileId
+      description: >+
+      summary: >+
+      tags:
+        - articles
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETEFilterSitePageResponse'
   /en-us/api/article-import:
     put:
       operationId: putimportSitePage
@@ -11761,6 +11844,95 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/GETSitePageResponse'
+    delete:
+      operationId: deleteSitePage
+      x-vertx-event-bus: smart-aquaculture-enUS-SitePage
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+          - customerProfileId
+      description: >+
+      summary: >+
+      tags:
+        - articles
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - name: pageId
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: 'The query parameter defines a query using standard query syntax. This parameter is mandatory.'
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: 'The filter query parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. '
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: commitWithin
+          description: 'The number of milliseconds to commit the record to Solr. '
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: softCommit
+          description: 'Does a soft commit for the record in Solr immediately. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: rows
+          description: 'The rows parameter specifies the maximum number of documents from the complete result set that Solr should return to the client at one time. '
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DELETESitePageResponse'
   /en-us/edit/article/{pageId}:
     get:
       operationId: editpageSitePage
@@ -13434,6 +13606,11 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/POSTSitePageResponse'
+    DELETEFilterSitePageResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETEFilterSitePageResponse'
     PUTImportSitePageRequest:
       content:
         application/json:
@@ -13449,6 +13626,11 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/GETSitePageResponse'
+    DELETESitePageResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DELETESitePageResponse'
     EditPageSitePageResponse:
       content:
         text/html; charset=utf-8:
@@ -16679,6 +16861,20 @@ components:
                 properties:
                   address:
                     type: object
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PATCHFishFarmRequest:
       allOf:
         - type: object
@@ -16689,6 +16885,64 @@ components:
             removeAddress:
               type: object
             removeAllAddress:
+              type: object
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
               type: object
     PATCHFishFarmResponse:
       allOf:
@@ -16701,11 +16955,83 @@ components:
               type: object
             removeAllAddress:
               type: object
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
+              type: object
     POSTFishFarmRequest:
       allOf:
         - type: object
           properties:
             address:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
               type: object
     POSTFishFarmResponse:
       allOf:
@@ -16713,11 +17039,39 @@ components:
           properties:
             address:
               type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFilterFishFarmResponse:
       allOf:
         - type: object
           properties:
             address:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
               type: object
     PUTImportFishFarmRequest:
       allOf:
@@ -16730,11 +17084,39 @@ components:
                 properties:
                   address:
                     type: object
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PUTImportFishFarmResponse:
       allOf:
         - type: object
           properties:
                   address:
+                    type: object
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
                     type: object
     GETFishFarmResponse:
       allOf:
@@ -16743,11 +17125,39 @@ components:
           properties:
             address:
               type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFishFarmResponse:
       allOf:
         - type: object
           properties:
             address:
+              type: object
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
               type: object
     EditPageFishFarmResponse:
       allOf:
@@ -16790,6 +17200,20 @@ components:
                     type: string
                   gallonsOfGas:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  path:
+                    type: object
     PATCHFishingBoatRequest:
       allOf:
         - type: object
@@ -16850,6 +17274,64 @@ components:
               type: string
             removeAllGallonsOfGas:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setPath:
+              type: object
+              nullable: true
+            removePath:
+              type: object
+            removeAllPath:
+              type: object
     PATCHFishingBoatResponse:
       allOf:
         - type: object
@@ -16910,6 +17392,64 @@ components:
               type: string
             removeAllGallonsOfGas:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setPath:
+              type: object
+              nullable: true
+            removePath:
+              type: object
+            removeAllPath:
+              type: object
     POSTFishingBoatRequest:
       allOf:
         - type: object
@@ -16930,6 +17470,20 @@ components:
               type: string
             gallonsOfGas:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            path:
+              type: object
     POSTFishingBoatResponse:
       allOf:
         - type: object
@@ -16950,6 +17504,20 @@ components:
               type: string
             gallonsOfGas:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            path:
+              type: object
     DELETEFilterFishingBoatResponse:
       allOf:
         - type: object
@@ -16970,6 +17538,20 @@ components:
               type: string
             gallonsOfGas:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            path:
+              type: object
     PUTImportFishingBoatRequest:
       allOf:
         - type: object
@@ -16995,6 +17577,20 @@ components:
                     type: string
                   gallonsOfGas:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  path:
+                    type: object
     PUTImportFishingBoatResponse:
       allOf:
         - type: object
@@ -17015,6 +17611,20 @@ components:
                     type: string
                   gallonsOfGas:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  path:
+                    type: object
     GETFishingBoatResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -17036,6 +17646,20 @@ components:
               type: string
             gallonsOfGas:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            path:
+              type: object
     DELETEFishingBoatResponse:
       allOf:
         - type: object
@@ -17056,6 +17680,20 @@ components:
               type: string
             gallonsOfGas:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            path:
+              type: object
     EditPageFishingBoatResponse:
       allOf:
         - type: string
@@ -17087,6 +17725,20 @@ components:
                     type: string
                   timeZone:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PATCHFishingDockRequest:
       allOf:
         - type: object
@@ -17112,6 +17764,64 @@ components:
               type: string
             removeAllTimeZone:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
+              type: object
     PATCHFishingDockResponse:
       allOf:
         - type: object
@@ -17137,6 +17847,64 @@ components:
               type: string
             removeAllTimeZone:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
+              type: object
     POSTFishingDockRequest:
       allOf:
         - type: object
@@ -17147,6 +17915,20 @@ components:
               type: string
             timeZone:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     POSTFishingDockResponse:
       allOf:
         - type: object
@@ -17157,6 +17939,20 @@ components:
               type: string
             timeZone:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFilterFishingDockResponse:
       allOf:
         - type: object
@@ -17167,6 +17963,20 @@ components:
               type: string
             timeZone:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     PUTImportFishingDockRequest:
       allOf:
         - type: object
@@ -17182,6 +17992,20 @@ components:
                     type: string
                   timeZone:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PUTImportFishingDockResponse:
       allOf:
         - type: object
@@ -17192,6 +18016,20 @@ components:
                     type: string
                   timeZone:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     GETFishingDockResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -17203,6 +18041,20 @@ components:
               type: string
             timeZone:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFishingDockResponse:
       allOf:
         - type: object
@@ -17213,6 +18065,20 @@ components:
               type: string
             timeZone:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     EditPageFishingDockResponse:
       allOf:
         - type: string
@@ -17423,6 +18289,20 @@ components:
                     type: string
                   source:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PATCHFishPopulationRequest:
       allOf:
         - type: object
@@ -17525,6 +18405,64 @@ components:
               type: string
             removeAllSource:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
+              type: object
     PATCHFishPopulationResponse:
       allOf:
         - type: object
@@ -17627,6 +18565,64 @@ components:
               type: string
             removeAllSource:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
+              type: object
     POSTFishPopulationRequest:
       allOf:
         - type: object
@@ -17659,6 +18655,20 @@ components:
               type: string
             source:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     POSTFishPopulationResponse:
       allOf:
         - type: object
@@ -17691,6 +18701,20 @@ components:
               type: string
             source:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFilterFishPopulationResponse:
       allOf:
         - type: object
@@ -17723,6 +18747,20 @@ components:
               type: string
             source:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     PUTImportFishPopulationRequest:
       allOf:
         - type: object
@@ -17760,6 +18798,20 @@ components:
                     type: string
                   source:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PUTImportFishPopulationResponse:
       allOf:
         - type: object
@@ -17792,6 +18844,20 @@ components:
                     type: string
                   source:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     GETFishPopulationResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -17825,6 +18891,20 @@ components:
               type: string
             source:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFishPopulationResponse:
       allOf:
         - type: object
@@ -17857,6 +18937,20 @@ components:
               type: string
             source:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     EditPageFishPopulationResponse:
       allOf:
         - type: string
@@ -17886,6 +18980,20 @@ components:
                     type: object
                   color:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PATCHFishProcessingRequest:
       allOf:
         - type: object
@@ -17904,6 +19012,64 @@ components:
               type: string
             removeAllColor:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
+              type: object
     PATCHFishProcessingResponse:
       allOf:
         - type: object
@@ -17922,6 +19088,64 @@ components:
               type: string
             removeAllColor:
               type: string
+            setAreaServedColors:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedColors:
+              type: string
+            removeAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            addAreaServedColors:
+              type: string
+            addAllAreaServedColors:
+              type: array
+              items:
+                type: string
+            setAreaServedTitles:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedTitles:
+              type: string
+            removeAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            addAreaServedTitles:
+              type: string
+            addAllAreaServedTitles:
+              type: array
+              items:
+                type: string
+            setAreaServedLinks:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeAreaServedLinks:
+              type: string
+            removeAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            addAreaServedLinks:
+              type: string
+            addAllAreaServedLinks:
+              type: array
+              items:
+                type: string
+            setAreaServed:
+              type: object
+              nullable: true
+            removeAreaServed:
+              type: object
+            removeAllAreaServed:
+              type: object
     POSTFishProcessingRequest:
       allOf:
         - type: object
@@ -17930,6 +19154,20 @@ components:
               type: object
             color:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     POSTFishProcessingResponse:
       allOf:
         - type: object
@@ -17938,6 +19176,20 @@ components:
               type: object
             color:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFilterFishProcessingResponse:
       allOf:
         - type: object
@@ -17946,6 +19198,20 @@ components:
               type: object
             color:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     PUTImportFishProcessingRequest:
       allOf:
         - type: object
@@ -17959,6 +19225,20 @@ components:
                     type: object
                   color:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     PUTImportFishProcessingResponse:
       allOf:
         - type: object
@@ -17967,6 +19247,20 @@ components:
                     type: object
                   color:
                     type: string
+                  areaServedColors:
+                    type: array
+                    items:
+                      type: string
+                  areaServedTitles:
+                    type: array
+                    items:
+                      type: string
+                  areaServedLinks:
+                    type: array
+                    items:
+                      type: string
+                  areaServed:
+                    type: object
     GETFishProcessingResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -17976,6 +19270,20 @@ components:
               type: object
             color:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     DELETEFishProcessingResponse:
       allOf:
         - type: object
@@ -17984,6 +19292,20 @@ components:
               type: object
             color:
               type: string
+            areaServedColors:
+              type: array
+              items:
+                type: string
+            areaServedTitles:
+              type: array
+              items:
+                type: string
+            areaServedLinks:
+              type: array
+              items:
+                type: string
+            areaServed:
+              type: object
     EditPageFishProcessingResponse:
       allOf:
         - type: string
@@ -18014,20 +19336,6 @@ components:
                     type: string
                   location:
                     type: object
-                  areaServedColors:
-                    type: array
-                    items:
-                      type: string
-                  areaServedTitles:
-                    type: array
-                    items:
-                      type: string
-                  areaServedLinks:
-                    type: array
-                    items:
-                      type: string
-                  areaServed:
-                    type: object
                   id:
                     type: string
                   entityShortId:
@@ -18055,20 +19363,6 @@ components:
             description:
               type: string
             location:
-              type: object
-            areaServedColors:
-              type: array
-              items:
-                type: string
-            areaServedTitles:
-              type: array
-              items:
-                type: string
-            areaServedLinks:
-              type: array
-              items:
-                type: string
-            areaServed:
               type: object
             id:
               type: string
@@ -19208,6 +20502,98 @@ components:
                   - type: number
                   - type: string
                   - type: boolean
+    DELETEFilterSitePageResponse:
+      allOf:
+        - type: object
+          properties:
+            article:
+              type: boolean
+            githubOrg:
+              type: string
+            siteName:
+              type: string
+            siteDisplayName:
+              type: string
+            sitePublicUrl:
+              type: string
+            mailingListUrl:
+              type: string
+            quayioOrg:
+              type: string
+            sitePomGroupId:
+              type: string
+            staticBaseUrl:
+              type: string
+            staticPath:
+              type: string
+            siteBaseUrl:
+              type: string
+            importance:
+              type: string
+            courseNum:
+              type: string
+            lessonNum:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            authorName:
+              type: string
+            authorUrl:
+              type: string
+            pageId:
+              type: string
+            h1:
+              type: string
+            h2:
+              type: string
+            pageImageUri:
+              type: string
+            pageImageWidth:
+              type: string
+            pageImageHeight:
+              type: string
+            pageImageType:
+              type: string
+            pageImageAlt:
+              type: string
+            prerequisiteArticleIds:
+              type: string
+            prerequisiteArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            nextArticleIds:
+              type: string
+            nextArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            labelsString:
+              type: string
+            labels:
+              type: array
+              items:
+                type: string
+            relatedArticleIds:
+              type: string
+            relatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
     PUTImportSitePageRequest:
       allOf:
         - type: object
@@ -19489,6 +20875,98 @@ components:
                   - type: number
                   - type: string
                   - type: boolean
+    DELETESitePageResponse:
+      allOf:
+        - type: object
+          properties:
+            article:
+              type: boolean
+            githubOrg:
+              type: string
+            siteName:
+              type: string
+            siteDisplayName:
+              type: string
+            sitePublicUrl:
+              type: string
+            mailingListUrl:
+              type: string
+            quayioOrg:
+              type: string
+            sitePomGroupId:
+              type: string
+            staticBaseUrl:
+              type: string
+            staticPath:
+              type: string
+            siteBaseUrl:
+              type: string
+            importance:
+              type: string
+            courseNum:
+              type: string
+            lessonNum:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            authorName:
+              type: string
+            authorUrl:
+              type: string
+            pageId:
+              type: string
+            h1:
+              type: string
+            h2:
+              type: string
+            pageImageUri:
+              type: string
+            pageImageWidth:
+              type: string
+            pageImageHeight:
+              type: string
+            pageImageType:
+              type: string
+            pageImageAlt:
+              type: string
+            prerequisiteArticleIds:
+              type: string
+            prerequisiteArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            nextArticleIds:
+              type: string
+            nextArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
+            labelsString:
+              type: string
+            labels:
+              type: array
+              items:
+                type: string
+            relatedArticleIds:
+              type: string
+            relatedArticles:
+              type: array
+              items:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: string
+                  - type: boolean
     EditPageSitePageResponse:
       allOf:
         - type: string
@@ -19541,6 +21019,8 @@ components:
                   siteTheme:
                     type: string
                   webComponentsTheme:
+                    type: string
+                  customerProfileId:
                     type: string
     PATCHSiteUserRequest:
       allOf:
@@ -19640,6 +21120,13 @@ components:
               type: string
             removeAllWebComponentsTheme:
               type: string
+            setCustomerProfileId:
+              type: string
+              nullable: true
+            removeCustomerProfileId:
+              type: string
+            removeAllCustomerProfileId:
+              type: string
     PATCHSiteUserResponse:
       allOf:
         - type: object
@@ -19738,6 +21225,13 @@ components:
               type: string
             removeAllWebComponentsTheme:
               type: string
+            setCustomerProfileId:
+              type: string
+              nullable: true
+            removeCustomerProfileId:
+              type: string
+            removeAllCustomerProfileId:
+              type: string
     POSTSiteUserRequest:
       allOf:
         - type: object
@@ -19768,6 +21262,8 @@ components:
               type: string
             webComponentsTheme:
               type: string
+            customerProfileId:
+              type: string
     POSTSiteUserResponse:
       allOf:
         - type: object
@@ -19797,6 +21293,8 @@ components:
             siteTheme:
               type: string
             webComponentsTheme:
+              type: string
+            customerProfileId:
               type: string
     EditPageSiteUserResponse:
       allOf:

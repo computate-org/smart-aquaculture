@@ -91,10 +91,22 @@ import java.time.Instant;
 import java.util.Locale;
 import java.time.OffsetDateTime;
 import java.math.BigDecimal;
+import io.vertx.core.json.JsonArray;
+import io.vertx.pgclient.data.Path;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.BeanDescription;
+import java.util.stream.Collectors;
+import io.vertx.core.json.Json;
+import io.vertx.pgclient.data.Point;
+import org.computate.vertx.serialize.pgclient.PgClientPathSerializer;
+import org.computate.vertx.serialize.pgclient.PgClientPathDeserializer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
-import io.vertx.core.json.JsonArray;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -868,6 +880,337 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 		return gallonsOfGas;
 	}
 
+	//////////////////////
+	// areaServedColors //
+	//////////////////////
+
+
+	/**	 The entity areaServedColors
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> areaServedColors = new ArrayList<String>();
+
+	/**	<br> The entity areaServedColors
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _areaServedColors(List<String> l);
+
+	public List<String> getAreaServedColors() {
+		return areaServedColors;
+	}
+
+	public void setAreaServedColors(List<String> areaServedColors) {
+		this.areaServedColors = areaServedColors;
+	}
+	@JsonIgnore
+	public void setAreaServedColors(String o) {
+		String l = FishingBoat.staticSetAreaServedColors(siteRequest_, o);
+		if(l != null)
+			addAreaServedColors(l);
+	}
+	public static String staticSetAreaServedColors(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public FishingBoat addAreaServedColors(String...objects) {
+		for(String o : objects) {
+			addAreaServedColors(o);
+		}
+		return (FishingBoat)this;
+	}
+	public FishingBoat addAreaServedColors(String o) {
+		if(o != null)
+			this.areaServedColors.add(o);
+		return (FishingBoat)this;
+	}
+	@JsonIgnore
+	public void setAreaServedColors(JsonArray objects) {
+		areaServedColors.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addAreaServedColors(o);
+		}
+	}
+	protected FishingBoat areaServedColorsInit() {
+		_areaServedColors(areaServedColors);
+		return (FishingBoat)this;
+	}
+
+	public static String staticSearchAreaServedColors(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrAreaServedColors(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAreaServedColors(SiteRequest siteRequest_, String o) {
+		return FishingBoat.staticSearchAreaServedColors(siteRequest_, FishingBoat.staticSetAreaServedColors(siteRequest_, o)).toString();
+	}
+
+	//////////////////////
+	// areaServedTitles //
+	//////////////////////
+
+
+	/**	 The entity areaServedTitles
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> areaServedTitles = new ArrayList<String>();
+
+	/**	<br> The entity areaServedTitles
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _areaServedTitles(List<String> l);
+
+	public List<String> getAreaServedTitles() {
+		return areaServedTitles;
+	}
+
+	public void setAreaServedTitles(List<String> areaServedTitles) {
+		this.areaServedTitles = areaServedTitles;
+	}
+	@JsonIgnore
+	public void setAreaServedTitles(String o) {
+		String l = FishingBoat.staticSetAreaServedTitles(siteRequest_, o);
+		if(l != null)
+			addAreaServedTitles(l);
+	}
+	public static String staticSetAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public FishingBoat addAreaServedTitles(String...objects) {
+		for(String o : objects) {
+			addAreaServedTitles(o);
+		}
+		return (FishingBoat)this;
+	}
+	public FishingBoat addAreaServedTitles(String o) {
+		if(o != null)
+			this.areaServedTitles.add(o);
+		return (FishingBoat)this;
+	}
+	@JsonIgnore
+	public void setAreaServedTitles(JsonArray objects) {
+		areaServedTitles.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addAreaServedTitles(o);
+		}
+	}
+	protected FishingBoat areaServedTitlesInit() {
+		_areaServedTitles(areaServedTitles);
+		return (FishingBoat)this;
+	}
+
+	public static String staticSearchAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return FishingBoat.staticSearchAreaServedTitles(siteRequest_, FishingBoat.staticSetAreaServedTitles(siteRequest_, o)).toString();
+	}
+
+	/////////////////////
+	// areaServedLinks //
+	/////////////////////
+
+
+	/**	 The entity areaServedLinks
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> areaServedLinks = new ArrayList<String>();
+
+	/**	<br> The entity areaServedLinks
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _areaServedLinks(List<String> l);
+
+	public List<String> getAreaServedLinks() {
+		return areaServedLinks;
+	}
+
+	public void setAreaServedLinks(List<String> areaServedLinks) {
+		this.areaServedLinks = areaServedLinks;
+	}
+	@JsonIgnore
+	public void setAreaServedLinks(String o) {
+		String l = FishingBoat.staticSetAreaServedLinks(siteRequest_, o);
+		if(l != null)
+			addAreaServedLinks(l);
+	}
+	public static String staticSetAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public FishingBoat addAreaServedLinks(String...objects) {
+		for(String o : objects) {
+			addAreaServedLinks(o);
+		}
+		return (FishingBoat)this;
+	}
+	public FishingBoat addAreaServedLinks(String o) {
+		if(o != null)
+			this.areaServedLinks.add(o);
+		return (FishingBoat)this;
+	}
+	@JsonIgnore
+	public void setAreaServedLinks(JsonArray objects) {
+		areaServedLinks.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addAreaServedLinks(o);
+		}
+	}
+	protected FishingBoat areaServedLinksInit() {
+		_areaServedLinks(areaServedLinks);
+		return (FishingBoat)this;
+	}
+
+	public static String staticSearchAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return FishingBoat.staticSearchAreaServedLinks(siteRequest_, FishingBoat.staticSetAreaServedLinks(siteRequest_, o)).toString();
+	}
+
+	//////////
+	// path //
+	//////////
+
+
+	/**	 The entity path
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonDeserialize(using = PgClientPathDeserializer.class)
+	@JsonSerialize(using = PgClientPathSerializer.class)
+	@JsonInclude(Include.NON_NULL)
+	protected Path path;
+
+	/**	<br> The entity path
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:path">Find the entity path in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _path(Wrap<Path> w);
+
+	public Path getPath() {
+		return path;
+	}
+
+	public void setPath(Path path) {
+		this.path = path;
+	}
+	@JsonIgnore
+	public void setPath(String o) {
+		this.path = FishingBoat.staticSetPath(siteRequest_, o);
+	}
+	public static Path staticSetPath(SiteRequest siteRequest_, String o) {
+		if(o != null) {
+			try {
+				Path shape = null;
+				if(StringUtils.isNotBlank(o)) {
+					ObjectMapper objectMapper = new ObjectMapper();
+					SimpleModule module = new SimpleModule();
+					module.setDeserializerModifier(new BeanDeserializerModifier() {
+						@Override
+						public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
+							if (beanDesc.getBeanClass() == Path.class) {
+								return new PgClientPathDeserializer();
+							}
+							return deserializer;
+						}
+					});
+					objectMapper.registerModule(module);
+					shape = objectMapper.readValue(Json.encode(o), Path.class);
+				}
+				return shape;
+			} catch(Exception ex) {
+				ExceptionUtils.rethrow(ex);
+			}
+		}
+		return null;
+	}
+	@JsonIgnore
+	public void setPath(JsonObject o) {
+		this.path = FishingBoat.staticSetPath(siteRequest_, o);
+	}
+	public static Path staticSetPath(SiteRequest siteRequest_, JsonObject o) {
+		if(o != null) {
+			try {
+				Path shape = new Path();
+				o.getJsonArray("coordinates").stream().map(a -> (JsonArray)a).forEach(points -> {
+					shape.addPoint(new Point(Double.parseDouble(points.getString(0)), Double.parseDouble(points.getString(1))));
+				});
+				return shape;
+			} catch(Exception ex) {
+				ExceptionUtils.rethrow(ex);
+			}
+		}
+		return null;
+	}
+	protected FishingBoat pathInit() {
+		Wrap<Path> pathWrap = new Wrap<Path>().var("path");
+		if(path == null) {
+			_path(pathWrap);
+			Optional.ofNullable(pathWrap.getO()).ifPresent(o -> {
+				setPath(o);
+			});
+		}
+		return (FishingBoat)this;
+	}
+
+	public static Path staticSearchPath(SiteRequest siteRequest_, Path o) {
+		return o;
+	}
+
+	public static String staticSearchStrPath(SiteRequest siteRequest_, Path o) {
+		JsonArray pointsArray = new JsonArray();
+		o.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
+		return new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString();
+	}
+
+	public static String staticSearchFqPath(SiteRequest siteRequest_, String o) {
+		return FishingBoat.staticSearchPath(siteRequest_, FishingBoat.staticSetPath(siteRequest_, o)).toString();
+	}
+
+	public Path sqlPath() {
+		return path;
+	}
+
 	//////////////
 	// initDeep //
 	//////////////
@@ -905,6 +1248,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				maxSpeedInMphInit();
 				milesPerGallonInit();
 				gallonsOfGasInit();
+				areaServedColorsInit();
+				areaServedTitlesInit();
+				areaServedLinksInit();
+				pathInit();
 				promise2.complete();
 			} catch(Exception ex) {
 				promise2.fail(ex);
@@ -974,6 +1321,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return oFishingBoat.milesPerGallon;
 			case "gallonsOfGas":
 				return oFishingBoat.gallonsOfGas;
+			case "areaServedColors":
+				return oFishingBoat.areaServedColors;
+			case "areaServedTitles":
+				return oFishingBoat.areaServedTitles;
+			case "areaServedLinks":
+				return oFishingBoat.areaServedLinks;
+			case "path":
+				return oFishingBoat.path;
 			default:
 				return super.obtainMapModel(var);
 		}
@@ -1041,6 +1396,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSetMilesPerGallon(siteRequest_, v);
 		case "gallonsOfGas":
 			return FishingBoat.staticSetGallonsOfGas(siteRequest_, v);
+		case "areaServedColors":
+			return FishingBoat.staticSetAreaServedColors(siteRequest_, v);
+		case "areaServedTitles":
+			return FishingBoat.staticSetAreaServedTitles(siteRequest_, v);
+		case "areaServedLinks":
+			return FishingBoat.staticSetAreaServedLinks(siteRequest_, v);
+		case "path":
+			return FishingBoat.staticSetPath(siteRequest_, v);
 			default:
 				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
@@ -1071,6 +1434,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSearchMilesPerGallon(siteRequest_, (BigDecimal)o);
 		case "gallonsOfGas":
 			return FishingBoat.staticSearchGallonsOfGas(siteRequest_, (BigDecimal)o);
+		case "areaServedColors":
+			return FishingBoat.staticSearchAreaServedColors(siteRequest_, (String)o);
+		case "areaServedTitles":
+			return FishingBoat.staticSearchAreaServedTitles(siteRequest_, (String)o);
+		case "areaServedLinks":
+			return FishingBoat.staticSearchAreaServedLinks(siteRequest_, (String)o);
+		case "path":
+			return FishingBoat.staticSearchPath(siteRequest_, (Path)o);
 			default:
 				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1101,6 +1472,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSearchStrMilesPerGallon(siteRequest_, (Double)o);
 		case "gallonsOfGas":
 			return FishingBoat.staticSearchStrGallonsOfGas(siteRequest_, (Double)o);
+		case "areaServedColors":
+			return FishingBoat.staticSearchStrAreaServedColors(siteRequest_, (String)o);
+		case "areaServedTitles":
+			return FishingBoat.staticSearchStrAreaServedTitles(siteRequest_, (String)o);
+		case "areaServedLinks":
+			return FishingBoat.staticSearchStrAreaServedLinks(siteRequest_, (String)o);
+		case "path":
+			return FishingBoat.staticSearchStrPath(siteRequest_, (Path)o);
 			default:
 				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1131,6 +1510,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSearchFqMilesPerGallon(siteRequest_, o);
 		case "gallonsOfGas":
 			return FishingBoat.staticSearchFqGallonsOfGas(siteRequest_, o);
+		case "areaServedColors":
+			return FishingBoat.staticSearchFqAreaServedColors(siteRequest_, o);
+		case "areaServedTitles":
+			return FishingBoat.staticSearchFqAreaServedTitles(siteRequest_, o);
+		case "areaServedLinks":
+			return FishingBoat.staticSearchFqAreaServedLinks(siteRequest_, o);
+		case "path":
+			return FishingBoat.staticSearchFqPath(siteRequest_, o);
 			default:
 				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1217,6 +1604,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				}
 				saves.add("gallonsOfGas");
 				return val;
+			} else if("path".equals(varLower)) {
+				if(val instanceof Path) {
+					setPath((Path)val);
+				} else {
+					setPath(val == null ? null : val.toString());
+				}
+				saves.add("path");
+				return val;
 		} else {
 			return super.persistMapModel(var, val);
 		}
@@ -1277,6 +1672,39 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				if(gallonsOfGas != null)
 					oFishingBoat.setGallonsOfGas(gallonsOfGas);
 			}
+
+			if(saves.contains("areaServedColors")) {
+				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
+				if(areaServedColors != null) {
+					areaServedColors.stream().forEach( v -> {
+						oFishingBoat.areaServedColors.add(FishingBoat.staticSetAreaServedColors(siteRequest_, v));
+					});
+				}
+			}
+
+			if(saves.contains("areaServedTitles")) {
+				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
+				if(areaServedTitles != null) {
+					areaServedTitles.stream().forEach( v -> {
+						oFishingBoat.areaServedTitles.add(FishingBoat.staticSetAreaServedTitles(siteRequest_, v));
+					});
+				}
+			}
+
+			if(saves.contains("areaServedLinks")) {
+				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
+				if(areaServedLinks != null) {
+					areaServedLinks.stream().forEach( v -> {
+						oFishingBoat.areaServedLinks.add(FishingBoat.staticSetAreaServedLinks(siteRequest_, v));
+					});
+				}
+			}
+
+			if(saves.contains("path")) {
+				Path path = (Path)doc.get("path_docvalues_location");
+				if(path != null)
+					oFishingBoat.setPath(path);
+			}
 		}
 
 		super.populateMapModel(doc);
@@ -1307,6 +1735,32 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 		if(gallonsOfGas != null) {
 			doc.put("gallonsOfGas_docvalues_double", gallonsOfGas.doubleValue());
 		}
+		if(areaServedColors != null) {
+			JsonArray l = new JsonArray();
+			doc.put("areaServedColors_indexedstored_strings", l);
+			for(String o : areaServedColors) {
+				l.add(FishingBoat.staticSearchAreaServedColors(siteRequest_, o));
+			}
+		}
+		if(areaServedTitles != null) {
+			JsonArray l = new JsonArray();
+			doc.put("areaServedTitles_indexedstored_strings", l);
+			for(String o : areaServedTitles) {
+				l.add(FishingBoat.staticSearchAreaServedTitles(siteRequest_, o));
+			}
+		}
+		if(areaServedLinks != null) {
+			JsonArray l = new JsonArray();
+			doc.put("areaServedLinks_indexedstored_strings", l);
+			for(String o : areaServedLinks) {
+				l.add(FishingBoat.staticSearchAreaServedLinks(siteRequest_, o));
+			}
+		}
+		if(path != null) {
+			JsonArray pointsArray = new JsonArray();
+			path.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
+			doc.put("path_docvalues_location", new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString());
+		}
 		super.indexMapModel(doc);
 
 	}
@@ -1329,6 +1783,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return "milesPerGallon_docvalues_double";
 			case "gallonsOfGas":
 				return "gallonsOfGas_docvalues_double";
+			case "areaServedColors":
+				return "areaServedColors_indexedstored_strings";
+			case "areaServedTitles":
+				return "areaServedTitles_indexedstored_strings";
+			case "areaServedLinks":
+				return "areaServedLinks_indexedstored_strings";
+			case "path":
+				return "path_docvalues_location";
 			default:
 				return MapModel.varStoredMapModel(entityVar);
 		}
@@ -1352,6 +1814,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return "milesPerGallon_docvalues_double";
 			case "gallonsOfGas":
 				return "gallonsOfGas_docvalues_double";
+			case "areaServedColors":
+				return "areaServedColors_indexedstored_strings";
+			case "areaServedTitles":
+				return "areaServedTitles_indexedstored_strings";
+			case "areaServedLinks":
+				return "areaServedLinks_indexedstored_strings";
+			case "path":
+				return "path_docvalues_location";
 			default:
 				return MapModel.varIndexedMapModel(entityVar);
 		}
@@ -1375,6 +1845,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return "milesPerGallon";
 			case "gallonsOfGas_docvalues_double":
 				return "gallonsOfGas";
+			case "areaServedColors_indexedstored_strings":
+				return "areaServedColors";
+			case "areaServedTitles_indexedstored_strings":
+				return "areaServedTitles";
+			case "areaServedLinks_indexedstored_strings":
+				return "areaServedLinks";
+			case "path_docvalues_location":
+				return "path";
 			default:
 				return MapModel.searchVarMapModel(searchVar);
 		}
@@ -1413,6 +1891,16 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 		oFishingBoat.setMaxSpeedInMph(Optional.ofNullable(doc.get("maxSpeedInMph_docvalues_double")).map(v -> v.toString()).orElse(null));
 		oFishingBoat.setMilesPerGallon(Optional.ofNullable(doc.get("milesPerGallon_docvalues_double")).map(v -> v.toString()).orElse(null));
 		oFishingBoat.setGallonsOfGas(Optional.ofNullable(doc.get("gallonsOfGas_docvalues_double")).map(v -> v.toString()).orElse(null));
+		Optional.ofNullable((List<?>)doc.get("areaServedColors_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oFishingBoat.addAreaServedColors(FishingBoat.staticSetAreaServedColors(siteRequest, v.toString()));
+		});
+		Optional.ofNullable((List<?>)doc.get("areaServedTitles_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oFishingBoat.addAreaServedTitles(FishingBoat.staticSetAreaServedTitles(siteRequest, v.toString()));
+		});
+		Optional.ofNullable((List<?>)doc.get("areaServedLinks_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oFishingBoat.addAreaServedLinks(FishingBoat.staticSetAreaServedLinks(siteRequest, v.toString()));
+		});
+		oFishingBoat.setPath(Optional.ofNullable(doc.get("path_docvalues_location")).map(v -> v.toString()).orElse(null));
 
 		super.storeMapModel(doc);
 	}
@@ -1442,6 +1930,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				apiRequest.addVars("milesPerGallon");
 			if(!Objects.equals(gallonsOfGas, original.getGallonsOfGas()) && gallonsOfGas != null && original.getGallonsOfGas() != null && gallonsOfGas.compareTo(original.getGallonsOfGas()) != 0)
 				apiRequest.addVars("gallonsOfGas");
+			if(!Objects.equals(areaServedColors, original.getAreaServedColors()))
+				apiRequest.addVars("areaServedColors");
+			if(!Objects.equals(areaServedTitles, original.getAreaServedTitles()))
+				apiRequest.addVars("areaServedTitles");
+			if(!Objects.equals(areaServedLinks, original.getAreaServedLinks()))
+				apiRequest.addVars("areaServedLinks");
+			if(!Objects.equals(path, original.getPath()))
+				apiRequest.addVars("path");
 			super.apiRequestMapModel();
 		}
 	}
@@ -1461,6 +1957,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 		sb.append(Optional.ofNullable(maxSpeedInMph).map(v -> "maxSpeedInMph: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(milesPerGallon).map(v -> "milesPerGallon: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(gallonsOfGas).map(v -> "gallonsOfGas: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(areaServedColors).map(v -> "areaServedColors: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(areaServedTitles).map(v -> "areaServedTitles: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(areaServedLinks).map(v -> "areaServedLinks: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(path).map(v -> "path: " + v + "\n").orElse(""));
 		return sb.toString();
 	}
 
@@ -1479,6 +1979,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	public static final String VAR_maxSpeedInMph = "maxSpeedInMph";
 	public static final String VAR_milesPerGallon = "milesPerGallon";
 	public static final String VAR_gallonsOfGas = "gallonsOfGas";
+	public static final String VAR_areaServedColors = "areaServedColors";
+	public static final String VAR_areaServedTitles = "areaServedTitles";
+	public static final String VAR_areaServedLinks = "areaServedLinks";
+	public static final String VAR_path = "path";
 
 	public static List<String> varsQForClass() {
 		return FishingBoat.varsQFishingBoat(new ArrayList<String>());
@@ -1500,6 +2004,7 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 		vars.add(VAR_maxSpeedInMph);
 		vars.add(VAR_milesPerGallon);
 		vars.add(VAR_gallonsOfGas);
+		vars.add(VAR_path);
 		MapModel.varsFqMapModel(vars);
 		return vars;
 	}
@@ -1526,6 +2031,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	public static final String DISPLAY_NAME_maxSpeedInMph = "max speed (MPH)";
 	public static final String DISPLAY_NAME_milesPerGallon = "miles per gallon (MPG)";
 	public static final String DISPLAY_NAME_gallonsOfGas = "gallons of gas";
+	public static final String DISPLAY_NAME_areaServedColors = "area served colors";
+	public static final String DISPLAY_NAME_areaServedTitles = "area served titles";
+	public static final String DISPLAY_NAME_areaServedLinks = "area served links";
+	public static final String DISPLAY_NAME_path = "path";
 
 	@Override
 	public String idForClass() {
@@ -1593,6 +2102,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return DISPLAY_NAME_milesPerGallon;
 		case VAR_gallonsOfGas:
 			return DISPLAY_NAME_gallonsOfGas;
+		case VAR_areaServedColors:
+			return DISPLAY_NAME_areaServedColors;
+		case VAR_areaServedTitles:
+			return DISPLAY_NAME_areaServedTitles;
+		case VAR_areaServedLinks:
+			return DISPLAY_NAME_areaServedLinks;
+		case VAR_path:
+			return DISPLAY_NAME_path;
 		default:
 			return MapModel.displayNameMapModel(var);
 		}
@@ -1618,6 +2135,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return "The miles per gallon of the boat. ";
 		case VAR_gallonsOfGas:
 			return "The number of gallons of gas in the boat. ";
+		case VAR_areaServedColors:
+			return "The colors of each areaServed Paths. ";
+		case VAR_areaServedTitles:
+			return "The titles of each areaServed Paths. ";
+		case VAR_areaServedLinks:
+			return "The links of each areaServed Paths. ";
+		case VAR_path:
+			return "The geographic area where the boat goes fishing. ";
 			default:
 				return MapModel.descriptionMapModel(var);
 		}
@@ -1641,6 +2166,14 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return "BigDecimal";
 		case VAR_gallonsOfGas:
 			return "BigDecimal";
+		case VAR_areaServedColors:
+			return "List";
+		case VAR_areaServedTitles:
+			return "List";
+		case VAR_areaServedLinks:
+			return "List";
+		case VAR_path:
+			return "Path";
 			default:
 				return MapModel.classSimpleNameMapModel(var);
 		}
@@ -1683,6 +2216,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return 3;
 		case VAR_gallonsOfGas:
 			return 3;
+		case VAR_path:
+			return 4;
 			default:
 				return MapModel.htmRowMapModel(var);
 		}
@@ -1706,6 +2241,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return 2;
 		case VAR_gallonsOfGas:
 			return 2;
+		case VAR_path:
+			return 1;
 			default:
 				return MapModel.htmCellMapModel(var);
 		}

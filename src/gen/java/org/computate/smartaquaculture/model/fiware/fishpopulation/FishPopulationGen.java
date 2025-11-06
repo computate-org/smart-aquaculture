@@ -84,10 +84,22 @@ import java.util.Map;
 import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
 import java.lang.String;
 import java.math.BigDecimal;
+import io.vertx.core.json.JsonArray;
+import io.vertx.pgclient.data.Polygon;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.BeanDescription;
+import java.util.stream.Collectors;
+import io.vertx.core.json.Json;
+import io.vertx.pgclient.data.Point;
+import org.computate.vertx.serialize.pgclient.PgClientPolygonSerializer;
+import org.computate.vertx.serialize.pgclient.PgClientPolygonDeserializer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
-import io.vertx.core.json.JsonArray;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -1191,6 +1203,370 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 		return source;
 	}
 
+	//////////////////////
+	// areaServedColors //
+	//////////////////////
+
+
+	/**	 The entity areaServedColors
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> areaServedColors = new ArrayList<String>();
+
+	/**	<br> The entity areaServedColors
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _areaServedColors(List<String> l);
+
+	public List<String> getAreaServedColors() {
+		return areaServedColors;
+	}
+
+	public void setAreaServedColors(List<String> areaServedColors) {
+		this.areaServedColors = areaServedColors;
+	}
+	@JsonIgnore
+	public void setAreaServedColors(String o) {
+		String l = FishPopulation.staticSetAreaServedColors(siteRequest_, o);
+		if(l != null)
+			addAreaServedColors(l);
+	}
+	public static String staticSetAreaServedColors(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public FishPopulation addAreaServedColors(String...objects) {
+		for(String o : objects) {
+			addAreaServedColors(o);
+		}
+		return (FishPopulation)this;
+	}
+	public FishPopulation addAreaServedColors(String o) {
+		if(o != null)
+			this.areaServedColors.add(o);
+		return (FishPopulation)this;
+	}
+	@JsonIgnore
+	public void setAreaServedColors(JsonArray objects) {
+		areaServedColors.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addAreaServedColors(o);
+		}
+	}
+	protected FishPopulation areaServedColorsInit() {
+		_areaServedColors(areaServedColors);
+		return (FishPopulation)this;
+	}
+
+	public static String staticSearchAreaServedColors(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrAreaServedColors(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAreaServedColors(SiteRequest siteRequest_, String o) {
+		return FishPopulation.staticSearchAreaServedColors(siteRequest_, FishPopulation.staticSetAreaServedColors(siteRequest_, o)).toString();
+	}
+
+	//////////////////////
+	// areaServedTitles //
+	//////////////////////
+
+
+	/**	 The entity areaServedTitles
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> areaServedTitles = new ArrayList<String>();
+
+	/**	<br> The entity areaServedTitles
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _areaServedTitles(List<String> l);
+
+	public List<String> getAreaServedTitles() {
+		return areaServedTitles;
+	}
+
+	public void setAreaServedTitles(List<String> areaServedTitles) {
+		this.areaServedTitles = areaServedTitles;
+	}
+	@JsonIgnore
+	public void setAreaServedTitles(String o) {
+		String l = FishPopulation.staticSetAreaServedTitles(siteRequest_, o);
+		if(l != null)
+			addAreaServedTitles(l);
+	}
+	public static String staticSetAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public FishPopulation addAreaServedTitles(String...objects) {
+		for(String o : objects) {
+			addAreaServedTitles(o);
+		}
+		return (FishPopulation)this;
+	}
+	public FishPopulation addAreaServedTitles(String o) {
+		if(o != null)
+			this.areaServedTitles.add(o);
+		return (FishPopulation)this;
+	}
+	@JsonIgnore
+	public void setAreaServedTitles(JsonArray objects) {
+		areaServedTitles.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addAreaServedTitles(o);
+		}
+	}
+	protected FishPopulation areaServedTitlesInit() {
+		_areaServedTitles(areaServedTitles);
+		return (FishPopulation)this;
+	}
+
+	public static String staticSearchAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAreaServedTitles(SiteRequest siteRequest_, String o) {
+		return FishPopulation.staticSearchAreaServedTitles(siteRequest_, FishPopulation.staticSetAreaServedTitles(siteRequest_, o)).toString();
+	}
+
+	/////////////////////
+	// areaServedLinks //
+	/////////////////////
+
+
+	/**	 The entity areaServedLinks
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<String> areaServedLinks = new ArrayList<String>();
+
+	/**	<br> The entity areaServedLinks
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _areaServedLinks(List<String> l);
+
+	public List<String> getAreaServedLinks() {
+		return areaServedLinks;
+	}
+
+	public void setAreaServedLinks(List<String> areaServedLinks) {
+		this.areaServedLinks = areaServedLinks;
+	}
+	@JsonIgnore
+	public void setAreaServedLinks(String o) {
+		String l = FishPopulation.staticSetAreaServedLinks(siteRequest_, o);
+		if(l != null)
+			addAreaServedLinks(l);
+	}
+	public static String staticSetAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+	public FishPopulation addAreaServedLinks(String...objects) {
+		for(String o : objects) {
+			addAreaServedLinks(o);
+		}
+		return (FishPopulation)this;
+	}
+	public FishPopulation addAreaServedLinks(String o) {
+		if(o != null)
+			this.areaServedLinks.add(o);
+		return (FishPopulation)this;
+	}
+	@JsonIgnore
+	public void setAreaServedLinks(JsonArray objects) {
+		areaServedLinks.clear();
+		if(objects == null)
+			return;
+		for(int i = 0; i < objects.size(); i++) {
+			String o = objects.getString(i);
+			addAreaServedLinks(o);
+		}
+	}
+	protected FishPopulation areaServedLinksInit() {
+		_areaServedLinks(areaServedLinks);
+		return (FishPopulation)this;
+	}
+
+	public static String staticSearchAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSearchStrAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqAreaServedLinks(SiteRequest siteRequest_, String o) {
+		return FishPopulation.staticSearchAreaServedLinks(siteRequest_, FishPopulation.staticSetAreaServedLinks(siteRequest_, o)).toString();
+	}
+
+	////////////////
+	// areaServed //
+	////////////////
+
+
+	/**	 The entity areaServed
+	 *	 It is constructed before being initialized with the constructor by default. 
+	 */
+	@JsonProperty
+	@JsonDeserialize(using = PgClientPolygonDeserializer.class)
+	@JsonSerialize(using = PgClientPolygonSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
+	@JsonInclude(Include.NON_NULL)
+	protected List<Polygon> areaServed = new ArrayList<Polygon>();
+
+	/**	<br> The entity areaServed
+	 *  It is constructed before being initialized with the constructor by default. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:areaServed">Find the entity areaServed in Solr</a>
+	 * <br>
+	 * @param l is the entity already constructed. 
+	 **/
+	protected abstract void _areaServed(List<Polygon> l);
+
+	public List<Polygon> getAreaServed() {
+		return areaServed;
+	}
+	public JsonObject geojsonAreaServed() {
+		if(areaServed == null)
+			return null;
+		JsonArray coordinates = new JsonArray();
+		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
+		for(Polygon o : areaServed) {
+			JsonArray coordinates2 = new JsonArray();
+			coordinates.add(coordinates2);
+			o.getPoints().forEach(point -> {
+				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
+			});
+		}
+		if(coordinates.size() == 0)
+			return null;
+		else
+			return json;
+	}
+
+	public void setAreaServed(List<Polygon> areaServed) {
+		this.areaServed = areaServed;
+	}
+	@JsonIgnore
+	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, String o) {
+		if(o != null) {
+			try {
+				List<Polygon> shape = null;
+				if(StringUtils.isNotBlank(o)) {
+					ObjectMapper objectMapper = new ObjectMapper();
+					SimpleModule module = new SimpleModule();
+					module.setDeserializerModifier(new BeanDeserializerModifier() {
+						@Override
+						public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
+							if (beanDesc.getBeanClass() == Polygon.class) {
+								return new PgClientPolygonDeserializer();
+							}
+							return deserializer;
+						}
+					});
+					objectMapper.registerModule(module);
+					shape = (List<Polygon>)objectMapper.readValue(Json.encode(o), Polygon.class);
+				}
+				return shape;
+			} catch(Exception ex) {
+				ExceptionUtils.rethrow(ex);
+			}
+		}
+		return null;
+	}
+	@JsonIgnore
+	public void setAreaServed(JsonObject o) {
+		this.areaServed = FishPopulation.staticSetAreaServed(siteRequest_, o);
+	}
+	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, JsonObject o) {
+		if(o != null) {
+			try {
+				List<Polygon> shapes = new ArrayList<>();
+				o.getJsonArray("coordinates").stream().map(a -> (JsonArray)a).forEach(g -> {
+					Polygon shape = new Polygon();
+					g.stream().map(a -> (JsonArray)a).forEach(points -> {
+						shape.addPoint(new Point(Double.parseDouble(points.getString(0)), Double.parseDouble(points.getString(1))));
+					});
+						shapes.add(shape);
+				});
+				return shapes;
+			} catch(Exception ex) {
+				ExceptionUtils.rethrow(ex);
+			}
+		}
+		return null;
+	}
+	public FishPopulation addAreaServed(Polygon...objects) {
+		for(Polygon o : objects) {
+			addAreaServed(o);
+		}
+		return (FishPopulation)this;
+	}
+	public FishPopulation addAreaServed(Polygon o) {
+		if(o != null)
+			this.areaServed.add(o);
+		return (FishPopulation)this;
+	}
+	protected FishPopulation areaServedInit() {
+		_areaServed(areaServed);
+		return (FishPopulation)this;
+	}
+
+	public static Polygon staticSearchAreaServed(SiteRequest siteRequest_, Polygon o) {
+		return o;
+	}
+
+	public static String staticSearchStrAreaServed(SiteRequest siteRequest_, Polygon o) {
+		JsonArray pointsArray = new JsonArray();
+		o.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
+		return new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString();
+	}
+
+	public static String staticSearchFqAreaServed(SiteRequest siteRequest_, String o) {
+		return o;
+	}
+
+	public String sqlAreaServed() {
+		JsonArray coordinates = new JsonArray();
+		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
+		for(Polygon o : areaServed) {
+			JsonArray coordinates2 = new JsonArray();
+			coordinates.add(coordinates2);
+			o.getPoints().forEach(point -> {
+				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
+			});
+		}
+		return json.toString();
+	}
+
 	//////////////
 	// initDeep //
 	//////////////
@@ -1234,6 +1610,10 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				relatedSourceInit();
 				seeAlsoInit();
 				sourceInit();
+				areaServedColorsInit();
+				areaServedTitlesInit();
+				areaServedLinksInit();
+				areaServedInit();
 				promise2.complete();
 			} catch(Exception ex) {
 				promise2.fail(ex);
@@ -1315,6 +1695,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				return oFishPopulation.seeAlso;
 			case "source":
 				return oFishPopulation.source;
+			case "areaServedColors":
+				return oFishPopulation.areaServedColors;
+			case "areaServedTitles":
+				return oFishPopulation.areaServedTitles;
+			case "areaServedLinks":
+				return oFishPopulation.areaServedLinks;
+			case "areaServed":
+				return oFishPopulation.areaServed;
 			default:
 				return super.obtainMapModel(var);
 		}
@@ -1382,6 +1770,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return FishPopulation.staticSetSeeAlso(siteRequest_, v);
 		case "source":
 			return FishPopulation.staticSetSource(siteRequest_, v);
+		case "areaServedColors":
+			return FishPopulation.staticSetAreaServedColors(siteRequest_, v);
+		case "areaServedTitles":
+			return FishPopulation.staticSetAreaServedTitles(siteRequest_, v);
+		case "areaServedLinks":
+			return FishPopulation.staticSetAreaServedLinks(siteRequest_, v);
+		case "areaServed":
+			return FishPopulation.staticSetAreaServed(siteRequest_, v);
 			default:
 				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
@@ -1424,6 +1820,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return FishPopulation.staticSearchSeeAlso(siteRequest_, (String)o);
 		case "source":
 			return FishPopulation.staticSearchSource(siteRequest_, (String)o);
+		case "areaServedColors":
+			return FishPopulation.staticSearchAreaServedColors(siteRequest_, (String)o);
+		case "areaServedTitles":
+			return FishPopulation.staticSearchAreaServedTitles(siteRequest_, (String)o);
+		case "areaServedLinks":
+			return FishPopulation.staticSearchAreaServedLinks(siteRequest_, (String)o);
+		case "areaServed":
+			return FishPopulation.staticSearchAreaServed(siteRequest_, (Polygon)o);
 			default:
 				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1466,6 +1870,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return FishPopulation.staticSearchStrSeeAlso(siteRequest_, (String)o);
 		case "source":
 			return FishPopulation.staticSearchStrSource(siteRequest_, (String)o);
+		case "areaServedColors":
+			return FishPopulation.staticSearchStrAreaServedColors(siteRequest_, (String)o);
+		case "areaServedTitles":
+			return FishPopulation.staticSearchStrAreaServedTitles(siteRequest_, (String)o);
+		case "areaServedLinks":
+			return FishPopulation.staticSearchStrAreaServedLinks(siteRequest_, (String)o);
+		case "areaServed":
+			return FishPopulation.staticSearchStrAreaServed(siteRequest_, (Polygon)o);
 			default:
 				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1508,6 +1920,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return FishPopulation.staticSearchFqSeeAlso(siteRequest_, o);
 		case "source":
 			return FishPopulation.staticSearchFqSource(siteRequest_, o);
+		case "areaServedColors":
+			return FishPopulation.staticSearchFqAreaServedColors(siteRequest_, o);
+		case "areaServedTitles":
+			return FishPopulation.staticSearchFqAreaServedTitles(siteRequest_, o);
+		case "areaServedLinks":
+			return FishPopulation.staticSearchFqAreaServedLinks(siteRequest_, o);
+		case "areaServed":
+			return FishPopulation.staticSearchFqAreaServed(siteRequest_, o);
 			default:
 				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1634,6 +2054,20 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				}
 				saves.add("source");
 				return val;
+			} else if("areaserved".equals(varLower)) {
+				if(val instanceof List<?>) {
+					((List<Polygon>)val).stream().forEach(v -> addAreaServed(v));
+				} else if(val instanceof Polygon[]) {
+					Arrays.asList((Polygon[])val).stream().forEach(v -> addAreaServed((Polygon)v));
+				} else if(val instanceof JsonObject) {
+					staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v));
+				} else if(val instanceof String) {
+					staticSetAreaServed(siteRequest_, (String)val).stream().forEach(v -> addAreaServed(v));
+				}
+				if(!saves.contains("areaServed")) {
+					saves.add("areaServed");
+				}
+				return val;
 		} else {
 			return super.persistMapModel(var, val);
 		}
@@ -1734,6 +2168,42 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				if(source != null)
 					oFishPopulation.setSource(source);
 			}
+
+			if(saves.contains("areaServedColors")) {
+				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
+				if(areaServedColors != null) {
+					areaServedColors.stream().forEach( v -> {
+						oFishPopulation.areaServedColors.add(FishPopulation.staticSetAreaServedColors(siteRequest_, v));
+					});
+				}
+			}
+
+			if(saves.contains("areaServedTitles")) {
+				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
+				if(areaServedTitles != null) {
+					areaServedTitles.stream().forEach( v -> {
+						oFishPopulation.areaServedTitles.add(FishPopulation.staticSetAreaServedTitles(siteRequest_, v));
+					});
+				}
+			}
+
+			if(saves.contains("areaServedLinks")) {
+				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
+				if(areaServedLinks != null) {
+					areaServedLinks.stream().forEach( v -> {
+						oFishPopulation.areaServedLinks.add(FishPopulation.staticSetAreaServedLinks(siteRequest_, v));
+					});
+				}
+			}
+
+			if(saves.contains("areaServed")) {
+				List<Polygon> areaServed = (List<Polygon>)doc.get("areaServed_docvalues_location");
+				if(areaServed != null) {
+					areaServed.stream().forEach( v -> {
+						oFishPopulation.areaServed.add(v);
+					});
+				}
+			}
 		}
 
 		super.populateMapModel(doc);
@@ -1782,6 +2252,30 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 		if(source != null) {
 			doc.put("source_docvalues_string", source);
 		}
+		if(areaServedColors != null) {
+			JsonArray l = new JsonArray();
+			doc.put("areaServedColors_indexedstored_strings", l);
+			for(String o : areaServedColors) {
+				l.add(FishPopulation.staticSearchAreaServedColors(siteRequest_, o));
+			}
+		}
+		if(areaServedTitles != null) {
+			JsonArray l = new JsonArray();
+			doc.put("areaServedTitles_indexedstored_strings", l);
+			for(String o : areaServedTitles) {
+				l.add(FishPopulation.staticSearchAreaServedTitles(siteRequest_, o));
+			}
+		}
+		if(areaServedLinks != null) {
+			JsonArray l = new JsonArray();
+			doc.put("areaServedLinks_indexedstored_strings", l);
+			for(String o : areaServedLinks) {
+				l.add(FishPopulation.staticSearchAreaServedLinks(siteRequest_, o));
+			}
+		}
+		if(areaServed != null) {
+			doc.put("areaServed_docvalues_location", Optional.ofNullable(geojsonAreaServed()).map(geojson -> geojson.toString()).orElse(null));
+		}
 		super.indexMapModel(doc);
 
 	}
@@ -1816,6 +2310,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				return "seeAlso_docvalues_string";
 			case "source":
 				return "source_docvalues_string";
+			case "areaServedColors":
+				return "areaServedColors_indexedstored_strings";
+			case "areaServedTitles":
+				return "areaServedTitles_indexedstored_strings";
+			case "areaServedLinks":
+				return "areaServedLinks_indexedstored_strings";
+			case "areaServed":
+				return "areaServed_docvalues_location";
 			default:
 				return MapModel.varStoredMapModel(entityVar);
 		}
@@ -1851,6 +2353,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				return "seeAlso_docvalues_string";
 			case "source":
 				return "source_docvalues_string";
+			case "areaServedColors":
+				return "areaServedColors_indexedstored_strings";
+			case "areaServedTitles":
+				return "areaServedTitles_indexedstored_strings";
+			case "areaServedLinks":
+				return "areaServedLinks_indexedstored_strings";
+			case "areaServed":
+				return "areaServed_docvalues_location";
 			default:
 				return MapModel.varIndexedMapModel(entityVar);
 		}
@@ -1886,6 +2396,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				return "seeAlso";
 			case "source_docvalues_string":
 				return "source";
+			case "areaServedColors_indexedstored_strings":
+				return "areaServedColors";
+			case "areaServedTitles_indexedstored_strings":
+				return "areaServedTitles";
+			case "areaServedLinks_indexedstored_strings":
+				return "areaServedLinks";
+			case "areaServed_docvalues_location":
+				return "areaServed";
 			default:
 				return MapModel.searchVarMapModel(searchVar);
 		}
@@ -1930,6 +2448,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 		oFishPopulation.setRelatedSource(Optional.ofNullable(doc.get("relatedSource_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishPopulation.setSeeAlso(Optional.ofNullable(doc.get("seeAlso_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oFishPopulation.setSource(Optional.ofNullable(doc.get("source_docvalues_string")).map(v -> v.toString()).orElse(null));
+		Optional.ofNullable((List<?>)doc.get("areaServedColors_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oFishPopulation.addAreaServedColors(FishPopulation.staticSetAreaServedColors(siteRequest, v.toString()));
+		});
+		Optional.ofNullable((List<?>)doc.get("areaServedTitles_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oFishPopulation.addAreaServedTitles(FishPopulation.staticSetAreaServedTitles(siteRequest, v.toString()));
+		});
+		Optional.ofNullable((List<?>)doc.get("areaServedLinks_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oFishPopulation.addAreaServedLinks(FishPopulation.staticSetAreaServedLinks(siteRequest, v.toString()));
+		});
+		Optional.ofNullable((String)doc.get("areaServed_docvalues_location")).ifPresent(val -> staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v)));
 
 		super.storeMapModel(doc);
 	}
@@ -1971,6 +2499,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 				apiRequest.addVars("seeAlso");
 			if(!Objects.equals(source, original.getSource()))
 				apiRequest.addVars("source");
+			if(!Objects.equals(areaServedColors, original.getAreaServedColors()))
+				apiRequest.addVars("areaServedColors");
+			if(!Objects.equals(areaServedTitles, original.getAreaServedTitles()))
+				apiRequest.addVars("areaServedTitles");
+			if(!Objects.equals(areaServedLinks, original.getAreaServedLinks()))
+				apiRequest.addVars("areaServedLinks");
+			if(!Objects.equals(areaServed, original.getAreaServed()))
+				apiRequest.addVars("areaServed");
 			super.apiRequestMapModel();
 		}
 	}
@@ -1996,6 +2532,10 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 		sb.append(Optional.ofNullable(relatedSource).map(v -> "relatedSource: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(seeAlso).map(v -> "seeAlso: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(source).map(v -> "source: \"" + v + "\"\n" ).orElse(""));
+		sb.append(Optional.ofNullable(areaServedColors).map(v -> "areaServedColors: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(areaServedTitles).map(v -> "areaServedTitles: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(areaServedLinks).map(v -> "areaServedLinks: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(areaServed).map(v -> "areaServed: " + v + "\n").orElse(""));
 		return sb.toString();
 	}
 
@@ -2020,6 +2560,10 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 	public static final String VAR_relatedSource = "relatedSource";
 	public static final String VAR_seeAlso = "seeAlso";
 	public static final String VAR_source = "source";
+	public static final String VAR_areaServedColors = "areaServedColors";
+	public static final String VAR_areaServedTitles = "areaServedTitles";
+	public static final String VAR_areaServedLinks = "areaServedLinks";
+	public static final String VAR_areaServed = "areaServed";
 
 	public static List<String> varsQForClass() {
 		return FishPopulation.varsQFishPopulation(new ArrayList<String>());
@@ -2047,6 +2591,7 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 		vars.add(VAR_relatedSource);
 		vars.add(VAR_seeAlso);
 		vars.add(VAR_source);
+		vars.add(VAR_areaServed);
 		MapModel.varsFqMapModel(vars);
 		return vars;
 	}
@@ -2081,6 +2626,10 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 	public static final String DISPLAY_NAME_relatedSource = "related source";
 	public static final String DISPLAY_NAME_seeAlso = "see also";
 	public static final String DISPLAY_NAME_source = "source";
+	public static final String DISPLAY_NAME_areaServedColors = "area served colors";
+	public static final String DISPLAY_NAME_areaServedTitles = "area served titles";
+	public static final String DISPLAY_NAME_areaServedLinks = "area served links";
+	public static final String DISPLAY_NAME_areaServed = "area served";
 
 	@Override
 	public String idForClass() {
@@ -2160,6 +2709,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return DISPLAY_NAME_seeAlso;
 		case VAR_source:
 			return DISPLAY_NAME_source;
+		case VAR_areaServedColors:
+			return DISPLAY_NAME_areaServedColors;
+		case VAR_areaServedTitles:
+			return DISPLAY_NAME_areaServedTitles;
+		case VAR_areaServedLinks:
+			return DISPLAY_NAME_areaServedLinks;
+		case VAR_areaServed:
+			return DISPLAY_NAME_areaServed;
 		default:
 			return MapModel.displayNameMapModel(var);
 		}
@@ -2197,6 +2754,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return "list of uri pointing to additional resources about the item";
 		case VAR_source:
 			return "A sequence of characters giving the original source of the entity data as a URL. Recommended to be the fully qualified domain name of the source provider, or the URL to the source object";
+		case VAR_areaServedColors:
+			return "The colors of each areaServed Paths. ";
+		case VAR_areaServedTitles:
+			return "The titles of each areaServed Paths. ";
+		case VAR_areaServedLinks:
+			return "The links of each areaServed Paths. ";
+		case VAR_areaServed:
+			return "The geographic area where a service or offered item is provided";
 			default:
 				return MapModel.descriptionMapModel(var);
 		}
@@ -2232,6 +2797,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return "String";
 		case VAR_source:
 			return "String";
+		case VAR_areaServedColors:
+			return "List";
+		case VAR_areaServedTitles:
+			return "List";
+		case VAR_areaServedLinks:
+			return "List";
+		case VAR_areaServed:
+			return "List";
 			default:
 				return MapModel.classSimpleNameMapModel(var);
 		}
@@ -2267,6 +2840,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return "Property";
 		case VAR_source:
 			return "Property";
+		case VAR_areaServedColors:
+			return "Property";
+		case VAR_areaServedTitles:
+			return "Property";
+		case VAR_areaServedLinks:
+			return "Property";
+		case VAR_areaServed:
+			return "GeoProperty";
 			default:
 				return MapModel.ngsiType(var);
 		}
@@ -2302,6 +2883,14 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return o.getSeeAlso();
 		case VAR_source:
 			return o.getSource();
+		case VAR_areaServedColors:
+			return o.getAreaServedColors();
+		case VAR_areaServedTitles:
+			return o.getAreaServedTitles();
+		case VAR_areaServedLinks:
+			return o.getAreaServedLinks();
+		case VAR_areaServed:
+			return o.geojsonAreaServed();
 			default:
 				return ngsiMapModel(var, o);
 		}
@@ -2344,6 +2933,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return 6;
 		case VAR_source:
 			return 6;
+		case VAR_areaServed:
+			return 4;
 			default:
 				return MapModel.htmRowMapModel(var);
 		}
@@ -2379,6 +2970,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
 			return 12;
 		case VAR_source:
 			return 13;
+		case VAR_areaServed:
+			return 1;
 			default:
 				return MapModel.htmCellMapModel(var);
 		}

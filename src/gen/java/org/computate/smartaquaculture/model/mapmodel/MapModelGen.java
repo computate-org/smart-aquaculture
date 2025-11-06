@@ -47,11 +47,8 @@ import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.BeanDescription;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonArray;
-import io.vertx.pgclient.data.Polygon;
-import org.computate.vertx.serialize.pgclient.PgClientPolygonSerializer;
-import org.computate.vertx.serialize.pgclient.PgClientPolygonDeserializer;
 import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
+import io.vertx.core.json.JsonArray;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
@@ -419,370 +416,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 
 	public Point sqlLocation() {
 		return location;
-	}
-
-	//////////////////////
-	// areaServedColors //
-	//////////////////////
-
-
-	/**	 The entity areaServedColors
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedColors = new ArrayList<String>();
-
-	/**	<br> The entity areaServedColors
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedColors(List<String> l);
-
-	public List<String> getAreaServedColors() {
-		return areaServedColors;
-	}
-
-	public void setAreaServedColors(List<String> areaServedColors) {
-		this.areaServedColors = areaServedColors;
-	}
-	@JsonIgnore
-	public void setAreaServedColors(String o) {
-		String l = MapModel.staticSetAreaServedColors(siteRequest_, o);
-		if(l != null)
-			addAreaServedColors(l);
-	}
-	public static String staticSetAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public MapModel addAreaServedColors(String...objects) {
-		for(String o : objects) {
-			addAreaServedColors(o);
-		}
-		return (MapModel)this;
-	}
-	public MapModel addAreaServedColors(String o) {
-		if(o != null)
-			this.areaServedColors.add(o);
-		return (MapModel)this;
-	}
-	@JsonIgnore
-	public void setAreaServedColors(JsonArray objects) {
-		areaServedColors.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedColors(o);
-		}
-	}
-	protected MapModel areaServedColorsInit() {
-		_areaServedColors(areaServedColors);
-		return (MapModel)this;
-	}
-
-	public static String staticSearchAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqAreaServedColors(SiteRequest siteRequest_, String o) {
-		return MapModel.staticSearchAreaServedColors(siteRequest_, MapModel.staticSetAreaServedColors(siteRequest_, o)).toString();
-	}
-
-	//////////////////////
-	// areaServedTitles //
-	//////////////////////
-
-
-	/**	 The entity areaServedTitles
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedTitles = new ArrayList<String>();
-
-	/**	<br> The entity areaServedTitles
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedTitles(List<String> l);
-
-	public List<String> getAreaServedTitles() {
-		return areaServedTitles;
-	}
-
-	public void setAreaServedTitles(List<String> areaServedTitles) {
-		this.areaServedTitles = areaServedTitles;
-	}
-	@JsonIgnore
-	public void setAreaServedTitles(String o) {
-		String l = MapModel.staticSetAreaServedTitles(siteRequest_, o);
-		if(l != null)
-			addAreaServedTitles(l);
-	}
-	public static String staticSetAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public MapModel addAreaServedTitles(String...objects) {
-		for(String o : objects) {
-			addAreaServedTitles(o);
-		}
-		return (MapModel)this;
-	}
-	public MapModel addAreaServedTitles(String o) {
-		if(o != null)
-			this.areaServedTitles.add(o);
-		return (MapModel)this;
-	}
-	@JsonIgnore
-	public void setAreaServedTitles(JsonArray objects) {
-		areaServedTitles.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedTitles(o);
-		}
-	}
-	protected MapModel areaServedTitlesInit() {
-		_areaServedTitles(areaServedTitles);
-		return (MapModel)this;
-	}
-
-	public static String staticSearchAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return MapModel.staticSearchAreaServedTitles(siteRequest_, MapModel.staticSetAreaServedTitles(siteRequest_, o)).toString();
-	}
-
-	/////////////////////
-	// areaServedLinks //
-	/////////////////////
-
-
-	/**	 The entity areaServedLinks
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedLinks = new ArrayList<String>();
-
-	/**	<br> The entity areaServedLinks
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedLinks(List<String> l);
-
-	public List<String> getAreaServedLinks() {
-		return areaServedLinks;
-	}
-
-	public void setAreaServedLinks(List<String> areaServedLinks) {
-		this.areaServedLinks = areaServedLinks;
-	}
-	@JsonIgnore
-	public void setAreaServedLinks(String o) {
-		String l = MapModel.staticSetAreaServedLinks(siteRequest_, o);
-		if(l != null)
-			addAreaServedLinks(l);
-	}
-	public static String staticSetAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public MapModel addAreaServedLinks(String...objects) {
-		for(String o : objects) {
-			addAreaServedLinks(o);
-		}
-		return (MapModel)this;
-	}
-	public MapModel addAreaServedLinks(String o) {
-		if(o != null)
-			this.areaServedLinks.add(o);
-		return (MapModel)this;
-	}
-	@JsonIgnore
-	public void setAreaServedLinks(JsonArray objects) {
-		areaServedLinks.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedLinks(o);
-		}
-	}
-	protected MapModel areaServedLinksInit() {
-		_areaServedLinks(areaServedLinks);
-		return (MapModel)this;
-	}
-
-	public static String staticSearchAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return MapModel.staticSearchAreaServedLinks(siteRequest_, MapModel.staticSetAreaServedLinks(siteRequest_, o)).toString();
-	}
-
-	////////////////
-	// areaServed //
-	////////////////
-
-
-	/**	 The entity areaServed
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = PgClientPolygonDeserializer.class)
-	@JsonSerialize(using = PgClientPolygonSerializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<Polygon> areaServed = new ArrayList<Polygon>();
-
-	/**	<br> The entity areaServed
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:areaServed">Find the entity areaServed in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServed(List<Polygon> l);
-
-	public List<Polygon> getAreaServed() {
-		return areaServed;
-	}
-	public JsonObject geojsonAreaServed() {
-		if(areaServed == null)
-			return null;
-		JsonArray coordinates = new JsonArray();
-		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
-		for(Polygon o : areaServed) {
-			JsonArray coordinates2 = new JsonArray();
-			coordinates.add(coordinates2);
-			o.getPoints().forEach(point -> {
-				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
-			});
-		}
-		if(coordinates.size() == 0)
-			return null;
-		else
-			return json;
-	}
-
-	public void setAreaServed(List<Polygon> areaServed) {
-		this.areaServed = areaServed;
-	}
-	@JsonIgnore
-	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-			try {
-				List<Polygon> shape = null;
-				if(StringUtils.isNotBlank(o)) {
-					ObjectMapper objectMapper = new ObjectMapper();
-					SimpleModule module = new SimpleModule();
-					module.setDeserializerModifier(new BeanDeserializerModifier() {
-						@Override
-						public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
-							if (beanDesc.getBeanClass() == Polygon.class) {
-								return new PgClientPolygonDeserializer();
-							}
-							return deserializer;
-						}
-					});
-					objectMapper.registerModule(module);
-					shape = (List<Polygon>)objectMapper.readValue(Json.encode(o), Polygon.class);
-				}
-				return shape;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	@JsonIgnore
-	public void setAreaServed(JsonObject o) {
-		this.areaServed = MapModel.staticSetAreaServed(siteRequest_, o);
-	}
-	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, JsonObject o) {
-		if(o != null) {
-			try {
-				List<Polygon> shapes = new ArrayList<>();
-				o.getJsonArray("coordinates").stream().map(a -> (JsonArray)a).forEach(g -> {
-					Polygon shape = new Polygon();
-					g.stream().map(a -> (JsonArray)a).forEach(points -> {
-						shape.addPoint(new Point(Double.parseDouble(points.getString(0)), Double.parseDouble(points.getString(1))));
-					});
-						shapes.add(shape);
-				});
-				return shapes;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	public MapModel addAreaServed(Polygon...objects) {
-		for(Polygon o : objects) {
-			addAreaServed(o);
-		}
-		return (MapModel)this;
-	}
-	public MapModel addAreaServed(Polygon o) {
-		if(o != null)
-			this.areaServed.add(o);
-		return (MapModel)this;
-	}
-	protected MapModel areaServedInit() {
-		_areaServed(areaServed);
-		return (MapModel)this;
-	}
-
-	public static Polygon staticSearchAreaServed(SiteRequest siteRequest_, Polygon o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServed(SiteRequest siteRequest_, Polygon o) {
-		JsonArray pointsArray = new JsonArray();
-		o.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
-		return new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString();
-	}
-
-	public static String staticSearchFqAreaServed(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public String sqlAreaServed() {
-		JsonArray coordinates = new JsonArray();
-		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
-		for(Polygon o : areaServed) {
-			JsonArray coordinates2 = new JsonArray();
-			coordinates.add(coordinates2);
-			o.getPoints().forEach(point -> {
-				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
-			});
-		}
-		return json.toString();
 	}
 
 	////////
@@ -1214,10 +847,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 				nameInit();
 				descriptionInit();
 				locationInit();
-				areaServedColorsInit();
-				areaServedTitlesInit();
-				areaServedLinksInit();
-				areaServedInit();
 				idInit();
 				entityShortIdInit();
 				ngsildTenantInit();
@@ -1284,14 +913,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 				return oMapModel.description;
 			case "location":
 				return oMapModel.location;
-			case "areaServedColors":
-				return oMapModel.areaServedColors;
-			case "areaServedTitles":
-				return oMapModel.areaServedTitles;
-			case "areaServedLinks":
-				return oMapModel.areaServedLinks;
-			case "areaServed":
-				return oMapModel.areaServed;
 			case "id":
 				return oMapModel.id;
 			case "entityShortId":
@@ -1351,14 +972,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return MapModel.staticSetDescription(siteRequest_, v);
 		case "location":
 			return MapModel.staticSetLocation(siteRequest_, v);
-		case "areaServedColors":
-			return MapModel.staticSetAreaServedColors(siteRequest_, v);
-		case "areaServedTitles":
-			return MapModel.staticSetAreaServedTitles(siteRequest_, v);
-		case "areaServedLinks":
-			return MapModel.staticSetAreaServedLinks(siteRequest_, v);
-		case "areaServed":
-			return MapModel.staticSetAreaServed(siteRequest_, v);
 		case "id":
 			return MapModel.staticSetId(siteRequest_, v);
 		case "entityShortId":
@@ -1393,14 +1006,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return MapModel.staticSearchDescription(siteRequest_, (String)o);
 		case "location":
 			return MapModel.staticSearchLocation(siteRequest_, (Point)o);
-		case "areaServedColors":
-			return MapModel.staticSearchAreaServedColors(siteRequest_, (String)o);
-		case "areaServedTitles":
-			return MapModel.staticSearchAreaServedTitles(siteRequest_, (String)o);
-		case "areaServedLinks":
-			return MapModel.staticSearchAreaServedLinks(siteRequest_, (String)o);
-		case "areaServed":
-			return MapModel.staticSearchAreaServed(siteRequest_, (Polygon)o);
 		case "id":
 			return MapModel.staticSearchId(siteRequest_, (String)o);
 		case "entityShortId":
@@ -1435,14 +1040,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return MapModel.staticSearchStrDescription(siteRequest_, (String)o);
 		case "location":
 			return MapModel.staticSearchStrLocation(siteRequest_, (Point)o);
-		case "areaServedColors":
-			return MapModel.staticSearchStrAreaServedColors(siteRequest_, (String)o);
-		case "areaServedTitles":
-			return MapModel.staticSearchStrAreaServedTitles(siteRequest_, (String)o);
-		case "areaServedLinks":
-			return MapModel.staticSearchStrAreaServedLinks(siteRequest_, (String)o);
-		case "areaServed":
-			return MapModel.staticSearchStrAreaServed(siteRequest_, (Polygon)o);
 		case "id":
 			return MapModel.staticSearchStrId(siteRequest_, (String)o);
 		case "entityShortId":
@@ -1477,14 +1074,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return MapModel.staticSearchFqDescription(siteRequest_, o);
 		case "location":
 			return MapModel.staticSearchFqLocation(siteRequest_, o);
-		case "areaServedColors":
-			return MapModel.staticSearchFqAreaServedColors(siteRequest_, o);
-		case "areaServedTitles":
-			return MapModel.staticSearchFqAreaServedTitles(siteRequest_, o);
-		case "areaServedLinks":
-			return MapModel.staticSearchFqAreaServedLinks(siteRequest_, o);
-		case "areaServed":
-			return MapModel.staticSearchFqAreaServed(siteRequest_, o);
 		case "id":
 			return MapModel.staticSearchFqId(siteRequest_, o);
 		case "entityShortId":
@@ -1544,20 +1133,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 					setLocation((Point)val);
 				}
 				saves.add("location");
-				return val;
-			} else if("areaserved".equals(varLower)) {
-				if(val instanceof List<?>) {
-					((List<Polygon>)val).stream().forEach(v -> addAreaServed(v));
-				} else if(val instanceof Polygon[]) {
-					Arrays.asList((Polygon[])val).stream().forEach(v -> addAreaServed((Polygon)v));
-				} else if(val instanceof JsonObject) {
-					staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v));
-				} else if(val instanceof String) {
-					staticSetAreaServed(siteRequest_, (String)val).stream().forEach(v -> addAreaServed(v));
-				}
-				if(!saves.contains("areaServed")) {
-					saves.add("areaServed");
-				}
 				return val;
 			} else if("id".equals(varLower)) {
 				if(val instanceof String) {
@@ -1632,42 +1207,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 					oMapModel.setLocation(location);
 			}
 
-			if(saves.contains("areaServedColors")) {
-				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
-				if(areaServedColors != null) {
-					areaServedColors.stream().forEach( v -> {
-						oMapModel.areaServedColors.add(MapModel.staticSetAreaServedColors(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("areaServedTitles")) {
-				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
-				if(areaServedTitles != null) {
-					areaServedTitles.stream().forEach( v -> {
-						oMapModel.areaServedTitles.add(MapModel.staticSetAreaServedTitles(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("areaServedLinks")) {
-				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
-				if(areaServedLinks != null) {
-					areaServedLinks.stream().forEach( v -> {
-						oMapModel.areaServedLinks.add(MapModel.staticSetAreaServedLinks(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("areaServed")) {
-				List<Polygon> areaServed = (List<Polygon>)doc.get("areaServed_docvalues_location");
-				if(areaServed != null) {
-					areaServed.stream().forEach( v -> {
-						oMapModel.areaServed.add(v);
-					});
-				}
-			}
-
 			if(saves.contains("id")) {
 				String id = (String)doc.get("id_docvalues_string");
 				if(id != null)
@@ -1724,30 +1263,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 		if(location != null) {
 			doc.put("location_docvalues_location", String.format("%s,%s", location.getY(), location.getX()));
 		}
-		if(areaServedColors != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedColors_indexedstored_strings", l);
-			for(String o : areaServedColors) {
-				l.add(MapModel.staticSearchAreaServedColors(siteRequest_, o));
-			}
-		}
-		if(areaServedTitles != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedTitles_indexedstored_strings", l);
-			for(String o : areaServedTitles) {
-				l.add(MapModel.staticSearchAreaServedTitles(siteRequest_, o));
-			}
-		}
-		if(areaServedLinks != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedLinks_indexedstored_strings", l);
-			for(String o : areaServedLinks) {
-				l.add(MapModel.staticSearchAreaServedLinks(siteRequest_, o));
-			}
-		}
-		if(areaServed != null) {
-			doc.put("areaServed_docvalues_location", Optional.ofNullable(geojsonAreaServed()).map(geojson -> geojson.toString()).orElse(null));
-		}
 		if(id != null) {
 			doc.put("id_docvalues_string", id);
 		}
@@ -1781,14 +1296,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 				return "description_docvalues_string";
 			case "location":
 				return "location_docvalues_location";
-			case "areaServedColors":
-				return "areaServedColors_indexedstored_strings";
-			case "areaServedTitles":
-				return "areaServedTitles_indexedstored_strings";
-			case "areaServedLinks":
-				return "areaServedLinks_indexedstored_strings";
-			case "areaServed":
-				return "areaServed_docvalues_location";
 			case "id":
 				return "id_docvalues_string";
 			case "entityShortId":
@@ -1816,14 +1323,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 				return "description_docvalues_string";
 			case "location":
 				return "location_docvalues_location";
-			case "areaServedColors":
-				return "areaServedColors_indexedstored_strings";
-			case "areaServedTitles":
-				return "areaServedTitles_indexedstored_strings";
-			case "areaServedLinks":
-				return "areaServedLinks_indexedstored_strings";
-			case "areaServed":
-				return "areaServed_docvalues_location";
 			case "id":
 				return "id_docvalues_string";
 			case "entityShortId":
@@ -1851,14 +1350,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 				return "description";
 			case "location_docvalues_location":
 				return "location";
-			case "areaServedColors_indexedstored_strings":
-				return "areaServedColors";
-			case "areaServedTitles_indexedstored_strings":
-				return "areaServedTitles";
-			case "areaServedLinks_indexedstored_strings":
-				return "areaServedLinks";
-			case "areaServed_docvalues_location":
-				return "areaServed";
 			case "id_docvalues_string":
 				return "id";
 			case "entityShortId_docvalues_string":
@@ -1906,16 +1397,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 		oMapModel.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oMapModel.setDescription(Optional.ofNullable(doc.get("description_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oMapModel.setLocation(Optional.ofNullable(doc.get("location_docvalues_location")).map(v -> v.toString()).orElse(null));
-		Optional.ofNullable((List<?>)doc.get("areaServedColors_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oMapModel.addAreaServedColors(MapModel.staticSetAreaServedColors(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((List<?>)doc.get("areaServedTitles_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oMapModel.addAreaServedTitles(MapModel.staticSetAreaServedTitles(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((List<?>)doc.get("areaServedLinks_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oMapModel.addAreaServedLinks(MapModel.staticSetAreaServedLinks(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((String)doc.get("areaServed_docvalues_location")).ifPresent(val -> staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v)));
 		oMapModel.setId(Optional.ofNullable(doc.get("id_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oMapModel.setEntityShortId(Optional.ofNullable(doc.get("entityShortId_docvalues_string")).map(v -> v.toString()).orElse(null));
 		oMapModel.setNgsildTenant(Optional.ofNullable(doc.get("ngsildTenant_docvalues_string")).map(v -> v.toString()).orElse(null));
@@ -1942,14 +1423,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 				apiRequest.addVars("description");
 			if(!Objects.equals(location, original.getLocation()))
 				apiRequest.addVars("location");
-			if(!Objects.equals(areaServedColors, original.getAreaServedColors()))
-				apiRequest.addVars("areaServedColors");
-			if(!Objects.equals(areaServedTitles, original.getAreaServedTitles()))
-				apiRequest.addVars("areaServedTitles");
-			if(!Objects.equals(areaServedLinks, original.getAreaServedLinks()))
-				apiRequest.addVars("areaServedLinks");
-			if(!Objects.equals(areaServed, original.getAreaServed()))
-				apiRequest.addVars("areaServed");
 			if(!Objects.equals(id, original.getId()))
 				apiRequest.addVars("id");
 			if(!Objects.equals(entityShortId, original.getEntityShortId()))
@@ -1978,10 +1451,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 		sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(description).map(v -> "description: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(location).map(v -> "location: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedColors).map(v -> "areaServedColors: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedTitles).map(v -> "areaServedTitles: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedLinks).map(v -> "areaServedLinks: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServed).map(v -> "areaServed: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(id).map(v -> "id: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(entityShortId).map(v -> "entityShortId: \"" + v + "\"\n" ).orElse(""));
 		sb.append(Optional.ofNullable(ngsildTenant).map(v -> "ngsildTenant: \"" + v + "\"\n" ).orElse(""));
@@ -2002,10 +1471,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 	public static final String VAR_name = "name";
 	public static final String VAR_description = "description";
 	public static final String VAR_location = "location";
-	public static final String VAR_areaServedColors = "areaServedColors";
-	public static final String VAR_areaServedTitles = "areaServedTitles";
-	public static final String VAR_areaServedLinks = "areaServedLinks";
-	public static final String VAR_areaServed = "areaServed";
 	public static final String VAR_id = "id";
 	public static final String VAR_entityShortId = "entityShortId";
 	public static final String VAR_ngsildTenant = "ngsildTenant";
@@ -2029,7 +1494,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 		vars.add(VAR_name);
 		vars.add(VAR_description);
 		vars.add(VAR_location);
-		vars.add(VAR_areaServed);
 		vars.add(VAR_id);
 		vars.add(VAR_entityShortId);
 		vars.add(VAR_ngsildTenant);
@@ -2054,10 +1518,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 	public static final String DISPLAY_NAME_name = "name";
 	public static final String DISPLAY_NAME_description = "description";
 	public static final String DISPLAY_NAME_location = "location";
-	public static final String DISPLAY_NAME_areaServedColors = "area served colors";
-	public static final String DISPLAY_NAME_areaServedTitles = "area served titles";
-	public static final String DISPLAY_NAME_areaServedLinks = "area served links";
-	public static final String DISPLAY_NAME_areaServed = "area served";
 	public static final String DISPLAY_NAME_id = "id";
 	public static final String DISPLAY_NAME_entityShortId = "short entity ID";
 	public static final String DISPLAY_NAME_ngsildTenant = "NGSILD-Tenant";
@@ -2122,14 +1582,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return DISPLAY_NAME_description;
 		case VAR_location:
 			return DISPLAY_NAME_location;
-		case VAR_areaServedColors:
-			return DISPLAY_NAME_areaServedColors;
-		case VAR_areaServedTitles:
-			return DISPLAY_NAME_areaServedTitles;
-		case VAR_areaServedLinks:
-			return DISPLAY_NAME_areaServedLinks;
-		case VAR_areaServed:
-			return DISPLAY_NAME_areaServed;
 		case VAR_id:
 			return DISPLAY_NAME_id;
 		case VAR_entityShortId:
@@ -2159,14 +1611,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return "The description. ";
 		case VAR_location:
 			return "Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon";
-		case VAR_areaServedColors:
-			return "The colors of each areaServed Paths. ";
-		case VAR_areaServedTitles:
-			return "The titles of each areaServed Paths. ";
-		case VAR_areaServedLinks:
-			return "The links of each areaServed Paths. ";
-		case VAR_areaServed:
-			return "The geographic area where a service or offered item is provided";
 		case VAR_id:
 			return "Unique identifier of the entity";
 		case VAR_entityShortId:
@@ -2192,14 +1636,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return "String";
 		case VAR_location:
 			return "Point";
-		case VAR_areaServedColors:
-			return "List";
-		case VAR_areaServedTitles:
-			return "List";
-		case VAR_areaServedLinks:
-			return "List";
-		case VAR_areaServed:
-			return "List";
 		case VAR_id:
 			return "String";
 		case VAR_entityShortId:
@@ -2226,14 +1662,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 		case VAR_description:
 			return "Property";
 		case VAR_location:
-			return "GeoProperty";
-		case VAR_areaServedColors:
-			return "Property";
-		case VAR_areaServedTitles:
-			return "Property";
-		case VAR_areaServedLinks:
-			return "Property";
-		case VAR_areaServed:
 			return "GeoProperty";
 		case VAR_id:
 			return "Property";
@@ -2262,14 +1690,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return o.getDescription();
 		case VAR_location:
 			return new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(Double.valueOf(o.getLocation().getX())).add(Double.valueOf(o.getLocation().getY())));
-		case VAR_areaServedColors:
-			return o.getAreaServedColors();
-		case VAR_areaServedTitles:
-			return o.getAreaServedTitles();
-		case VAR_areaServedLinks:
-			return o.getAreaServedLinks();
-		case VAR_areaServed:
-			return o.geojsonAreaServed();
 		case VAR_id:
 			return o.getId();
 		case VAR_entityShortId:
@@ -2308,8 +1728,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return 4;
 		case VAR_location:
 			return 4;
-		case VAR_areaServed:
-			return 4;
 		case VAR_id:
 			return 5;
 		case VAR_ngsildTenant:
@@ -2335,8 +1753,6 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 			return 1;
 		case VAR_location:
 			return 0;
-		case VAR_areaServed:
-			return 1;
 		case VAR_id:
 			return 0;
 		case VAR_ngsildTenant:

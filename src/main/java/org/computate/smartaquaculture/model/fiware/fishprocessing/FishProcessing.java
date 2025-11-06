@@ -1,9 +1,12 @@
 package org.computate.smartaquaculture.model.fiware.fishprocessing;
 
+import java.util.List;
+
 import org.computate.search.wrap.Wrap;
 import org.computate.smartaquaculture.model.mapmodel.MapModel;
 
 import io.vertx.core.json.JsonObject;
+import io.vertx.pgclient.data.Polygon;
 
 /**
  * Fiware: true
@@ -67,4 +70,53 @@ public class FishProcessing extends FishProcessingGen<MapModel> {
   protected void _color(Wrap<String> w) {
     w.o("#036730ff");
   }
+
+	/**
+	 * {@inheritDoc}
+	
+	 * LocationColor: true
+	 * Indexed: true
+	 * Stored: true
+	 * DisplayName: area served colors
+	 * Description: The colors of each areaServed Paths. 
+	 */
+	protected void _areaServedColors(List<String> l) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * LocationTitle: true
+	 * Indexed: true
+	 * Stored: true
+	 * DisplayName: area served titles
+	 * Description: The titles of each areaServed Paths. 
+	 */
+	protected void _areaServedTitles(List<String> l) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * LocationUrl: true
+	 * Indexed: true
+	 * Stored: true
+	 * DisplayName: area served links
+	 * Description: The links of each areaServed Paths. 
+	 */
+	protected void _areaServedLinks(List<String> l) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * FiwareType: geo:linestring
+	 * Area: true
+	 * DocValues: true
+	 * Persist: true
+	 * DisplayName: area served
+	 * Description: The geographic area where a service or offered item is provided
+	 * HtmRow: 4
+	 * HtmCell: 1
+	 * Facet: true
+	 **/
+	protected void _areaServed(List<Polygon> l) {
+	}
 }

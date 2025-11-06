@@ -844,7 +844,7 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, color, displayPage FROM MapModel WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT name, description, created, location, id, archived, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage FROM MapModel WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -1141,17 +1141,16 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 			page.persistForClass(MapModel.VAR_description, MapModel.staticSetDescription(siteRequest2, (String)result.get(MapModel.VAR_description)));
 			page.persistForClass(MapModel.VAR_created, MapModel.staticSetCreated(siteRequest2, (String)result.get(MapModel.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
 			page.persistForClass(MapModel.VAR_location, MapModel.staticSetLocation(siteRequest2, (String)result.get(MapModel.VAR_location)));
-			page.persistForClass(MapModel.VAR_archived, MapModel.staticSetArchived(siteRequest2, (String)result.get(MapModel.VAR_archived)));
-			page.persistForClass(MapModel.VAR_areaServed, MapModel.staticSetAreaServed(siteRequest2, (String)result.get(MapModel.VAR_areaServed)));
 			page.persistForClass(MapModel.VAR_id, MapModel.staticSetId(siteRequest2, (String)result.get(MapModel.VAR_id)));
-			page.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
-			page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
+			page.persistForClass(MapModel.VAR_archived, MapModel.staticSetArchived(siteRequest2, (String)result.get(MapModel.VAR_archived)));
 			page.persistForClass(MapModel.VAR_ngsildTenant, MapModel.staticSetNgsildTenant(siteRequest2, (String)result.get(MapModel.VAR_ngsildTenant)));
 			page.persistForClass(MapModel.VAR_ngsildPath, MapModel.staticSetNgsildPath(siteRequest2, (String)result.get(MapModel.VAR_ngsildPath)));
 			page.persistForClass(MapModel.VAR_ngsildContext, MapModel.staticSetNgsildContext(siteRequest2, (String)result.get(MapModel.VAR_ngsildContext)));
-			page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
+			page.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
 			page.persistForClass(MapModel.VAR_ngsildData, MapModel.staticSetNgsildData(siteRequest2, (String)result.get(MapModel.VAR_ngsildData)));
+			page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
 			page.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
+			page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
 			page.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
