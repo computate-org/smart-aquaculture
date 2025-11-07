@@ -17214,6 +17214,10 @@ components:
                       type: string
                   path:
                     type: object
+                  simulation:
+                    type: boolean
+                  simulationDelayMillis:
+                    type: string
     PATCHFishingBoatRequest:
       allOf:
         - type: object
@@ -17332,6 +17336,20 @@ components:
               type: object
             removeAllPath:
               type: object
+            setSimulation:
+              type: boolean
+              nullable: true
+            removeSimulation:
+              type: boolean
+            removeAllSimulation:
+              type: boolean
+            setSimulationDelayMillis:
+              type: string
+              nullable: true
+            removeSimulationDelayMillis:
+              type: string
+            removeAllSimulationDelayMillis:
+              type: string
     PATCHFishingBoatResponse:
       allOf:
         - type: object
@@ -17450,6 +17468,20 @@ components:
               type: object
             removeAllPath:
               type: object
+            setSimulation:
+              type: boolean
+              nullable: true
+            removeSimulation:
+              type: boolean
+            removeAllSimulation:
+              type: boolean
+            setSimulationDelayMillis:
+              type: string
+              nullable: true
+            removeSimulationDelayMillis:
+              type: string
+            removeAllSimulationDelayMillis:
+              type: string
     POSTFishingBoatRequest:
       allOf:
         - type: object
@@ -17484,6 +17516,10 @@ components:
                 type: string
             path:
               type: object
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     POSTFishingBoatResponse:
       allOf:
         - type: object
@@ -17518,6 +17554,10 @@ components:
                 type: string
             path:
               type: object
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     DELETEFilterFishingBoatResponse:
       allOf:
         - type: object
@@ -17552,6 +17592,10 @@ components:
                 type: string
             path:
               type: object
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     PUTImportFishingBoatRequest:
       allOf:
         - type: object
@@ -17591,6 +17635,10 @@ components:
                       type: string
                   path:
                     type: object
+                  simulation:
+                    type: boolean
+                  simulationDelayMillis:
+                    type: string
     PUTImportFishingBoatResponse:
       allOf:
         - type: object
@@ -17625,6 +17673,10 @@ components:
                       type: string
                   path:
                     type: object
+                  simulation:
+                    type: boolean
+                  simulationDelayMillis:
+                    type: string
     GETFishingBoatResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -17660,6 +17712,10 @@ components:
                 type: string
             path:
               type: object
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     DELETEFishingBoatResponse:
       allOf:
         - type: object
@@ -17694,6 +17750,10 @@ components:
                 type: string
             path:
               type: object
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     EditPageFishingBoatResponse:
       allOf:
         - type: string

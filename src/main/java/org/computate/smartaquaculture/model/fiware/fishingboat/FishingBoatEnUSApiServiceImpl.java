@@ -2,6 +2,7 @@ package org.computate.smartaquaculture.model.fiware.fishingboat;
 
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
+import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -13,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.geotools.api.referencing.crs.CoordinateReferenceSystem;
@@ -47,24 +49,30 @@ public class FishingBoatEnUSApiServiceImpl extends FishingBoatEnUSGenApiServiceI
 
   @Override
   public Future<FishingBoat> sqlPATCHFishingBoat(FishingBoat o, Boolean inheritPrimaryKey) {
+    Promise<FishingBoat> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       JsonObject jsonObject = siteRequest.getJsonObject();
       Point oldLocation = o.getLocation();
       Path path = o.getPath();
-      if(!"false".equals(siteRequest.getRequestVars().get("refresh")) && path != null && path.getPoints().size() >= 2 && jsonObject.getString("setLocation") == null) {
+      if(
+          !"false".equals(siteRequest.getRequestVars().get("refresh"))
+          && path != null && path.getPoints().size() >= 2 
+          && jsonObject.getString("setLocation") == null
+          && "true".equals(siteRequest.getRequestVars().get("simulation"))
+          ) {
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime modified = o.getModified();
         Duration duration = Duration.between(modified, now);
         BigDecimal durationMillis = new BigDecimal(duration.toMillis());
         BigDecimal mph = o.getAvgSpeedInMph();
-        BigDecimal nextDistanceMeters = GeoTool.calculateMeters(mph, durationMillis, 5, RoundingMode.HALF_UP);
 
         CoordinateReferenceSystem sourceCRS = DefaultGeographicCRS.WGS84;
         CoordinateReferenceSystem targetCRS = DefaultGeocentricCRS.CARTESIAN;
         boolean lenient = true;
         PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FLOATING);
         int srid = 4326;
+        BigDecimal nextDistanceMeters = GeoTool.calculateMeters(mph, durationMillis, 5, RoundingMode.HALF_UP);
         double tolerance = nextDistanceMeters.doubleValue();
         GeometryFactory geometryFactory =  new GeometryFactory(precisionModel, srid);
         Coordinate geojsonCoordinate = GeoJSONUtil.createCoordinate(Arrays.asList(oldLocation.getX(), oldLocation.getY()));
@@ -81,71 +89,70 @@ public class FishingBoatEnUSApiServiceImpl extends FishingBoatEnUSGenApiServiceI
           }
         }).collect(Collectors.toList()).toArray(Coordinate[]::new);
         LineString lineString = geometryFactory.createLineString(coordinates);
+        Boolean isCoordinateOnLine = GeoTool.isCoordinateOnLine(lineString, oldPoint, tolerance);
         LocationIndexedLine indexedLine = new LocationIndexedLine(lineString);
         LinearLocation nearestLocation = indexedLine.project(oldCoordinate);
-        int nearestSegmentIndex = nearestLocation.getSegmentIndex();
-        Coordinate nearestCoordinate = lineString.getCoordinates()[nearestSegmentIndex];
-        Coordinate nextCoordinate = nearestCoordinate;
-        if(GeoTool.isCoordinateOnLine(lineString, oldPoint, tolerance)) {
-          int nextSegmentIndex = nearestSegmentIndex < (lineString.getCoordinates().length - 1) ? nearestSegmentIndex + 1 : 0;
-          Coordinate possibleNextCoordinate = lineString.getCoordinates()[nextSegmentIndex];
-          nearestLocation = indexedLine.indexOf(possibleNextCoordinate);
-          LinearLocation location0 = indexedLine.project(nearestCoordinate);
-          LinearLocation location1 = indexedLine.project(possibleNextCoordinate);
-          LinearLocation loc0 = location0.compareTo(location1) <= 0 ? location0 : location1;
-          LinearLocation loc1 = location0.compareTo(location1) <= 0 ? location1 : location0;
-          double distanceToLine = lineString.distance(geometryFactory.createPoint(oldCoordinate));
-          boolean isOnLine = distanceToLine < tolerance;
-          boolean isBetweenIndices = nearestLocation.compareTo(loc0) > 0 && nearestLocation.compareTo(loc1) <= 1;
-          if(isBetweenIndices) {
-            nextCoordinate = possibleNextCoordinate;
-          }
-        } else {
-          nextCoordinate = lineString.getCoordinates()[0];
-          nearestLocation = indexedLine.indexOf(nextCoordinate);
-        }
-
+        BigDecimal segmentFraction = new BigDecimal(nearestLocation.getSegmentFraction()).setScale(3, RoundingMode.HALF_UP);
+        Integer segmentIndex = nearestLocation.getSegmentIndex();
+        Integer nextSegmentIndex = isCoordinateOnLine ? (segmentFraction.equals(BigDecimal.ONE.setScale(3, RoundingMode.HALF_UP)) ? segmentIndex + 2 : segmentIndex + 1) : 0;
+        if(nextSegmentIndex >= lineString.getCoordinates().length)
+          nextSegmentIndex = 0;
+        Coordinate nextCoordinate = lineString.getCoordinates()[nextSegmentIndex];
         GeodeticCalculator gc = new GeodeticCalculator(DefaultGeocentricCRS.CARTESIAN);
+
         double[] nextGeo = new double[sourceCRS.getCoordinateSystem().getDimension()];
         targetTransform.transform(new double[] {nextCoordinate.getX(), nextCoordinate.getY(), nextCoordinate.getZ()}, 0, nextGeo, 0, 1);
         gc.setStartingGeographicPoint(oldLocation.getX(), oldLocation.getY());
         gc.setDestinationGeographicPoint(nextGeo[0], nextGeo[1]);
-        double totalDistance = gc.getOrthodromicDistance();
         double azimuth = gc.getAzimuth();
-        double distanceInMeters = gc.getOrthodromicDistance();
-        if (distanceInMeters > totalDistance || distanceInMeters < 0) {
-          if(GeoTool.isCoordinateOnLine(lineString, oldPoint, 0.01)) {
-            int nextSegmentIndex = nearestSegmentIndex < (lineString.getCoordinates().length - 1) ? nearestSegmentIndex + 1 : 0;
-            nextCoordinate = lineString.getCoordinates()[nextSegmentIndex];
-            nearestLocation = indexedLine.indexOf(nextCoordinate);
-            nextGeo = new double[sourceCRS.getCoordinateSystem().getDimension()];
-            targetTransform.transform(new double[] {nextCoordinate.getX(), nextCoordinate.getY(), nextCoordinate.getZ()}, 0, nextGeo, 0, 1);
-            gc.setStartingGeographicPoint(oldLocation.getX(), oldLocation.getY());
-            gc.setDestinationGeographicPoint(nextGeo[0], nextGeo[1]);
-          }
-        }
+        BigDecimal nextCoordinateMeters = new BigDecimal(gc.getOrthodromicDistance());
+        if(nextDistanceMeters.compareTo(nextCoordinateMeters) > 0)
+          nextDistanceMeters = nextCoordinateMeters;
         gc.setStartingGeographicPoint(oldLocation.getX(), oldLocation.getY());
         gc.setDirection(azimuth, nextDistanceMeters.doubleValue());
         Point2D newPoint2D = gc.getDestinationGeographicPoint();
-        // double newX = gc.getDestinationGeographicPoint().getX();
-        // double newY = gc.getDestinationGeographicPoint().getY();
-        // Point newLocation = path.getPoints().get(0);
 
         JsonObject locationJson = new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(newPoint2D.getX()).add(newPoint2D.getY()));
-        // Coordinate newCoordinate = indexedLine.extractPoint(nearestLocation, distanceMeters.doubleValue());
-        // newCoordinate.setZ(oldCoordinate.getZ());
-        // double[] destPt = new double[sourceCRS.getCoordinateSystem().getDimension()];
-        // targetTransform.transform(new double[] {newCoordinate.getX(), newCoordinate.getY(), newCoordinate.getZ()}, 0, destPt, 0, 1);
-        // JsonObject locationJson = new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(destPt[0]).add(destPt[1]));
-        // Point point = geometryFactory.createPoint(newCoordinate);
         jsonObject.put("setLocation", locationJson);
       }
-      return super.sqlPATCHFishingBoat(o, inheritPrimaryKey);
+      super.sqlPATCHFishingBoat(o, inheritPrimaryKey).onSuccess(fishingBoat -> {
+        if("true".equals(jsonObject.getString("setSimulation")) 
+            || "true".equals(siteRequest.getRequestVars().get("simulation"))) {
+          Long simulationDelayMillis = Optional.ofNullable(o.getSimulationDelayMillis()).orElse(500L);
+          vertx.setTimer(simulationDelayMillis, a -> {
+            JsonObject params = new JsonObject();
+            params.put("body", new JsonObject());
+            params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
+            params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
+            params.put("form", new JsonObject());
+            params.put("path", new JsonObject());
+            params.put("scopes", new JsonArray().add("GET").add("PATCH"));
+            JsonObject query = new JsonObject();
+            Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
+            Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
+            if(softCommit == null && commitWithin == null)
+              softCommit = true;
+            if(softCommit != null)
+              query.put("softCommit", softCommit);
+            if(commitWithin != null)
+              query.put("commitWithin", commitWithin);
+            query.put("q", "*:*")
+                .put("fq", new JsonArray().add("pk:" + o.getPk()))
+                .put("var", new JsonArray().add("simulation:true"));
+            params.put("query", query);
+            JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
+            JsonObject json = new JsonObject().put("context", context);
+            eventBus.send(FishingBoat.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishingBoatFuture"));
+          });
+          promise.complete(fishingBoat);
+        } else {
+          promise.complete(fishingBoat);
+        }
+      });
     } catch(Throwable ex) {
-      Promise<FishingBoat> promise = Promise.promise();
       LOG.error("Failed to calculate new point with geotools. ", ex);
       promise.fail(ex);
-      return promise.future();
     }
+    return promise.future();
   }
 }

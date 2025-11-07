@@ -264,3 +264,5 @@ ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS maxSpeedInMph decimal;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS milesPerGallon decimal;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS gallonsOfGas decimal;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS path path;
+ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS simulation boolean;
+ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS simulationDelayMillis bigint;

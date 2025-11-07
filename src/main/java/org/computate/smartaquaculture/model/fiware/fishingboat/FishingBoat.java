@@ -169,52 +169,78 @@ public class FishingBoat extends FishingBoatGen<MapModel> {
   protected void _gallonsOfGas(Wrap<BigDecimal> w) {
   }
 
-	/**
-	 * {@inheritDoc}
-	
-	 * LocationColor: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served colors
-	 * Description: The colors of each areaServed Paths. 
-	 */
-	protected void _areaServedColors(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+  
+   * LocationColor: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served colors
+   * Description: The colors of each areaServed Paths. 
+   */
+  protected void _areaServedColors(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * LocationTitle: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served titles
-	 * Description: The titles of each areaServed Paths. 
-	 */
-	protected void _areaServedTitles(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * LocationTitle: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served titles
+   * Description: The titles of each areaServed Paths. 
+   */
+  protected void _areaServedTitles(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * LocationUrl: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served links
-	 * Description: The links of each areaServed Paths. 
-	 */
-	protected void _areaServedLinks(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * LocationUrl: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served links
+   * Description: The links of each areaServed Paths. 
+   */
+  protected void _areaServedLinks(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * FiwareType: geo:linestring
-	 * Area: true
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: path
-	 * Description: The geographic area where the boat goes fishing. 
-	 * HtmRow: 4
-	 * HtmCell: 1
-	 * Facet: true
-	 **/
-	protected void _path(Wrap<Path> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * FiwareType: geo:linestring
+   * Area: true
+   * DocValues: true
+   * Persist: true
+   * DisplayName: path
+   * Description: The geographic area where the boat goes fishing. 
+   * HtmRow: 4
+   * HtmCell: 1
+   * Facet: true
+   **/
+  protected void _path(Wrap<Path> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: simulation
+   * Description: Toggle the digital twin simulation
+   * HtmRow: 4
+   * HtmCell: 2
+   **/
+  protected void _simulation(Wrap<Boolean> w) {
+    w.o(false);
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: simulation delay in milliseconds
+   * Description: The number of milliseconds to asynchronously wait before the next update event is sent. 
+   * HtmRow: 4
+   * HtmCell: 3
+   **/
+  protected void _simulationDelayMillis(Wrap<Long> w) {
+    w.o(500L);
+  }
 }

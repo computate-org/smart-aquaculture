@@ -960,6 +960,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							num++;
 							bParams.add(o2.sqlObjectTitle());
 						break;
+					case "setSimulation":
+							o2.setSimulation(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingBoat.VAR_simulation + "=$" + num);
+							num++;
+							bParams.add(o2.sqlSimulation());
+						break;
 					case "setDisplayPage":
 							o2.setDisplayPage(jsonObject.getString(entityVar));
 							if(bParams.size() > 0)
@@ -967,6 +975,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 							bSql.append(FishingBoat.VAR_displayPage + "=$" + num);
 							num++;
 							bParams.add(o2.sqlDisplayPage());
+						break;
+					case "setSimulationDelayMillis":
+							o2.setSimulationDelayMillis(jsonObject.getString(entityVar));
+							if(bParams.size() > 0)
+								bSql.append(", ");
+							bSql.append(FishingBoat.VAR_simulationDelayMillis + "=$" + num);
+							num++;
+							bParams.add(o2.sqlSimulationDelayMillis());
 						break;
 				}
 			}
@@ -1546,6 +1562,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlObjectTitle());
 						break;
+					case FishingBoat.VAR_simulation:
+						o2.setSimulation(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingBoat.VAR_simulation + "=$" + num);
+						num++;
+						bParams.add(o2.sqlSimulation());
+						break;
 					case FishingBoat.VAR_displayPage:
 						o2.setDisplayPage(jsonObject.getString(entityVar));
 						if(bParams.size() > 0) {
@@ -1554,6 +1579,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(FishingBoat.VAR_displayPage + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDisplayPage());
+						break;
+					case FishingBoat.VAR_simulationDelayMillis:
+						o2.setSimulationDelayMillis(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(FishingBoat.VAR_simulationDelayMillis + "=$" + num);
+						num++;
+						bParams.add(o2.sqlSimulationDelayMillis());
 						break;
 					}
 				}
@@ -3364,7 +3398,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			SiteRequest siteRequest = o.getSiteRequest_();
 			SqlConnection sqlConnection = siteRequest.getSqlConnection();
 			Long pk = o.getPk();
-			sqlConnection.preparedQuery("SELECT name, timeZone, description, fishingDockId, location, created, departureDate, id, arrivalDate, archived, avgSpeedInMph, ngsildTenant, maxSpeedInMph, ngsildPath, milesPerGallon, ngsildContext, gallonsOfGas, ngsildData, sessionId, color, userKey, path, objectTitle, displayPage FROM FishingBoat WHERE pk=$1")
+			sqlConnection.preparedQuery("SELECT name, timeZone, description, fishingDockId, location, created, departureDate, id, arrivalDate, archived, avgSpeedInMph, ngsildTenant, maxSpeedInMph, ngsildPath, milesPerGallon, ngsildContext, gallonsOfGas, ngsildData, sessionId, color, userKey, path, objectTitle, simulation, displayPage, simulationDelayMillis FROM FishingBoat WHERE pk=$1")
 					.collecting(Collectors.toList())
 					.execute(Tuple.of(pk)
 					).onSuccess(result -> {
@@ -3662,7 +3696,9 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			page.persistForClass(FishingBoat.VAR_userKey, FishingBoat.staticSetUserKey(siteRequest2, (String)result.get(FishingBoat.VAR_userKey)));
 			page.persistForClass(FishingBoat.VAR_path, FishingBoat.staticSetPath(siteRequest2, (String)result.get(FishingBoat.VAR_path)));
 			page.persistForClass(FishingBoat.VAR_objectTitle, FishingBoat.staticSetObjectTitle(siteRequest2, (String)result.get(FishingBoat.VAR_objectTitle)));
+			page.persistForClass(FishingBoat.VAR_simulation, FishingBoat.staticSetSimulation(siteRequest2, (String)result.get(FishingBoat.VAR_simulation)));
 			page.persistForClass(FishingBoat.VAR_displayPage, FishingBoat.staticSetDisplayPage(siteRequest2, (String)result.get(FishingBoat.VAR_displayPage)));
+			page.persistForClass(FishingBoat.VAR_simulationDelayMillis, FishingBoat.staticSetSimulationDelayMillis(siteRequest2, (String)result.get(FishingBoat.VAR_simulationDelayMillis)));
 
 			page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
 				try {

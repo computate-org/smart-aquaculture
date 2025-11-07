@@ -104,6 +104,8 @@ import io.vertx.core.json.Json;
 import io.vertx.pgclient.data.Point;
 import org.computate.vertx.serialize.pgclient.PgClientPathSerializer;
 import org.computate.vertx.serialize.pgclient.PgClientPathDeserializer;
+import java.lang.Boolean;
+import java.lang.Long;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
@@ -1211,6 +1213,131 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 		return path;
 	}
 
+	////////////////
+	// simulation //
+	////////////////
+
+
+	/**	 The entity simulation
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected Boolean simulation;
+
+	/**	<br> The entity simulation
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:simulation">Find the entity simulation in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _simulation(Wrap<Boolean> w);
+
+	public Boolean getSimulation() {
+		return simulation;
+	}
+
+	public void setSimulation(Boolean simulation) {
+		this.simulation = simulation;
+	}
+	@JsonIgnore
+	public void setSimulation(String o) {
+		this.simulation = FishingBoat.staticSetSimulation(siteRequest_, o);
+	}
+	public static Boolean staticSetSimulation(SiteRequest siteRequest_, String o) {
+		return Boolean.parseBoolean(o);
+	}
+	protected FishingBoat simulationInit() {
+		Wrap<Boolean> simulationWrap = new Wrap<Boolean>().var("simulation");
+		if(simulation == null) {
+			_simulation(simulationWrap);
+			Optional.ofNullable(simulationWrap.getO()).ifPresent(o -> {
+				setSimulation(o);
+			});
+		}
+		return (FishingBoat)this;
+	}
+
+	public static Boolean staticSearchSimulation(SiteRequest siteRequest_, Boolean o) {
+		return o;
+	}
+
+	public static String staticSearchStrSimulation(SiteRequest siteRequest_, Boolean o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqSimulation(SiteRequest siteRequest_, String o) {
+		return FishingBoat.staticSearchSimulation(siteRequest_, FishingBoat.staticSetSimulation(siteRequest_, o)).toString();
+	}
+
+	public Boolean sqlSimulation() {
+		return simulation;
+	}
+
+	///////////////////////////
+	// simulationDelayMillis //
+	///////////////////////////
+
+
+	/**	 The entity simulationDelayMillis
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonSerialize(using = ToStringSerializer.class)
+	@JsonInclude(Include.NON_NULL)
+	protected Long simulationDelayMillis;
+
+	/**	<br> The entity simulationDelayMillis
+	 *  is defined as null before being initialized. 
+	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:simulationDelayMillis">Find the entity simulationDelayMillis in Solr</a>
+	 * <br>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _simulationDelayMillis(Wrap<Long> w);
+
+	public Long getSimulationDelayMillis() {
+		return simulationDelayMillis;
+	}
+
+	public void setSimulationDelayMillis(Long simulationDelayMillis) {
+		this.simulationDelayMillis = simulationDelayMillis;
+	}
+	@JsonIgnore
+	public void setSimulationDelayMillis(String o) {
+		this.simulationDelayMillis = FishingBoat.staticSetSimulationDelayMillis(siteRequest_, o);
+	}
+	public static Long staticSetSimulationDelayMillis(SiteRequest siteRequest_, String o) {
+		if(NumberUtils.isParsable(o))
+			return Long.parseLong(o);
+		return null;
+	}
+	protected FishingBoat simulationDelayMillisInit() {
+		Wrap<Long> simulationDelayMillisWrap = new Wrap<Long>().var("simulationDelayMillis");
+		if(simulationDelayMillis == null) {
+			_simulationDelayMillis(simulationDelayMillisWrap);
+			Optional.ofNullable(simulationDelayMillisWrap.getO()).ifPresent(o -> {
+				setSimulationDelayMillis(o);
+			});
+		}
+		return (FishingBoat)this;
+	}
+
+	public static Long staticSearchSimulationDelayMillis(SiteRequest siteRequest_, Long o) {
+		return o;
+	}
+
+	public static String staticSearchStrSimulationDelayMillis(SiteRequest siteRequest_, Long o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSearchFqSimulationDelayMillis(SiteRequest siteRequest_, String o) {
+		return FishingBoat.staticSearchSimulationDelayMillis(siteRequest_, FishingBoat.staticSetSimulationDelayMillis(siteRequest_, o)).toString();
+	}
+
+	public Long sqlSimulationDelayMillis() {
+		return simulationDelayMillis;
+	}
+
 	//////////////
 	// initDeep //
 	//////////////
@@ -1252,6 +1379,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				areaServedTitlesInit();
 				areaServedLinksInit();
 				pathInit();
+				simulationInit();
+				simulationDelayMillisInit();
 				promise2.complete();
 			} catch(Exception ex) {
 				promise2.fail(ex);
@@ -1329,6 +1458,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return oFishingBoat.areaServedLinks;
 			case "path":
 				return oFishingBoat.path;
+			case "simulation":
+				return oFishingBoat.simulation;
+			case "simulationDelayMillis":
+				return oFishingBoat.simulationDelayMillis;
 			default:
 				return super.obtainMapModel(var);
 		}
@@ -1404,6 +1537,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSetAreaServedLinks(siteRequest_, v);
 		case "path":
 			return FishingBoat.staticSetPath(siteRequest_, v);
+		case "simulation":
+			return FishingBoat.staticSetSimulation(siteRequest_, v);
+		case "simulationDelayMillis":
+			return FishingBoat.staticSetSimulationDelayMillis(siteRequest_, v);
 			default:
 				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
 		}
@@ -1442,6 +1579,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSearchAreaServedLinks(siteRequest_, (String)o);
 		case "path":
 			return FishingBoat.staticSearchPath(siteRequest_, (Path)o);
+		case "simulation":
+			return FishingBoat.staticSearchSimulation(siteRequest_, (Boolean)o);
+		case "simulationDelayMillis":
+			return FishingBoat.staticSearchSimulationDelayMillis(siteRequest_, (Long)o);
 			default:
 				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1480,6 +1621,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSearchStrAreaServedLinks(siteRequest_, (String)o);
 		case "path":
 			return FishingBoat.staticSearchStrPath(siteRequest_, (Path)o);
+		case "simulation":
+			return FishingBoat.staticSearchStrSimulation(siteRequest_, (Boolean)o);
+		case "simulationDelayMillis":
+			return FishingBoat.staticSearchStrSimulationDelayMillis(siteRequest_, (Long)o);
 			default:
 				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1518,6 +1663,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return FishingBoat.staticSearchFqAreaServedLinks(siteRequest_, o);
 		case "path":
 			return FishingBoat.staticSearchFqPath(siteRequest_, o);
+		case "simulation":
+			return FishingBoat.staticSearchFqSimulation(siteRequest_, o);
+		case "simulationDelayMillis":
+			return FishingBoat.staticSearchFqSimulationDelayMillis(siteRequest_, o);
 			default:
 				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
 		}
@@ -1612,6 +1761,22 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				}
 				saves.add("path");
 				return val;
+			} else if("simulation".equals(varLower)) {
+				if(val instanceof Boolean) {
+					setSimulation((Boolean)val);
+				} else {
+					setSimulation(val == null ? null : val.toString());
+				}
+				saves.add("simulation");
+				return val;
+			} else if("simulationdelaymillis".equals(varLower)) {
+				if(val instanceof Long) {
+					setSimulationDelayMillis((Long)val);
+				} else {
+					setSimulationDelayMillis(val == null ? null : val.toString());
+				}
+				saves.add("simulationDelayMillis");
+				return val;
 		} else {
 			return super.persistMapModel(var, val);
 		}
@@ -1705,6 +1870,18 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				if(path != null)
 					oFishingBoat.setPath(path);
 			}
+
+			if(saves.contains("simulation")) {
+				Boolean simulation = (Boolean)doc.get("simulation_docvalues_boolean");
+				if(simulation != null)
+					oFishingBoat.setSimulation(simulation);
+			}
+
+			if(saves.contains("simulationDelayMillis")) {
+				Long simulationDelayMillis = (Long)doc.get("simulationDelayMillis_docvalues_long");
+				if(simulationDelayMillis != null)
+					oFishingBoat.setSimulationDelayMillis(simulationDelayMillis);
+			}
 		}
 
 		super.populateMapModel(doc);
@@ -1761,6 +1938,12 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			path.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
 			doc.put("path_docvalues_location", new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString());
 		}
+		if(simulation != null) {
+			doc.put("simulation_docvalues_boolean", simulation);
+		}
+		if(simulationDelayMillis != null) {
+			doc.put("simulationDelayMillis_docvalues_long", simulationDelayMillis);
+		}
 		super.indexMapModel(doc);
 
 	}
@@ -1791,6 +1974,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return "areaServedLinks_indexedstored_strings";
 			case "path":
 				return "path_docvalues_location";
+			case "simulation":
+				return "simulation_docvalues_boolean";
+			case "simulationDelayMillis":
+				return "simulationDelayMillis_docvalues_long";
 			default:
 				return MapModel.varStoredMapModel(entityVar);
 		}
@@ -1822,6 +2009,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return "areaServedLinks_indexedstored_strings";
 			case "path":
 				return "path_docvalues_location";
+			case "simulation":
+				return "simulation_docvalues_boolean";
+			case "simulationDelayMillis":
+				return "simulationDelayMillis_docvalues_long";
 			default:
 				return MapModel.varIndexedMapModel(entityVar);
 		}
@@ -1853,6 +2044,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				return "areaServedLinks";
 			case "path_docvalues_location":
 				return "path";
+			case "simulation_docvalues_boolean":
+				return "simulation";
+			case "simulationDelayMillis_docvalues_long":
+				return "simulationDelayMillis";
 			default:
 				return MapModel.searchVarMapModel(searchVar);
 		}
@@ -1901,6 +2096,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			oFishingBoat.addAreaServedLinks(FishingBoat.staticSetAreaServedLinks(siteRequest, v.toString()));
 		});
 		oFishingBoat.setPath(Optional.ofNullable(doc.get("path_docvalues_location")).map(v -> v.toString()).orElse(null));
+		oFishingBoat.setSimulation(Optional.ofNullable(doc.get("simulation_docvalues_boolean")).map(v -> v.toString()).orElse(null));
+		oFishingBoat.setSimulationDelayMillis(Optional.ofNullable(doc.get("simulationDelayMillis_docvalues_long")).map(v -> v.toString()).orElse(null));
 
 		super.storeMapModel(doc);
 	}
@@ -1938,6 +2135,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 				apiRequest.addVars("areaServedLinks");
 			if(!Objects.equals(path, original.getPath()))
 				apiRequest.addVars("path");
+			if(!Objects.equals(simulation, original.getSimulation()))
+				apiRequest.addVars("simulation");
+			if(!Objects.equals(simulationDelayMillis, original.getSimulationDelayMillis()))
+				apiRequest.addVars("simulationDelayMillis");
 			super.apiRequestMapModel();
 		}
 	}
@@ -1961,6 +2162,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 		sb.append(Optional.ofNullable(areaServedTitles).map(v -> "areaServedTitles: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(areaServedLinks).map(v -> "areaServedLinks: " + v + "\n").orElse(""));
 		sb.append(Optional.ofNullable(path).map(v -> "path: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(simulation).map(v -> "simulation: " + v + "\n").orElse(""));
+		sb.append(Optional.ofNullable(simulationDelayMillis).map(v -> "simulationDelayMillis: " + v + "\n").orElse(""));
 		return sb.toString();
 	}
 
@@ -1983,6 +2186,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	public static final String VAR_areaServedTitles = "areaServedTitles";
 	public static final String VAR_areaServedLinks = "areaServedLinks";
 	public static final String VAR_path = "path";
+	public static final String VAR_simulation = "simulation";
+	public static final String VAR_simulationDelayMillis = "simulationDelayMillis";
 
 	public static List<String> varsQForClass() {
 		return FishingBoat.varsQFishingBoat(new ArrayList<String>());
@@ -2035,6 +2240,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	public static final String DISPLAY_NAME_areaServedTitles = "area served titles";
 	public static final String DISPLAY_NAME_areaServedLinks = "area served links";
 	public static final String DISPLAY_NAME_path = "path";
+	public static final String DISPLAY_NAME_simulation = "simulation";
+	public static final String DISPLAY_NAME_simulationDelayMillis = "simulation delay in milliseconds";
 
 	@Override
 	public String idForClass() {
@@ -2110,6 +2317,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return DISPLAY_NAME_areaServedLinks;
 		case VAR_path:
 			return DISPLAY_NAME_path;
+		case VAR_simulation:
+			return DISPLAY_NAME_simulation;
+		case VAR_simulationDelayMillis:
+			return DISPLAY_NAME_simulationDelayMillis;
 		default:
 			return MapModel.displayNameMapModel(var);
 		}
@@ -2143,6 +2354,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return "The links of each areaServed Paths. ";
 		case VAR_path:
 			return "The geographic area where the boat goes fishing. ";
+		case VAR_simulation:
+			return "Toggle the digital twin simulation";
+		case VAR_simulationDelayMillis:
+			return "The number of milliseconds to asynchronously wait before the next update event is sent. ";
 			default:
 				return MapModel.descriptionMapModel(var);
 		}
@@ -2174,6 +2389,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return "List";
 		case VAR_path:
 			return "Path";
+		case VAR_simulation:
+			return "Boolean";
+		case VAR_simulationDelayMillis:
+			return "Long";
 			default:
 				return MapModel.classSimpleNameMapModel(var);
 		}
@@ -2218,6 +2437,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return 3;
 		case VAR_path:
 			return 4;
+		case VAR_simulation:
+			return 4;
+		case VAR_simulationDelayMillis:
+			return 4;
 			default:
 				return MapModel.htmRowMapModel(var);
 		}
@@ -2243,6 +2466,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 			return 2;
 		case VAR_path:
 			return 1;
+		case VAR_simulation:
+			return 2;
+		case VAR_simulationDelayMillis:
+			return 3;
 			default:
 				return MapModel.htmCellMapModel(var);
 		}

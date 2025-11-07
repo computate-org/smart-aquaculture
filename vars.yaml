@@ -63,9 +63,9 @@ SITE_BASE_URL: "{{ lookup('env', 'SITE_BASE_URL') | default('http://' + SITE_HOS
 # The public facing URL for the site. 
 SITE_PUBLIC_URL: "https://smaq.{{ DOMAIN_NAME }}"
 # The port of the Zookeeper cluster manager. 
-CLUSTER_PORT: "{{ (SITE_PORT | int) + 1 }}"
+CLUSTER_PORT: "{{ lookup('env', 'CLUSTER_PORT') | default(((SITE_PORT | int) + 1), true) }}"
 # The public port of the Zookeeper cluster manager. 
-CLUSTER_PUBLIC_PORT: "{{ (SITE_PORT | int) + 1 }}"
+CLUSTER_PUBLIC_PORT: "{{ lookup('env', 'CLUSTER_PUBLIC_PORT') | default(((SITE_PORT | int) + 1), true) }}"
 # Zookeeper root path to avoid conflicts with other apps using Zookeeper for clustering. 
 ZOOKEEPER_ROOT_PATH: "{{ lookup('env', 'ZOOKEEPER_ROOT_PATH') | default(SITE_NAME + '-local', true) }}"
 # Verify SSL connections. 
