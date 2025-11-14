@@ -229,1328 +229,1328 @@ import org.computate.search.response.solr.SolrResponse;
  * Generated: true
  **/
 public abstract class FishingDockGen<DEV> extends MapModel {
-	protected static final Logger LOG = LoggerFactory.getLogger(FishingDock.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FishingDock.class);
 
-	public static final String Description_enUS = "A fishing dock";
-	public static final String AName_enUS = "a fishing dock";
-	public static final String This_enUS = "this ";
-	public static final String ThisName_enUS = "this fishing dock";
-	public static final String A_enUS = "a ";
-	public static final String TheName_enUS = "the fishing dock";
-	public static final String SingularName_enUS = "fishing dock";
-	public static final String PluralName_enUS = "fishing docks";
-	public static final String NameActual_enUS = "current fishing dock";
-	public static final String AllName_enUS = "all fishing docks";
-	public static final String SearchAllNameBy_enUS = "search fishing docks by ";
-	public static final String SearchAllName_enUS = "search fishing docks";
-	public static final String Title_enUS = "fishing docks";
-	public static final String ThePluralName_enUS = "the fishing docks";
-	public static final String NoNameFound_enUS = "no fishing dock found";
-	public static final String ApiUri_enUS = "/en-us/api/fishing-dock";
-	public static final String ApiUriSearchPage_enUS = "/en-us/search/fishing-dock";
-	public static final String ApiUriEditPage_enUS = "/en-us/edit/fishing-dock/{entityShortId}";
-	public static final String OfName_enUS = "of fishing dock";
-	public static final String ANameAdjective_enUS = "a fishing dock";
-	public static final String NameAdjectiveSingular_enUS = "fishing dock";
-	public static final String NameAdjectivePlural_enUS = "fishing docks";
-	public static final String Search_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String Search_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
-	public static final String GET_enUS_OpenApiUri = "/en-us/api/fishing-dock/{entityShortId}";
-	public static final String GET_enUS_StringFormatUri = "/en-us/api/fishing-dock/%s";
-	public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock/%s";
-	public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String PATCH_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String PATCH_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
-	public static final String POST_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String POST_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
-	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fishing-dock/{entityShortId}";
-	public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fishing-dock/%s";
-	public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock/%s";
-	public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fishing-dock-import";
-	public static final String PUTImport_enUS_StringFormatUri = "/en-us/api/fishing-dock-import";
-	public static final String PUTImport_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock-import";
-	public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fishing-dock";
-	public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fishing-dock";
-	public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fishing-dock";
-	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fishing-dock/{entityShortId}";
-	public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fishing-dock/%s";
-	public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fishing-dock/%s";
-	public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fishing-dock";
-	public static final String DELETEFilter_enUS_StringFormatUri = "/en-us/api/fishing-dock";
-	public static final String DELETEFilter_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
+  public static final String Description_enUS = "A fishing dock";
+  public static final String AName_enUS = "a fishing dock";
+  public static final String This_enUS = "this ";
+  public static final String ThisName_enUS = "this fishing dock";
+  public static final String A_enUS = "a ";
+  public static final String TheName_enUS = "the fishing dock";
+  public static final String SingularName_enUS = "fishing dock";
+  public static final String PluralName_enUS = "fishing docks";
+  public static final String NameActual_enUS = "current fishing dock";
+  public static final String AllName_enUS = "all fishing docks";
+  public static final String SearchAllNameBy_enUS = "search fishing docks by ";
+  public static final String SearchAllName_enUS = "search fishing docks";
+  public static final String Title_enUS = "fishing docks";
+  public static final String ThePluralName_enUS = "the fishing docks";
+  public static final String NoNameFound_enUS = "no fishing dock found";
+  public static final String ApiUri_enUS = "/en-us/api/fishing-dock";
+  public static final String ApiUriSearchPage_enUS = "/en-us/search/fishing-dock";
+  public static final String ApiUriEditPage_enUS = "/en-us/edit/fishing-dock/{entityShortId}";
+  public static final String OfName_enUS = "of fishing dock";
+  public static final String ANameAdjective_enUS = "a fishing dock";
+  public static final String NameAdjectiveSingular_enUS = "fishing dock";
+  public static final String NameAdjectivePlural_enUS = "fishing docks";
+  public static final String Search_enUS_OpenApiUri = "/en-us/api/fishing-dock";
+  public static final String Search_enUS_StringFormatUri = "/en-us/api/fishing-dock";
+  public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
+  public static final String GET_enUS_OpenApiUri = "/en-us/api/fishing-dock/{entityShortId}";
+  public static final String GET_enUS_StringFormatUri = "/en-us/api/fishing-dock/%s";
+  public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock/%s";
+  public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fishing-dock";
+  public static final String PATCH_enUS_StringFormatUri = "/en-us/api/fishing-dock";
+  public static final String PATCH_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
+  public static final String POST_enUS_OpenApiUri = "/en-us/api/fishing-dock";
+  public static final String POST_enUS_StringFormatUri = "/en-us/api/fishing-dock";
+  public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
+  public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fishing-dock/{entityShortId}";
+  public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fishing-dock/%s";
+  public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock/%s";
+  public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fishing-dock-import";
+  public static final String PUTImport_enUS_StringFormatUri = "/en-us/api/fishing-dock-import";
+  public static final String PUTImport_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock-import";
+  public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fishing-dock";
+  public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fishing-dock";
+  public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fishing-dock";
+  public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fishing-dock/{entityShortId}";
+  public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fishing-dock/%s";
+  public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fishing-dock/%s";
+  public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fishing-dock";
+  public static final String DELETEFilter_enUS_StringFormatUri = "/en-us/api/fishing-dock";
+  public static final String DELETEFilter_enUS_StringFormatUrl = "%s/en-us/api/fishing-dock";
 
-	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-bridge-water\"></i>";
-	public static final Integer Rows = 100;
+  public static final String Icon = "<i class=\"fa-duotone fa-regular fa-bridge-water\"></i>";
+  public static final Integer Rows = 100;
 
 	/////////////
-	// address //
+  // address //
 	/////////////
 
 
-	/**	 The entity address
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonObjectDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonObject address;
+  /**   The entity address
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonObjectDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonObject address;
 
-	/**	<br> The entity address
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:address">Find the entity address in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _address(Wrap<JsonObject> w);
+  /**  <br> The entity address
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:address">Find the entity address in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _address(Wrap<JsonObject> w);
 
-	public JsonObject getAddress() {
-		return address;
-	}
+  public JsonObject getAddress() {
+    return address;
+  }
 
-	public void setAddress(JsonObject address) {
-		this.address = address;
-	}
-	@JsonIgnore
-	public void setAddress(String o) {
-		this.address = FishingDock.staticSetAddress(siteRequest_, o);
-	}
-	public static JsonObject staticSetAddress(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonObject(o);
-		}
-		return null;
-	}
-	protected FishingDock addressInit() {
-		Wrap<JsonObject> addressWrap = new Wrap<JsonObject>().var("address");
-		if(address == null) {
-			_address(addressWrap);
-			Optional.ofNullable(addressWrap.getO()).ifPresent(o -> {
-				setAddress(o);
-			});
-		}
-		return (FishingDock)this;
-	}
+  public void setAddress(JsonObject address) {
+    this.address = address;
+  }
+  @JsonIgnore
+  public void setAddress(String o) {
+    this.address = FishingDock.staticSetAddress(siteRequest_, o);
+  }
+  public static JsonObject staticSetAddress(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonObject(o);
+    }
+    return null;
+  }
+  protected FishingDock addressInit() {
+    Wrap<JsonObject> addressWrap = new Wrap<JsonObject>().var("address");
+    if(address == null) {
+      _address(addressWrap);
+      Optional.ofNullable(addressWrap.getO()).ifPresent(o -> {
+        setAddress(o);
+      });
+    }
+    return (FishingDock)this;
+  }
 
-	public static String staticSearchAddress(SiteRequest siteRequest_, JsonObject o) {
-		return o.toString();
-	}
+  public static String staticSearchAddress(SiteRequest siteRequest_, JsonObject o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrAddress(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrAddress(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqAddress(SiteRequest siteRequest_, String o) {
-		return FishingDock.staticSearchAddress(siteRequest_, FishingDock.staticSetAddress(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqAddress(SiteRequest siteRequest_, String o) {
+    return FishingDock.staticSearchAddress(siteRequest_, FishingDock.staticSetAddress(siteRequest_, o)).toString();
+  }
 
-	public JsonObject sqlAddress() {
-		return address;
-	}
+  public JsonObject sqlAddress() {
+    return address;
+  }
 
 	//////////////
-	// timeZone //
+  // timeZone //
 	//////////////
 
 
-	/**	 The entity timeZone
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String timeZone;
+  /**   The entity timeZone
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String timeZone;
 
-	/**	<br> The entity timeZone
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _timeZone(Wrap<String> w);
+  /**  <br> The entity timeZone
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _timeZone(Wrap<String> w);
 
-	public String getTimeZone() {
-		return timeZone;
-	}
-	public void setTimeZone(String o) {
-		this.timeZone = FishingDock.staticSetTimeZone(siteRequest_, o);
-	}
-	public static String staticSetTimeZone(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishingDock timeZoneInit() {
-		Wrap<String> timeZoneWrap = new Wrap<String>().var("timeZone");
-		if(timeZone == null) {
-			_timeZone(timeZoneWrap);
-			Optional.ofNullable(timeZoneWrap.getO()).ifPresent(o -> {
-				setTimeZone(o);
-			});
-		}
-		return (FishingDock)this;
-	}
+  public String getTimeZone() {
+    return timeZone;
+  }
+  public void setTimeZone(String o) {
+    this.timeZone = FishingDock.staticSetTimeZone(siteRequest_, o);
+  }
+  public static String staticSetTimeZone(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected FishingDock timeZoneInit() {
+    Wrap<String> timeZoneWrap = new Wrap<String>().var("timeZone");
+    if(timeZone == null) {
+      _timeZone(timeZoneWrap);
+      Optional.ofNullable(timeZoneWrap.getO()).ifPresent(o -> {
+        setTimeZone(o);
+      });
+    }
+    return (FishingDock)this;
+  }
 
-	public static String staticSearchTimeZone(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchTimeZone(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrTimeZone(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrTimeZone(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqTimeZone(SiteRequest siteRequest_, String o) {
-		return FishingDock.staticSearchTimeZone(siteRequest_, FishingDock.staticSetTimeZone(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqTimeZone(SiteRequest siteRequest_, String o) {
+    return FishingDock.staticSearchTimeZone(siteRequest_, FishingDock.staticSetTimeZone(siteRequest_, o)).toString();
+  }
 
-	public String sqlTimeZone() {
-		return timeZone;
-	}
-
-	//////////////////////
-	// areaServedColors //
-	//////////////////////
-
-
-	/**	 The entity areaServedColors
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedColors = new ArrayList<String>();
-
-	/**	<br> The entity areaServedColors
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedColors(List<String> l);
-
-	public List<String> getAreaServedColors() {
-		return areaServedColors;
-	}
-
-	public void setAreaServedColors(List<String> areaServedColors) {
-		this.areaServedColors = areaServedColors;
-	}
-	@JsonIgnore
-	public void setAreaServedColors(String o) {
-		String l = FishingDock.staticSetAreaServedColors(siteRequest_, o);
-		if(l != null)
-			addAreaServedColors(l);
-	}
-	public static String staticSetAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public FishingDock addAreaServedColors(String...objects) {
-		for(String o : objects) {
-			addAreaServedColors(o);
-		}
-		return (FishingDock)this;
-	}
-	public FishingDock addAreaServedColors(String o) {
-		if(o != null)
-			this.areaServedColors.add(o);
-		return (FishingDock)this;
-	}
-	@JsonIgnore
-	public void setAreaServedColors(JsonArray objects) {
-		areaServedColors.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedColors(o);
-		}
-	}
-	protected FishingDock areaServedColorsInit() {
-		_areaServedColors(areaServedColors);
-		return (FishingDock)this;
-	}
-
-	public static String staticSearchAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServedColors(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqAreaServedColors(SiteRequest siteRequest_, String o) {
-		return FishingDock.staticSearchAreaServedColors(siteRequest_, FishingDock.staticSetAreaServedColors(siteRequest_, o)).toString();
-	}
+  public String sqlTimeZone() {
+    return timeZone;
+  }
 
 	//////////////////////
-	// areaServedTitles //
+  // areaServedColors //
 	//////////////////////
 
 
-	/**	 The entity areaServedTitles
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedTitles = new ArrayList<String>();
+  /**   The entity areaServedColors
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> areaServedColors = new ArrayList<String>();
 
-	/**	<br> The entity areaServedTitles
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedTitles(List<String> l);
+  /**  <br> The entity areaServedColors
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _areaServedColors(List<String> l);
 
-	public List<String> getAreaServedTitles() {
-		return areaServedTitles;
-	}
+  public List<String> getAreaServedColors() {
+    return areaServedColors;
+  }
 
-	public void setAreaServedTitles(List<String> areaServedTitles) {
-		this.areaServedTitles = areaServedTitles;
-	}
-	@JsonIgnore
-	public void setAreaServedTitles(String o) {
-		String l = FishingDock.staticSetAreaServedTitles(siteRequest_, o);
-		if(l != null)
-			addAreaServedTitles(l);
-	}
-	public static String staticSetAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public FishingDock addAreaServedTitles(String...objects) {
-		for(String o : objects) {
-			addAreaServedTitles(o);
-		}
-		return (FishingDock)this;
-	}
-	public FishingDock addAreaServedTitles(String o) {
-		if(o != null)
-			this.areaServedTitles.add(o);
-		return (FishingDock)this;
-	}
-	@JsonIgnore
-	public void setAreaServedTitles(JsonArray objects) {
-		areaServedTitles.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedTitles(o);
-		}
-	}
-	protected FishingDock areaServedTitlesInit() {
-		_areaServedTitles(areaServedTitles);
-		return (FishingDock)this;
-	}
+  public void setAreaServedColors(List<String> areaServedColors) {
+    this.areaServedColors = areaServedColors;
+  }
+  @JsonIgnore
+  public void setAreaServedColors(String o) {
+    String l = FishingDock.staticSetAreaServedColors(siteRequest_, o);
+    if(l != null)
+      addAreaServedColors(l);
+  }
+  public static String staticSetAreaServedColors(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public FishingDock addAreaServedColors(String...objects) {
+    for(String o : objects) {
+      addAreaServedColors(o);
+    }
+    return (FishingDock)this;
+  }
+  public FishingDock addAreaServedColors(String o) {
+    if(o != null)
+      this.areaServedColors.add(o);
+    return (FishingDock)this;
+  }
+  @JsonIgnore
+  public void setAreaServedColors(JsonArray objects) {
+    areaServedColors.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addAreaServedColors(o);
+    }
+  }
+  protected FishingDock areaServedColorsInit() {
+    _areaServedColors(areaServedColors);
+    return (FishingDock)this;
+  }
 
-	public static String staticSearchAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchAreaServedColors(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrAreaServedColors(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqAreaServedTitles(SiteRequest siteRequest_, String o) {
-		return FishingDock.staticSearchAreaServedTitles(siteRequest_, FishingDock.staticSetAreaServedTitles(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqAreaServedColors(SiteRequest siteRequest_, String o) {
+    return FishingDock.staticSearchAreaServedColors(siteRequest_, FishingDock.staticSetAreaServedColors(siteRequest_, o)).toString();
+  }
+
+	//////////////////////
+  // areaServedTitles //
+	//////////////////////
+
+
+  /**   The entity areaServedTitles
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> areaServedTitles = new ArrayList<String>();
+
+  /**  <br> The entity areaServedTitles
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _areaServedTitles(List<String> l);
+
+  public List<String> getAreaServedTitles() {
+    return areaServedTitles;
+  }
+
+  public void setAreaServedTitles(List<String> areaServedTitles) {
+    this.areaServedTitles = areaServedTitles;
+  }
+  @JsonIgnore
+  public void setAreaServedTitles(String o) {
+    String l = FishingDock.staticSetAreaServedTitles(siteRequest_, o);
+    if(l != null)
+      addAreaServedTitles(l);
+  }
+  public static String staticSetAreaServedTitles(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public FishingDock addAreaServedTitles(String...objects) {
+    for(String o : objects) {
+      addAreaServedTitles(o);
+    }
+    return (FishingDock)this;
+  }
+  public FishingDock addAreaServedTitles(String o) {
+    if(o != null)
+      this.areaServedTitles.add(o);
+    return (FishingDock)this;
+  }
+  @JsonIgnore
+  public void setAreaServedTitles(JsonArray objects) {
+    areaServedTitles.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addAreaServedTitles(o);
+    }
+  }
+  protected FishingDock areaServedTitlesInit() {
+    _areaServedTitles(areaServedTitles);
+    return (FishingDock)this;
+  }
+
+  public static String staticSearchAreaServedTitles(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrAreaServedTitles(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqAreaServedTitles(SiteRequest siteRequest_, String o) {
+    return FishingDock.staticSearchAreaServedTitles(siteRequest_, FishingDock.staticSetAreaServedTitles(siteRequest_, o)).toString();
+  }
 
 	/////////////////////
-	// areaServedLinks //
+  // areaServedLinks //
 	/////////////////////
 
 
-	/**	 The entity areaServedLinks
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> areaServedLinks = new ArrayList<String>();
+  /**   The entity areaServedLinks
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> areaServedLinks = new ArrayList<String>();
 
-	/**	<br> The entity areaServedLinks
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServedLinks(List<String> l);
+  /**  <br> The entity areaServedLinks
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _areaServedLinks(List<String> l);
 
-	public List<String> getAreaServedLinks() {
-		return areaServedLinks;
-	}
+  public List<String> getAreaServedLinks() {
+    return areaServedLinks;
+  }
 
-	public void setAreaServedLinks(List<String> areaServedLinks) {
-		this.areaServedLinks = areaServedLinks;
-	}
-	@JsonIgnore
-	public void setAreaServedLinks(String o) {
-		String l = FishingDock.staticSetAreaServedLinks(siteRequest_, o);
-		if(l != null)
-			addAreaServedLinks(l);
-	}
-	public static String staticSetAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public FishingDock addAreaServedLinks(String...objects) {
-		for(String o : objects) {
-			addAreaServedLinks(o);
-		}
-		return (FishingDock)this;
-	}
-	public FishingDock addAreaServedLinks(String o) {
-		if(o != null)
-			this.areaServedLinks.add(o);
-		return (FishingDock)this;
-	}
-	@JsonIgnore
-	public void setAreaServedLinks(JsonArray objects) {
-		areaServedLinks.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addAreaServedLinks(o);
-		}
-	}
-	protected FishingDock areaServedLinksInit() {
-		_areaServedLinks(areaServedLinks);
-		return (FishingDock)this;
-	}
+  public void setAreaServedLinks(List<String> areaServedLinks) {
+    this.areaServedLinks = areaServedLinks;
+  }
+  @JsonIgnore
+  public void setAreaServedLinks(String o) {
+    String l = FishingDock.staticSetAreaServedLinks(siteRequest_, o);
+    if(l != null)
+      addAreaServedLinks(l);
+  }
+  public static String staticSetAreaServedLinks(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public FishingDock addAreaServedLinks(String...objects) {
+    for(String o : objects) {
+      addAreaServedLinks(o);
+    }
+    return (FishingDock)this;
+  }
+  public FishingDock addAreaServedLinks(String o) {
+    if(o != null)
+      this.areaServedLinks.add(o);
+    return (FishingDock)this;
+  }
+  @JsonIgnore
+  public void setAreaServedLinks(JsonArray objects) {
+    areaServedLinks.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addAreaServedLinks(o);
+    }
+  }
+  protected FishingDock areaServedLinksInit() {
+    _areaServedLinks(areaServedLinks);
+    return (FishingDock)this;
+  }
 
-	public static String staticSearchAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchAreaServedLinks(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrAreaServedLinks(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqAreaServedLinks(SiteRequest siteRequest_, String o) {
-		return FishingDock.staticSearchAreaServedLinks(siteRequest_, FishingDock.staticSetAreaServedLinks(siteRequest_, o)).toString();
-	}
-
-	////////////////
-	// areaServed //
-	////////////////
-
-
-	/**	 The entity areaServed
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = PgClientPolygonDeserializer.class)
-	@JsonSerialize(using = PgClientPolygonSerializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<Polygon> areaServed = new ArrayList<Polygon>();
-
-	/**	<br> The entity areaServed
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServed">Find the entity areaServed in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _areaServed(List<Polygon> l);
-
-	public List<Polygon> getAreaServed() {
-		return areaServed;
-	}
-	public JsonObject geojsonAreaServed() {
-		if(areaServed == null)
-			return null;
-		JsonArray coordinates = new JsonArray();
-		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
-		for(Polygon o : areaServed) {
-			JsonArray coordinates2 = new JsonArray();
-			coordinates.add(coordinates2);
-			o.getPoints().forEach(point -> {
-				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
-			});
-		}
-		if(coordinates.size() == 0)
-			return null;
-		else
-			return json;
-	}
-
-	public void setAreaServed(List<Polygon> areaServed) {
-		this.areaServed = areaServed;
-	}
-	@JsonIgnore
-	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-			try {
-				List<Polygon> shape = null;
-				if(StringUtils.isNotBlank(o)) {
-					ObjectMapper objectMapper = new ObjectMapper();
-					SimpleModule module = new SimpleModule();
-					module.setDeserializerModifier(new BeanDeserializerModifier() {
-						@Override
-						public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
-							if (beanDesc.getBeanClass() == Polygon.class) {
-								return new PgClientPolygonDeserializer();
-							}
-							return deserializer;
-						}
-					});
-					objectMapper.registerModule(module);
-					shape = (List<Polygon>)objectMapper.readValue(Json.encode(o), Polygon.class);
-				}
-				return shape;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	@JsonIgnore
-	public void setAreaServed(JsonObject o) {
-		this.areaServed = FishingDock.staticSetAreaServed(siteRequest_, o);
-	}
-	public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, JsonObject o) {
-		if(o != null) {
-			try {
-				List<Polygon> shapes = new ArrayList<>();
-				o.getJsonArray("coordinates").stream().map(a -> (JsonArray)a).forEach(g -> {
-					Polygon shape = new Polygon();
-					g.stream().map(a -> (JsonArray)a).forEach(points -> {
-						shape.addPoint(new Point(Double.parseDouble(points.getString(0)), Double.parseDouble(points.getString(1))));
-					});
-						shapes.add(shape);
-				});
-				return shapes;
-			} catch(Exception ex) {
-				ExceptionUtils.rethrow(ex);
-			}
-		}
-		return null;
-	}
-	public FishingDock addAreaServed(Polygon...objects) {
-		for(Polygon o : objects) {
-			addAreaServed(o);
-		}
-		return (FishingDock)this;
-	}
-	public FishingDock addAreaServed(Polygon o) {
-		if(o != null)
-			this.areaServed.add(o);
-		return (FishingDock)this;
-	}
-	protected FishingDock areaServedInit() {
-		_areaServed(areaServed);
-		return (FishingDock)this;
-	}
-
-	public static Polygon staticSearchAreaServed(SiteRequest siteRequest_, Polygon o) {
-		return o;
-	}
-
-	public static String staticSearchStrAreaServed(SiteRequest siteRequest_, Polygon o) {
-		JsonArray pointsArray = new JsonArray();
-		o.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
-		return new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString();
-	}
-
-	public static String staticSearchFqAreaServed(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public String sqlAreaServed() {
-		JsonArray coordinates = new JsonArray();
-		JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
-		for(Polygon o : areaServed) {
-			JsonArray coordinates2 = new JsonArray();
-			coordinates.add(coordinates2);
-			o.getPoints().forEach(point -> {
-				coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
-			});
-		}
-		return json.toString();
-	}
-
-	//////////////
-	// initDeep //
-	//////////////
-
-	public Future<FishingDockGen<DEV>> promiseDeepFishingDock(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFishingDock();
-	}
-
-	public Future<FishingDockGen<DEV>> promiseDeepFishingDock() {
-		Promise<FishingDockGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFishingDock(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	public Future<Void> promiseFishingDock(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				addressInit();
-				timeZoneInit();
-				areaServedColorsInit();
-				areaServedTitlesInit();
-				areaServedLinksInit();
-				areaServedInit();
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	@Override public Future<? extends FishingDockGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFishingDock(siteRequest_);
-	}
-
-	/////////////////
-	// siteRequest //
-	/////////////////
-
-	public void siteRequestFishingDock(SiteRequest siteRequest_) {
-			super.siteRequestMapModel(siteRequest_);
-	}
-
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFishingDock(siteRequest_);
-	}
-
-	/////////////
-	// obtain //
-	/////////////
-
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFishingDock(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFishingDock(String var) {
-		FishingDock oFishingDock = (FishingDock)this;
-		switch(var) {
-			case "address":
-				return oFishingDock.address;
-			case "timeZone":
-				return oFishingDock.timeZone;
-			case "areaServedColors":
-				return oFishingDock.areaServedColors;
-			case "areaServedTitles":
-				return oFishingDock.areaServedTitles;
-			case "areaServedLinks":
-				return oFishingDock.areaServedLinks;
-			case "areaServed":
-				return oFishingDock.areaServed;
-			default:
-				return super.obtainMapModel(var);
-		}
-	}
-
-	///////////////
-	// relate //
-	///////////////
-
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFishingDock(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFishingDock(String var, Object val) {
-		FishingDock oFishingDock = (FishingDock)this;
-		switch(var) {
-			case "timeZone":
-				if(oFishingDock.getTimeZone() == null)
-					oFishingDock.setTimeZone(Optional.ofNullable(val).map(v -> v.toString()).orElse(null));
-				if(!saves.contains("timeZone"))
-					saves.add("timeZone");
-				return val;
-			default:
-				return super.relateMapModel(var, val);
-		}
-	}
-
-	///////////////
-	// staticSet //
-	///////////////
-
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingDock o) {
-		return staticSetFishingDock(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFishingDock(String entityVar, SiteRequest siteRequest_, String v, FishingDock o) {
-		switch(entityVar) {
-		case "address":
-			return FishingDock.staticSetAddress(siteRequest_, v);
-		case "timeZone":
-			return FishingDock.staticSetTimeZone(siteRequest_, v);
-		case "areaServedColors":
-			return FishingDock.staticSetAreaServedColors(siteRequest_, v);
-		case "areaServedTitles":
-			return FishingDock.staticSetAreaServedTitles(siteRequest_, v);
-		case "areaServedLinks":
-			return FishingDock.staticSetAreaServedLinks(siteRequest_, v);
-		case "areaServed":
-			return FishingDock.staticSetAreaServed(siteRequest_, v);
-			default:
-				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static String staticSearchFqAreaServedLinks(SiteRequest siteRequest_, String o) {
+    return FishingDock.staticSearchAreaServedLinks(siteRequest_, FishingDock.staticSetAreaServedLinks(siteRequest_, o)).toString();
+  }
 
 	////////////////
-	// staticSearch //
+  // areaServed //
 	////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFishingDock(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFishingDock(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "address":
-			return FishingDock.staticSearchAddress(siteRequest_, (JsonObject)o);
-		case "timeZone":
-			return FishingDock.staticSearchTimeZone(siteRequest_, (String)o);
-		case "areaServedColors":
-			return FishingDock.staticSearchAreaServedColors(siteRequest_, (String)o);
-		case "areaServedTitles":
-			return FishingDock.staticSearchAreaServedTitles(siteRequest_, (String)o);
-		case "areaServedLinks":
-			return FishingDock.staticSearchAreaServedLinks(siteRequest_, (String)o);
-		case "areaServed":
-			return FishingDock.staticSearchAreaServed(siteRequest_, (Polygon)o);
-			default:
-				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
-		}
-	}
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  /**   The entity areaServed
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = PgClientPolygonDeserializer.class)
+  @JsonSerialize(using = PgClientPolygonSerializer.class)
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<Polygon> areaServed = new ArrayList<Polygon>();
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFishingDock(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFishingDock(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "address":
-			return FishingDock.staticSearchStrAddress(siteRequest_, (String)o);
-		case "timeZone":
-			return FishingDock.staticSearchStrTimeZone(siteRequest_, (String)o);
-		case "areaServedColors":
-			return FishingDock.staticSearchStrAreaServedColors(siteRequest_, (String)o);
-		case "areaServedTitles":
-			return FishingDock.staticSearchStrAreaServedTitles(siteRequest_, (String)o);
-		case "areaServedLinks":
-			return FishingDock.staticSearchStrAreaServedLinks(siteRequest_, (String)o);
-		case "areaServed":
-			return FishingDock.staticSearchStrAreaServed(siteRequest_, (Polygon)o);
-			default:
-				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
-		}
-	}
+  /**  <br> The entity areaServed
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServed">Find the entity areaServed in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _areaServed(List<Polygon> l);
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  public List<Polygon> getAreaServed() {
+    return areaServed;
+  }
+  public JsonObject geojsonAreaServed() {
+    if(areaServed == null)
+      return null;
+    JsonArray coordinates = new JsonArray();
+    JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
+    for(Polygon o : areaServed) {
+      JsonArray coordinates2 = new JsonArray();
+      coordinates.add(coordinates2);
+      o.getPoints().forEach(point -> {
+        coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
+      });
+    }
+    if(coordinates.size() == 0)
+      return null;
+    else
+      return json;
+  }
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFishingDock(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFishingDock(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "address":
-			return FishingDock.staticSearchFqAddress(siteRequest_, o);
-		case "timeZone":
-			return FishingDock.staticSearchFqTimeZone(siteRequest_, o);
-		case "areaServedColors":
-			return FishingDock.staticSearchFqAreaServedColors(siteRequest_, o);
-		case "areaServedTitles":
-			return FishingDock.staticSearchFqAreaServedTitles(siteRequest_, o);
-		case "areaServedLinks":
-			return FishingDock.staticSearchFqAreaServedLinks(siteRequest_, o);
-		case "areaServed":
-			return FishingDock.staticSearchFqAreaServed(siteRequest_, o);
-			default:
-				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
-		}
-	}
+  public void setAreaServed(List<Polygon> areaServed) {
+    this.areaServed = areaServed;
+  }
+  @JsonIgnore
+  public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+      try {
+        List<Polygon> shape = null;
+        if(StringUtils.isNotBlank(o)) {
+          ObjectMapper objectMapper = new ObjectMapper();
+          SimpleModule module = new SimpleModule();
+          module.setDeserializerModifier(new BeanDeserializerModifier() {
+            @Override
+            public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
+              if (beanDesc.getBeanClass() == Polygon.class) {
+                return new PgClientPolygonDeserializer();
+              }
+              return deserializer;
+            }
+          });
+          objectMapper.registerModule(module);
+          shape = (List<Polygon>)objectMapper.readValue(Json.encode(o), Polygon.class);
+        }
+        return shape;
+      } catch(Exception ex) {
+        ExceptionUtils.rethrow(ex);
+      }
+    }
+    return null;
+  }
+  @JsonIgnore
+  public void setAreaServed(JsonObject o) {
+    this.areaServed = FishingDock.staticSetAreaServed(siteRequest_, o);
+  }
+  public static List<Polygon> staticSetAreaServed(SiteRequest siteRequest_, JsonObject o) {
+    if(o != null) {
+      try {
+        List<Polygon> shapes = new ArrayList<>();
+        o.getJsonArray("coordinates").stream().map(a -> (JsonArray)a).forEach(g -> {
+          Polygon shape = new Polygon();
+          g.stream().map(a -> (JsonArray)a).forEach(points -> {
+            shape.addPoint(new Point(Double.parseDouble(points.getString(0)), Double.parseDouble(points.getString(1))));
+          });
+            shapes.add(shape);
+        });
+        return shapes;
+      } catch(Exception ex) {
+        ExceptionUtils.rethrow(ex);
+      }
+    }
+    return null;
+  }
+  public FishingDock addAreaServed(Polygon...objects) {
+    for(Polygon o : objects) {
+      addAreaServed(o);
+    }
+    return (FishingDock)this;
+  }
+  public FishingDock addAreaServed(Polygon o) {
+    if(o != null)
+      this.areaServed.add(o);
+    return (FishingDock)this;
+  }
+  protected FishingDock areaServedInit() {
+    _areaServed(areaServed);
+    return (FishingDock)this;
+  }
 
-	/////////////
-	// persist //
-	/////////////
+  public static Polygon staticSearchAreaServed(SiteRequest siteRequest_, Polygon o) {
+    return o;
+  }
 
-	@Override public boolean persistForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		if(val != null) {
-			for(String v : vars) {
-				if(o == null)
-					o = persistFishingDock(v, val);
-				else if(o instanceof BaseModel) {
-					BaseModel oBaseModel = (BaseModel)o;
-					o = oBaseModel.persistForClass(v, val);
-				}
-			}
-		}
-		return o != null;
-	}
-	public Object persistFishingDock(String var, Object val) {
-		String varLower = var.toLowerCase();
-			if("address".equals(varLower)) {
-				if(val instanceof String) {
-					setAddress((String)val);
-				} else if(val instanceof JsonObject) {
-					setAddress((JsonObject)val);
-				}
-				saves.add("address");
-				return val;
-			} else if("timezone".equals(varLower)) {
-				if(val instanceof String) {
-					setTimeZone((String)val);
-				}
-				saves.add("timeZone");
-				return val;
-			} else if("areaserved".equals(varLower)) {
-				if(val instanceof List<?>) {
-					((List<Polygon>)val).stream().forEach(v -> addAreaServed(v));
-				} else if(val instanceof Polygon[]) {
-					Arrays.asList((Polygon[])val).stream().forEach(v -> addAreaServed((Polygon)v));
-				} else if(val instanceof JsonObject) {
-					staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v));
-				} else if(val instanceof String) {
-					staticSetAreaServed(siteRequest_, (String)val).stream().forEach(v -> addAreaServed(v));
-				}
-				if(!saves.contains("areaServed")) {
-					saves.add("areaServed");
-				}
-				return val;
-		} else {
-			return super.persistMapModel(var, val);
-		}
-	}
+  public static String staticSearchStrAreaServed(SiteRequest siteRequest_, Polygon o) {
+    JsonArray pointsArray = new JsonArray();
+    o.getPoints().stream().map(point -> new JsonArray().add(Double.valueOf(point.getX())).add(Double.valueOf(point.getY()))).collect(Collectors.toList()).forEach(pointArray -> pointsArray.add(pointArray));
+    return new JsonObject().put("type", "LineString").put("coordinates", pointsArray).toString();
+  }
 
-	/////////////
-	// populate //
-	/////////////
+  public static String staticSearchFqAreaServed(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	@Override public void populateForClass(SolrResponse.Doc doc) {
-		populateFishingDock(doc);
-	}
-	public void populateFishingDock(SolrResponse.Doc doc) {
-		FishingDock oFishingDock = (FishingDock)this;
-		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
-		if(saves != null) {
+  public String sqlAreaServed() {
+    JsonArray coordinates = new JsonArray();
+    JsonObject json = new JsonObject().put("type", "Polygon").put("coordinates", coordinates);
+    for(Polygon o : areaServed) {
+      JsonArray coordinates2 = new JsonArray();
+      coordinates.add(coordinates2);
+      o.getPoints().forEach(point -> {
+        coordinates2.add(new JsonArray().add(point.getX()).add(point.getY()));
+      });
+    }
+    return json.toString();
+  }
 
-			if(saves.contains("address")) {
-				String address = (String)doc.get("address_docvalues_string");
-				if(address != null)
-					oFishingDock.setAddress(address);
-			}
+  //////////////
+  // initDeep //
+  //////////////
 
-			String timeZone = (String)doc.get("timeZone_docvalues_string");
-			if(timeZone != null)
-				oFishingDock.setTimeZone(timeZone);
+  public Future<FishingDockGen<DEV>> promiseDeepFishingDock(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFishingDock();
+  }
 
-			if(saves.contains("areaServedColors")) {
-				List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
-				if(areaServedColors != null) {
-					areaServedColors.stream().forEach( v -> {
-						oFishingDock.areaServedColors.add(FishingDock.staticSetAreaServedColors(siteRequest_, v));
-					});
-				}
-			}
+  public Future<FishingDockGen<DEV>> promiseDeepFishingDock() {
+    Promise<FishingDockGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFishingDock(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-			if(saves.contains("areaServedTitles")) {
-				List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
-				if(areaServedTitles != null) {
-					areaServedTitles.stream().forEach( v -> {
-						oFishingDock.areaServedTitles.add(FishingDock.staticSetAreaServedTitles(siteRequest_, v));
-					});
-				}
-			}
+  public Future<Void> promiseFishingDock(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        addressInit();
+        timeZoneInit();
+        areaServedColorsInit();
+        areaServedTitlesInit();
+        areaServedLinksInit();
+        areaServedInit();
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-			if(saves.contains("areaServedLinks")) {
-				List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
-				if(areaServedLinks != null) {
-					areaServedLinks.stream().forEach( v -> {
-						oFishingDock.areaServedLinks.add(FishingDock.staticSetAreaServedLinks(siteRequest_, v));
-					});
-				}
-			}
+  @Override public Future<? extends FishingDockGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFishingDock(siteRequest_);
+  }
 
-			if(saves.contains("areaServed")) {
-				List<Polygon> areaServed = (List<Polygon>)doc.get("areaServed_docvalues_location");
-				if(areaServed != null) {
-					areaServed.stream().forEach( v -> {
-						oFishingDock.areaServed.add(v);
-					});
-				}
-			}
-		}
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-		super.populateMapModel(doc);
-	}
+  public void siteRequestFishingDock(SiteRequest siteRequest_) {
+      super.siteRequestMapModel(siteRequest_);
+  }
 
-	public void indexFishingDock(JsonObject doc) {
-		if(address != null) {
-			doc.put("address_docvalues_string", address.encode());
-		}
-		if(timeZone != null) {
-			doc.put("timeZone_docvalues_string", timeZone);
-		}
-		if(areaServedColors != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedColors_indexedstored_strings", l);
-			for(String o : areaServedColors) {
-				l.add(FishingDock.staticSearchAreaServedColors(siteRequest_, o));
-			}
-		}
-		if(areaServedTitles != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedTitles_indexedstored_strings", l);
-			for(String o : areaServedTitles) {
-				l.add(FishingDock.staticSearchAreaServedTitles(siteRequest_, o));
-			}
-		}
-		if(areaServedLinks != null) {
-			JsonArray l = new JsonArray();
-			doc.put("areaServedLinks_indexedstored_strings", l);
-			for(String o : areaServedLinks) {
-				l.add(FishingDock.staticSearchAreaServedLinks(siteRequest_, o));
-			}
-		}
-		if(areaServed != null) {
-			doc.put("areaServed_docvalues_location", Optional.ofNullable(geojsonAreaServed()).map(geojson -> geojson.toString()).orElse(null));
-		}
-		super.indexMapModel(doc);
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFishingDock(siteRequest_);
+  }
 
-	}
+  /////////////
+  // obtain //
+  /////////////
 
-	public static String varStoredFishingDock(String entityVar) {
-		switch(entityVar) {
-			case "address":
-				return "address_docvalues_string";
-			case "timeZone":
-				return "timeZone_docvalues_string";
-			case "areaServedColors":
-				return "areaServedColors_indexedstored_strings";
-			case "areaServedTitles":
-				return "areaServedTitles_indexedstored_strings";
-			case "areaServedLinks":
-				return "areaServedLinks_indexedstored_strings";
-			case "areaServed":
-				return "areaServed_docvalues_location";
-			default:
-				return MapModel.varStoredMapModel(entityVar);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFishingDock(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFishingDock(String var) {
+    FishingDock oFishingDock = (FishingDock)this;
+    switch(var) {
+      case "address":
+        return oFishingDock.address;
+      case "timeZone":
+        return oFishingDock.timeZone;
+      case "areaServedColors":
+        return oFishingDock.areaServedColors;
+      case "areaServedTitles":
+        return oFishingDock.areaServedTitles;
+      case "areaServedLinks":
+        return oFishingDock.areaServedLinks;
+      case "areaServed":
+        return oFishingDock.areaServed;
+      default:
+        return super.obtainMapModel(var);
+    }
+  }
 
-	public static String varIndexedFishingDock(String entityVar) {
-		switch(entityVar) {
-			case "address":
-				return "address_docvalues_string";
-			case "timeZone":
-				return "timeZone_docvalues_string";
-			case "areaServedColors":
-				return "areaServedColors_indexedstored_strings";
-			case "areaServedTitles":
-				return "areaServedTitles_indexedstored_strings";
-			case "areaServedLinks":
-				return "areaServedLinks_indexedstored_strings";
-			case "areaServed":
-				return "areaServed_docvalues_location";
-			default:
-				return MapModel.varIndexedMapModel(entityVar);
-		}
-	}
+  ///////////////
+  // relate //
+  ///////////////
 
-	public static String searchVarFishingDock(String searchVar) {
-		switch(searchVar) {
-			case "address_docvalues_string":
-				return "address";
-			case "timeZone_docvalues_string":
-				return "timeZone";
-			case "areaServedColors_indexedstored_strings":
-				return "areaServedColors";
-			case "areaServedTitles_indexedstored_strings":
-				return "areaServedTitles";
-			case "areaServedLinks_indexedstored_strings":
-				return "areaServedLinks";
-			case "areaServed_docvalues_location":
-				return "areaServed";
-			default:
-				return MapModel.searchVarMapModel(searchVar);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFishingDock(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFishingDock(String var, Object val) {
+    FishingDock oFishingDock = (FishingDock)this;
+    switch(var) {
+      case "timeZone":
+        if(oFishingDock.getTimeZone() == null)
+          oFishingDock.setTimeZone(Optional.ofNullable(val).map(v -> v.toString()).orElse(null));
+        if(!saves.contains("timeZone"))
+          saves.add("timeZone");
+        return val;
+      default:
+        return super.relateMapModel(var, val);
+    }
+  }
 
-	public static String varSearchFishingDock(String entityVar) {
-		switch(entityVar) {
-			default:
-				return MapModel.varSearchMapModel(entityVar);
-		}
-	}
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static String varSuggestedFishingDock(String entityVar) {
-		switch(entityVar) {
-			default:
-				return MapModel.varSuggestedMapModel(entityVar);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingDock o) {
+    return staticSetFishingDock(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFishingDock(String entityVar, SiteRequest siteRequest_, String v, FishingDock o) {
+    switch(entityVar) {
+    case "address":
+      return FishingDock.staticSetAddress(siteRequest_, v);
+    case "timeZone":
+      return FishingDock.staticSetTimeZone(siteRequest_, v);
+    case "areaServedColors":
+      return FishingDock.staticSetAreaServedColors(siteRequest_, v);
+    case "areaServedTitles":
+      return FishingDock.staticSetAreaServedTitles(siteRequest_, v);
+    case "areaServedLinks":
+      return FishingDock.staticSetAreaServedLinks(siteRequest_, v);
+    case "areaServed":
+      return FishingDock.staticSetAreaServed(siteRequest_, v);
+      default:
+        return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	/////////////
-	// store //
-	/////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	@Override public void storeForClass(SolrResponse.Doc doc) {
-		storeFishingDock(doc);
-	}
-	public void storeFishingDock(SolrResponse.Doc doc) {
-		FishingDock oFishingDock = (FishingDock)this;
-		SiteRequest siteRequest = oFishingDock.getSiteRequest_();
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFishingDock(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFishingDock(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "address":
+      return FishingDock.staticSearchAddress(siteRequest_, (JsonObject)o);
+    case "timeZone":
+      return FishingDock.staticSearchTimeZone(siteRequest_, (String)o);
+    case "areaServedColors":
+      return FishingDock.staticSearchAreaServedColors(siteRequest_, (String)o);
+    case "areaServedTitles":
+      return FishingDock.staticSearchAreaServedTitles(siteRequest_, (String)o);
+    case "areaServedLinks":
+      return FishingDock.staticSearchAreaServedLinks(siteRequest_, (String)o);
+    case "areaServed":
+      return FishingDock.staticSearchAreaServed(siteRequest_, (Polygon)o);
+      default:
+        return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
+    }
+  }
 
-		oFishingDock.setAddress(Optional.ofNullable(doc.get("address_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishingDock.setTimeZone(Optional.ofNullable(doc.get("timeZone_docvalues_string")).map(v -> v.toString()).orElse(null));
-		Optional.ofNullable((List<?>)doc.get("areaServedColors_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oFishingDock.addAreaServedColors(FishingDock.staticSetAreaServedColors(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((List<?>)doc.get("areaServedTitles_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oFishingDock.addAreaServedTitles(FishingDock.staticSetAreaServedTitles(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((List<?>)doc.get("areaServedLinks_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oFishingDock.addAreaServedLinks(FishingDock.staticSetAreaServedLinks(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((String)doc.get("areaServed_docvalues_location")).ifPresent(val -> staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v)));
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-		super.storeMapModel(doc);
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFishingDock(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFishingDock(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "address":
+      return FishingDock.staticSearchStrAddress(siteRequest_, (String)o);
+    case "timeZone":
+      return FishingDock.staticSearchStrTimeZone(siteRequest_, (String)o);
+    case "areaServedColors":
+      return FishingDock.staticSearchStrAreaServedColors(siteRequest_, (String)o);
+    case "areaServedTitles":
+      return FishingDock.staticSearchStrAreaServedTitles(siteRequest_, (String)o);
+    case "areaServedLinks":
+      return FishingDock.staticSearchStrAreaServedLinks(siteRequest_, (String)o);
+    case "areaServed":
+      return FishingDock.staticSearchStrAreaServed(siteRequest_, (Polygon)o);
+      default:
+        return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// apiRequest //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public void apiRequestFishingDock() {
-		ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(r -> r.getApiRequest_()).orElse(null);
-		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
-		if(o != null && o instanceof FishingDock) {
-			FishingDock original = (FishingDock)o;
-			if(!Objects.equals(address, original.getAddress()))
-				apiRequest.addVars("address");
-			if(!Objects.equals(timeZone, original.getTimeZone()))
-				apiRequest.addVars("timeZone");
-			if(!Objects.equals(areaServedColors, original.getAreaServedColors()))
-				apiRequest.addVars("areaServedColors");
-			if(!Objects.equals(areaServedTitles, original.getAreaServedTitles()))
-				apiRequest.addVars("areaServedTitles");
-			if(!Objects.equals(areaServedLinks, original.getAreaServedLinks()))
-				apiRequest.addVars("areaServedLinks");
-			if(!Objects.equals(areaServed, original.getAreaServed()))
-				apiRequest.addVars("areaServed");
-			super.apiRequestMapModel();
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFishingDock(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFishingDock(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "address":
+      return FishingDock.staticSearchFqAddress(siteRequest_, o);
+    case "timeZone":
+      return FishingDock.staticSearchFqTimeZone(siteRequest_, o);
+    case "areaServedColors":
+      return FishingDock.staticSearchFqAreaServedColors(siteRequest_, o);
+    case "areaServedTitles":
+      return FishingDock.staticSearchFqAreaServedTitles(siteRequest_, o);
+    case "areaServedLinks":
+      return FishingDock.staticSearchFqAreaServedLinks(siteRequest_, o);
+    case "areaServed":
+      return FishingDock.staticSearchFqAreaServed(siteRequest_, o);
+      default:
+        return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  /////////////
+  // persist //
+  /////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		sb.append(Optional.ofNullable(address).map(v -> "address: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(timeZone).map(v -> "timeZone: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(areaServedColors).map(v -> "areaServedColors: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedTitles).map(v -> "areaServedTitles: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServedLinks).map(v -> "areaServedLinks: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(areaServed).map(v -> "areaServed: " + v + "\n").orElse(""));
-		return sb.toString();
-	}
+  @Override public boolean persistForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    if(val != null) {
+      for(String v : vars) {
+        if(o == null)
+          o = persistFishingDock(v, val);
+        else if(o instanceof BaseModel) {
+          BaseModel oBaseModel = (BaseModel)o;
+          o = oBaseModel.persistForClass(v, val);
+        }
+      }
+    }
+    return o != null;
+  }
+  public Object persistFishingDock(String var, Object val) {
+    String varLower = var.toLowerCase();
+      if("address".equals(varLower)) {
+        if(val instanceof String) {
+          setAddress((String)val);
+        } else if(val instanceof JsonObject) {
+          setAddress((JsonObject)val);
+        }
+        saves.add("address");
+        return val;
+      } else if("timezone".equals(varLower)) {
+        if(val instanceof String) {
+          setTimeZone((String)val);
+        }
+        saves.add("timeZone");
+        return val;
+      } else if("areaserved".equals(varLower)) {
+        if(val instanceof List<?>) {
+          ((List<Polygon>)val).stream().forEach(v -> addAreaServed(v));
+        } else if(val instanceof Polygon[]) {
+          Arrays.asList((Polygon[])val).stream().forEach(v -> addAreaServed((Polygon)v));
+        } else if(val instanceof JsonObject) {
+          staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v));
+        } else if(val instanceof String) {
+          staticSetAreaServed(siteRequest_, (String)val).stream().forEach(v -> addAreaServed(v));
+        }
+        if(!saves.contains("areaServed")) {
+          saves.add("areaServed");
+        }
+        return val;
+    } else {
+      return super.persistMapModel(var, val);
+    }
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "FishingDock";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock";
-	public static final String CLASS_AUTH_RESOURCE = "FISHINGDOCK";
-	public static final String CLASS_API_ADDRESS_FishingDock = "smart-aquaculture-enUS-FishingDock";
-	public static String getClassApiAddress() {
-		return CLASS_API_ADDRESS_FishingDock;
-	}
-	public static final String VAR_address = "address";
-	public static final String VAR_timeZone = "timeZone";
-	public static final String VAR_areaServedColors = "areaServedColors";
-	public static final String VAR_areaServedTitles = "areaServedTitles";
-	public static final String VAR_areaServedLinks = "areaServedLinks";
-	public static final String VAR_areaServed = "areaServed";
+  /////////////
+  // populate //
+  /////////////
 
-	public static List<String> varsQForClass() {
-		return FishingDock.varsQFishingDock(new ArrayList<String>());
-	}
-	public static List<String> varsQFishingDock(List<String> vars) {
-		MapModel.varsQMapModel(vars);
-		return vars;
-	}
+  @Override public void populateForClass(SolrResponse.Doc doc) {
+    populateFishingDock(doc);
+  }
+  public void populateFishingDock(SolrResponse.Doc doc) {
+    FishingDock oFishingDock = (FishingDock)this;
+    saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
+    if(saves != null) {
 
-	public static List<String> varsFqForClass() {
-		return FishingDock.varsFqFishingDock(new ArrayList<String>());
-	}
-	public static List<String> varsFqFishingDock(List<String> vars) {
-		vars.add(VAR_address);
-		vars.add(VAR_timeZone);
-		vars.add(VAR_areaServed);
-		MapModel.varsFqMapModel(vars);
-		return vars;
-	}
+      if(saves.contains("address")) {
+        String address = (String)doc.get("address_docvalues_string");
+        if(address != null)
+          oFishingDock.setAddress(address);
+      }
 
-	public static List<String> varsRangeForClass() {
-		return FishingDock.varsRangeFishingDock(new ArrayList<String>());
-	}
-	public static List<String> varsRangeFishingDock(List<String> vars) {
-		vars.add(VAR_address);
-		MapModel.varsRangeMapModel(vars);
-		return vars;
-	}
+      String timeZone = (String)doc.get("timeZone_docvalues_string");
+      if(timeZone != null)
+        oFishingDock.setTimeZone(timeZone);
 
-	public static final String DISPLAY_NAME_address = "address";
-	public static final String DISPLAY_NAME_timeZone = "time zone";
-	public static final String DISPLAY_NAME_areaServedColors = "area served colors";
-	public static final String DISPLAY_NAME_areaServedTitles = "area served titles";
-	public static final String DISPLAY_NAME_areaServedLinks = "area served links";
-	public static final String DISPLAY_NAME_areaServed = "area served";
+      if(saves.contains("areaServedColors")) {
+        List<String> areaServedColors = (List<String>)doc.get("areaServedColors_indexedstored_strings");
+        if(areaServedColors != null) {
+          areaServedColors.stream().forEach( v -> {
+            oFishingDock.areaServedColors.add(FishingDock.staticSetAreaServedColors(siteRequest_, v));
+          });
+        }
+      }
 
-	@Override
-	public String idForClass() {
-		return entityShortId;
-	}
+      if(saves.contains("areaServedTitles")) {
+        List<String> areaServedTitles = (List<String>)doc.get("areaServedTitles_indexedstored_strings");
+        if(areaServedTitles != null) {
+          areaServedTitles.stream().forEach( v -> {
+            oFishingDock.areaServedTitles.add(FishingDock.staticSetAreaServedTitles(siteRequest_, v));
+          });
+        }
+      }
 
-	@Override
-	public String titleForClass() {
-		return objectTitle;
-	}
+      if(saves.contains("areaServedLinks")) {
+        List<String> areaServedLinks = (List<String>)doc.get("areaServedLinks_indexedstored_strings");
+        if(areaServedLinks != null) {
+          areaServedLinks.stream().forEach( v -> {
+            oFishingDock.areaServedLinks.add(FishingDock.staticSetAreaServedLinks(siteRequest_, v));
+          });
+        }
+      }
 
-	@Override
-	public String nameForClass() {
-		return name;
-	}
+      if(saves.contains("areaServed")) {
+        List<Polygon> areaServed = (List<Polygon>)doc.get("areaServed_docvalues_location");
+        if(areaServed != null) {
+          areaServed.stream().forEach( v -> {
+            oFishingDock.areaServed.add(v);
+          });
+        }
+      }
+    }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return FishingDock.NameAdjectiveSingular_enUS;
-	}
+    super.populateMapModel(doc);
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  public void indexFishingDock(JsonObject doc) {
+    if(address != null) {
+      doc.put("address_docvalues_string", address.encode());
+    }
+    if(timeZone != null) {
+      doc.put("timeZone_docvalues_string", timeZone);
+    }
+    if(areaServedColors != null) {
+      JsonArray l = new JsonArray();
+      doc.put("areaServedColors_indexedstored_strings", l);
+      for(String o : areaServedColors) {
+        l.add(FishingDock.staticSearchAreaServedColors(siteRequest_, o));
+      }
+    }
+    if(areaServedTitles != null) {
+      JsonArray l = new JsonArray();
+      doc.put("areaServedTitles_indexedstored_strings", l);
+      for(String o : areaServedTitles) {
+        l.add(FishingDock.staticSearchAreaServedTitles(siteRequest_, o));
+      }
+    }
+    if(areaServedLinks != null) {
+      JsonArray l = new JsonArray();
+      doc.put("areaServedLinks_indexedstored_strings", l);
+      for(String o : areaServedLinks) {
+        l.add(FishingDock.staticSearchAreaServedLinks(siteRequest_, o));
+      }
+    }
+    if(areaServed != null) {
+      doc.put("areaServed_docvalues_location", Optional.ofNullable(geojsonAreaServed()).map(geojson -> geojson.toString()).orElse(null));
+    }
+    super.indexMapModel(doc);
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return "%s/en-us/edit/fishing-dock/%s";
-	}
-
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
-
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
-
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
-
-	public static String displayNameForClass(String var) {
-		return FishingDock.displayNameFishingDock(var);
-	}
-	public static String displayNameFishingDock(String var) {
-		switch(var) {
-		case VAR_address:
-			return DISPLAY_NAME_address;
-		case VAR_timeZone:
-			return DISPLAY_NAME_timeZone;
-		case VAR_areaServedColors:
-			return DISPLAY_NAME_areaServedColors;
-		case VAR_areaServedTitles:
-			return DISPLAY_NAME_areaServedTitles;
-		case VAR_areaServedLinks:
-			return DISPLAY_NAME_areaServedLinks;
-		case VAR_areaServed:
-			return DISPLAY_NAME_areaServed;
-		default:
-			return MapModel.displayNameMapModel(var);
-		}
-	}
-
-	public static String descriptionFishingDock(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-		case VAR_address:
-			return "The mailing address";
-		case VAR_timeZone:
-			return "The local time zone of the dock. ";
-		case VAR_areaServedColors:
-			return "The colors of each areaServed Paths. ";
-		case VAR_areaServedTitles:
-			return "The titles of each areaServed Paths. ";
-		case VAR_areaServedLinks:
-			return "The links of each areaServed Paths. ";
-		case VAR_areaServed:
-			return "The geographic area where a service or offered item is provided";
-			default:
-				return MapModel.descriptionMapModel(var);
-		}
-	}
-
-	public static String classSimpleNameFishingDock(String var) {
-		switch(var) {
-		case VAR_address:
-			return "JsonObject";
-		case VAR_timeZone:
-			return "String";
-		case VAR_areaServedColors:
-			return "List";
-		case VAR_areaServedTitles:
-			return "List";
-		case VAR_areaServedLinks:
-			return "List";
-		case VAR_areaServed:
-			return "List";
-			default:
-				return MapModel.classSimpleNameMapModel(var);
-		}
-	}
-
-	public static String ngsiType(String var) {
-		switch(var) {
-		case VAR_address:
-			return "Property";
-		case VAR_timeZone:
-			return "Property";
-		case VAR_areaServedColors:
-			return "Property";
-		case VAR_areaServedTitles:
-			return "Property";
-		case VAR_areaServedLinks:
-			return "Property";
-		case VAR_areaServed:
-			return "GeoProperty";
-			default:
-				return MapModel.ngsiType(var);
-		}
 	}
 
-	public static Object ngsiFishingDock(String var, FishingDock o) {
-		switch(var) {
-		case VAR_address:
-			return o.getAddress();
-		case VAR_timeZone:
-			return o.getTimeZone();
-		case VAR_areaServedColors:
-			return o.getAreaServedColors();
-		case VAR_areaServedTitles:
-			return o.getAreaServedTitles();
-		case VAR_areaServedLinks:
-			return o.getAreaServedLinks();
-		case VAR_areaServed:
-			return o.geojsonAreaServed();
-			default:
-				return ngsiMapModel(var, o);
-		}
-	}
+  public static String varStoredFishingDock(String entityVar) {
+    switch(entityVar) {
+      case "address":
+        return "address_docvalues_string";
+      case "timeZone":
+        return "timeZone_docvalues_string";
+      case "areaServedColors":
+        return "areaServedColors_indexedstored_strings";
+      case "areaServedTitles":
+        return "areaServedTitles_indexedstored_strings";
+      case "areaServedLinks":
+        return "areaServedLinks_indexedstored_strings";
+      case "areaServed":
+        return "areaServed_docvalues_location";
+      default:
+        return MapModel.varStoredMapModel(entityVar);
+    }
+  }
 
-	public static Integer htmColumnFishingDock(String var) {
-		switch(var) {
-			default:
-				return MapModel.htmColumnMapModel(var);
-		}
-	}
+  public static String varIndexedFishingDock(String entityVar) {
+    switch(entityVar) {
+      case "address":
+        return "address_docvalues_string";
+      case "timeZone":
+        return "timeZone_docvalues_string";
+      case "areaServedColors":
+        return "areaServedColors_indexedstored_strings";
+      case "areaServedTitles":
+        return "areaServedTitles_indexedstored_strings";
+      case "areaServedLinks":
+        return "areaServedLinks_indexedstored_strings";
+      case "areaServed":
+        return "areaServed_docvalues_location";
+      default:
+        return MapModel.varIndexedMapModel(entityVar);
+    }
+  }
 
-	public static Integer htmRowFishingDock(String var) {
-		switch(var) {
-		case VAR_address:
-			return 3;
-		case VAR_timeZone:
-			return 3;
-		case VAR_areaServed:
-			return 4;
-			default:
-				return MapModel.htmRowMapModel(var);
-		}
-	}
+  public static String searchVarFishingDock(String searchVar) {
+    switch(searchVar) {
+      case "address_docvalues_string":
+        return "address";
+      case "timeZone_docvalues_string":
+        return "timeZone";
+      case "areaServedColors_indexedstored_strings":
+        return "areaServedColors";
+      case "areaServedTitles_indexedstored_strings":
+        return "areaServedTitles";
+      case "areaServedLinks_indexedstored_strings":
+        return "areaServedLinks";
+      case "areaServed_docvalues_location":
+        return "areaServed";
+      default:
+        return MapModel.searchVarMapModel(searchVar);
+    }
+  }
 
-	public static Integer htmCellFishingDock(String var) {
-		switch(var) {
-		case VAR_address:
-			return 0;
-		case VAR_timeZone:
-			return 1;
-		case VAR_areaServed:
-			return 1;
-			default:
-				return MapModel.htmCellMapModel(var);
-		}
-	}
+  public static String varSearchFishingDock(String entityVar) {
+    switch(entityVar) {
+      default:
+        return MapModel.varSearchMapModel(entityVar);
+    }
+  }
 
-	public static Integer lengthMinFishingDock(String var) {
-		switch(var) {
-			default:
-				return MapModel.lengthMinMapModel(var);
-		}
-	}
+  public static String varSuggestedFishingDock(String entityVar) {
+    switch(entityVar) {
+      default:
+        return MapModel.varSuggestedMapModel(entityVar);
+    }
+  }
 
-	public static Integer lengthMaxFishingDock(String var) {
-		switch(var) {
-			default:
-				return MapModel.lengthMaxMapModel(var);
-		}
-	}
+  /////////////
+  // store //
+  /////////////
 
-	public static Integer maxFishingDock(String var) {
-		switch(var) {
-			default:
-				return MapModel.maxMapModel(var);
-		}
-	}
+  @Override public void storeForClass(SolrResponse.Doc doc) {
+    storeFishingDock(doc);
+  }
+  public void storeFishingDock(SolrResponse.Doc doc) {
+    FishingDock oFishingDock = (FishingDock)this;
+    SiteRequest siteRequest = oFishingDock.getSiteRequest_();
 
-	public static Integer minFishingDock(String var) {
-		switch(var) {
-			default:
-				return MapModel.minMapModel(var);
-		}
-	}
+    oFishingDock.setAddress(Optional.ofNullable(doc.get("address_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishingDock.setTimeZone(Optional.ofNullable(doc.get("timeZone_docvalues_string")).map(v -> v.toString()).orElse(null));
+    Optional.ofNullable((List<?>)doc.get("areaServedColors_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+      oFishingDock.addAreaServedColors(FishingDock.staticSetAreaServedColors(siteRequest, v.toString()));
+    });
+    Optional.ofNullable((List<?>)doc.get("areaServedTitles_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+      oFishingDock.addAreaServedTitles(FishingDock.staticSetAreaServedTitles(siteRequest, v.toString()));
+    });
+    Optional.ofNullable((List<?>)doc.get("areaServedLinks_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+      oFishingDock.addAreaServedLinks(FishingDock.staticSetAreaServedLinks(siteRequest, v.toString()));
+    });
+    Optional.ofNullable((String)doc.get("areaServed_docvalues_location")).ifPresent(val -> staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v)));
+
+    super.storeMapModel(doc);
+  }
+
+  //////////////////
+  // apiRequest //
+  //////////////////
+
+  public void apiRequestFishingDock() {
+    ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(r -> r.getApiRequest_()).orElse(null);
+    Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
+    if(o != null && o instanceof FishingDock) {
+      FishingDock original = (FishingDock)o;
+      if(!Objects.equals(address, original.getAddress()))
+        apiRequest.addVars("address");
+      if(!Objects.equals(timeZone, original.getTimeZone()))
+        apiRequest.addVars("timeZone");
+      if(!Objects.equals(areaServedColors, original.getAreaServedColors()))
+        apiRequest.addVars("areaServedColors");
+      if(!Objects.equals(areaServedTitles, original.getAreaServedTitles()))
+        apiRequest.addVars("areaServedTitles");
+      if(!Objects.equals(areaServedLinks, original.getAreaServedLinks()))
+        apiRequest.addVars("areaServedLinks");
+      if(!Objects.equals(areaServed, original.getAreaServed()))
+        apiRequest.addVars("areaServed");
+      super.apiRequestMapModel();
+    }
+  }
+
+  //////////////
+  // toString //
+  //////////////
+
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    sb.append(Optional.ofNullable(address).map(v -> "address: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(timeZone).map(v -> "timeZone: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(areaServedColors).map(v -> "areaServedColors: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(areaServedTitles).map(v -> "areaServedTitles: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(areaServedLinks).map(v -> "areaServedLinks: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(areaServed).map(v -> "areaServed: " + v + "\n").orElse(""));
+    return sb.toString();
+  }
+
+  public static final String CLASS_SIMPLE_NAME = "FishingDock";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock";
+  public static final String CLASS_AUTH_RESOURCE = "FISHINGDOCK";
+  public static final String CLASS_API_ADDRESS_FishingDock = "smart-aquaculture-enUS-FishingDock";
+  public static String getClassApiAddress() {
+    return CLASS_API_ADDRESS_FishingDock;
+  }
+  public static final String VAR_address = "address";
+  public static final String VAR_timeZone = "timeZone";
+  public static final String VAR_areaServedColors = "areaServedColors";
+  public static final String VAR_areaServedTitles = "areaServedTitles";
+  public static final String VAR_areaServedLinks = "areaServedLinks";
+  public static final String VAR_areaServed = "areaServed";
+
+  public static List<String> varsQForClass() {
+    return FishingDock.varsQFishingDock(new ArrayList<String>());
+  }
+  public static List<String> varsQFishingDock(List<String> vars) {
+    MapModel.varsQMapModel(vars);
+    return vars;
+  }
+
+  public static List<String> varsFqForClass() {
+    return FishingDock.varsFqFishingDock(new ArrayList<String>());
+  }
+  public static List<String> varsFqFishingDock(List<String> vars) {
+    vars.add(VAR_address);
+    vars.add(VAR_timeZone);
+    vars.add(VAR_areaServed);
+    MapModel.varsFqMapModel(vars);
+    return vars;
+  }
+
+  public static List<String> varsRangeForClass() {
+    return FishingDock.varsRangeFishingDock(new ArrayList<String>());
+  }
+  public static List<String> varsRangeFishingDock(List<String> vars) {
+    vars.add(VAR_address);
+    MapModel.varsRangeMapModel(vars);
+    return vars;
+  }
+
+  public static final String DISPLAY_NAME_address = "address";
+  public static final String DISPLAY_NAME_timeZone = "time zone";
+  public static final String DISPLAY_NAME_areaServedColors = "area served colors";
+  public static final String DISPLAY_NAME_areaServedTitles = "area served titles";
+  public static final String DISPLAY_NAME_areaServedLinks = "area served links";
+  public static final String DISPLAY_NAME_areaServed = "area served";
+
+  @Override
+  public String idForClass() {
+    return entityShortId;
+  }
+
+  @Override
+  public String titleForClass() {
+    return objectTitle;
+  }
+
+  @Override
+  public String nameForClass() {
+    return name;
+  }
+
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return FishingDock.NameAdjectiveSingular_enUS;
+  }
+
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
+
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return "%s/en-us/edit/fishing-dock/%s";
+  }
+
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public static String displayNameForClass(String var) {
+    return FishingDock.displayNameFishingDock(var);
+  }
+  public static String displayNameFishingDock(String var) {
+    switch(var) {
+    case VAR_address:
+      return DISPLAY_NAME_address;
+    case VAR_timeZone:
+      return DISPLAY_NAME_timeZone;
+    case VAR_areaServedColors:
+      return DISPLAY_NAME_areaServedColors;
+    case VAR_areaServedTitles:
+      return DISPLAY_NAME_areaServedTitles;
+    case VAR_areaServedLinks:
+      return DISPLAY_NAME_areaServedLinks;
+    case VAR_areaServed:
+      return DISPLAY_NAME_areaServed;
+    default:
+      return MapModel.displayNameMapModel(var);
+    }
+  }
+
+  public static String descriptionFishingDock(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+    case VAR_address:
+      return "The mailing address";
+    case VAR_timeZone:
+      return "The local time zone of the dock. ";
+    case VAR_areaServedColors:
+      return "The colors of each areaServed Paths. ";
+    case VAR_areaServedTitles:
+      return "The titles of each areaServed Paths. ";
+    case VAR_areaServedLinks:
+      return "The links of each areaServed Paths. ";
+    case VAR_areaServed:
+      return "The geographic area where a service or offered item is provided";
+      default:
+        return MapModel.descriptionMapModel(var);
+    }
+  }
+
+  public static String classSimpleNameFishingDock(String var) {
+    switch(var) {
+    case VAR_address:
+      return "JsonObject";
+    case VAR_timeZone:
+      return "String";
+    case VAR_areaServedColors:
+      return "List";
+    case VAR_areaServedTitles:
+      return "List";
+    case VAR_areaServedLinks:
+      return "List";
+    case VAR_areaServed:
+      return "List";
+      default:
+        return MapModel.classSimpleNameMapModel(var);
+    }
+  }
+
+  public static String ngsiType(String var) {
+    switch(var) {
+    case VAR_address:
+      return "Property";
+    case VAR_timeZone:
+      return "Property";
+    case VAR_areaServedColors:
+      return "Property";
+    case VAR_areaServedTitles:
+      return "Property";
+    case VAR_areaServedLinks:
+      return "Property";
+    case VAR_areaServed:
+      return "GeoProperty";
+      default:
+        return MapModel.ngsiType(var);
+    }
+  }
+
+  public static Object ngsiFishingDock(String var, FishingDock o) {
+    switch(var) {
+    case VAR_address:
+      return o.getAddress();
+    case VAR_timeZone:
+      return o.getTimeZone();
+    case VAR_areaServedColors:
+      return o.getAreaServedColors();
+    case VAR_areaServedTitles:
+      return o.getAreaServedTitles();
+    case VAR_areaServedLinks:
+      return o.getAreaServedLinks();
+    case VAR_areaServed:
+      return o.geojsonAreaServed();
+      default:
+        return ngsiMapModel(var, o);
+    }
+  }
+
+  public static Integer htmColumnFishingDock(String var) {
+    switch(var) {
+      default:
+        return MapModel.htmColumnMapModel(var);
+    }
+  }
+
+  public static Integer htmRowFishingDock(String var) {
+    switch(var) {
+    case VAR_address:
+      return 3;
+    case VAR_timeZone:
+      return 3;
+    case VAR_areaServed:
+      return 4;
+      default:
+        return MapModel.htmRowMapModel(var);
+    }
+  }
+
+  public static Integer htmCellFishingDock(String var) {
+    switch(var) {
+    case VAR_address:
+      return 0;
+    case VAR_timeZone:
+      return 1;
+    case VAR_areaServed:
+      return 1;
+      default:
+        return MapModel.htmCellMapModel(var);
+    }
+  }
+
+  public static Integer lengthMinFishingDock(String var) {
+    switch(var) {
+      default:
+        return MapModel.lengthMinMapModel(var);
+    }
+  }
+
+  public static Integer lengthMaxFishingDock(String var) {
+    switch(var) {
+      default:
+        return MapModel.lengthMaxMapModel(var);
+    }
+  }
+
+  public static Integer maxFishingDock(String var) {
+    switch(var) {
+      default:
+        return MapModel.maxMapModel(var);
+    }
+  }
+
+  public static Integer minFishingDock(String var) {
+    switch(var) {
+      default:
+        return MapModel.minMapModel(var);
+    }
+  }
 }

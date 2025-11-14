@@ -100,6 +100,7 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * DisplayName: short entity ID
 	 * Description: A short ID for this Smart Data Model
 	 * DocValues: true
+	 * Persist: true
 	 * Facet: true
 	 * VarId: true
 	 */

@@ -134,772 +134,772 @@ import io.vertx.core.Future;
  * Generated: true
  **/
 public abstract class MapModelGenPageGen<DEV> extends PageLayout {
-	protected static final Logger LOG = LoggerFactory.getLogger(MapModelGenPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(MapModelGenPage.class);
 
 	/////////////////////////
-	// searchListMapModel_ //
+  // searchListMapModel_ //
 	/////////////////////////
 
 
-	/**	 The entity searchListMapModel_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonIgnore
-	@JsonInclude(Include.NON_NULL)
-	protected SearchList<MapModel> searchListMapModel_;
+  /**   The entity searchListMapModel_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonIgnore
+  @JsonInclude(Include.NON_NULL)
+  protected SearchList<MapModel> searchListMapModel_;
 
-	/**	<br> The entity searchListMapModel_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:searchListMapModel_">Find the entity searchListMapModel_ in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _searchListMapModel_(Wrap<SearchList<MapModel>> w);
+  /**  <br> The entity searchListMapModel_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:searchListMapModel_">Find the entity searchListMapModel_ in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _searchListMapModel_(Wrap<SearchList<MapModel>> w);
 
-	public SearchList<MapModel> getSearchListMapModel_() {
-		return searchListMapModel_;
-	}
+  public SearchList<MapModel> getSearchListMapModel_() {
+    return searchListMapModel_;
+  }
 
-	public void setSearchListMapModel_(SearchList<MapModel> searchListMapModel_) {
-		this.searchListMapModel_ = searchListMapModel_;
-	}
-	public static SearchList<MapModel> staticSetSearchListMapModel_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected MapModelGenPage searchListMapModel_Init() {
-		Wrap<SearchList<MapModel>> searchListMapModel_Wrap = new Wrap<SearchList<MapModel>>().var("searchListMapModel_");
-		if(searchListMapModel_ == null) {
-			_searchListMapModel_(searchListMapModel_Wrap);
-			Optional.ofNullable(searchListMapModel_Wrap.getO()).ifPresent(o -> {
-				setSearchListMapModel_(o);
-			});
-		}
-		return (MapModelGenPage)this;
-	}
+  public void setSearchListMapModel_(SearchList<MapModel> searchListMapModel_) {
+    this.searchListMapModel_ = searchListMapModel_;
+  }
+  public static SearchList<MapModel> staticSetSearchListMapModel_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected MapModelGenPage searchListMapModel_Init() {
+    Wrap<SearchList<MapModel>> searchListMapModel_Wrap = new Wrap<SearchList<MapModel>>().var("searchListMapModel_");
+    if(searchListMapModel_ == null) {
+      _searchListMapModel_(searchListMapModel_Wrap);
+      Optional.ofNullable(searchListMapModel_Wrap.getO()).ifPresent(o -> {
+        setSearchListMapModel_(o);
+      });
+    }
+    return (MapModelGenPage)this;
+  }
 
 	//////////////////
-	// listMapModel //
+  // listMapModel //
 	//////////////////
 
 
-	/**	 The entity listMapModel
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonArrayDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonArray listMapModel = new JsonArray();
+  /**   The entity listMapModel
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonArrayDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonArray listMapModel = new JsonArray();
 
-	/**	<br> The entity listMapModel
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:listMapModel">Find the entity listMapModel in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _listMapModel(JsonArray l);
+  /**  <br> The entity listMapModel
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:listMapModel">Find the entity listMapModel in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _listMapModel(JsonArray l);
 
-	public JsonArray getListMapModel() {
-		return listMapModel;
-	}
+  public JsonArray getListMapModel() {
+    return listMapModel;
+  }
 
-	public void setListMapModel(JsonArray listMapModel) {
-		this.listMapModel = listMapModel;
-	}
-	@JsonIgnore
-	public void setListMapModel(String o) {
-		this.listMapModel = MapModelGenPage.staticSetListMapModel(siteRequest_, o);
-	}
-	public static JsonArray staticSetListMapModel(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonArray(o);
-		}
-		return null;
-	}
-	protected MapModelGenPage listMapModelInit() {
-		_listMapModel(listMapModel);
-		return (MapModelGenPage)this;
-	}
+  public void setListMapModel(JsonArray listMapModel) {
+    this.listMapModel = listMapModel;
+  }
+  @JsonIgnore
+  public void setListMapModel(String o) {
+    this.listMapModel = MapModelGenPage.staticSetListMapModel(siteRequest_, o);
+  }
+  public static JsonArray staticSetListMapModel(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonArray(o);
+    }
+    return null;
+  }
+  protected MapModelGenPage listMapModelInit() {
+    _listMapModel(listMapModel);
+    return (MapModelGenPage)this;
+  }
 
-	public static String staticSearchListMapModel(SiteRequest siteRequest_, JsonArray o) {
-		return o.toString();
-	}
+  public static String staticSearchListMapModel(SiteRequest siteRequest_, JsonArray o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrListMapModel(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrListMapModel(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqListMapModel(SiteRequest siteRequest_, String o) {
-		return MapModelGenPage.staticSearchListMapModel(siteRequest_, MapModelGenPage.staticSetListMapModel(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqListMapModel(SiteRequest siteRequest_, String o) {
+    return MapModelGenPage.staticSearchListMapModel(siteRequest_, MapModelGenPage.staticSetListMapModel(siteRequest_, o)).toString();
+  }
 
 	/////////////////
-	// resultCount //
+  // resultCount //
 	/////////////////
 
 
-	/**	 The entity resultCount
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Integer resultCount;
+  /**   The entity resultCount
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Integer resultCount;
 
-	/**	<br> The entity resultCount
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _resultCount(Wrap<Integer> w);
+  /**  <br> The entity resultCount
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _resultCount(Wrap<Integer> w);
 
-	public Integer getResultCount() {
-		return resultCount;
-	}
+  public Integer getResultCount() {
+    return resultCount;
+  }
 
-	public void setResultCount(Integer resultCount) {
-		this.resultCount = resultCount;
-	}
-	@JsonIgnore
-	public void setResultCount(String o) {
-		this.resultCount = MapModelGenPage.staticSetResultCount(siteRequest_, o);
-	}
-	public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Integer.parseInt(o);
-		return null;
-	}
-	protected MapModelGenPage resultCountInit() {
-		Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
-		if(resultCount == null) {
-			_resultCount(resultCountWrap);
-			Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
-				setResultCount(o);
-			});
-		}
-		return (MapModelGenPage)this;
-	}
+  public void setResultCount(Integer resultCount) {
+    this.resultCount = resultCount;
+  }
+  @JsonIgnore
+  public void setResultCount(String o) {
+    this.resultCount = MapModelGenPage.staticSetResultCount(siteRequest_, o);
+  }
+  public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Integer.parseInt(o);
+    return null;
+  }
+  protected MapModelGenPage resultCountInit() {
+    Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
+    if(resultCount == null) {
+      _resultCount(resultCountWrap);
+      Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
+        setResultCount(o);
+      });
+    }
+    return (MapModelGenPage)this;
+  }
 
-	public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
-		return o;
-	}
+  public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
+    return o;
+  }
 
-	public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
-		return MapModelGenPage.staticSearchResultCount(siteRequest_, MapModelGenPage.staticSetResultCount(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
+    return MapModelGenPage.staticSearchResultCount(siteRequest_, MapModelGenPage.staticSetResultCount(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// result //
+  // result //
 	////////////
 
 
-	/**	 The entity result
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected MapModel result;
+  /**   The entity result
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected MapModel result;
 
-	/**	<br> The entity result
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _result(Wrap<MapModel> w);
+  /**  <br> The entity result
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _result(Wrap<MapModel> w);
 
-	public MapModel getResult() {
-		return result;
-	}
+  public MapModel getResult() {
+    return result;
+  }
 
-	public void setResult(MapModel result) {
-		this.result = result;
-	}
-	public static MapModel staticSetResult(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected MapModelGenPage resultInit() {
-		Wrap<MapModel> resultWrap = new Wrap<MapModel>().var("result");
-		if(result == null) {
-			_result(resultWrap);
-			Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
-				setResult(o);
-			});
-		}
-		return (MapModelGenPage)this;
-	}
+  public void setResult(MapModel result) {
+    this.result = result;
+  }
+  public static MapModel staticSetResult(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected MapModelGenPage resultInit() {
+    Wrap<MapModel> resultWrap = new Wrap<MapModel>().var("result");
+    if(result == null) {
+      _result(resultWrap);
+      Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
+        setResult(o);
+      });
+    }
+    return (MapModelGenPage)this;
+  }
 
 	////////
-	// pk //
+  // pk //
 	////////
 
 
-	/**	 The entity pk
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Long pk;
+  /**   The entity pk
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Long pk;
 
-	/**	<br> The entity pk
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _pk(Wrap<Long> w);
+  /**  <br> The entity pk
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _pk(Wrap<Long> w);
 
-	public Long getPk() {
-		return pk;
-	}
+  public Long getPk() {
+    return pk;
+  }
 
-	public void setPk(Long pk) {
-		this.pk = pk;
-	}
-	@JsonIgnore
-	public void setPk(String o) {
-		this.pk = MapModelGenPage.staticSetPk(siteRequest_, o);
-	}
-	public static Long staticSetPk(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Long.parseLong(o);
-		return null;
-	}
-	protected MapModelGenPage pkInit() {
-		Wrap<Long> pkWrap = new Wrap<Long>().var("pk");
-		if(pk == null) {
-			_pk(pkWrap);
-			Optional.ofNullable(pkWrap.getO()).ifPresent(o -> {
-				setPk(o);
-			});
-		}
-		return (MapModelGenPage)this;
-	}
+  public void setPk(Long pk) {
+    this.pk = pk;
+  }
+  @JsonIgnore
+  public void setPk(String o) {
+    this.pk = MapModelGenPage.staticSetPk(siteRequest_, o);
+  }
+  public static Long staticSetPk(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Long.parseLong(o);
+    return null;
+  }
+  protected MapModelGenPage pkInit() {
+    Wrap<Long> pkWrap = new Wrap<Long>().var("pk");
+    if(pk == null) {
+      _pk(pkWrap);
+      Optional.ofNullable(pkWrap.getO()).ifPresent(o -> {
+        setPk(o);
+      });
+    }
+    return (MapModelGenPage)this;
+  }
 
-	public static Long staticSearchPk(SiteRequest siteRequest_, Long o) {
-		return o;
-	}
+  public static Long staticSearchPk(SiteRequest siteRequest_, Long o) {
+    return o;
+  }
 
-	public static String staticSearchStrPk(SiteRequest siteRequest_, Long o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrPk(SiteRequest siteRequest_, Long o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqPk(SiteRequest siteRequest_, String o) {
-		return MapModelGenPage.staticSearchPk(siteRequest_, MapModelGenPage.staticSetPk(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqPk(SiteRequest siteRequest_, String o) {
+    return MapModelGenPage.staticSearchPk(siteRequest_, MapModelGenPage.staticSetPk(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// solrId //
+  // solrId //
 	////////////
 
 
-	/**	 The entity solrId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String solrId;
+  /**   The entity solrId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String solrId;
 
-	/**	<br> The entity solrId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _solrId(Wrap<String> w);
+  /**  <br> The entity solrId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _solrId(Wrap<String> w);
 
-	public String getSolrId() {
-		return solrId;
-	}
-	public void setSolrId(String o) {
-		this.solrId = MapModelGenPage.staticSetSolrId(siteRequest_, o);
-	}
-	public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected MapModelGenPage solrIdInit() {
-		Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
-		if(solrId == null) {
-			_solrId(solrIdWrap);
-			Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
-				setSolrId(o);
-			});
-		}
-		return (MapModelGenPage)this;
-	}
+  public String getSolrId() {
+    return solrId;
+  }
+  public void setSolrId(String o) {
+    this.solrId = MapModelGenPage.staticSetSolrId(siteRequest_, o);
+  }
+  public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected MapModelGenPage solrIdInit() {
+    Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
+    if(solrId == null) {
+      _solrId(solrIdWrap);
+      Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
+        setSolrId(o);
+      });
+    }
+    return (MapModelGenPage)this;
+  }
 
-	public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
-		return MapModelGenPage.staticSearchSolrId(siteRequest_, MapModelGenPage.staticSetSolrId(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
+    return MapModelGenPage.staticSearchSolrId(siteRequest_, MapModelGenPage.staticSetSolrId(siteRequest_, o)).toString();
+  }
 
 	/////////////////////
-	// pageUriMapModel //
+  // pageUriMapModel //
 	/////////////////////
 
 
-	/**	 The entity pageUriMapModel
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String pageUriMapModel;
+  /**   The entity pageUriMapModel
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String pageUriMapModel;
 
-	/**	<br> The entity pageUriMapModel
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:pageUriMapModel">Find the entity pageUriMapModel in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _pageUriMapModel(Wrap<String> c);
+  /**  <br> The entity pageUriMapModel
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:pageUriMapModel">Find the entity pageUriMapModel in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _pageUriMapModel(Wrap<String> c);
 
-	public String getPageUriMapModel() {
-		return pageUriMapModel;
-	}
-	public void setPageUriMapModel(String o) {
-		this.pageUriMapModel = MapModelGenPage.staticSetPageUriMapModel(siteRequest_, o);
-	}
-	public static String staticSetPageUriMapModel(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected MapModelGenPage pageUriMapModelInit() {
-		Wrap<String> pageUriMapModelWrap = new Wrap<String>().var("pageUriMapModel");
-		if(pageUriMapModel == null) {
-			_pageUriMapModel(pageUriMapModelWrap);
-			Optional.ofNullable(pageUriMapModelWrap.getO()).ifPresent(o -> {
-				setPageUriMapModel(o);
-			});
-		}
-		return (MapModelGenPage)this;
-	}
+  public String getPageUriMapModel() {
+    return pageUriMapModel;
+  }
+  public void setPageUriMapModel(String o) {
+    this.pageUriMapModel = MapModelGenPage.staticSetPageUriMapModel(siteRequest_, o);
+  }
+  public static String staticSetPageUriMapModel(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected MapModelGenPage pageUriMapModelInit() {
+    Wrap<String> pageUriMapModelWrap = new Wrap<String>().var("pageUriMapModel");
+    if(pageUriMapModel == null) {
+      _pageUriMapModel(pageUriMapModelWrap);
+      Optional.ofNullable(pageUriMapModelWrap.getO()).ifPresent(o -> {
+        setPageUriMapModel(o);
+      });
+    }
+    return (MapModelGenPage)this;
+  }
 
-	public static String staticSearchPageUriMapModel(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchPageUriMapModel(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrPageUriMapModel(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrPageUriMapModel(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqPageUriMapModel(SiteRequest siteRequest_, String o) {
-		return MapModelGenPage.staticSearchPageUriMapModel(siteRequest_, MapModelGenPage.staticSetPageUriMapModel(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqPageUriMapModel(SiteRequest siteRequest_, String o) {
+    return MapModelGenPage.staticSearchPageUriMapModel(siteRequest_, MapModelGenPage.staticSetPageUriMapModel(siteRequest_, o)).toString();
+  }
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<MapModelGenPageGen<DEV>> promiseDeepMapModelGenPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepMapModelGenPage();
-	}
+  public Future<MapModelGenPageGen<DEV>> promiseDeepMapModelGenPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepMapModelGenPage();
+  }
 
-	public Future<MapModelGenPageGen<DEV>> promiseDeepMapModelGenPage() {
-		Promise<MapModelGenPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseMapModelGenPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<MapModelGenPageGen<DEV>> promiseDeepMapModelGenPage() {
+    Promise<MapModelGenPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseMapModelGenPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseMapModelGenPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				searchListMapModel_Init();
-				listMapModelInit();
-				resultCountInit();
-				resultInit();
-				pkInit();
-				solrIdInit();
-				pageUriMapModelInit();
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseMapModelGenPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        searchListMapModel_Init();
+        listMapModelInit();
+        resultCountInit();
+        resultInit();
+        pkInit();
+        solrIdInit();
+        pageUriMapModelInit();
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends MapModelGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepMapModelGenPage(siteRequest_);
-	}
+  @Override public Future<? extends MapModelGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepMapModelGenPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestMapModelGenPage(SiteRequest siteRequest_) {
-			super.siteRequestPageLayout(siteRequest_);
-	}
+  public void siteRequestMapModelGenPage(SiteRequest siteRequest_) {
+      super.siteRequestPageLayout(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestMapModelGenPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestMapModelGenPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainMapModelGenPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainMapModelGenPage(String var) {
-		MapModelGenPage oMapModelGenPage = (MapModelGenPage)this;
-		switch(var) {
-			case "searchListMapModel_":
-				return oMapModelGenPage.searchListMapModel_;
-			case "listMapModel":
-				return oMapModelGenPage.listMapModel;
-			case "resultCount":
-				return oMapModelGenPage.resultCount;
-			case "result":
-				return oMapModelGenPage.result;
-			case "pk":
-				return oMapModelGenPage.pk;
-			case "solrId":
-				return oMapModelGenPage.solrId;
-			case "pageUriMapModel":
-				return oMapModelGenPage.pageUriMapModel;
-			default:
-				return super.obtainPageLayout(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainMapModelGenPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainMapModelGenPage(String var) {
+    MapModelGenPage oMapModelGenPage = (MapModelGenPage)this;
+    switch(var) {
+      case "searchListMapModel_":
+        return oMapModelGenPage.searchListMapModel_;
+      case "listMapModel":
+        return oMapModelGenPage.listMapModel;
+      case "resultCount":
+        return oMapModelGenPage.resultCount;
+      case "result":
+        return oMapModelGenPage.result;
+      case "pk":
+        return oMapModelGenPage.pk;
+      case "solrId":
+        return oMapModelGenPage.solrId;
+      case "pageUriMapModel":
+        return oMapModelGenPage.pageUriMapModel;
+      default:
+        return super.obtainPageLayout(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateMapModelGenPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateMapModelGenPage(String var, Object val) {
-		MapModelGenPage oMapModelGenPage = (MapModelGenPage)this;
-		switch(var) {
-			default:
-				return super.relatePageLayout(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateMapModelGenPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateMapModelGenPage(String var, Object val) {
+    MapModelGenPage oMapModelGenPage = (MapModelGenPage)this;
+    switch(var) {
+      default:
+        return super.relatePageLayout(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, MapModelGenPage o) {
-		return staticSetMapModelGenPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetMapModelGenPage(String entityVar, SiteRequest siteRequest_, String v, MapModelGenPage o) {
-		switch(entityVar) {
-		case "listMapModel":
-			return MapModelGenPage.staticSetListMapModel(siteRequest_, v);
-		case "resultCount":
-			return MapModelGenPage.staticSetResultCount(siteRequest_, v);
-		case "pk":
-			return MapModelGenPage.staticSetPk(siteRequest_, v);
-		case "solrId":
-			return MapModelGenPage.staticSetSolrId(siteRequest_, v);
-		case "pageUriMapModel":
-			return MapModelGenPage.staticSetPageUriMapModel(siteRequest_, v);
-			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, MapModelGenPage o) {
+    return staticSetMapModelGenPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetMapModelGenPage(String entityVar, SiteRequest siteRequest_, String v, MapModelGenPage o) {
+    switch(entityVar) {
+    case "listMapModel":
+      return MapModelGenPage.staticSetListMapModel(siteRequest_, v);
+    case "resultCount":
+      return MapModelGenPage.staticSetResultCount(siteRequest_, v);
+    case "pk":
+      return MapModelGenPage.staticSetPk(siteRequest_, v);
+    case "solrId":
+      return MapModelGenPage.staticSetSolrId(siteRequest_, v);
+    case "pageUriMapModel":
+      return MapModelGenPage.staticSetPageUriMapModel(siteRequest_, v);
+      default:
+        return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchMapModelGenPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchMapModelGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listMapModel":
-			return MapModelGenPage.staticSearchListMapModel(siteRequest_, (JsonArray)o);
-		case "resultCount":
-			return MapModelGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
-		case "pk":
-			return MapModelGenPage.staticSearchPk(siteRequest_, (Long)o);
-		case "solrId":
-			return MapModelGenPage.staticSearchSolrId(siteRequest_, (String)o);
-		case "pageUriMapModel":
-			return MapModelGenPage.staticSearchPageUriMapModel(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchMapModelGenPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchMapModelGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listMapModel":
+      return MapModelGenPage.staticSearchListMapModel(siteRequest_, (JsonArray)o);
+    case "resultCount":
+      return MapModelGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
+    case "pk":
+      return MapModelGenPage.staticSearchPk(siteRequest_, (Long)o);
+    case "solrId":
+      return MapModelGenPage.staticSearchSolrId(siteRequest_, (String)o);
+    case "pageUriMapModel":
+      return MapModelGenPage.staticSearchPageUriMapModel(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrMapModelGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrMapModelGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listMapModel":
-			return MapModelGenPage.staticSearchStrListMapModel(siteRequest_, (String)o);
-		case "resultCount":
-			return MapModelGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
-		case "pk":
-			return MapModelGenPage.staticSearchStrPk(siteRequest_, (Long)o);
-		case "solrId":
-			return MapModelGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
-		case "pageUriMapModel":
-			return MapModelGenPage.staticSearchStrPageUriMapModel(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrMapModelGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrMapModelGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listMapModel":
+      return MapModelGenPage.staticSearchStrListMapModel(siteRequest_, (String)o);
+    case "resultCount":
+      return MapModelGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
+    case "pk":
+      return MapModelGenPage.staticSearchStrPk(siteRequest_, (Long)o);
+    case "solrId":
+      return MapModelGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
+    case "pageUriMapModel":
+      return MapModelGenPage.staticSearchStrPageUriMapModel(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqMapModelGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqMapModelGenPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "listMapModel":
-			return MapModelGenPage.staticSearchFqListMapModel(siteRequest_, o);
-		case "resultCount":
-			return MapModelGenPage.staticSearchFqResultCount(siteRequest_, o);
-		case "pk":
-			return MapModelGenPage.staticSearchFqPk(siteRequest_, o);
-		case "solrId":
-			return MapModelGenPage.staticSearchFqSolrId(siteRequest_, o);
-		case "pageUriMapModel":
-			return MapModelGenPage.staticSearchFqPageUriMapModel(siteRequest_, o);
-			default:
-				return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqMapModelGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqMapModelGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "listMapModel":
+      return MapModelGenPage.staticSearchFqListMapModel(siteRequest_, o);
+    case "resultCount":
+      return MapModelGenPage.staticSearchFqResultCount(siteRequest_, o);
+    case "pk":
+      return MapModelGenPage.staticSearchFqPk(siteRequest_, o);
+    case "solrId":
+      return MapModelGenPage.staticSearchFqSolrId(siteRequest_, o);
+    case "pageUriMapModel":
+      return MapModelGenPage.staticSearchFqPageUriMapModel(siteRequest_, o);
+      default:
+        return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "MapModelGenPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.mapmodel.MapModelGenPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
-	public static final String VAR_searchListMapModel_ = "searchListMapModel_";
-	public static final String VAR_listMapModel = "listMapModel";
-	public static final String VAR_resultCount = "resultCount";
-	public static final String VAR_result = "result";
-	public static final String VAR_pk = "pk";
-	public static final String VAR_solrId = "solrId";
-	public static final String VAR_pageUriMapModel = "pageUriMapModel";
+  public static final String CLASS_SIMPLE_NAME = "MapModelGenPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.mapmodel.MapModelGenPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String VAR_searchListMapModel_ = "searchListMapModel_";
+  public static final String VAR_listMapModel = "listMapModel";
+  public static final String VAR_resultCount = "resultCount";
+  public static final String VAR_result = "result";
+  public static final String VAR_pk = "pk";
+  public static final String VAR_solrId = "solrId";
+  public static final String VAR_pageUriMapModel = "pageUriMapModel";
 
-	public static final String DISPLAY_NAME_searchListMapModel_ = "";
-	public static final String DISPLAY_NAME_listMapModel = "";
-	public static final String DISPLAY_NAME_resultCount = "";
-	public static final String DISPLAY_NAME_result = "";
-	public static final String DISPLAY_NAME_pk = "";
-	public static final String DISPLAY_NAME_solrId = "";
-	public static final String DISPLAY_NAME_pageUriMapModel = "";
+  public static final String DISPLAY_NAME_searchListMapModel_ = "";
+  public static final String DISPLAY_NAME_listMapModel = "";
+  public static final String DISPLAY_NAME_resultCount = "";
+  public static final String DISPLAY_NAME_result = "";
+  public static final String DISPLAY_NAME_pk = "";
+  public static final String DISPLAY_NAME_solrId = "";
+  public static final String DISPLAY_NAME_pageUriMapModel = "";
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return MapModelGenPage.displayNameMapModelGenPage(var);
-	}
-	public static String displayNameMapModelGenPage(String var) {
-		switch(var) {
-		case VAR_searchListMapModel_:
-			return DISPLAY_NAME_searchListMapModel_;
-		case VAR_listMapModel:
-			return DISPLAY_NAME_listMapModel;
-		case VAR_resultCount:
-			return DISPLAY_NAME_resultCount;
-		case VAR_result:
-			return DISPLAY_NAME_result;
-		case VAR_pk:
-			return DISPLAY_NAME_pk;
-		case VAR_solrId:
-			return DISPLAY_NAME_solrId;
-		case VAR_pageUriMapModel:
-			return DISPLAY_NAME_pageUriMapModel;
-		default:
-			return PageLayout.displayNamePageLayout(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return MapModelGenPage.displayNameMapModelGenPage(var);
+  }
+  public static String displayNameMapModelGenPage(String var) {
+    switch(var) {
+    case VAR_searchListMapModel_:
+      return DISPLAY_NAME_searchListMapModel_;
+    case VAR_listMapModel:
+      return DISPLAY_NAME_listMapModel;
+    case VAR_resultCount:
+      return DISPLAY_NAME_resultCount;
+    case VAR_result:
+      return DISPLAY_NAME_result;
+    case VAR_pk:
+      return DISPLAY_NAME_pk;
+    case VAR_solrId:
+      return DISPLAY_NAME_solrId;
+    case VAR_pageUriMapModel:
+      return DISPLAY_NAME_pageUriMapModel;
+    default:
+      return PageLayout.displayNamePageLayout(var);
+    }
+  }
 
-	public static String descriptionMapModelGenPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return PageLayout.descriptionPageLayout(var);
-		}
-	}
+  public static String descriptionMapModelGenPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return PageLayout.descriptionPageLayout(var);
+    }
+  }
 
-	public static String classSimpleNameMapModelGenPage(String var) {
-		switch(var) {
-		case VAR_searchListMapModel_:
-			return "SearchList";
-		case VAR_listMapModel:
-			return "JsonArray";
-		case VAR_resultCount:
-			return "Integer";
-		case VAR_result:
-			return "MapModel";
-		case VAR_pk:
-			return "Long";
-		case VAR_solrId:
-			return "String";
-		case VAR_pageUriMapModel:
-			return "String";
-			default:
-				return PageLayout.classSimpleNamePageLayout(var);
-		}
-	}
+  public static String classSimpleNameMapModelGenPage(String var) {
+    switch(var) {
+    case VAR_searchListMapModel_:
+      return "SearchList";
+    case VAR_listMapModel:
+      return "JsonArray";
+    case VAR_resultCount:
+      return "Integer";
+    case VAR_result:
+      return "MapModel";
+    case VAR_pk:
+      return "Long";
+    case VAR_solrId:
+      return "String";
+    case VAR_pageUriMapModel:
+      return "String";
+      default:
+        return PageLayout.classSimpleNamePageLayout(var);
+    }
+  }
 
-	public static Integer htmColumnMapModelGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmColumnPageLayout(var);
-		}
-	}
+  public static Integer htmColumnMapModelGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmColumnPageLayout(var);
+    }
+  }
 
-	public static Integer htmRowMapModelGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmRowPageLayout(var);
-		}
-	}
+  public static Integer htmRowMapModelGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmRowPageLayout(var);
+    }
+  }
 
-	public static Integer htmCellMapModelGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmCellPageLayout(var);
-		}
-	}
+  public static Integer htmCellMapModelGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmCellPageLayout(var);
+    }
+  }
 
-	public static Integer lengthMinMapModelGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMinPageLayout(var);
-		}
-	}
+  public static Integer lengthMinMapModelGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMinPageLayout(var);
+    }
+  }
 
-	public static Integer lengthMaxMapModelGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMaxPageLayout(var);
-		}
-	}
+  public static Integer lengthMaxMapModelGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMaxPageLayout(var);
+    }
+  }
 
-	public static Integer maxMapModelGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.maxPageLayout(var);
-		}
-	}
+  public static Integer maxMapModelGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.maxPageLayout(var);
+    }
+  }
 
-	public static Integer minMapModelGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.minPageLayout(var);
-		}
-	}
+  public static Integer minMapModelGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.minPageLayout(var);
+    }
+  }
 }

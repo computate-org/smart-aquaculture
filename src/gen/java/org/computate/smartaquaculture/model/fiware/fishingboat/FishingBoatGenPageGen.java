@@ -175,772 +175,772 @@ import io.vertx.core.Future;
  * Generated: true
  **/
 public abstract class FishingBoatGenPageGen<DEV> extends PageLayout {
-	protected static final Logger LOG = LoggerFactory.getLogger(FishingBoatGenPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FishingBoatGenPage.class);
 
 	////////////////////////////
-	// searchListFishingBoat_ //
+  // searchListFishingBoat_ //
 	////////////////////////////
 
 
-	/**	 The entity searchListFishingBoat_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonIgnore
-	@JsonInclude(Include.NON_NULL)
-	protected SearchList<FishingBoat> searchListFishingBoat_;
+  /**   The entity searchListFishingBoat_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonIgnore
+  @JsonInclude(Include.NON_NULL)
+  protected SearchList<FishingBoat> searchListFishingBoat_;
 
-	/**	<br> The entity searchListFishingBoat_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:searchListFishingBoat_">Find the entity searchListFishingBoat_ in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _searchListFishingBoat_(Wrap<SearchList<FishingBoat>> w);
+  /**  <br> The entity searchListFishingBoat_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:searchListFishingBoat_">Find the entity searchListFishingBoat_ in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _searchListFishingBoat_(Wrap<SearchList<FishingBoat>> w);
 
-	public SearchList<FishingBoat> getSearchListFishingBoat_() {
-		return searchListFishingBoat_;
-	}
+  public SearchList<FishingBoat> getSearchListFishingBoat_() {
+    return searchListFishingBoat_;
+  }
 
-	public void setSearchListFishingBoat_(SearchList<FishingBoat> searchListFishingBoat_) {
-		this.searchListFishingBoat_ = searchListFishingBoat_;
-	}
-	public static SearchList<FishingBoat> staticSetSearchListFishingBoat_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected FishingBoatGenPage searchListFishingBoat_Init() {
-		Wrap<SearchList<FishingBoat>> searchListFishingBoat_Wrap = new Wrap<SearchList<FishingBoat>>().var("searchListFishingBoat_");
-		if(searchListFishingBoat_ == null) {
-			_searchListFishingBoat_(searchListFishingBoat_Wrap);
-			Optional.ofNullable(searchListFishingBoat_Wrap.getO()).ifPresent(o -> {
-				setSearchListFishingBoat_(o);
-			});
-		}
-		return (FishingBoatGenPage)this;
-	}
+  public void setSearchListFishingBoat_(SearchList<FishingBoat> searchListFishingBoat_) {
+    this.searchListFishingBoat_ = searchListFishingBoat_;
+  }
+  public static SearchList<FishingBoat> staticSetSearchListFishingBoat_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected FishingBoatGenPage searchListFishingBoat_Init() {
+    Wrap<SearchList<FishingBoat>> searchListFishingBoat_Wrap = new Wrap<SearchList<FishingBoat>>().var("searchListFishingBoat_");
+    if(searchListFishingBoat_ == null) {
+      _searchListFishingBoat_(searchListFishingBoat_Wrap);
+      Optional.ofNullable(searchListFishingBoat_Wrap.getO()).ifPresent(o -> {
+        setSearchListFishingBoat_(o);
+      });
+    }
+    return (FishingBoatGenPage)this;
+  }
 
 	/////////////////////
-	// listFishingBoat //
+  // listFishingBoat //
 	/////////////////////
 
 
-	/**	 The entity listFishingBoat
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonArrayDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonArray listFishingBoat = new JsonArray();
+  /**   The entity listFishingBoat
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonArrayDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonArray listFishingBoat = new JsonArray();
 
-	/**	<br> The entity listFishingBoat
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:listFishingBoat">Find the entity listFishingBoat in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _listFishingBoat(JsonArray l);
+  /**  <br> The entity listFishingBoat
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:listFishingBoat">Find the entity listFishingBoat in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _listFishingBoat(JsonArray l);
 
-	public JsonArray getListFishingBoat() {
-		return listFishingBoat;
-	}
+  public JsonArray getListFishingBoat() {
+    return listFishingBoat;
+  }
 
-	public void setListFishingBoat(JsonArray listFishingBoat) {
-		this.listFishingBoat = listFishingBoat;
-	}
-	@JsonIgnore
-	public void setListFishingBoat(String o) {
-		this.listFishingBoat = FishingBoatGenPage.staticSetListFishingBoat(siteRequest_, o);
-	}
-	public static JsonArray staticSetListFishingBoat(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonArray(o);
-		}
-		return null;
-	}
-	protected FishingBoatGenPage listFishingBoatInit() {
-		_listFishingBoat(listFishingBoat);
-		return (FishingBoatGenPage)this;
-	}
+  public void setListFishingBoat(JsonArray listFishingBoat) {
+    this.listFishingBoat = listFishingBoat;
+  }
+  @JsonIgnore
+  public void setListFishingBoat(String o) {
+    this.listFishingBoat = FishingBoatGenPage.staticSetListFishingBoat(siteRequest_, o);
+  }
+  public static JsonArray staticSetListFishingBoat(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonArray(o);
+    }
+    return null;
+  }
+  protected FishingBoatGenPage listFishingBoatInit() {
+    _listFishingBoat(listFishingBoat);
+    return (FishingBoatGenPage)this;
+  }
 
-	public static String staticSearchListFishingBoat(SiteRequest siteRequest_, JsonArray o) {
-		return o.toString();
-	}
+  public static String staticSearchListFishingBoat(SiteRequest siteRequest_, JsonArray o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrListFishingBoat(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrListFishingBoat(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqListFishingBoat(SiteRequest siteRequest_, String o) {
-		return FishingBoatGenPage.staticSearchListFishingBoat(siteRequest_, FishingBoatGenPage.staticSetListFishingBoat(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqListFishingBoat(SiteRequest siteRequest_, String o) {
+    return FishingBoatGenPage.staticSearchListFishingBoat(siteRequest_, FishingBoatGenPage.staticSetListFishingBoat(siteRequest_, o)).toString();
+  }
 
 	/////////////////
-	// resultCount //
+  // resultCount //
 	/////////////////
 
 
-	/**	 The entity resultCount
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Integer resultCount;
+  /**   The entity resultCount
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Integer resultCount;
 
-	/**	<br> The entity resultCount
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _resultCount(Wrap<Integer> w);
+  /**  <br> The entity resultCount
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _resultCount(Wrap<Integer> w);
 
-	public Integer getResultCount() {
-		return resultCount;
-	}
+  public Integer getResultCount() {
+    return resultCount;
+  }
 
-	public void setResultCount(Integer resultCount) {
-		this.resultCount = resultCount;
-	}
-	@JsonIgnore
-	public void setResultCount(String o) {
-		this.resultCount = FishingBoatGenPage.staticSetResultCount(siteRequest_, o);
-	}
-	public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Integer.parseInt(o);
-		return null;
-	}
-	protected FishingBoatGenPage resultCountInit() {
-		Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
-		if(resultCount == null) {
-			_resultCount(resultCountWrap);
-			Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
-				setResultCount(o);
-			});
-		}
-		return (FishingBoatGenPage)this;
-	}
+  public void setResultCount(Integer resultCount) {
+    this.resultCount = resultCount;
+  }
+  @JsonIgnore
+  public void setResultCount(String o) {
+    this.resultCount = FishingBoatGenPage.staticSetResultCount(siteRequest_, o);
+  }
+  public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Integer.parseInt(o);
+    return null;
+  }
+  protected FishingBoatGenPage resultCountInit() {
+    Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
+    if(resultCount == null) {
+      _resultCount(resultCountWrap);
+      Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
+        setResultCount(o);
+      });
+    }
+    return (FishingBoatGenPage)this;
+  }
 
-	public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
-		return o;
-	}
+  public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
+    return o;
+  }
 
-	public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
-		return FishingBoatGenPage.staticSearchResultCount(siteRequest_, FishingBoatGenPage.staticSetResultCount(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
+    return FishingBoatGenPage.staticSearchResultCount(siteRequest_, FishingBoatGenPage.staticSetResultCount(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// result //
+  // result //
 	////////////
 
 
-	/**	 The entity result
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected FishingBoat result;
+  /**   The entity result
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected FishingBoat result;
 
-	/**	<br> The entity result
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _result(Wrap<FishingBoat> w);
+  /**  <br> The entity result
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _result(Wrap<FishingBoat> w);
 
-	public FishingBoat getResult() {
-		return result;
-	}
+  public FishingBoat getResult() {
+    return result;
+  }
 
-	public void setResult(FishingBoat result) {
-		this.result = result;
-	}
-	public static FishingBoat staticSetResult(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected FishingBoatGenPage resultInit() {
-		Wrap<FishingBoat> resultWrap = new Wrap<FishingBoat>().var("result");
-		if(result == null) {
-			_result(resultWrap);
-			Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
-				setResult(o);
-			});
-		}
-		return (FishingBoatGenPage)this;
-	}
+  public void setResult(FishingBoat result) {
+    this.result = result;
+  }
+  public static FishingBoat staticSetResult(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected FishingBoatGenPage resultInit() {
+    Wrap<FishingBoat> resultWrap = new Wrap<FishingBoat>().var("result");
+    if(result == null) {
+      _result(resultWrap);
+      Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
+        setResult(o);
+      });
+    }
+    return (FishingBoatGenPage)this;
+  }
 
 	////////
-	// pk //
+  // pk //
 	////////
 
 
-	/**	 The entity pk
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Long pk;
+  /**   The entity pk
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Long pk;
 
-	/**	<br> The entity pk
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _pk(Wrap<Long> w);
+  /**  <br> The entity pk
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _pk(Wrap<Long> w);
 
-	public Long getPk() {
-		return pk;
-	}
+  public Long getPk() {
+    return pk;
+  }
 
-	public void setPk(Long pk) {
-		this.pk = pk;
-	}
-	@JsonIgnore
-	public void setPk(String o) {
-		this.pk = FishingBoatGenPage.staticSetPk(siteRequest_, o);
-	}
-	public static Long staticSetPk(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Long.parseLong(o);
-		return null;
-	}
-	protected FishingBoatGenPage pkInit() {
-		Wrap<Long> pkWrap = new Wrap<Long>().var("pk");
-		if(pk == null) {
-			_pk(pkWrap);
-			Optional.ofNullable(pkWrap.getO()).ifPresent(o -> {
-				setPk(o);
-			});
-		}
-		return (FishingBoatGenPage)this;
-	}
+  public void setPk(Long pk) {
+    this.pk = pk;
+  }
+  @JsonIgnore
+  public void setPk(String o) {
+    this.pk = FishingBoatGenPage.staticSetPk(siteRequest_, o);
+  }
+  public static Long staticSetPk(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Long.parseLong(o);
+    return null;
+  }
+  protected FishingBoatGenPage pkInit() {
+    Wrap<Long> pkWrap = new Wrap<Long>().var("pk");
+    if(pk == null) {
+      _pk(pkWrap);
+      Optional.ofNullable(pkWrap.getO()).ifPresent(o -> {
+        setPk(o);
+      });
+    }
+    return (FishingBoatGenPage)this;
+  }
 
-	public static Long staticSearchPk(SiteRequest siteRequest_, Long o) {
-		return o;
-	}
+  public static Long staticSearchPk(SiteRequest siteRequest_, Long o) {
+    return o;
+  }
 
-	public static String staticSearchStrPk(SiteRequest siteRequest_, Long o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrPk(SiteRequest siteRequest_, Long o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqPk(SiteRequest siteRequest_, String o) {
-		return FishingBoatGenPage.staticSearchPk(siteRequest_, FishingBoatGenPage.staticSetPk(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqPk(SiteRequest siteRequest_, String o) {
+    return FishingBoatGenPage.staticSearchPk(siteRequest_, FishingBoatGenPage.staticSetPk(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// solrId //
+  // solrId //
 	////////////
 
 
-	/**	 The entity solrId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String solrId;
+  /**   The entity solrId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String solrId;
 
-	/**	<br> The entity solrId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _solrId(Wrap<String> w);
+  /**  <br> The entity solrId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _solrId(Wrap<String> w);
 
-	public String getSolrId() {
-		return solrId;
-	}
-	public void setSolrId(String o) {
-		this.solrId = FishingBoatGenPage.staticSetSolrId(siteRequest_, o);
-	}
-	public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishingBoatGenPage solrIdInit() {
-		Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
-		if(solrId == null) {
-			_solrId(solrIdWrap);
-			Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
-				setSolrId(o);
-			});
-		}
-		return (FishingBoatGenPage)this;
-	}
+  public String getSolrId() {
+    return solrId;
+  }
+  public void setSolrId(String o) {
+    this.solrId = FishingBoatGenPage.staticSetSolrId(siteRequest_, o);
+  }
+  public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected FishingBoatGenPage solrIdInit() {
+    Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
+    if(solrId == null) {
+      _solrId(solrIdWrap);
+      Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
+        setSolrId(o);
+      });
+    }
+    return (FishingBoatGenPage)this;
+  }
 
-	public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
-		return FishingBoatGenPage.staticSearchSolrId(siteRequest_, FishingBoatGenPage.staticSetSolrId(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
+    return FishingBoatGenPage.staticSearchSolrId(siteRequest_, FishingBoatGenPage.staticSetSolrId(siteRequest_, o)).toString();
+  }
 
 	////////////////////////
-	// pageUriFishingBoat //
+  // pageUriFishingBoat //
 	////////////////////////
 
 
-	/**	 The entity pageUriFishingBoat
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String pageUriFishingBoat;
+  /**   The entity pageUriFishingBoat
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String pageUriFishingBoat;
 
-	/**	<br> The entity pageUriFishingBoat
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:pageUriFishingBoat">Find the entity pageUriFishingBoat in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _pageUriFishingBoat(Wrap<String> c);
+  /**  <br> The entity pageUriFishingBoat
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage&fq=entiteVar_enUS_indexed_string:pageUriFishingBoat">Find the entity pageUriFishingBoat in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _pageUriFishingBoat(Wrap<String> c);
 
-	public String getPageUriFishingBoat() {
-		return pageUriFishingBoat;
-	}
-	public void setPageUriFishingBoat(String o) {
-		this.pageUriFishingBoat = FishingBoatGenPage.staticSetPageUriFishingBoat(siteRequest_, o);
-	}
-	public static String staticSetPageUriFishingBoat(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishingBoatGenPage pageUriFishingBoatInit() {
-		Wrap<String> pageUriFishingBoatWrap = new Wrap<String>().var("pageUriFishingBoat");
-		if(pageUriFishingBoat == null) {
-			_pageUriFishingBoat(pageUriFishingBoatWrap);
-			Optional.ofNullable(pageUriFishingBoatWrap.getO()).ifPresent(o -> {
-				setPageUriFishingBoat(o);
-			});
-		}
-		return (FishingBoatGenPage)this;
-	}
+  public String getPageUriFishingBoat() {
+    return pageUriFishingBoat;
+  }
+  public void setPageUriFishingBoat(String o) {
+    this.pageUriFishingBoat = FishingBoatGenPage.staticSetPageUriFishingBoat(siteRequest_, o);
+  }
+  public static String staticSetPageUriFishingBoat(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected FishingBoatGenPage pageUriFishingBoatInit() {
+    Wrap<String> pageUriFishingBoatWrap = new Wrap<String>().var("pageUriFishingBoat");
+    if(pageUriFishingBoat == null) {
+      _pageUriFishingBoat(pageUriFishingBoatWrap);
+      Optional.ofNullable(pageUriFishingBoatWrap.getO()).ifPresent(o -> {
+        setPageUriFishingBoat(o);
+      });
+    }
+    return (FishingBoatGenPage)this;
+  }
 
-	public static String staticSearchPageUriFishingBoat(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchPageUriFishingBoat(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrPageUriFishingBoat(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrPageUriFishingBoat(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqPageUriFishingBoat(SiteRequest siteRequest_, String o) {
-		return FishingBoatGenPage.staticSearchPageUriFishingBoat(siteRequest_, FishingBoatGenPage.staticSetPageUriFishingBoat(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqPageUriFishingBoat(SiteRequest siteRequest_, String o) {
+    return FishingBoatGenPage.staticSearchPageUriFishingBoat(siteRequest_, FishingBoatGenPage.staticSetPageUriFishingBoat(siteRequest_, o)).toString();
+  }
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<FishingBoatGenPageGen<DEV>> promiseDeepFishingBoatGenPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFishingBoatGenPage();
-	}
+  public Future<FishingBoatGenPageGen<DEV>> promiseDeepFishingBoatGenPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFishingBoatGenPage();
+  }
 
-	public Future<FishingBoatGenPageGen<DEV>> promiseDeepFishingBoatGenPage() {
-		Promise<FishingBoatGenPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFishingBoatGenPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<FishingBoatGenPageGen<DEV>> promiseDeepFishingBoatGenPage() {
+    Promise<FishingBoatGenPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFishingBoatGenPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseFishingBoatGenPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				searchListFishingBoat_Init();
-				listFishingBoatInit();
-				resultCountInit();
-				resultInit();
-				pkInit();
-				solrIdInit();
-				pageUriFishingBoatInit();
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseFishingBoatGenPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        searchListFishingBoat_Init();
+        listFishingBoatInit();
+        resultCountInit();
+        resultInit();
+        pkInit();
+        solrIdInit();
+        pageUriFishingBoatInit();
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends FishingBoatGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFishingBoatGenPage(siteRequest_);
-	}
+  @Override public Future<? extends FishingBoatGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFishingBoatGenPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestFishingBoatGenPage(SiteRequest siteRequest_) {
-			super.siteRequestPageLayout(siteRequest_);
-	}
+  public void siteRequestFishingBoatGenPage(SiteRequest siteRequest_) {
+      super.siteRequestPageLayout(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFishingBoatGenPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFishingBoatGenPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFishingBoatGenPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFishingBoatGenPage(String var) {
-		FishingBoatGenPage oFishingBoatGenPage = (FishingBoatGenPage)this;
-		switch(var) {
-			case "searchListFishingBoat_":
-				return oFishingBoatGenPage.searchListFishingBoat_;
-			case "listFishingBoat":
-				return oFishingBoatGenPage.listFishingBoat;
-			case "resultCount":
-				return oFishingBoatGenPage.resultCount;
-			case "result":
-				return oFishingBoatGenPage.result;
-			case "pk":
-				return oFishingBoatGenPage.pk;
-			case "solrId":
-				return oFishingBoatGenPage.solrId;
-			case "pageUriFishingBoat":
-				return oFishingBoatGenPage.pageUriFishingBoat;
-			default:
-				return super.obtainPageLayout(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFishingBoatGenPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFishingBoatGenPage(String var) {
+    FishingBoatGenPage oFishingBoatGenPage = (FishingBoatGenPage)this;
+    switch(var) {
+      case "searchListFishingBoat_":
+        return oFishingBoatGenPage.searchListFishingBoat_;
+      case "listFishingBoat":
+        return oFishingBoatGenPage.listFishingBoat;
+      case "resultCount":
+        return oFishingBoatGenPage.resultCount;
+      case "result":
+        return oFishingBoatGenPage.result;
+      case "pk":
+        return oFishingBoatGenPage.pk;
+      case "solrId":
+        return oFishingBoatGenPage.solrId;
+      case "pageUriFishingBoat":
+        return oFishingBoatGenPage.pageUriFishingBoat;
+      default:
+        return super.obtainPageLayout(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFishingBoatGenPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFishingBoatGenPage(String var, Object val) {
-		FishingBoatGenPage oFishingBoatGenPage = (FishingBoatGenPage)this;
-		switch(var) {
-			default:
-				return super.relatePageLayout(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFishingBoatGenPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFishingBoatGenPage(String var, Object val) {
+    FishingBoatGenPage oFishingBoatGenPage = (FishingBoatGenPage)this;
+    switch(var) {
+      default:
+        return super.relatePageLayout(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingBoatGenPage o) {
-		return staticSetFishingBoatGenPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, String v, FishingBoatGenPage o) {
-		switch(entityVar) {
-		case "listFishingBoat":
-			return FishingBoatGenPage.staticSetListFishingBoat(siteRequest_, v);
-		case "resultCount":
-			return FishingBoatGenPage.staticSetResultCount(siteRequest_, v);
-		case "pk":
-			return FishingBoatGenPage.staticSetPk(siteRequest_, v);
-		case "solrId":
-			return FishingBoatGenPage.staticSetSolrId(siteRequest_, v);
-		case "pageUriFishingBoat":
-			return FishingBoatGenPage.staticSetPageUriFishingBoat(siteRequest_, v);
-			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingBoatGenPage o) {
+    return staticSetFishingBoatGenPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, String v, FishingBoatGenPage o) {
+    switch(entityVar) {
+    case "listFishingBoat":
+      return FishingBoatGenPage.staticSetListFishingBoat(siteRequest_, v);
+    case "resultCount":
+      return FishingBoatGenPage.staticSetResultCount(siteRequest_, v);
+    case "pk":
+      return FishingBoatGenPage.staticSetPk(siteRequest_, v);
+    case "solrId":
+      return FishingBoatGenPage.staticSetSolrId(siteRequest_, v);
+    case "pageUriFishingBoat":
+      return FishingBoatGenPage.staticSetPageUriFishingBoat(siteRequest_, v);
+      default:
+        return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFishingBoatGenPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listFishingBoat":
-			return FishingBoatGenPage.staticSearchListFishingBoat(siteRequest_, (JsonArray)o);
-		case "resultCount":
-			return FishingBoatGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
-		case "pk":
-			return FishingBoatGenPage.staticSearchPk(siteRequest_, (Long)o);
-		case "solrId":
-			return FishingBoatGenPage.staticSearchSolrId(siteRequest_, (String)o);
-		case "pageUriFishingBoat":
-			return FishingBoatGenPage.staticSearchPageUriFishingBoat(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFishingBoatGenPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listFishingBoat":
+      return FishingBoatGenPage.staticSearchListFishingBoat(siteRequest_, (JsonArray)o);
+    case "resultCount":
+      return FishingBoatGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
+    case "pk":
+      return FishingBoatGenPage.staticSearchPk(siteRequest_, (Long)o);
+    case "solrId":
+      return FishingBoatGenPage.staticSearchSolrId(siteRequest_, (String)o);
+    case "pageUriFishingBoat":
+      return FishingBoatGenPage.staticSearchPageUriFishingBoat(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFishingBoatGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listFishingBoat":
-			return FishingBoatGenPage.staticSearchStrListFishingBoat(siteRequest_, (String)o);
-		case "resultCount":
-			return FishingBoatGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
-		case "pk":
-			return FishingBoatGenPage.staticSearchStrPk(siteRequest_, (Long)o);
-		case "solrId":
-			return FishingBoatGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
-		case "pageUriFishingBoat":
-			return FishingBoatGenPage.staticSearchStrPageUriFishingBoat(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFishingBoatGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listFishingBoat":
+      return FishingBoatGenPage.staticSearchStrListFishingBoat(siteRequest_, (String)o);
+    case "resultCount":
+      return FishingBoatGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
+    case "pk":
+      return FishingBoatGenPage.staticSearchStrPk(siteRequest_, (Long)o);
+    case "solrId":
+      return FishingBoatGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
+    case "pageUriFishingBoat":
+      return FishingBoatGenPage.staticSearchStrPageUriFishingBoat(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFishingBoatGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "listFishingBoat":
-			return FishingBoatGenPage.staticSearchFqListFishingBoat(siteRequest_, o);
-		case "resultCount":
-			return FishingBoatGenPage.staticSearchFqResultCount(siteRequest_, o);
-		case "pk":
-			return FishingBoatGenPage.staticSearchFqPk(siteRequest_, o);
-		case "solrId":
-			return FishingBoatGenPage.staticSearchFqSolrId(siteRequest_, o);
-		case "pageUriFishingBoat":
-			return FishingBoatGenPage.staticSearchFqPageUriFishingBoat(siteRequest_, o);
-			default:
-				return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFishingBoatGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFishingBoatGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "listFishingBoat":
+      return FishingBoatGenPage.staticSearchFqListFishingBoat(siteRequest_, o);
+    case "resultCount":
+      return FishingBoatGenPage.staticSearchFqResultCount(siteRequest_, o);
+    case "pk":
+      return FishingBoatGenPage.staticSearchFqPk(siteRequest_, o);
+    case "solrId":
+      return FishingBoatGenPage.staticSearchFqSolrId(siteRequest_, o);
+    case "pageUriFishingBoat":
+      return FishingBoatGenPage.staticSearchFqPageUriFishingBoat(siteRequest_, o);
+      default:
+        return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "FishingBoatGenPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
-	public static final String VAR_searchListFishingBoat_ = "searchListFishingBoat_";
-	public static final String VAR_listFishingBoat = "listFishingBoat";
-	public static final String VAR_resultCount = "resultCount";
-	public static final String VAR_result = "result";
-	public static final String VAR_pk = "pk";
-	public static final String VAR_solrId = "solrId";
-	public static final String VAR_pageUriFishingBoat = "pageUriFishingBoat";
+  public static final String CLASS_SIMPLE_NAME = "FishingBoatGenPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatGenPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String VAR_searchListFishingBoat_ = "searchListFishingBoat_";
+  public static final String VAR_listFishingBoat = "listFishingBoat";
+  public static final String VAR_resultCount = "resultCount";
+  public static final String VAR_result = "result";
+  public static final String VAR_pk = "pk";
+  public static final String VAR_solrId = "solrId";
+  public static final String VAR_pageUriFishingBoat = "pageUriFishingBoat";
 
-	public static final String DISPLAY_NAME_searchListFishingBoat_ = "";
-	public static final String DISPLAY_NAME_listFishingBoat = "";
-	public static final String DISPLAY_NAME_resultCount = "";
-	public static final String DISPLAY_NAME_result = "";
-	public static final String DISPLAY_NAME_pk = "";
-	public static final String DISPLAY_NAME_solrId = "";
-	public static final String DISPLAY_NAME_pageUriFishingBoat = "";
+  public static final String DISPLAY_NAME_searchListFishingBoat_ = "";
+  public static final String DISPLAY_NAME_listFishingBoat = "";
+  public static final String DISPLAY_NAME_resultCount = "";
+  public static final String DISPLAY_NAME_result = "";
+  public static final String DISPLAY_NAME_pk = "";
+  public static final String DISPLAY_NAME_solrId = "";
+  public static final String DISPLAY_NAME_pageUriFishingBoat = "";
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return FishingBoatGenPage.displayNameFishingBoatGenPage(var);
-	}
-	public static String displayNameFishingBoatGenPage(String var) {
-		switch(var) {
-		case VAR_searchListFishingBoat_:
-			return DISPLAY_NAME_searchListFishingBoat_;
-		case VAR_listFishingBoat:
-			return DISPLAY_NAME_listFishingBoat;
-		case VAR_resultCount:
-			return DISPLAY_NAME_resultCount;
-		case VAR_result:
-			return DISPLAY_NAME_result;
-		case VAR_pk:
-			return DISPLAY_NAME_pk;
-		case VAR_solrId:
-			return DISPLAY_NAME_solrId;
-		case VAR_pageUriFishingBoat:
-			return DISPLAY_NAME_pageUriFishingBoat;
-		default:
-			return PageLayout.displayNamePageLayout(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return FishingBoatGenPage.displayNameFishingBoatGenPage(var);
+  }
+  public static String displayNameFishingBoatGenPage(String var) {
+    switch(var) {
+    case VAR_searchListFishingBoat_:
+      return DISPLAY_NAME_searchListFishingBoat_;
+    case VAR_listFishingBoat:
+      return DISPLAY_NAME_listFishingBoat;
+    case VAR_resultCount:
+      return DISPLAY_NAME_resultCount;
+    case VAR_result:
+      return DISPLAY_NAME_result;
+    case VAR_pk:
+      return DISPLAY_NAME_pk;
+    case VAR_solrId:
+      return DISPLAY_NAME_solrId;
+    case VAR_pageUriFishingBoat:
+      return DISPLAY_NAME_pageUriFishingBoat;
+    default:
+      return PageLayout.displayNamePageLayout(var);
+    }
+  }
 
-	public static String descriptionFishingBoatGenPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return PageLayout.descriptionPageLayout(var);
-		}
-	}
+  public static String descriptionFishingBoatGenPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return PageLayout.descriptionPageLayout(var);
+    }
+  }
 
-	public static String classSimpleNameFishingBoatGenPage(String var) {
-		switch(var) {
-		case VAR_searchListFishingBoat_:
-			return "SearchList";
-		case VAR_listFishingBoat:
-			return "JsonArray";
-		case VAR_resultCount:
-			return "Integer";
-		case VAR_result:
-			return "FishingBoat";
-		case VAR_pk:
-			return "Long";
-		case VAR_solrId:
-			return "String";
-		case VAR_pageUriFishingBoat:
-			return "String";
-			default:
-				return PageLayout.classSimpleNamePageLayout(var);
-		}
-	}
+  public static String classSimpleNameFishingBoatGenPage(String var) {
+    switch(var) {
+    case VAR_searchListFishingBoat_:
+      return "SearchList";
+    case VAR_listFishingBoat:
+      return "JsonArray";
+    case VAR_resultCount:
+      return "Integer";
+    case VAR_result:
+      return "FishingBoat";
+    case VAR_pk:
+      return "Long";
+    case VAR_solrId:
+      return "String";
+    case VAR_pageUriFishingBoat:
+      return "String";
+      default:
+        return PageLayout.classSimpleNamePageLayout(var);
+    }
+  }
 
-	public static Integer htmColumnFishingBoatGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmColumnPageLayout(var);
-		}
-	}
+  public static Integer htmColumnFishingBoatGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmColumnPageLayout(var);
+    }
+  }
 
-	public static Integer htmRowFishingBoatGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmRowPageLayout(var);
-		}
-	}
+  public static Integer htmRowFishingBoatGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmRowPageLayout(var);
+    }
+  }
 
-	public static Integer htmCellFishingBoatGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmCellPageLayout(var);
-		}
-	}
+  public static Integer htmCellFishingBoatGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmCellPageLayout(var);
+    }
+  }
 
-	public static Integer lengthMinFishingBoatGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMinPageLayout(var);
-		}
-	}
+  public static Integer lengthMinFishingBoatGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMinPageLayout(var);
+    }
+  }
 
-	public static Integer lengthMaxFishingBoatGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMaxPageLayout(var);
-		}
-	}
+  public static Integer lengthMaxFishingBoatGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMaxPageLayout(var);
+    }
+  }
 
-	public static Integer maxFishingBoatGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.maxPageLayout(var);
-		}
-	}
+  public static Integer maxFishingBoatGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.maxPageLayout(var);
+    }
+  }
 
-	public static Integer minFishingBoatGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.minPageLayout(var);
-		}
-	}
+  public static Integer minFishingBoatGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.minPageLayout(var);
+    }
+  }
 }

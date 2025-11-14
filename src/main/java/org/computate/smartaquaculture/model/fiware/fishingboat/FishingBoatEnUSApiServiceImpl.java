@@ -38,6 +38,7 @@ import org.locationtech.jts.linearref.LocationIndexedLine;
 import io.vertx.pgclient.data.Path;
 import io.vertx.pgclient.data.Point;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.vertx.tool.GeoTool;
@@ -116,33 +117,40 @@ public class FishingBoatEnUSApiServiceImpl extends FishingBoatEnUSGenApiServiceI
         jsonObject.put("setLocation", locationJson);
       }
       super.sqlPATCHFishingBoat(o, inheritPrimaryKey).onSuccess(fishingBoat -> {
-        if("true".equals(jsonObject.getString("setSimulation")) 
-            || "true".equals(siteRequest.getRequestVars().get("simulation"))) {
+        if("true".equals(jsonObject.getString("setSimulation"))
+            || "true".equals(siteRequest.getRequestVars().get("simulation"))
+                && BooleanUtils.isNotFalse(o.getSimulation())
+            ) {
           Long simulationDelayMillis = Optional.ofNullable(o.getSimulationDelayMillis()).orElse(500L);
           vertx.setTimer(simulationDelayMillis, a -> {
-            JsonObject params = new JsonObject();
-            params.put("body", new JsonObject());
-            params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
-            params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
-            params.put("form", new JsonObject());
-            params.put("path", new JsonObject());
-            params.put("scopes", new JsonArray().add("GET").add("PATCH"));
-            JsonObject query = new JsonObject();
-            Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
-            Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
-            if(softCommit == null && commitWithin == null)
-              softCommit = true;
-            if(softCommit != null)
-              query.put("softCommit", softCommit);
-            if(commitWithin != null)
-              query.put("commitWithin", commitWithin);
-            query.put("q", "*:*")
-                .put("fq", new JsonArray().add("pk:" + o.getPk()))
-                .put("var", new JsonArray().add("simulation:true"));
-            params.put("query", query);
-            JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
-            JsonObject json = new JsonObject().put("context", context);
-            eventBus.send(FishingBoat.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishingBoatFuture"));
+            workerExecutor.executeBlocking(() -> {
+              Promise<Void> promise1 = Promise.promise();
+              JsonObject params = new JsonObject();
+              params.put("body", new JsonObject());
+              params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
+              params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
+              params.put("form", new JsonObject());
+              params.put("path", new JsonObject());
+              params.put("scopes", new JsonArray().add("GET").add("PATCH"));
+              JsonObject query = new JsonObject();
+              Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
+              Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
+              if(softCommit == null && commitWithin == null)
+                softCommit = true;
+              if(softCommit != null)
+                query.put("softCommit", softCommit);
+              if(commitWithin != null)
+                query.put("commitWithin", commitWithin);
+              query.put("q", "*:*")
+                  .put("fq", new JsonArray().add("pk:" + o.getPk()))
+                  .put("var", new JsonArray().add("simulation:true"));
+              params.put("query", query);
+              JsonObject context = new JsonObject().put("params", params);
+              JsonObject json = new JsonObject().put("context", context);
+              eventBus.send(FishingBoat.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishingBoatFuture"));
+              promise1.complete();
+              return promise1.future();
+            });
           });
           promise.complete(fishingBoat);
         } else {
