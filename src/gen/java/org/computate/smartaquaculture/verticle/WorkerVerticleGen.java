@@ -89,291 +89,291 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class WorkerVerticleGen<DEV> extends AbstractVerticle {
-	protected static final Logger LOG = LoggerFactory.getLogger(WorkerVerticle.class);
-	public static final String configureI18nFileError1 = "Failed to load internationalization data from file: %s";
-	public static final String configureI18nFileError = configureI18nFileError1;
-	public static final String configureI18nError1 = "Failed to load internationalization data. ";
-	public static final String configureI18nError = configureI18nError1;
-	public static final String configureI18nComplete1 = "Loading internationalization data is complete. ";
-	public static final String configureI18nComplete = configureI18nComplete1;
-	public static final String configureI18nLoaded1 = "Loaded internationalization data: %s";
-	public static final String configureI18nLoaded = configureI18nLoaded1;
+  protected static final Logger LOG = LoggerFactory.getLogger(WorkerVerticle.class);
+  public static final String configureI18nFileError1 = "Failed to load internationalization data from file: %s";
+  public static final String configureI18nFileError = configureI18nFileError1;
+  public static final String configureI18nError1 = "Failed to load internationalization data. ";
+  public static final String configureI18nError = configureI18nError1;
+  public static final String configureI18nComplete1 = "Loading internationalization data is complete. ";
+  public static final String configureI18nComplete = configureI18nComplete1;
+  public static final String configureI18nLoaded1 = "Loaded internationalization data: %s";
+  public static final String configureI18nLoaded = configureI18nLoaded1;
 
-	public static final String configureDataConnectionError1 = "Could not open the database client connection. ";
-	public static final String configureDataConnectionError = configureDataConnectionError1;
-	public static final String configureDataConnectionSuccess1 = "The database client connection was successful. \n";
-	public static final String configureDataConnectionSuccess = configureDataConnectionSuccess1;
-	public static final String configureDataInitError1 = "Could not initialize the database tables. ";
-	public static final String configureDataInitError = configureDataInitError1;
-	public static final String configureDataInitSuccess1 = "The database was initialized successfully. \n";
-	public static final String configureDataInitSuccess = configureDataInitSuccess1;
+  public static final String configureDataConnectionError1 = "Could not open the database client connection. ";
+  public static final String configureDataConnectionError = configureDataConnectionError1;
+  public static final String configureDataConnectionSuccess1 = "The database client connection was successful. \n";
+  public static final String configureDataConnectionSuccess = configureDataConnectionSuccess1;
+  public static final String configureDataInitError1 = "Could not initialize the database tables. ";
+  public static final String configureDataInitError = configureDataInitError1;
+  public static final String configureDataInitSuccess1 = "The database was initialized successfully. \n";
+  public static final String configureDataInitSuccess = configureDataInitSuccess1;
 
-	public static final String configureSharedWorkerExecutorFail1 = "Could not configure the shared worker executor. ";
-	public static final String configureSharedWorkerExecutorFail = configureSharedWorkerExecutorFail1;
-	public static final String configureSharedWorkerExecutorComplete1 = "The shared worker executor \"{}\" was configured successfully. \n";
-	public static final String configureSharedWorkerExecutorComplete = configureSharedWorkerExecutorComplete1;
+  public static final String configureSharedWorkerExecutorFail1 = "Could not configure the shared worker executor. ";
+  public static final String configureSharedWorkerExecutorFail = configureSharedWorkerExecutorFail1;
+  public static final String configureSharedWorkerExecutorComplete1 = "The shared worker executor \"{}\" was configured successfully. \n";
+  public static final String configureSharedWorkerExecutorComplete = configureSharedWorkerExecutorComplete1;
 
-	public static final String configureKafkaSuccess1 = "The Kafka producer was initialized successfully. ";
-	public static final String configureKafkaSuccess = configureKafkaSuccess1;
+  public static final String configureKafkaSuccess1 = "The Kafka producer was initialized successfully. ";
+  public static final String configureKafkaSuccess = configureKafkaSuccess1;
 
-	public static final String importDataSkip1 = "The data import is disabled. ";
-	public static final String importDataSkip = importDataSkip1;
-
-
-	//////////////
-	// initDeep //
-	//////////////
-
-	public WorkerVerticle initDeepWorkerVerticle(SiteRequest siteRequest_) {
-		initDeepWorkerVerticle();
-		return (WorkerVerticle)this;
-	}
-
-	public void initDeepWorkerVerticle() {
-		initWorkerVerticle();
-	}
-
-	public void initWorkerVerticle() {
-	}
-
-	public void initDeepForClass(SiteRequest siteRequest_) {
-		initDeepWorkerVerticle(siteRequest_);
-	}
-
-	/////////////
-	// obtain //
-	/////////////
-
-	public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainWorkerVerticle(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainWorkerVerticle(String var) {
-		WorkerVerticle oWorkerVerticle = (WorkerVerticle)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	///////////////
-	// relate //
-	///////////////
-
-	public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateWorkerVerticle(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateWorkerVerticle(String var, Object val) {
-		WorkerVerticle oWorkerVerticle = (WorkerVerticle)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	///////////////
-	// staticSet //
-	///////////////
-
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, WorkerVerticle o) {
-		return staticSetWorkerVerticle(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetWorkerVerticle(String entityVar, SiteRequest siteRequest_, String v, WorkerVerticle o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	////////////////
-	// staticSearch //
-	////////////////
-
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchWorkerVerticle(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchWorkerVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	///////////////////
-	// staticSearchStr //
-	///////////////////
-
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrWorkerVerticle(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrWorkerVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	//////////////////
-	// staticSearchFq //
-	//////////////////
-
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqWorkerVerticle(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqWorkerVerticle(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	//////////////
-	// toString //
-	//////////////
-
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		return sb.toString();
-	}
-
-	public static final String[] WorkerVerticleVals = new String[] { configureI18nFileError1, configureI18nError1, configureI18nComplete1, configureI18nLoaded1, configureDataConnectionError1, configureDataConnectionSuccess1, configureDataInitError1, configureDataInitSuccess1, configureSharedWorkerExecutorFail1, configureSharedWorkerExecutorComplete1, configureKafkaSuccess1, importDataSkip1 };
-
-	public static final String CLASS_SIMPLE_NAME = "WorkerVerticle";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.verticle.WorkerVerticle";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String importDataSkip1 = "The data import is disabled. ";
+  public static final String importDataSkip = importDataSkip1;
 
 
-	public String idForClass() {
-		return null;
-	}
+  //////////////
+  // initDeep //
+  //////////////
 
-	public String titleForClass() {
-		return null;
-	}
+  public WorkerVerticle initDeepWorkerVerticle(SiteRequest siteRequest_) {
+    initDeepWorkerVerticle();
+    return (WorkerVerticle)this;
+  }
 
-	public String nameForClass() {
-		return null;
-	}
+  public void initDeepWorkerVerticle() {
+    initWorkerVerticle();
+  }
 
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  public void initWorkerVerticle() {
+  }
 
-	public String descriptionForClass() {
-		return null;
-	}
+  public void initDeepForClass(SiteRequest siteRequest_) {
+    initDeepWorkerVerticle(siteRequest_);
+  }
 
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  /////////////
+  // obtain //
+  /////////////
 
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainWorkerVerticle(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainWorkerVerticle(String var) {
+    WorkerVerticle oWorkerVerticle = (WorkerVerticle)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  ///////////////
+  // relate //
+  ///////////////
 
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateWorkerVerticle(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateWorkerVerticle(String var, Object val) {
+    WorkerVerticle oWorkerVerticle = (WorkerVerticle)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static String displayNameForClass(String var) {
-		return WorkerVerticle.displayNameWorkerVerticle(var);
-	}
-	public static String displayNameWorkerVerticle(String var) {
-		switch(var) {
-		default:
-			return null;
-		}
-	}
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static String descriptionWorkerVerticle(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, WorkerVerticle o) {
+    return staticSetWorkerVerticle(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetWorkerVerticle(String entityVar, SiteRequest siteRequest_, String v, WorkerVerticle o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static String classSimpleNameWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Integer htmColumnWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchWorkerVerticle(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchWorkerVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer htmRowWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static Integer htmCellWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrWorkerVerticle(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrWorkerVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer lengthMinWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static Integer lengthMaxWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqWorkerVerticle(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqWorkerVerticle(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer maxWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  //////////////
+  // toString //
+  //////////////
 
-	public static Integer minWorkerVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    return sb.toString();
+  }
+
+  public static final String[] WorkerVerticleVals = new String[] { configureI18nFileError1, configureI18nError1, configureI18nComplete1, configureI18nLoaded1, configureDataConnectionError1, configureDataConnectionSuccess1, configureDataInitError1, configureDataInitSuccess1, configureSharedWorkerExecutorFail1, configureSharedWorkerExecutorComplete1, configureKafkaSuccess1, importDataSkip1 };
+
+  public static final String CLASS_SIMPLE_NAME = "WorkerVerticle";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.verticle.WorkerVerticle";
+  public static final String CLASS_AUTH_RESOURCE = "";
+
+
+  public String idForClass() {
+    return null;
+  }
+
+  public String titleForClass() {
+    return null;
+  }
+
+  public String nameForClass() {
+    return null;
+  }
+
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
+
+  public String descriptionForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public static String displayNameForClass(String var) {
+    return WorkerVerticle.displayNameWorkerVerticle(var);
+  }
+  public static String displayNameWorkerVerticle(String var) {
+    switch(var) {
+    default:
+      return null;
+    }
+  }
+
+  public static String descriptionWorkerVerticle(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static String classSimpleNameWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmColumnWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmRowWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmCellWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMinWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMaxWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer maxWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer minWorkerVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 }

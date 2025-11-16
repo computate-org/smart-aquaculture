@@ -166,7 +166,7 @@ public class SitePage extends SitePageGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: Course Number
+   * DisplayName: course number
    * Description: The course number for this page. 
    */
   protected void _courseNum(Wrap<Integer> w) {
@@ -177,7 +177,7 @@ public class SitePage extends SitePageGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: Lesson Number
+   * DisplayName: lesson number
    * Description: The lesson number for this page. 
    */
   protected void _lessonNum(Wrap<Integer> w) {

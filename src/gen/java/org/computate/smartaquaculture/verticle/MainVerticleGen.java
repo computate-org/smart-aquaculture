@@ -89,276 +89,274 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
-	protected static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+  public static final String authorizeDataFail1 = "Adding Keycloak authorization resources, policies, and permissions failed. ";
+  public static final String authorizeDataFail = authorizeDataFail1;
 
-	public static final String SITE_NAME = "smart-aquaculture";
-	public static final String authorizeDataFail1 = "Adding Keycloak authorization resources, policies, and permissions failed. ";
-	public static final String authorizeDataFail = authorizeDataFail1;
-
-	public static final String configureI18nFileError1 = "Failed to load internationalization data from file: %s";
-	public static final String configureI18nFileError = configureI18nFileError1;
-	public static final String configureI18nError1 = "Failed to load internationalization data. ";
-	public static final String configureI18nError = configureI18nError1;
-	public static final String configureI18nComplete1 = "Loading internationalization data is complete. ";
-	public static final String configureI18nComplete = configureI18nComplete1;
-	public static final String configureI18nLoaded1 = "Loaded internationalization data: %s";
-	public static final String configureI18nLoaded = configureI18nLoaded1;
+  public static final String configureI18nFileError1 = "Failed to load internationalization data from file: %s";
+  public static final String configureI18nFileError = configureI18nFileError1;
+  public static final String configureI18nError1 = "Failed to load internationalization data. ";
+  public static final String configureI18nError = configureI18nError1;
+  public static final String configureI18nComplete1 = "Loading internationalization data is complete. ";
+  public static final String configureI18nComplete = configureI18nComplete1;
+  public static final String configureI18nLoaded1 = "Loaded internationalization data: %s";
+  public static final String configureI18nLoaded = configureI18nLoaded1;
 
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public MainVerticle initDeepMainVerticle(SiteRequest siteRequest_) {
-		initDeepMainVerticle();
-		return (MainVerticle)this;
-	}
+  public MainVerticle initDeepMainVerticle(SiteRequest siteRequest_) {
+    initDeepMainVerticle();
+    return (MainVerticle)this;
+  }
 
-	public void initDeepMainVerticle() {
-		initMainVerticle();
-	}
+  public void initDeepMainVerticle() {
+    initMainVerticle();
+  }
 
-	public void initMainVerticle() {
-	}
+  public void initMainVerticle() {
+  }
 
-	public void initDeepForClass(SiteRequest siteRequest_) {
-		initDeepMainVerticle(siteRequest_);
-	}
+  public void initDeepForClass(SiteRequest siteRequest_) {
+    initDeepMainVerticle(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainMainVerticle(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainMainVerticle(String var) {
-		MainVerticle oMainVerticle = (MainVerticle)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainMainVerticle(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainMainVerticle(String var) {
+    MainVerticle oMainVerticle = (MainVerticle)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateMainVerticle(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateMainVerticle(String var, Object val) {
-		MainVerticle oMainVerticle = (MainVerticle)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateMainVerticle(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateMainVerticle(String var, Object val) {
+    MainVerticle oMainVerticle = (MainVerticle)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, MainVerticle o) {
-		return staticSetMainVerticle(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetMainVerticle(String entityVar, SiteRequest siteRequest_, String v, MainVerticle o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, MainVerticle o) {
+    return staticSetMainVerticle(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetMainVerticle(String entityVar, SiteRequest siteRequest_, String v, MainVerticle o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchMainVerticle(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchMainVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchMainVerticle(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchMainVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrMainVerticle(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrMainVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrMainVerticle(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrMainVerticle(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqMainVerticle(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqMainVerticle(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqMainVerticle(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqMainVerticle(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    return sb.toString();
+  }
 
-	public static final String[] MainVerticleVals = new String[] { authorizeDataFail1, configureI18nFileError1, configureI18nError1, configureI18nComplete1, configureI18nLoaded1 };
+  public static final String[] MainVerticleVals = new String[] { authorizeDataFail1, configureI18nFileError1, configureI18nError1, configureI18nComplete1, configureI18nLoaded1 };
 
-	public static final String CLASS_SIMPLE_NAME = "MainVerticle";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.verticle.MainVerticle";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String CLASS_SIMPLE_NAME = "MainVerticle";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.verticle.MainVerticle";
+  public static final String CLASS_AUTH_RESOURCE = "";
 
 
-	public String idForClass() {
-		return null;
-	}
+  public String idForClass() {
+    return null;
+  }
 
-	public String titleForClass() {
-		return null;
-	}
+  public String titleForClass() {
+    return null;
+  }
 
-	public String nameForClass() {
-		return null;
-	}
+  public String nameForClass() {
+    return null;
+  }
 
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	public String descriptionForClass() {
-		return null;
-	}
+  public String descriptionForClass() {
+    return null;
+  }
 
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return MainVerticle.displayNameMainVerticle(var);
-	}
-	public static String displayNameMainVerticle(String var) {
-		switch(var) {
-		default:
-			return null;
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return MainVerticle.displayNameMainVerticle(var);
+  }
+  public static String displayNameMainVerticle(String var) {
+    switch(var) {
+    default:
+      return null;
+    }
+  }
 
-	public static String descriptionMainVerticle(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static String descriptionMainVerticle(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static String classSimpleNameMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static String classSimpleNameMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer htmColumnMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Integer htmColumnMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer htmRowMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Integer htmRowMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer htmCellMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Integer htmCellMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer lengthMinMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Integer lengthMinMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer lengthMaxMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Integer lengthMaxMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer maxMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Integer maxMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer minMainVerticle(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Integer minMainVerticle(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 }

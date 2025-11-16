@@ -29,184 +29,184 @@ import org.computate.smartaquaculture.request.SiteRequest;
  */
 public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUser {
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Description: User keys that relate to this user
-   */
-  protected void _userKeys(List<Long> l) {
-    l.add(pk);
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Description: User keys that relate to this user
+	 */
+	protected void _userKeys(List<Long> l) {
+		l.add(pk);
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * Description: The unique user ID from the SSO server
-   * VarId: true
-   * Unique: true
-   */
-  protected void _userId(Wrap<String> c) {
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * Description: The unique user ID from the SSO server
+	 * VarId: true
+	 * Unique: true
+	 */
+	protected void _userId(Wrap<String> c) {
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * Description: The user's username
-   * HtmColumn: 2
-   */
-  protected void _userName(Wrap<String> c) {
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * Description: The user's username
+	 * HtmColumn: 2
+	 */
+	protected void _userName(Wrap<String> c) {
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * Description: The user's email
-   */
-  protected void _userEmail(Wrap<String> c) {
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * Description: The user's email
+	 */
+	protected void _userEmail(Wrap<String> c) {
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * Description: The user's first name
-   */
-  protected void _userFirstName(Wrap<String> c) {
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * Description: The user's first name
+	 */
+	protected void _userFirstName(Wrap<String> c) {
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * Description: The user's last name
-   */
-  protected void _userLastName(Wrap<String> c) {
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * Description: The user's last name
+	 */
+	protected void _userLastName(Wrap<String> c) {
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * Description: The user's full name
-   * HtmColumn: 1
-   */
-  protected void _userFullName(Wrap<String> c) {
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * Description: The user's full name
+	 * HtmColumn: 1
+	 */
+	protected void _userFullName(Wrap<String> c) {
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * HtmRow: 4
-   * HtmCell: 1
-   * HtmRowTitleOpen: user options
-   * DisplayName: see archived
-   * Description: A user field allowing a user to see archived records
-   */
-  protected void _seeArchived(Wrap<Boolean> c) {
-    c.o(false);
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * HtmRow: 4
+	 * HtmCell: 1
+	 * HtmRowTitleOpen: user options
+	 * DisplayName: see archived
+	 * Description: A user field allowing a user to see archived records
+	 */
+	protected void _seeArchived(Wrap<Boolean> c) {
+		c.o(false);
+	}
 
-  /**
-   * DocValues: true
-   * Persist: true
-   * Description: The display name for this user
-   * VarName: true
-   */
-  protected void _displayName(Wrap<String> c) {
-    c.o(String.format("%s (%s) <%s>", userFullName, userName, userEmail));
-  }
+	/**
+	 * DocValues: true
+	 * Persist: true
+	 * Description: The display name for this user
+	 * VarName: true
+	 */
+	protected void _displayName(Wrap<String> c) {
+		c.o(String.format("%s (%s) <%s>", userFullName, userName, userEmail));
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * HtmRow: 4
-   * HtmCell: 1
-   * DisplayName: font size
-   * Description: The default font size for the site (small, medium, large). 
-   * Refresh: true
-   * Cookie: SITE_FONT_SIZE
-   * Radio:
-   *   s: small
-   *   m: medium
-   *   l: large
-   */
-  protected void _siteFontSize(Wrap<String> w) {
-    w.o("m");
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * HtmRow: 4
+	 * HtmCell: 1
+	 * DisplayName: font size
+	 * Description: The default font size for the site
+	 * Refresh: true
+	 * Cookie: SITE_FONT_SIZE
+	 * Radio:
+	 *   s: small
+	 *   m: medium
+	 *   l: large
+	 */
+	protected void _siteFontSize(Wrap<String> w) {
+		w.o("m");
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * HtmRow: 4
-   * HtmCell: 2
-   * DisplayName: site theme
-   * Description: The site theme, either light or dark. 
-   * Refresh: true
-   * Cookie: SITE_THEME
-   * Radio:
-   *   light: Light
-   *   dark: Dark
-   */
-  protected void _siteTheme(Wrap<String> w) {
-    w.o("dark");
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * HtmRow: 4
+	 * HtmCell: 2
+	 * DisplayName: site theme
+	 * Description: The site theme, either light or dark. 
+	 * Refresh: true
+	 * Cookie: SITE_THEME
+	 * Radio:
+	 *   light: Light
+	 *   dark: Dark
+	 */
+	protected void _siteTheme(Wrap<String> w) {
+		w.o("dark");
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * HtmRow: 4
-   * HtmCell: 3
-   * DisplayName: web components theme
-   * Description: The web components theme for the site. 
-   * Refresh: true
-   * Cookie: WEB_COMPONENTS_THEME
-   * Radio:
-   *   default: Default — "Your trusty companion, like a perfectly broken-in pair of jeans."
-   *   classic: Classic — "Timeless elegance that never goes out of style."
-   *   awesome: Awesome — "Punchy and vibrant, the rockstar of themes."
-   *   active: Active — "Energetic and tactile, always in motion."
-   *   brutalist: Brutalist — "Sharp, square, and unapologetically bold."
-   *   glossy: Glossy — "Bustling with plenty of luster and shine."
-   *   matter: Matter — "Digital design inspired by the real world."
-   *   mellow: Mellow — "Soft and soothing, like a lazy Sunday morning."
-   *   playful: Playful — "Cheerful and engaging, like a playground on screen."
-   *   premium: Premium — "The ultimate in sophistication and style."
-   *   tailspin: Tailspin — "Like a bird in flight, guiding you from there to here."
-   */
-  protected void _webComponentsTheme(Wrap<String> w) {
-    w.o(siteRequest_.getConfig().getString(ConfigKeys.WEB_COMPONENTS_THEME));
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * HtmRow: 4
+	 * HtmCell: 3
+	 * DisplayName: web components theme
+	 * Description: The web components theme for the site. 
+	 * Refresh: true
+	 * Cookie: WEB_COMPONENTS_THEME
+	 * Radio:
+	 *   default: Default — "Your trusty companion, like a perfectly broken-in pair of jeans."
+	 *   classic: Classic — "Timeless elegance that never goes out of style."
+	 *   awesome: Awesome — "Punchy and vibrant, the rockstar of themes."
+	 *   active: Active — "Energetic and tactile, always in motion."
+	 *   brutalist: Brutalist — "Sharp, square, and unapologetically bold."
+	 *   glossy: Glossy — "Bustling with plenty of luster and shine."
+	 *   matter: Matter — "Digital design inspired by the real world."
+	 *   mellow: Mellow — "Soft and soothing, like a lazy Sunday morning."
+	 *   playful: Playful — "Cheerful and engaging, like a playground on screen."
+	 *   premium: Premium — "The ultimate in sophistication and style."
+	 *   tailspin: Tailspin — "Like a bird in flight, guiding you from there to here."
+	 */
+	protected void _webComponentsTheme(Wrap<String> w) {
+		w.o(siteRequest_.getConfig().getString(ConfigKeys.WEB_COMPONENTS_THEME));
+	}
 
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * DisplayName: customer profile ID
-   * Description: Authorize.net customer profile ID. 
-   */
-  protected void _customerProfileId(Wrap<String> w) {
-  }
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * DisplayName: customer profile ID
+	 * Description: Authorize.net customer profile ID. 
+	 */
+	protected void _customerProfileId(Wrap<String> w) {
+	}
 
-  /**
-   * Description: An implementation for the interface to set the request object
-   */
-  @Override
-  public <T extends ComputateSiteRequest> void setSiteRequest_(T siteRequest) {
-    siteRequest_ = (SiteRequest)siteRequest;
-  }
+	/**
+	 * Description: An implementation for the interface to set the request object
+	 */
+	@Override
+	public <T extends ComputateSiteRequest> void setSiteRequest_(T siteRequest) {
+		siteRequest_ = (SiteRequest)siteRequest;
+	}
 
-  /**
-   * Description: An implementation for the interface to create a new API request object
-   */
-  @Override
-  public void apiRequestSiteUser() {
-    super.apiRequestSiteUser();
-  }
+	/**
+	 * Description: An implementation for the interface to create a new API request object
+	 */
+	@Override
+	public void apiRequestSiteUser() {
+		super.apiRequestSiteUser();
+	}
 }

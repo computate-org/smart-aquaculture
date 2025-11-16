@@ -214,10 +214,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
   /**
    * {@inheritDoc}
    * DocValues: true
-   * HtmColumn: 99
+   * Persist: true
    * Facet: true
-   * DisplayName: edit
-   * Description: Edit this
+   * DisplayName: manage
+   * Description: Manage this
    * Link: true
    * Icon: <i class="fa-duotone fa-regular fa-pen-to-square"></i>
    * VarUrlEditPage: true
@@ -231,6 +231,7 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
   /**
    * {@inheritDoc}
    * DocValues: true
+   * Persist: true
    * Facet: true
    * DisplayName: user
    * Description: User page
@@ -246,6 +247,7 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
   /**
    * {@inheritDoc}
    * DocValues: true
+   * Persist: true
    * Facet: true
    * DisplayName: download
    * Description: the download URL

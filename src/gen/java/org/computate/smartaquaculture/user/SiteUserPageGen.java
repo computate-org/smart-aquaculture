@@ -111,308 +111,308 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class SiteUserPageGen<DEV> extends SiteUserGenPage {
-	protected static final Logger LOG = LoggerFactory.getLogger(SiteUserPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(SiteUserPage.class);
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<SiteUserPageGen<DEV>> promiseDeepSiteUserPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepSiteUserPage();
-	}
+  public Future<SiteUserPageGen<DEV>> promiseDeepSiteUserPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepSiteUserPage();
+  }
 
-	public Future<SiteUserPageGen<DEV>> promiseDeepSiteUserPage() {
-		Promise<SiteUserPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseSiteUserPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepSiteUserGenPage(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<SiteUserPageGen<DEV>> promiseDeepSiteUserPage() {
+    Promise<SiteUserPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseSiteUserPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepSiteUserGenPage(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseSiteUserPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseSiteUserPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends SiteUserPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepSiteUserPage(siteRequest_);
-	}
+  @Override public Future<? extends SiteUserPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepSiteUserPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestSiteUserPage(SiteRequest siteRequest_) {
-			super.siteRequestSiteUserGenPage(siteRequest_);
-	}
+  public void siteRequestSiteUserPage(SiteRequest siteRequest_) {
+      super.siteRequestSiteUserGenPage(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestSiteUserPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestSiteUserPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainSiteUserPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainSiteUserPage(String var) {
-		SiteUserPage oSiteUserPage = (SiteUserPage)this;
-		switch(var) {
-			default:
-				return super.obtainSiteUserGenPage(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainSiteUserPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainSiteUserPage(String var) {
+    SiteUserPage oSiteUserPage = (SiteUserPage)this;
+    switch(var) {
+      default:
+        return super.obtainSiteUserGenPage(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateSiteUserPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateSiteUserPage(String var, Object val) {
-		SiteUserPage oSiteUserPage = (SiteUserPage)this;
-		switch(var) {
-			default:
-				return super.relateSiteUserGenPage(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateSiteUserPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateSiteUserPage(String var, Object val) {
+    SiteUserPage oSiteUserPage = (SiteUserPage)this;
+    switch(var) {
+      default:
+        return super.relateSiteUserGenPage(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, SiteUserPage o) {
-		return staticSetSiteUserPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetSiteUserPage(String entityVar, SiteRequest siteRequest_, String v, SiteUserPage o) {
-		switch(entityVar) {
-			default:
-				return SiteUserGenPage.staticSetSiteUserGenPage(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, SiteUserPage o) {
+    return staticSetSiteUserPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetSiteUserPage(String entityVar, SiteRequest siteRequest_, String v, SiteUserPage o) {
+    switch(entityVar) {
+      default:
+        return SiteUserGenPage.staticSetSiteUserGenPage(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchSiteUserPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchSiteUserPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return SiteUserGenPage.staticSearchSiteUserGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchSiteUserPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchSiteUserPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return SiteUserGenPage.staticSearchSiteUserGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrSiteUserPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrSiteUserPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return SiteUserGenPage.staticSearchStrSiteUserGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrSiteUserPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrSiteUserPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return SiteUserGenPage.staticSearchStrSiteUserGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqSiteUserPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqSiteUserPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return SiteUserGenPage.staticSearchFqSiteUserGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqSiteUserPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqSiteUserPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return SiteUserGenPage.staticSearchFqSiteUserGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "SiteUserPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.user.SiteUserPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String CLASS_SIMPLE_NAME = "SiteUserPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.user.SiteUserPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
 
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return SiteUserPage.displayNameSiteUserPage(var);
-	}
-	public static String displayNameSiteUserPage(String var) {
-		switch(var) {
-		default:
-			return SiteUserGenPage.displayNameSiteUserGenPage(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return SiteUserPage.displayNameSiteUserPage(var);
+  }
+  public static String displayNameSiteUserPage(String var) {
+    switch(var) {
+    default:
+      return SiteUserGenPage.displayNameSiteUserGenPage(var);
+    }
+  }
 
-	public static String descriptionSiteUserPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return SiteUserGenPage.descriptionSiteUserGenPage(var);
-		}
-	}
+  public static String descriptionSiteUserPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return SiteUserGenPage.descriptionSiteUserGenPage(var);
+    }
+  }
 
-	public static String classSimpleNameSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.classSimpleNameSiteUserGenPage(var);
-		}
-	}
+  public static String classSimpleNameSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.classSimpleNameSiteUserGenPage(var);
+    }
+  }
 
-	public static Integer htmColumnSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.htmColumnSiteUserGenPage(var);
-		}
-	}
+  public static Integer htmColumnSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.htmColumnSiteUserGenPage(var);
+    }
+  }
 
-	public static Integer htmRowSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.htmRowSiteUserGenPage(var);
-		}
-	}
+  public static Integer htmRowSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.htmRowSiteUserGenPage(var);
+    }
+  }
 
-	public static Integer htmCellSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.htmCellSiteUserGenPage(var);
-		}
-	}
+  public static Integer htmCellSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.htmCellSiteUserGenPage(var);
+    }
+  }
 
-	public static Integer lengthMinSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.lengthMinSiteUserGenPage(var);
-		}
-	}
+  public static Integer lengthMinSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.lengthMinSiteUserGenPage(var);
+    }
+  }
 
-	public static Integer lengthMaxSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.lengthMaxSiteUserGenPage(var);
-		}
-	}
+  public static Integer lengthMaxSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.lengthMaxSiteUserGenPage(var);
+    }
+  }
 
-	public static Integer maxSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.maxSiteUserGenPage(var);
-		}
-	}
+  public static Integer maxSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.maxSiteUserGenPage(var);
+    }
+  }
 
-	public static Integer minSiteUserPage(String var) {
-		switch(var) {
-			default:
-				return SiteUserGenPage.minSiteUserGenPage(var);
-		}
-	}
+  public static Integer minSiteUserPage(String var) {
+    switch(var) {
+      default:
+        return SiteUserGenPage.minSiteUserGenPage(var);
+    }
+  }
 }

@@ -10,15 +10,15 @@ find \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/timezone/TimeZoneGenPage.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/timezone/TimeZoneEnUSGenApiServiceImpl.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/timezone/TimeZoneEnUSGenApiService.java \
-  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feedingoperation/FeedingOperationGenPage.java \
-  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feedingoperation/FeedingOperationEnUSGenApiServiceImpl.java \
-  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feedingoperation/FeedingOperationEnUSGenApiService.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feeder/FeederGenPage.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feeder/FeederEnUSGenApiServiceImpl.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feeder/FeederEnUSGenApiService.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feed/FeedGenPage.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feed/FeedEnUSGenApiServiceImpl.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feed/FeedEnUSGenApiService.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feedingoperation/FeedingOperationGenPage.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feedingoperation/FeedingOperationEnUSGenApiServiceImpl.java \
+  ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/model/fiware/feedingoperation/FeedingOperationEnUSGenApiService.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/page/SitePageGenPage.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/page/SitePageEnUSGenApiServiceImpl.java \
   ~/.local/src/smart-aquaculture/src/main/java/org/computate/smartaquaculture/page/SitePageEnUSGenApiService.java \
@@ -64,13 +64,6 @@ find \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/time-zone/TimeZoneSearchButtons.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/time-zone/TimeZoneSearchForm.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/time-zone/TimeZoneSidebar.htm \
-      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/edit/feeding-operation/FeedingOperationGenEditPage.htm \
-      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationGenSearchPage.htm \
-      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationLocation.htm \
-      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationPaginationButtons.htm \
-      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationSearchButtons.htm \
-      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationSearchForm.htm \
-      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationSidebar.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/edit/feeder/FeederGenEditPage.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeder/FeederGenSearchPage.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeder/FeederLocation.htm \
@@ -85,6 +78,13 @@ find \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feed/FeedSearchButtons.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feed/FeedSearchForm.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feed/FeedSidebar.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/edit/feeding-operation/FeedingOperationGenEditPage.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationGenSearchPage.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationLocation.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationPaginationButtons.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationSearchButtons.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationSearchForm.htm \
+      ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/feeding-operation/FeedingOperationSidebar.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/edit/article/SitePageGenEditPage.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/article/SitePageGenSearchPage.htm \
       ~/.local/src/smart-aquaculture-static/webawesome/templates/en-us/search/article/SitePageLocation.htm \

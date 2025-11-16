@@ -136,2041 +136,2069 @@ import io.vertx.core.json.JsonObject;
  * Generated: true
  **/
 public abstract class BaseResultGen<DEV> extends Object {
-	protected static final Logger LOG = LoggerFactory.getLogger(BaseResult.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(BaseResult.class);
 
 	//////////////////
-	// siteRequest_ //
+  // siteRequest_ //
 	//////////////////
 
 
-	/**	 The entity siteRequest_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonIgnore
-	@JsonInclude(Include.NON_NULL)
-	protected SiteRequest siteRequest_;
+  /**   The entity siteRequest_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonIgnore
+  @JsonInclude(Include.NON_NULL)
+  protected SiteRequest siteRequest_;
 
-	/**	<br> The entity siteRequest_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:siteRequest_">Find the entity siteRequest_ in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _siteRequest_(Wrap<SiteRequest> w);
+  /**  <br> The entity siteRequest_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:siteRequest_">Find the entity siteRequest_ in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _siteRequest_(Wrap<SiteRequest> w);
 
-	public SiteRequest getSiteRequest_() {
-		return siteRequest_;
-	}
+  public SiteRequest getSiteRequest_() {
+    return siteRequest_;
+  }
 
-	public void setSiteRequest_(SiteRequest siteRequest_) {
-		this.siteRequest_ = siteRequest_;
-	}
-	public static SiteRequest staticSetSiteRequest_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected BaseResult siteRequest_Init() {
-		Wrap<SiteRequest> siteRequest_Wrap = new Wrap<SiteRequest>().var("siteRequest_");
-		if(siteRequest_ == null) {
-			_siteRequest_(siteRequest_Wrap);
-			Optional.ofNullable(siteRequest_Wrap.getO()).ifPresent(o -> {
-				setSiteRequest_(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public void setSiteRequest_(SiteRequest siteRequest_) {
+    this.siteRequest_ = siteRequest_;
+  }
+  public static SiteRequest staticSetSiteRequest_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected BaseResult siteRequest_Init() {
+    Wrap<SiteRequest> siteRequest_Wrap = new Wrap<SiteRequest>().var("siteRequest_");
+    if(siteRequest_ == null) {
+      _siteRequest_(siteRequest_Wrap);
+      Optional.ofNullable(siteRequest_Wrap.getO()).ifPresent(o -> {
+        setSiteRequest_(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
 	/////////////
-	// created //
+  // created //
 	/////////////
 
 
-	/**	 The entity created
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
-	@JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
-	@JsonInclude(Include.NON_NULL)
-	protected ZonedDateTime created;
+  /**   The entity created
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
+  @JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
+  @JsonInclude(Include.NON_NULL)
+  protected ZonedDateTime created;
 
-	/**	<br> The entity created
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:created">Find the entity created in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _created(Wrap<ZonedDateTime> w);
+  /**  <br> The entity created
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:created">Find the entity created in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _created(Wrap<ZonedDateTime> w);
 
-	public ZonedDateTime getCreated() {
-		return created;
-	}
+  public ZonedDateTime getCreated() {
+    return created;
+  }
 
-	public void setCreated(ZonedDateTime created) {
-		this.created = Optional.ofNullable(created).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
-	}
-	@JsonIgnore
-	public void setCreated(Instant o) {
-		this.created = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
-	}
-	/** Example: 2011-12-03T10:15:30+01:00 **/
-	@JsonIgnore
-	public void setCreated(String o) {
-		ZoneId zoneId = Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"));
-		this.created = BaseResult.staticSetCreated(siteRequest_, o, zoneId);
-	}
-	@JsonIgnore
-	public void setCreated(Date o) {
-		this.created = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
-	}
-	public static ZonedDateTime staticSetCreated(SiteRequest siteRequest_, String o, ZoneId zoneId) {
-		if(StringUtils.endsWith(o, "]"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
-		else if(StringUtils.endsWith(o, "Z"))
-			return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
-		else if(StringUtils.contains(o, "T"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
-		else
-			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
-	}
-	protected BaseResult createdInit() {
-		Wrap<ZonedDateTime> createdWrap = new Wrap<ZonedDateTime>().var("created");
-		if(created == null) {
-			_created(createdWrap);
-			Optional.ofNullable(createdWrap.getO()).ifPresent(o -> {
-				setCreated(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public void setCreated(ZonedDateTime created) {
+    this.created = Optional.ofNullable(created).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
+  }
+  @JsonIgnore
+  public void setCreated(Instant o) {
+    this.created = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
+  }
+  /** Example: 2011-12-03T10:15:30+01:00 **/
+  @JsonIgnore
+  public void setCreated(String o) {
+    ZoneId zoneId = Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"));
+    this.created = BaseResult.staticSetCreated(siteRequest_, o, zoneId);
+  }
+  @JsonIgnore
+  public void setCreated(Date o) {
+    this.created = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
+  }
+  public static ZonedDateTime staticSetCreated(SiteRequest siteRequest_, String o, ZoneId zoneId) {
+    if(StringUtils.endsWith(o, "]"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
+    else if(StringUtils.endsWith(o, "Z"))
+      return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
+    else if(StringUtils.contains(o, "T"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
+    else
+      return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
+  }
+  protected BaseResult createdInit() {
+    Wrap<ZonedDateTime> createdWrap = new Wrap<ZonedDateTime>().var("created");
+    if(created == null) {
+      _created(createdWrap);
+      Optional.ofNullable(createdWrap.getO()).ifPresent(o -> {
+        setCreated(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchCreated(SiteRequest siteRequest_, ZonedDateTime o) {
-		return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
-	}
+  public static String staticSearchCreated(SiteRequest siteRequest_, ZonedDateTime o) {
+    return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
+  }
 
-	public static String staticSearchStrCreated(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return BaseResult.staticSearchCreated(siteRequest_, BaseResult.staticSetCreated(siteRequest_, o, zoneId));
-	}
+  public static String staticSearchStrCreated(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return BaseResult.staticSearchCreated(siteRequest_, BaseResult.staticSetCreated(siteRequest_, o, zoneId));
+  }
 
-	public static String staticSearchFqCreated(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return BaseResult.staticSearchCreated(siteRequest_, BaseResult.staticSetCreated(siteRequest_, o, zoneId)).toString();
-	}
+  public static String staticSearchFqCreated(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return BaseResult.staticSearchCreated(siteRequest_, BaseResult.staticSetCreated(siteRequest_, o, zoneId)).toString();
+  }
 
-	public OffsetDateTime sqlCreated() {
-		return created == null ? null : created.toOffsetDateTime();
-	}
-
-	//////////////
-	// modified //
-	//////////////
-
-
-	/**	 The entity modified
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
-	@JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
-	@JsonInclude(Include.NON_NULL)
-	protected ZonedDateTime modified;
-
-	/**	<br> The entity modified
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:modified">Find the entity modified in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _modified(Wrap<ZonedDateTime> w);
-
-	public ZonedDateTime getModified() {
-		return modified;
-	}
-
-	public void setModified(ZonedDateTime modified) {
-		this.modified = Optional.ofNullable(modified).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
-	}
-	@JsonIgnore
-	public void setModified(Instant o) {
-		this.modified = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
-	}
-	/** Example: 2011-12-03T10:15:30+01:00 **/
-	@JsonIgnore
-	public void setModified(String o) {
-		ZoneId zoneId = Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"));
-		this.modified = BaseResult.staticSetModified(siteRequest_, o, zoneId);
-	}
-	@JsonIgnore
-	public void setModified(Date o) {
-		this.modified = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
-	}
-	public static ZonedDateTime staticSetModified(SiteRequest siteRequest_, String o, ZoneId zoneId) {
-		if(StringUtils.endsWith(o, "]"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
-		else if(StringUtils.endsWith(o, "Z"))
-			return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
-		else if(StringUtils.contains(o, "T"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
-		else
-			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
-	}
-	protected BaseResult modifiedInit() {
-		Wrap<ZonedDateTime> modifiedWrap = new Wrap<ZonedDateTime>().var("modified");
-		if(modified == null) {
-			_modified(modifiedWrap);
-			Optional.ofNullable(modifiedWrap.getO()).ifPresent(o -> {
-				setModified(o);
-			});
-		}
-		return (BaseResult)this;
-	}
-
-	public static String staticSearchModified(SiteRequest siteRequest_, ZonedDateTime o) {
-		return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
-	}
-
-	public static String staticSearchStrModified(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return BaseResult.staticSearchModified(siteRequest_, BaseResult.staticSetModified(siteRequest_, o, zoneId));
-	}
-
-	public static String staticSearchFqModified(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return BaseResult.staticSearchModified(siteRequest_, BaseResult.staticSetModified(siteRequest_, o, zoneId)).toString();
-	}
+  public OffsetDateTime sqlCreated() {
+    return created == null ? null : created.toOffsetDateTime();
+  }
 
 	//////////////
-	// archived //
+  // modified //
 	//////////////
 
 
-	/**	 The entity archived
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected Boolean archived;
+  /**   The entity modified
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
+  @JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
+  @JsonInclude(Include.NON_NULL)
+  protected ZonedDateTime modified;
 
-	/**	<br> The entity archived
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:archived">Find the entity archived in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _archived(Wrap<Boolean> w);
+  /**  <br> The entity modified
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:modified">Find the entity modified in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _modified(Wrap<ZonedDateTime> w);
 
-	public Boolean getArchived() {
-		return archived;
-	}
+  public ZonedDateTime getModified() {
+    return modified;
+  }
 
-	public void setArchived(Boolean archived) {
-		this.archived = archived;
-	}
-	@JsonIgnore
-	public void setArchived(String o) {
-		this.archived = BaseResult.staticSetArchived(siteRequest_, o);
-	}
-	public static Boolean staticSetArchived(SiteRequest siteRequest_, String o) {
-		return Boolean.parseBoolean(o);
-	}
-	protected BaseResult archivedInit() {
-		Wrap<Boolean> archivedWrap = new Wrap<Boolean>().var("archived");
-		if(archived == null) {
-			_archived(archivedWrap);
-			Optional.ofNullable(archivedWrap.getO()).ifPresent(o -> {
-				setArchived(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public void setModified(ZonedDateTime modified) {
+    this.modified = Optional.ofNullable(modified).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
+  }
+  @JsonIgnore
+  public void setModified(Instant o) {
+    this.modified = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
+  }
+  /** Example: 2011-12-03T10:15:30+01:00 **/
+  @JsonIgnore
+  public void setModified(String o) {
+    ZoneId zoneId = Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"));
+    this.modified = BaseResult.staticSetModified(siteRequest_, o, zoneId);
+  }
+  @JsonIgnore
+  public void setModified(Date o) {
+    this.modified = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
+  }
+  public static ZonedDateTime staticSetModified(SiteRequest siteRequest_, String o, ZoneId zoneId) {
+    if(StringUtils.endsWith(o, "]"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
+    else if(StringUtils.endsWith(o, "Z"))
+      return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
+    else if(StringUtils.contains(o, "T"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
+    else
+      return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
+  }
+  protected BaseResult modifiedInit() {
+    Wrap<ZonedDateTime> modifiedWrap = new Wrap<ZonedDateTime>().var("modified");
+    if(modified == null) {
+      _modified(modifiedWrap);
+      Optional.ofNullable(modifiedWrap.getO()).ifPresent(o -> {
+        setModified(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static Boolean staticSearchArchived(SiteRequest siteRequest_, Boolean o) {
-		return o;
-	}
+  public static String staticSearchModified(SiteRequest siteRequest_, ZonedDateTime o) {
+    return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
+  }
 
-	public static String staticSearchStrArchived(SiteRequest siteRequest_, Boolean o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrModified(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return BaseResult.staticSearchModified(siteRequest_, BaseResult.staticSetModified(siteRequest_, o, zoneId));
+  }
 
-	public static String staticSearchFqArchived(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchArchived(siteRequest_, BaseResult.staticSetArchived(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqModified(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return BaseResult.staticSearchModified(siteRequest_, BaseResult.staticSetModified(siteRequest_, o, zoneId)).toString();
+  }
 
-	public Boolean sqlArchived() {
-		return archived;
-	}
+	//////////////
+  // archived //
+	//////////////
+
+
+  /**   The entity archived
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected Boolean archived;
+
+  /**  <br> The entity archived
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:archived">Find the entity archived in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _archived(Wrap<Boolean> w);
+
+  public Boolean getArchived() {
+    return archived;
+  }
+
+  public void setArchived(Boolean archived) {
+    this.archived = archived;
+  }
+  @JsonIgnore
+  public void setArchived(String o) {
+    this.archived = BaseResult.staticSetArchived(siteRequest_, o);
+  }
+  public static Boolean staticSetArchived(SiteRequest siteRequest_, String o) {
+    return Boolean.parseBoolean(o);
+  }
+  protected BaseResult archivedInit() {
+    Wrap<Boolean> archivedWrap = new Wrap<Boolean>().var("archived");
+    if(archived == null) {
+      _archived(archivedWrap);
+      Optional.ofNullable(archivedWrap.getO()).ifPresent(o -> {
+        setArchived(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static Boolean staticSearchArchived(SiteRequest siteRequest_, Boolean o) {
+    return o;
+  }
+
+  public static String staticSearchStrArchived(SiteRequest siteRequest_, Boolean o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqArchived(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchArchived(siteRequest_, BaseResult.staticSetArchived(siteRequest_, o)).toString();
+  }
+
+  public Boolean sqlArchived() {
+    return archived;
+  }
 
 	////////////////////////
-	// classCanonicalName //
+  // classCanonicalName //
 	////////////////////////
 
 
-	/**	 The entity classCanonicalName
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String classCanonicalName;
+  /**   The entity classCanonicalName
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String classCanonicalName;
 
-	/**	<br> The entity classCanonicalName
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:classCanonicalName">Find the entity classCanonicalName in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _classCanonicalName(Wrap<String> w);
+  /**  <br> The entity classCanonicalName
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:classCanonicalName">Find the entity classCanonicalName in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _classCanonicalName(Wrap<String> w);
 
-	public String getClassCanonicalName() {
-		return classCanonicalName;
-	}
-	public void setClassCanonicalName(String o) {
-		this.classCanonicalName = BaseResult.staticSetClassCanonicalName(siteRequest_, o);
-	}
-	public static String staticSetClassCanonicalName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult classCanonicalNameInit() {
-		Wrap<String> classCanonicalNameWrap = new Wrap<String>().var("classCanonicalName");
-		if(classCanonicalName == null) {
-			_classCanonicalName(classCanonicalNameWrap);
-			Optional.ofNullable(classCanonicalNameWrap.getO()).ifPresent(o -> {
-				setClassCanonicalName(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public String getClassCanonicalName() {
+    return classCanonicalName;
+  }
+  public void setClassCanonicalName(String o) {
+    this.classCanonicalName = BaseResult.staticSetClassCanonicalName(siteRequest_, o);
+  }
+  public static String staticSetClassCanonicalName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult classCanonicalNameInit() {
+    Wrap<String> classCanonicalNameWrap = new Wrap<String>().var("classCanonicalName");
+    if(classCanonicalName == null) {
+      _classCanonicalName(classCanonicalNameWrap);
+      Optional.ofNullable(classCanonicalNameWrap.getO()).ifPresent(o -> {
+        setClassCanonicalName(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchClassCanonicalName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchClassCanonicalName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrClassCanonicalName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrClassCanonicalName(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqClassCanonicalName(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchClassCanonicalName(siteRequest_, BaseResult.staticSetClassCanonicalName(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqClassCanonicalName(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchClassCanonicalName(siteRequest_, BaseResult.staticSetClassCanonicalName(siteRequest_, o)).toString();
+  }
 
 	/////////////////////
-	// classSimpleName //
+  // classSimpleName //
 	/////////////////////
 
 
-	/**	 The entity classSimpleName
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String classSimpleName;
+  /**   The entity classSimpleName
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String classSimpleName;
 
-	/**	<br> The entity classSimpleName
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:classSimpleName">Find the entity classSimpleName in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _classSimpleName(Wrap<String> w);
+  /**  <br> The entity classSimpleName
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:classSimpleName">Find the entity classSimpleName in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _classSimpleName(Wrap<String> w);
 
-	public String getClassSimpleName() {
-		return classSimpleName;
-	}
-	public void setClassSimpleName(String o) {
-		this.classSimpleName = BaseResult.staticSetClassSimpleName(siteRequest_, o);
-	}
-	public static String staticSetClassSimpleName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult classSimpleNameInit() {
-		Wrap<String> classSimpleNameWrap = new Wrap<String>().var("classSimpleName");
-		if(classSimpleName == null) {
-			_classSimpleName(classSimpleNameWrap);
-			Optional.ofNullable(classSimpleNameWrap.getO()).ifPresent(o -> {
-				setClassSimpleName(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public String getClassSimpleName() {
+    return classSimpleName;
+  }
+  public void setClassSimpleName(String o) {
+    this.classSimpleName = BaseResult.staticSetClassSimpleName(siteRequest_, o);
+  }
+  public static String staticSetClassSimpleName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult classSimpleNameInit() {
+    Wrap<String> classSimpleNameWrap = new Wrap<String>().var("classSimpleName");
+    if(classSimpleName == null) {
+      _classSimpleName(classSimpleNameWrap);
+      Optional.ofNullable(classSimpleNameWrap.getO()).ifPresent(o -> {
+        setClassSimpleName(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchClassSimpleName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchClassSimpleName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrClassSimpleName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrClassSimpleName(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqClassSimpleName(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchClassSimpleName(siteRequest_, BaseResult.staticSetClassSimpleName(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqClassSimpleName(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchClassSimpleName(siteRequest_, BaseResult.staticSetClassSimpleName(siteRequest_, o)).toString();
+  }
 
 	/////////////////////////
-	// classCanonicalNames //
+  // classCanonicalNames //
 	/////////////////////////
 
 
-	/**	 The entity classCanonicalNames
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> classCanonicalNames = new ArrayList<String>();
+  /**   The entity classCanonicalNames
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> classCanonicalNames = new ArrayList<String>();
 
-	/**	<br> The entity classCanonicalNames
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:classCanonicalNames">Find the entity classCanonicalNames in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _classCanonicalNames(List<String> l);
+  /**  <br> The entity classCanonicalNames
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:classCanonicalNames">Find the entity classCanonicalNames in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _classCanonicalNames(List<String> l);
 
-	public List<String> getClassCanonicalNames() {
-		return classCanonicalNames;
-	}
+  public List<String> getClassCanonicalNames() {
+    return classCanonicalNames;
+  }
 
-	public void setClassCanonicalNames(List<String> classCanonicalNames) {
-		this.classCanonicalNames = classCanonicalNames;
-	}
-	@JsonIgnore
-	public void setClassCanonicalNames(String o) {
-		String l = BaseResult.staticSetClassCanonicalNames(siteRequest_, o);
-		if(l != null)
-			addClassCanonicalNames(l);
-	}
-	public static String staticSetClassCanonicalNames(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public BaseResult addClassCanonicalNames(String...objects) {
-		for(String o : objects) {
-			addClassCanonicalNames(o);
-		}
-		return (BaseResult)this;
-	}
-	public BaseResult addClassCanonicalNames(String o) {
-		if(o != null)
-			this.classCanonicalNames.add(o);
-		return (BaseResult)this;
-	}
-	@JsonIgnore
-	public void setClassCanonicalNames(JsonArray objects) {
-		classCanonicalNames.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addClassCanonicalNames(o);
-		}
-	}
-	protected BaseResult classCanonicalNamesInit() {
-		_classCanonicalNames(classCanonicalNames);
-		return (BaseResult)this;
-	}
+  public void setClassCanonicalNames(List<String> classCanonicalNames) {
+    this.classCanonicalNames = classCanonicalNames;
+  }
+  @JsonIgnore
+  public void setClassCanonicalNames(String o) {
+    String l = BaseResult.staticSetClassCanonicalNames(siteRequest_, o);
+    if(l != null)
+      addClassCanonicalNames(l);
+  }
+  public static String staticSetClassCanonicalNames(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public BaseResult addClassCanonicalNames(String...objects) {
+    for(String o : objects) {
+      addClassCanonicalNames(o);
+    }
+    return (BaseResult)this;
+  }
+  public BaseResult addClassCanonicalNames(String o) {
+    if(o != null)
+      this.classCanonicalNames.add(o);
+    return (BaseResult)this;
+  }
+  @JsonIgnore
+  public void setClassCanonicalNames(JsonArray objects) {
+    classCanonicalNames.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addClassCanonicalNames(o);
+    }
+  }
+  protected BaseResult classCanonicalNamesInit() {
+    _classCanonicalNames(classCanonicalNames);
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchClassCanonicalNames(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchClassCanonicalNames(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrClassCanonicalNames(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrClassCanonicalNames(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqClassCanonicalNames(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchClassCanonicalNames(siteRequest_, BaseResult.staticSetClassCanonicalNames(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqClassCanonicalNames(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchClassCanonicalNames(siteRequest_, BaseResult.staticSetClassCanonicalNames(siteRequest_, o)).toString();
+  }
 
 	///////////
-	// saves //
+  // saves //
 	///////////
 
 
-	/**	 The entity saves
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> saves = new ArrayList<String>();
+  /**   The entity saves
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> saves = new ArrayList<String>();
 
-	/**	<br> The entity saves
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:saves">Find the entity saves in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _saves(List<String> l);
+  /**  <br> The entity saves
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:saves">Find the entity saves in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _saves(List<String> l);
 
-	public List<String> getSaves() {
-		return saves;
-	}
+  public List<String> getSaves() {
+    return saves;
+  }
 
-	public void setSaves(List<String> saves) {
-		this.saves = saves;
-	}
-	@JsonIgnore
-	public void setSaves(String o) {
-		String l = BaseResult.staticSetSaves(siteRequest_, o);
-		if(l != null)
-			addSaves(l);
-	}
-	public static String staticSetSaves(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public BaseResult addSaves(String...objects) {
-		for(String o : objects) {
-			addSaves(o);
-		}
-		return (BaseResult)this;
-	}
-	public BaseResult addSaves(String o) {
-		if(o != null)
-			this.saves.add(o);
-		return (BaseResult)this;
-	}
-	@JsonIgnore
-	public void setSaves(JsonArray objects) {
-		saves.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addSaves(o);
-		}
-	}
-	protected BaseResult savesInit() {
-		_saves(saves);
-		return (BaseResult)this;
-	}
+  public void setSaves(List<String> saves) {
+    this.saves = saves;
+  }
+  @JsonIgnore
+  public void setSaves(String o) {
+    String l = BaseResult.staticSetSaves(siteRequest_, o);
+    if(l != null)
+      addSaves(l);
+  }
+  public static String staticSetSaves(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public BaseResult addSaves(String...objects) {
+    for(String o : objects) {
+      addSaves(o);
+    }
+    return (BaseResult)this;
+  }
+  public BaseResult addSaves(String o) {
+    if(o != null)
+      this.saves.add(o);
+    return (BaseResult)this;
+  }
+  @JsonIgnore
+  public void setSaves(JsonArray objects) {
+    saves.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addSaves(o);
+    }
+  }
+  protected BaseResult savesInit() {
+    _saves(saves);
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchSaves(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSaves(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSaves(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSaves(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSaves(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchSaves(siteRequest_, BaseResult.staticSetSaves(siteRequest_, o)).toString();
-	}
-
-	/////////////////
-	// objectTitle //
-	/////////////////
-
-
-	/**	 The entity objectTitle
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String objectTitle;
-
-	/**	<br> The entity objectTitle
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:objectTitle">Find the entity objectTitle in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _objectTitle(Wrap<String> w);
-
-	public String getObjectTitle() {
-		return objectTitle;
-	}
-	public void setObjectTitle(String o) {
-		this.objectTitle = BaseResult.staticSetObjectTitle(siteRequest_, o);
-	}
-	public static String staticSetObjectTitle(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult objectTitleInit() {
-		Wrap<String> objectTitleWrap = new Wrap<String>().var("objectTitle");
-		if(objectTitle == null) {
-			_objectTitle(objectTitleWrap);
-			Optional.ofNullable(objectTitleWrap.getO()).ifPresent(o -> {
-				setObjectTitle(o);
-			});
-		}
-		return (BaseResult)this;
-	}
-
-	public static String staticSearchObjectTitle(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrObjectTitle(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqObjectTitle(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchObjectTitle(siteRequest_, BaseResult.staticSetObjectTitle(siteRequest_, o)).toString();
-	}
-
-	public String sqlObjectTitle() {
-		return objectTitle;
-	}
+  public static String staticSearchFqSaves(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchSaves(siteRequest_, BaseResult.staticSetSaves(siteRequest_, o)).toString();
+  }
 
 	/////////////////
-	// displayPage //
+  // objectTitle //
 	/////////////////
 
 
-	/**	 The entity displayPage
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String displayPage;
+  /**   The entity objectTitle
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String objectTitle;
 
-	/**	<br> The entity displayPage
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:displayPage">Find the entity displayPage in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _displayPage(Wrap<String> w);
+  /**  <br> The entity objectTitle
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:objectTitle">Find the entity objectTitle in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _objectTitle(Wrap<String> w);
 
-	public String getDisplayPage() {
-		return displayPage;
-	}
-	public void setDisplayPage(String o) {
-		this.displayPage = BaseResult.staticSetDisplayPage(siteRequest_, o);
-	}
-	public static String staticSetDisplayPage(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult displayPageInit() {
-		Wrap<String> displayPageWrap = new Wrap<String>().var("displayPage");
-		if(displayPage == null) {
-			_displayPage(displayPageWrap);
-			Optional.ofNullable(displayPageWrap.getO()).ifPresent(o -> {
-				setDisplayPage(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public String getObjectTitle() {
+    return objectTitle;
+  }
+  public void setObjectTitle(String o) {
+    this.objectTitle = BaseResult.staticSetObjectTitle(siteRequest_, o);
+  }
+  public static String staticSetObjectTitle(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult objectTitleInit() {
+    Wrap<String> objectTitleWrap = new Wrap<String>().var("objectTitle");
+    if(objectTitle == null) {
+      _objectTitle(objectTitleWrap);
+      Optional.ofNullable(objectTitleWrap.getO()).ifPresent(o -> {
+        setObjectTitle(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchDisplayPage(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchObjectTitle(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrDisplayPage(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrObjectTitle(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqDisplayPage(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchDisplayPage(siteRequest_, BaseResult.staticSetDisplayPage(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqObjectTitle(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchObjectTitle(siteRequest_, BaseResult.staticSetObjectTitle(siteRequest_, o)).toString();
+  }
 
-	public String sqlDisplayPage() {
-		return displayPage;
-	}
+  public String sqlObjectTitle() {
+    return objectTitle;
+  }
 
-	//////////////
-	// editPage //
-	//////////////
-
-
-	/**	 The entity editPage
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String editPage;
-
-	/**	<br> The entity editPage
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:editPage">Find the entity editPage in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _editPage(Wrap<String> w);
-
-	public String getEditPage() {
-		return editPage;
-	}
-	public void setEditPage(String o) {
-		this.editPage = BaseResult.staticSetEditPage(siteRequest_, o);
-	}
-	public static String staticSetEditPage(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult editPageInit() {
-		Wrap<String> editPageWrap = new Wrap<String>().var("editPage");
-		if(editPage == null) {
-			_editPage(editPageWrap);
-			Optional.ofNullable(editPageWrap.getO()).ifPresent(o -> {
-				setEditPage(o);
-			});
-		}
-		return (BaseResult)this;
-	}
-
-	public static String staticSearchEditPage(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrEditPage(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqEditPage(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchEditPage(siteRequest_, BaseResult.staticSetEditPage(siteRequest_, o)).toString();
-	}
-
-	//////////////
-	// userPage //
-	//////////////
+	/////////////////
+  // displayPage //
+	/////////////////
 
 
-	/**	 The entity userPage
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String userPage;
+  /**   The entity displayPage
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String displayPage;
 
-	/**	<br> The entity userPage
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:userPage">Find the entity userPage in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userPage(Wrap<String> w);
+  /**  <br> The entity displayPage
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:displayPage">Find the entity displayPage in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _displayPage(Wrap<String> w);
 
-	public String getUserPage() {
-		return userPage;
-	}
-	public void setUserPage(String o) {
-		this.userPage = BaseResult.staticSetUserPage(siteRequest_, o);
-	}
-	public static String staticSetUserPage(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult userPageInit() {
-		Wrap<String> userPageWrap = new Wrap<String>().var("userPage");
-		if(userPage == null) {
-			_userPage(userPageWrap);
-			Optional.ofNullable(userPageWrap.getO()).ifPresent(o -> {
-				setUserPage(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public String getDisplayPage() {
+    return displayPage;
+  }
+  public void setDisplayPage(String o) {
+    this.displayPage = BaseResult.staticSetDisplayPage(siteRequest_, o);
+  }
+  public static String staticSetDisplayPage(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult displayPageInit() {
+    Wrap<String> displayPageWrap = new Wrap<String>().var("displayPage");
+    if(displayPage == null) {
+      _displayPage(displayPageWrap);
+      Optional.ofNullable(displayPageWrap.getO()).ifPresent(o -> {
+        setDisplayPage(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchUserPage(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchDisplayPage(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserPage(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrDisplayPage(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserPage(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchUserPage(siteRequest_, BaseResult.staticSetUserPage(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqDisplayPage(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchDisplayPage(siteRequest_, BaseResult.staticSetDisplayPage(siteRequest_, o)).toString();
+  }
+
+  public String sqlDisplayPage() {
+    return displayPage;
+  }
 
 	//////////////
-	// download //
+  // editPage //
 	//////////////
 
 
-	/**	 The entity download
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String download;
+  /**   The entity editPage
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String editPage;
 
-	/**	<br> The entity download
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:download">Find the entity download in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _download(Wrap<String> w);
+  /**  <br> The entity editPage
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:editPage">Find the entity editPage in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _editPage(Wrap<String> w);
 
-	public String getDownload() {
-		return download;
-	}
-	public void setDownload(String o) {
-		this.download = BaseResult.staticSetDownload(siteRequest_, o);
-	}
-	public static String staticSetDownload(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult downloadInit() {
-		Wrap<String> downloadWrap = new Wrap<String>().var("download");
-		if(download == null) {
-			_download(downloadWrap);
-			Optional.ofNullable(downloadWrap.getO()).ifPresent(o -> {
-				setDownload(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public String getEditPage() {
+    return editPage;
+  }
+  public void setEditPage(String o) {
+    this.editPage = BaseResult.staticSetEditPage(siteRequest_, o);
+  }
+  public static String staticSetEditPage(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult editPageInit() {
+    Wrap<String> editPageWrap = new Wrap<String>().var("editPage");
+    if(editPage == null) {
+      _editPage(editPageWrap);
+      Optional.ofNullable(editPageWrap.getO()).ifPresent(o -> {
+        setEditPage(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchDownload(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchEditPage(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrDownload(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrEditPage(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqDownload(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchDownload(siteRequest_, BaseResult.staticSetDownload(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqEditPage(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchEditPage(siteRequest_, BaseResult.staticSetEditPage(siteRequest_, o)).toString();
+  }
+
+  public String sqlEditPage() {
+    return editPage;
+  }
+
+	//////////////
+  // userPage //
+	//////////////
+
+
+  /**   The entity userPage
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userPage;
+
+  /**  <br> The entity userPage
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:userPage">Find the entity userPage in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userPage(Wrap<String> w);
+
+  public String getUserPage() {
+    return userPage;
+  }
+  public void setUserPage(String o) {
+    this.userPage = BaseResult.staticSetUserPage(siteRequest_, o);
+  }
+  public static String staticSetUserPage(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult userPageInit() {
+    Wrap<String> userPageWrap = new Wrap<String>().var("userPage");
+    if(userPage == null) {
+      _userPage(userPageWrap);
+      Optional.ofNullable(userPageWrap.getO()).ifPresent(o -> {
+        setUserPage(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static String staticSearchUserPage(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrUserPage(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqUserPage(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchUserPage(siteRequest_, BaseResult.staticSetUserPage(siteRequest_, o)).toString();
+  }
+
+  public String sqlUserPage() {
+    return userPage;
+  }
+
+	//////////////
+  // download //
+	//////////////
+
+
+  /**   The entity download
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String download;
+
+  /**  <br> The entity download
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:download">Find the entity download in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _download(Wrap<String> w);
+
+  public String getDownload() {
+    return download;
+  }
+  public void setDownload(String o) {
+    this.download = BaseResult.staticSetDownload(siteRequest_, o);
+  }
+  public static String staticSetDownload(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult downloadInit() {
+    Wrap<String> downloadWrap = new Wrap<String>().var("download");
+    if(download == null) {
+      _download(downloadWrap);
+      Optional.ofNullable(downloadWrap.getO()).ifPresent(o -> {
+        setDownload(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static String staticSearchDownload(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrDownload(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqDownload(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchDownload(siteRequest_, BaseResult.staticSetDownload(siteRequest_, o)).toString();
+  }
+
+  public String sqlDownload() {
+    return download;
+  }
 
 	///////////////////
-	// objectSuggest //
+  // objectSuggest //
 	///////////////////
 
 
-	/**	 The entity objectSuggest
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String objectSuggest;
+  /**   The entity objectSuggest
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String objectSuggest;
 
-	/**	<br> The entity objectSuggest
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:objectSuggest">Find the entity objectSuggest in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _objectSuggest(Wrap<String> w);
+  /**  <br> The entity objectSuggest
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:objectSuggest">Find the entity objectSuggest in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _objectSuggest(Wrap<String> w);
 
-	public String getObjectSuggest() {
-		return objectSuggest;
-	}
-	public void setObjectSuggest(String o) {
-		this.objectSuggest = BaseResult.staticSetObjectSuggest(siteRequest_, o);
-	}
-	public static String staticSetObjectSuggest(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult objectSuggestInit() {
-		Wrap<String> objectSuggestWrap = new Wrap<String>().var("objectSuggest");
-		if(objectSuggest == null) {
-			_objectSuggest(objectSuggestWrap);
-			Optional.ofNullable(objectSuggestWrap.getO()).ifPresent(o -> {
-				setObjectSuggest(o);
-			});
-		}
-		return (BaseResult)this;
-	}
+  public String getObjectSuggest() {
+    return objectSuggest;
+  }
+  public void setObjectSuggest(String o) {
+    this.objectSuggest = BaseResult.staticSetObjectSuggest(siteRequest_, o);
+  }
+  public static String staticSetObjectSuggest(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult objectSuggestInit() {
+    Wrap<String> objectSuggestWrap = new Wrap<String>().var("objectSuggest");
+    if(objectSuggest == null) {
+      _objectSuggest(objectSuggestWrap);
+      Optional.ofNullable(objectSuggestWrap.getO()).ifPresent(o -> {
+        setObjectSuggest(o);
+      });
+    }
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchObjectSuggest(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchObjectSuggest(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrObjectSuggest(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrObjectSuggest(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqObjectSuggest(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchObjectSuggest(siteRequest_, BaseResult.staticSetObjectSuggest(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqObjectSuggest(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchObjectSuggest(siteRequest_, BaseResult.staticSetObjectSuggest(siteRequest_, o)).toString();
+  }
 
 	////////////////
-	// objectText //
+  // objectText //
 	////////////////
 
 
-	/**	 The entity objectText
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> objectText = new ArrayList<String>();
+  /**   The entity objectText
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> objectText = new ArrayList<String>();
 
-	/**	<br> The entity objectText
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:objectText">Find the entity objectText in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _objectText(List<String> l);
+  /**  <br> The entity objectText
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:objectText">Find the entity objectText in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _objectText(List<String> l);
 
-	public List<String> getObjectText() {
-		return objectText;
-	}
+  public List<String> getObjectText() {
+    return objectText;
+  }
 
-	public void setObjectText(List<String> objectText) {
-		this.objectText = objectText;
-	}
-	@JsonIgnore
-	public void setObjectText(String o) {
-		String l = BaseResult.staticSetObjectText(siteRequest_, o);
-		if(l != null)
-			addObjectText(l);
-	}
-	public static String staticSetObjectText(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public BaseResult addObjectText(String...objects) {
-		for(String o : objects) {
-			addObjectText(o);
-		}
-		return (BaseResult)this;
-	}
-	public BaseResult addObjectText(String o) {
-		if(o != null)
-			this.objectText.add(o);
-		return (BaseResult)this;
-	}
-	@JsonIgnore
-	public void setObjectText(JsonArray objects) {
-		objectText.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addObjectText(o);
-		}
-	}
-	protected BaseResult objectTextInit() {
-		_objectText(objectText);
-		return (BaseResult)this;
-	}
+  public void setObjectText(List<String> objectText) {
+    this.objectText = objectText;
+  }
+  @JsonIgnore
+  public void setObjectText(String o) {
+    String l = BaseResult.staticSetObjectText(siteRequest_, o);
+    if(l != null)
+      addObjectText(l);
+  }
+  public static String staticSetObjectText(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public BaseResult addObjectText(String...objects) {
+    for(String o : objects) {
+      addObjectText(o);
+    }
+    return (BaseResult)this;
+  }
+  public BaseResult addObjectText(String o) {
+    if(o != null)
+      this.objectText.add(o);
+    return (BaseResult)this;
+  }
+  @JsonIgnore
+  public void setObjectText(JsonArray objects) {
+    objectText.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addObjectText(o);
+    }
+  }
+  protected BaseResult objectTextInit() {
+    _objectText(objectText);
+    return (BaseResult)this;
+  }
 
-	public static String staticSearchObjectText(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchObjectText(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrObjectText(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrObjectText(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqObjectText(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchObjectText(siteRequest_, BaseResult.staticSetObjectText(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqObjectText(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchObjectText(siteRequest_, BaseResult.staticSetObjectText(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// solrId //
+  // solrId //
 	////////////
 
 
-	/**	 The entity solrId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String solrId;
-
-	/**	<br> The entity solrId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _solrId(Wrap<String> w);
-
-	public String getSolrId() {
-		return solrId;
-	}
-	public void setSolrId(String o) {
-		this.solrId = BaseResult.staticSetSolrId(siteRequest_, o);
-	}
-	public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected BaseResult solrIdInit() {
-		Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
-		if(solrId == null) {
-			_solrId(solrIdWrap);
-			Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
-				setSolrId(o);
-			});
-		}
-		return (BaseResult)this;
-	}
-
-	public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
-		return BaseResult.staticSearchSolrId(siteRequest_, BaseResult.staticSetSolrId(siteRequest_, o)).toString();
-	}
-
-	public String sqlSolrId() {
-		return solrId;
-	}
-
-	//////////////
-	// initDeep //
-	//////////////
-
-	public Future<BaseResultGen<DEV>> promiseDeepBaseResult(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepBaseResult();
-	}
-
-	public Future<BaseResultGen<DEV>> promiseDeepBaseResult() {
-		Promise<BaseResultGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseBaseResult(promise2);
-		promise2.future().onSuccess(a -> {
-			promise.complete(this);
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	public Future<Void> promiseBaseResult(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				siteRequest_Init();
-				createdInit();
-				modifiedInit();
-				archivedInit();
-				classCanonicalNameInit();
-				classSimpleNameInit();
-				classCanonicalNamesInit();
-				savesInit();
-				objectTitleInit();
-				displayPageInit();
-				editPageInit();
-				userPageInit();
-				downloadInit();
-				objectSuggestInit();
-				objectTextInit();
-				solrIdInit();
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	public Future<? extends BaseResultGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepBaseResult(siteRequest_);
-	}
-
-	/////////////////
-	// siteRequest //
-	/////////////////
-
-	public void siteRequestBaseResult(SiteRequest siteRequest_) {
-	}
-
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestBaseResult(siteRequest_);
-	}
-
-	/////////////
-	// obtain //
-	/////////////
-
-	public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainBaseResult(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainBaseResult(String var) {
-		BaseResult oBaseResult = (BaseResult)this;
-		switch(var) {
-			case "siteRequest_":
-				return oBaseResult.siteRequest_;
-			case "created":
-				return oBaseResult.created;
-			case "modified":
-				return oBaseResult.modified;
-			case "archived":
-				return oBaseResult.archived;
-			case "classCanonicalName":
-				return oBaseResult.classCanonicalName;
-			case "classSimpleName":
-				return oBaseResult.classSimpleName;
-			case "classCanonicalNames":
-				return oBaseResult.classCanonicalNames;
-			case "saves":
-				return oBaseResult.saves;
-			case "objectTitle":
-				return oBaseResult.objectTitle;
-			case "displayPage":
-				return oBaseResult.displayPage;
-			case "editPage":
-				return oBaseResult.editPage;
-			case "userPage":
-				return oBaseResult.userPage;
-			case "download":
-				return oBaseResult.download;
-			case "objectSuggest":
-				return oBaseResult.objectSuggest;
-			case "objectText":
-				return oBaseResult.objectText;
-			case "solrId":
-				return oBaseResult.solrId;
-			default:
-				return null;
-		}
-	}
-
-	///////////////
-	// relate //
-	///////////////
-
-	public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateBaseResult(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateBaseResult(String var, Object val) {
-		BaseResult oBaseResult = (BaseResult)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	///////////////
-	// staticSet //
-	///////////////
-
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, BaseResult o) {
-		return staticSetBaseResult(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetBaseResult(String entityVar, SiteRequest siteRequest_, String v, BaseResult o) {
-		switch(entityVar) {
-		case "created":
-		case "modified":
-		case "archived":
-			return BaseResult.staticSetArchived(siteRequest_, v);
-		case "classCanonicalName":
-			return BaseResult.staticSetClassCanonicalName(siteRequest_, v);
-		case "classSimpleName":
-			return BaseResult.staticSetClassSimpleName(siteRequest_, v);
-		case "classCanonicalNames":
-			return BaseResult.staticSetClassCanonicalNames(siteRequest_, v);
-		case "saves":
-			return BaseResult.staticSetSaves(siteRequest_, v);
-		case "objectTitle":
-			return BaseResult.staticSetObjectTitle(siteRequest_, v);
-		case "displayPage":
-			return BaseResult.staticSetDisplayPage(siteRequest_, v);
-		case "editPage":
-			return BaseResult.staticSetEditPage(siteRequest_, v);
-		case "userPage":
-			return BaseResult.staticSetUserPage(siteRequest_, v);
-		case "download":
-			return BaseResult.staticSetDownload(siteRequest_, v);
-		case "objectSuggest":
-			return BaseResult.staticSetObjectSuggest(siteRequest_, v);
-		case "objectText":
-			return BaseResult.staticSetObjectText(siteRequest_, v);
-		case "solrId":
-			return BaseResult.staticSetSolrId(siteRequest_, v);
-			default:
-				return null;
-		}
-	}
-
-	////////////////
-	// staticSearch //
-	////////////////
-
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchBaseResult(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchBaseResult(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "created":
-			return BaseResult.staticSearchCreated(siteRequest_, (ZonedDateTime)o);
-		case "modified":
-			return BaseResult.staticSearchModified(siteRequest_, (ZonedDateTime)o);
-		case "archived":
-			return BaseResult.staticSearchArchived(siteRequest_, (Boolean)o);
-		case "classCanonicalName":
-			return BaseResult.staticSearchClassCanonicalName(siteRequest_, (String)o);
-		case "classSimpleName":
-			return BaseResult.staticSearchClassSimpleName(siteRequest_, (String)o);
-		case "classCanonicalNames":
-			return BaseResult.staticSearchClassCanonicalNames(siteRequest_, (String)o);
-		case "saves":
-			return BaseResult.staticSearchSaves(siteRequest_, (String)o);
-		case "objectTitle":
-			return BaseResult.staticSearchObjectTitle(siteRequest_, (String)o);
-		case "displayPage":
-			return BaseResult.staticSearchDisplayPage(siteRequest_, (String)o);
-		case "editPage":
-			return BaseResult.staticSearchEditPage(siteRequest_, (String)o);
-		case "userPage":
-			return BaseResult.staticSearchUserPage(siteRequest_, (String)o);
-		case "download":
-			return BaseResult.staticSearchDownload(siteRequest_, (String)o);
-		case "objectSuggest":
-			return BaseResult.staticSearchObjectSuggest(siteRequest_, (String)o);
-		case "objectText":
-			return BaseResult.staticSearchObjectText(siteRequest_, (String)o);
-		case "solrId":
-			return BaseResult.staticSearchSolrId(siteRequest_, (String)o);
-			default:
-				return null;
-		}
-	}
-
-	///////////////////
-	// staticSearchStr //
-	///////////////////
-
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrBaseResult(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrBaseResult(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "created":
-			return BaseResult.staticSearchStrCreated(siteRequest_, (String)o);
-		case "modified":
-			return BaseResult.staticSearchStrModified(siteRequest_, (String)o);
-		case "archived":
-			return BaseResult.staticSearchStrArchived(siteRequest_, (Boolean)o);
-		case "classCanonicalName":
-			return BaseResult.staticSearchStrClassCanonicalName(siteRequest_, (String)o);
-		case "classSimpleName":
-			return BaseResult.staticSearchStrClassSimpleName(siteRequest_, (String)o);
-		case "classCanonicalNames":
-			return BaseResult.staticSearchStrClassCanonicalNames(siteRequest_, (String)o);
-		case "saves":
-			return BaseResult.staticSearchStrSaves(siteRequest_, (String)o);
-		case "objectTitle":
-			return BaseResult.staticSearchStrObjectTitle(siteRequest_, (String)o);
-		case "displayPage":
-			return BaseResult.staticSearchStrDisplayPage(siteRequest_, (String)o);
-		case "editPage":
-			return BaseResult.staticSearchStrEditPage(siteRequest_, (String)o);
-		case "userPage":
-			return BaseResult.staticSearchStrUserPage(siteRequest_, (String)o);
-		case "download":
-			return BaseResult.staticSearchStrDownload(siteRequest_, (String)o);
-		case "objectSuggest":
-			return BaseResult.staticSearchStrObjectSuggest(siteRequest_, (String)o);
-		case "objectText":
-			return BaseResult.staticSearchStrObjectText(siteRequest_, (String)o);
-		case "solrId":
-			return BaseResult.staticSearchStrSolrId(siteRequest_, (String)o);
-			default:
-				return null;
-		}
-	}
-
-	//////////////////
-	// staticSearchFq //
-	//////////////////
-
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqBaseResult(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqBaseResult(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "created":
-			return BaseResult.staticSearchFqCreated(siteRequest_, o);
-		case "modified":
-			return BaseResult.staticSearchFqModified(siteRequest_, o);
-		case "archived":
-			return BaseResult.staticSearchFqArchived(siteRequest_, o);
-		case "classCanonicalName":
-			return BaseResult.staticSearchFqClassCanonicalName(siteRequest_, o);
-		case "classSimpleName":
-			return BaseResult.staticSearchFqClassSimpleName(siteRequest_, o);
-		case "classCanonicalNames":
-			return BaseResult.staticSearchFqClassCanonicalNames(siteRequest_, o);
-		case "saves":
-			return BaseResult.staticSearchFqSaves(siteRequest_, o);
-		case "objectTitle":
-			return BaseResult.staticSearchFqObjectTitle(siteRequest_, o);
-		case "displayPage":
-			return BaseResult.staticSearchFqDisplayPage(siteRequest_, o);
-		case "editPage":
-			return BaseResult.staticSearchFqEditPage(siteRequest_, o);
-		case "userPage":
-			return BaseResult.staticSearchFqUserPage(siteRequest_, o);
-		case "download":
-			return BaseResult.staticSearchFqDownload(siteRequest_, o);
-		case "objectSuggest":
-			return BaseResult.staticSearchFqObjectSuggest(siteRequest_, o);
-		case "objectText":
-			return BaseResult.staticSearchFqObjectText(siteRequest_, o);
-		case "solrId":
-			return BaseResult.staticSearchFqSolrId(siteRequest_, o);
-			default:
-				return null;
-		}
-	}
-
-	/////////////
-	// persist //
-	/////////////
-
-	public boolean persistForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		if(val != null) {
-			for(String v : vars) {
-				if(o == null)
-					o = persistBaseResult(v, val);
-				else if(o instanceof BaseModel) {
-					BaseModel oBaseModel = (BaseModel)o;
-					o = oBaseModel.persistForClass(v, val);
-				}
-			}
-		}
-		return o != null;
-	}
-	public Object persistBaseResult(String var, Object val) {
-		String varLower = var.toLowerCase();
-			if("created".equals(varLower)) {
-				if(val instanceof String) {
-					setCreated((String)val);
-				} else if(val instanceof OffsetDateTime) {
-					setCreated(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
-				}
-				saves.add("created");
-				return val;
-			} else if("archived".equals(varLower)) {
-				if(val instanceof Boolean) {
-					setArchived((Boolean)val);
-				} else {
-					setArchived(val == null ? null : val.toString());
-				}
-				saves.add("archived");
-				return val;
-			} else if("objecttitle".equals(varLower)) {
-				if(val instanceof String) {
-					setObjectTitle((String)val);
-				}
-				saves.add("objectTitle");
-				return val;
-			} else if("displaypage".equals(varLower)) {
-				if(val instanceof String) {
-					setDisplayPage((String)val);
-				}
-				saves.add("displayPage");
-				return val;
-			} else if("solrid".equals(varLower)) {
-				if(val instanceof String) {
-					setSolrId((String)val);
-				}
-				saves.add("solrId");
-				return val;
-		} else {
-			return null;
-		}
-	}
-
-	/////////////
-	// populate //
-	/////////////
-
-	public void populateForClass(SolrResponse.Doc doc) {
-		populateBaseResult(doc);
-	}
-	public void populateBaseResult(SolrResponse.Doc doc) {
-		BaseResult oBaseResult = (BaseResult)this;
-		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
-		if(saves != null) {
-
-			if(saves.contains("created")) {
-				String created = (String)doc.get("created_docvalues_date");
-				if(created != null)
-					oBaseResult.setCreated(created);
-			}
-
-			if(saves.contains("modified")) {
-				String modified = (String)doc.get("modified_docvalues_date");
-				if(modified != null)
-					oBaseResult.setModified(modified);
-			}
-
-			if(saves.contains("archived")) {
-				Boolean archived = (Boolean)doc.get("archived_docvalues_boolean");
-				if(archived != null)
-					oBaseResult.setArchived(archived);
-			}
-
-			if(saves.contains("classCanonicalName")) {
-				String classCanonicalName = (String)doc.get("classCanonicalName_docvalues_string");
-				if(classCanonicalName != null)
-					oBaseResult.setClassCanonicalName(classCanonicalName);
-			}
-
-			if(saves.contains("classSimpleName")) {
-				String classSimpleName = (String)doc.get("classSimpleName_docvalues_string");
-				if(classSimpleName != null)
-					oBaseResult.setClassSimpleName(classSimpleName);
-			}
-
-			if(saves.contains("classCanonicalNames")) {
-				List<String> classCanonicalNames = (List<String>)doc.get("classCanonicalNames_docvalues_strings");
-				if(classCanonicalNames != null) {
-					classCanonicalNames.stream().forEach( v -> {
-						oBaseResult.classCanonicalNames.add(BaseResult.staticSetClassCanonicalNames(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("saves")) {
-				List<String> saves = (List<String>)doc.get("saves_docvalues_strings");
-				if(saves != null) {
-					saves.stream().forEach( v -> {
-						oBaseResult.saves.add(BaseResult.staticSetSaves(siteRequest_, v));
-					});
-				}
-			}
-
-			if(saves.contains("objectTitle")) {
-				String objectTitle = (String)doc.get("objectTitle_docvalues_string");
-				if(objectTitle != null)
-					oBaseResult.setObjectTitle(objectTitle);
-			}
-
-			if(saves.contains("displayPage")) {
-				String displayPage = (String)doc.get("displayPage_docvalues_string");
-				if(displayPage != null)
-					oBaseResult.setDisplayPage(displayPage);
-			}
-
-			if(saves.contains("editPage")) {
-				String editPage = (String)doc.get("editPage_docvalues_string");
-				if(editPage != null)
-					oBaseResult.setEditPage(editPage);
-			}
-
-			if(saves.contains("userPage")) {
-				String userPage = (String)doc.get("userPage_docvalues_string");
-				if(userPage != null)
-					oBaseResult.setUserPage(userPage);
-			}
-
-			if(saves.contains("download")) {
-				String download = (String)doc.get("download_docvalues_string");
-				if(download != null)
-					oBaseResult.setDownload(download);
-			}
-
-			if(saves.contains("objectSuggest")) {
-				String objectSuggest = (String)doc.get("objectSuggest_suggested");
-				oBaseResult.setObjectSuggest(objectSuggest);
-			}
-
-			String solrId = (String)doc.get("solrId");
-			oBaseResult.setSolrId(solrId);
-		}
-	}
-
-	public void indexBaseResult(JsonObject doc) {
-		if(created != null) {
-			doc.put("created_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(created.toInstant(), ZoneId.of("UTC"))));
-		}
-		if(modified != null) {
-			doc.put("modified_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(modified.toInstant(), ZoneId.of("UTC"))));
-		}
-		if(archived != null) {
-			doc.put("archived_docvalues_boolean", archived);
-		}
-		if(classCanonicalName != null) {
-			doc.put("classCanonicalName_docvalues_string", classCanonicalName);
-		}
-		if(classSimpleName != null) {
-			doc.put("classSimpleName_docvalues_string", classSimpleName);
-		}
-		if(classCanonicalNames != null) {
-			JsonArray l = new JsonArray();
-			doc.put("classCanonicalNames_docvalues_strings", l);
-			for(String o : classCanonicalNames) {
-				l.add(BaseResult.staticSearchClassCanonicalNames(siteRequest_, o));
-			}
-		}
-		if(saves != null) {
-			JsonArray l = new JsonArray();
-			doc.put("saves_docvalues_strings", l);
-			for(String o : saves) {
-				l.add(BaseResult.staticSearchSaves(siteRequest_, o));
-			}
-		}
-		if(objectTitle != null) {
-			doc.put("objectTitle_docvalues_string", objectTitle);
-		}
-		if(displayPage != null) {
-			doc.put("displayPage_docvalues_string", displayPage);
-		}
-		if(editPage != null) {
-			doc.put("editPage_docvalues_string", editPage);
-		}
-		if(userPage != null) {
-			doc.put("userPage_docvalues_string", userPage);
-		}
-		if(download != null) {
-			doc.put("download_docvalues_string", download);
-		}
-		if(objectSuggest != null) {
-			doc.put("objectSuggest_suggested", objectSuggest);
-		}
-		if(objectText != null) {
-			JsonArray l = new JsonArray();
-			doc.put("objectText_text_enUS", l);
-			for(String o : objectText) {
-				l.add(o);
-			}
-		}
-		if(solrId != null) {
-			doc.put("solrId", solrId);
-		}
-	}
-
-	public static String varStoredBaseResult(String entityVar) {
-		switch(entityVar) {
-			case "created":
-				return "created_docvalues_date";
-			case "modified":
-				return "modified_docvalues_date";
-			case "archived":
-				return "archived_docvalues_boolean";
-			case "classCanonicalName":
-				return "classCanonicalName_docvalues_string";
-			case "classSimpleName":
-				return "classSimpleName_docvalues_string";
-			case "classCanonicalNames":
-				return "classCanonicalNames_docvalues_strings";
-			case "saves":
-				return "saves_docvalues_strings";
-			case "objectTitle":
-				return "objectTitle_docvalues_string";
-			case "displayPage":
-				return "displayPage_docvalues_string";
-			case "editPage":
-				return "editPage_docvalues_string";
-			case "userPage":
-				return "userPage_docvalues_string";
-			case "download":
-				return "download_docvalues_string";
-			default:
-				return null;
-		}
-	}
-
-	public static String varIndexedBaseResult(String entityVar) {
-		switch(entityVar) {
-			case "created":
-				return "created_docvalues_date";
-			case "modified":
-				return "modified_docvalues_date";
-			case "archived":
-				return "archived_docvalues_boolean";
-			case "classCanonicalName":
-				return "classCanonicalName_docvalues_string";
-			case "classSimpleName":
-				return "classSimpleName_docvalues_string";
-			case "classCanonicalNames":
-				return "classCanonicalNames_docvalues_strings";
-			case "saves":
-				return "saves_docvalues_strings";
-			case "objectTitle":
-				return "objectTitle_docvalues_string";
-			case "displayPage":
-				return "displayPage_docvalues_string";
-			case "editPage":
-				return "editPage_docvalues_string";
-			case "userPage":
-				return "userPage_docvalues_string";
-			case "download":
-				return "download_docvalues_string";
-			case "objectSuggest":
-				return "objectSuggest_suggested";
-			case "objectText":
-				return "objectText_text_enUS";
-			case "solrId":
-				return "solrId";
-			default:
-				return null;
-		}
-	}
-
-	public static String searchVarBaseResult(String searchVar) {
-		switch(searchVar) {
-			case "created_docvalues_date":
-				return "created";
-			case "modified_docvalues_date":
-				return "modified";
-			case "archived_docvalues_boolean":
-				return "archived";
-			case "classCanonicalName_docvalues_string":
-				return "classCanonicalName";
-			case "classSimpleName_docvalues_string":
-				return "classSimpleName";
-			case "classCanonicalNames_docvalues_strings":
-				return "classCanonicalNames";
-			case "saves_docvalues_strings":
-				return "saves";
-			case "objectTitle_docvalues_string":
-				return "objectTitle";
-			case "displayPage_docvalues_string":
-				return "displayPage";
-			case "editPage_docvalues_string":
-				return "editPage";
-			case "userPage_docvalues_string":
-				return "userPage";
-			case "download_docvalues_string":
-				return "download";
-			case "objectSuggest_suggested":
-				return "objectSuggest";
-			case "objectText_text_enUS":
-				return "objectText";
-			case "solrId":
-				return "solrId";
-			default:
-				return null;
-		}
-	}
-
-	public static String varSearchBaseResult(String entityVar) {
-		switch(entityVar) {
-			case "objectText":
-				return "objectText_text_enUS";
-			case "objectSuggest":
-				return "objectSuggest_suggested";
-			default:
-				return null;
-		}
-	}
-
-	public static String varSuggestedBaseResult(String entityVar) {
-		switch(entityVar) {
-			case "objectSuggest":
-				return "objectSuggest_suggested";
-			default:
-				return null;
-		}
-	}
-
-	/////////////
-	// store //
-	/////////////
-
-	public void storeForClass(SolrResponse.Doc doc) {
-		storeBaseResult(doc);
-	}
-	public void storeBaseResult(SolrResponse.Doc doc) {
-		BaseResult oBaseResult = (BaseResult)this;
-		SiteRequest siteRequest = oBaseResult.getSiteRequest_();
-
-		oBaseResult.setCreated(Optional.ofNullable(doc.get("created_docvalues_date")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setModified(Optional.ofNullable(doc.get("modified_docvalues_date")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setArchived(Optional.ofNullable(doc.get("archived_docvalues_boolean")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setClassCanonicalName(Optional.ofNullable(doc.get("classCanonicalName_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setClassSimpleName(Optional.ofNullable(doc.get("classSimpleName_docvalues_string")).map(v -> v.toString()).orElse(null));
-		Optional.ofNullable((List<?>)doc.get("classCanonicalNames_docvalues_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oBaseResult.addClassCanonicalNames(BaseResult.staticSetClassCanonicalNames(siteRequest, v.toString()));
-		});
-		Optional.ofNullable((List<?>)doc.get("saves_docvalues_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oBaseResult.addSaves(BaseResult.staticSetSaves(siteRequest, v.toString()));
-		});
-		oBaseResult.setObjectTitle(Optional.ofNullable(doc.get("objectTitle_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setDisplayPage(Optional.ofNullable(doc.get("displayPage_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setEditPage(Optional.ofNullable(doc.get("editPage_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setUserPage(Optional.ofNullable(doc.get("userPage_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setDownload(Optional.ofNullable(doc.get("download_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oBaseResult.setObjectSuggest(Optional.ofNullable(doc.get("objectSuggest_suggested")).map(v -> v.toString()).orElse(null));
-		Optional.ofNullable((List<?>)doc.get("objectText_text_enUS")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
-			oBaseResult.addObjectText(BaseResult.staticSetObjectText(siteRequest, v.toString()));
-		});
-		String solrId = (String)doc.get("solrId");
-		oBaseResult.setSolrId(solrId);
-	}
-
-	//////////////////
-	// apiRequest //
-	//////////////////
-
-	public void apiRequestBaseResult() {
-		ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(r -> r.getApiRequest_()).orElse(null);
-		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
-		if(o != null && o instanceof BaseResult) {
-			BaseResult original = (BaseResult)o;
-			if(!Objects.equals(created, original.getCreated()))
-				apiRequest.addVars("created");
-			if(!Objects.equals(modified, original.getModified()))
-				apiRequest.addVars("modified");
-			if(!Objects.equals(archived, original.getArchived()))
-				apiRequest.addVars("archived");
-			if(!Objects.equals(classCanonicalName, original.getClassCanonicalName()))
-				apiRequest.addVars("classCanonicalName");
-			if(!Objects.equals(classSimpleName, original.getClassSimpleName()))
-				apiRequest.addVars("classSimpleName");
-			if(!Objects.equals(classCanonicalNames, original.getClassCanonicalNames()))
-				apiRequest.addVars("classCanonicalNames");
-			if(!Objects.equals(saves, original.getSaves()))
-				apiRequest.addVars("saves");
-			if(!Objects.equals(objectTitle, original.getObjectTitle()))
-				apiRequest.addVars("objectTitle");
-			if(!Objects.equals(displayPage, original.getDisplayPage()))
-				apiRequest.addVars("displayPage");
-			if(!Objects.equals(editPage, original.getEditPage()))
-				apiRequest.addVars("editPage");
-			if(!Objects.equals(userPage, original.getUserPage()))
-				apiRequest.addVars("userPage");
-			if(!Objects.equals(download, original.getDownload()))
-				apiRequest.addVars("download");
-			if(!Objects.equals(objectSuggest, original.getObjectSuggest()))
-				apiRequest.addVars("objectSuggest");
-			if(!Objects.equals(objectText, original.getObjectText()))
-				apiRequest.addVars("objectText");
-			if(!Objects.equals(solrId, original.getSolrId()))
-				apiRequest.addVars("solrId");
-		}
-	}
-
-	//////////////
-	// toString //
-	//////////////
-
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(Optional.ofNullable(created).map(v -> "created: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(modified).map(v -> "modified: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(archived).map(v -> "archived: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(classCanonicalName).map(v -> "classCanonicalName: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(classSimpleName).map(v -> "classSimpleName: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(classCanonicalNames).map(v -> "classCanonicalNames: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(saves).map(v -> "saves: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(objectTitle).map(v -> "objectTitle: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(displayPage).map(v -> "displayPage: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(editPage).map(v -> "editPage: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(userPage).map(v -> "userPage: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(download).map(v -> "download: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(objectSuggest).map(v -> "objectSuggest: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(objectText).map(v -> "objectText: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(solrId).map(v -> "solrId: \"" + v + "\"\n" ).orElse(""));
-		return sb.toString();
-	}
-
-	public static final String CLASS_SIMPLE_NAME = "BaseResult";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.result.BaseResult";
-	public static final String CLASS_AUTH_RESOURCE = "";
-	public static final String VAR_siteRequest_ = "siteRequest_";
-	public static final String VAR_created = "created";
-	public static final String VAR_modified = "modified";
-	public static final String VAR_archived = "archived";
-	public static final String VAR_classCanonicalName = "classCanonicalName";
-	public static final String VAR_classSimpleName = "classSimpleName";
-	public static final String VAR_classCanonicalNames = "classCanonicalNames";
-	public static final String VAR_saves = "saves";
-	public static final String VAR_objectTitle = "objectTitle";
-	public static final String VAR_displayPage = "displayPage";
-	public static final String VAR_editPage = "editPage";
-	public static final String VAR_userPage = "userPage";
-	public static final String VAR_download = "download";
-	public static final String VAR_objectSuggest = "objectSuggest";
-	public static final String VAR_objectText = "objectText";
-	public static final String VAR_solrId = "solrId";
-
-	public static List<String> varsQForClass() {
-		return BaseResult.varsQBaseResult(new ArrayList<String>());
-	}
-	public static List<String> varsQBaseResult(List<String> vars) {
-		vars.add(VAR_objectSuggest);
-		vars.add(VAR_objectText);
-		return vars;
-	}
-
-	public static List<String> varsFqForClass() {
-		return BaseResult.varsFqBaseResult(new ArrayList<String>());
-	}
-	public static List<String> varsFqBaseResult(List<String> vars) {
-		vars.add(VAR_created);
-		vars.add(VAR_modified);
-		vars.add(VAR_classSimpleName);
-		vars.add(VAR_displayPage);
-		vars.add(VAR_editPage);
-		vars.add(VAR_userPage);
-		vars.add(VAR_download);
-		return vars;
-	}
-
-	public static List<String> varsRangeForClass() {
-		return BaseResult.varsRangeBaseResult(new ArrayList<String>());
-	}
-	public static List<String> varsRangeBaseResult(List<String> vars) {
-		vars.add(VAR_created);
-		vars.add(VAR_modified);
-		return vars;
-	}
-
-	public static final String DISPLAY_NAME_siteRequest_ = "";
-	public static final String DISPLAY_NAME_created = "created";
-	public static final String DISPLAY_NAME_modified = "modified";
-	public static final String DISPLAY_NAME_archived = "archived";
-	public static final String DISPLAY_NAME_classCanonicalName = "";
-	public static final String DISPLAY_NAME_classSimpleName = "object type";
-	public static final String DISPLAY_NAME_classCanonicalNames = "";
-	public static final String DISPLAY_NAME_saves = "";
-	public static final String DISPLAY_NAME_objectTitle = "title";
-	public static final String DISPLAY_NAME_displayPage = "";
-	public static final String DISPLAY_NAME_editPage = "edit";
-	public static final String DISPLAY_NAME_userPage = "user";
-	public static final String DISPLAY_NAME_download = "download";
-	public static final String DISPLAY_NAME_objectSuggest = "autosuggest";
-	public static final String DISPLAY_NAME_objectText = "text";
-	public static final String DISPLAY_NAME_solrId = "";
-
-	public String idForClass() {
-		return null;
-	}
-
-	public String titleForClass() {
-		return objectTitle;
-	}
-
-	public String nameForClass() {
-		return null;
-	}
-
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
-
-	public String descriptionForClass() {
-		return null;
-	}
-
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
-
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
-
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
-
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
-
-	public static String displayNameForClass(String var) {
-		return BaseResult.displayNameBaseResult(var);
-	}
-	public static String displayNameBaseResult(String var) {
-		switch(var) {
-		case VAR_siteRequest_:
-			return DISPLAY_NAME_siteRequest_;
-		case VAR_created:
-			return DISPLAY_NAME_created;
-		case VAR_modified:
-			return DISPLAY_NAME_modified;
-		case VAR_archived:
-			return DISPLAY_NAME_archived;
-		case VAR_classCanonicalName:
-			return DISPLAY_NAME_classCanonicalName;
-		case VAR_classSimpleName:
-			return DISPLAY_NAME_classSimpleName;
-		case VAR_classCanonicalNames:
-			return DISPLAY_NAME_classCanonicalNames;
-		case VAR_saves:
-			return DISPLAY_NAME_saves;
-		case VAR_objectTitle:
-			return DISPLAY_NAME_objectTitle;
-		case VAR_displayPage:
-			return DISPLAY_NAME_displayPage;
-		case VAR_editPage:
-			return DISPLAY_NAME_editPage;
-		case VAR_userPage:
-			return DISPLAY_NAME_userPage;
-		case VAR_download:
-			return DISPLAY_NAME_download;
-		case VAR_objectSuggest:
-			return DISPLAY_NAME_objectSuggest;
-		case VAR_objectText:
-			return DISPLAY_NAME_objectText;
-		case VAR_solrId:
-			return DISPLAY_NAME_solrId;
-		default:
-			return null;
-		}
-	}
-
-	public static String descriptionBaseResult(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-		case VAR_siteRequest_:
-			return "The current request object";
-		case VAR_created:
-			return "A created timestamp for this record in the database";
-		case VAR_modified:
-			return "A modified timestamp for this record in the database";
-		case VAR_archived:
-			return "For archiving this record";
-		case VAR_classCanonicalName:
-			return "the canonical name of this Java class";
-		case VAR_classSimpleName:
-			return "The simple name of this Java class";
-		case VAR_classCanonicalNames:
-			return "All the inherited canonical names of this Java class";
-		case VAR_saves:
-			return "A list of fields that are saved for this record in the database";
-		case VAR_objectTitle:
-			return "The title of this page. ";
-		case VAR_editPage:
-			return "Edit this";
-		case VAR_userPage:
-			return "User page";
-		case VAR_download:
-			return "the download URL";
-		case VAR_objectSuggest:
-			return "The indexed field in the search engine for this record while using autosuggest";
-		case VAR_objectText:
-			return "The full text search field in the search engine for this record while using autosuggest";
-		case VAR_solrId:
-			return "The unique key for this record in the search engine";
-			default:
-				return null;
-		}
-	}
-
-	public static String classSimpleNameBaseResult(String var) {
-		switch(var) {
-		case VAR_siteRequest_:
-			return "SiteRequest";
-		case VAR_created:
-			return "ZonedDateTime";
-		case VAR_modified:
-			return "ZonedDateTime";
-		case VAR_archived:
-			return "Boolean";
-		case VAR_classCanonicalName:
-			return "String";
-		case VAR_classSimpleName:
-			return "String";
-		case VAR_classCanonicalNames:
-			return "List";
-		case VAR_saves:
-			return "List";
-		case VAR_objectTitle:
-			return "String";
-		case VAR_displayPage:
-			return "String";
-		case VAR_editPage:
-			return "String";
-		case VAR_userPage:
-			return "String";
-		case VAR_download:
-			return "String";
-		case VAR_objectSuggest:
-			return "String";
-		case VAR_objectText:
-			return "List";
-		case VAR_solrId:
-			return "String";
-			default:
-				return null;
-		}
-	}
-
-	public static Integer htmColumnBaseResult(String var) {
-		switch(var) {
-		case VAR_editPage:
-			return 99;
-			default:
-				return null;
-		}
-	}
-
-	public static Integer htmRowBaseResult(String var) {
-		switch(var) {
-		case VAR_created:
-			return 1;
-		case VAR_modified:
-			return 1;
-		case VAR_archived:
-			return 2;
-		case VAR_displayPage:
-			return 99;
-			default:
-				return null;
-		}
-	}
-
-	public static Integer htmCellBaseResult(String var) {
-		switch(var) {
-		case VAR_created:
-			return 2;
-		case VAR_modified:
-			return 3;
-		case VAR_archived:
-			return 1;
-		case VAR_displayPage:
-			return 2;
-			default:
-				return null;
-		}
-	}
-
-	public static Integer lengthMinBaseResult(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	public static Integer lengthMaxBaseResult(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	public static Integer maxBaseResult(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	public static Integer minBaseResult(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  /**   The entity solrId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String solrId;
+
+  /**  <br> The entity solrId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _solrId(Wrap<String> w);
+
+  public String getSolrId() {
+    return solrId;
+  }
+  public void setSolrId(String o) {
+    this.solrId = BaseResult.staticSetSolrId(siteRequest_, o);
+  }
+  public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult solrIdInit() {
+    Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
+    if(solrId == null) {
+      _solrId(solrIdWrap);
+      Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
+        setSolrId(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchSolrId(siteRequest_, BaseResult.staticSetSolrId(siteRequest_, o)).toString();
+  }
+
+  public String sqlSolrId() {
+    return solrId;
+  }
+
+  //////////////
+  // initDeep //
+  //////////////
+
+  public Future<BaseResultGen<DEV>> promiseDeepBaseResult(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepBaseResult();
+  }
+
+  public Future<BaseResultGen<DEV>> promiseDeepBaseResult() {
+    Promise<BaseResultGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseBaseResult(promise2);
+    promise2.future().onSuccess(a -> {
+      promise.complete(this);
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
+
+  public Future<Void> promiseBaseResult(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        siteRequest_Init();
+        createdInit();
+        modifiedInit();
+        archivedInit();
+        classCanonicalNameInit();
+        classSimpleNameInit();
+        classCanonicalNamesInit();
+        savesInit();
+        objectTitleInit();
+        displayPageInit();
+        editPageInit();
+        userPageInit();
+        downloadInit();
+        objectSuggestInit();
+        objectTextInit();
+        solrIdInit();
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
+
+  public Future<? extends BaseResultGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepBaseResult(siteRequest_);
+  }
+
+  /////////////////
+  // siteRequest //
+  /////////////////
+
+  public void siteRequestBaseResult(SiteRequest siteRequest_) {
+  }
+
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestBaseResult(siteRequest_);
+  }
+
+  /////////////
+  // obtain //
+  /////////////
+
+  public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainBaseResult(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainBaseResult(String var) {
+    BaseResult oBaseResult = (BaseResult)this;
+    switch(var) {
+      case "siteRequest_":
+        return oBaseResult.siteRequest_;
+      case "created":
+        return oBaseResult.created;
+      case "modified":
+        return oBaseResult.modified;
+      case "archived":
+        return oBaseResult.archived;
+      case "classCanonicalName":
+        return oBaseResult.classCanonicalName;
+      case "classSimpleName":
+        return oBaseResult.classSimpleName;
+      case "classCanonicalNames":
+        return oBaseResult.classCanonicalNames;
+      case "saves":
+        return oBaseResult.saves;
+      case "objectTitle":
+        return oBaseResult.objectTitle;
+      case "displayPage":
+        return oBaseResult.displayPage;
+      case "editPage":
+        return oBaseResult.editPage;
+      case "userPage":
+        return oBaseResult.userPage;
+      case "download":
+        return oBaseResult.download;
+      case "objectSuggest":
+        return oBaseResult.objectSuggest;
+      case "objectText":
+        return oBaseResult.objectText;
+      case "solrId":
+        return oBaseResult.solrId;
+      default:
+        return null;
+    }
+  }
+
+  ///////////////
+  // relate //
+  ///////////////
+
+  public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateBaseResult(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateBaseResult(String var, Object val) {
+    BaseResult oBaseResult = (BaseResult)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  ///////////////
+  // staticSet //
+  ///////////////
+
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, BaseResult o) {
+    return staticSetBaseResult(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetBaseResult(String entityVar, SiteRequest siteRequest_, String v, BaseResult o) {
+    switch(entityVar) {
+    case "created":
+    case "modified":
+    case "archived":
+      return BaseResult.staticSetArchived(siteRequest_, v);
+    case "classCanonicalName":
+      return BaseResult.staticSetClassCanonicalName(siteRequest_, v);
+    case "classSimpleName":
+      return BaseResult.staticSetClassSimpleName(siteRequest_, v);
+    case "classCanonicalNames":
+      return BaseResult.staticSetClassCanonicalNames(siteRequest_, v);
+    case "saves":
+      return BaseResult.staticSetSaves(siteRequest_, v);
+    case "objectTitle":
+      return BaseResult.staticSetObjectTitle(siteRequest_, v);
+    case "displayPage":
+      return BaseResult.staticSetDisplayPage(siteRequest_, v);
+    case "editPage":
+      return BaseResult.staticSetEditPage(siteRequest_, v);
+    case "userPage":
+      return BaseResult.staticSetUserPage(siteRequest_, v);
+    case "download":
+      return BaseResult.staticSetDownload(siteRequest_, v);
+    case "objectSuggest":
+      return BaseResult.staticSetObjectSuggest(siteRequest_, v);
+    case "objectText":
+      return BaseResult.staticSetObjectText(siteRequest_, v);
+    case "solrId":
+      return BaseResult.staticSetSolrId(siteRequest_, v);
+      default:
+        return null;
+    }
+  }
+
+  ////////////////
+  // staticSearch //
+  ////////////////
+
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchBaseResult(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchBaseResult(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "created":
+      return BaseResult.staticSearchCreated(siteRequest_, (ZonedDateTime)o);
+    case "modified":
+      return BaseResult.staticSearchModified(siteRequest_, (ZonedDateTime)o);
+    case "archived":
+      return BaseResult.staticSearchArchived(siteRequest_, (Boolean)o);
+    case "classCanonicalName":
+      return BaseResult.staticSearchClassCanonicalName(siteRequest_, (String)o);
+    case "classSimpleName":
+      return BaseResult.staticSearchClassSimpleName(siteRequest_, (String)o);
+    case "classCanonicalNames":
+      return BaseResult.staticSearchClassCanonicalNames(siteRequest_, (String)o);
+    case "saves":
+      return BaseResult.staticSearchSaves(siteRequest_, (String)o);
+    case "objectTitle":
+      return BaseResult.staticSearchObjectTitle(siteRequest_, (String)o);
+    case "displayPage":
+      return BaseResult.staticSearchDisplayPage(siteRequest_, (String)o);
+    case "editPage":
+      return BaseResult.staticSearchEditPage(siteRequest_, (String)o);
+    case "userPage":
+      return BaseResult.staticSearchUserPage(siteRequest_, (String)o);
+    case "download":
+      return BaseResult.staticSearchDownload(siteRequest_, (String)o);
+    case "objectSuggest":
+      return BaseResult.staticSearchObjectSuggest(siteRequest_, (String)o);
+    case "objectText":
+      return BaseResult.staticSearchObjectText(siteRequest_, (String)o);
+    case "solrId":
+      return BaseResult.staticSearchSolrId(siteRequest_, (String)o);
+      default:
+        return null;
+    }
+  }
+
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
+
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrBaseResult(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrBaseResult(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "created":
+      return BaseResult.staticSearchStrCreated(siteRequest_, (String)o);
+    case "modified":
+      return BaseResult.staticSearchStrModified(siteRequest_, (String)o);
+    case "archived":
+      return BaseResult.staticSearchStrArchived(siteRequest_, (Boolean)o);
+    case "classCanonicalName":
+      return BaseResult.staticSearchStrClassCanonicalName(siteRequest_, (String)o);
+    case "classSimpleName":
+      return BaseResult.staticSearchStrClassSimpleName(siteRequest_, (String)o);
+    case "classCanonicalNames":
+      return BaseResult.staticSearchStrClassCanonicalNames(siteRequest_, (String)o);
+    case "saves":
+      return BaseResult.staticSearchStrSaves(siteRequest_, (String)o);
+    case "objectTitle":
+      return BaseResult.staticSearchStrObjectTitle(siteRequest_, (String)o);
+    case "displayPage":
+      return BaseResult.staticSearchStrDisplayPage(siteRequest_, (String)o);
+    case "editPage":
+      return BaseResult.staticSearchStrEditPage(siteRequest_, (String)o);
+    case "userPage":
+      return BaseResult.staticSearchStrUserPage(siteRequest_, (String)o);
+    case "download":
+      return BaseResult.staticSearchStrDownload(siteRequest_, (String)o);
+    case "objectSuggest":
+      return BaseResult.staticSearchStrObjectSuggest(siteRequest_, (String)o);
+    case "objectText":
+      return BaseResult.staticSearchStrObjectText(siteRequest_, (String)o);
+    case "solrId":
+      return BaseResult.staticSearchStrSolrId(siteRequest_, (String)o);
+      default:
+        return null;
+    }
+  }
+
+  //////////////////
+  // staticSearchFq //
+  //////////////////
+
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqBaseResult(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqBaseResult(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "created":
+      return BaseResult.staticSearchFqCreated(siteRequest_, o);
+    case "modified":
+      return BaseResult.staticSearchFqModified(siteRequest_, o);
+    case "archived":
+      return BaseResult.staticSearchFqArchived(siteRequest_, o);
+    case "classCanonicalName":
+      return BaseResult.staticSearchFqClassCanonicalName(siteRequest_, o);
+    case "classSimpleName":
+      return BaseResult.staticSearchFqClassSimpleName(siteRequest_, o);
+    case "classCanonicalNames":
+      return BaseResult.staticSearchFqClassCanonicalNames(siteRequest_, o);
+    case "saves":
+      return BaseResult.staticSearchFqSaves(siteRequest_, o);
+    case "objectTitle":
+      return BaseResult.staticSearchFqObjectTitle(siteRequest_, o);
+    case "displayPage":
+      return BaseResult.staticSearchFqDisplayPage(siteRequest_, o);
+    case "editPage":
+      return BaseResult.staticSearchFqEditPage(siteRequest_, o);
+    case "userPage":
+      return BaseResult.staticSearchFqUserPage(siteRequest_, o);
+    case "download":
+      return BaseResult.staticSearchFqDownload(siteRequest_, o);
+    case "objectSuggest":
+      return BaseResult.staticSearchFqObjectSuggest(siteRequest_, o);
+    case "objectText":
+      return BaseResult.staticSearchFqObjectText(siteRequest_, o);
+    case "solrId":
+      return BaseResult.staticSearchFqSolrId(siteRequest_, o);
+      default:
+        return null;
+    }
+  }
+
+  /////////////
+  // persist //
+  /////////////
+
+  public boolean persistForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    if(val != null) {
+      for(String v : vars) {
+        if(o == null)
+          o = persistBaseResult(v, val);
+        else if(o instanceof BaseModel) {
+          BaseModel oBaseModel = (BaseModel)o;
+          o = oBaseModel.persistForClass(v, val);
+        }
+      }
+    }
+    return o != null;
+  }
+  public Object persistBaseResult(String var, Object val) {
+    String varLower = var.toLowerCase();
+      if("created".equals(varLower)) {
+        if(val instanceof String) {
+          setCreated((String)val);
+        } else if(val instanceof OffsetDateTime) {
+          setCreated(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        }
+        saves.add("created");
+        return val;
+      } else if("archived".equals(varLower)) {
+        if(val instanceof Boolean) {
+          setArchived((Boolean)val);
+        } else {
+          setArchived(val == null ? null : val.toString());
+        }
+        saves.add("archived");
+        return val;
+      } else if("objecttitle".equals(varLower)) {
+        if(val instanceof String) {
+          setObjectTitle((String)val);
+        }
+        saves.add("objectTitle");
+        return val;
+      } else if("displaypage".equals(varLower)) {
+        if(val instanceof String) {
+          setDisplayPage((String)val);
+        }
+        saves.add("displayPage");
+        return val;
+      } else if("editpage".equals(varLower)) {
+        if(val instanceof String) {
+          setEditPage((String)val);
+        }
+        saves.add("editPage");
+        return val;
+      } else if("userpage".equals(varLower)) {
+        if(val instanceof String) {
+          setUserPage((String)val);
+        }
+        saves.add("userPage");
+        return val;
+      } else if("download".equals(varLower)) {
+        if(val instanceof String) {
+          setDownload((String)val);
+        }
+        saves.add("download");
+        return val;
+      } else if("solrid".equals(varLower)) {
+        if(val instanceof String) {
+          setSolrId((String)val);
+        }
+        saves.add("solrId");
+        return val;
+    } else {
+      return null;
+    }
+  }
+
+  /////////////
+  // populate //
+  /////////////
+
+  public void populateForClass(SolrResponse.Doc doc) {
+    populateBaseResult(doc);
+  }
+  public void populateBaseResult(SolrResponse.Doc doc) {
+    BaseResult oBaseResult = (BaseResult)this;
+    saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
+    if(saves != null) {
+
+      if(saves.contains("created")) {
+        String created = (String)doc.get("created_docvalues_date");
+        if(created != null)
+          oBaseResult.setCreated(created);
+      }
+
+      if(saves.contains("modified")) {
+        String modified = (String)doc.get("modified_docvalues_date");
+        if(modified != null)
+          oBaseResult.setModified(modified);
+      }
+
+      if(saves.contains("archived")) {
+        Boolean archived = (Boolean)doc.get("archived_docvalues_boolean");
+        if(archived != null)
+          oBaseResult.setArchived(archived);
+      }
+
+      if(saves.contains("classCanonicalName")) {
+        String classCanonicalName = (String)doc.get("classCanonicalName_docvalues_string");
+        if(classCanonicalName != null)
+          oBaseResult.setClassCanonicalName(classCanonicalName);
+      }
+
+      if(saves.contains("classSimpleName")) {
+        String classSimpleName = (String)doc.get("classSimpleName_docvalues_string");
+        if(classSimpleName != null)
+          oBaseResult.setClassSimpleName(classSimpleName);
+      }
+
+      if(saves.contains("classCanonicalNames")) {
+        List<String> classCanonicalNames = (List<String>)doc.get("classCanonicalNames_docvalues_strings");
+        if(classCanonicalNames != null) {
+          classCanonicalNames.stream().forEach( v -> {
+            oBaseResult.classCanonicalNames.add(BaseResult.staticSetClassCanonicalNames(siteRequest_, v));
+          });
+        }
+      }
+
+      if(saves.contains("saves")) {
+        List<String> saves = (List<String>)doc.get("saves_docvalues_strings");
+        if(saves != null) {
+          saves.stream().forEach( v -> {
+            oBaseResult.saves.add(BaseResult.staticSetSaves(siteRequest_, v));
+          });
+        }
+      }
+
+      if(saves.contains("objectTitle")) {
+        String objectTitle = (String)doc.get("objectTitle_docvalues_string");
+        if(objectTitle != null)
+          oBaseResult.setObjectTitle(objectTitle);
+      }
+
+      if(saves.contains("displayPage")) {
+        String displayPage = (String)doc.get("displayPage_docvalues_string");
+        if(displayPage != null)
+          oBaseResult.setDisplayPage(displayPage);
+      }
+
+      if(saves.contains("editPage")) {
+        String editPage = (String)doc.get("editPage_docvalues_string");
+        if(editPage != null)
+          oBaseResult.setEditPage(editPage);
+      }
+
+      if(saves.contains("userPage")) {
+        String userPage = (String)doc.get("userPage_docvalues_string");
+        if(userPage != null)
+          oBaseResult.setUserPage(userPage);
+      }
+
+      if(saves.contains("download")) {
+        String download = (String)doc.get("download_docvalues_string");
+        if(download != null)
+          oBaseResult.setDownload(download);
+      }
+
+      if(saves.contains("objectSuggest")) {
+        String objectSuggest = (String)doc.get("objectSuggest_suggested");
+        oBaseResult.setObjectSuggest(objectSuggest);
+      }
+
+      String solrId = (String)doc.get("solrId");
+      oBaseResult.setSolrId(solrId);
+    }
+  }
+
+  public void indexBaseResult(JsonObject doc) {
+    if(created != null) {
+      doc.put("created_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(created.toInstant(), ZoneId.of("UTC"))));
+    }
+    if(modified != null) {
+      doc.put("modified_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(modified.toInstant(), ZoneId.of("UTC"))));
+    }
+    if(archived != null) {
+      doc.put("archived_docvalues_boolean", archived);
+    }
+    if(classCanonicalName != null) {
+      doc.put("classCanonicalName_docvalues_string", classCanonicalName);
+    }
+    if(classSimpleName != null) {
+      doc.put("classSimpleName_docvalues_string", classSimpleName);
+    }
+    if(classCanonicalNames != null) {
+      JsonArray l = new JsonArray();
+      doc.put("classCanonicalNames_docvalues_strings", l);
+      for(String o : classCanonicalNames) {
+        l.add(BaseResult.staticSearchClassCanonicalNames(siteRequest_, o));
+      }
+    }
+    if(saves != null) {
+      JsonArray l = new JsonArray();
+      doc.put("saves_docvalues_strings", l);
+      for(String o : saves) {
+        l.add(BaseResult.staticSearchSaves(siteRequest_, o));
+      }
+    }
+    if(objectTitle != null) {
+      doc.put("objectTitle_docvalues_string", objectTitle);
+    }
+    if(displayPage != null) {
+      doc.put("displayPage_docvalues_string", displayPage);
+    }
+    if(editPage != null) {
+      doc.put("editPage_docvalues_string", editPage);
+    }
+    if(userPage != null) {
+      doc.put("userPage_docvalues_string", userPage);
+    }
+    if(download != null) {
+      doc.put("download_docvalues_string", download);
+    }
+    if(objectSuggest != null) {
+      doc.put("objectSuggest_suggested", objectSuggest);
+    }
+    if(objectText != null) {
+      JsonArray l = new JsonArray();
+      doc.put("objectText_text_enUS", l);
+      for(String o : objectText) {
+        l.add(o);
+      }
+    }
+    if(solrId != null) {
+      doc.put("solrId", solrId);
+    }
+	}
+
+  public static String varStoredBaseResult(String entityVar) {
+    switch(entityVar) {
+      case "created":
+        return "created_docvalues_date";
+      case "modified":
+        return "modified_docvalues_date";
+      case "archived":
+        return "archived_docvalues_boolean";
+      case "classCanonicalName":
+        return "classCanonicalName_docvalues_string";
+      case "classSimpleName":
+        return "classSimpleName_docvalues_string";
+      case "classCanonicalNames":
+        return "classCanonicalNames_docvalues_strings";
+      case "saves":
+        return "saves_docvalues_strings";
+      case "objectTitle":
+        return "objectTitle_docvalues_string";
+      case "displayPage":
+        return "displayPage_docvalues_string";
+      case "editPage":
+        return "editPage_docvalues_string";
+      case "userPage":
+        return "userPage_docvalues_string";
+      case "download":
+        return "download_docvalues_string";
+      default:
+        return null;
+    }
+  }
+
+  public static String varIndexedBaseResult(String entityVar) {
+    switch(entityVar) {
+      case "created":
+        return "created_docvalues_date";
+      case "modified":
+        return "modified_docvalues_date";
+      case "archived":
+        return "archived_docvalues_boolean";
+      case "classCanonicalName":
+        return "classCanonicalName_docvalues_string";
+      case "classSimpleName":
+        return "classSimpleName_docvalues_string";
+      case "classCanonicalNames":
+        return "classCanonicalNames_docvalues_strings";
+      case "saves":
+        return "saves_docvalues_strings";
+      case "objectTitle":
+        return "objectTitle_docvalues_string";
+      case "displayPage":
+        return "displayPage_docvalues_string";
+      case "editPage":
+        return "editPage_docvalues_string";
+      case "userPage":
+        return "userPage_docvalues_string";
+      case "download":
+        return "download_docvalues_string";
+      case "objectSuggest":
+        return "objectSuggest_suggested";
+      case "objectText":
+        return "objectText_text_enUS";
+      case "solrId":
+        return "solrId";
+      default:
+        return null;
+    }
+  }
+
+  public static String searchVarBaseResult(String searchVar) {
+    switch(searchVar) {
+      case "created_docvalues_date":
+        return "created";
+      case "modified_docvalues_date":
+        return "modified";
+      case "archived_docvalues_boolean":
+        return "archived";
+      case "classCanonicalName_docvalues_string":
+        return "classCanonicalName";
+      case "classSimpleName_docvalues_string":
+        return "classSimpleName";
+      case "classCanonicalNames_docvalues_strings":
+        return "classCanonicalNames";
+      case "saves_docvalues_strings":
+        return "saves";
+      case "objectTitle_docvalues_string":
+        return "objectTitle";
+      case "displayPage_docvalues_string":
+        return "displayPage";
+      case "editPage_docvalues_string":
+        return "editPage";
+      case "userPage_docvalues_string":
+        return "userPage";
+      case "download_docvalues_string":
+        return "download";
+      case "objectSuggest_suggested":
+        return "objectSuggest";
+      case "objectText_text_enUS":
+        return "objectText";
+      case "solrId":
+        return "solrId";
+      default:
+        return null;
+    }
+  }
+
+  public static String varSearchBaseResult(String entityVar) {
+    switch(entityVar) {
+      case "objectText":
+        return "objectText_text_enUS";
+      case "objectSuggest":
+        return "objectSuggest_suggested";
+      default:
+        return null;
+    }
+  }
+
+  public static String varSuggestedBaseResult(String entityVar) {
+    switch(entityVar) {
+      case "objectSuggest":
+        return "objectSuggest_suggested";
+      default:
+        return null;
+    }
+  }
+
+  /////////////
+  // store //
+  /////////////
+
+  public void storeForClass(SolrResponse.Doc doc) {
+    storeBaseResult(doc);
+  }
+  public void storeBaseResult(SolrResponse.Doc doc) {
+    BaseResult oBaseResult = (BaseResult)this;
+    SiteRequest siteRequest = oBaseResult.getSiteRequest_();
+
+    oBaseResult.setCreated(Optional.ofNullable(doc.get("created_docvalues_date")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setModified(Optional.ofNullable(doc.get("modified_docvalues_date")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setArchived(Optional.ofNullable(doc.get("archived_docvalues_boolean")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setClassCanonicalName(Optional.ofNullable(doc.get("classCanonicalName_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setClassSimpleName(Optional.ofNullable(doc.get("classSimpleName_docvalues_string")).map(v -> v.toString()).orElse(null));
+    Optional.ofNullable((List<?>)doc.get("classCanonicalNames_docvalues_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+      oBaseResult.addClassCanonicalNames(BaseResult.staticSetClassCanonicalNames(siteRequest, v.toString()));
+    });
+    Optional.ofNullable((List<?>)doc.get("saves_docvalues_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+      oBaseResult.addSaves(BaseResult.staticSetSaves(siteRequest, v.toString()));
+    });
+    oBaseResult.setObjectTitle(Optional.ofNullable(doc.get("objectTitle_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setDisplayPage(Optional.ofNullable(doc.get("displayPage_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setEditPage(Optional.ofNullable(doc.get("editPage_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setUserPage(Optional.ofNullable(doc.get("userPage_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setDownload(Optional.ofNullable(doc.get("download_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setObjectSuggest(Optional.ofNullable(doc.get("objectSuggest_suggested")).map(v -> v.toString()).orElse(null));
+    Optional.ofNullable((List<?>)doc.get("objectText_text_enUS")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+      oBaseResult.addObjectText(BaseResult.staticSetObjectText(siteRequest, v.toString()));
+    });
+    String solrId = (String)doc.get("solrId");
+    oBaseResult.setSolrId(solrId);
+  }
+
+  //////////////////
+  // apiRequest //
+  //////////////////
+
+  public void apiRequestBaseResult() {
+    ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(r -> r.getApiRequest_()).orElse(null);
+    Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
+    if(o != null && o instanceof BaseResult) {
+      BaseResult original = (BaseResult)o;
+      if(!Objects.equals(created, original.getCreated()))
+        apiRequest.addVars("created");
+      if(!Objects.equals(modified, original.getModified()))
+        apiRequest.addVars("modified");
+      if(!Objects.equals(archived, original.getArchived()))
+        apiRequest.addVars("archived");
+      if(!Objects.equals(classCanonicalName, original.getClassCanonicalName()))
+        apiRequest.addVars("classCanonicalName");
+      if(!Objects.equals(classSimpleName, original.getClassSimpleName()))
+        apiRequest.addVars("classSimpleName");
+      if(!Objects.equals(classCanonicalNames, original.getClassCanonicalNames()))
+        apiRequest.addVars("classCanonicalNames");
+      if(!Objects.equals(saves, original.getSaves()))
+        apiRequest.addVars("saves");
+      if(!Objects.equals(objectTitle, original.getObjectTitle()))
+        apiRequest.addVars("objectTitle");
+      if(!Objects.equals(displayPage, original.getDisplayPage()))
+        apiRequest.addVars("displayPage");
+      if(!Objects.equals(editPage, original.getEditPage()))
+        apiRequest.addVars("editPage");
+      if(!Objects.equals(userPage, original.getUserPage()))
+        apiRequest.addVars("userPage");
+      if(!Objects.equals(download, original.getDownload()))
+        apiRequest.addVars("download");
+      if(!Objects.equals(objectSuggest, original.getObjectSuggest()))
+        apiRequest.addVars("objectSuggest");
+      if(!Objects.equals(objectText, original.getObjectText()))
+        apiRequest.addVars("objectText");
+      if(!Objects.equals(solrId, original.getSolrId()))
+        apiRequest.addVars("solrId");
+    }
+  }
+
+  //////////////
+  // toString //
+  //////////////
+
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(Optional.ofNullable(created).map(v -> "created: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(modified).map(v -> "modified: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(archived).map(v -> "archived: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(classCanonicalName).map(v -> "classCanonicalName: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(classSimpleName).map(v -> "classSimpleName: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(classCanonicalNames).map(v -> "classCanonicalNames: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(saves).map(v -> "saves: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(objectTitle).map(v -> "objectTitle: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(displayPage).map(v -> "displayPage: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(editPage).map(v -> "editPage: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(userPage).map(v -> "userPage: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(download).map(v -> "download: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(objectSuggest).map(v -> "objectSuggest: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(objectText).map(v -> "objectText: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(solrId).map(v -> "solrId: \"" + v + "\"\n" ).orElse(""));
+    return sb.toString();
+  }
+
+  public static final String CLASS_SIMPLE_NAME = "BaseResult";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.result.BaseResult";
+  public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String VAR_siteRequest_ = "siteRequest_";
+  public static final String VAR_created = "created";
+  public static final String VAR_modified = "modified";
+  public static final String VAR_archived = "archived";
+  public static final String VAR_classCanonicalName = "classCanonicalName";
+  public static final String VAR_classSimpleName = "classSimpleName";
+  public static final String VAR_classCanonicalNames = "classCanonicalNames";
+  public static final String VAR_saves = "saves";
+  public static final String VAR_objectTitle = "objectTitle";
+  public static final String VAR_displayPage = "displayPage";
+  public static final String VAR_editPage = "editPage";
+  public static final String VAR_userPage = "userPage";
+  public static final String VAR_download = "download";
+  public static final String VAR_objectSuggest = "objectSuggest";
+  public static final String VAR_objectText = "objectText";
+  public static final String VAR_solrId = "solrId";
+
+  public static List<String> varsQForClass() {
+    return BaseResult.varsQBaseResult(new ArrayList<String>());
+  }
+  public static List<String> varsQBaseResult(List<String> vars) {
+    vars.add(VAR_objectSuggest);
+    vars.add(VAR_objectText);
+    return vars;
+  }
+
+  public static List<String> varsFqForClass() {
+    return BaseResult.varsFqBaseResult(new ArrayList<String>());
+  }
+  public static List<String> varsFqBaseResult(List<String> vars) {
+    vars.add(VAR_created);
+    vars.add(VAR_modified);
+    vars.add(VAR_classSimpleName);
+    vars.add(VAR_displayPage);
+    vars.add(VAR_editPage);
+    vars.add(VAR_userPage);
+    vars.add(VAR_download);
+    return vars;
+  }
+
+  public static List<String> varsRangeForClass() {
+    return BaseResult.varsRangeBaseResult(new ArrayList<String>());
+  }
+  public static List<String> varsRangeBaseResult(List<String> vars) {
+    vars.add(VAR_created);
+    vars.add(VAR_modified);
+    return vars;
+  }
+
+  public static final String DISPLAY_NAME_siteRequest_ = "";
+  public static final String DISPLAY_NAME_created = "created";
+  public static final String DISPLAY_NAME_modified = "modified";
+  public static final String DISPLAY_NAME_archived = "archived";
+  public static final String DISPLAY_NAME_classCanonicalName = "";
+  public static final String DISPLAY_NAME_classSimpleName = "object type";
+  public static final String DISPLAY_NAME_classCanonicalNames = "";
+  public static final String DISPLAY_NAME_saves = "";
+  public static final String DISPLAY_NAME_objectTitle = "title";
+  public static final String DISPLAY_NAME_displayPage = "";
+  public static final String DISPLAY_NAME_editPage = "manage";
+  public static final String DISPLAY_NAME_userPage = "user";
+  public static final String DISPLAY_NAME_download = "download";
+  public static final String DISPLAY_NAME_objectSuggest = "autosuggest";
+  public static final String DISPLAY_NAME_objectText = "text";
+  public static final String DISPLAY_NAME_solrId = "";
+
+  public String idForClass() {
+    return null;
+  }
+
+  public String titleForClass() {
+    return objectTitle;
+  }
+
+  public String nameForClass() {
+    return null;
+  }
+
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
+
+  public String descriptionForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public static String displayNameForClass(String var) {
+    return BaseResult.displayNameBaseResult(var);
+  }
+  public static String displayNameBaseResult(String var) {
+    switch(var) {
+    case VAR_siteRequest_:
+      return DISPLAY_NAME_siteRequest_;
+    case VAR_created:
+      return DISPLAY_NAME_created;
+    case VAR_modified:
+      return DISPLAY_NAME_modified;
+    case VAR_archived:
+      return DISPLAY_NAME_archived;
+    case VAR_classCanonicalName:
+      return DISPLAY_NAME_classCanonicalName;
+    case VAR_classSimpleName:
+      return DISPLAY_NAME_classSimpleName;
+    case VAR_classCanonicalNames:
+      return DISPLAY_NAME_classCanonicalNames;
+    case VAR_saves:
+      return DISPLAY_NAME_saves;
+    case VAR_objectTitle:
+      return DISPLAY_NAME_objectTitle;
+    case VAR_displayPage:
+      return DISPLAY_NAME_displayPage;
+    case VAR_editPage:
+      return DISPLAY_NAME_editPage;
+    case VAR_userPage:
+      return DISPLAY_NAME_userPage;
+    case VAR_download:
+      return DISPLAY_NAME_download;
+    case VAR_objectSuggest:
+      return DISPLAY_NAME_objectSuggest;
+    case VAR_objectText:
+      return DISPLAY_NAME_objectText;
+    case VAR_solrId:
+      return DISPLAY_NAME_solrId;
+    default:
+      return null;
+    }
+  }
+
+  public static String descriptionBaseResult(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+    case VAR_siteRequest_:
+      return "The current request object";
+    case VAR_created:
+      return "A created timestamp for this record in the database";
+    case VAR_modified:
+      return "A modified timestamp for this record in the database";
+    case VAR_archived:
+      return "For archiving this record";
+    case VAR_classCanonicalName:
+      return "the canonical name of this Java class";
+    case VAR_classSimpleName:
+      return "The simple name of this Java class";
+    case VAR_classCanonicalNames:
+      return "All the inherited canonical names of this Java class";
+    case VAR_saves:
+      return "A list of fields that are saved for this record in the database";
+    case VAR_objectTitle:
+      return "The title of this page. ";
+    case VAR_editPage:
+      return "Manage this";
+    case VAR_userPage:
+      return "User page";
+    case VAR_download:
+      return "the download URL";
+    case VAR_objectSuggest:
+      return "The indexed field in the search engine for this record while using autosuggest";
+    case VAR_objectText:
+      return "The full text search field in the search engine for this record while using autosuggest";
+    case VAR_solrId:
+      return "The unique key for this record in the search engine";
+      default:
+        return null;
+    }
+  }
+
+  public static String classSimpleNameBaseResult(String var) {
+    switch(var) {
+    case VAR_siteRequest_:
+      return "SiteRequest";
+    case VAR_created:
+      return "ZonedDateTime";
+    case VAR_modified:
+      return "ZonedDateTime";
+    case VAR_archived:
+      return "Boolean";
+    case VAR_classCanonicalName:
+      return "String";
+    case VAR_classSimpleName:
+      return "String";
+    case VAR_classCanonicalNames:
+      return "List";
+    case VAR_saves:
+      return "List";
+    case VAR_objectTitle:
+      return "String";
+    case VAR_displayPage:
+      return "String";
+    case VAR_editPage:
+      return "String";
+    case VAR_userPage:
+      return "String";
+    case VAR_download:
+      return "String";
+    case VAR_objectSuggest:
+      return "String";
+    case VAR_objectText:
+      return "List";
+    case VAR_solrId:
+      return "String";
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmColumnBaseResult(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmRowBaseResult(String var) {
+    switch(var) {
+    case VAR_created:
+      return 1;
+    case VAR_modified:
+      return 1;
+    case VAR_archived:
+      return 2;
+    case VAR_displayPage:
+      return 99;
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmCellBaseResult(String var) {
+    switch(var) {
+    case VAR_created:
+      return 2;
+    case VAR_modified:
+      return 3;
+    case VAR_archived:
+      return 1;
+    case VAR_displayPage:
+      return 2;
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMinBaseResult(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMaxBaseResult(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer maxBaseResult(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer minBaseResult(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 }

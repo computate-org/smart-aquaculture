@@ -173,15 +173,15 @@ import org.computate.smartaquaculture.model.BaseModel;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSGenApiService;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.timezone.TimeZone;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
 import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.feed.Feed;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePage;
@@ -267,7 +267,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
     this.sdkMeterProvider = sdkMeterProvider;
   }
 
-
   /**
    * The main method for the Vert.x application that runs the Vert.x Runner class
    **/
@@ -346,14 +345,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       apiTimeZone.setVertx(vertx);
       apiTimeZone.setConfig(config);
       apiTimeZone.setWebClient(webClient);
-      FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
-      apiFeedingOperation.setVertx(vertx);
-      apiFeedingOperation.setConfig(config);
-      apiFeedingOperation.setWebClient(webClient);
-      SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
-      apiSiteUser.setVertx(vertx);
-      apiSiteUser.setConfig(config);
-      apiSiteUser.setWebClient(webClient);
       FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
       apiFeeder.setVertx(vertx);
       apiFeeder.setConfig(config);
@@ -362,6 +353,14 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       apiFeed.setVertx(vertx);
       apiFeed.setConfig(config);
       apiFeed.setWebClient(webClient);
+      FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
+      apiFeedingOperation.setVertx(vertx);
+      apiFeedingOperation.setConfig(config);
+      apiFeedingOperation.setWebClient(webClient);
+      SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
+      apiSiteUser.setVertx(vertx);
+      apiSiteUser.setConfig(config);
+      apiSiteUser.setWebClient(webClient);
       SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
       apiSitePage.setVertx(vertx);
       apiSitePage.setConfig(config);
@@ -401,21 +400,21 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       apiSiteUser.createAuthorizationScopes().onSuccess(authToken -> {
         apiTimeZone.authorizeGroupData(authToken, TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" })
             .onSuccess(q1 -> {
-          apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "FeedingOperationViewer", new String[] { "GET" })
-              .compose(q2 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "FeedingOperationEditor", new String[] { "GET", "POST", "PATCH" }))
-              .compose(q2 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-              .compose(q2 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+          apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "FeederViewer", new String[] { "GET" })
+              .compose(q2 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "FeederEditor", new String[] { "GET", "POST", "PATCH" }))
+              .compose(q2 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+              .compose(q2 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
               .onSuccess(q2 -> {
-              apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "FeederViewer", new String[] { "GET" })
-                  .compose(q4 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "FeederEditor", new String[] { "GET", "POST", "PATCH" }))
-                  .compose(q4 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-                  .compose(q4 -> apiFeeder.authorizeGroupData(authToken, Feeder.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+            apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "FeedViewer", new String[] { "GET" })
+                .compose(q3 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "FeedEditor", new String[] { "GET", "POST", "PATCH" }))
+                .compose(q3 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+                .compose(q3 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
+                .onSuccess(q3 -> {
+              apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "FeedingOperationViewer", new String[] { "GET" })
+                  .compose(q4 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "FeedingOperationEditor", new String[] { "GET", "POST", "PATCH" }))
+                  .compose(q4 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
+                  .compose(q4 -> apiFeedingOperation.authorizeGroupData(authToken, FeedingOperation.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
                   .onSuccess(q4 -> {
-                apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "FeedViewer", new String[] { "GET" })
-                    .compose(q5 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "FeedEditor", new String[] { "GET", "POST", "PATCH" }))
-                    .compose(q5 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "SuperAdmin", "Admin" }))
-                    .compose(q5 -> apiFeed.authorizeGroupData(authToken, Feed.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "PUT", "DELETE", "Admin" }))
-                    .onSuccess(q5 -> {
                   apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
                       .compose(q6 -> apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
                       .onSuccess(q6 -> {
@@ -459,8 +458,8 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
                                     promise.complete();
                                   }).onFailure(ex -> promise.fail(ex));
                                 }).onFailure(ex -> promise.fail(ex));
+                              }).onFailure(ex -> promise.fail(ex));
                             }).onFailure(ex -> promise.fail(ex));
-                          }).onFailure(ex -> promise.fail(ex));
                         }).onFailure(ex -> promise.fail(ex));
                       }).onFailure(ex -> promise.fail(ex));
                     }).onFailure(ex -> promise.fail(ex));
@@ -783,11 +782,11 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
                         configureAmqp().onSuccess(j -> 
                           configureRabbitmq().onSuccess(k -> 
                             configureJinjava().onSuccess(l -> 
-                                configureApi().onSuccess(n -> 
-                                  configureUi().onSuccess(o -> 
-                                    startServer().onSuccess(p -> startPromise.complete())
-                                  ).onFailure(ex -> startPromise.fail(ex))
+                              configureApi().onSuccess(n -> 
+                                configureUi().onSuccess(o -> 
+                                  startServer().onSuccess(p -> startPromise.complete())
                                 ).onFailure(ex -> startPromise.fail(ex))
+                              ).onFailure(ex -> startPromise.fail(ex))
                             ).onFailure(ex -> startPromise.fail(ex))
                           ).onFailure(ex -> startPromise.fail(ex))
                         ).onFailure(ex -> startPromise.fail(ex))
@@ -1439,7 +1438,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
     return promise.future();
   }
 
-
   public <API_IMPL extends BaseApiServiceInterface> void initializeApiService(API_IMPL service) {
     service.setVertx(vertx);
     service.setEventBus(vertx.eventBus());
@@ -1480,10 +1478,6 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       initializeApiService(apiTimeZone);
       registerApiService(TimeZoneEnUSGenApiService.class, apiTimeZone, TimeZone.getClassApiAddress());
 
-      FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
-      initializeApiService(apiFeedingOperation);
-      registerApiService(FeedingOperationEnUSGenApiService.class, apiFeedingOperation, FeedingOperation.getClassApiAddress());
-
       FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
       initializeApiService(apiFeeder);
       registerApiService(FeederEnUSGenApiService.class, apiFeeder, Feeder.getClassApiAddress());
@@ -1491,6 +1485,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
       initializeApiService(apiFeed);
       registerApiService(FeedEnUSGenApiService.class, apiFeed, Feed.getClassApiAddress());
+
+      FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
+      initializeApiService(apiFeedingOperation);
+      registerApiService(FeedingOperationEnUSGenApiService.class, apiFeedingOperation, FeedingOperation.getClassApiAddress());
 
       SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
       initializeApiService(apiSitePage);
