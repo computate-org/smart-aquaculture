@@ -636,8 +636,8 @@
         <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <!-- Updated to compile for Java 21 (LTS) -->
-          <source>17</source>
-          <target>17</target>
+          <source>21</source>
+          <target>21</target>
           <encoding>UTF-8</encoding>
           <annotationProcessors>
             <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
