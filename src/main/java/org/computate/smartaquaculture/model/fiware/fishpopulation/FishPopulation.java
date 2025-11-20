@@ -1,6 +1,7 @@
 package org.computate.smartaquaculture.model.fiware.fishpopulation;
 
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.computate.search.wrap.Wrap;
@@ -56,249 +57,433 @@ import io.vertx.pgclient.data.Polygon;
  **/
 public class FishPopulation extends FishPopulationGen<MapModel> {
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: address
-	 * Description: The mailing address
-	 * HtmRowTitleOpen: FishPopulation details
-	 * HtmRow: 6
-	 * HtmCell: 0
-	 * Facet: true
-	 **/
-	protected void _address(Wrap<JsonObject> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: address
+   * Description: The mailing address
+   * HtmRowTitleOpen: FishPopulation details
+   * HtmRow: 6
+   * HtmCell: 0
+   * Facet: true
+   **/
+  protected void _address(Wrap<JsonObject> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: alternate name
-	 * Description: An alternative name for this item
-	 * HtmRow: 6
-	 * HtmCell: 1
-	 * Facet: true
-	 **/
-	protected void _alternateName(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: alternate name
+   * Description: An alternative name for this item
+   * HtmRow: 6
+   * HtmCell: 1
+   * Facet: true
+   **/
+  protected void _alternateName(Wrap<String> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: body masse
-	 * Description: The average body masse cultured fishes
-	 * HtmRow: 6
-	 * HtmCell: 2
-	 * Facet: true
-	 **/
-	protected void _bodyMasse(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: body masse
+   * Description: The average body masse cultured fishes
+   * HtmRow: 6
+   * HtmCell: 2
+   * Facet: true
+   **/
+  protected void _bodyMasse(Wrap<BigDecimal> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: cultured in
-	 * Description: Reference to the FishContainment
-	 * HtmRow: 6
-	 * HtmCell: 3
-	 * Facet: true
-	 **/
-	protected void _culturedIn(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: cultured in
+   * Description: Reference to the FishContainment
+   * HtmRow: 6
+   * HtmCell: 3
+   * Facet: true
+   **/
+  protected void _culturedIn(Wrap<BigDecimal> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: data provider
-	 * Description: A sequence of characters identifying the provider of the harmonised data entity
-	 * HtmRow: 6
-	 * HtmCell: 4
-	 * Facet: true
-	 **/
-	protected void _dataProvider(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: data provider
+   * Description: A sequence of characters identifying the provider of the harmonised data entity
+   * HtmRow: 6
+   * HtmCell: 4
+   * Facet: true
+   **/
+  protected void _dataProvider(Wrap<String> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: date created
-	 * Description: Entity creation timestamp. This will usually be allocated by the storage platform
-	 * HtmRow: 6
-	 * HtmCell: 5
-	 * Facet: true
-	 **/
-	protected void _dateCreated(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: date created
+   * Description: Entity creation timestamp. This will usually be allocated by the storage platform
+   * HtmRow: 6
+   * HtmCell: 5
+   * Facet: true
+   **/
+  protected void _dateCreated(Wrap<String> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: date modified
-	 * Description: Timestamp of the last modification of the entity. This will usually be allocated by the storage platform
-	 * HtmRow: 6
-	 * HtmCell: 6
-	 * Facet: true
-	 **/
-	protected void _dateModified(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: date modified
+   * Description: Timestamp of the last modification of the entity. This will usually be allocated by the storage platform
+   * HtmRow: 6
+   * HtmCell: 6
+   * Facet: true
+   **/
+  protected void _dateModified(Wrap<String> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: fish removed
-	 * Description: Number of removed fishes
-	 * HtmRow: 6
-	 * HtmCell: 7
-	 * Facet: true
-	 **/
-	protected void _fishRemoved(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: fish removed
+   * Description: Number of removed fishes
+   * HtmRow: 6
+   * HtmCell: 7
+   * Facet: true
+   **/
+  protected void _fishRemoved(Wrap<BigDecimal> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: initial number
-	 * Description: Number of initial number of cultured fishes
-	 * HtmRow: 6
-	 * HtmCell: 8
-	 * Facet: true
-	 **/
-	protected void _initialNumber(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: initial number
+   * Description: Number of initial number of cultured fishes
+   * HtmRow: 6
+   * HtmCell: 8
+   * Facet: true
+   **/
+  protected void _initialNumber(Wrap<BigDecimal> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: owner
-	 * Description: A List containing a JSON encoded sequence of characters referencing the unique Ids of the owner(s)
-	 * HtmRow: 6
-	 * HtmCell: 9
-	 * Facet: true
-	 **/
-	protected void _owner(Wrap<JsonObject> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: owner
+   * Description: A List containing a JSON encoded sequence of characters referencing the unique Ids of the owner(s)
+   * HtmRow: 6
+   * HtmCell: 9
+   * Facet: true
+   **/
+  protected void _owner(Wrap<JsonObject> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: ref specie
-	 * Description: Reference to the Specie
-	 * HtmRow: 6
-	 * HtmCell: 10
-	 * Facet: true
-	 **/
-	protected void _refSpecie(Wrap<BigDecimal> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: ref specie
+   * Description: Reference to the Specie
+   * HtmRow: 6
+   * HtmCell: 10
+   * Facet: true
+   **/
+  protected void _refSpecie(Wrap<BigDecimal> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: related source
-	 * Description: List of IDs the current entity may have in external applications
-	 * HtmRow: 6
-	 * HtmCell: 11
-	 * Facet: true
-	 **/
-	protected void _relatedSource(Wrap<JsonObject> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: related source
+   * Description: List of IDs the current entity may have in external applications
+   * HtmRow: 6
+   * HtmCell: 11
+   * Facet: true
+   **/
+  protected void _relatedSource(Wrap<JsonObject> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: see also
-	 * Description: list of uri pointing to additional resources about the item
-	 * HtmRow: 6
-	 * HtmCell: 12
-	 * Facet: true
-	 **/
-	protected void _seeAlso(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: see also
+   * Description: list of uri pointing to additional resources about the item
+   * HtmRow: 6
+   * HtmCell: 12
+   * Facet: true
+   **/
+  protected void _seeAlso(Wrap<String> w) {
+  }
 
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: source
-	 * Description: A sequence of characters giving the original source of the entity data as a URL. Recommended to be the fully qualified domain name of the source provider, or the URL to the source object
-	 * HtmRow: 6
-	 * HtmCell: 13
-	 * Facet: true
-	 **/
-	protected void _source(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: source
+   * Description: A sequence of characters giving the original source of the entity data as a URL. Recommended to be the fully qualified domain name of the source provider, or the URL to the source object
+   * HtmRow: 6
+   * HtmCell: 13
+   * Facet: true
+   **/
+  protected void _source(Wrap<String> w) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	
-	 * LocationColor: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served colors
-	 * Description: The colors of each areaServed Paths. 
-	 */
-	protected void _areaServedColors(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+  
+   * LocationColor: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served colors
+   * Description: The colors of each areaServed Paths. 
+   */
+  protected void _areaServedColors(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * LocationTitle: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served titles
-	 * Description: The titles of each areaServed Paths. 
-	 */
-	protected void _areaServedTitles(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * LocationTitle: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served titles
+   * Description: The titles of each areaServed Paths. 
+   */
+  protected void _areaServedTitles(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * LocationUrl: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served links
-	 * Description: The links of each areaServed Paths. 
-	 */
-	protected void _areaServedLinks(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * LocationUrl: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served links
+   * Description: The links of each areaServed Paths. 
+   */
+  protected void _areaServedLinks(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * FiwareType: geo:linestring
-	 * Area: true
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: area served
-	 * Description: The geographic area where a service or offered item is provided
-	 * HtmRow: 4
-	 * HtmCell: 1
-	 * Facet: true
-	 **/
-	protected void _areaServed(List<Polygon> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * FiwareType: geo:linestring
+   * Area: true
+   * DocValues: true
+   * Persist: true
+   * DisplayName: area served
+   * Description: The geographic area where a service or offered item is provided
+   * HtmRow: 4
+   * HtmCell: 1
+   * Facet: true
+   **/
+  protected void _areaServed(List<Polygon> l) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: maturity days begin
+   * Description: The range of days from birth for the fish population to become sexually mature. 
+   * HtmRowTitleOpen: reproduction parameters
+   * HtmRow: 5
+   * HtmCell: 0
+   **/
+  protected void _maturityDaysBegin(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(30));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: maturity days end
+   * Description: The range of days from birth for the fish population to become sexually mature. 
+   * HtmRow: 5
+   * HtmCell: 1
+   **/
+  protected void _maturityDaysEnd(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(160));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation days begin
+   * Description: The range of days for egg incubation. 
+   * HtmRowTitleOpen: reproduction parameters
+   * HtmRow: 5
+   * HtmCell: 2
+   **/
+  protected void _incubationDaysBegin(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(20));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation days end
+   * Description: The range of days for egg incubation. 
+   * HtmRow: 5
+   * HtmCell: 3
+   **/
+  protected void _incubationDaysEnd(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(40));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation number min
+   * Description: The range of fish born after incubation. 
+   * HtmRowTitleOpen: reproduction parameters
+   * HtmRow: 5
+   * HtmCell: 3
+   **/
+  protected void _incubationNumberMin(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(30));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation number max
+   * Description: The range of fish born after incubation. 
+   * HtmRow: 5
+   * HtmCell: 4
+   **/
+  protected void _incubationNumberMax(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(50));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: min percent of population pregnant
+   * Description: The the percentage of the population that becomes pregnant at incubation time. 
+   * HtmRow: 5
+   * HtmCell: 5
+   **/
+  protected void _percentPopulationPregnantMin(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(0.15));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: max percent of population pregnant
+   * Description: The the percentage of the population that becomes pregnant at incubation time. 
+   * HtmRow: 5
+   * HtmCell: 6
+   **/
+  protected void _percentPopulationPregnantMax(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(0.25));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: populations at birth
+   * Description: A list of population counts at birth. 
+   * HtmRowTitleOpen: population parameters
+   * HtmRow: 6
+   * HtmCell: 0
+   **/
+  protected void _populationsAtBirth(List<Long> l) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: populations now
+   * Description: A list of population counts now, since birth. 
+   * HtmRow: 6
+   * HtmCell: 1
+   **/
+  protected void _populationsNow(List<Long> l) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: simulation
+   * Description: Toggle the digital twin simulation
+   * HtmRowTitleOpen: simulation parameters
+   * HtmRow: 7
+   * HtmCell: 0
+   **/
+  protected void _simulation(Wrap<Boolean> w) {
+    w.o(false);
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: simulation delay in milliseconds
+   * Description: The number of milliseconds to asynchronously wait before the next update event is sent. 
+   * HtmRow: 7
+   * HtmCell: 1
+   **/
+  protected void _simulationDelayMillis(Wrap<Long> w) {
+    w.o(500L);
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation date
+   * Description: The date and time that incubation started for this fish population. 
+   * HtmRow: 7
+   * HtmCell: 2
+   **/
+  protected void _incubationDate(Wrap<ZonedDateTime> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation days now
+   * Description: The current number of days of egg incubation. 
+   * HtmRow: 7
+   * HtmCell: 3
+   **/
+  protected void _incubationDaysNow(Wrap<BigDecimal> w) {
+    w.o(BigDecimal.ZERO);
+  }
 }
 
