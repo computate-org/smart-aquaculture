@@ -134,695 +134,707 @@ import io.vertx.core.Future;
  * Generated: true
  **/
 public abstract class TimeZoneGenPageGen<DEV> extends PageLayout {
-	protected static final Logger LOG = LoggerFactory.getLogger(TimeZoneGenPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(TimeZoneGenPage.class);
 
 	/////////////////////////
-	// searchListTimeZone_ //
+  // searchListTimeZone_ //
 	/////////////////////////
 
 
-	/**	 The entity searchListTimeZone_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonIgnore
-	@JsonInclude(Include.NON_NULL)
-	protected SearchList<TimeZone> searchListTimeZone_;
+  /**
+   *  The entity searchListTimeZone_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonIgnore
+  @JsonInclude(Include.NON_NULL)
+  protected SearchList<TimeZone> searchListTimeZone_;
 
-	/**	<br> The entity searchListTimeZone_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:searchListTimeZone_">Find the entity searchListTimeZone_ in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _searchListTimeZone_(Wrap<SearchList<TimeZone>> w);
+  /**
+   * <br> The entity searchListTimeZone_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:searchListTimeZone_">Find the entity searchListTimeZone_ in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _searchListTimeZone_(Wrap<SearchList<TimeZone>> w);
 
-	public SearchList<TimeZone> getSearchListTimeZone_() {
-		return searchListTimeZone_;
-	}
+  public SearchList<TimeZone> getSearchListTimeZone_() {
+    return searchListTimeZone_;
+  }
 
-	public void setSearchListTimeZone_(SearchList<TimeZone> searchListTimeZone_) {
-		this.searchListTimeZone_ = searchListTimeZone_;
-	}
-	public static SearchList<TimeZone> staticSetSearchListTimeZone_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected TimeZoneGenPage searchListTimeZone_Init() {
-		Wrap<SearchList<TimeZone>> searchListTimeZone_Wrap = new Wrap<SearchList<TimeZone>>().var("searchListTimeZone_");
-		if(searchListTimeZone_ == null) {
-			_searchListTimeZone_(searchListTimeZone_Wrap);
-			Optional.ofNullable(searchListTimeZone_Wrap.getO()).ifPresent(o -> {
-				setSearchListTimeZone_(o);
-			});
-		}
-		return (TimeZoneGenPage)this;
-	}
+  public void setSearchListTimeZone_(SearchList<TimeZone> searchListTimeZone_) {
+    this.searchListTimeZone_ = searchListTimeZone_;
+  }
+  public static SearchList<TimeZone> staticSetSearchListTimeZone_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected TimeZoneGenPage searchListTimeZone_Init() {
+    Wrap<SearchList<TimeZone>> searchListTimeZone_Wrap = new Wrap<SearchList<TimeZone>>().var("searchListTimeZone_");
+    if(searchListTimeZone_ == null) {
+      _searchListTimeZone_(searchListTimeZone_Wrap);
+      Optional.ofNullable(searchListTimeZone_Wrap.getO()).ifPresent(o -> {
+        setSearchListTimeZone_(o);
+      });
+    }
+    return (TimeZoneGenPage)this;
+  }
 
 	//////////////////
-	// listTimeZone //
+  // listTimeZone //
 	//////////////////
 
 
-	/**	 The entity listTimeZone
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonArrayDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonArray listTimeZone = new JsonArray();
+  /**
+   *  The entity listTimeZone
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonArrayDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonArray listTimeZone = new JsonArray();
 
-	/**	<br> The entity listTimeZone
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:listTimeZone">Find the entity listTimeZone in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _listTimeZone(JsonArray l);
+  /**
+   * <br> The entity listTimeZone
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:listTimeZone">Find the entity listTimeZone in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _listTimeZone(JsonArray l);
 
-	public JsonArray getListTimeZone() {
-		return listTimeZone;
-	}
+  public JsonArray getListTimeZone() {
+    return listTimeZone;
+  }
 
-	public void setListTimeZone(JsonArray listTimeZone) {
-		this.listTimeZone = listTimeZone;
-	}
-	@JsonIgnore
-	public void setListTimeZone(String o) {
-		this.listTimeZone = TimeZoneGenPage.staticSetListTimeZone(siteRequest_, o);
-	}
-	public static JsonArray staticSetListTimeZone(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonArray(o);
-		}
-		return null;
-	}
-	protected TimeZoneGenPage listTimeZoneInit() {
-		_listTimeZone(listTimeZone);
-		return (TimeZoneGenPage)this;
-	}
+  public void setListTimeZone(JsonArray listTimeZone) {
+    this.listTimeZone = listTimeZone;
+  }
+  @JsonIgnore
+  public void setListTimeZone(String o) {
+    this.listTimeZone = TimeZoneGenPage.staticSetListTimeZone(siteRequest_, o);
+  }
+  public static JsonArray staticSetListTimeZone(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonArray(o);
+    }
+    return null;
+  }
+  protected TimeZoneGenPage listTimeZoneInit() {
+    _listTimeZone(listTimeZone);
+    return (TimeZoneGenPage)this;
+  }
 
-	public static String staticSearchListTimeZone(SiteRequest siteRequest_, JsonArray o) {
-		return o.toString();
-	}
+  public static String staticSearchListTimeZone(SiteRequest siteRequest_, JsonArray o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrListTimeZone(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrListTimeZone(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqListTimeZone(SiteRequest siteRequest_, String o) {
-		return TimeZoneGenPage.staticSearchListTimeZone(siteRequest_, TimeZoneGenPage.staticSetListTimeZone(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqListTimeZone(SiteRequest siteRequest_, String o) {
+    return TimeZoneGenPage.staticSearchListTimeZone(siteRequest_, TimeZoneGenPage.staticSetListTimeZone(siteRequest_, o)).toString();
+  }
 
 	/////////////////
-	// resultCount //
+  // resultCount //
 	/////////////////
 
 
-	/**	 The entity resultCount
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Integer resultCount;
+  /**
+   *  The entity resultCount
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Integer resultCount;
 
-	/**	<br> The entity resultCount
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _resultCount(Wrap<Integer> w);
+  /**
+   * <br> The entity resultCount
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _resultCount(Wrap<Integer> w);
 
-	public Integer getResultCount() {
-		return resultCount;
-	}
+  public Integer getResultCount() {
+    return resultCount;
+  }
 
-	public void setResultCount(Integer resultCount) {
-		this.resultCount = resultCount;
-	}
-	@JsonIgnore
-	public void setResultCount(String o) {
-		this.resultCount = TimeZoneGenPage.staticSetResultCount(siteRequest_, o);
-	}
-	public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Integer.parseInt(o);
-		return null;
-	}
-	protected TimeZoneGenPage resultCountInit() {
-		Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
-		if(resultCount == null) {
-			_resultCount(resultCountWrap);
-			Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
-				setResultCount(o);
-			});
-		}
-		return (TimeZoneGenPage)this;
-	}
+  public void setResultCount(Integer resultCount) {
+    this.resultCount = resultCount;
+  }
+  @JsonIgnore
+  public void setResultCount(String o) {
+    this.resultCount = TimeZoneGenPage.staticSetResultCount(siteRequest_, o);
+  }
+  public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Integer.parseInt(o);
+    return null;
+  }
+  protected TimeZoneGenPage resultCountInit() {
+    Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
+    if(resultCount == null) {
+      _resultCount(resultCountWrap);
+      Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
+        setResultCount(o);
+      });
+    }
+    return (TimeZoneGenPage)this;
+  }
 
-	public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
-		return o;
-	}
+  public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
+    return o;
+  }
 
-	public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
-		return TimeZoneGenPage.staticSearchResultCount(siteRequest_, TimeZoneGenPage.staticSetResultCount(siteRequest_, o)).toString();
-	}
-
-	////////////
-	// result //
-	////////////
-
-
-	/**	 The entity result
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected TimeZone result;
-
-	/**	<br> The entity result
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _result(Wrap<TimeZone> w);
-
-	public TimeZone getResult() {
-		return result;
-	}
-
-	public void setResult(TimeZone result) {
-		this.result = result;
-	}
-	public static TimeZone staticSetResult(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected TimeZoneGenPage resultInit() {
-		Wrap<TimeZone> resultWrap = new Wrap<TimeZone>().var("result");
-		if(result == null) {
-			_result(resultWrap);
-			Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
-				setResult(o);
-			});
-		}
-		return (TimeZoneGenPage)this;
-	}
+  public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
+    return TimeZoneGenPage.staticSearchResultCount(siteRequest_, TimeZoneGenPage.staticSetResultCount(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// solrId //
+  // result //
 	////////////
 
 
-	/**	 The entity solrId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String solrId;
+  /**
+   *  The entity result
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected TimeZone result;
 
-	/**	<br> The entity solrId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _solrId(Wrap<String> w);
+  /**
+   * <br> The entity result
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _result(Wrap<TimeZone> w);
 
-	public String getSolrId() {
-		return solrId;
-	}
-	public void setSolrId(String o) {
-		this.solrId = TimeZoneGenPage.staticSetSolrId(siteRequest_, o);
-	}
-	public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected TimeZoneGenPage solrIdInit() {
-		Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
-		if(solrId == null) {
-			_solrId(solrIdWrap);
-			Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
-				setSolrId(o);
-			});
-		}
-		return (TimeZoneGenPage)this;
-	}
+  public TimeZone getResult() {
+    return result;
+  }
 
-	public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public void setResult(TimeZone result) {
+    this.result = result;
+  }
+  public static TimeZone staticSetResult(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected TimeZoneGenPage resultInit() {
+    Wrap<TimeZone> resultWrap = new Wrap<TimeZone>().var("result");
+    if(result == null) {
+      _result(resultWrap);
+      Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
+        setResult(o);
+      });
+    }
+    return (TimeZoneGenPage)this;
+  }
 
-	public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+	////////////
+  // solrId //
+	////////////
 
-	public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
-		return TimeZoneGenPage.staticSearchSolrId(siteRequest_, TimeZoneGenPage.staticSetSolrId(siteRequest_, o)).toString();
-	}
+
+  /**
+   *  The entity solrId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String solrId;
+
+  /**
+   * <br> The entity solrId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _solrId(Wrap<String> w);
+
+  public String getSolrId() {
+    return solrId;
+  }
+  public void setSolrId(String o) {
+    this.solrId = TimeZoneGenPage.staticSetSolrId(siteRequest_, o);
+  }
+  public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected TimeZoneGenPage solrIdInit() {
+    Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
+    if(solrId == null) {
+      _solrId(solrIdWrap);
+      Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
+        setSolrId(o);
+      });
+    }
+    return (TimeZoneGenPage)this;
+  }
+
+  public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
+    return TimeZoneGenPage.staticSearchSolrId(siteRequest_, TimeZoneGenPage.staticSetSolrId(siteRequest_, o)).toString();
+  }
 
 	/////////////////////
-	// pageUriTimeZone //
+  // pageUriTimeZone //
 	/////////////////////
 
 
-	/**	 The entity pageUriTimeZone
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String pageUriTimeZone;
+  /**
+   *  The entity pageUriTimeZone
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String pageUriTimeZone;
 
-	/**	<br> The entity pageUriTimeZone
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:pageUriTimeZone">Find the entity pageUriTimeZone in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _pageUriTimeZone(Wrap<String> c);
+  /**
+   * <br> The entity pageUriTimeZone
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.timezone.TimeZoneGenPage&fq=entiteVar_enUS_indexed_string:pageUriTimeZone">Find the entity pageUriTimeZone in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _pageUriTimeZone(Wrap<String> c);
 
-	public String getPageUriTimeZone() {
-		return pageUriTimeZone;
-	}
-	public void setPageUriTimeZone(String o) {
-		this.pageUriTimeZone = TimeZoneGenPage.staticSetPageUriTimeZone(siteRequest_, o);
-	}
-	public static String staticSetPageUriTimeZone(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected TimeZoneGenPage pageUriTimeZoneInit() {
-		Wrap<String> pageUriTimeZoneWrap = new Wrap<String>().var("pageUriTimeZone");
-		if(pageUriTimeZone == null) {
-			_pageUriTimeZone(pageUriTimeZoneWrap);
-			Optional.ofNullable(pageUriTimeZoneWrap.getO()).ifPresent(o -> {
-				setPageUriTimeZone(o);
-			});
-		}
-		return (TimeZoneGenPage)this;
-	}
+  public String getPageUriTimeZone() {
+    return pageUriTimeZone;
+  }
+  public void setPageUriTimeZone(String o) {
+    this.pageUriTimeZone = TimeZoneGenPage.staticSetPageUriTimeZone(siteRequest_, o);
+  }
+  public static String staticSetPageUriTimeZone(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected TimeZoneGenPage pageUriTimeZoneInit() {
+    Wrap<String> pageUriTimeZoneWrap = new Wrap<String>().var("pageUriTimeZone");
+    if(pageUriTimeZone == null) {
+      _pageUriTimeZone(pageUriTimeZoneWrap);
+      Optional.ofNullable(pageUriTimeZoneWrap.getO()).ifPresent(o -> {
+        setPageUriTimeZone(o);
+      });
+    }
+    return (TimeZoneGenPage)this;
+  }
 
-	public static String staticSearchPageUriTimeZone(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchPageUriTimeZone(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrPageUriTimeZone(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrPageUriTimeZone(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqPageUriTimeZone(SiteRequest siteRequest_, String o) {
-		return TimeZoneGenPage.staticSearchPageUriTimeZone(siteRequest_, TimeZoneGenPage.staticSetPageUriTimeZone(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqPageUriTimeZone(SiteRequest siteRequest_, String o) {
+    return TimeZoneGenPage.staticSearchPageUriTimeZone(siteRequest_, TimeZoneGenPage.staticSetPageUriTimeZone(siteRequest_, o)).toString();
+  }
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<TimeZoneGenPageGen<DEV>> promiseDeepTimeZoneGenPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepTimeZoneGenPage();
-	}
+  public Future<TimeZoneGenPageGen<DEV>> promiseDeepTimeZoneGenPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepTimeZoneGenPage();
+  }
 
-	public Future<TimeZoneGenPageGen<DEV>> promiseDeepTimeZoneGenPage() {
-		Promise<TimeZoneGenPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseTimeZoneGenPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<TimeZoneGenPageGen<DEV>> promiseDeepTimeZoneGenPage() {
+    Promise<TimeZoneGenPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseTimeZoneGenPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseTimeZoneGenPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				searchListTimeZone_Init();
-				listTimeZoneInit();
-				resultCountInit();
-				resultInit();
-				solrIdInit();
-				pageUriTimeZoneInit();
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseTimeZoneGenPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        searchListTimeZone_Init();
+        listTimeZoneInit();
+        resultCountInit();
+        resultInit();
+        solrIdInit();
+        pageUriTimeZoneInit();
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends TimeZoneGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepTimeZoneGenPage(siteRequest_);
-	}
+  @Override public Future<? extends TimeZoneGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepTimeZoneGenPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestTimeZoneGenPage(SiteRequest siteRequest_) {
-			super.siteRequestPageLayout(siteRequest_);
-	}
+  public void siteRequestTimeZoneGenPage(SiteRequest siteRequest_) {
+      super.siteRequestPageLayout(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestTimeZoneGenPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestTimeZoneGenPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainTimeZoneGenPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainTimeZoneGenPage(String var) {
-		TimeZoneGenPage oTimeZoneGenPage = (TimeZoneGenPage)this;
-		switch(var) {
-			case "searchListTimeZone_":
-				return oTimeZoneGenPage.searchListTimeZone_;
-			case "listTimeZone":
-				return oTimeZoneGenPage.listTimeZone;
-			case "resultCount":
-				return oTimeZoneGenPage.resultCount;
-			case "result":
-				return oTimeZoneGenPage.result;
-			case "solrId":
-				return oTimeZoneGenPage.solrId;
-			case "pageUriTimeZone":
-				return oTimeZoneGenPage.pageUriTimeZone;
-			default:
-				return super.obtainPageLayout(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainTimeZoneGenPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainTimeZoneGenPage(String var) {
+    TimeZoneGenPage oTimeZoneGenPage = (TimeZoneGenPage)this;
+    switch(var) {
+      case "searchListTimeZone_":
+        return oTimeZoneGenPage.searchListTimeZone_;
+      case "listTimeZone":
+        return oTimeZoneGenPage.listTimeZone;
+      case "resultCount":
+        return oTimeZoneGenPage.resultCount;
+      case "result":
+        return oTimeZoneGenPage.result;
+      case "solrId":
+        return oTimeZoneGenPage.solrId;
+      case "pageUriTimeZone":
+        return oTimeZoneGenPage.pageUriTimeZone;
+      default:
+        return super.obtainPageLayout(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateTimeZoneGenPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateTimeZoneGenPage(String var, Object val) {
-		TimeZoneGenPage oTimeZoneGenPage = (TimeZoneGenPage)this;
-		switch(var) {
-			default:
-				return super.relatePageLayout(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateTimeZoneGenPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateTimeZoneGenPage(String var, Object val) {
+    TimeZoneGenPage oTimeZoneGenPage = (TimeZoneGenPage)this;
+    switch(var) {
+      default:
+        return super.relatePageLayout(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, TimeZoneGenPage o) {
-		return staticSetTimeZoneGenPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, String v, TimeZoneGenPage o) {
-		switch(entityVar) {
-		case "listTimeZone":
-			return TimeZoneGenPage.staticSetListTimeZone(siteRequest_, v);
-		case "resultCount":
-			return TimeZoneGenPage.staticSetResultCount(siteRequest_, v);
-		case "solrId":
-			return TimeZoneGenPage.staticSetSolrId(siteRequest_, v);
-		case "pageUriTimeZone":
-			return TimeZoneGenPage.staticSetPageUriTimeZone(siteRequest_, v);
-			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, TimeZoneGenPage o) {
+    return staticSetTimeZoneGenPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, String v, TimeZoneGenPage o) {
+    switch(entityVar) {
+    case "listTimeZone":
+      return TimeZoneGenPage.staticSetListTimeZone(siteRequest_, v);
+    case "resultCount":
+      return TimeZoneGenPage.staticSetResultCount(siteRequest_, v);
+    case "solrId":
+      return TimeZoneGenPage.staticSetSolrId(siteRequest_, v);
+    case "pageUriTimeZone":
+      return TimeZoneGenPage.staticSetPageUriTimeZone(siteRequest_, v);
+      default:
+        return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchTimeZoneGenPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listTimeZone":
-			return TimeZoneGenPage.staticSearchListTimeZone(siteRequest_, (JsonArray)o);
-		case "resultCount":
-			return TimeZoneGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
-		case "solrId":
-			return TimeZoneGenPage.staticSearchSolrId(siteRequest_, (String)o);
-		case "pageUriTimeZone":
-			return TimeZoneGenPage.staticSearchPageUriTimeZone(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchTimeZoneGenPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listTimeZone":
+      return TimeZoneGenPage.staticSearchListTimeZone(siteRequest_, (JsonArray)o);
+    case "resultCount":
+      return TimeZoneGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
+    case "solrId":
+      return TimeZoneGenPage.staticSearchSolrId(siteRequest_, (String)o);
+    case "pageUriTimeZone":
+      return TimeZoneGenPage.staticSearchPageUriTimeZone(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrTimeZoneGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listTimeZone":
-			return TimeZoneGenPage.staticSearchStrListTimeZone(siteRequest_, (String)o);
-		case "resultCount":
-			return TimeZoneGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
-		case "solrId":
-			return TimeZoneGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
-		case "pageUriTimeZone":
-			return TimeZoneGenPage.staticSearchStrPageUriTimeZone(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrTimeZoneGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listTimeZone":
+      return TimeZoneGenPage.staticSearchStrListTimeZone(siteRequest_, (String)o);
+    case "resultCount":
+      return TimeZoneGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
+    case "solrId":
+      return TimeZoneGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
+    case "pageUriTimeZone":
+      return TimeZoneGenPage.staticSearchStrPageUriTimeZone(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqTimeZoneGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "listTimeZone":
-			return TimeZoneGenPage.staticSearchFqListTimeZone(siteRequest_, o);
-		case "resultCount":
-			return TimeZoneGenPage.staticSearchFqResultCount(siteRequest_, o);
-		case "solrId":
-			return TimeZoneGenPage.staticSearchFqSolrId(siteRequest_, o);
-		case "pageUriTimeZone":
-			return TimeZoneGenPage.staticSearchFqPageUriTimeZone(siteRequest_, o);
-			default:
-				return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqTimeZoneGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqTimeZoneGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "listTimeZone":
+      return TimeZoneGenPage.staticSearchFqListTimeZone(siteRequest_, o);
+    case "resultCount":
+      return TimeZoneGenPage.staticSearchFqResultCount(siteRequest_, o);
+    case "solrId":
+      return TimeZoneGenPage.staticSearchFqSolrId(siteRequest_, o);
+    case "pageUriTimeZone":
+      return TimeZoneGenPage.staticSearchFqPageUriTimeZone(siteRequest_, o);
+      default:
+        return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "TimeZoneGenPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.timezone.TimeZoneGenPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
-	public static final String VAR_searchListTimeZone_ = "searchListTimeZone_";
-	public static final String VAR_listTimeZone = "listTimeZone";
-	public static final String VAR_resultCount = "resultCount";
-	public static final String VAR_result = "result";
-	public static final String VAR_solrId = "solrId";
-	public static final String VAR_pageUriTimeZone = "pageUriTimeZone";
+  public static final String CLASS_SIMPLE_NAME = "TimeZoneGenPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.timezone.TimeZoneGenPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String VAR_searchListTimeZone_ = "searchListTimeZone_";
+  public static final String VAR_listTimeZone = "listTimeZone";
+  public static final String VAR_resultCount = "resultCount";
+  public static final String VAR_result = "result";
+  public static final String VAR_solrId = "solrId";
+  public static final String VAR_pageUriTimeZone = "pageUriTimeZone";
 
-	public static final String DISPLAY_NAME_searchListTimeZone_ = "";
-	public static final String DISPLAY_NAME_listTimeZone = "";
-	public static final String DISPLAY_NAME_resultCount = "";
-	public static final String DISPLAY_NAME_result = "";
-	public static final String DISPLAY_NAME_solrId = "";
-	public static final String DISPLAY_NAME_pageUriTimeZone = "";
+  public static final String DISPLAY_NAME_searchListTimeZone_ = "";
+  public static final String DISPLAY_NAME_listTimeZone = "";
+  public static final String DISPLAY_NAME_resultCount = "";
+  public static final String DISPLAY_NAME_result = "";
+  public static final String DISPLAY_NAME_solrId = "";
+  public static final String DISPLAY_NAME_pageUriTimeZone = "";
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return TimeZoneGenPage.displayNameTimeZoneGenPage(var);
-	}
-	public static String displayNameTimeZoneGenPage(String var) {
-		switch(var) {
-		case VAR_searchListTimeZone_:
-			return DISPLAY_NAME_searchListTimeZone_;
-		case VAR_listTimeZone:
-			return DISPLAY_NAME_listTimeZone;
-		case VAR_resultCount:
-			return DISPLAY_NAME_resultCount;
-		case VAR_result:
-			return DISPLAY_NAME_result;
-		case VAR_solrId:
-			return DISPLAY_NAME_solrId;
-		case VAR_pageUriTimeZone:
-			return DISPLAY_NAME_pageUriTimeZone;
-		default:
-			return PageLayout.displayNamePageLayout(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return TimeZoneGenPage.displayNameTimeZoneGenPage(var);
+  }
+  public static String displayNameTimeZoneGenPage(String var) {
+    switch(var) {
+    case VAR_searchListTimeZone_:
+      return DISPLAY_NAME_searchListTimeZone_;
+    case VAR_listTimeZone:
+      return DISPLAY_NAME_listTimeZone;
+    case VAR_resultCount:
+      return DISPLAY_NAME_resultCount;
+    case VAR_result:
+      return DISPLAY_NAME_result;
+    case VAR_solrId:
+      return DISPLAY_NAME_solrId;
+    case VAR_pageUriTimeZone:
+      return DISPLAY_NAME_pageUriTimeZone;
+    default:
+      return PageLayout.displayNamePageLayout(var);
+    }
+  }
 
-	public static String descriptionTimeZoneGenPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return PageLayout.descriptionPageLayout(var);
-		}
-	}
+  public static String descriptionTimeZoneGenPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return PageLayout.descriptionPageLayout(var);
+    }
+  }
 
-	public static String classSimpleNameTimeZoneGenPage(String var) {
-		switch(var) {
-		case VAR_searchListTimeZone_:
-			return "SearchList";
-		case VAR_listTimeZone:
-			return "JsonArray";
-		case VAR_resultCount:
-			return "Integer";
-		case VAR_result:
-			return "TimeZone";
-		case VAR_solrId:
-			return "String";
-		case VAR_pageUriTimeZone:
-			return "String";
-			default:
-				return PageLayout.classSimpleNamePageLayout(var);
-		}
-	}
+  public static String classSimpleNameTimeZoneGenPage(String var) {
+    switch(var) {
+    case VAR_searchListTimeZone_:
+      return "SearchList";
+    case VAR_listTimeZone:
+      return "JsonArray";
+    case VAR_resultCount:
+      return "Integer";
+    case VAR_result:
+      return "TimeZone";
+    case VAR_solrId:
+      return "String";
+    case VAR_pageUriTimeZone:
+      return "String";
+      default:
+        return PageLayout.classSimpleNamePageLayout(var);
+    }
+  }
 
-	public static Integer htmColumnTimeZoneGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmColumnPageLayout(var);
-		}
-	}
+  public static Integer htmColumnTimeZoneGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmColumnPageLayout(var);
+    }
+  }
 
-	public static Integer htmRowTimeZoneGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmRowPageLayout(var);
-		}
-	}
+  public static Integer htmRowTimeZoneGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmRowPageLayout(var);
+    }
+  }
 
-	public static Integer htmCellTimeZoneGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmCellPageLayout(var);
-		}
-	}
+  public static Integer htmCellTimeZoneGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmCellPageLayout(var);
+    }
+  }
 
-	public static Integer lengthMinTimeZoneGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMinPageLayout(var);
-		}
-	}
+  public static Integer lengthMinTimeZoneGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMinPageLayout(var);
+    }
+  }
 
-	public static Integer lengthMaxTimeZoneGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMaxPageLayout(var);
-		}
-	}
+  public static Integer lengthMaxTimeZoneGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMaxPageLayout(var);
+    }
+  }
 
-	public static Integer maxTimeZoneGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.maxPageLayout(var);
-		}
-	}
+  public static Integer maxTimeZoneGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.maxPageLayout(var);
+    }
+  }
 
-	public static Integer minTimeZoneGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.minPageLayout(var);
-		}
-	}
+  public static Integer minTimeZoneGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.minPageLayout(var);
+    }
+  }
 }

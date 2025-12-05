@@ -111,308 +111,308 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class FeedingOperationPageGen<DEV> extends FeedingOperationGenPage {
-	protected static final Logger LOG = LoggerFactory.getLogger(FeedingOperationPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FeedingOperationPage.class);
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<FeedingOperationPageGen<DEV>> promiseDeepFeedingOperationPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFeedingOperationPage();
-	}
+  public Future<FeedingOperationPageGen<DEV>> promiseDeepFeedingOperationPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFeedingOperationPage();
+  }
 
-	public Future<FeedingOperationPageGen<DEV>> promiseDeepFeedingOperationPage() {
-		Promise<FeedingOperationPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFeedingOperationPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepFeedingOperationGenPage(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<FeedingOperationPageGen<DEV>> promiseDeepFeedingOperationPage() {
+    Promise<FeedingOperationPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFeedingOperationPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepFeedingOperationGenPage(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseFeedingOperationPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseFeedingOperationPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends FeedingOperationPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFeedingOperationPage(siteRequest_);
-	}
+  @Override public Future<? extends FeedingOperationPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFeedingOperationPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestFeedingOperationPage(SiteRequest siteRequest_) {
-			super.siteRequestFeedingOperationGenPage(siteRequest_);
-	}
+  public void siteRequestFeedingOperationPage(SiteRequest siteRequest_) {
+      super.siteRequestFeedingOperationGenPage(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFeedingOperationPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFeedingOperationPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFeedingOperationPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFeedingOperationPage(String var) {
-		FeedingOperationPage oFeedingOperationPage = (FeedingOperationPage)this;
-		switch(var) {
-			default:
-				return super.obtainFeedingOperationGenPage(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFeedingOperationPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFeedingOperationPage(String var) {
+    FeedingOperationPage oFeedingOperationPage = (FeedingOperationPage)this;
+    switch(var) {
+      default:
+        return super.obtainFeedingOperationGenPage(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFeedingOperationPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFeedingOperationPage(String var, Object val) {
-		FeedingOperationPage oFeedingOperationPage = (FeedingOperationPage)this;
-		switch(var) {
-			default:
-				return super.relateFeedingOperationGenPage(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFeedingOperationPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFeedingOperationPage(String var, Object val) {
+    FeedingOperationPage oFeedingOperationPage = (FeedingOperationPage)this;
+    switch(var) {
+      default:
+        return super.relateFeedingOperationGenPage(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationPage o) {
-		return staticSetFeedingOperationPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFeedingOperationPage(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationPage o) {
-		switch(entityVar) {
-			default:
-				return FeedingOperationGenPage.staticSetFeedingOperationGenPage(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationPage o) {
+    return staticSetFeedingOperationPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFeedingOperationPage(String entityVar, SiteRequest siteRequest_, String v, FeedingOperationPage o) {
+    switch(entityVar) {
+      default:
+        return FeedingOperationGenPage.staticSetFeedingOperationGenPage(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFeedingOperationPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFeedingOperationPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FeedingOperationGenPage.staticSearchFeedingOperationGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFeedingOperationPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFeedingOperationPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FeedingOperationGenPage.staticSearchFeedingOperationGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFeedingOperationPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFeedingOperationPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FeedingOperationGenPage.staticSearchStrFeedingOperationGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFeedingOperationPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFeedingOperationPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FeedingOperationGenPage.staticSearchStrFeedingOperationGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFeedingOperationPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFeedingOperationPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return FeedingOperationGenPage.staticSearchFqFeedingOperationGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFeedingOperationPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFeedingOperationPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return FeedingOperationGenPage.staticSearchFqFeedingOperationGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "FeedingOperationPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String CLASS_SIMPLE_NAME = "FeedingOperationPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
 
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return FeedingOperationPage.displayNameFeedingOperationPage(var);
-	}
-	public static String displayNameFeedingOperationPage(String var) {
-		switch(var) {
-		default:
-			return FeedingOperationGenPage.displayNameFeedingOperationGenPage(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return FeedingOperationPage.displayNameFeedingOperationPage(var);
+  }
+  public static String displayNameFeedingOperationPage(String var) {
+    switch(var) {
+    default:
+      return FeedingOperationGenPage.displayNameFeedingOperationGenPage(var);
+    }
+  }
 
-	public static String descriptionFeedingOperationPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.descriptionFeedingOperationGenPage(var);
-		}
-	}
+  public static String descriptionFeedingOperationPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.descriptionFeedingOperationGenPage(var);
+    }
+  }
 
-	public static String classSimpleNameFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.classSimpleNameFeedingOperationGenPage(var);
-		}
-	}
+  public static String classSimpleNameFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.classSimpleNameFeedingOperationGenPage(var);
+    }
+  }
 
-	public static Integer htmColumnFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.htmColumnFeedingOperationGenPage(var);
-		}
-	}
+  public static Integer htmColumnFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.htmColumnFeedingOperationGenPage(var);
+    }
+  }
 
-	public static Integer htmRowFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.htmRowFeedingOperationGenPage(var);
-		}
-	}
+  public static Integer htmRowFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.htmRowFeedingOperationGenPage(var);
+    }
+  }
 
-	public static Integer htmCellFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.htmCellFeedingOperationGenPage(var);
-		}
-	}
+  public static Integer htmCellFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.htmCellFeedingOperationGenPage(var);
+    }
+  }
 
-	public static Integer lengthMinFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.lengthMinFeedingOperationGenPage(var);
-		}
-	}
+  public static Integer lengthMinFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.lengthMinFeedingOperationGenPage(var);
+    }
+  }
 
-	public static Integer lengthMaxFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.lengthMaxFeedingOperationGenPage(var);
-		}
-	}
+  public static Integer lengthMaxFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.lengthMaxFeedingOperationGenPage(var);
+    }
+  }
 
-	public static Integer maxFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.maxFeedingOperationGenPage(var);
-		}
-	}
+  public static Integer maxFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.maxFeedingOperationGenPage(var);
+    }
+  }
 
-	public static Integer minFeedingOperationPage(String var) {
-		switch(var) {
-			default:
-				return FeedingOperationGenPage.minFeedingOperationGenPage(var);
-		}
-	}
+  public static Integer minFeedingOperationPage(String var) {
+    switch(var) {
+      default:
+        return FeedingOperationGenPage.minFeedingOperationGenPage(var);
+    }
+  }
 }

@@ -100,2697 +100,2767 @@ import io.vertx.core.Future;
  * Generated: true
  **/
 public abstract class SiteRequestGen<DEV> extends Object {
-	protected static final Logger LOG = LoggerFactory.getLogger(SiteRequest.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(SiteRequest.class);
 
 	////////////
-	// config //
+  // config //
 	////////////
 
 
-	/**	 The entity config
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonObjectDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonObject config;
+  /**
+   *  The entity config
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonObjectDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonObject config;
 
-	/**	<br> The entity config
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:config">Find the entity config in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _config(Wrap<JsonObject> c);
+  /**
+   * <br> The entity config
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:config">Find the entity config in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _config(Wrap<JsonObject> c);
 
-	public JsonObject getConfig() {
-		return config;
-	}
+  public JsonObject getConfig() {
+    return config;
+  }
 
-	public void setConfig(JsonObject config) {
-		this.config = config;
-	}
-	@JsonIgnore
-	public void setConfig(String o) {
-		this.config = SiteRequest.staticSetConfig(siteRequest_, o);
-	}
-	public static JsonObject staticSetConfig(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonObject(o);
-		}
-		return null;
-	}
-	protected SiteRequest configInit() {
-		Wrap<JsonObject> configWrap = new Wrap<JsonObject>().var("config");
-		if(config == null) {
-			_config(configWrap);
-			Optional.ofNullable(configWrap.getO()).ifPresent(o -> {
-				setConfig(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setConfig(JsonObject config) {
+    this.config = config;
+  }
+  @JsonIgnore
+  public void setConfig(String o) {
+    this.config = SiteRequest.staticSetConfig(siteRequest_, o);
+  }
+  public static JsonObject staticSetConfig(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonObject(o);
+    }
+    return null;
+  }
+  protected SiteRequest configInit() {
+    Wrap<JsonObject> configWrap = new Wrap<JsonObject>().var("config");
+    if(config == null) {
+      _config(configWrap);
+      Optional.ofNullable(configWrap.getO()).ifPresent(o -> {
+        setConfig(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchConfig(SiteRequest siteRequest_, JsonObject o) {
-		return o.toString();
-	}
+  public static String staticSearchConfig(SiteRequest siteRequest_, JsonObject o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrConfig(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrConfig(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqConfig(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchConfig(siteRequest_, SiteRequest.staticSetConfig(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqConfig(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchConfig(siteRequest_, SiteRequest.staticSetConfig(siteRequest_, o)).toString();
+  }
 
 	//////////
-	// i18n //
+  // i18n //
 	//////////
 
 
-	/**	 The entity i18n
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonObjectDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonObject i18n;
+  /**
+   *  The entity i18n
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonObjectDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonObject i18n;
 
-	/**	<br> The entity i18n
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:i18n">Find the entity i18n in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _i18n(Wrap<JsonObject> c);
+  /**
+   * <br> The entity i18n
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:i18n">Find the entity i18n in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _i18n(Wrap<JsonObject> c);
 
-	public JsonObject getI18n() {
-		return i18n;
-	}
+  public JsonObject getI18n() {
+    return i18n;
+  }
 
-	public void setI18n(JsonObject i18n) {
-		this.i18n = i18n;
-	}
-	@JsonIgnore
-	public void setI18n(String o) {
-		this.i18n = SiteRequest.staticSetI18n(siteRequest_, o);
-	}
-	public static JsonObject staticSetI18n(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonObject(o);
-		}
-		return null;
-	}
-	protected SiteRequest i18nInit() {
-		Wrap<JsonObject> i18nWrap = new Wrap<JsonObject>().var("i18n");
-		if(i18n == null) {
-			_i18n(i18nWrap);
-			Optional.ofNullable(i18nWrap.getO()).ifPresent(o -> {
-				setI18n(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setI18n(JsonObject i18n) {
+    this.i18n = i18n;
+  }
+  @JsonIgnore
+  public void setI18n(String o) {
+    this.i18n = SiteRequest.staticSetI18n(siteRequest_, o);
+  }
+  public static JsonObject staticSetI18n(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonObject(o);
+    }
+    return null;
+  }
+  protected SiteRequest i18nInit() {
+    Wrap<JsonObject> i18nWrap = new Wrap<JsonObject>().var("i18n");
+    if(i18n == null) {
+      _i18n(i18nWrap);
+      Optional.ofNullable(i18nWrap.getO()).ifPresent(o -> {
+        setI18n(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchI18n(SiteRequest siteRequest_, JsonObject o) {
-		return o.toString();
-	}
+  public static String staticSearchI18n(SiteRequest siteRequest_, JsonObject o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrI18n(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrI18n(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqI18n(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchI18n(siteRequest_, SiteRequest.staticSetI18n(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqI18n(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchI18n(siteRequest_, SiteRequest.staticSetI18n(siteRequest_, o)).toString();
+  }
 
 	//////////////////
-	// siteRequest_ //
+  // siteRequest_ //
 	//////////////////
 
 
-	/**	 The entity siteRequest_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected SiteRequest siteRequest_;
+  /**
+   *  The entity siteRequest_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected SiteRequest siteRequest_;
 
-	/**	<br> The entity siteRequest_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:siteRequest_">Find the entity siteRequest_ in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _siteRequest_(Wrap<SiteRequest> c);
+  /**
+   * <br> The entity siteRequest_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:siteRequest_">Find the entity siteRequest_ in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _siteRequest_(Wrap<SiteRequest> c);
 
-	public SiteRequest getSiteRequest_() {
-		return siteRequest_;
-	}
+  public SiteRequest getSiteRequest_() {
+    return siteRequest_;
+  }
 
-	public void setSiteRequest_(SiteRequest siteRequest_) {
-		this.siteRequest_ = siteRequest_;
-	}
-	public static SiteRequest staticSetSiteRequest_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest siteRequest_Init() {
-		Wrap<SiteRequest> siteRequest_Wrap = new Wrap<SiteRequest>().var("siteRequest_");
-		if(siteRequest_ == null) {
-			_siteRequest_(siteRequest_Wrap);
-			Optional.ofNullable(siteRequest_Wrap.getO()).ifPresent(o -> {
-				setSiteRequest_(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setSiteRequest_(SiteRequest siteRequest_) {
+    this.siteRequest_ = siteRequest_;
+  }
+  public static SiteRequest staticSetSiteRequest_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest siteRequest_Init() {
+    Wrap<SiteRequest> siteRequest_Wrap = new Wrap<SiteRequest>().var("siteRequest_");
+    if(siteRequest_ == null) {
+      _siteRequest_(siteRequest_Wrap);
+      Optional.ofNullable(siteRequest_Wrap.getO()).ifPresent(o -> {
+        setSiteRequest_(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	///////////////
-	// webClient //
+  // webClient //
 	///////////////
 
 
-	/**	 The entity webClient
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected WebClient webClient;
+  /**
+   *  The entity webClient
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected WebClient webClient;
 
-	/**	<br> The entity webClient
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:webClient">Find the entity webClient in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _webClient(Wrap<WebClient> c);
+  /**
+   * <br> The entity webClient
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:webClient">Find the entity webClient in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _webClient(Wrap<WebClient> c);
 
-	public WebClient getWebClient() {
-		return webClient;
-	}
+  public WebClient getWebClient() {
+    return webClient;
+  }
 
-	public void setWebClient(WebClient webClient) {
-		this.webClient = webClient;
-	}
-	public static WebClient staticSetWebClient(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest webClientInit() {
-		Wrap<WebClient> webClientWrap = new Wrap<WebClient>().var("webClient");
-		if(webClient == null) {
-			_webClient(webClientWrap);
-			Optional.ofNullable(webClientWrap.getO()).ifPresent(o -> {
-				setWebClient(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setWebClient(WebClient webClient) {
+    this.webClient = webClient;
+  }
+  public static WebClient staticSetWebClient(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest webClientInit() {
+    Wrap<WebClient> webClientWrap = new Wrap<WebClient>().var("webClient");
+    if(webClient == null) {
+      _webClient(webClientWrap);
+      Optional.ofNullable(webClientWrap.getO()).ifPresent(o -> {
+        setWebClient(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	/////////////////
-	// apiRequest_ //
+  // apiRequest_ //
 	/////////////////
 
 
-	/**	 The entity apiRequest_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected ApiRequest apiRequest_;
+  /**
+   *  The entity apiRequest_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected ApiRequest apiRequest_;
 
-	/**	<br> The entity apiRequest_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:apiRequest_">Find the entity apiRequest_ in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _apiRequest_(Wrap<ApiRequest> c);
+  /**
+   * <br> The entity apiRequest_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:apiRequest_">Find the entity apiRequest_ in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _apiRequest_(Wrap<ApiRequest> c);
 
-	public ApiRequest getApiRequest_() {
-		return apiRequest_;
-	}
+  public ApiRequest getApiRequest_() {
+    return apiRequest_;
+  }
 
-	public void setApiRequest_(ApiRequest apiRequest_) {
-		this.apiRequest_ = apiRequest_;
-	}
-	public static ApiRequest staticSetApiRequest_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest apiRequest_Init() {
-		Wrap<ApiRequest> apiRequest_Wrap = new Wrap<ApiRequest>().var("apiRequest_");
-		if(apiRequest_ == null) {
-			_apiRequest_(apiRequest_Wrap);
-			Optional.ofNullable(apiRequest_Wrap.getO()).ifPresent(o -> {
-				setApiRequest_(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setApiRequest_(ApiRequest apiRequest_) {
+    this.apiRequest_ = apiRequest_;
+  }
+  public static ApiRequest staticSetApiRequest_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest apiRequest_Init() {
+    Wrap<ApiRequest> apiRequest_Wrap = new Wrap<ApiRequest>().var("apiRequest_");
+    if(apiRequest_ == null) {
+      _apiRequest_(apiRequest_Wrap);
+      Optional.ofNullable(apiRequest_Wrap.getO()).ifPresent(o -> {
+        setApiRequest_(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	////////////////
-	// jsonObject //
+  // jsonObject //
 	////////////////
 
 
-	/**	 The entity jsonObject
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonObjectDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonObject jsonObject;
+  /**
+   *  The entity jsonObject
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonObjectDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonObject jsonObject;
 
-	/**	<br> The entity jsonObject
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:jsonObject">Find the entity jsonObject in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _jsonObject(Wrap<JsonObject> c);
+  /**
+   * <br> The entity jsonObject
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:jsonObject">Find the entity jsonObject in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _jsonObject(Wrap<JsonObject> c);
 
-	public JsonObject getJsonObject() {
-		return jsonObject;
-	}
+  public JsonObject getJsonObject() {
+    return jsonObject;
+  }
 
-	public void setJsonObject(JsonObject jsonObject) {
-		this.jsonObject = jsonObject;
-	}
-	@JsonIgnore
-	public void setJsonObject(String o) {
-		this.jsonObject = SiteRequest.staticSetJsonObject(siteRequest_, o);
-	}
-	public static JsonObject staticSetJsonObject(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonObject(o);
-		}
-		return null;
-	}
-	protected SiteRequest jsonObjectInit() {
-		Wrap<JsonObject> jsonObjectWrap = new Wrap<JsonObject>().var("jsonObject");
-		if(jsonObject == null) {
-			_jsonObject(jsonObjectWrap);
-			Optional.ofNullable(jsonObjectWrap.getO()).ifPresent(o -> {
-				setJsonObject(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setJsonObject(JsonObject jsonObject) {
+    this.jsonObject = jsonObject;
+  }
+  @JsonIgnore
+  public void setJsonObject(String o) {
+    this.jsonObject = SiteRequest.staticSetJsonObject(siteRequest_, o);
+  }
+  public static JsonObject staticSetJsonObject(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonObject(o);
+    }
+    return null;
+  }
+  protected SiteRequest jsonObjectInit() {
+    Wrap<JsonObject> jsonObjectWrap = new Wrap<JsonObject>().var("jsonObject");
+    if(jsonObject == null) {
+      _jsonObject(jsonObjectWrap);
+      Optional.ofNullable(jsonObjectWrap.getO()).ifPresent(o -> {
+        setJsonObject(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchJsonObject(SiteRequest siteRequest_, JsonObject o) {
-		return o.toString();
-	}
+  public static String staticSearchJsonObject(SiteRequest siteRequest_, JsonObject o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrJsonObject(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrJsonObject(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqJsonObject(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchJsonObject(siteRequest_, SiteRequest.staticSetJsonObject(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqJsonObject(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchJsonObject(siteRequest_, SiteRequest.staticSetJsonObject(siteRequest_, o)).toString();
+  }
 
 	////////////////////
-	// serviceRequest //
+  // serviceRequest //
 	////////////////////
 
 
-	/**	 The entity serviceRequest
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected ServiceRequest serviceRequest;
+  /**
+   *  The entity serviceRequest
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected ServiceRequest serviceRequest;
 
-	/**	<br> The entity serviceRequest
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:serviceRequest">Find the entity serviceRequest in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _serviceRequest(Wrap<ServiceRequest> c);
+  /**
+   * <br> The entity serviceRequest
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:serviceRequest">Find the entity serviceRequest in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _serviceRequest(Wrap<ServiceRequest> c);
 
-	public ServiceRequest getServiceRequest() {
-		return serviceRequest;
-	}
+  public ServiceRequest getServiceRequest() {
+    return serviceRequest;
+  }
 
-	public void setServiceRequest(ServiceRequest serviceRequest) {
-		this.serviceRequest = serviceRequest;
-	}
-	public static ServiceRequest staticSetServiceRequest(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest serviceRequestInit() {
-		Wrap<ServiceRequest> serviceRequestWrap = new Wrap<ServiceRequest>().var("serviceRequest");
-		if(serviceRequest == null) {
-			_serviceRequest(serviceRequestWrap);
-			Optional.ofNullable(serviceRequestWrap.getO()).ifPresent(o -> {
-				setServiceRequest(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setServiceRequest(ServiceRequest serviceRequest) {
+    this.serviceRequest = serviceRequest;
+  }
+  public static ServiceRequest staticSetServiceRequest(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest serviceRequestInit() {
+    Wrap<ServiceRequest> serviceRequestWrap = new Wrap<ServiceRequest>().var("serviceRequest");
+    if(serviceRequest == null) {
+      _serviceRequest(serviceRequestWrap);
+      Optional.ofNullable(serviceRequestWrap.getO()).ifPresent(o -> {
+        setServiceRequest(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	/////////////////////////
-	// sessionSiteFontSize //
+  // sessionSiteFontSize //
 	/////////////////////////
 
 
-	/**	 The entity sessionSiteFontSize
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String sessionSiteFontSize;
+  /**
+   *  The entity sessionSiteFontSize
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String sessionSiteFontSize;
 
-	/**	<br> The entity sessionSiteFontSize
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionSiteFontSize">Find the entity sessionSiteFontSize in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _sessionSiteFontSize(Wrap<String> w);
+  /**
+   * <br> The entity sessionSiteFontSize
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionSiteFontSize">Find the entity sessionSiteFontSize in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _sessionSiteFontSize(Wrap<String> w);
 
-	public String getSessionSiteFontSize() {
-		return sessionSiteFontSize;
-	}
-	public void setSessionSiteFontSize(String o) {
-		this.sessionSiteFontSize = SiteRequest.staticSetSessionSiteFontSize(siteRequest_, o);
-	}
-	public static String staticSetSessionSiteFontSize(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest sessionSiteFontSizeInit() {
-		Wrap<String> sessionSiteFontSizeWrap = new Wrap<String>().var("sessionSiteFontSize");
-		if(sessionSiteFontSize == null) {
-			_sessionSiteFontSize(sessionSiteFontSizeWrap);
-			Optional.ofNullable(sessionSiteFontSizeWrap.getO()).ifPresent(o -> {
-				setSessionSiteFontSize(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getSessionSiteFontSize() {
+    return sessionSiteFontSize;
+  }
+  public void setSessionSiteFontSize(String o) {
+    this.sessionSiteFontSize = SiteRequest.staticSetSessionSiteFontSize(siteRequest_, o);
+  }
+  public static String staticSetSessionSiteFontSize(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest sessionSiteFontSizeInit() {
+    Wrap<String> sessionSiteFontSizeWrap = new Wrap<String>().var("sessionSiteFontSize");
+    if(sessionSiteFontSize == null) {
+      _sessionSiteFontSize(sessionSiteFontSizeWrap);
+      Optional.ofNullable(sessionSiteFontSizeWrap.getO()).ifPresent(o -> {
+        setSessionSiteFontSize(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchSessionSiteFontSize(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSessionSiteFontSize(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSessionSiteFontSize(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSessionSiteFontSize(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSessionSiteFontSize(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchSessionSiteFontSize(siteRequest_, SiteRequest.staticSetSessionSiteFontSize(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqSessionSiteFontSize(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchSessionSiteFontSize(siteRequest_, SiteRequest.staticSetSessionSiteFontSize(siteRequest_, o)).toString();
+  }
 
 	///////////////////////////////
-	// sessionWebComponentsTheme //
+  // sessionWebComponentsTheme //
 	///////////////////////////////
 
 
-	/**	 The entity sessionWebComponentsTheme
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String sessionWebComponentsTheme;
+  /**
+   *  The entity sessionWebComponentsTheme
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String sessionWebComponentsTheme;
 
-	/**	<br> The entity sessionWebComponentsTheme
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionWebComponentsTheme">Find the entity sessionWebComponentsTheme in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _sessionWebComponentsTheme(Wrap<String> w);
+  /**
+   * <br> The entity sessionWebComponentsTheme
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionWebComponentsTheme">Find the entity sessionWebComponentsTheme in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _sessionWebComponentsTheme(Wrap<String> w);
 
-	public String getSessionWebComponentsTheme() {
-		return sessionWebComponentsTheme;
-	}
-	public void setSessionWebComponentsTheme(String o) {
-		this.sessionWebComponentsTheme = SiteRequest.staticSetSessionWebComponentsTheme(siteRequest_, o);
-	}
-	public static String staticSetSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest sessionWebComponentsThemeInit() {
-		Wrap<String> sessionWebComponentsThemeWrap = new Wrap<String>().var("sessionWebComponentsTheme");
-		if(sessionWebComponentsTheme == null) {
-			_sessionWebComponentsTheme(sessionWebComponentsThemeWrap);
-			Optional.ofNullable(sessionWebComponentsThemeWrap.getO()).ifPresent(o -> {
-				setSessionWebComponentsTheme(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getSessionWebComponentsTheme() {
+    return sessionWebComponentsTheme;
+  }
+  public void setSessionWebComponentsTheme(String o) {
+    this.sessionWebComponentsTheme = SiteRequest.staticSetSessionWebComponentsTheme(siteRequest_, o);
+  }
+  public static String staticSetSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest sessionWebComponentsThemeInit() {
+    Wrap<String> sessionWebComponentsThemeWrap = new Wrap<String>().var("sessionWebComponentsTheme");
+    if(sessionWebComponentsTheme == null) {
+      _sessionWebComponentsTheme(sessionWebComponentsThemeWrap);
+      Optional.ofNullable(sessionWebComponentsThemeWrap.getO()).ifPresent(o -> {
+        setSessionWebComponentsTheme(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchSessionWebComponentsTheme(siteRequest_, SiteRequest.staticSetSessionWebComponentsTheme(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqSessionWebComponentsTheme(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchSessionWebComponentsTheme(siteRequest_, SiteRequest.staticSetSessionWebComponentsTheme(siteRequest_, o)).toString();
+  }
 
 	//////////////////////
-	// sessionSiteTheme //
+  // sessionSiteTheme //
 	//////////////////////
 
 
-	/**	 The entity sessionSiteTheme
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String sessionSiteTheme;
+  /**
+   *  The entity sessionSiteTheme
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String sessionSiteTheme;
 
-	/**	<br> The entity sessionSiteTheme
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionSiteTheme">Find the entity sessionSiteTheme in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _sessionSiteTheme(Wrap<String> w);
+  /**
+   * <br> The entity sessionSiteTheme
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionSiteTheme">Find the entity sessionSiteTheme in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _sessionSiteTheme(Wrap<String> w);
 
-	public String getSessionSiteTheme() {
-		return sessionSiteTheme;
-	}
-	public void setSessionSiteTheme(String o) {
-		this.sessionSiteTheme = SiteRequest.staticSetSessionSiteTheme(siteRequest_, o);
-	}
-	public static String staticSetSessionSiteTheme(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest sessionSiteThemeInit() {
-		Wrap<String> sessionSiteThemeWrap = new Wrap<String>().var("sessionSiteTheme");
-		if(sessionSiteTheme == null) {
-			_sessionSiteTheme(sessionSiteThemeWrap);
-			Optional.ofNullable(sessionSiteThemeWrap.getO()).ifPresent(o -> {
-				setSessionSiteTheme(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getSessionSiteTheme() {
+    return sessionSiteTheme;
+  }
+  public void setSessionSiteTheme(String o) {
+    this.sessionSiteTheme = SiteRequest.staticSetSessionSiteTheme(siteRequest_, o);
+  }
+  public static String staticSetSessionSiteTheme(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest sessionSiteThemeInit() {
+    Wrap<String> sessionSiteThemeWrap = new Wrap<String>().var("sessionSiteTheme");
+    if(sessionSiteTheme == null) {
+      _sessionSiteTheme(sessionSiteThemeWrap);
+      Optional.ofNullable(sessionSiteThemeWrap.getO()).ifPresent(o -> {
+        setSessionSiteTheme(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchSessionSiteTheme(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSessionSiteTheme(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSessionSiteTheme(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSessionSiteTheme(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSessionSiteTheme(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchSessionSiteTheme(siteRequest_, SiteRequest.staticSetSessionSiteTheme(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqSessionSiteTheme(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchSessionSiteTheme(siteRequest_, SiteRequest.staticSetSessionSiteTheme(siteRequest_, o)).toString();
+  }
 
 	//////////
-	// user //
+  // user //
 	//////////
 
 
-	/**	 The entity user
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected User user;
+  /**
+   *  The entity user
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected User user;
 
-	/**	<br> The entity user
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:user">Find the entity user in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _user(Wrap<User> c);
+  /**
+   * <br> The entity user
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:user">Find the entity user in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _user(Wrap<User> c);
 
-	public User getUser() {
-		return user;
-	}
+  public User getUser() {
+    return user;
+  }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public static User staticSetUser(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest userInit() {
-		Wrap<User> userWrap = new Wrap<User>().var("user");
-		if(user == null) {
-			_user(userWrap);
-			Optional.ofNullable(userWrap.getO()).ifPresent(o -> {
-				setUser(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setUser(User user) {
+    this.user = user;
+  }
+  public static User staticSetUser(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest userInit() {
+    Wrap<User> userWrap = new Wrap<User>().var("user");
+    if(user == null) {
+      _user(userWrap);
+      Optional.ofNullable(userWrap.getO()).ifPresent(o -> {
+        setUser(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	///////////////////
-	// userPrincipal //
+  // userPrincipal //
 	///////////////////
 
 
-	/**	 The entity userPrincipal
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonObjectDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonObject userPrincipal;
+  /**
+   *  The entity userPrincipal
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonObjectDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonObject userPrincipal;
 
-	/**	<br> The entity userPrincipal
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userPrincipal">Find the entity userPrincipal in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userPrincipal(Wrap<JsonObject> w);
+  /**
+   * <br> The entity userPrincipal
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userPrincipal">Find the entity userPrincipal in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userPrincipal(Wrap<JsonObject> w);
 
-	public JsonObject getUserPrincipal() {
-		return userPrincipal;
-	}
+  public JsonObject getUserPrincipal() {
+    return userPrincipal;
+  }
 
-	public void setUserPrincipal(JsonObject userPrincipal) {
-		this.userPrincipal = userPrincipal;
-	}
-	@JsonIgnore
-	public void setUserPrincipal(String o) {
-		this.userPrincipal = SiteRequest.staticSetUserPrincipal(siteRequest_, o);
-	}
-	public static JsonObject staticSetUserPrincipal(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonObject(o);
-		}
-		return null;
-	}
-	protected SiteRequest userPrincipalInit() {
-		Wrap<JsonObject> userPrincipalWrap = new Wrap<JsonObject>().var("userPrincipal");
-		if(userPrincipal == null) {
-			_userPrincipal(userPrincipalWrap);
-			Optional.ofNullable(userPrincipalWrap.getO()).ifPresent(o -> {
-				setUserPrincipal(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setUserPrincipal(JsonObject userPrincipal) {
+    this.userPrincipal = userPrincipal;
+  }
+  @JsonIgnore
+  public void setUserPrincipal(String o) {
+    this.userPrincipal = SiteRequest.staticSetUserPrincipal(siteRequest_, o);
+  }
+  public static JsonObject staticSetUserPrincipal(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonObject(o);
+    }
+    return null;
+  }
+  protected SiteRequest userPrincipalInit() {
+    Wrap<JsonObject> userPrincipalWrap = new Wrap<JsonObject>().var("userPrincipal");
+    if(userPrincipal == null) {
+      _userPrincipal(userPrincipalWrap);
+      Optional.ofNullable(userPrincipalWrap.getO()).ifPresent(o -> {
+        setUserPrincipal(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserPrincipal(SiteRequest siteRequest_, JsonObject o) {
-		return o.toString();
-	}
+  public static String staticSearchUserPrincipal(SiteRequest siteRequest_, JsonObject o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrUserPrincipal(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserPrincipal(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserPrincipal(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserPrincipal(siteRequest_, SiteRequest.staticSetUserPrincipal(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserPrincipal(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserPrincipal(siteRequest_, SiteRequest.staticSetUserPrincipal(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// userId //
+  // userId //
 	////////////
 
 
-	/**	 The entity userId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String userId;
+  /**
+   *  The entity userId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userId;
 
-	/**	<br> The entity userId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userId">Find the entity userId in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userId(Wrap<String> c);
+  /**
+   * <br> The entity userId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userId">Find the entity userId in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userId(Wrap<String> c);
 
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String o) {
-		this.userId = SiteRequest.staticSetUserId(siteRequest_, o);
-	}
-	public static String staticSetUserId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest userIdInit() {
-		Wrap<String> userIdWrap = new Wrap<String>().var("userId");
-		if(userId == null) {
-			_userId(userIdWrap);
-			Optional.ofNullable(userIdWrap.getO()).ifPresent(o -> {
-				setUserId(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getUserId() {
+    return userId;
+  }
+  public void setUserId(String o) {
+    this.userId = SiteRequest.staticSetUserId(siteRequest_, o);
+  }
+  public static String staticSetUserId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest userIdInit() {
+    Wrap<String> userIdWrap = new Wrap<String>().var("userId");
+    if(userId == null) {
+      _userId(userIdWrap);
+      Optional.ofNullable(userIdWrap.getO()).ifPresent(o -> {
+        setUserId(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchUserId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserId(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserId(siteRequest_, SiteRequest.staticSetUserId(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserId(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserId(siteRequest_, SiteRequest.staticSetUserId(siteRequest_, o)).toString();
+  }
 
 	/////////////
-	// userKey //
+  // userKey //
 	/////////////
 
 
-	/**	 The entity userKey
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Long userKey;
+  /**
+   *  The entity userKey
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Long userKey;
 
-	/**	<br> The entity userKey
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userKey">Find the entity userKey in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userKey(Wrap<Long> c);
+  /**
+   * <br> The entity userKey
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userKey">Find the entity userKey in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userKey(Wrap<Long> c);
 
-	public Long getUserKey() {
-		return userKey;
-	}
+  public Long getUserKey() {
+    return userKey;
+  }
 
-	public void setUserKey(Long userKey) {
-		this.userKey = userKey;
-	}
-	@JsonIgnore
-	public void setUserKey(String o) {
-		this.userKey = SiteRequest.staticSetUserKey(siteRequest_, o);
-	}
-	public static Long staticSetUserKey(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Long.parseLong(o);
-		return null;
-	}
-	protected SiteRequest userKeyInit() {
-		Wrap<Long> userKeyWrap = new Wrap<Long>().var("userKey");
-		if(userKey == null) {
-			_userKey(userKeyWrap);
-			Optional.ofNullable(userKeyWrap.getO()).ifPresent(o -> {
-				setUserKey(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setUserKey(Long userKey) {
+    this.userKey = userKey;
+  }
+  @JsonIgnore
+  public void setUserKey(String o) {
+    this.userKey = SiteRequest.staticSetUserKey(siteRequest_, o);
+  }
+  public static Long staticSetUserKey(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Long.parseLong(o);
+    return null;
+  }
+  protected SiteRequest userKeyInit() {
+    Wrap<Long> userKeyWrap = new Wrap<Long>().var("userKey");
+    if(userKey == null) {
+      _userKey(userKeyWrap);
+      Optional.ofNullable(userKeyWrap.getO()).ifPresent(o -> {
+        setUserKey(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static Long staticSearchUserKey(SiteRequest siteRequest_, Long o) {
-		return o;
-	}
+  public static Long staticSearchUserKey(SiteRequest siteRequest_, Long o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserKey(SiteRequest siteRequest_, Long o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserKey(SiteRequest siteRequest_, Long o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserKey(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserKey(siteRequest_, SiteRequest.staticSetUserKey(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserKey(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserKey(siteRequest_, SiteRequest.staticSetUserKey(siteRequest_, o)).toString();
+  }
 
 	///////////////
-	// sessionId //
+  // sessionId //
 	///////////////
 
 
-	/**	 The entity sessionId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String sessionId;
+  /**
+   *  The entity sessionId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String sessionId;
 
-	/**	<br> The entity sessionId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionId">Find the entity sessionId in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _sessionId(Wrap<String> c);
+  /**
+   * <br> The entity sessionId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionId">Find the entity sessionId in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _sessionId(Wrap<String> c);
 
-	public String getSessionId() {
-		return sessionId;
-	}
-	public void setSessionId(String o) {
-		this.sessionId = SiteRequest.staticSetSessionId(siteRequest_, o);
-	}
-	public static String staticSetSessionId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest sessionIdInit() {
-		Wrap<String> sessionIdWrap = new Wrap<String>().var("sessionId");
-		if(sessionId == null) {
-			_sessionId(sessionIdWrap);
-			Optional.ofNullable(sessionIdWrap.getO()).ifPresent(o -> {
-				setSessionId(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getSessionId() {
+    return sessionId;
+  }
+  public void setSessionId(String o) {
+    this.sessionId = SiteRequest.staticSetSessionId(siteRequest_, o);
+  }
+  public static String staticSetSessionId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest sessionIdInit() {
+    Wrap<String> sessionIdWrap = new Wrap<String>().var("sessionId");
+    if(sessionId == null) {
+      _sessionId(sessionIdWrap);
+      Optional.ofNullable(sessionIdWrap.getO()).ifPresent(o -> {
+        setSessionId(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchSessionId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSessionId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSessionId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSessionId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSessionId(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchSessionId(siteRequest_, SiteRequest.staticSetSessionId(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqSessionId(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchSessionId(siteRequest_, SiteRequest.staticSetSessionId(siteRequest_, o)).toString();
+  }
 
 	/////////////////////
-	// sessionIdBefore //
+  // sessionIdBefore //
 	/////////////////////
 
 
-	/**	 The entity sessionIdBefore
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String sessionIdBefore;
+  /**
+   *  The entity sessionIdBefore
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String sessionIdBefore;
 
-	/**	<br> The entity sessionIdBefore
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionIdBefore">Find the entity sessionIdBefore in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _sessionIdBefore(Wrap<String> c);
+  /**
+   * <br> The entity sessionIdBefore
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sessionIdBefore">Find the entity sessionIdBefore in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _sessionIdBefore(Wrap<String> c);
 
-	public String getSessionIdBefore() {
-		return sessionIdBefore;
-	}
-	public void setSessionIdBefore(String o) {
-		this.sessionIdBefore = SiteRequest.staticSetSessionIdBefore(siteRequest_, o);
-	}
-	public static String staticSetSessionIdBefore(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest sessionIdBeforeInit() {
-		Wrap<String> sessionIdBeforeWrap = new Wrap<String>().var("sessionIdBefore");
-		if(sessionIdBefore == null) {
-			_sessionIdBefore(sessionIdBeforeWrap);
-			Optional.ofNullable(sessionIdBeforeWrap.getO()).ifPresent(o -> {
-				setSessionIdBefore(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getSessionIdBefore() {
+    return sessionIdBefore;
+  }
+  public void setSessionIdBefore(String o) {
+    this.sessionIdBefore = SiteRequest.staticSetSessionIdBefore(siteRequest_, o);
+  }
+  public static String staticSetSessionIdBefore(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest sessionIdBeforeInit() {
+    Wrap<String> sessionIdBeforeWrap = new Wrap<String>().var("sessionIdBefore");
+    if(sessionIdBefore == null) {
+      _sessionIdBefore(sessionIdBeforeWrap);
+      Optional.ofNullable(sessionIdBeforeWrap.getO()).ifPresent(o -> {
+        setSessionIdBefore(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchSessionIdBefore(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSessionIdBefore(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSessionIdBefore(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSessionIdBefore(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSessionIdBefore(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchSessionIdBefore(siteRequest_, SiteRequest.staticSetSessionIdBefore(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqSessionIdBefore(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchSessionIdBefore(siteRequest_, SiteRequest.staticSetSessionIdBefore(siteRequest_, o)).toString();
+  }
 
 	///////////////////////
-	// customerProfileId //
+  // customerProfileId //
 	///////////////////////
 
 
-	/**	 The entity customerProfileId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String customerProfileId;
+  /**
+   *  The entity customerProfileId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String customerProfileId;
 
-	/**	<br> The entity customerProfileId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:customerProfileId">Find the entity customerProfileId in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _customerProfileId(Wrap<String> c);
+  /**
+   * <br> The entity customerProfileId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:customerProfileId">Find the entity customerProfileId in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _customerProfileId(Wrap<String> c);
 
-	public String getCustomerProfileId() {
-		return customerProfileId;
-	}
-	public void setCustomerProfileId(String o) {
-		this.customerProfileId = SiteRequest.staticSetCustomerProfileId(siteRequest_, o);
-	}
-	public static String staticSetCustomerProfileId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest customerProfileIdInit() {
-		Wrap<String> customerProfileIdWrap = new Wrap<String>().var("customerProfileId");
-		if(customerProfileId == null) {
-			_customerProfileId(customerProfileIdWrap);
-			Optional.ofNullable(customerProfileIdWrap.getO()).ifPresent(o -> {
-				setCustomerProfileId(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getCustomerProfileId() {
+    return customerProfileId;
+  }
+  public void setCustomerProfileId(String o) {
+    this.customerProfileId = SiteRequest.staticSetCustomerProfileId(siteRequest_, o);
+  }
+  public static String staticSetCustomerProfileId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest customerProfileIdInit() {
+    Wrap<String> customerProfileIdWrap = new Wrap<String>().var("customerProfileId");
+    if(customerProfileId == null) {
+      _customerProfileId(customerProfileIdWrap);
+      Optional.ofNullable(customerProfileIdWrap.getO()).ifPresent(o -> {
+        setCustomerProfileId(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchCustomerProfileId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchCustomerProfileId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrCustomerProfileId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrCustomerProfileId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqCustomerProfileId(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchCustomerProfileId(siteRequest_, SiteRequest.staticSetCustomerProfileId(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqCustomerProfileId(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchCustomerProfileId(siteRequest_, SiteRequest.staticSetCustomerProfileId(siteRequest_, o)).toString();
+  }
 
 	//////////////
-	// userName //
+  // userName //
 	//////////////
 
 
-	/**	 The entity userName
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String userName;
+  /**
+   *  The entity userName
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userName;
 
-	/**	<br> The entity userName
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userName">Find the entity userName in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userName(Wrap<String> c);
+  /**
+   * <br> The entity userName
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userName">Find the entity userName in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userName(Wrap<String> c);
 
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String o) {
-		this.userName = SiteRequest.staticSetUserName(siteRequest_, o);
-	}
-	public static String staticSetUserName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest userNameInit() {
-		Wrap<String> userNameWrap = new Wrap<String>().var("userName");
-		if(userName == null) {
-			_userName(userNameWrap);
-			Optional.ofNullable(userNameWrap.getO()).ifPresent(o -> {
-				setUserName(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getUserName() {
+    return userName;
+  }
+  public void setUserName(String o) {
+    this.userName = SiteRequest.staticSetUserName(siteRequest_, o);
+  }
+  public static String staticSetUserName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest userNameInit() {
+    Wrap<String> userNameWrap = new Wrap<String>().var("userName");
+    if(userName == null) {
+      _userName(userNameWrap);
+      Optional.ofNullable(userNameWrap.getO()).ifPresent(o -> {
+        setUserName(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchUserName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserName(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserName(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserName(siteRequest_, SiteRequest.staticSetUserName(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserName(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserName(siteRequest_, SiteRequest.staticSetUserName(siteRequest_, o)).toString();
+  }
 
 	//////////////////
-	// userLastName //
+  // userLastName //
 	//////////////////
 
 
-	/**	 The entity userLastName
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String userLastName;
+  /**
+   *  The entity userLastName
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userLastName;
 
-	/**	<br> The entity userLastName
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userLastName">Find the entity userLastName in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userLastName(Wrap<String> c);
+  /**
+   * <br> The entity userLastName
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userLastName">Find the entity userLastName in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userLastName(Wrap<String> c);
 
-	public String getUserLastName() {
-		return userLastName;
-	}
-	public void setUserLastName(String o) {
-		this.userLastName = SiteRequest.staticSetUserLastName(siteRequest_, o);
-	}
-	public static String staticSetUserLastName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest userLastNameInit() {
-		Wrap<String> userLastNameWrap = new Wrap<String>().var("userLastName");
-		if(userLastName == null) {
-			_userLastName(userLastNameWrap);
-			Optional.ofNullable(userLastNameWrap.getO()).ifPresent(o -> {
-				setUserLastName(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getUserLastName() {
+    return userLastName;
+  }
+  public void setUserLastName(String o) {
+    this.userLastName = SiteRequest.staticSetUserLastName(siteRequest_, o);
+  }
+  public static String staticSetUserLastName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest userLastNameInit() {
+    Wrap<String> userLastNameWrap = new Wrap<String>().var("userLastName");
+    if(userLastName == null) {
+      _userLastName(userLastNameWrap);
+      Optional.ofNullable(userLastNameWrap.getO()).ifPresent(o -> {
+        setUserLastName(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserLastName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchUserLastName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserLastName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserLastName(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserLastName(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserLastName(siteRequest_, SiteRequest.staticSetUserLastName(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserLastName(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserLastName(siteRequest_, SiteRequest.staticSetUserLastName(siteRequest_, o)).toString();
+  }
 
 	///////////////////
-	// userFirstName //
+  // userFirstName //
 	///////////////////
 
 
-	/**	 The entity userFirstName
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String userFirstName;
+  /**
+   *  The entity userFirstName
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userFirstName;
 
-	/**	<br> The entity userFirstName
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userFirstName">Find the entity userFirstName in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userFirstName(Wrap<String> c);
+  /**
+   * <br> The entity userFirstName
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userFirstName">Find the entity userFirstName in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userFirstName(Wrap<String> c);
 
-	public String getUserFirstName() {
-		return userFirstName;
-	}
-	public void setUserFirstName(String o) {
-		this.userFirstName = SiteRequest.staticSetUserFirstName(siteRequest_, o);
-	}
-	public static String staticSetUserFirstName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest userFirstNameInit() {
-		Wrap<String> userFirstNameWrap = new Wrap<String>().var("userFirstName");
-		if(userFirstName == null) {
-			_userFirstName(userFirstNameWrap);
-			Optional.ofNullable(userFirstNameWrap.getO()).ifPresent(o -> {
-				setUserFirstName(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getUserFirstName() {
+    return userFirstName;
+  }
+  public void setUserFirstName(String o) {
+    this.userFirstName = SiteRequest.staticSetUserFirstName(siteRequest_, o);
+  }
+  public static String staticSetUserFirstName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest userFirstNameInit() {
+    Wrap<String> userFirstNameWrap = new Wrap<String>().var("userFirstName");
+    if(userFirstName == null) {
+      _userFirstName(userFirstNameWrap);
+      Optional.ofNullable(userFirstNameWrap.getO()).ifPresent(o -> {
+        setUserFirstName(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserFirstName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchUserFirstName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserFirstName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserFirstName(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserFirstName(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserFirstName(siteRequest_, SiteRequest.staticSetUserFirstName(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserFirstName(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserFirstName(siteRequest_, SiteRequest.staticSetUserFirstName(siteRequest_, o)).toString();
+  }
 
 	//////////////////
-	// userFullName //
+  // userFullName //
 	//////////////////
 
 
-	/**	 The entity userFullName
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String userFullName;
+  /**
+   *  The entity userFullName
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userFullName;
 
-	/**	<br> The entity userFullName
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userFullName">Find the entity userFullName in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userFullName(Wrap<String> c);
+  /**
+   * <br> The entity userFullName
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userFullName">Find the entity userFullName in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userFullName(Wrap<String> c);
 
-	public String getUserFullName() {
-		return userFullName;
-	}
-	public void setUserFullName(String o) {
-		this.userFullName = SiteRequest.staticSetUserFullName(siteRequest_, o);
-	}
-	public static String staticSetUserFullName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest userFullNameInit() {
-		Wrap<String> userFullNameWrap = new Wrap<String>().var("userFullName");
-		if(userFullName == null) {
-			_userFullName(userFullNameWrap);
-			Optional.ofNullable(userFullNameWrap.getO()).ifPresent(o -> {
-				setUserFullName(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getUserFullName() {
+    return userFullName;
+  }
+  public void setUserFullName(String o) {
+    this.userFullName = SiteRequest.staticSetUserFullName(siteRequest_, o);
+  }
+  public static String staticSetUserFullName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest userFullNameInit() {
+    Wrap<String> userFullNameWrap = new Wrap<String>().var("userFullName");
+    if(userFullName == null) {
+      _userFullName(userFullNameWrap);
+      Optional.ofNullable(userFullNameWrap.getO()).ifPresent(o -> {
+        setUserFullName(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserFullName(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchUserFullName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserFullName(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserFullName(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserFullName(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserFullName(siteRequest_, SiteRequest.staticSetUserFullName(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserFullName(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserFullName(siteRequest_, SiteRequest.staticSetUserFullName(siteRequest_, o)).toString();
+  }
 
 	///////////////
-	// userEmail //
+  // userEmail //
 	///////////////
 
 
-	/**	 The entity userEmail
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String userEmail;
+  /**
+   *  The entity userEmail
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userEmail;
 
-	/**	<br> The entity userEmail
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userEmail">Find the entity userEmail in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userEmail(Wrap<String> c);
+  /**
+   * <br> The entity userEmail
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userEmail">Find the entity userEmail in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userEmail(Wrap<String> c);
 
-	public String getUserEmail() {
-		return userEmail;
-	}
-	public void setUserEmail(String o) {
-		this.userEmail = SiteRequest.staticSetUserEmail(siteRequest_, o);
-	}
-	public static String staticSetUserEmail(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest userEmailInit() {
-		Wrap<String> userEmailWrap = new Wrap<String>().var("userEmail");
-		if(userEmail == null) {
-			_userEmail(userEmailWrap);
-			Optional.ofNullable(userEmailWrap.getO()).ifPresent(o -> {
-				setUserEmail(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getUserEmail() {
+    return userEmail;
+  }
+  public void setUserEmail(String o) {
+    this.userEmail = SiteRequest.staticSetUserEmail(siteRequest_, o);
+  }
+  public static String staticSetUserEmail(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest userEmailInit() {
+    Wrap<String> userEmailWrap = new Wrap<String>().var("userEmail");
+    if(userEmail == null) {
+      _userEmail(userEmailWrap);
+      Optional.ofNullable(userEmailWrap.getO()).ifPresent(o -> {
+        setUserEmail(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserEmail(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchUserEmail(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrUserEmail(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserEmail(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserEmail(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserEmail(siteRequest_, SiteRequest.staticSetUserEmail(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserEmail(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserEmail(siteRequest_, SiteRequest.staticSetUserEmail(siteRequest_, o)).toString();
+  }
 
 	///////////////////
-	// filteredScope //
+  // filteredScope //
 	///////////////////
 
 
-	/**	 The entity filteredScope
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected Boolean filteredScope;
+  /**
+   *  The entity filteredScope
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected Boolean filteredScope;
 
-	/**	<br> The entity filteredScope
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:filteredScope">Find the entity filteredScope in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _filteredScope(Wrap<Boolean> w);
+  /**
+   * <br> The entity filteredScope
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:filteredScope">Find the entity filteredScope in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _filteredScope(Wrap<Boolean> w);
 
-	public Boolean getFilteredScope() {
-		return filteredScope;
-	}
+  public Boolean getFilteredScope() {
+    return filteredScope;
+  }
 
-	public void setFilteredScope(Boolean filteredScope) {
-		this.filteredScope = filteredScope;
-	}
-	@JsonIgnore
-	public void setFilteredScope(String o) {
-		this.filteredScope = SiteRequest.staticSetFilteredScope(siteRequest_, o);
-	}
-	public static Boolean staticSetFilteredScope(SiteRequest siteRequest_, String o) {
-		return Boolean.parseBoolean(o);
-	}
-	protected SiteRequest filteredScopeInit() {
-		Wrap<Boolean> filteredScopeWrap = new Wrap<Boolean>().var("filteredScope");
-		if(filteredScope == null) {
-			_filteredScope(filteredScopeWrap);
-			Optional.ofNullable(filteredScopeWrap.getO()).ifPresent(o -> {
-				setFilteredScope(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setFilteredScope(Boolean filteredScope) {
+    this.filteredScope = filteredScope;
+  }
+  @JsonIgnore
+  public void setFilteredScope(String o) {
+    this.filteredScope = SiteRequest.staticSetFilteredScope(siteRequest_, o);
+  }
+  public static Boolean staticSetFilteredScope(SiteRequest siteRequest_, String o) {
+    return Boolean.parseBoolean(o);
+  }
+  protected SiteRequest filteredScopeInit() {
+    Wrap<Boolean> filteredScopeWrap = new Wrap<Boolean>().var("filteredScope");
+    if(filteredScope == null) {
+      _filteredScope(filteredScopeWrap);
+      Optional.ofNullable(filteredScopeWrap.getO()).ifPresent(o -> {
+        setFilteredScope(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static Boolean staticSearchFilteredScope(SiteRequest siteRequest_, Boolean o) {
-		return o;
-	}
+  public static Boolean staticSearchFilteredScope(SiteRequest siteRequest_, Boolean o) {
+    return o;
+  }
 
-	public static String staticSearchStrFilteredScope(SiteRequest siteRequest_, Boolean o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrFilteredScope(SiteRequest siteRequest_, Boolean o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqFilteredScope(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchFilteredScope(siteRequest_, SiteRequest.staticSetFilteredScope(siteRequest_, o)).toString();
-	}
-
-	////////////
-	// scopes //
-	////////////
-
-
-	/**	 The entity scopes
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> scopes = new ArrayList<String>();
-
-	/**	<br> The entity scopes
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:scopes">Find the entity scopes in Solr</a>
-	 * <br>
-	 * @param o is the entity already constructed. 
-	 **/
-	protected abstract void _scopes(List<String> o);
-
-	public List<String> getScopes() {
-		return scopes;
-	}
-
-	public void setScopes(List<String> scopes) {
-		this.scopes = scopes;
-	}
-	@JsonIgnore
-	public void setScopes(String o) {
-		String l = SiteRequest.staticSetScopes(siteRequest_, o);
-		if(l != null)
-			addScopes(l);
-	}
-	public static String staticSetScopes(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public SiteRequest addScopes(String...objects) {
-		for(String o : objects) {
-			addScopes(o);
-		}
-		return (SiteRequest)this;
-	}
-	public SiteRequest addScopes(String o) {
-		if(o != null)
-			this.scopes.add(o);
-		return (SiteRequest)this;
-	}
-	@JsonIgnore
-	public void setScopes(JsonArray objects) {
-		scopes.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addScopes(o);
-		}
-	}
-	protected SiteRequest scopesInit() {
-		_scopes(scopes);
-		return (SiteRequest)this;
-	}
-
-	public static String staticSearchScopes(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrScopes(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqScopes(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchScopes(siteRequest_, SiteRequest.staticSetScopes(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqFilteredScope(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchFilteredScope(siteRequest_, SiteRequest.staticSetFilteredScope(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// groups //
+  // scopes //
 	////////////
 
 
-	/**	 The entity groups
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	@JsonInclude(Include.NON_NULL)
-	protected List<String> groups = new ArrayList<String>();
+  /**
+   *  The entity scopes
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> scopes = new ArrayList<String>();
 
-	/**	<br> The entity groups
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:groups">Find the entity groups in Solr</a>
-	 * <br>
-	 * @param o is the entity already constructed. 
-	 **/
-	protected abstract void _groups(List<String> o);
+  /**
+   * <br> The entity scopes
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:scopes">Find the entity scopes in Solr</a>
+   * <br>
+   * @param o is the entity already constructed. 
+   **/
+  protected abstract void _scopes(List<String> o);
 
-	public List<String> getGroups() {
-		return groups;
-	}
+  public List<String> getScopes() {
+    return scopes;
+  }
 
-	public void setGroups(List<String> groups) {
-		this.groups = groups;
-	}
-	@JsonIgnore
-	public void setGroups(String o) {
-		String l = SiteRequest.staticSetGroups(siteRequest_, o);
-		if(l != null)
-			addGroups(l);
-	}
-	public static String staticSetGroups(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	public SiteRequest addGroups(String...objects) {
-		for(String o : objects) {
-			addGroups(o);
-		}
-		return (SiteRequest)this;
-	}
-	public SiteRequest addGroups(String o) {
-		if(o != null)
-			this.groups.add(o);
-		return (SiteRequest)this;
-	}
-	@JsonIgnore
-	public void setGroups(JsonArray objects) {
-		groups.clear();
-		if(objects == null)
-			return;
-		for(int i = 0; i < objects.size(); i++) {
-			String o = objects.getString(i);
-			addGroups(o);
-		}
-	}
-	protected SiteRequest groupsInit() {
-		_groups(groups);
-		return (SiteRequest)this;
-	}
+  public void setScopes(List<String> scopes) {
+    this.scopes = scopes;
+  }
+  @JsonIgnore
+  public void setScopes(String o) {
+    String l = SiteRequest.staticSetScopes(siteRequest_, o);
+    if(l != null)
+      addScopes(l);
+  }
+  public static String staticSetScopes(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public SiteRequest addScopes(String...objects) {
+    for(String o : objects) {
+      addScopes(o);
+    }
+    return (SiteRequest)this;
+  }
+  public SiteRequest addScopes(String o) {
+    if(o != null)
+      this.scopes.add(o);
+    return (SiteRequest)this;
+  }
+  @JsonIgnore
+  public void setScopes(JsonArray objects) {
+    scopes.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addScopes(o);
+    }
+  }
+  protected SiteRequest scopesInit() {
+    _scopes(scopes);
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchGroups(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchScopes(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrGroups(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrScopes(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqGroups(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchGroups(siteRequest_, SiteRequest.staticSetGroups(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqScopes(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchScopes(siteRequest_, SiteRequest.staticSetScopes(siteRequest_, o)).toString();
+  }
+
+	////////////
+  // groups //
+	////////////
+
+
+  /**
+   *  The entity groups
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+  @JsonInclude(Include.NON_NULL)
+  protected List<String> groups = new ArrayList<String>();
+
+  /**
+   * <br> The entity groups
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:groups">Find the entity groups in Solr</a>
+   * <br>
+   * @param o is the entity already constructed. 
+   **/
+  protected abstract void _groups(List<String> o);
+
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
+  }
+  @JsonIgnore
+  public void setGroups(String o) {
+    String l = SiteRequest.staticSetGroups(siteRequest_, o);
+    if(l != null)
+      addGroups(l);
+  }
+  public static String staticSetGroups(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  public SiteRequest addGroups(String...objects) {
+    for(String o : objects) {
+      addGroups(o);
+    }
+    return (SiteRequest)this;
+  }
+  public SiteRequest addGroups(String o) {
+    if(o != null)
+      this.groups.add(o);
+    return (SiteRequest)this;
+  }
+  @JsonIgnore
+  public void setGroups(JsonArray objects) {
+    groups.clear();
+    if(objects == null)
+      return;
+    for(int i = 0; i < objects.size(); i++) {
+      String o = objects.getString(i);
+      addGroups(o);
+    }
+  }
+  protected SiteRequest groupsInit() {
+    _groups(groups);
+    return (SiteRequest)this;
+  }
+
+  public static String staticSearchGroups(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrGroups(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqGroups(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchGroups(siteRequest_, SiteRequest.staticSetGroups(siteRequest_, o)).toString();
+  }
 
 	////////////////
-	// publicRead //
+  // publicRead //
 	////////////////
 
 
-	/**	 The entity publicRead
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected Boolean publicRead;
+  /**
+   *  The entity publicRead
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected Boolean publicRead;
 
-	/**	<br> The entity publicRead
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:publicRead">Find the entity publicRead in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _publicRead(Wrap<Boolean> w);
+  /**
+   * <br> The entity publicRead
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:publicRead">Find the entity publicRead in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _publicRead(Wrap<Boolean> w);
 
-	public Boolean getPublicRead() {
-		return publicRead;
-	}
+  public Boolean getPublicRead() {
+    return publicRead;
+  }
 
-	public void setPublicRead(Boolean publicRead) {
-		this.publicRead = publicRead;
-	}
-	@JsonIgnore
-	public void setPublicRead(String o) {
-		this.publicRead = SiteRequest.staticSetPublicRead(siteRequest_, o);
-	}
-	public static Boolean staticSetPublicRead(SiteRequest siteRequest_, String o) {
-		return Boolean.parseBoolean(o);
-	}
-	protected SiteRequest publicReadInit() {
-		Wrap<Boolean> publicReadWrap = new Wrap<Boolean>().var("publicRead");
-		if(publicRead == null) {
-			_publicRead(publicReadWrap);
-			Optional.ofNullable(publicReadWrap.getO()).ifPresent(o -> {
-				setPublicRead(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setPublicRead(Boolean publicRead) {
+    this.publicRead = publicRead;
+  }
+  @JsonIgnore
+  public void setPublicRead(String o) {
+    this.publicRead = SiteRequest.staticSetPublicRead(siteRequest_, o);
+  }
+  public static Boolean staticSetPublicRead(SiteRequest siteRequest_, String o) {
+    return Boolean.parseBoolean(o);
+  }
+  protected SiteRequest publicReadInit() {
+    Wrap<Boolean> publicReadWrap = new Wrap<Boolean>().var("publicRead");
+    if(publicRead == null) {
+      _publicRead(publicReadWrap);
+      Optional.ofNullable(publicReadWrap.getO()).ifPresent(o -> {
+        setPublicRead(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static Boolean staticSearchPublicRead(SiteRequest siteRequest_, Boolean o) {
-		return o;
-	}
+  public static Boolean staticSearchPublicRead(SiteRequest siteRequest_, Boolean o) {
+    return o;
+  }
 
-	public static String staticSearchStrPublicRead(SiteRequest siteRequest_, Boolean o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrPublicRead(SiteRequest siteRequest_, Boolean o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqPublicRead(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchPublicRead(siteRequest_, SiteRequest.staticSetPublicRead(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqPublicRead(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchPublicRead(siteRequest_, SiteRequest.staticSetPublicRead(siteRequest_, o)).toString();
+  }
 
 	//////////////////
-	// userResource //
+  // userResource //
 	//////////////////
 
 
-	/**	 The entity userResource
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonObjectDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonObject userResource;
+  /**
+   *  The entity userResource
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonObjectDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonObject userResource;
 
-	/**	<br> The entity userResource
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userResource">Find the entity userResource in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _userResource(Wrap<JsonObject> c);
+  /**
+   * <br> The entity userResource
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:userResource">Find the entity userResource in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userResource(Wrap<JsonObject> c);
 
-	public JsonObject getUserResource() {
-		return userResource;
-	}
+  public JsonObject getUserResource() {
+    return userResource;
+  }
 
-	public void setUserResource(JsonObject userResource) {
-		this.userResource = userResource;
-	}
-	@JsonIgnore
-	public void setUserResource(String o) {
-		this.userResource = SiteRequest.staticSetUserResource(siteRequest_, o);
-	}
-	public static JsonObject staticSetUserResource(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonObject(o);
-		}
-		return null;
-	}
-	protected SiteRequest userResourceInit() {
-		Wrap<JsonObject> userResourceWrap = new Wrap<JsonObject>().var("userResource");
-		if(userResource == null) {
-			_userResource(userResourceWrap);
-			Optional.ofNullable(userResourceWrap.getO()).ifPresent(o -> {
-				setUserResource(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setUserResource(JsonObject userResource) {
+    this.userResource = userResource;
+  }
+  @JsonIgnore
+  public void setUserResource(String o) {
+    this.userResource = SiteRequest.staticSetUserResource(siteRequest_, o);
+  }
+  public static JsonObject staticSetUserResource(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonObject(o);
+    }
+    return null;
+  }
+  protected SiteRequest userResourceInit() {
+    Wrap<JsonObject> userResourceWrap = new Wrap<JsonObject>().var("userResource");
+    if(userResource == null) {
+      _userResource(userResourceWrap);
+      Optional.ofNullable(userResourceWrap.getO()).ifPresent(o -> {
+        setUserResource(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchUserResource(SiteRequest siteRequest_, JsonObject o) {
-		return o.toString();
-	}
+  public static String staticSearchUserResource(SiteRequest siteRequest_, JsonObject o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrUserResource(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrUserResource(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqUserResource(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchUserResource(siteRequest_, SiteRequest.staticSetUserResource(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqUserResource(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchUserResource(siteRequest_, SiteRequest.staticSetUserResource(siteRequest_, o)).toString();
+  }
 
 	///////////////
-	// siteUser_ //
+  // siteUser_ //
 	///////////////
 
 
-	/**	 The entity siteUser_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected SiteUser siteUser_;
+  /**
+   *  The entity siteUser_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected SiteUser siteUser_;
 
-	/**	<br> The entity siteUser_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:siteUser_">Find the entity siteUser_ in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _siteUser_(Wrap<SiteUser> c);
+  /**
+   * <br> The entity siteUser_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:siteUser_">Find the entity siteUser_ in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _siteUser_(Wrap<SiteUser> c);
 
-	public SiteUser getSiteUser_() {
-		return siteUser_;
-	}
+  public SiteUser getSiteUser_() {
+    return siteUser_;
+  }
 
-	public void setSiteUser_(SiteUser siteUser_) {
-		this.siteUser_ = siteUser_;
-	}
-	public static SiteUser staticSetSiteUser_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest siteUser_Init() {
-		Wrap<SiteUser> siteUser_Wrap = new Wrap<SiteUser>().var("siteUser_");
-		if(siteUser_ == null) {
-			_siteUser_(siteUser_Wrap);
-			Optional.ofNullable(siteUser_Wrap.getO()).ifPresent(o -> {
-				setSiteUser_(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setSiteUser_(SiteUser siteUser_) {
+    this.siteUser_ = siteUser_;
+  }
+  public static SiteUser staticSetSiteUser_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest siteUser_Init() {
+    Wrap<SiteUser> siteUser_Wrap = new Wrap<SiteUser>().var("siteUser_");
+    if(siteUser_ == null) {
+      _siteUser_(siteUser_Wrap);
+      Optional.ofNullable(siteUser_Wrap.getO()).ifPresent(o -> {
+        setSiteUser_(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	//////////
-	// lang //
+  // lang //
 	//////////
 
 
-	/**	 The entity lang
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String lang;
+  /**
+   *  The entity lang
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String lang;
 
-	/**	<br> The entity lang
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:lang">Find the entity lang in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _lang(Wrap<String> w);
+  /**
+   * <br> The entity lang
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:lang">Find the entity lang in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _lang(Wrap<String> w);
 
-	public String getLang() {
-		return lang;
-	}
-	public void setLang(String o) {
-		this.lang = SiteRequest.staticSetLang(siteRequest_, o);
-	}
-	public static String staticSetLang(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest langInit() {
-		Wrap<String> langWrap = new Wrap<String>().var("lang");
-		if(lang == null) {
-			_lang(langWrap);
-			Optional.ofNullable(langWrap.getO()).ifPresent(o -> {
-				setLang(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getLang() {
+    return lang;
+  }
+  public void setLang(String o) {
+    this.lang = SiteRequest.staticSetLang(siteRequest_, o);
+  }
+  public static String staticSetLang(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest langInit() {
+    Wrap<String> langWrap = new Wrap<String>().var("lang");
+    if(lang == null) {
+      _lang(langWrap);
+      Optional.ofNullable(langWrap.getO()).ifPresent(o -> {
+        setLang(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchLang(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchLang(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrLang(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrLang(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqLang(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchLang(siteRequest_, SiteRequest.staticSetLang(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqLang(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchLang(siteRequest_, SiteRequest.staticSetLang(siteRequest_, o)).toString();
+  }
 
 	///////////////
-	// requestPk //
+  // requestPk //
 	///////////////
 
 
-	/**	 The entity requestPk
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Long requestPk;
+  /**
+   *  The entity requestPk
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Long requestPk;
 
-	/**	<br> The entity requestPk
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestPk">Find the entity requestPk in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _requestPk(Wrap<Long> c);
+  /**
+   * <br> The entity requestPk
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestPk">Find the entity requestPk in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _requestPk(Wrap<Long> c);
 
-	public Long getRequestPk() {
-		return requestPk;
-	}
+  public Long getRequestPk() {
+    return requestPk;
+  }
 
-	public void setRequestPk(Long requestPk) {
-		this.requestPk = requestPk;
-	}
-	@JsonIgnore
-	public void setRequestPk(String o) {
-		this.requestPk = SiteRequest.staticSetRequestPk(siteRequest_, o);
-	}
-	public static Long staticSetRequestPk(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Long.parseLong(o);
-		return null;
-	}
-	protected SiteRequest requestPkInit() {
-		Wrap<Long> requestPkWrap = new Wrap<Long>().var("requestPk");
-		if(requestPk == null) {
-			_requestPk(requestPkWrap);
-			Optional.ofNullable(requestPkWrap.getO()).ifPresent(o -> {
-				setRequestPk(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public void setRequestPk(Long requestPk) {
+    this.requestPk = requestPk;
+  }
+  @JsonIgnore
+  public void setRequestPk(String o) {
+    this.requestPk = SiteRequest.staticSetRequestPk(siteRequest_, o);
+  }
+  public static Long staticSetRequestPk(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Long.parseLong(o);
+    return null;
+  }
+  protected SiteRequest requestPkInit() {
+    Wrap<Long> requestPkWrap = new Wrap<Long>().var("requestPk");
+    if(requestPk == null) {
+      _requestPk(requestPkWrap);
+      Optional.ofNullable(requestPkWrap.getO()).ifPresent(o -> {
+        setRequestPk(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static Long staticSearchRequestPk(SiteRequest siteRequest_, Long o) {
-		return o;
-	}
+  public static Long staticSearchRequestPk(SiteRequest siteRequest_, Long o) {
+    return o;
+  }
 
-	public static String staticSearchStrRequestPk(SiteRequest siteRequest_, Long o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrRequestPk(SiteRequest siteRequest_, Long o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqRequestPk(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchRequestPk(siteRequest_, SiteRequest.staticSetRequestPk(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqRequestPk(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchRequestPk(siteRequest_, SiteRequest.staticSetRequestPk(siteRequest_, o)).toString();
+  }
 
 	////////////////
-	// requestUri //
+  // requestUri //
 	////////////////
 
 
-	/**	 The entity requestUri
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String requestUri;
+  /**
+   *  The entity requestUri
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String requestUri;
 
-	/**	<br> The entity requestUri
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestUri">Find the entity requestUri in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _requestUri(Wrap<String> c);
+  /**
+   * <br> The entity requestUri
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestUri">Find the entity requestUri in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _requestUri(Wrap<String> c);
 
-	public String getRequestUri() {
-		return requestUri;
-	}
-	public void setRequestUri(String o) {
-		this.requestUri = SiteRequest.staticSetRequestUri(siteRequest_, o);
-	}
-	public static String staticSetRequestUri(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest requestUriInit() {
-		Wrap<String> requestUriWrap = new Wrap<String>().var("requestUri");
-		if(requestUri == null) {
-			_requestUri(requestUriWrap);
-			Optional.ofNullable(requestUriWrap.getO()).ifPresent(o -> {
-				setRequestUri(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public String getRequestUri() {
+    return requestUri;
+  }
+  public void setRequestUri(String o) {
+    this.requestUri = SiteRequest.staticSetRequestUri(siteRequest_, o);
+  }
+  public static String staticSetRequestUri(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest requestUriInit() {
+    Wrap<String> requestUriWrap = new Wrap<String>().var("requestUri");
+    if(requestUri == null) {
+      _requestUri(requestUriWrap);
+      Optional.ofNullable(requestUriWrap.getO()).ifPresent(o -> {
+        setRequestUri(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public static String staticSearchRequestUri(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchRequestUri(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrRequestUri(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrRequestUri(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqRequestUri(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchRequestUri(siteRequest_, SiteRequest.staticSetRequestUri(siteRequest_, o)).toString();
-	}
-
-	///////////////////
-	// requestMethod //
-	///////////////////
-
-
-	/**	 The entity requestMethod
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String requestMethod;
-
-	/**	<br> The entity requestMethod
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestMethod">Find the entity requestMethod in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _requestMethod(Wrap<String> c);
-
-	public String getRequestMethod() {
-		return requestMethod;
-	}
-	public void setRequestMethod(String o) {
-		this.requestMethod = SiteRequest.staticSetRequestMethod(siteRequest_, o);
-	}
-	public static String staticSetRequestMethod(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected SiteRequest requestMethodInit() {
-		Wrap<String> requestMethodWrap = new Wrap<String>().var("requestMethod");
-		if(requestMethod == null) {
-			_requestMethod(requestMethodWrap);
-			Optional.ofNullable(requestMethodWrap.getO()).ifPresent(o -> {
-				setRequestMethod(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
-
-	public static String staticSearchRequestMethod(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrRequestMethod(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqRequestMethod(SiteRequest siteRequest_, String o) {
-		return SiteRequest.staticSearchRequestMethod(siteRequest_, SiteRequest.staticSetRequestMethod(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqRequestUri(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchRequestUri(siteRequest_, SiteRequest.staticSetRequestUri(siteRequest_, o)).toString();
+  }
 
 	///////////////////
-	// sqlConnection //
+  // requestMethod //
 	///////////////////
 
 
-	/**	 The entity sqlConnection
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected SqlConnection sqlConnection;
+  /**
+   *  The entity requestMethod
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String requestMethod;
 
-	/**	<br> The entity sqlConnection
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sqlConnection">Find the entity sqlConnection in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _sqlConnection(Wrap<SqlConnection> c);
+  /**
+   * <br> The entity requestMethod
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestMethod">Find the entity requestMethod in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _requestMethod(Wrap<String> c);
 
-	public SqlConnection getSqlConnection() {
-		return sqlConnection;
-	}
+  public String getRequestMethod() {
+    return requestMethod;
+  }
+  public void setRequestMethod(String o) {
+    this.requestMethod = SiteRequest.staticSetRequestMethod(siteRequest_, o);
+  }
+  public static String staticSetRequestMethod(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteRequest requestMethodInit() {
+    Wrap<String> requestMethodWrap = new Wrap<String>().var("requestMethod");
+    if(requestMethod == null) {
+      _requestMethod(requestMethodWrap);
+      Optional.ofNullable(requestMethodWrap.getO()).ifPresent(o -> {
+        setRequestMethod(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
-	public void setSqlConnection(SqlConnection sqlConnection) {
-		this.sqlConnection = sqlConnection;
-	}
-	public static SqlConnection staticSetSqlConnection(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest sqlConnectionInit() {
-		Wrap<SqlConnection> sqlConnectionWrap = new Wrap<SqlConnection>().var("sqlConnection");
-		if(sqlConnection == null) {
-			_sqlConnection(sqlConnectionWrap);
-			Optional.ofNullable(sqlConnectionWrap.getO()).ifPresent(o -> {
-				setSqlConnection(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
+  public static String staticSearchRequestMethod(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrRequestMethod(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqRequestMethod(SiteRequest siteRequest_, String o) {
+    return SiteRequest.staticSearchRequestMethod(siteRequest_, SiteRequest.staticSetRequestMethod(siteRequest_, o)).toString();
+  }
+
+	///////////////////
+  // sqlConnection //
+	///////////////////
+
+
+  /**
+   *  The entity sqlConnection
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected SqlConnection sqlConnection;
+
+  /**
+   * <br> The entity sqlConnection
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:sqlConnection">Find the entity sqlConnection in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _sqlConnection(Wrap<SqlConnection> c);
+
+  public SqlConnection getSqlConnection() {
+    return sqlConnection;
+  }
+
+  public void setSqlConnection(SqlConnection sqlConnection) {
+    this.sqlConnection = sqlConnection;
+  }
+  public static SqlConnection staticSetSqlConnection(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest sqlConnectionInit() {
+    Wrap<SqlConnection> sqlConnectionWrap = new Wrap<SqlConnection>().var("sqlConnection");
+    if(sqlConnection == null) {
+      _sqlConnection(sqlConnectionWrap);
+      Optional.ofNullable(sqlConnectionWrap.getO()).ifPresent(o -> {
+        setSqlConnection(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	////////////////////
-	// requestHeaders //
+  // requestHeaders //
 	////////////////////
 
 
-	/**	 The entity requestHeaders
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected MultiMap requestHeaders;
+  /**
+   *  The entity requestHeaders
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected MultiMap requestHeaders;
 
-	/**	<br> The entity requestHeaders
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestHeaders">Find the entity requestHeaders in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _requestHeaders(Wrap<MultiMap> c);
+  /**
+   * <br> The entity requestHeaders
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestHeaders">Find the entity requestHeaders in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _requestHeaders(Wrap<MultiMap> c);
 
-	public MultiMap getRequestHeaders() {
-		return requestHeaders;
-	}
+  public MultiMap getRequestHeaders() {
+    return requestHeaders;
+  }
 
-	public void setRequestHeaders(MultiMap requestHeaders) {
-		this.requestHeaders = requestHeaders;
-	}
-	public static MultiMap staticSetRequestHeaders(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest requestHeadersInit() {
-		Wrap<MultiMap> requestHeadersWrap = new Wrap<MultiMap>().var("requestHeaders");
-		if(requestHeaders == null) {
-			_requestHeaders(requestHeadersWrap);
-			Optional.ofNullable(requestHeadersWrap.getO()).ifPresent(o -> {
-				setRequestHeaders(o);
-			});
-		}
-		return (SiteRequest)this;
-	}
-
-	/////////////////
-	// requestVars //
-	/////////////////
-
-
-	/**	 The entity requestVars
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected Map<String, String> requestVars = new HashMap<String, String>();
-
-	/**	<br> The entity requestVars
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestVars">Find the entity requestVars in Solr</a>
-	 * <br>
-	 * @param m is the entity already constructed. 
-	 **/
-	protected abstract void _requestVars(Map<String, String> m);
-
-	public Map<String, String> getRequestVars() {
-		return requestVars;
-	}
-
-	public void setRequestVars(Map<String, String> requestVars) {
-		this.requestVars = requestVars;
-	}
-	public static Map<String, String> staticSetRequestVars(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected SiteRequest requestVarsInit() {
-		_requestVars(requestVars);
-		return (SiteRequest)this;
-	}
-
-	//////////////
-	// initDeep //
-	//////////////
-
-	public SiteRequest initDeepSiteRequest(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		initDeepSiteRequest();
-		return (SiteRequest)this;
-	}
-
-	public void initDeepSiteRequest() {
-		initSiteRequest();
-	}
-
-	public void initSiteRequest() {
-				configInit();
-				i18nInit();
-				siteRequest_Init();
-				webClientInit();
-				apiRequest_Init();
-				jsonObjectInit();
-				serviceRequestInit();
-				sessionSiteFontSizeInit();
-				sessionWebComponentsThemeInit();
-				sessionSiteThemeInit();
-				userInit();
-				userPrincipalInit();
-				userIdInit();
-				userKeyInit();
-				sessionIdInit();
-				sessionIdBeforeInit();
-				customerProfileIdInit();
-				userNameInit();
-				userLastNameInit();
-				userFirstNameInit();
-				userFullNameInit();
-				userEmailInit();
-				filteredScopeInit();
-				scopesInit();
-				groupsInit();
-				publicReadInit();
-				userResourceInit();
-				siteUser_Init();
-				langInit();
-				requestPkInit();
-				requestUriInit();
-				requestMethodInit();
-				sqlConnectionInit();
-				requestHeadersInit();
-				requestVarsInit();
-	}
-
-	public void initDeepForClass(SiteRequest siteRequest_) {
-		initDeepSiteRequest(siteRequest_);
-	}
+  public void setRequestHeaders(MultiMap requestHeaders) {
+    this.requestHeaders = requestHeaders;
+  }
+  public static MultiMap staticSetRequestHeaders(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest requestHeadersInit() {
+    Wrap<MultiMap> requestHeadersWrap = new Wrap<MultiMap>().var("requestHeaders");
+    if(requestHeaders == null) {
+      _requestHeaders(requestHeadersWrap);
+      Optional.ofNullable(requestHeadersWrap.getO()).ifPresent(o -> {
+        setRequestHeaders(o);
+      });
+    }
+    return (SiteRequest)this;
+  }
 
 	/////////////////
-	// siteRequest //
+  // requestVars //
 	/////////////////
 
-	public void siteRequestSiteRequest(SiteRequest siteRequest_) {
-	}
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestSiteRequest(siteRequest_);
-	}
+  /**
+   *  The entity requestVars
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected Map<String, String> requestVars = new HashMap<String, String>();
 
-	/////////////
-	// obtain //
-	/////////////
+  /**
+   * <br> The entity requestVars
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.request.SiteRequest&fq=entiteVar_enUS_indexed_string:requestVars">Find the entity requestVars in Solr</a>
+   * <br>
+   * @param m is the entity already constructed. 
+   **/
+  protected abstract void _requestVars(Map<String, String> m);
 
-	public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainSiteRequest(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainSiteRequest(String var) {
-		SiteRequest oSiteRequest = (SiteRequest)this;
-		switch(var) {
-			case "config":
-				return oSiteRequest.config;
-			case "i18n":
-				return oSiteRequest.i18n;
-			case "siteRequest_":
-				return oSiteRequest.siteRequest_;
-			case "webClient":
-				return oSiteRequest.webClient;
-			case "apiRequest_":
-				return oSiteRequest.apiRequest_;
-			case "jsonObject":
-				return oSiteRequest.jsonObject;
-			case "serviceRequest":
-				return oSiteRequest.serviceRequest;
-			case "sessionSiteFontSize":
-				return oSiteRequest.sessionSiteFontSize;
-			case "sessionWebComponentsTheme":
-				return oSiteRequest.sessionWebComponentsTheme;
-			case "sessionSiteTheme":
-				return oSiteRequest.sessionSiteTheme;
-			case "user":
-				return oSiteRequest.user;
-			case "userPrincipal":
-				return oSiteRequest.userPrincipal;
-			case "userId":
-				return oSiteRequest.userId;
-			case "userKey":
-				return oSiteRequest.userKey;
-			case "sessionId":
-				return oSiteRequest.sessionId;
-			case "sessionIdBefore":
-				return oSiteRequest.sessionIdBefore;
-			case "customerProfileId":
-				return oSiteRequest.customerProfileId;
-			case "userName":
-				return oSiteRequest.userName;
-			case "userLastName":
-				return oSiteRequest.userLastName;
-			case "userFirstName":
-				return oSiteRequest.userFirstName;
-			case "userFullName":
-				return oSiteRequest.userFullName;
-			case "userEmail":
-				return oSiteRequest.userEmail;
-			case "filteredScope":
-				return oSiteRequest.filteredScope;
-			case "scopes":
-				return oSiteRequest.scopes;
-			case "groups":
-				return oSiteRequest.groups;
-			case "publicRead":
-				return oSiteRequest.publicRead;
-			case "userResource":
-				return oSiteRequest.userResource;
-			case "siteUser_":
-				return oSiteRequest.siteUser_;
-			case "lang":
-				return oSiteRequest.lang;
-			case "requestPk":
-				return oSiteRequest.requestPk;
-			case "requestUri":
-				return oSiteRequest.requestUri;
-			case "requestMethod":
-				return oSiteRequest.requestMethod;
-			case "sqlConnection":
-				return oSiteRequest.sqlConnection;
-			case "requestHeaders":
-				return oSiteRequest.requestHeaders;
-			case "requestVars":
-				return oSiteRequest.requestVars;
-			default:
-				return null;
-		}
-	}
+  public Map<String, String> getRequestVars() {
+    return requestVars;
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  public void setRequestVars(Map<String, String> requestVars) {
+    this.requestVars = requestVars;
+  }
+  public static Map<String, String> staticSetRequestVars(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected SiteRequest requestVarsInit() {
+    _requestVars(requestVars);
+    return (SiteRequest)this;
+  }
 
-	public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateSiteRequest(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateSiteRequest(String var, Object val) {
-		SiteRequest oSiteRequest = (SiteRequest)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  //////////////
+  // initDeep //
+  //////////////
 
-	///////////////
-	// staticSet //
-	///////////////
+  public SiteRequest initDeepSiteRequest(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    initDeepSiteRequest();
+    return (SiteRequest)this;
+  }
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, SiteRequest o) {
-		return staticSetSiteRequest(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetSiteRequest(String entityVar, SiteRequest siteRequest_, String v, SiteRequest o) {
-		switch(entityVar) {
-		case "config":
-			return SiteRequest.staticSetConfig(siteRequest_, v);
-		case "i18n":
-			return SiteRequest.staticSetI18n(siteRequest_, v);
-		case "jsonObject":
-			return SiteRequest.staticSetJsonObject(siteRequest_, v);
-		case "sessionSiteFontSize":
-			return SiteRequest.staticSetSessionSiteFontSize(siteRequest_, v);
-		case "sessionWebComponentsTheme":
-			return SiteRequest.staticSetSessionWebComponentsTheme(siteRequest_, v);
-		case "sessionSiteTheme":
-			return SiteRequest.staticSetSessionSiteTheme(siteRequest_, v);
-		case "userPrincipal":
-			return SiteRequest.staticSetUserPrincipal(siteRequest_, v);
-		case "userId":
-			return SiteRequest.staticSetUserId(siteRequest_, v);
-		case "userKey":
-			return SiteRequest.staticSetUserKey(siteRequest_, v);
-		case "sessionId":
-			return SiteRequest.staticSetSessionId(siteRequest_, v);
-		case "sessionIdBefore":
-			return SiteRequest.staticSetSessionIdBefore(siteRequest_, v);
-		case "customerProfileId":
-			return SiteRequest.staticSetCustomerProfileId(siteRequest_, v);
-		case "userName":
-			return SiteRequest.staticSetUserName(siteRequest_, v);
-		case "userLastName":
-			return SiteRequest.staticSetUserLastName(siteRequest_, v);
-		case "userFirstName":
-			return SiteRequest.staticSetUserFirstName(siteRequest_, v);
-		case "userFullName":
-			return SiteRequest.staticSetUserFullName(siteRequest_, v);
-		case "userEmail":
-			return SiteRequest.staticSetUserEmail(siteRequest_, v);
-		case "filteredScope":
-			return SiteRequest.staticSetFilteredScope(siteRequest_, v);
-		case "scopes":
-			return SiteRequest.staticSetScopes(siteRequest_, v);
-		case "groups":
-			return SiteRequest.staticSetGroups(siteRequest_, v);
-		case "publicRead":
-			return SiteRequest.staticSetPublicRead(siteRequest_, v);
-		case "userResource":
-			return SiteRequest.staticSetUserResource(siteRequest_, v);
-		case "lang":
-			return SiteRequest.staticSetLang(siteRequest_, v);
-		case "requestPk":
-			return SiteRequest.staticSetRequestPk(siteRequest_, v);
-		case "requestUri":
-			return SiteRequest.staticSetRequestUri(siteRequest_, v);
-		case "requestMethod":
-			return SiteRequest.staticSetRequestMethod(siteRequest_, v);
-			default:
-				return null;
-		}
-	}
+  public void initDeepSiteRequest() {
+    initSiteRequest();
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  public void initSiteRequest() {
+        configInit();
+        i18nInit();
+        siteRequest_Init();
+        webClientInit();
+        apiRequest_Init();
+        jsonObjectInit();
+        serviceRequestInit();
+        sessionSiteFontSizeInit();
+        sessionWebComponentsThemeInit();
+        sessionSiteThemeInit();
+        userInit();
+        userPrincipalInit();
+        userIdInit();
+        userKeyInit();
+        sessionIdInit();
+        sessionIdBeforeInit();
+        customerProfileIdInit();
+        userNameInit();
+        userLastNameInit();
+        userFirstNameInit();
+        userFullNameInit();
+        userEmailInit();
+        filteredScopeInit();
+        scopesInit();
+        groupsInit();
+        publicReadInit();
+        userResourceInit();
+        siteUser_Init();
+        langInit();
+        requestPkInit();
+        requestUriInit();
+        requestMethodInit();
+        sqlConnectionInit();
+        requestHeadersInit();
+        requestVarsInit();
+  }
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchSiteRequest(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchSiteRequest(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "config":
-			return SiteRequest.staticSearchConfig(siteRequest_, (JsonObject)o);
-		case "i18n":
-			return SiteRequest.staticSearchI18n(siteRequest_, (JsonObject)o);
-		case "jsonObject":
-			return SiteRequest.staticSearchJsonObject(siteRequest_, (JsonObject)o);
-		case "sessionSiteFontSize":
-			return SiteRequest.staticSearchSessionSiteFontSize(siteRequest_, (String)o);
-		case "sessionWebComponentsTheme":
-			return SiteRequest.staticSearchSessionWebComponentsTheme(siteRequest_, (String)o);
-		case "sessionSiteTheme":
-			return SiteRequest.staticSearchSessionSiteTheme(siteRequest_, (String)o);
-		case "userPrincipal":
-			return SiteRequest.staticSearchUserPrincipal(siteRequest_, (JsonObject)o);
-		case "userId":
-			return SiteRequest.staticSearchUserId(siteRequest_, (String)o);
-		case "userKey":
-			return SiteRequest.staticSearchUserKey(siteRequest_, (Long)o);
-		case "sessionId":
-			return SiteRequest.staticSearchSessionId(siteRequest_, (String)o);
-		case "sessionIdBefore":
-			return SiteRequest.staticSearchSessionIdBefore(siteRequest_, (String)o);
-		case "customerProfileId":
-			return SiteRequest.staticSearchCustomerProfileId(siteRequest_, (String)o);
-		case "userName":
-			return SiteRequest.staticSearchUserName(siteRequest_, (String)o);
-		case "userLastName":
-			return SiteRequest.staticSearchUserLastName(siteRequest_, (String)o);
-		case "userFirstName":
-			return SiteRequest.staticSearchUserFirstName(siteRequest_, (String)o);
-		case "userFullName":
-			return SiteRequest.staticSearchUserFullName(siteRequest_, (String)o);
-		case "userEmail":
-			return SiteRequest.staticSearchUserEmail(siteRequest_, (String)o);
-		case "filteredScope":
-			return SiteRequest.staticSearchFilteredScope(siteRequest_, (Boolean)o);
-		case "scopes":
-			return SiteRequest.staticSearchScopes(siteRequest_, (String)o);
-		case "groups":
-			return SiteRequest.staticSearchGroups(siteRequest_, (String)o);
-		case "publicRead":
-			return SiteRequest.staticSearchPublicRead(siteRequest_, (Boolean)o);
-		case "userResource":
-			return SiteRequest.staticSearchUserResource(siteRequest_, (JsonObject)o);
-		case "lang":
-			return SiteRequest.staticSearchLang(siteRequest_, (String)o);
-		case "requestPk":
-			return SiteRequest.staticSearchRequestPk(siteRequest_, (Long)o);
-		case "requestUri":
-			return SiteRequest.staticSearchRequestUri(siteRequest_, (String)o);
-		case "requestMethod":
-			return SiteRequest.staticSearchRequestMethod(siteRequest_, (String)o);
-			default:
-				return null;
-		}
-	}
+  public void initDeepForClass(SiteRequest siteRequest_) {
+    initDeepSiteRequest(siteRequest_);
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrSiteRequest(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrSiteRequest(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "config":
-			return SiteRequest.staticSearchStrConfig(siteRequest_, (String)o);
-		case "i18n":
-			return SiteRequest.staticSearchStrI18n(siteRequest_, (String)o);
-		case "jsonObject":
-			return SiteRequest.staticSearchStrJsonObject(siteRequest_, (String)o);
-		case "sessionSiteFontSize":
-			return SiteRequest.staticSearchStrSessionSiteFontSize(siteRequest_, (String)o);
-		case "sessionWebComponentsTheme":
-			return SiteRequest.staticSearchStrSessionWebComponentsTheme(siteRequest_, (String)o);
-		case "sessionSiteTheme":
-			return SiteRequest.staticSearchStrSessionSiteTheme(siteRequest_, (String)o);
-		case "userPrincipal":
-			return SiteRequest.staticSearchStrUserPrincipal(siteRequest_, (String)o);
-		case "userId":
-			return SiteRequest.staticSearchStrUserId(siteRequest_, (String)o);
-		case "userKey":
-			return SiteRequest.staticSearchStrUserKey(siteRequest_, (Long)o);
-		case "sessionId":
-			return SiteRequest.staticSearchStrSessionId(siteRequest_, (String)o);
-		case "sessionIdBefore":
-			return SiteRequest.staticSearchStrSessionIdBefore(siteRequest_, (String)o);
-		case "customerProfileId":
-			return SiteRequest.staticSearchStrCustomerProfileId(siteRequest_, (String)o);
-		case "userName":
-			return SiteRequest.staticSearchStrUserName(siteRequest_, (String)o);
-		case "userLastName":
-			return SiteRequest.staticSearchStrUserLastName(siteRequest_, (String)o);
-		case "userFirstName":
-			return SiteRequest.staticSearchStrUserFirstName(siteRequest_, (String)o);
-		case "userFullName":
-			return SiteRequest.staticSearchStrUserFullName(siteRequest_, (String)o);
-		case "userEmail":
-			return SiteRequest.staticSearchStrUserEmail(siteRequest_, (String)o);
-		case "filteredScope":
-			return SiteRequest.staticSearchStrFilteredScope(siteRequest_, (Boolean)o);
-		case "scopes":
-			return SiteRequest.staticSearchStrScopes(siteRequest_, (String)o);
-		case "groups":
-			return SiteRequest.staticSearchStrGroups(siteRequest_, (String)o);
-		case "publicRead":
-			return SiteRequest.staticSearchStrPublicRead(siteRequest_, (Boolean)o);
-		case "userResource":
-			return SiteRequest.staticSearchStrUserResource(siteRequest_, (String)o);
-		case "lang":
-			return SiteRequest.staticSearchStrLang(siteRequest_, (String)o);
-		case "requestPk":
-			return SiteRequest.staticSearchStrRequestPk(siteRequest_, (Long)o);
-		case "requestUri":
-			return SiteRequest.staticSearchStrRequestUri(siteRequest_, (String)o);
-		case "requestMethod":
-			return SiteRequest.staticSearchStrRequestMethod(siteRequest_, (String)o);
-			default:
-				return null;
-		}
-	}
+  public void siteRequestSiteRequest(SiteRequest siteRequest_) {
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestSiteRequest(siteRequest_);
+  }
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqSiteRequest(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqSiteRequest(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "config":
-			return SiteRequest.staticSearchFqConfig(siteRequest_, o);
-		case "i18n":
-			return SiteRequest.staticSearchFqI18n(siteRequest_, o);
-		case "jsonObject":
-			return SiteRequest.staticSearchFqJsonObject(siteRequest_, o);
-		case "sessionSiteFontSize":
-			return SiteRequest.staticSearchFqSessionSiteFontSize(siteRequest_, o);
-		case "sessionWebComponentsTheme":
-			return SiteRequest.staticSearchFqSessionWebComponentsTheme(siteRequest_, o);
-		case "sessionSiteTheme":
-			return SiteRequest.staticSearchFqSessionSiteTheme(siteRequest_, o);
-		case "userPrincipal":
-			return SiteRequest.staticSearchFqUserPrincipal(siteRequest_, o);
-		case "userId":
-			return SiteRequest.staticSearchFqUserId(siteRequest_, o);
-		case "userKey":
-			return SiteRequest.staticSearchFqUserKey(siteRequest_, o);
-		case "sessionId":
-			return SiteRequest.staticSearchFqSessionId(siteRequest_, o);
-		case "sessionIdBefore":
-			return SiteRequest.staticSearchFqSessionIdBefore(siteRequest_, o);
-		case "customerProfileId":
-			return SiteRequest.staticSearchFqCustomerProfileId(siteRequest_, o);
-		case "userName":
-			return SiteRequest.staticSearchFqUserName(siteRequest_, o);
-		case "userLastName":
-			return SiteRequest.staticSearchFqUserLastName(siteRequest_, o);
-		case "userFirstName":
-			return SiteRequest.staticSearchFqUserFirstName(siteRequest_, o);
-		case "userFullName":
-			return SiteRequest.staticSearchFqUserFullName(siteRequest_, o);
-		case "userEmail":
-			return SiteRequest.staticSearchFqUserEmail(siteRequest_, o);
-		case "filteredScope":
-			return SiteRequest.staticSearchFqFilteredScope(siteRequest_, o);
-		case "scopes":
-			return SiteRequest.staticSearchFqScopes(siteRequest_, o);
-		case "groups":
-			return SiteRequest.staticSearchFqGroups(siteRequest_, o);
-		case "publicRead":
-			return SiteRequest.staticSearchFqPublicRead(siteRequest_, o);
-		case "userResource":
-			return SiteRequest.staticSearchFqUserResource(siteRequest_, o);
-		case "lang":
-			return SiteRequest.staticSearchFqLang(siteRequest_, o);
-		case "requestPk":
-			return SiteRequest.staticSearchFqRequestPk(siteRequest_, o);
-		case "requestUri":
-			return SiteRequest.staticSearchFqRequestUri(siteRequest_, o);
-		case "requestMethod":
-			return SiteRequest.staticSearchFqRequestMethod(siteRequest_, o);
-			default:
-				return null;
-		}
-	}
+  /////////////
+  // obtain //
+  /////////////
 
-	//////////////
-	// toString //
-	//////////////
+  public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainSiteRequest(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainSiteRequest(String var) {
+    SiteRequest oSiteRequest = (SiteRequest)this;
+    switch(var) {
+      case "config":
+        return oSiteRequest.config;
+      case "i18n":
+        return oSiteRequest.i18n;
+      case "siteRequest_":
+        return oSiteRequest.siteRequest_;
+      case "webClient":
+        return oSiteRequest.webClient;
+      case "apiRequest_":
+        return oSiteRequest.apiRequest_;
+      case "jsonObject":
+        return oSiteRequest.jsonObject;
+      case "serviceRequest":
+        return oSiteRequest.serviceRequest;
+      case "sessionSiteFontSize":
+        return oSiteRequest.sessionSiteFontSize;
+      case "sessionWebComponentsTheme":
+        return oSiteRequest.sessionWebComponentsTheme;
+      case "sessionSiteTheme":
+        return oSiteRequest.sessionSiteTheme;
+      case "user":
+        return oSiteRequest.user;
+      case "userPrincipal":
+        return oSiteRequest.userPrincipal;
+      case "userId":
+        return oSiteRequest.userId;
+      case "userKey":
+        return oSiteRequest.userKey;
+      case "sessionId":
+        return oSiteRequest.sessionId;
+      case "sessionIdBefore":
+        return oSiteRequest.sessionIdBefore;
+      case "customerProfileId":
+        return oSiteRequest.customerProfileId;
+      case "userName":
+        return oSiteRequest.userName;
+      case "userLastName":
+        return oSiteRequest.userLastName;
+      case "userFirstName":
+        return oSiteRequest.userFirstName;
+      case "userFullName":
+        return oSiteRequest.userFullName;
+      case "userEmail":
+        return oSiteRequest.userEmail;
+      case "filteredScope":
+        return oSiteRequest.filteredScope;
+      case "scopes":
+        return oSiteRequest.scopes;
+      case "groups":
+        return oSiteRequest.groups;
+      case "publicRead":
+        return oSiteRequest.publicRead;
+      case "userResource":
+        return oSiteRequest.userResource;
+      case "siteUser_":
+        return oSiteRequest.siteUser_;
+      case "lang":
+        return oSiteRequest.lang;
+      case "requestPk":
+        return oSiteRequest.requestPk;
+      case "requestUri":
+        return oSiteRequest.requestUri;
+      case "requestMethod":
+        return oSiteRequest.requestMethod;
+      case "sqlConnection":
+        return oSiteRequest.sqlConnection;
+      case "requestHeaders":
+        return oSiteRequest.requestHeaders;
+      case "requestVars":
+        return oSiteRequest.requestVars;
+      default:
+        return null;
+    }
+  }
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		return sb.toString();
-	}
+  ///////////////
+  // relate //
+  ///////////////
 
-	public static final String CLASS_SIMPLE_NAME = "SiteRequest";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.request.SiteRequest";
-	public static final String CLASS_AUTH_RESOURCE = "";
-	public static final String VAR_config = "config";
-	public static final String VAR_i18n = "i18n";
-	public static final String VAR_siteRequest_ = "siteRequest_";
-	public static final String VAR_webClient = "webClient";
-	public static final String VAR_apiRequest_ = "apiRequest_";
-	public static final String VAR_jsonObject = "jsonObject";
-	public static final String VAR_serviceRequest = "serviceRequest";
-	public static final String VAR_sessionSiteFontSize = "sessionSiteFontSize";
-	public static final String VAR_sessionWebComponentsTheme = "sessionWebComponentsTheme";
-	public static final String VAR_sessionSiteTheme = "sessionSiteTheme";
-	public static final String VAR_user = "user";
-	public static final String VAR_userPrincipal = "userPrincipal";
-	public static final String VAR_userId = "userId";
-	public static final String VAR_userKey = "userKey";
-	public static final String VAR_sessionId = "sessionId";
-	public static final String VAR_sessionIdBefore = "sessionIdBefore";
-	public static final String VAR_customerProfileId = "customerProfileId";
-	public static final String VAR_userName = "userName";
-	public static final String VAR_userLastName = "userLastName";
-	public static final String VAR_userFirstName = "userFirstName";
-	public static final String VAR_userFullName = "userFullName";
-	public static final String VAR_userEmail = "userEmail";
-	public static final String VAR_filteredScope = "filteredScope";
-	public static final String VAR_scopes = "scopes";
-	public static final String VAR_groups = "groups";
-	public static final String VAR_publicRead = "publicRead";
-	public static final String VAR_userResource = "userResource";
-	public static final String VAR_siteUser_ = "siteUser_";
-	public static final String VAR_lang = "lang";
-	public static final String VAR_requestPk = "requestPk";
-	public static final String VAR_requestUri = "requestUri";
-	public static final String VAR_requestMethod = "requestMethod";
-	public static final String VAR_sqlConnection = "sqlConnection";
-	public static final String VAR_requestHeaders = "requestHeaders";
-	public static final String VAR_requestVars = "requestVars";
+  public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateSiteRequest(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateSiteRequest(String var, Object val) {
+    SiteRequest oSiteRequest = (SiteRequest)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static final String DISPLAY_NAME_config = "";
-	public static final String DISPLAY_NAME_i18n = "";
-	public static final String DISPLAY_NAME_siteRequest_ = "";
-	public static final String DISPLAY_NAME_webClient = "";
-	public static final String DISPLAY_NAME_apiRequest_ = "";
-	public static final String DISPLAY_NAME_jsonObject = "";
-	public static final String DISPLAY_NAME_serviceRequest = "";
-	public static final String DISPLAY_NAME_sessionSiteFontSize = "";
-	public static final String DISPLAY_NAME_sessionWebComponentsTheme = "";
-	public static final String DISPLAY_NAME_sessionSiteTheme = "";
-	public static final String DISPLAY_NAME_user = "";
-	public static final String DISPLAY_NAME_userPrincipal = "";
-	public static final String DISPLAY_NAME_userId = "";
-	public static final String DISPLAY_NAME_userKey = "";
-	public static final String DISPLAY_NAME_sessionId = "";
-	public static final String DISPLAY_NAME_sessionIdBefore = "";
-	public static final String DISPLAY_NAME_customerProfileId = "";
-	public static final String DISPLAY_NAME_userName = "";
-	public static final String DISPLAY_NAME_userLastName = "";
-	public static final String DISPLAY_NAME_userFirstName = "";
-	public static final String DISPLAY_NAME_userFullName = "";
-	public static final String DISPLAY_NAME_userEmail = "";
-	public static final String DISPLAY_NAME_filteredScope = "";
-	public static final String DISPLAY_NAME_scopes = "";
-	public static final String DISPLAY_NAME_groups = "";
-	public static final String DISPLAY_NAME_publicRead = "";
-	public static final String DISPLAY_NAME_userResource = "";
-	public static final String DISPLAY_NAME_siteUser_ = "";
-	public static final String DISPLAY_NAME_lang = "";
-	public static final String DISPLAY_NAME_requestPk = "";
-	public static final String DISPLAY_NAME_requestUri = "";
-	public static final String DISPLAY_NAME_requestMethod = "";
-	public static final String DISPLAY_NAME_sqlConnection = "";
-	public static final String DISPLAY_NAME_requestHeaders = "";
-	public static final String DISPLAY_NAME_requestVars = "";
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public String idForClass() {
-		return null;
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, SiteRequest o) {
+    return staticSetSiteRequest(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetSiteRequest(String entityVar, SiteRequest siteRequest_, String v, SiteRequest o) {
+    switch(entityVar) {
+    case "config":
+      return SiteRequest.staticSetConfig(siteRequest_, v);
+    case "i18n":
+      return SiteRequest.staticSetI18n(siteRequest_, v);
+    case "jsonObject":
+      return SiteRequest.staticSetJsonObject(siteRequest_, v);
+    case "sessionSiteFontSize":
+      return SiteRequest.staticSetSessionSiteFontSize(siteRequest_, v);
+    case "sessionWebComponentsTheme":
+      return SiteRequest.staticSetSessionWebComponentsTheme(siteRequest_, v);
+    case "sessionSiteTheme":
+      return SiteRequest.staticSetSessionSiteTheme(siteRequest_, v);
+    case "userPrincipal":
+      return SiteRequest.staticSetUserPrincipal(siteRequest_, v);
+    case "userId":
+      return SiteRequest.staticSetUserId(siteRequest_, v);
+    case "userKey":
+      return SiteRequest.staticSetUserKey(siteRequest_, v);
+    case "sessionId":
+      return SiteRequest.staticSetSessionId(siteRequest_, v);
+    case "sessionIdBefore":
+      return SiteRequest.staticSetSessionIdBefore(siteRequest_, v);
+    case "customerProfileId":
+      return SiteRequest.staticSetCustomerProfileId(siteRequest_, v);
+    case "userName":
+      return SiteRequest.staticSetUserName(siteRequest_, v);
+    case "userLastName":
+      return SiteRequest.staticSetUserLastName(siteRequest_, v);
+    case "userFirstName":
+      return SiteRequest.staticSetUserFirstName(siteRequest_, v);
+    case "userFullName":
+      return SiteRequest.staticSetUserFullName(siteRequest_, v);
+    case "userEmail":
+      return SiteRequest.staticSetUserEmail(siteRequest_, v);
+    case "filteredScope":
+      return SiteRequest.staticSetFilteredScope(siteRequest_, v);
+    case "scopes":
+      return SiteRequest.staticSetScopes(siteRequest_, v);
+    case "groups":
+      return SiteRequest.staticSetGroups(siteRequest_, v);
+    case "publicRead":
+      return SiteRequest.staticSetPublicRead(siteRequest_, v);
+    case "userResource":
+      return SiteRequest.staticSetUserResource(siteRequest_, v);
+    case "lang":
+      return SiteRequest.staticSetLang(siteRequest_, v);
+    case "requestPk":
+      return SiteRequest.staticSetRequestPk(siteRequest_, v);
+    case "requestUri":
+      return SiteRequest.staticSetRequestUri(siteRequest_, v);
+    case "requestMethod":
+      return SiteRequest.staticSetRequestMethod(siteRequest_, v);
+      default:
+        return null;
+    }
+  }
 
-	public String titleForClass() {
-		return null;
-	}
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public String nameForClass() {
-		return null;
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchSiteRequest(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchSiteRequest(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "config":
+      return SiteRequest.staticSearchConfig(siteRequest_, (JsonObject)o);
+    case "i18n":
+      return SiteRequest.staticSearchI18n(siteRequest_, (JsonObject)o);
+    case "jsonObject":
+      return SiteRequest.staticSearchJsonObject(siteRequest_, (JsonObject)o);
+    case "sessionSiteFontSize":
+      return SiteRequest.staticSearchSessionSiteFontSize(siteRequest_, (String)o);
+    case "sessionWebComponentsTheme":
+      return SiteRequest.staticSearchSessionWebComponentsTheme(siteRequest_, (String)o);
+    case "sessionSiteTheme":
+      return SiteRequest.staticSearchSessionSiteTheme(siteRequest_, (String)o);
+    case "userPrincipal":
+      return SiteRequest.staticSearchUserPrincipal(siteRequest_, (JsonObject)o);
+    case "userId":
+      return SiteRequest.staticSearchUserId(siteRequest_, (String)o);
+    case "userKey":
+      return SiteRequest.staticSearchUserKey(siteRequest_, (Long)o);
+    case "sessionId":
+      return SiteRequest.staticSearchSessionId(siteRequest_, (String)o);
+    case "sessionIdBefore":
+      return SiteRequest.staticSearchSessionIdBefore(siteRequest_, (String)o);
+    case "customerProfileId":
+      return SiteRequest.staticSearchCustomerProfileId(siteRequest_, (String)o);
+    case "userName":
+      return SiteRequest.staticSearchUserName(siteRequest_, (String)o);
+    case "userLastName":
+      return SiteRequest.staticSearchUserLastName(siteRequest_, (String)o);
+    case "userFirstName":
+      return SiteRequest.staticSearchUserFirstName(siteRequest_, (String)o);
+    case "userFullName":
+      return SiteRequest.staticSearchUserFullName(siteRequest_, (String)o);
+    case "userEmail":
+      return SiteRequest.staticSearchUserEmail(siteRequest_, (String)o);
+    case "filteredScope":
+      return SiteRequest.staticSearchFilteredScope(siteRequest_, (Boolean)o);
+    case "scopes":
+      return SiteRequest.staticSearchScopes(siteRequest_, (String)o);
+    case "groups":
+      return SiteRequest.staticSearchGroups(siteRequest_, (String)o);
+    case "publicRead":
+      return SiteRequest.staticSearchPublicRead(siteRequest_, (Boolean)o);
+    case "userResource":
+      return SiteRequest.staticSearchUserResource(siteRequest_, (JsonObject)o);
+    case "lang":
+      return SiteRequest.staticSearchLang(siteRequest_, (String)o);
+    case "requestPk":
+      return SiteRequest.staticSearchRequestPk(siteRequest_, (Long)o);
+    case "requestUri":
+      return SiteRequest.staticSearchRequestUri(siteRequest_, (String)o);
+    case "requestMethod":
+      return SiteRequest.staticSearchRequestMethod(siteRequest_, (String)o);
+      default:
+        return null;
+    }
+  }
 
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public String descriptionForClass() {
-		return null;
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrSiteRequest(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrSiteRequest(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "config":
+      return SiteRequest.staticSearchStrConfig(siteRequest_, (String)o);
+    case "i18n":
+      return SiteRequest.staticSearchStrI18n(siteRequest_, (String)o);
+    case "jsonObject":
+      return SiteRequest.staticSearchStrJsonObject(siteRequest_, (String)o);
+    case "sessionSiteFontSize":
+      return SiteRequest.staticSearchStrSessionSiteFontSize(siteRequest_, (String)o);
+    case "sessionWebComponentsTheme":
+      return SiteRequest.staticSearchStrSessionWebComponentsTheme(siteRequest_, (String)o);
+    case "sessionSiteTheme":
+      return SiteRequest.staticSearchStrSessionSiteTheme(siteRequest_, (String)o);
+    case "userPrincipal":
+      return SiteRequest.staticSearchStrUserPrincipal(siteRequest_, (String)o);
+    case "userId":
+      return SiteRequest.staticSearchStrUserId(siteRequest_, (String)o);
+    case "userKey":
+      return SiteRequest.staticSearchStrUserKey(siteRequest_, (Long)o);
+    case "sessionId":
+      return SiteRequest.staticSearchStrSessionId(siteRequest_, (String)o);
+    case "sessionIdBefore":
+      return SiteRequest.staticSearchStrSessionIdBefore(siteRequest_, (String)o);
+    case "customerProfileId":
+      return SiteRequest.staticSearchStrCustomerProfileId(siteRequest_, (String)o);
+    case "userName":
+      return SiteRequest.staticSearchStrUserName(siteRequest_, (String)o);
+    case "userLastName":
+      return SiteRequest.staticSearchStrUserLastName(siteRequest_, (String)o);
+    case "userFirstName":
+      return SiteRequest.staticSearchStrUserFirstName(siteRequest_, (String)o);
+    case "userFullName":
+      return SiteRequest.staticSearchStrUserFullName(siteRequest_, (String)o);
+    case "userEmail":
+      return SiteRequest.staticSearchStrUserEmail(siteRequest_, (String)o);
+    case "filteredScope":
+      return SiteRequest.staticSearchStrFilteredScope(siteRequest_, (Boolean)o);
+    case "scopes":
+      return SiteRequest.staticSearchStrScopes(siteRequest_, (String)o);
+    case "groups":
+      return SiteRequest.staticSearchStrGroups(siteRequest_, (String)o);
+    case "publicRead":
+      return SiteRequest.staticSearchStrPublicRead(siteRequest_, (Boolean)o);
+    case "userResource":
+      return SiteRequest.staticSearchStrUserResource(siteRequest_, (String)o);
+    case "lang":
+      return SiteRequest.staticSearchStrLang(siteRequest_, (String)o);
+    case "requestPk":
+      return SiteRequest.staticSearchStrRequestPk(siteRequest_, (Long)o);
+    case "requestUri":
+      return SiteRequest.staticSearchStrRequestUri(siteRequest_, (String)o);
+    case "requestMethod":
+      return SiteRequest.staticSearchStrRequestMethod(siteRequest_, (String)o);
+      default:
+        return null;
+    }
+  }
 
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqSiteRequest(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqSiteRequest(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "config":
+      return SiteRequest.staticSearchFqConfig(siteRequest_, o);
+    case "i18n":
+      return SiteRequest.staticSearchFqI18n(siteRequest_, o);
+    case "jsonObject":
+      return SiteRequest.staticSearchFqJsonObject(siteRequest_, o);
+    case "sessionSiteFontSize":
+      return SiteRequest.staticSearchFqSessionSiteFontSize(siteRequest_, o);
+    case "sessionWebComponentsTheme":
+      return SiteRequest.staticSearchFqSessionWebComponentsTheme(siteRequest_, o);
+    case "sessionSiteTheme":
+      return SiteRequest.staticSearchFqSessionSiteTheme(siteRequest_, o);
+    case "userPrincipal":
+      return SiteRequest.staticSearchFqUserPrincipal(siteRequest_, o);
+    case "userId":
+      return SiteRequest.staticSearchFqUserId(siteRequest_, o);
+    case "userKey":
+      return SiteRequest.staticSearchFqUserKey(siteRequest_, o);
+    case "sessionId":
+      return SiteRequest.staticSearchFqSessionId(siteRequest_, o);
+    case "sessionIdBefore":
+      return SiteRequest.staticSearchFqSessionIdBefore(siteRequest_, o);
+    case "customerProfileId":
+      return SiteRequest.staticSearchFqCustomerProfileId(siteRequest_, o);
+    case "userName":
+      return SiteRequest.staticSearchFqUserName(siteRequest_, o);
+    case "userLastName":
+      return SiteRequest.staticSearchFqUserLastName(siteRequest_, o);
+    case "userFirstName":
+      return SiteRequest.staticSearchFqUserFirstName(siteRequest_, o);
+    case "userFullName":
+      return SiteRequest.staticSearchFqUserFullName(siteRequest_, o);
+    case "userEmail":
+      return SiteRequest.staticSearchFqUserEmail(siteRequest_, o);
+    case "filteredScope":
+      return SiteRequest.staticSearchFqFilteredScope(siteRequest_, o);
+    case "scopes":
+      return SiteRequest.staticSearchFqScopes(siteRequest_, o);
+    case "groups":
+      return SiteRequest.staticSearchFqGroups(siteRequest_, o);
+    case "publicRead":
+      return SiteRequest.staticSearchFqPublicRead(siteRequest_, o);
+    case "userResource":
+      return SiteRequest.staticSearchFqUserResource(siteRequest_, o);
+    case "lang":
+      return SiteRequest.staticSearchFqLang(siteRequest_, o);
+    case "requestPk":
+      return SiteRequest.staticSearchFqRequestPk(siteRequest_, o);
+    case "requestUri":
+      return SiteRequest.staticSearchFqRequestUri(siteRequest_, o);
+    case "requestMethod":
+      return SiteRequest.staticSearchFqRequestMethod(siteRequest_, o);
+      default:
+        return null;
+    }
+  }
 
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  //////////////
+  // toString //
+  //////////////
 
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    return sb.toString();
+  }
 
-	public static String displayNameForClass(String var) {
-		return SiteRequest.displayNameSiteRequest(var);
-	}
-	public static String displayNameSiteRequest(String var) {
-		switch(var) {
-		case VAR_config:
-			return DISPLAY_NAME_config;
-		case VAR_i18n:
-			return DISPLAY_NAME_i18n;
-		case VAR_siteRequest_:
-			return DISPLAY_NAME_siteRequest_;
-		case VAR_webClient:
-			return DISPLAY_NAME_webClient;
-		case VAR_apiRequest_:
-			return DISPLAY_NAME_apiRequest_;
-		case VAR_jsonObject:
-			return DISPLAY_NAME_jsonObject;
-		case VAR_serviceRequest:
-			return DISPLAY_NAME_serviceRequest;
-		case VAR_sessionSiteFontSize:
-			return DISPLAY_NAME_sessionSiteFontSize;
-		case VAR_sessionWebComponentsTheme:
-			return DISPLAY_NAME_sessionWebComponentsTheme;
-		case VAR_sessionSiteTheme:
-			return DISPLAY_NAME_sessionSiteTheme;
-		case VAR_user:
-			return DISPLAY_NAME_user;
-		case VAR_userPrincipal:
-			return DISPLAY_NAME_userPrincipal;
-		case VAR_userId:
-			return DISPLAY_NAME_userId;
-		case VAR_userKey:
-			return DISPLAY_NAME_userKey;
-		case VAR_sessionId:
-			return DISPLAY_NAME_sessionId;
-		case VAR_sessionIdBefore:
-			return DISPLAY_NAME_sessionIdBefore;
-		case VAR_customerProfileId:
-			return DISPLAY_NAME_customerProfileId;
-		case VAR_userName:
-			return DISPLAY_NAME_userName;
-		case VAR_userLastName:
-			return DISPLAY_NAME_userLastName;
-		case VAR_userFirstName:
-			return DISPLAY_NAME_userFirstName;
-		case VAR_userFullName:
-			return DISPLAY_NAME_userFullName;
-		case VAR_userEmail:
-			return DISPLAY_NAME_userEmail;
-		case VAR_filteredScope:
-			return DISPLAY_NAME_filteredScope;
-		case VAR_scopes:
-			return DISPLAY_NAME_scopes;
-		case VAR_groups:
-			return DISPLAY_NAME_groups;
-		case VAR_publicRead:
-			return DISPLAY_NAME_publicRead;
-		case VAR_userResource:
-			return DISPLAY_NAME_userResource;
-		case VAR_siteUser_:
-			return DISPLAY_NAME_siteUser_;
-		case VAR_lang:
-			return DISPLAY_NAME_lang;
-		case VAR_requestPk:
-			return DISPLAY_NAME_requestPk;
-		case VAR_requestUri:
-			return DISPLAY_NAME_requestUri;
-		case VAR_requestMethod:
-			return DISPLAY_NAME_requestMethod;
-		case VAR_sqlConnection:
-			return DISPLAY_NAME_sqlConnection;
-		case VAR_requestHeaders:
-			return DISPLAY_NAME_requestHeaders;
-		case VAR_requestVars:
-			return DISPLAY_NAME_requestVars;
-		default:
-			return null;
-		}
-	}
+  public static final String CLASS_SIMPLE_NAME = "SiteRequest";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.request.SiteRequest";
+  public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String VAR_config = "config";
+  public static final String VAR_i18n = "i18n";
+  public static final String VAR_siteRequest_ = "siteRequest_";
+  public static final String VAR_webClient = "webClient";
+  public static final String VAR_apiRequest_ = "apiRequest_";
+  public static final String VAR_jsonObject = "jsonObject";
+  public static final String VAR_serviceRequest = "serviceRequest";
+  public static final String VAR_sessionSiteFontSize = "sessionSiteFontSize";
+  public static final String VAR_sessionWebComponentsTheme = "sessionWebComponentsTheme";
+  public static final String VAR_sessionSiteTheme = "sessionSiteTheme";
+  public static final String VAR_user = "user";
+  public static final String VAR_userPrincipal = "userPrincipal";
+  public static final String VAR_userId = "userId";
+  public static final String VAR_userKey = "userKey";
+  public static final String VAR_sessionId = "sessionId";
+  public static final String VAR_sessionIdBefore = "sessionIdBefore";
+  public static final String VAR_customerProfileId = "customerProfileId";
+  public static final String VAR_userName = "userName";
+  public static final String VAR_userLastName = "userLastName";
+  public static final String VAR_userFirstName = "userFirstName";
+  public static final String VAR_userFullName = "userFullName";
+  public static final String VAR_userEmail = "userEmail";
+  public static final String VAR_filteredScope = "filteredScope";
+  public static final String VAR_scopes = "scopes";
+  public static final String VAR_groups = "groups";
+  public static final String VAR_publicRead = "publicRead";
+  public static final String VAR_userResource = "userResource";
+  public static final String VAR_siteUser_ = "siteUser_";
+  public static final String VAR_lang = "lang";
+  public static final String VAR_requestPk = "requestPk";
+  public static final String VAR_requestUri = "requestUri";
+  public static final String VAR_requestMethod = "requestMethod";
+  public static final String VAR_sqlConnection = "sqlConnection";
+  public static final String VAR_requestHeaders = "requestHeaders";
+  public static final String VAR_requestVars = "requestVars";
 
-	public static String descriptionSiteRequest(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-		case VAR_config:
-			return "The site configuration variables";
-		case VAR_i18n:
-			return "The internationalization data for the site. ";
-		case VAR_siteRequest_:
-			return "A reference to this site request itself";
-		case VAR_webClient:
-			return "A Vert.x web client for making HTTP REST calls";
-		case VAR_apiRequest_:
-			return "An API request object for returning information through websockets about API changes";
-		case VAR_jsonObject:
-			return "The JSON object if passed into the request";
-		case VAR_serviceRequest:
-			return "The Vert.x service request";
-		case VAR_sessionSiteFontSize:
-			return "The session site font size. ";
-		case VAR_sessionWebComponentsTheme:
-			return "The session site font size. ";
-		case VAR_sessionSiteTheme:
-			return "The session site theme. ";
-		case VAR_user:
-			return "The authenticated user object";
-		case VAR_userPrincipal:
-			return "The authenticated user principal";
-		case VAR_userId:
-			return "The unique ID of the authenticated user in the SSO application";
-		case VAR_userKey:
-			return "The primary key of the user in the database";
-		case VAR_sessionId:
-			return "The session ID of the user's session";
-		case VAR_sessionIdBefore:
-			return "The session ID of the user before the user logged in";
-		case VAR_customerProfileId:
-			return "The customer profile ID of the user";
-		case VAR_userName:
-			return "The username of the user";
-		case VAR_userLastName:
-			return "The last name of the user";
-		case VAR_userFirstName:
-			return "The first name of the user";
-		case VAR_userFullName:
-			return "The full name of the user";
-		case VAR_userEmail:
-			return "The user email";
-		case VAR_filteredScope:
-			return "Whether the scopes are filtered by specific IDs. ";
-		case VAR_scopes:
-			return "The user auth scopes for the current request within the SSO realm";
-		case VAR_groups:
-			return "The user groups for the current request within the SSO realm";
-		case VAR_publicRead:
-			return "Whether the search results are public read. ";
-		case VAR_userResource:
-			return "The authenticated user's auth resource data";
-		case VAR_siteUser_:
-			return "The site user object of the authenticated user";
-		case VAR_lang:
-			return "The request language. ";
-		case VAR_requestPk:
-			return "The primary key of object of the request";
-		case VAR_requestUri:
-			return "The relative URI of the incoming request";
-		case VAR_requestMethod:
-			return "The HTTP method of the incoming request";
-		case VAR_sqlConnection:
-			return "The current SQL connection if present during the request";
-		case VAR_requestHeaders:
-			return "The request headers";
-		case VAR_requestVars:
-			return "Extra variables sent in the request with the var query parameter";
-			default:
-				return null;
-		}
-	}
+  public static final String DISPLAY_NAME_config = "";
+  public static final String DISPLAY_NAME_i18n = "";
+  public static final String DISPLAY_NAME_siteRequest_ = "";
+  public static final String DISPLAY_NAME_webClient = "";
+  public static final String DISPLAY_NAME_apiRequest_ = "";
+  public static final String DISPLAY_NAME_jsonObject = "";
+  public static final String DISPLAY_NAME_serviceRequest = "";
+  public static final String DISPLAY_NAME_sessionSiteFontSize = "";
+  public static final String DISPLAY_NAME_sessionWebComponentsTheme = "";
+  public static final String DISPLAY_NAME_sessionSiteTheme = "";
+  public static final String DISPLAY_NAME_user = "";
+  public static final String DISPLAY_NAME_userPrincipal = "";
+  public static final String DISPLAY_NAME_userId = "";
+  public static final String DISPLAY_NAME_userKey = "";
+  public static final String DISPLAY_NAME_sessionId = "";
+  public static final String DISPLAY_NAME_sessionIdBefore = "";
+  public static final String DISPLAY_NAME_customerProfileId = "";
+  public static final String DISPLAY_NAME_userName = "";
+  public static final String DISPLAY_NAME_userLastName = "";
+  public static final String DISPLAY_NAME_userFirstName = "";
+  public static final String DISPLAY_NAME_userFullName = "";
+  public static final String DISPLAY_NAME_userEmail = "";
+  public static final String DISPLAY_NAME_filteredScope = "";
+  public static final String DISPLAY_NAME_scopes = "";
+  public static final String DISPLAY_NAME_groups = "";
+  public static final String DISPLAY_NAME_publicRead = "";
+  public static final String DISPLAY_NAME_userResource = "";
+  public static final String DISPLAY_NAME_siteUser_ = "";
+  public static final String DISPLAY_NAME_lang = "";
+  public static final String DISPLAY_NAME_requestPk = "";
+  public static final String DISPLAY_NAME_requestUri = "";
+  public static final String DISPLAY_NAME_requestMethod = "";
+  public static final String DISPLAY_NAME_sqlConnection = "";
+  public static final String DISPLAY_NAME_requestHeaders = "";
+  public static final String DISPLAY_NAME_requestVars = "";
 
-	public static String classSimpleNameSiteRequest(String var) {
-		switch(var) {
-		case VAR_config:
-			return "JsonObject";
-		case VAR_i18n:
-			return "JsonObject";
-		case VAR_siteRequest_:
-			return "SiteRequest";
-		case VAR_webClient:
-			return "WebClient";
-		case VAR_apiRequest_:
-			return "ApiRequest";
-		case VAR_jsonObject:
-			return "JsonObject";
-		case VAR_serviceRequest:
-			return "ServiceRequest";
-		case VAR_sessionSiteFontSize:
-			return "String";
-		case VAR_sessionWebComponentsTheme:
-			return "String";
-		case VAR_sessionSiteTheme:
-			return "String";
-		case VAR_user:
-			return "User";
-		case VAR_userPrincipal:
-			return "JsonObject";
-		case VAR_userId:
-			return "String";
-		case VAR_userKey:
-			return "Long";
-		case VAR_sessionId:
-			return "String";
-		case VAR_sessionIdBefore:
-			return "String";
-		case VAR_customerProfileId:
-			return "String";
-		case VAR_userName:
-			return "String";
-		case VAR_userLastName:
-			return "String";
-		case VAR_userFirstName:
-			return "String";
-		case VAR_userFullName:
-			return "String";
-		case VAR_userEmail:
-			return "String";
-		case VAR_filteredScope:
-			return "Boolean";
-		case VAR_scopes:
-			return "List";
-		case VAR_groups:
-			return "List";
-		case VAR_publicRead:
-			return "Boolean";
-		case VAR_userResource:
-			return "JsonObject";
-		case VAR_siteUser_:
-			return "SiteUser";
-		case VAR_lang:
-			return "String";
-		case VAR_requestPk:
-			return "Long";
-		case VAR_requestUri:
-			return "String";
-		case VAR_requestMethod:
-			return "String";
-		case VAR_sqlConnection:
-			return "SqlConnection";
-		case VAR_requestHeaders:
-			return "MultiMap";
-		case VAR_requestVars:
-			return "Map";
-			default:
-				return null;
-		}
-	}
+  public String idForClass() {
+    return null;
+  }
 
-	public static Integer htmColumnSiteRequest(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public String titleForClass() {
+    return null;
+  }
 
-	public static Integer htmRowSiteRequest(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public String nameForClass() {
+    return null;
+  }
 
-	public static Integer htmCellSiteRequest(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	public static Integer lengthMinSiteRequest(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public String descriptionForClass() {
+    return null;
+  }
 
-	public static Integer lengthMaxSiteRequest(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	public static Integer maxSiteRequest(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	public static Integer minSiteRequest(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public static String displayNameForClass(String var) {
+    return SiteRequest.displayNameSiteRequest(var);
+  }
+  public static String displayNameSiteRequest(String var) {
+    switch(var) {
+    case VAR_config:
+      return DISPLAY_NAME_config;
+    case VAR_i18n:
+      return DISPLAY_NAME_i18n;
+    case VAR_siteRequest_:
+      return DISPLAY_NAME_siteRequest_;
+    case VAR_webClient:
+      return DISPLAY_NAME_webClient;
+    case VAR_apiRequest_:
+      return DISPLAY_NAME_apiRequest_;
+    case VAR_jsonObject:
+      return DISPLAY_NAME_jsonObject;
+    case VAR_serviceRequest:
+      return DISPLAY_NAME_serviceRequest;
+    case VAR_sessionSiteFontSize:
+      return DISPLAY_NAME_sessionSiteFontSize;
+    case VAR_sessionWebComponentsTheme:
+      return DISPLAY_NAME_sessionWebComponentsTheme;
+    case VAR_sessionSiteTheme:
+      return DISPLAY_NAME_sessionSiteTheme;
+    case VAR_user:
+      return DISPLAY_NAME_user;
+    case VAR_userPrincipal:
+      return DISPLAY_NAME_userPrincipal;
+    case VAR_userId:
+      return DISPLAY_NAME_userId;
+    case VAR_userKey:
+      return DISPLAY_NAME_userKey;
+    case VAR_sessionId:
+      return DISPLAY_NAME_sessionId;
+    case VAR_sessionIdBefore:
+      return DISPLAY_NAME_sessionIdBefore;
+    case VAR_customerProfileId:
+      return DISPLAY_NAME_customerProfileId;
+    case VAR_userName:
+      return DISPLAY_NAME_userName;
+    case VAR_userLastName:
+      return DISPLAY_NAME_userLastName;
+    case VAR_userFirstName:
+      return DISPLAY_NAME_userFirstName;
+    case VAR_userFullName:
+      return DISPLAY_NAME_userFullName;
+    case VAR_userEmail:
+      return DISPLAY_NAME_userEmail;
+    case VAR_filteredScope:
+      return DISPLAY_NAME_filteredScope;
+    case VAR_scopes:
+      return DISPLAY_NAME_scopes;
+    case VAR_groups:
+      return DISPLAY_NAME_groups;
+    case VAR_publicRead:
+      return DISPLAY_NAME_publicRead;
+    case VAR_userResource:
+      return DISPLAY_NAME_userResource;
+    case VAR_siteUser_:
+      return DISPLAY_NAME_siteUser_;
+    case VAR_lang:
+      return DISPLAY_NAME_lang;
+    case VAR_requestPk:
+      return DISPLAY_NAME_requestPk;
+    case VAR_requestUri:
+      return DISPLAY_NAME_requestUri;
+    case VAR_requestMethod:
+      return DISPLAY_NAME_requestMethod;
+    case VAR_sqlConnection:
+      return DISPLAY_NAME_sqlConnection;
+    case VAR_requestHeaders:
+      return DISPLAY_NAME_requestHeaders;
+    case VAR_requestVars:
+      return DISPLAY_NAME_requestVars;
+    default:
+      return null;
+    }
+  }
+
+  public static String descriptionSiteRequest(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+    case VAR_config:
+      return "The site configuration variables";
+    case VAR_i18n:
+      return "The internationalization data for the site. ";
+    case VAR_siteRequest_:
+      return "A reference to this site request itself";
+    case VAR_webClient:
+      return "A Vert.x web client for making HTTP REST calls";
+    case VAR_apiRequest_:
+      return "An API request object for returning information through websockets about API changes";
+    case VAR_jsonObject:
+      return "The JSON object if passed into the request";
+    case VAR_serviceRequest:
+      return "The Vert.x service request";
+    case VAR_sessionSiteFontSize:
+      return "The session site font size. ";
+    case VAR_sessionWebComponentsTheme:
+      return "The session site font size. ";
+    case VAR_sessionSiteTheme:
+      return "The session site theme. ";
+    case VAR_user:
+      return "The authenticated user object";
+    case VAR_userPrincipal:
+      return "The authenticated user principal";
+    case VAR_userId:
+      return "The unique ID of the authenticated user in the SSO application";
+    case VAR_userKey:
+      return "The primary key of the user in the database";
+    case VAR_sessionId:
+      return "The session ID of the user's session";
+    case VAR_sessionIdBefore:
+      return "The session ID of the user before the user logged in";
+    case VAR_customerProfileId:
+      return "The customer profile ID of the user";
+    case VAR_userName:
+      return "The username of the user";
+    case VAR_userLastName:
+      return "The last name of the user";
+    case VAR_userFirstName:
+      return "The first name of the user";
+    case VAR_userFullName:
+      return "The full name of the user";
+    case VAR_userEmail:
+      return "The user email";
+    case VAR_filteredScope:
+      return "Whether the scopes are filtered by specific IDs. ";
+    case VAR_scopes:
+      return "The user auth scopes for the current request within the SSO realm";
+    case VAR_groups:
+      return "The user groups for the current request within the SSO realm";
+    case VAR_publicRead:
+      return "Whether the search results are public read. ";
+    case VAR_userResource:
+      return "The authenticated user's auth resource data";
+    case VAR_siteUser_:
+      return "The site user object of the authenticated user";
+    case VAR_lang:
+      return "The request language. ";
+    case VAR_requestPk:
+      return "The primary key of object of the request";
+    case VAR_requestUri:
+      return "The relative URI of the incoming request";
+    case VAR_requestMethod:
+      return "The HTTP method of the incoming request";
+    case VAR_sqlConnection:
+      return "The current SQL connection if present during the request";
+    case VAR_requestHeaders:
+      return "The request headers";
+    case VAR_requestVars:
+      return "Extra variables sent in the request with the var query parameter";
+      default:
+        return null;
+    }
+  }
+
+  public static String classSimpleNameSiteRequest(String var) {
+    switch(var) {
+    case VAR_config:
+      return "JsonObject";
+    case VAR_i18n:
+      return "JsonObject";
+    case VAR_siteRequest_:
+      return "SiteRequest";
+    case VAR_webClient:
+      return "WebClient";
+    case VAR_apiRequest_:
+      return "ApiRequest";
+    case VAR_jsonObject:
+      return "JsonObject";
+    case VAR_serviceRequest:
+      return "ServiceRequest";
+    case VAR_sessionSiteFontSize:
+      return "String";
+    case VAR_sessionWebComponentsTheme:
+      return "String";
+    case VAR_sessionSiteTheme:
+      return "String";
+    case VAR_user:
+      return "User";
+    case VAR_userPrincipal:
+      return "JsonObject";
+    case VAR_userId:
+      return "String";
+    case VAR_userKey:
+      return "Long";
+    case VAR_sessionId:
+      return "String";
+    case VAR_sessionIdBefore:
+      return "String";
+    case VAR_customerProfileId:
+      return "String";
+    case VAR_userName:
+      return "String";
+    case VAR_userLastName:
+      return "String";
+    case VAR_userFirstName:
+      return "String";
+    case VAR_userFullName:
+      return "String";
+    case VAR_userEmail:
+      return "String";
+    case VAR_filteredScope:
+      return "Boolean";
+    case VAR_scopes:
+      return "List";
+    case VAR_groups:
+      return "List";
+    case VAR_publicRead:
+      return "Boolean";
+    case VAR_userResource:
+      return "JsonObject";
+    case VAR_siteUser_:
+      return "SiteUser";
+    case VAR_lang:
+      return "String";
+    case VAR_requestPk:
+      return "Long";
+    case VAR_requestUri:
+      return "String";
+    case VAR_requestMethod:
+      return "String";
+    case VAR_sqlConnection:
+      return "SqlConnection";
+    case VAR_requestHeaders:
+      return "MultiMap";
+    case VAR_requestVars:
+      return "Map";
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmColumnSiteRequest(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmRowSiteRequest(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmCellSiteRequest(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMinSiteRequest(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMaxSiteRequest(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer maxSiteRequest(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer minSiteRequest(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 }

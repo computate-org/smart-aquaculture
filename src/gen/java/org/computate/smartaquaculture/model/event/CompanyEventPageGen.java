@@ -111,308 +111,308 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class CompanyEventPageGen<DEV> extends CompanyEventGenPage {
-	protected static final Logger LOG = LoggerFactory.getLogger(CompanyEventPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(CompanyEventPage.class);
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<CompanyEventPageGen<DEV>> promiseDeepCompanyEventPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepCompanyEventPage();
-	}
+  public Future<CompanyEventPageGen<DEV>> promiseDeepCompanyEventPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepCompanyEventPage();
+  }
 
-	public Future<CompanyEventPageGen<DEV>> promiseDeepCompanyEventPage() {
-		Promise<CompanyEventPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseCompanyEventPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepCompanyEventGenPage(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<CompanyEventPageGen<DEV>> promiseDeepCompanyEventPage() {
+    Promise<CompanyEventPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseCompanyEventPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepCompanyEventGenPage(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseCompanyEventPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseCompanyEventPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends CompanyEventPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepCompanyEventPage(siteRequest_);
-	}
+  @Override public Future<? extends CompanyEventPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepCompanyEventPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestCompanyEventPage(SiteRequest siteRequest_) {
-			super.siteRequestCompanyEventGenPage(siteRequest_);
-	}
+  public void siteRequestCompanyEventPage(SiteRequest siteRequest_) {
+      super.siteRequestCompanyEventGenPage(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestCompanyEventPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestCompanyEventPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainCompanyEventPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainCompanyEventPage(String var) {
-		CompanyEventPage oCompanyEventPage = (CompanyEventPage)this;
-		switch(var) {
-			default:
-				return super.obtainCompanyEventGenPage(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainCompanyEventPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainCompanyEventPage(String var) {
+    CompanyEventPage oCompanyEventPage = (CompanyEventPage)this;
+    switch(var) {
+      default:
+        return super.obtainCompanyEventGenPage(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateCompanyEventPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateCompanyEventPage(String var, Object val) {
-		CompanyEventPage oCompanyEventPage = (CompanyEventPage)this;
-		switch(var) {
-			default:
-				return super.relateCompanyEventGenPage(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateCompanyEventPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateCompanyEventPage(String var, Object val) {
+    CompanyEventPage oCompanyEventPage = (CompanyEventPage)this;
+    switch(var) {
+      default:
+        return super.relateCompanyEventGenPage(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, CompanyEventPage o) {
-		return staticSetCompanyEventPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetCompanyEventPage(String entityVar, SiteRequest siteRequest_, String v, CompanyEventPage o) {
-		switch(entityVar) {
-			default:
-				return CompanyEventGenPage.staticSetCompanyEventGenPage(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, CompanyEventPage o) {
+    return staticSetCompanyEventPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetCompanyEventPage(String entityVar, SiteRequest siteRequest_, String v, CompanyEventPage o) {
+    switch(entityVar) {
+      default:
+        return CompanyEventGenPage.staticSetCompanyEventGenPage(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchCompanyEventPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchCompanyEventPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return CompanyEventGenPage.staticSearchCompanyEventGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchCompanyEventPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchCompanyEventPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return CompanyEventGenPage.staticSearchCompanyEventGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrCompanyEventPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrCompanyEventPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return CompanyEventGenPage.staticSearchStrCompanyEventGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrCompanyEventPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrCompanyEventPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return CompanyEventGenPage.staticSearchStrCompanyEventGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqCompanyEventPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqCompanyEventPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return CompanyEventGenPage.staticSearchFqCompanyEventGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqCompanyEventPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqCompanyEventPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return CompanyEventGenPage.staticSearchFqCompanyEventGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "CompanyEventPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.event.CompanyEventPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String CLASS_SIMPLE_NAME = "CompanyEventPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.event.CompanyEventPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
 
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return CompanyEventPage.displayNameCompanyEventPage(var);
-	}
-	public static String displayNameCompanyEventPage(String var) {
-		switch(var) {
-		default:
-			return CompanyEventGenPage.displayNameCompanyEventGenPage(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return CompanyEventPage.displayNameCompanyEventPage(var);
+  }
+  public static String displayNameCompanyEventPage(String var) {
+    switch(var) {
+    default:
+      return CompanyEventGenPage.displayNameCompanyEventGenPage(var);
+    }
+  }
 
-	public static String descriptionCompanyEventPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return CompanyEventGenPage.descriptionCompanyEventGenPage(var);
-		}
-	}
+  public static String descriptionCompanyEventPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return CompanyEventGenPage.descriptionCompanyEventGenPage(var);
+    }
+  }
 
-	public static String classSimpleNameCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.classSimpleNameCompanyEventGenPage(var);
-		}
-	}
+  public static String classSimpleNameCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.classSimpleNameCompanyEventGenPage(var);
+    }
+  }
 
-	public static Integer htmColumnCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.htmColumnCompanyEventGenPage(var);
-		}
-	}
+  public static Integer htmColumnCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.htmColumnCompanyEventGenPage(var);
+    }
+  }
 
-	public static Integer htmRowCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.htmRowCompanyEventGenPage(var);
-		}
-	}
+  public static Integer htmRowCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.htmRowCompanyEventGenPage(var);
+    }
+  }
 
-	public static Integer htmCellCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.htmCellCompanyEventGenPage(var);
-		}
-	}
+  public static Integer htmCellCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.htmCellCompanyEventGenPage(var);
+    }
+  }
 
-	public static Integer lengthMinCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.lengthMinCompanyEventGenPage(var);
-		}
-	}
+  public static Integer lengthMinCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.lengthMinCompanyEventGenPage(var);
+    }
+  }
 
-	public static Integer lengthMaxCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.lengthMaxCompanyEventGenPage(var);
-		}
-	}
+  public static Integer lengthMaxCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.lengthMaxCompanyEventGenPage(var);
+    }
+  }
 
-	public static Integer maxCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.maxCompanyEventGenPage(var);
-		}
-	}
+  public static Integer maxCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.maxCompanyEventGenPage(var);
+    }
+  }
 
-	public static Integer minCompanyEventPage(String var) {
-		switch(var) {
-			default:
-				return CompanyEventGenPage.minCompanyEventGenPage(var);
-		}
-	}
+  public static Integer minCompanyEventPage(String var) {
+    switch(var) {
+      default:
+        return CompanyEventGenPage.minCompanyEventGenPage(var);
+    }
+  }
 }

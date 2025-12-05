@@ -183,14 +183,16 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 	////////////////////////////
 
 
-  /**   The entity searchListFishingDock_
+  /**
+   *  The entity searchListFishingDock_
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected SearchList<FishingDock> searchListFishingDock_;
 
-  /**  <br> The entity searchListFishingDock_
+  /**
+   * <br> The entity searchListFishingDock_
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage&fq=entiteVar_enUS_indexed_string:searchListFishingDock_">Find the entity searchListFishingDock_ in Solr</a>
    * <br>
@@ -224,7 +226,8 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 	/////////////////////
 
 
-  /**   The entity listFishingDock
+  /**
+   *  The entity listFishingDock
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -232,7 +235,8 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
   @JsonInclude(Include.NON_NULL)
   protected JsonArray listFishingDock = new JsonArray();
 
-  /**  <br> The entity listFishingDock
+  /**
+   * <br> The entity listFishingDock
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage&fq=entiteVar_enUS_indexed_string:listFishingDock">Find the entity listFishingDock in Solr</a>
    * <br>
@@ -279,7 +283,8 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 	/////////////////
 
 
-  /**   The entity resultCount
+  /**
+   *  The entity resultCount
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -287,7 +292,8 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
   @JsonInclude(Include.NON_NULL)
   protected Integer resultCount;
 
-  /**  <br> The entity resultCount
+  /**
+   * <br> The entity resultCount
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
    * <br>
@@ -339,14 +345,16 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 	////////////
 
 
-  /**   The entity result
+  /**
+   *  The entity result
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected FishingDock result;
 
-  /**  <br> The entity result
+  /**
+   * <br> The entity result
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
    * <br>
@@ -380,7 +388,8 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 	////////
 
 
-  /**   The entity pk
+  /**
+   *  The entity pk
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -388,7 +397,8 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
   @JsonInclude(Include.NON_NULL)
   protected Long pk;
 
-  /**  <br> The entity pk
+  /**
+   * <br> The entity pk
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
    * <br>
@@ -440,14 +450,16 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 	////////////
 
 
-  /**   The entity solrId
+  /**
+   *  The entity solrId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String solrId;
 
-  /**  <br> The entity solrId
+  /**
+   * <br> The entity solrId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
    * <br>
@@ -492,14 +504,16 @@ public abstract class FishingDockGenPageGen<DEV> extends PageLayout {
 	////////////////////////
 
 
-  /**   The entity pageUriFishingDock
+  /**
+   *  The entity pageUriFishingDock
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageUriFishingDock;
 
-  /**  <br> The entity pageUriFishingDock
+  /**
+   * <br> The entity pageUriFishingDock
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockGenPage&fq=entiteVar_enUS_indexed_string:pageUriFishingDock">Find the entity pageUriFishingDock in Solr</a>
    * <br>

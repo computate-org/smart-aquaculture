@@ -142,14 +142,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////
 
 
-  /**   The entity webClient
+  /**
+   *  The entity webClient
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected WebClient webClient;
 
-  /**  <br> The entity webClient
+  /**
+   * <br> The entity webClient
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:webClient">Find the entity webClient in Solr</a>
    * <br>
@@ -183,14 +185,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////
 
 
-  /**   The entity vertx
+  /**
+   *  The entity vertx
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected Vertx vertx;
 
-  /**  <br> The entity vertx
+  /**
+   * <br> The entity vertx
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:vertx">Find the entity vertx in Solr</a>
    * <br>
@@ -224,14 +228,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////
 
 
-  /**   The entity siteRequest_
+  /**
+   *  The entity siteRequest_
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected SiteRequest siteRequest_;
 
-  /**  <br> The entity siteRequest_
+  /**
+   * <br> The entity siteRequest_
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:siteRequest_">Find the entity siteRequest_ in Solr</a>
    * <br>
@@ -265,14 +271,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////
 
 
-  /**   The entity lang
+  /**
+   *  The entity lang
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String lang;
 
-  /**  <br> The entity lang
+  /**
+   * <br> The entity lang
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:lang">Find the entity lang in Solr</a>
    * <br>
@@ -317,14 +325,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////
 
 
-  /**   The entity requestVars
+  /**
+   *  The entity requestVars
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected Map<String, String> requestVars;
 
-  /**  <br> The entity requestVars
+  /**
+   * <br> The entity requestVars
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:requestVars">Find the entity requestVars in Solr</a>
    * <br>
@@ -358,14 +368,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////////
 
 
-  /**   The entity serviceRequest
+  /**
+   *  The entity serviceRequest
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected ServiceRequest serviceRequest;
 
-  /**  <br> The entity serviceRequest
+  /**
+   * <br> The entity serviceRequest
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:serviceRequest">Find the entity serviceRequest in Solr</a>
    * <br>
@@ -399,14 +411,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity staticBaseUrl
+  /**
+   *  The entity staticBaseUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String staticBaseUrl;
 
-  /**  <br> The entity staticBaseUrl
+  /**
+   * <br> The entity staticBaseUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:staticBaseUrl">Find the entity staticBaseUrl in Solr</a>
    * <br>
@@ -451,14 +465,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////
 
 
-  /**   The entity siteBaseUrl
+  /**
+   *  The entity siteBaseUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteBaseUrl;
 
-  /**  <br> The entity siteBaseUrl
+  /**
+   * <br> The entity siteBaseUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:siteBaseUrl">Find the entity siteBaseUrl in Solr</a>
    * <br>
@@ -503,14 +519,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////
 
 
-  /**   The entity siteAuthUrl
+  /**
+   *  The entity siteAuthUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteAuthUrl;
 
-  /**  <br> The entity siteAuthUrl
+  /**
+   * <br> The entity siteAuthUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:siteAuthUrl">Find the entity siteAuthUrl in Solr</a>
    * <br>
@@ -555,14 +573,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity siteAuthRealm
+  /**
+   *  The entity siteAuthRealm
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteAuthRealm;
 
-  /**  <br> The entity siteAuthRealm
+  /**
+   * <br> The entity siteAuthRealm
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:siteAuthRealm">Find the entity siteAuthRealm in Solr</a>
    * <br>
@@ -607,14 +627,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////////
 
 
-  /**   The entity fontAwesomeKit
+  /**
+   *  The entity fontAwesomeKit
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String fontAwesomeKit;
 
-  /**  <br> The entity fontAwesomeKit
+  /**
+   * <br> The entity fontAwesomeKit
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:fontAwesomeKit">Find the entity fontAwesomeKit in Solr</a>
    * <br>
@@ -659,14 +681,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////////
 
 
-  /**   The entity facebookGraphVersion
+  /**
+   *  The entity facebookGraphVersion
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String facebookGraphVersion;
 
-  /**  <br> The entity facebookGraphVersion
+  /**
+   * <br> The entity facebookGraphVersion
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:facebookGraphVersion">Find the entity facebookGraphVersion in Solr</a>
    * <br>
@@ -711,14 +735,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity facebookAppId
+  /**
+   *  The entity facebookAppId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String facebookAppId;
 
-  /**  <br> The entity facebookAppId
+  /**
+   * <br> The entity facebookAppId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:facebookAppId">Find the entity facebookAppId in Solr</a>
    * <br>
@@ -763,14 +789,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////
 
 
-  /**   The entity pageUri
+  /**
+   *  The entity pageUri
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageUri;
 
-  /**  <br> The entity pageUri
+  /**
+   * <br> The entity pageUri
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageUri">Find the entity pageUri in Solr</a>
    * <br>
@@ -815,14 +843,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////
 
 
-  /**   The entity pageId
+  /**
+   *  The entity pageId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageId;
 
-  /**  <br> The entity pageId
+  /**
+   * <br> The entity pageId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageId">Find the entity pageId in Solr</a>
    * <br>
@@ -867,14 +897,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////
 
 
-  /**   The entity apiUri
+  /**
+   *  The entity apiUri
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String apiUri;
 
-  /**  <br> The entity apiUri
+  /**
+   * <br> The entity apiUri
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:apiUri">Find the entity apiUri in Solr</a>
    * <br>
@@ -919,14 +951,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////
 
 
-  /**   The entity pageMethod
+  /**
+   *  The entity pageMethod
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageMethod;
 
-  /**  <br> The entity pageMethod
+  /**
+   * <br> The entity pageMethod
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageMethod">Find the entity pageMethod in Solr</a>
    * <br>
@@ -971,7 +1005,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////
 
 
-  /**   The entity params
+  /**
+   *  The entity params
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -979,7 +1014,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject params;
 
-  /**  <br> The entity params
+  /**
+   * <br> The entity params
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:params">Find the entity params in Solr</a>
    * <br>
@@ -1032,7 +1068,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////
 
 
-  /**   The entity userKey
+  /**
+   *  The entity userKey
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1040,7 +1077,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Long userKey;
 
-  /**  <br> The entity userKey
+  /**
+   * <br> The entity userKey
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userKey">Find the entity userKey in Solr</a>
    * <br>
@@ -1092,14 +1130,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////
 
 
-  /**   The entity userFullName
+  /**
+   *  The entity userFullName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userFullName;
 
-  /**  <br> The entity userFullName
+  /**
+   * <br> The entity userFullName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userFullName">Find the entity userFullName in Solr</a>
    * <br>
@@ -1144,14 +1184,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////
 
 
-  /**   The entity userName
+  /**
+   *  The entity userName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userName;
 
-  /**  <br> The entity userName
+  /**
+   * <br> The entity userName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userName">Find the entity userName in Solr</a>
    * <br>
@@ -1196,14 +1238,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////
 
 
-  /**   The entity userId
+  /**
+   *  The entity userId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userId;
 
-  /**  <br> The entity userId
+  /**
+   * <br> The entity userId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userId">Find the entity userId in Solr</a>
    * <br>
@@ -1248,14 +1292,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////
 
 
-  /**   The entity userEmail
+  /**
+   *  The entity userEmail
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userEmail;
 
-  /**  <br> The entity userEmail
+  /**
+   * <br> The entity userEmail
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userEmail">Find the entity userEmail in Solr</a>
    * <br>
@@ -1300,7 +1346,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////
 
 
-  /**   The entity userGroups
+  /**
+   *  The entity userGroups
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1308,7 +1355,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> userGroups;
 
-  /**  <br> The entity userGroups
+  /**
+   * <br> The entity userGroups
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userGroups">Find the entity userGroups in Solr</a>
    * <br>
@@ -1381,14 +1429,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////
 
 
-  /**   The entity userFontSize
+  /**
+   *  The entity userFontSize
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userFontSize;
 
-  /**  <br> The entity userFontSize
+  /**
+   * <br> The entity userFontSize
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userFontSize">Find the entity userFontSize in Solr</a>
    * <br>
@@ -1433,14 +1483,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////////////////
 
 
-  /**   The entity userWebComponentsTheme
+  /**
+   *  The entity userWebComponentsTheme
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userWebComponentsTheme;
 
-  /**  <br> The entity userWebComponentsTheme
+  /**
+   * <br> The entity userWebComponentsTheme
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userWebComponentsTheme">Find the entity userWebComponentsTheme in Solr</a>
    * <br>
@@ -1485,14 +1537,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity userSiteTheme
+  /**
+   *  The entity userSiteTheme
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userSiteTheme;
 
-  /**  <br> The entity userSiteTheme
+  /**
+   * <br> The entity userSiteTheme
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userSiteTheme">Find the entity userSiteTheme in Solr</a>
    * <br>
@@ -1537,14 +1591,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////
 
 
-  /**   The entity logoutUrl
+  /**
+   *  The entity logoutUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String logoutUrl;
 
-  /**  <br> The entity logoutUrl
+  /**
+   * <br> The entity logoutUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:logoutUrl">Find the entity logoutUrl in Solr</a>
    * <br>
@@ -1589,14 +1645,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity promiseBefore
+  /**
+   *  The entity promiseBefore
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected Void promiseBefore;
 
-  /**  <br> The entity promiseBefore
+  /**
+   * <br> The entity promiseBefore
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:promiseBefore">Find the entity promiseBefore in Solr</a>
    * <br>
@@ -1632,14 +1690,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity classSimpleName
+  /**
+   *  The entity classSimpleName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String classSimpleName;
 
-  /**  <br> The entity classSimpleName
+  /**
+   * <br> The entity classSimpleName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:classSimpleName">Find the entity classSimpleName in Solr</a>
    * <br>
@@ -1684,14 +1744,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////
 
 
-  /**   The entity pageTitle
+  /**
+   *  The entity pageTitle
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageTitle;
 
-  /**  <br> The entity pageTitle
+  /**
+   * <br> The entity pageTitle
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageTitle">Find the entity pageTitle in Solr</a>
    * <br>
@@ -1736,14 +1798,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity filteredScope
+  /**
+   *  The entity filteredScope
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected Boolean filteredScope;
 
-  /**  <br> The entity filteredScope
+  /**
+   * <br> The entity filteredScope
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:filteredScope">Find the entity filteredScope in Solr</a>
    * <br>
@@ -1793,7 +1857,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////
 
 
-  /**   The entity scopes
+  /**
+   *  The entity scopes
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -1801,7 +1866,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> scopes = new ArrayList<String>();
 
-  /**  <br> The entity scopes
+  /**
+   * <br> The entity scopes
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:scopes">Find the entity scopes in Solr</a>
    * <br>
@@ -1868,7 +1934,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////
 
 
-  /**   The entity roleForWrite
+  /**
+   *  The entity roleForWrite
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -1876,7 +1943,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> roleForWrite = new ArrayList<String>();
 
-  /**  <br> The entity roleForWrite
+  /**
+   * <br> The entity roleForWrite
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:roleForWrite">Find the entity roleForWrite in Solr</a>
    * <br>
@@ -1943,7 +2011,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////
 
 
-  /**   The entity roleForRead
+  /**
+   *  The entity roleForRead
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -1951,7 +2020,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> roleForRead = new ArrayList<String>();
 
-  /**  <br> The entity roleForRead
+  /**
+   * <br> The entity roleForRead
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:roleForRead">Find the entity roleForRead in Solr</a>
    * <br>
@@ -2018,14 +2088,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////
 
 
-  /**   The entity stats
+  /**
+   *  The entity stats
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected Stats stats;
 
-  /**  <br> The entity stats
+  /**
+   * <br> The entity stats
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:stats">Find the entity stats in Solr</a>
    * <br>
@@ -2059,14 +2131,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////
 
 
-  /**   The entity facetCounts
+  /**
+   *  The entity facetCounts
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected FacetCounts facetCounts;
 
-  /**  <br> The entity facetCounts
+  /**
+   * <br> The entity facetCounts
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:facetCounts">Find the entity facetCounts in Solr</a>
    * <br>
@@ -2100,7 +2174,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////
 
 
-  /**   The entity pagination
+  /**
+   *  The entity pagination
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2108,7 +2183,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject pagination = new JsonObject();
 
-  /**  <br> The entity pagination
+  /**
+   * <br> The entity pagination
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pagination">Find the entity pagination in Solr</a>
    * <br>
@@ -2155,7 +2231,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////////
 
 
-  /**   The entity defaultFieldListVars
+  /**
+   *  The entity defaultFieldListVars
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2163,7 +2240,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> defaultFieldListVars = new ArrayList<String>();
 
-  /**  <br> The entity defaultFieldListVars
+  /**
+   * <br> The entity defaultFieldListVars
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultFieldListVars">Find the entity defaultFieldListVars in Solr</a>
    * <br>
@@ -2230,7 +2308,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity defaultSortVars
+  /**
+   *  The entity defaultSortVars
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2238,7 +2317,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> defaultSortVars = new ArrayList<String>();
 
-  /**  <br> The entity defaultSortVars
+  /**
+   * <br> The entity defaultSortVars
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultSortVars">Find the entity defaultSortVars in Solr</a>
    * <br>
@@ -2305,7 +2385,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////
 
 
-  /**   The entity defaultStatsVars
+  /**
+   *  The entity defaultStatsVars
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2313,7 +2394,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> defaultStatsVars = new ArrayList<String>();
 
-  /**  <br> The entity defaultStatsVars
+  /**
+   * <br> The entity defaultStatsVars
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultStatsVars">Find the entity defaultStatsVars in Solr</a>
    * <br>
@@ -2380,7 +2462,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////
 
 
-  /**   The entity defaultPivotVars
+  /**
+   *  The entity defaultPivotVars
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2388,7 +2471,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected List<String> defaultPivotVars = new ArrayList<String>();
 
-  /**  <br> The entity defaultPivotVars
+  /**
+   * <br> The entity defaultPivotVars
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultPivotVars">Find the entity defaultPivotVars in Solr</a>
    * <br>
@@ -2455,7 +2539,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////
 
 
-  /**   The entity varsQ
+  /**
+   *  The entity varsQ
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2463,7 +2548,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject varsQ = new JsonObject();
 
-  /**  <br> The entity varsQ
+  /**
+   * <br> The entity varsQ
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:varsQ">Find the entity varsQ in Solr</a>
    * <br>
@@ -2510,7 +2596,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////
 
 
-  /**   The entity varsFqCount
+  /**
+   *  The entity varsFqCount
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -2518,7 +2605,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Integer varsFqCount;
 
-  /**  <br> The entity varsFqCount
+  /**
+   * <br> The entity varsFqCount
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:varsFqCount">Find the entity varsFqCount in Solr</a>
    * <br>
@@ -2570,7 +2658,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////
 
 
-  /**   The entity varsFq
+  /**
+   *  The entity varsFq
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2578,7 +2667,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject varsFq = new JsonObject();
 
-  /**  <br> The entity varsFq
+  /**
+   * <br> The entity varsFq
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:varsFq">Find the entity varsFq in Solr</a>
    * <br>
@@ -2625,7 +2715,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////
 
 
-  /**   The entity varsRange
+  /**
+   *  The entity varsRange
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2633,7 +2724,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject varsRange = new JsonObject();
 
-  /**  <br> The entity varsRange
+  /**
+   * <br> The entity varsRange
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:varsRange">Find the entity varsRange in Solr</a>
    * <br>
@@ -2680,7 +2772,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////
 
 
-  /**   The entity query
+  /**
+   *  The entity query
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2688,7 +2781,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject query = new JsonObject();
 
-  /**  <br> The entity query
+  /**
+   * <br> The entity query
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:query">Find the entity query in Solr</a>
    * <br>
@@ -2735,14 +2829,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////
 
 
-  /**   The entity pageResponse
+  /**
+   *  The entity pageResponse
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageResponse;
 
-  /**  <br> The entity pageResponse
+  /**
+   * <br> The entity pageResponse
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageResponse">Find the entity pageResponse in Solr</a>
    * <br>
@@ -2787,14 +2883,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity defaultZoneId
+  /**
+   *  The entity defaultZoneId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String defaultZoneId;
 
-  /**  <br> The entity defaultZoneId
+  /**
+   * <br> The entity defaultZoneId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultZoneId">Find the entity defaultZoneId in Solr</a>
    * <br>
@@ -2839,14 +2937,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity defaultTimeZone
+  /**
+   *  The entity defaultTimeZone
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected ZoneId defaultTimeZone;
 
-  /**  <br> The entity defaultTimeZone
+  /**
+   * <br> The entity defaultTimeZone
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultTimeZone">Find the entity defaultTimeZone in Solr</a>
    * <br>
@@ -2880,14 +2980,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity defaultLocaleId
+  /**
+   *  The entity defaultLocaleId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String defaultLocaleId;
 
-  /**  <br> The entity defaultLocaleId
+  /**
+   * <br> The entity defaultLocaleId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultLocaleId">Find the entity defaultLocaleId in Solr</a>
    * <br>
@@ -2932,7 +3034,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////
 
 
-  /**   The entity rows
+  /**
+   *  The entity rows
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -2940,7 +3043,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Long rows;
 
-  /**  <br> The entity rows
+  /**
+   * <br> The entity rows
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:rows">Find the entity rows in Solr</a>
    * <br>
@@ -2992,7 +3096,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////
 
 
-  /**   The entity start
+  /**
+   *  The entity start
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3000,7 +3105,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Long start;
 
-  /**  <br> The entity start
+  /**
+   * <br> The entity start
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:start">Find the entity start in Solr</a>
    * <br>
@@ -3052,14 +3158,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////
 
 
-  /**   The entity defaultLocale
+  /**
+   *  The entity defaultLocale
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected Locale defaultLocale;
 
-  /**  <br> The entity defaultLocale
+  /**
+   * <br> The entity defaultLocale
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultLocale">Find the entity defaultLocale in Solr</a>
    * <br>
@@ -3093,14 +3201,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////
 
 
-  /**   The entity rangeGap
+  /**
+   *  The entity rangeGap
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String rangeGap;
 
-  /**  <br> The entity rangeGap
+  /**
+   * <br> The entity rangeGap
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:rangeGap">Find the entity rangeGap in Solr</a>
    * <br>
@@ -3145,7 +3255,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////
 
 
-  /**   The entity rangeEnd
+  /**
+   *  The entity rangeEnd
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3155,7 +3266,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected ZonedDateTime rangeEnd;
 
-  /**  <br> The entity rangeEnd
+  /**
+   * <br> The entity rangeEnd
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:rangeEnd">Find the entity rangeEnd in Solr</a>
    * <br>
@@ -3224,7 +3336,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////
 
 
-  /**   The entity rangeStart
+  /**
+   *  The entity rangeStart
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3234,7 +3347,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected ZonedDateTime rangeStart;
 
-  /**  <br> The entity rangeStart
+  /**
+   * <br> The entity rangeStart
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:rangeStart">Find the entity rangeStart in Solr</a>
    * <br>
@@ -3303,7 +3417,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////////
 
 
-  /**   The entity defaultRangeStats
+  /**
+   *  The entity defaultRangeStats
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3311,7 +3426,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject defaultRangeStats;
 
-  /**  <br> The entity defaultRangeStats
+  /**
+   * <br> The entity defaultRangeStats
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultRangeStats">Find the entity defaultRangeStats in Solr</a>
    * <br>
@@ -3364,14 +3480,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity defaultRangeGap
+  /**
+   *  The entity defaultRangeGap
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String defaultRangeGap;
 
-  /**  <br> The entity defaultRangeGap
+  /**
+   * <br> The entity defaultRangeGap
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultRangeGap">Find the entity defaultRangeGap in Solr</a>
    * <br>
@@ -3416,7 +3534,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity defaultRangeEnd
+  /**
+   *  The entity defaultRangeEnd
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3426,7 +3545,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected ZonedDateTime defaultRangeEnd;
 
-  /**  <br> The entity defaultRangeEnd
+  /**
+   * <br> The entity defaultRangeEnd
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultRangeEnd">Find the entity defaultRangeEnd in Solr</a>
    * <br>
@@ -3495,7 +3615,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////////
 
 
-  /**   The entity defaultRangeStart
+  /**
+   *  The entity defaultRangeStart
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3505,7 +3626,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected ZonedDateTime defaultRangeStart;
 
-  /**  <br> The entity defaultRangeStart
+  /**
+   * <br> The entity defaultRangeStart
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultRangeStart">Find the entity defaultRangeStart in Solr</a>
    * <br>
@@ -3574,14 +3696,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity defaultRangeVar
+  /**
+   *  The entity defaultRangeVar
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String defaultRangeVar;
 
-  /**  <br> The entity defaultRangeVar
+  /**
+   * <br> The entity defaultRangeVar
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultRangeVar">Find the entity defaultRangeVar in Solr</a>
    * <br>
@@ -3626,14 +3750,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////
 
 
-  /**   The entity defaultFacetSort
+  /**
+   *  The entity defaultFacetSort
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String defaultFacetSort;
 
-  /**  <br> The entity defaultFacetSort
+  /**
+   * <br> The entity defaultFacetSort
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultFacetSort">Find the entity defaultFacetSort in Solr</a>
    * <br>
@@ -3678,7 +3804,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////////////
 
 
-  /**   The entity defaultFacetLimit
+  /**
+   *  The entity defaultFacetLimit
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3686,7 +3813,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Integer defaultFacetLimit;
 
-  /**  <br> The entity defaultFacetLimit
+  /**
+   * <br> The entity defaultFacetLimit
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultFacetLimit">Find the entity defaultFacetLimit in Solr</a>
    * <br>
@@ -3738,7 +3866,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////////
 
 
-  /**   The entity defaultFacetMinCount
+  /**
+   *  The entity defaultFacetMinCount
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3746,7 +3875,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Integer defaultFacetMinCount;
 
-  /**  <br> The entity defaultFacetMinCount
+  /**
+   * <br> The entity defaultFacetMinCount
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultFacetMinCount">Find the entity defaultFacetMinCount in Solr</a>
    * <br>
@@ -3798,7 +3928,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////////
 
 
-  /**   The entity defaultPivotMinCount
+  /**
+   *  The entity defaultPivotMinCount
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3806,7 +3937,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Integer defaultPivotMinCount;
 
-  /**  <br> The entity defaultPivotMinCount
+  /**
+   * <br> The entity defaultPivotMinCount
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:defaultPivotMinCount">Find the entity defaultPivotMinCount in Solr</a>
    * <br>
@@ -3858,7 +3990,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////////
 
 
-  /**   The entity DEFAULT_MAP_LOCATION
+  /**
+   *  The entity DEFAULT_MAP_LOCATION
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3866,7 +3999,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject DEFAULT_MAP_LOCATION;
 
-  /**  <br> The entity DEFAULT_MAP_LOCATION
+  /**
+   * <br> The entity DEFAULT_MAP_LOCATION
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:DEFAULT_MAP_LOCATION">Find the entity DEFAULT_MAP_LOCATION in Solr</a>
    * <br>
@@ -3919,7 +4053,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////////
 
 
-  /**   The entity DEFAULT_MAP_ZOOM
+  /**
+   *  The entity DEFAULT_MAP_ZOOM
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -3927,7 +4062,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected BigDecimal DEFAULT_MAP_ZOOM;
 
-  /**  <br> The entity DEFAULT_MAP_ZOOM
+  /**
+   * <br> The entity DEFAULT_MAP_ZOOM
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:DEFAULT_MAP_ZOOM">Find the entity DEFAULT_MAP_ZOOM in Solr</a>
    * <br>
@@ -3992,14 +4128,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////
 
 
-  /**   The entity queryStr
+  /**
+   *  The entity queryStr
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String queryStr;
 
-  /**  <br> The entity queryStr
+  /**
+   * <br> The entity queryStr
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:queryStr">Find the entity queryStr in Solr</a>
    * <br>
@@ -4044,14 +4182,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////
 
 
-  /**   The entity promiseAfter
+  /**
+   *  The entity promiseAfter
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected Void promiseAfter;
 
-  /**  <br> The entity promiseAfter
+  /**
+   * <br> The entity promiseAfter
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:promiseAfter">Find the entity promiseAfter in Solr</a>
    * <br>
@@ -4087,14 +4227,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	//////////////////
 
 
-  /**   The entity pageImageUri
+  /**
+   *  The entity pageImageUri
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageImageUri;
 
-  /**  <br> The entity pageImageUri
+  /**
+   * <br> The entity pageImageUri
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageImageUri">Find the entity pageImageUri in Solr</a>
    * <br>
@@ -4139,7 +4281,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	////////////////////
 
 
-  /**   The entity pageImageWidth
+  /**
+   *  The entity pageImageWidth
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -4147,7 +4290,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Integer pageImageWidth;
 
-  /**  <br> The entity pageImageWidth
+  /**
+   * <br> The entity pageImageWidth
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageImageWidth">Find the entity pageImageWidth in Solr</a>
    * <br>
@@ -4199,7 +4343,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity pageImageHeight
+  /**
+   *  The entity pageImageHeight
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -4207,7 +4352,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
   @JsonInclude(Include.NON_NULL)
   protected Integer pageImageHeight;
 
-  /**  <br> The entity pageImageHeight
+  /**
+   * <br> The entity pageImageHeight
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageImageHeight">Find the entity pageImageHeight in Solr</a>
    * <br>
@@ -4259,14 +4405,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////
 
 
-  /**   The entity pageVideoId
+  /**
+   *  The entity pageVideoId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageVideoId;
 
-  /**  <br> The entity pageVideoId
+  /**
+   * <br> The entity pageVideoId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageVideoId">Find the entity pageVideoId in Solr</a>
    * <br>
@@ -4311,14 +4459,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	///////////////
 
 
-  /**   The entity classIcon
+  /**
+   *  The entity classIcon
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String classIcon;
 
-  /**  <br> The entity classIcon
+  /**
+   * <br> The entity classIcon
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:classIcon">Find the entity classIcon in Solr</a>
    * <br>
@@ -4363,14 +4513,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	/////////////////////
 
 
-  /**   The entity pageDescription
+  /**
+   *  The entity pageDescription
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageDescription;
 
-  /**  <br> The entity pageDescription
+  /**
+   * <br> The entity pageDescription
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:pageDescription">Find the entity pageDescription in Solr</a>
    * <br>

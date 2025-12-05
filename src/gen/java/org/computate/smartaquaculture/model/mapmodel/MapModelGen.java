@@ -39,6 +39,7 @@ import java.lang.String;
 import io.vertx.pgclient.data.Point;
 import org.computate.vertx.serialize.pgclient.PgClientPointSerializer;
 import org.computate.vertx.serialize.pgclient.PgClientPointDeserializer;
+import org.computate.vertx.tool.VertxTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
@@ -207,14 +208,16 @@ public abstract class MapModelGen<DEV> extends BaseModel {
 	//////////
 
 
-  /**   The entity name
+  /**
+   *  The entity name
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String name;
 
-  /**  <br> The entity name
+  /**
+   * <br> The entity name
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:name">Find the entity name in Solr</a>
    * <br>
@@ -258,19 +261,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return name;
   }
 
+  public static String staticJsonName(String name) {
+    return name;
+  }
+
 	/////////////////
   // description //
 	/////////////////
 
 
-  /**   The entity description
+  /**
+   *  The entity description
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String description;
 
-  /**  <br> The entity description
+  /**
+   * <br> The entity description
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:description">Find the entity description in Solr</a>
    * <br>
@@ -314,12 +323,17 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return description;
   }
 
+  public static String staticJsonDescription(String description) {
+    return description;
+  }
+
 	//////////////
   // location //
 	//////////////
 
 
-  /**   The entity location
+  /**
+   *  The entity location
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -328,7 +342,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
   @JsonInclude(Include.NON_NULL)
   protected Point location;
 
-  /**  <br> The entity location
+  /**
+   * <br> The entity location
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:location">Find the entity location in Solr</a>
    * <br>
@@ -418,19 +433,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return location;
   }
 
+  public static JsonObject staticJsonLocation(Point location) {
+    return Optional.ofNullable(location).map(v -> VertxTool.toGeoJson(v)).orElse(null);
+  }
+
 	////////
   // id //
 	////////
 
 
-  /**   The entity id
+  /**
+   *  The entity id
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String id;
 
-  /**  <br> The entity id
+  /**
+   * <br> The entity id
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:id">Find the entity id in Solr</a>
    * <br>
@@ -474,19 +495,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return id;
   }
 
+  public static String staticJsonId(String id) {
+    return id;
+  }
+
 	///////////////////
   // entityShortId //
 	///////////////////
 
 
-  /**   The entity entityShortId
+  /**
+   *  The entity entityShortId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String entityShortId;
 
-  /**  <br> The entity entityShortId
+  /**
+   * <br> The entity entityShortId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:entityShortId">Find the entity entityShortId in Solr</a>
    * <br>
@@ -530,19 +557,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return entityShortId;
   }
 
+  public static String staticJsonEntityShortId(String entityShortId) {
+    return entityShortId;
+  }
+
 	//////////////////
   // ngsildTenant //
 	//////////////////
 
 
-  /**   The entity ngsildTenant
+  /**
+   *  The entity ngsildTenant
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String ngsildTenant;
 
-  /**  <br> The entity ngsildTenant
+  /**
+   * <br> The entity ngsildTenant
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:ngsildTenant">Find the entity ngsildTenant in Solr</a>
    * <br>
@@ -586,19 +619,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return ngsildTenant;
   }
 
+  public static String staticJsonNgsildTenant(String ngsildTenant) {
+    return ngsildTenant;
+  }
+
 	////////////////
   // ngsildPath //
 	////////////////
 
 
-  /**   The entity ngsildPath
+  /**
+   *  The entity ngsildPath
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String ngsildPath;
 
-  /**  <br> The entity ngsildPath
+  /**
+   * <br> The entity ngsildPath
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:ngsildPath">Find the entity ngsildPath in Solr</a>
    * <br>
@@ -642,19 +681,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return ngsildPath;
   }
 
+  public static String staticJsonNgsildPath(String ngsildPath) {
+    return ngsildPath;
+  }
+
 	///////////////////
   // ngsildContext //
 	///////////////////
 
 
-  /**   The entity ngsildContext
+  /**
+   *  The entity ngsildContext
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String ngsildContext;
 
-  /**  <br> The entity ngsildContext
+  /**
+   * <br> The entity ngsildContext
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:ngsildContext">Find the entity ngsildContext in Solr</a>
    * <br>
@@ -698,12 +743,17 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return ngsildContext;
   }
 
+  public static String staticJsonNgsildContext(String ngsildContext) {
+    return ngsildContext;
+  }
+
 	////////////////
   // ngsildData //
 	////////////////
 
 
-  /**   The entity ngsildData
+  /**
+   *  The entity ngsildData
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -711,7 +761,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject ngsildData;
 
-  /**  <br> The entity ngsildData
+  /**
+   * <br> The entity ngsildData
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:ngsildData">Find the entity ngsildData in Solr</a>
    * <br>
@@ -763,19 +814,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return ngsildData;
   }
 
+  public static JsonObject staticJsonNgsildData(JsonObject ngsildData) {
+    return ngsildData;
+  }
+
 	///////////
   // color //
 	///////////
 
 
-  /**   The entity color
+  /**
+   *  The entity color
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String color;
 
-  /**  <br> The entity color
+  /**
+   * <br> The entity color
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModel&fq=entiteVar_enUS_indexed_string:color">Find the entity color in Solr</a>
    * <br>
@@ -816,6 +873,10 @@ public abstract class MapModelGen<DEV> extends BaseModel {
   }
 
   public String sqlColor() {
+    return color;
+  }
+
+  public static String staticJsonColor(String color) {
     return color;
   }
 

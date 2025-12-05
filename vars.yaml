@@ -123,6 +123,8 @@ SITE_PAGE_LAYOUT_PACKAGE: "{{ SITE_JAVA_PACKAGE }}.page"
 SITE_PAGE_READER_PACKAGE: "{{ SITE_JAVA_PACKAGE }}.page.reader"
 # The Java Package containing the project site user class. 
 SITE_USER_PACKAGE: "{{ SITE_JAVA_PACKAGE }}.user"
+# The Java Package containing the project time zone class. 
+TIME_ZONE_PACKAGE: "{{ SITE_JAVA_PACKAGE }}.timezone"
 # The /src/main/java folder for the main Java source code. 
 SUFFIX_SRC_MAIN_JAVA: /src/main/java
 # The /src/gen/java folder for the generated Java source code. 
@@ -204,7 +206,7 @@ WEB_COMPONENTS_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 
 WEB_COMPONENTS_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_KIT | default('', true) | b64decode | default('', true) }}"
 # Whether you are using the Web Awesome pro kit or free kit. 
-WEB_COMPONENTS_PRO: "{{ lookup('env', 'WEB_COMPONENTS_PRO') | default('false', true) }}"
+WEB_COMPONENTS_PRO: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.WEB_COMPONENTS_PRO | default('', true) | b64decode | default('', true) }}"
 # Site default font size. 
 SITE_FONT_SIZE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_FONT_SIZE | default('', true) | b64decode | default('m', true) }}"
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 
@@ -564,6 +566,28 @@ ENABLE_AWESOME_EFFECTS: false
 WRITE_API: true
 # Write code comments into generated code. 
 WRITE_COMMENTS: true
+
+#######################
+# Enabled data import #
+#######################
+
+# Enable the data import for TimeZone data. 
+ENABLE_IMPORT_DATA_TimeZone: "{{ lookup('env', 'ENABLE_IMPORT_DATA_TimeZone') | default('false', true) | bool }}"
+
+# Parse a zoned time (HH:mm VV, example: 18:12 UTC, 13:12 America/New_York, 12:12 America/Chicago). 
+IMPORT_DATA_START_TIME_TimeZone: 12:00 America/New_York
+
+# Parse a duration case-insensitive and add the duration to the given startDateTime. Examples:
+# 1 YEAR, 2 Years, 3 years
+# 1 MONTH, 2 Months, 3 months
+# 1 WEEK, 2 Weeks, 3 weeks
+# 1 DAY, 2 Days, 3 days
+# 1 HOUR, 2 Hours, 3 hours
+# 1 MINUTE, 2 Minutes, 3 minutes
+# 1 SECONDS, 2 Seconds, 3 seconds
+# 1 MILLISECOND, 1 milli, 2 Milliseconds, 3 millis
+# 1 NANOSECOND, 1 nano, 2 Nanoseconds, 3 nanos
+IMPORT_DATA_PERIOD_TimeZone: 1 day
 
 ##############
 # extra vars #

@@ -242,14 +242,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	/////////////
 
 
-  /**   The entity article
+  /**
+   *  The entity article
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected Boolean article;
 
-  /**  <br> The entity article
+  /**
+   * <br> The entity article
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:article">Find the entity article in Solr</a>
    * <br>
@@ -299,14 +301,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	///////////////
 
 
-  /**   The entity githubOrg
+  /**
+   *  The entity githubOrg
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String githubOrg;
 
-  /**  <br> The entity githubOrg
+  /**
+   * <br> The entity githubOrg
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:githubOrg">Find the entity githubOrg in Solr</a>
    * <br>
@@ -351,14 +355,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	//////////////
 
 
-  /**   The entity siteName
+  /**
+   *  The entity siteName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteName;
 
-  /**  <br> The entity siteName
+  /**
+   * <br> The entity siteName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:siteName">Find the entity siteName in Solr</a>
    * <br>
@@ -403,14 +409,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	/////////////////////
 
 
-  /**   The entity siteDisplayName
+  /**
+   *  The entity siteDisplayName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteDisplayName;
 
-  /**  <br> The entity siteDisplayName
+  /**
+   * <br> The entity siteDisplayName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:siteDisplayName">Find the entity siteDisplayName in Solr</a>
    * <br>
@@ -455,14 +463,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	///////////////////
 
 
-  /**   The entity sitePublicUrl
+  /**
+   *  The entity sitePublicUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String sitePublicUrl;
 
-  /**  <br> The entity sitePublicUrl
+  /**
+   * <br> The entity sitePublicUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:sitePublicUrl">Find the entity sitePublicUrl in Solr</a>
    * <br>
@@ -507,14 +517,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	////////////////////
 
 
-  /**   The entity mailingListUrl
+  /**
+   *  The entity mailingListUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String mailingListUrl;
 
-  /**  <br> The entity mailingListUrl
+  /**
+   * <br> The entity mailingListUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:mailingListUrl">Find the entity mailingListUrl in Solr</a>
    * <br>
@@ -559,14 +571,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	///////////////
 
 
-  /**   The entity quayioOrg
+  /**
+   *  The entity quayioOrg
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String quayioOrg;
 
-  /**  <br> The entity quayioOrg
+  /**
+   * <br> The entity quayioOrg
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:quayioOrg">Find the entity quayioOrg in Solr</a>
    * <br>
@@ -611,14 +625,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	////////////////////
 
 
-  /**   The entity sitePomGroupId
+  /**
+   *  The entity sitePomGroupId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String sitePomGroupId;
 
-  /**  <br> The entity sitePomGroupId
+  /**
+   * <br> The entity sitePomGroupId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:sitePomGroupId">Find the entity sitePomGroupId in Solr</a>
    * <br>
@@ -663,14 +679,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	///////////////////
 
 
-  /**   The entity staticBaseUrl
+  /**
+   *  The entity staticBaseUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String staticBaseUrl;
 
-  /**  <br> The entity staticBaseUrl
+  /**
+   * <br> The entity staticBaseUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:staticBaseUrl">Find the entity staticBaseUrl in Solr</a>
    * <br>
@@ -715,14 +733,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	////////////////
 
 
-  /**   The entity staticPath
+  /**
+   *  The entity staticPath
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String staticPath;
 
-  /**  <br> The entity staticPath
+  /**
+   * <br> The entity staticPath
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:staticPath">Find the entity staticPath in Solr</a>
    * <br>
@@ -767,14 +787,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	/////////////////
 
 
-  /**   The entity siteBaseUrl
+  /**
+   *  The entity siteBaseUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteBaseUrl;
 
-  /**  <br> The entity siteBaseUrl
+  /**
+   * <br> The entity siteBaseUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:siteBaseUrl">Find the entity siteBaseUrl in Solr</a>
    * <br>
@@ -819,7 +841,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	////////////////
 
 
-  /**   The entity importance
+  /**
+   *  The entity importance
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -827,7 +850,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected BigDecimal importance;
 
-  /**  <br> The entity importance
+  /**
+   * <br> The entity importance
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:importance">Find the entity importance in Solr</a>
    * <br>
@@ -891,12 +915,17 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return importance;
   }
 
+  public static String staticJsonImportance(BigDecimal importance) {
+    return Optional.ofNullable(importance).map(v -> v.toString()).orElse(null);
+  }
+
 	///////////////
   // courseNum //
 	///////////////
 
 
-  /**   The entity courseNum
+  /**
+   *  The entity courseNum
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -904,7 +933,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected Integer courseNum;
 
-  /**  <br> The entity courseNum
+  /**
+   * <br> The entity courseNum
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:courseNum">Find the entity courseNum in Solr</a>
    * <br>
@@ -955,12 +985,17 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return courseNum;
   }
 
+  public static String staticJsonCourseNum(Integer courseNum) {
+    return Optional.ofNullable(courseNum).map(v -> v.toString()).orElse(null);
+  }
+
 	///////////////
   // lessonNum //
 	///////////////
 
 
-  /**   The entity lessonNum
+  /**
+   *  The entity lessonNum
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -968,7 +1003,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected Integer lessonNum;
 
-  /**  <br> The entity lessonNum
+  /**
+   * <br> The entity lessonNum
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:lessonNum">Find the entity lessonNum in Solr</a>
    * <br>
@@ -1019,19 +1055,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return lessonNum;
   }
 
+  public static String staticJsonLessonNum(Integer lessonNum) {
+    return Optional.ofNullable(lessonNum).map(v -> v.toString()).orElse(null);
+  }
+
 	//////////
   // name //
 	//////////
 
 
-  /**   The entity name
+  /**
+   *  The entity name
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String name;
 
-  /**  <br> The entity name
+  /**
+   * <br> The entity name
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:name">Find the entity name in Solr</a>
    * <br>
@@ -1075,19 +1117,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return name;
   }
 
+  public static String staticJsonName(String name) {
+    return name;
+  }
+
 	/////////////////
   // description //
 	/////////////////
 
 
-  /**   The entity description
+  /**
+   *  The entity description
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String description;
 
-  /**  <br> The entity description
+  /**
+   * <br> The entity description
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:description">Find the entity description in Solr</a>
    * <br>
@@ -1131,19 +1179,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return description;
   }
 
+  public static String staticJsonDescription(String description) {
+    return description;
+  }
+
 	////////////////
   // authorName //
 	////////////////
 
 
-  /**   The entity authorName
+  /**
+   *  The entity authorName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String authorName;
 
-  /**  <br> The entity authorName
+  /**
+   * <br> The entity authorName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:authorName">Find the entity authorName in Solr</a>
    * <br>
@@ -1187,19 +1241,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return authorName;
   }
 
+  public static String staticJsonAuthorName(String authorName) {
+    return authorName;
+  }
+
 	///////////////
   // authorUrl //
 	///////////////
 
 
-  /**   The entity authorUrl
+  /**
+   *  The entity authorUrl
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String authorUrl;
 
-  /**  <br> The entity authorUrl
+  /**
+   * <br> The entity authorUrl
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:authorUrl">Find the entity authorUrl in Solr</a>
    * <br>
@@ -1243,19 +1303,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return authorUrl;
   }
 
+  public static String staticJsonAuthorUrl(String authorUrl) {
+    return authorUrl;
+  }
+
 	////////////
   // pageId //
 	////////////
 
 
-  /**   The entity pageId
+  /**
+   *  The entity pageId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageId;
 
-  /**  <br> The entity pageId
+  /**
+   * <br> The entity pageId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:pageId">Find the entity pageId in Solr</a>
    * <br>
@@ -1299,19 +1365,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return pageId;
   }
 
+  public static String staticJsonPageId(String pageId) {
+    return pageId;
+  }
+
 	////////
   // h1 //
 	////////
 
 
-  /**   The entity h1
+  /**
+   *  The entity h1
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String h1;
 
-  /**  <br> The entity h1
+  /**
+   * <br> The entity h1
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:h1">Find the entity h1 in Solr</a>
    * <br>
@@ -1355,19 +1427,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return h1;
   }
 
+  public static String staticJsonH1(String h1) {
+    return h1;
+  }
+
 	////////
   // h2 //
 	////////
 
 
-  /**   The entity h2
+  /**
+   *  The entity h2
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String h2;
 
-  /**  <br> The entity h2
+  /**
+   * <br> The entity h2
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:h2">Find the entity h2 in Solr</a>
    * <br>
@@ -1411,19 +1489,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return h2;
   }
 
+  public static String staticJsonH2(String h2) {
+    return h2;
+  }
+
 	//////////////////
   // pageImageUri //
 	//////////////////
 
 
-  /**   The entity pageImageUri
+  /**
+   *  The entity pageImageUri
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageImageUri;
 
-  /**  <br> The entity pageImageUri
+  /**
+   * <br> The entity pageImageUri
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:pageImageUri">Find the entity pageImageUri in Solr</a>
    * <br>
@@ -1467,12 +1551,17 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return pageImageUri;
   }
 
+  public static String staticJsonPageImageUri(String pageImageUri) {
+    return pageImageUri;
+  }
+
 	////////////////////
   // pageImageWidth //
 	////////////////////
 
 
-  /**   The entity pageImageWidth
+  /**
+   *  The entity pageImageWidth
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1480,7 +1569,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected Integer pageImageWidth;
 
-  /**  <br> The entity pageImageWidth
+  /**
+   * <br> The entity pageImageWidth
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:pageImageWidth">Find the entity pageImageWidth in Solr</a>
    * <br>
@@ -1532,7 +1622,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	/////////////////////
 
 
-  /**   The entity pageImageHeight
+  /**
+   *  The entity pageImageHeight
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1540,7 +1631,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected Integer pageImageHeight;
 
-  /**  <br> The entity pageImageHeight
+  /**
+   * <br> The entity pageImageHeight
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:pageImageHeight">Find the entity pageImageHeight in Solr</a>
    * <br>
@@ -1592,14 +1684,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	///////////////////
 
 
-  /**   The entity pageImageType
+  /**
+   *  The entity pageImageType
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageImageType;
 
-  /**  <br> The entity pageImageType
+  /**
+   * <br> The entity pageImageType
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:pageImageType">Find the entity pageImageType in Solr</a>
    * <br>
@@ -1644,14 +1738,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	//////////////////
 
 
-  /**   The entity pageImageAlt
+  /**
+   *  The entity pageImageAlt
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageImageAlt;
 
-  /**  <br> The entity pageImageAlt
+  /**
+   * <br> The entity pageImageAlt
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:pageImageAlt">Find the entity pageImageAlt in Solr</a>
    * <br>
@@ -1695,19 +1791,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return pageImageAlt;
   }
 
+  public static String staticJsonPageImageAlt(String pageImageAlt) {
+    return pageImageAlt;
+  }
+
 	////////////////////////////
   // prerequisiteArticleIds //
 	////////////////////////////
 
 
-  /**   The entity prerequisiteArticleIds
+  /**
+   *  The entity prerequisiteArticleIds
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String prerequisiteArticleIds;
 
-  /**  <br> The entity prerequisiteArticleIds
+  /**
+   * <br> The entity prerequisiteArticleIds
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:prerequisiteArticleIds">Find the entity prerequisiteArticleIds in Solr</a>
    * <br>
@@ -1751,19 +1853,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return prerequisiteArticleIds;
   }
 
+  public static String staticJsonPrerequisiteArticleIds(String prerequisiteArticleIds) {
+    return prerequisiteArticleIds;
+  }
+
 	///////////////////////////////
   // prerequisiteArticleSearch //
 	///////////////////////////////
 
 
-  /**   The entity prerequisiteArticleSearch
+  /**
+   *  The entity prerequisiteArticleSearch
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected SearchList<SitePage> prerequisiteArticleSearch;
 
-  /**  <br> The entity prerequisiteArticleSearch
+  /**
+   * <br> The entity prerequisiteArticleSearch
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:prerequisiteArticleSearch">Find the entity prerequisiteArticleSearch in Solr</a>
    * <br>
@@ -1807,7 +1915,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	//////////////////////////
 
 
-  /**   The entity prerequisiteArticles
+  /**
+   *  The entity prerequisiteArticles
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1815,7 +1924,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected JsonArray prerequisiteArticles;
 
-  /**  <br> The entity prerequisiteArticles
+  /**
+   * <br> The entity prerequisiteArticles
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:prerequisiteArticles">Find the entity prerequisiteArticles in Solr</a>
    * <br>
@@ -1868,14 +1978,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	////////////////////
 
 
-  /**   The entity nextArticleIds
+  /**
+   *  The entity nextArticleIds
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String nextArticleIds;
 
-  /**  <br> The entity nextArticleIds
+  /**
+   * <br> The entity nextArticleIds
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:nextArticleIds">Find the entity nextArticleIds in Solr</a>
    * <br>
@@ -1919,19 +2031,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return nextArticleIds;
   }
 
+  public static String staticJsonNextArticleIds(String nextArticleIds) {
+    return nextArticleIds;
+  }
+
 	///////////////////////
   // nextArticleSearch //
 	///////////////////////
 
 
-  /**   The entity nextArticleSearch
+  /**
+   *  The entity nextArticleSearch
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected SearchList<SitePage> nextArticleSearch;
 
-  /**  <br> The entity nextArticleSearch
+  /**
+   * <br> The entity nextArticleSearch
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:nextArticleSearch">Find the entity nextArticleSearch in Solr</a>
    * <br>
@@ -1975,7 +2093,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	//////////////////
 
 
-  /**   The entity nextArticles
+  /**
+   *  The entity nextArticles
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1983,7 +2102,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected JsonArray nextArticles;
 
-  /**  <br> The entity nextArticles
+  /**
+   * <br> The entity nextArticles
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:nextArticles">Find the entity nextArticles in Solr</a>
    * <br>
@@ -2036,14 +2156,16 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	//////////////////
 
 
-  /**   The entity labelsString
+  /**
+   *  The entity labelsString
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String labelsString;
 
-  /**  <br> The entity labelsString
+  /**
+   * <br> The entity labelsString
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:labelsString">Find the entity labelsString in Solr</a>
    * <br>
@@ -2087,12 +2209,17 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return labelsString;
   }
 
+  public static String staticJsonLabelsString(String labelsString) {
+    return labelsString;
+  }
+
 	////////////
   // labels //
 	////////////
 
 
-  /**   The entity labels
+  /**
+   *  The entity labels
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -2100,7 +2227,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected List<String> labels = new ArrayList<String>();
 
-  /**  <br> The entity labels
+  /**
+   * <br> The entity labels
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:labels">Find the entity labels in Solr</a>
    * <br>
@@ -2166,19 +2294,27 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return labels.stream().map(v -> (String)v).toArray(String[]::new);
   }
 
+  public static JsonArray staticJsonLabels(List<String> labels) {
+    JsonArray a = new JsonArray();
+    labels.stream().forEach(v -> a.add(v.toString()));
+    return a;
+  }
+
 	///////////////////////
   // relatedArticleIds //
 	///////////////////////
 
 
-  /**   The entity relatedArticleIds
+  /**
+   *  The entity relatedArticleIds
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String relatedArticleIds;
 
-  /**  <br> The entity relatedArticleIds
+  /**
+   * <br> The entity relatedArticleIds
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:relatedArticleIds">Find the entity relatedArticleIds in Solr</a>
    * <br>
@@ -2222,19 +2358,25 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     return relatedArticleIds;
   }
 
+  public static String staticJsonRelatedArticleIds(String relatedArticleIds) {
+    return relatedArticleIds;
+  }
+
 	//////////////////////////
   // relatedArticleSearch //
 	//////////////////////////
 
 
-  /**   The entity relatedArticleSearch
+  /**
+   *  The entity relatedArticleSearch
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected SearchList<SitePage> relatedArticleSearch;
 
-  /**  <br> The entity relatedArticleSearch
+  /**
+   * <br> The entity relatedArticleSearch
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:relatedArticleSearch">Find the entity relatedArticleSearch in Solr</a>
    * <br>
@@ -2278,7 +2420,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 	/////////////////////
 
 
-  /**   The entity relatedArticles
+  /**
+   *  The entity relatedArticles
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -2286,7 +2429,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   @JsonInclude(Include.NON_NULL)
   protected JsonArray relatedArticles;
 
-  /**  <br> The entity relatedArticles
+  /**
+   * <br> The entity relatedArticles
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.SitePage&fq=entiteVar_enUS_indexed_string:relatedArticles">Find the entity relatedArticles in Solr</a>
    * <br>

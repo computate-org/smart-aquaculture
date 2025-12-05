@@ -83,6 +83,7 @@ import java.lang.String;
 import org.computate.smartaquaculture.model.timezone.TimeZone;
 import io.vertx.core.json.JsonArray;
 import io.vertx.pgclient.data.Polygon;
+import org.computate.vertx.tool.VertxTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
@@ -289,7 +290,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	/////////////
 
 
-  /**   The entity address
+  /**
+   *  The entity address
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -297,7 +299,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected JsonObject address;
 
-  /**  <br> The entity address
+  /**
+   * <br> The entity address
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:address">Find the entity address in Solr</a>
    * <br>
@@ -349,19 +352,25 @@ public abstract class FishingDockGen<DEV> extends MapModel {
     return address;
   }
 
+  public static JsonObject staticJsonAddress(JsonObject address) {
+    return address;
+  }
+
 	//////////////
   // timeZone //
 	//////////////
 
 
-  /**   The entity timeZone
+  /**
+   *  The entity timeZone
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String timeZone;
 
-  /**  <br> The entity timeZone
+  /**
+   * <br> The entity timeZone
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
    * <br>
@@ -405,12 +414,17 @@ public abstract class FishingDockGen<DEV> extends MapModel {
     return timeZone;
   }
 
+  public static String staticJsonTimeZone(String timeZone) {
+    return timeZone;
+  }
+
 	//////////////////////
   // areaServedColors //
 	//////////////////////
 
 
-  /**   The entity areaServedColors
+  /**
+   *  The entity areaServedColors
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -418,7 +432,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected List<String> areaServedColors = new ArrayList<String>();
 
-  /**  <br> The entity areaServedColors
+  /**
+   * <br> The entity areaServedColors
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
    * <br>
@@ -485,7 +500,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	//////////////////////
 
 
-  /**   The entity areaServedTitles
+  /**
+   *  The entity areaServedTitles
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -493,7 +509,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected List<String> areaServedTitles = new ArrayList<String>();
 
-  /**  <br> The entity areaServedTitles
+  /**
+   * <br> The entity areaServedTitles
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
    * <br>
@@ -560,7 +577,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	/////////////////////
 
 
-  /**   The entity areaServedLinks
+  /**
+   *  The entity areaServedLinks
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -568,7 +586,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected List<String> areaServedLinks = new ArrayList<String>();
 
-  /**  <br> The entity areaServedLinks
+  /**
+   * <br> The entity areaServedLinks
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
    * <br>
@@ -635,7 +654,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
 	////////////////
 
 
-  /**   The entity areaServed
+  /**
+   *  The entity areaServed
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -645,7 +665,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected List<Polygon> areaServed = new ArrayList<Polygon>();
 
-  /**  <br> The entity areaServed
+  /**
+   * <br> The entity areaServed
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock&fq=entiteVar_enUS_indexed_string:areaServed">Find the entity areaServed in Solr</a>
    * <br>
@@ -767,6 +788,10 @@ public abstract class FishingDockGen<DEV> extends MapModel {
       });
     }
     return json.toString();
+  }
+
+  public static JsonObject staticJsonAreaServed(List<Polygon> areaServed) {
+    return Optional.ofNullable(areaServed).map(v -> VertxTool.toGeoJson(v)).orElse(null);
   }
 
   //////////////

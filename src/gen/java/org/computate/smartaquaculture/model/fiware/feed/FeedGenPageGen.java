@@ -134,772 +134,786 @@ import io.vertx.core.Future;
  * Generated: true
  **/
 public abstract class FeedGenPageGen<DEV> extends PageLayout {
-	protected static final Logger LOG = LoggerFactory.getLogger(FeedGenPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FeedGenPage.class);
 
 	/////////////////////
-	// searchListFeed_ //
+  // searchListFeed_ //
 	/////////////////////
 
 
-	/**	 The entity searchListFeed_
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonIgnore
-	@JsonInclude(Include.NON_NULL)
-	protected SearchList<Feed> searchListFeed_;
+  /**
+   *  The entity searchListFeed_
+   *	 is defined as null before being initialized. 
+   */
+  @JsonIgnore
+  @JsonInclude(Include.NON_NULL)
+  protected SearchList<Feed> searchListFeed_;
 
-	/**	<br> The entity searchListFeed_
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:searchListFeed_">Find the entity searchListFeed_ in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _searchListFeed_(Wrap<SearchList<Feed>> w);
+  /**
+   * <br> The entity searchListFeed_
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:searchListFeed_">Find the entity searchListFeed_ in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _searchListFeed_(Wrap<SearchList<Feed>> w);
 
-	public SearchList<Feed> getSearchListFeed_() {
-		return searchListFeed_;
-	}
+  public SearchList<Feed> getSearchListFeed_() {
+    return searchListFeed_;
+  }
 
-	public void setSearchListFeed_(SearchList<Feed> searchListFeed_) {
-		this.searchListFeed_ = searchListFeed_;
-	}
-	public static SearchList<Feed> staticSetSearchListFeed_(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected FeedGenPage searchListFeed_Init() {
-		Wrap<SearchList<Feed>> searchListFeed_Wrap = new Wrap<SearchList<Feed>>().var("searchListFeed_");
-		if(searchListFeed_ == null) {
-			_searchListFeed_(searchListFeed_Wrap);
-			Optional.ofNullable(searchListFeed_Wrap.getO()).ifPresent(o -> {
-				setSearchListFeed_(o);
-			});
-		}
-		return (FeedGenPage)this;
-	}
+  public void setSearchListFeed_(SearchList<Feed> searchListFeed_) {
+    this.searchListFeed_ = searchListFeed_;
+  }
+  public static SearchList<Feed> staticSetSearchListFeed_(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected FeedGenPage searchListFeed_Init() {
+    Wrap<SearchList<Feed>> searchListFeed_Wrap = new Wrap<SearchList<Feed>>().var("searchListFeed_");
+    if(searchListFeed_ == null) {
+      _searchListFeed_(searchListFeed_Wrap);
+      Optional.ofNullable(searchListFeed_Wrap.getO()).ifPresent(o -> {
+        setSearchListFeed_(o);
+      });
+    }
+    return (FeedGenPage)this;
+  }
 
 	//////////////
-	// listFeed //
+  // listFeed //
 	//////////////
 
 
-	/**	 The entity listFeed
-	 *	 It is constructed before being initialized with the constructor by default. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = JsonArrayDeserializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected JsonArray listFeed = new JsonArray();
+  /**
+   *  The entity listFeed
+   *	 It is constructed before being initialized with the constructor by default. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = JsonArrayDeserializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected JsonArray listFeed = new JsonArray();
 
-	/**	<br> The entity listFeed
-	 *  It is constructed before being initialized with the constructor by default. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:listFeed">Find the entity listFeed in Solr</a>
-	 * <br>
-	 * @param l is the entity already constructed. 
-	 **/
-	protected abstract void _listFeed(JsonArray l);
+  /**
+   * <br> The entity listFeed
+   *  It is constructed before being initialized with the constructor by default. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:listFeed">Find the entity listFeed in Solr</a>
+   * <br>
+   * @param l is the entity already constructed. 
+   **/
+  protected abstract void _listFeed(JsonArray l);
 
-	public JsonArray getListFeed() {
-		return listFeed;
-	}
+  public JsonArray getListFeed() {
+    return listFeed;
+  }
 
-	public void setListFeed(JsonArray listFeed) {
-		this.listFeed = listFeed;
-	}
-	@JsonIgnore
-	public void setListFeed(String o) {
-		this.listFeed = FeedGenPage.staticSetListFeed(siteRequest_, o);
-	}
-	public static JsonArray staticSetListFeed(SiteRequest siteRequest_, String o) {
-		if(o != null) {
-				return new JsonArray(o);
-		}
-		return null;
-	}
-	protected FeedGenPage listFeedInit() {
-		_listFeed(listFeed);
-		return (FeedGenPage)this;
-	}
+  public void setListFeed(JsonArray listFeed) {
+    this.listFeed = listFeed;
+  }
+  @JsonIgnore
+  public void setListFeed(String o) {
+    this.listFeed = FeedGenPage.staticSetListFeed(siteRequest_, o);
+  }
+  public static JsonArray staticSetListFeed(SiteRequest siteRequest_, String o) {
+    if(o != null) {
+        return new JsonArray(o);
+    }
+    return null;
+  }
+  protected FeedGenPage listFeedInit() {
+    _listFeed(listFeed);
+    return (FeedGenPage)this;
+  }
 
-	public static String staticSearchListFeed(SiteRequest siteRequest_, JsonArray o) {
-		return o.toString();
-	}
+  public static String staticSearchListFeed(SiteRequest siteRequest_, JsonArray o) {
+    return o.toString();
+  }
 
-	public static String staticSearchStrListFeed(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrListFeed(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqListFeed(SiteRequest siteRequest_, String o) {
-		return FeedGenPage.staticSearchListFeed(siteRequest_, FeedGenPage.staticSetListFeed(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqListFeed(SiteRequest siteRequest_, String o) {
+    return FeedGenPage.staticSearchListFeed(siteRequest_, FeedGenPage.staticSetListFeed(siteRequest_, o)).toString();
+  }
 
 	/////////////////
-	// resultCount //
+  // resultCount //
 	/////////////////
 
 
-	/**	 The entity resultCount
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Integer resultCount;
+  /**
+   *  The entity resultCount
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Integer resultCount;
 
-	/**	<br> The entity resultCount
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _resultCount(Wrap<Integer> w);
+  /**
+   * <br> The entity resultCount
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _resultCount(Wrap<Integer> w);
 
-	public Integer getResultCount() {
-		return resultCount;
-	}
+  public Integer getResultCount() {
+    return resultCount;
+  }
 
-	public void setResultCount(Integer resultCount) {
-		this.resultCount = resultCount;
-	}
-	@JsonIgnore
-	public void setResultCount(String o) {
-		this.resultCount = FeedGenPage.staticSetResultCount(siteRequest_, o);
-	}
-	public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Integer.parseInt(o);
-		return null;
-	}
-	protected FeedGenPage resultCountInit() {
-		Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
-		if(resultCount == null) {
-			_resultCount(resultCountWrap);
-			Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
-				setResultCount(o);
-			});
-		}
-		return (FeedGenPage)this;
-	}
+  public void setResultCount(Integer resultCount) {
+    this.resultCount = resultCount;
+  }
+  @JsonIgnore
+  public void setResultCount(String o) {
+    this.resultCount = FeedGenPage.staticSetResultCount(siteRequest_, o);
+  }
+  public static Integer staticSetResultCount(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Integer.parseInt(o);
+    return null;
+  }
+  protected FeedGenPage resultCountInit() {
+    Wrap<Integer> resultCountWrap = new Wrap<Integer>().var("resultCount");
+    if(resultCount == null) {
+      _resultCount(resultCountWrap);
+      Optional.ofNullable(resultCountWrap.getO()).ifPresent(o -> {
+        setResultCount(o);
+      });
+    }
+    return (FeedGenPage)this;
+  }
 
-	public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
-		return o;
-	}
+  public static Integer staticSearchResultCount(SiteRequest siteRequest_, Integer o) {
+    return o;
+  }
 
-	public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrResultCount(SiteRequest siteRequest_, Integer o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
-		return FeedGenPage.staticSearchResultCount(siteRequest_, FeedGenPage.staticSetResultCount(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqResultCount(SiteRequest siteRequest_, String o) {
+    return FeedGenPage.staticSearchResultCount(siteRequest_, FeedGenPage.staticSetResultCount(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// result //
+  // result //
 	////////////
 
 
-	/**	 The entity result
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected Feed result;
+  /**
+   *  The entity result
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected Feed result;
 
-	/**	<br> The entity result
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _result(Wrap<Feed> w);
+  /**
+   * <br> The entity result
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _result(Wrap<Feed> w);
 
-	public Feed getResult() {
-		return result;
-	}
+  public Feed getResult() {
+    return result;
+  }
 
-	public void setResult(Feed result) {
-		this.result = result;
-	}
-	public static Feed staticSetResult(SiteRequest siteRequest_, String o) {
-		return null;
-	}
-	protected FeedGenPage resultInit() {
-		Wrap<Feed> resultWrap = new Wrap<Feed>().var("result");
-		if(result == null) {
-			_result(resultWrap);
-			Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
-				setResult(o);
-			});
-		}
-		return (FeedGenPage)this;
-	}
+  public void setResult(Feed result) {
+    this.result = result;
+  }
+  public static Feed staticSetResult(SiteRequest siteRequest_, String o) {
+    return null;
+  }
+  protected FeedGenPage resultInit() {
+    Wrap<Feed> resultWrap = new Wrap<Feed>().var("result");
+    if(result == null) {
+      _result(resultWrap);
+      Optional.ofNullable(resultWrap.getO()).ifPresent(o -> {
+        setResult(o);
+      });
+    }
+    return (FeedGenPage)this;
+  }
 
 	////////
-	// pk //
+  // pk //
 	////////
 
 
-	/**	 The entity pk
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonInclude(Include.NON_NULL)
-	protected Long pk;
+  /**
+   *  The entity pk
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Long pk;
 
-	/**	<br> The entity pk
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _pk(Wrap<Long> w);
+  /**
+   * <br> The entity pk
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _pk(Wrap<Long> w);
 
-	public Long getPk() {
-		return pk;
-	}
+  public Long getPk() {
+    return pk;
+  }
 
-	public void setPk(Long pk) {
-		this.pk = pk;
-	}
-	@JsonIgnore
-	public void setPk(String o) {
-		this.pk = FeedGenPage.staticSetPk(siteRequest_, o);
-	}
-	public static Long staticSetPk(SiteRequest siteRequest_, String o) {
-		if(NumberUtils.isParsable(o))
-			return Long.parseLong(o);
-		return null;
-	}
-	protected FeedGenPage pkInit() {
-		Wrap<Long> pkWrap = new Wrap<Long>().var("pk");
-		if(pk == null) {
-			_pk(pkWrap);
-			Optional.ofNullable(pkWrap.getO()).ifPresent(o -> {
-				setPk(o);
-			});
-		}
-		return (FeedGenPage)this;
-	}
+  public void setPk(Long pk) {
+    this.pk = pk;
+  }
+  @JsonIgnore
+  public void setPk(String o) {
+    this.pk = FeedGenPage.staticSetPk(siteRequest_, o);
+  }
+  public static Long staticSetPk(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Long.parseLong(o);
+    return null;
+  }
+  protected FeedGenPage pkInit() {
+    Wrap<Long> pkWrap = new Wrap<Long>().var("pk");
+    if(pk == null) {
+      _pk(pkWrap);
+      Optional.ofNullable(pkWrap.getO()).ifPresent(o -> {
+        setPk(o);
+      });
+    }
+    return (FeedGenPage)this;
+  }
 
-	public static Long staticSearchPk(SiteRequest siteRequest_, Long o) {
-		return o;
-	}
+  public static Long staticSearchPk(SiteRequest siteRequest_, Long o) {
+    return o;
+  }
 
-	public static String staticSearchStrPk(SiteRequest siteRequest_, Long o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrPk(SiteRequest siteRequest_, Long o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqPk(SiteRequest siteRequest_, String o) {
-		return FeedGenPage.staticSearchPk(siteRequest_, FeedGenPage.staticSetPk(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqPk(SiteRequest siteRequest_, String o) {
+    return FeedGenPage.staticSearchPk(siteRequest_, FeedGenPage.staticSetPk(siteRequest_, o)).toString();
+  }
 
 	////////////
-	// solrId //
+  // solrId //
 	////////////
 
 
-	/**	 The entity solrId
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String solrId;
+  /**
+   *  The entity solrId
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String solrId;
 
-	/**	<br> The entity solrId
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _solrId(Wrap<String> w);
+  /**
+   * <br> The entity solrId
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _solrId(Wrap<String> w);
 
-	public String getSolrId() {
-		return solrId;
-	}
-	public void setSolrId(String o) {
-		this.solrId = FeedGenPage.staticSetSolrId(siteRequest_, o);
-	}
-	public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FeedGenPage solrIdInit() {
-		Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
-		if(solrId == null) {
-			_solrId(solrIdWrap);
-			Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
-				setSolrId(o);
-			});
-		}
-		return (FeedGenPage)this;
-	}
+  public String getSolrId() {
+    return solrId;
+  }
+  public void setSolrId(String o) {
+    this.solrId = FeedGenPage.staticSetSolrId(siteRequest_, o);
+  }
+  public static String staticSetSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected FeedGenPage solrIdInit() {
+    Wrap<String> solrIdWrap = new Wrap<String>().var("solrId");
+    if(solrId == null) {
+      _solrId(solrIdWrap);
+      Optional.ofNullable(solrIdWrap.getO()).ifPresent(o -> {
+        setSolrId(o);
+      });
+    }
+    return (FeedGenPage)this;
+  }
 
-	public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchSolrId(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrSolrId(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
-		return FeedGenPage.staticSearchSolrId(siteRequest_, FeedGenPage.staticSetSolrId(siteRequest_, o)).toString();
-	}
-
-	/////////////////
-	// pageUriFeed //
-	/////////////////
-
-
-	/**	 The entity pageUriFeed
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String pageUriFeed;
-
-	/**	<br> The entity pageUriFeed
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:pageUriFeed">Find the entity pageUriFeed in Solr</a>
-	 * <br>
-	 * @param c is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _pageUriFeed(Wrap<String> c);
-
-	public String getPageUriFeed() {
-		return pageUriFeed;
-	}
-	public void setPageUriFeed(String o) {
-		this.pageUriFeed = FeedGenPage.staticSetPageUriFeed(siteRequest_, o);
-	}
-	public static String staticSetPageUriFeed(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FeedGenPage pageUriFeedInit() {
-		Wrap<String> pageUriFeedWrap = new Wrap<String>().var("pageUriFeed");
-		if(pageUriFeed == null) {
-			_pageUriFeed(pageUriFeedWrap);
-			Optional.ofNullable(pageUriFeedWrap.getO()).ifPresent(o -> {
-				setPageUriFeed(o);
-			});
-		}
-		return (FeedGenPage)this;
-	}
-
-	public static String staticSearchPageUriFeed(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-
-	public static String staticSearchStrPageUriFeed(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
-
-	public static String staticSearchFqPageUriFeed(SiteRequest siteRequest_, String o) {
-		return FeedGenPage.staticSearchPageUriFeed(siteRequest_, FeedGenPage.staticSetPageUriFeed(siteRequest_, o)).toString();
-	}
-
-	//////////////
-	// initDeep //
-	//////////////
-
-	public Future<FeedGenPageGen<DEV>> promiseDeepFeedGenPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFeedGenPage();
-	}
-
-	public Future<FeedGenPageGen<DEV>> promiseDeepFeedGenPage() {
-		Promise<FeedGenPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFeedGenPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	public Future<Void> promiseFeedGenPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				searchListFeed_Init();
-				listFeedInit();
-				resultCountInit();
-				resultInit();
-				pkInit();
-				solrIdInit();
-				pageUriFeedInit();
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	@Override public Future<? extends FeedGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFeedGenPage(siteRequest_);
-	}
+  public static String staticSearchFqSolrId(SiteRequest siteRequest_, String o) {
+    return FeedGenPage.staticSearchSolrId(siteRequest_, FeedGenPage.staticSetSolrId(siteRequest_, o)).toString();
+  }
 
 	/////////////////
-	// siteRequest //
+  // pageUriFeed //
 	/////////////////
 
-	public void siteRequestFeedGenPage(SiteRequest siteRequest_) {
-			super.siteRequestPageLayout(siteRequest_);
-	}
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFeedGenPage(siteRequest_);
-	}
+  /**
+   *  The entity pageUriFeed
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String pageUriFeed;
 
-	/////////////
-	// obtain //
-	/////////////
+  /**
+   * <br> The entity pageUriFeed
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.feed.FeedGenPage&fq=entiteVar_enUS_indexed_string:pageUriFeed">Find the entity pageUriFeed in Solr</a>
+   * <br>
+   * @param c is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _pageUriFeed(Wrap<String> c);
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFeedGenPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFeedGenPage(String var) {
-		FeedGenPage oFeedGenPage = (FeedGenPage)this;
-		switch(var) {
-			case "searchListFeed_":
-				return oFeedGenPage.searchListFeed_;
-			case "listFeed":
-				return oFeedGenPage.listFeed;
-			case "resultCount":
-				return oFeedGenPage.resultCount;
-			case "result":
-				return oFeedGenPage.result;
-			case "pk":
-				return oFeedGenPage.pk;
-			case "solrId":
-				return oFeedGenPage.solrId;
-			case "pageUriFeed":
-				return oFeedGenPage.pageUriFeed;
-			default:
-				return super.obtainPageLayout(var);
-		}
-	}
+  public String getPageUriFeed() {
+    return pageUriFeed;
+  }
+  public void setPageUriFeed(String o) {
+    this.pageUriFeed = FeedGenPage.staticSetPageUriFeed(siteRequest_, o);
+  }
+  public static String staticSetPageUriFeed(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected FeedGenPage pageUriFeedInit() {
+    Wrap<String> pageUriFeedWrap = new Wrap<String>().var("pageUriFeed");
+    if(pageUriFeed == null) {
+      _pageUriFeed(pageUriFeedWrap);
+      Optional.ofNullable(pageUriFeedWrap.getO()).ifPresent(o -> {
+        setPageUriFeed(o);
+      });
+    }
+    return (FeedGenPage)this;
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  public static String staticSearchPageUriFeed(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFeedGenPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFeedGenPage(String var, Object val) {
-		FeedGenPage oFeedGenPage = (FeedGenPage)this;
-		switch(var) {
-			default:
-				return super.relatePageLayout(var, val);
-		}
-	}
+  public static String staticSearchStrPageUriFeed(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  public static String staticSearchFqPageUriFeed(SiteRequest siteRequest_, String o) {
+    return FeedGenPage.staticSearchPageUriFeed(siteRequest_, FeedGenPage.staticSetPageUriFeed(siteRequest_, o)).toString();
+  }
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeedGenPage o) {
-		return staticSetFeedGenPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFeedGenPage(String entityVar, SiteRequest siteRequest_, String v, FeedGenPage o) {
-		switch(entityVar) {
-		case "listFeed":
-			return FeedGenPage.staticSetListFeed(siteRequest_, v);
-		case "resultCount":
-			return FeedGenPage.staticSetResultCount(siteRequest_, v);
-		case "pk":
-			return FeedGenPage.staticSetPk(siteRequest_, v);
-		case "solrId":
-			return FeedGenPage.staticSetSolrId(siteRequest_, v);
-		case "pageUriFeed":
-			return FeedGenPage.staticSetPageUriFeed(siteRequest_, v);
-			default:
-				return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
-		}
-	}
+  //////////////
+  // initDeep //
+  //////////////
 
-	////////////////
-	// staticSearch //
-	////////////////
+  public Future<FeedGenPageGen<DEV>> promiseDeepFeedGenPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFeedGenPage();
+  }
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFeedGenPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFeedGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listFeed":
-			return FeedGenPage.staticSearchListFeed(siteRequest_, (JsonArray)o);
-		case "resultCount":
-			return FeedGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
-		case "pk":
-			return FeedGenPage.staticSearchPk(siteRequest_, (Long)o);
-		case "solrId":
-			return FeedGenPage.staticSearchSolrId(siteRequest_, (String)o);
-		case "pageUriFeed":
-			return FeedGenPage.staticSearchPageUriFeed(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public Future<FeedGenPageGen<DEV>> promiseDeepFeedGenPage() {
+    Promise<FeedGenPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFeedGenPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepPageLayout(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  public Future<Void> promiseFeedGenPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        searchListFeed_Init();
+        listFeedInit();
+        resultCountInit();
+        resultInit();
+        pkInit();
+        solrIdInit();
+        pageUriFeedInit();
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFeedGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFeedGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "listFeed":
-			return FeedGenPage.staticSearchStrListFeed(siteRequest_, (String)o);
-		case "resultCount":
-			return FeedGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
-		case "pk":
-			return FeedGenPage.staticSearchStrPk(siteRequest_, (Long)o);
-		case "solrId":
-			return FeedGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
-		case "pageUriFeed":
-			return FeedGenPage.staticSearchStrPageUriFeed(siteRequest_, (String)o);
-			default:
-				return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  @Override public Future<? extends FeedGenPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFeedGenPage(siteRequest_);
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFeedGenPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFeedGenPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "listFeed":
-			return FeedGenPage.staticSearchFqListFeed(siteRequest_, o);
-		case "resultCount":
-			return FeedGenPage.staticSearchFqResultCount(siteRequest_, o);
-		case "pk":
-			return FeedGenPage.staticSearchFqPk(siteRequest_, o);
-		case "solrId":
-			return FeedGenPage.staticSearchFqSolrId(siteRequest_, o);
-		case "pageUriFeed":
-			return FeedGenPage.staticSearchFqPageUriFeed(siteRequest_, o);
-			default:
-				return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
-		}
-	}
+  public void siteRequestFeedGenPage(SiteRequest siteRequest_) {
+      super.siteRequestPageLayout(siteRequest_);
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFeedGenPage(siteRequest_);
+  }
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  /////////////
+  // obtain //
+  /////////////
 
-	public static final String CLASS_SIMPLE_NAME = "FeedGenPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feed.FeedGenPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
-	public static final String VAR_searchListFeed_ = "searchListFeed_";
-	public static final String VAR_listFeed = "listFeed";
-	public static final String VAR_resultCount = "resultCount";
-	public static final String VAR_result = "result";
-	public static final String VAR_pk = "pk";
-	public static final String VAR_solrId = "solrId";
-	public static final String VAR_pageUriFeed = "pageUriFeed";
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFeedGenPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFeedGenPage(String var) {
+    FeedGenPage oFeedGenPage = (FeedGenPage)this;
+    switch(var) {
+      case "searchListFeed_":
+        return oFeedGenPage.searchListFeed_;
+      case "listFeed":
+        return oFeedGenPage.listFeed;
+      case "resultCount":
+        return oFeedGenPage.resultCount;
+      case "result":
+        return oFeedGenPage.result;
+      case "pk":
+        return oFeedGenPage.pk;
+      case "solrId":
+        return oFeedGenPage.solrId;
+      case "pageUriFeed":
+        return oFeedGenPage.pageUriFeed;
+      default:
+        return super.obtainPageLayout(var);
+    }
+  }
 
-	public static final String DISPLAY_NAME_searchListFeed_ = "";
-	public static final String DISPLAY_NAME_listFeed = "";
-	public static final String DISPLAY_NAME_resultCount = "";
-	public static final String DISPLAY_NAME_result = "";
-	public static final String DISPLAY_NAME_pk = "";
-	public static final String DISPLAY_NAME_solrId = "";
-	public static final String DISPLAY_NAME_pageUriFeed = "";
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFeedGenPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFeedGenPage(String var, Object val) {
+    FeedGenPage oFeedGenPage = (FeedGenPage)this;
+    switch(var) {
+      default:
+        return super.relatePageLayout(var, val);
+    }
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeedGenPage o) {
+    return staticSetFeedGenPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFeedGenPage(String entityVar, SiteRequest siteRequest_, String v, FeedGenPage o) {
+    switch(entityVar) {
+    case "listFeed":
+      return FeedGenPage.staticSetListFeed(siteRequest_, v);
+    case "resultCount":
+      return FeedGenPage.staticSetResultCount(siteRequest_, v);
+    case "pk":
+      return FeedGenPage.staticSetPk(siteRequest_, v);
+    case "solrId":
+      return FeedGenPage.staticSetSolrId(siteRequest_, v);
+    case "pageUriFeed":
+      return FeedGenPage.staticSetPageUriFeed(siteRequest_, v);
+      default:
+        return PageLayout.staticSetPageLayout(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFeedGenPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFeedGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listFeed":
+      return FeedGenPage.staticSearchListFeed(siteRequest_, (JsonArray)o);
+    case "resultCount":
+      return FeedGenPage.staticSearchResultCount(siteRequest_, (Integer)o);
+    case "pk":
+      return FeedGenPage.staticSearchPk(siteRequest_, (Long)o);
+    case "solrId":
+      return FeedGenPage.staticSearchSolrId(siteRequest_, (String)o);
+    case "pageUriFeed":
+      return FeedGenPage.staticSearchPageUriFeed(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFeedGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFeedGenPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "listFeed":
+      return FeedGenPage.staticSearchStrListFeed(siteRequest_, (String)o);
+    case "resultCount":
+      return FeedGenPage.staticSearchStrResultCount(siteRequest_, (Integer)o);
+    case "pk":
+      return FeedGenPage.staticSearchStrPk(siteRequest_, (Long)o);
+    case "solrId":
+      return FeedGenPage.staticSearchStrSolrId(siteRequest_, (String)o);
+    case "pageUriFeed":
+      return FeedGenPage.staticSearchStrPageUriFeed(siteRequest_, (String)o);
+      default:
+        return PageLayout.staticSearchStrPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFeedGenPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFeedGenPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "listFeed":
+      return FeedGenPage.staticSearchFqListFeed(siteRequest_, o);
+    case "resultCount":
+      return FeedGenPage.staticSearchFqResultCount(siteRequest_, o);
+    case "pk":
+      return FeedGenPage.staticSearchFqPk(siteRequest_, o);
+    case "solrId":
+      return FeedGenPage.staticSearchFqSolrId(siteRequest_, o);
+    case "pageUriFeed":
+      return FeedGenPage.staticSearchFqPageUriFeed(siteRequest_, o);
+      default:
+        return PageLayout.staticSearchFqPageLayout(entityVar,  siteRequest_, o);
+    }
+  }
 
-	public static String displayNameForClass(String var) {
-		return FeedGenPage.displayNameFeedGenPage(var);
-	}
-	public static String displayNameFeedGenPage(String var) {
-		switch(var) {
-		case VAR_searchListFeed_:
-			return DISPLAY_NAME_searchListFeed_;
-		case VAR_listFeed:
-			return DISPLAY_NAME_listFeed;
-		case VAR_resultCount:
-			return DISPLAY_NAME_resultCount;
-		case VAR_result:
-			return DISPLAY_NAME_result;
-		case VAR_pk:
-			return DISPLAY_NAME_pk;
-		case VAR_solrId:
-			return DISPLAY_NAME_solrId;
-		case VAR_pageUriFeed:
-			return DISPLAY_NAME_pageUriFeed;
-		default:
-			return PageLayout.displayNamePageLayout(var);
-		}
-	}
+  //////////////
+  // toString //
+  //////////////
 
-	public static String descriptionFeedGenPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return PageLayout.descriptionPageLayout(var);
-		}
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static String classSimpleNameFeedGenPage(String var) {
-		switch(var) {
-		case VAR_searchListFeed_:
-			return "SearchList";
-		case VAR_listFeed:
-			return "JsonArray";
-		case VAR_resultCount:
-			return "Integer";
-		case VAR_result:
-			return "Feed";
-		case VAR_pk:
-			return "Long";
-		case VAR_solrId:
-			return "String";
-		case VAR_pageUriFeed:
-			return "String";
-			default:
-				return PageLayout.classSimpleNamePageLayout(var);
-		}
-	}
+  public static final String CLASS_SIMPLE_NAME = "FeedGenPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feed.FeedGenPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String VAR_searchListFeed_ = "searchListFeed_";
+  public static final String VAR_listFeed = "listFeed";
+  public static final String VAR_resultCount = "resultCount";
+  public static final String VAR_result = "result";
+  public static final String VAR_pk = "pk";
+  public static final String VAR_solrId = "solrId";
+  public static final String VAR_pageUriFeed = "pageUriFeed";
 
-	public static Integer htmColumnFeedGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmColumnPageLayout(var);
-		}
-	}
+  public static final String DISPLAY_NAME_searchListFeed_ = "";
+  public static final String DISPLAY_NAME_listFeed = "";
+  public static final String DISPLAY_NAME_resultCount = "";
+  public static final String DISPLAY_NAME_result = "";
+  public static final String DISPLAY_NAME_pk = "";
+  public static final String DISPLAY_NAME_solrId = "";
+  public static final String DISPLAY_NAME_pageUriFeed = "";
 
-	public static Integer htmRowFeedGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmRowPageLayout(var);
-		}
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	public static Integer htmCellFeedGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.htmCellPageLayout(var);
-		}
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	public static Integer lengthMinFeedGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMinPageLayout(var);
-		}
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	public static Integer lengthMaxFeedGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.lengthMaxPageLayout(var);
-		}
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	public static Integer maxFeedGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.maxPageLayout(var);
-		}
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	public static Integer minFeedGenPage(String var) {
-		switch(var) {
-			default:
-				return PageLayout.minPageLayout(var);
-		}
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public static String displayNameForClass(String var) {
+    return FeedGenPage.displayNameFeedGenPage(var);
+  }
+  public static String displayNameFeedGenPage(String var) {
+    switch(var) {
+    case VAR_searchListFeed_:
+      return DISPLAY_NAME_searchListFeed_;
+    case VAR_listFeed:
+      return DISPLAY_NAME_listFeed;
+    case VAR_resultCount:
+      return DISPLAY_NAME_resultCount;
+    case VAR_result:
+      return DISPLAY_NAME_result;
+    case VAR_pk:
+      return DISPLAY_NAME_pk;
+    case VAR_solrId:
+      return DISPLAY_NAME_solrId;
+    case VAR_pageUriFeed:
+      return DISPLAY_NAME_pageUriFeed;
+    default:
+      return PageLayout.displayNamePageLayout(var);
+    }
+  }
+
+  public static String descriptionFeedGenPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return PageLayout.descriptionPageLayout(var);
+    }
+  }
+
+  public static String classSimpleNameFeedGenPage(String var) {
+    switch(var) {
+    case VAR_searchListFeed_:
+      return "SearchList";
+    case VAR_listFeed:
+      return "JsonArray";
+    case VAR_resultCount:
+      return "Integer";
+    case VAR_result:
+      return "Feed";
+    case VAR_pk:
+      return "Long";
+    case VAR_solrId:
+      return "String";
+    case VAR_pageUriFeed:
+      return "String";
+      default:
+        return PageLayout.classSimpleNamePageLayout(var);
+    }
+  }
+
+  public static Integer htmColumnFeedGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmColumnPageLayout(var);
+    }
+  }
+
+  public static Integer htmRowFeedGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmRowPageLayout(var);
+    }
+  }
+
+  public static Integer htmCellFeedGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.htmCellPageLayout(var);
+    }
+  }
+
+  public static Integer lengthMinFeedGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMinPageLayout(var);
+    }
+  }
+
+  public static Integer lengthMaxFeedGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.lengthMaxPageLayout(var);
+    }
+  }
+
+  public static Integer maxFeedGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.maxPageLayout(var);
+    }
+  }
+
+  public static Integer minFeedGenPage(String var) {
+    switch(var) {
+      default:
+        return PageLayout.minPageLayout(var);
+    }
+  }
 }

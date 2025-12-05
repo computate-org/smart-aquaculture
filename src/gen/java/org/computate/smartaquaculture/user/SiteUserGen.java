@@ -209,7 +209,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	//////////////
 
 
-  /**   The entity userKeys
+  /**
+   *  The entity userKeys
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -217,7 +218,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
   @JsonInclude(Include.NON_NULL)
   protected List<Long> userKeys = new ArrayList<Long>();
 
-  /**  <br> The entity userKeys
+  /**
+   * <br> The entity userKeys
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userKeys">Find the entity userKeys in Solr</a>
    * <br>
@@ -293,14 +295,16 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	////////////
 
 
-  /**   The entity userId
+  /**
+   *  The entity userId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userId;
 
-  /**  <br> The entity userId
+  /**
+   * <br> The entity userId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userId">Find the entity userId in Solr</a>
    * <br>
@@ -344,19 +348,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return userId;
   }
 
+  public static String staticJsonUserId(String userId) {
+    return userId;
+  }
+
 	//////////////
   // userName //
 	//////////////
 
 
-  /**   The entity userName
+  /**
+   *  The entity userName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userName;
 
-  /**  <br> The entity userName
+  /**
+   * <br> The entity userName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userName">Find the entity userName in Solr</a>
    * <br>
@@ -400,19 +410,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return userName;
   }
 
+  public static String staticJsonUserName(String userName) {
+    return userName;
+  }
+
 	///////////////
   // userEmail //
 	///////////////
 
 
-  /**   The entity userEmail
+  /**
+   *  The entity userEmail
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userEmail;
 
-  /**  <br> The entity userEmail
+  /**
+   * <br> The entity userEmail
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userEmail">Find the entity userEmail in Solr</a>
    * <br>
@@ -456,19 +472,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return userEmail;
   }
 
+  public static String staticJsonUserEmail(String userEmail) {
+    return userEmail;
+  }
+
 	///////////////////
   // userFirstName //
 	///////////////////
 
 
-  /**   The entity userFirstName
+  /**
+   *  The entity userFirstName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userFirstName;
 
-  /**  <br> The entity userFirstName
+  /**
+   * <br> The entity userFirstName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userFirstName">Find the entity userFirstName in Solr</a>
    * <br>
@@ -512,19 +534,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return userFirstName;
   }
 
+  public static String staticJsonUserFirstName(String userFirstName) {
+    return userFirstName;
+  }
+
 	//////////////////
   // userLastName //
 	//////////////////
 
 
-  /**   The entity userLastName
+  /**
+   *  The entity userLastName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userLastName;
 
-  /**  <br> The entity userLastName
+  /**
+   * <br> The entity userLastName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userLastName">Find the entity userLastName in Solr</a>
    * <br>
@@ -568,19 +596,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return userLastName;
   }
 
+  public static String staticJsonUserLastName(String userLastName) {
+    return userLastName;
+  }
+
 	//////////////////
   // userFullName //
 	//////////////////
 
 
-  /**   The entity userFullName
+  /**
+   *  The entity userFullName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String userFullName;
 
-  /**  <br> The entity userFullName
+  /**
+   * <br> The entity userFullName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userFullName">Find the entity userFullName in Solr</a>
    * <br>
@@ -624,19 +658,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return userFullName;
   }
 
+  public static String staticJsonUserFullName(String userFullName) {
+    return userFullName;
+  }
+
 	/////////////////
   // seeArchived //
 	/////////////////
 
 
-  /**   The entity seeArchived
+  /**
+   *  The entity seeArchived
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected Boolean seeArchived;
 
-  /**  <br> The entity seeArchived
+  /**
+   * <br> The entity seeArchived
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:seeArchived">Find the entity seeArchived in Solr</a>
    * <br>
@@ -685,19 +725,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return seeArchived;
   }
 
+  public static Boolean staticJsonSeeArchived(Boolean seeArchived) {
+    return seeArchived;
+  }
+
 	/////////////////
   // displayName //
 	/////////////////
 
 
-  /**   The entity displayName
+  /**
+   *  The entity displayName
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String displayName;
 
-  /**  <br> The entity displayName
+  /**
+   * <br> The entity displayName
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:displayName">Find the entity displayName in Solr</a>
    * <br>
@@ -741,19 +787,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return displayName;
   }
 
+  public static String staticJsonDisplayName(String displayName) {
+    return displayName;
+  }
+
 	//////////////////
   // siteFontSize //
 	//////////////////
 
 
-  /**   The entity siteFontSize
+  /**
+   *  The entity siteFontSize
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteFontSize;
 
-  /**  <br> The entity siteFontSize
+  /**
+   * <br> The entity siteFontSize
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:siteFontSize">Find the entity siteFontSize in Solr</a>
    * <br>
@@ -797,19 +849,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return siteFontSize;
   }
 
+  public static String staticJsonSiteFontSize(String siteFontSize) {
+    return siteFontSize;
+  }
+
 	///////////////
   // siteTheme //
 	///////////////
 
 
-  /**   The entity siteTheme
+  /**
+   *  The entity siteTheme
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String siteTheme;
 
-  /**  <br> The entity siteTheme
+  /**
+   * <br> The entity siteTheme
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:siteTheme">Find the entity siteTheme in Solr</a>
    * <br>
@@ -853,19 +911,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return siteTheme;
   }
 
+  public static String staticJsonSiteTheme(String siteTheme) {
+    return siteTheme;
+  }
+
 	////////////////////////
   // webComponentsTheme //
 	////////////////////////
 
 
-  /**   The entity webComponentsTheme
+  /**
+   *  The entity webComponentsTheme
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String webComponentsTheme;
 
-  /**  <br> The entity webComponentsTheme
+  /**
+   * <br> The entity webComponentsTheme
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:webComponentsTheme">Find the entity webComponentsTheme in Solr</a>
    * <br>
@@ -909,19 +973,25 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return webComponentsTheme;
   }
 
+  public static String staticJsonWebComponentsTheme(String webComponentsTheme) {
+    return webComponentsTheme;
+  }
+
 	///////////////////////
   // customerProfileId //
 	///////////////////////
 
 
-  /**   The entity customerProfileId
+  /**
+   *  The entity customerProfileId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String customerProfileId;
 
-  /**  <br> The entity customerProfileId
+  /**
+   * <br> The entity customerProfileId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:customerProfileId">Find the entity customerProfileId in Solr</a>
    * <br>
@@ -962,6 +1032,10 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
   }
 
   public String sqlCustomerProfileId() {
+    return customerProfileId;
+  }
+
+  public static String staticJsonCustomerProfileId(String customerProfileId) {
     return customerProfileId;
   }
 

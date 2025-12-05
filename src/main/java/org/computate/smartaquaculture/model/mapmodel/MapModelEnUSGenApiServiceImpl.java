@@ -473,6 +473,8 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     try {
       SiteRequest siteRequest = listMapModel.getSiteRequest_(SiteRequest.class);
       String pageTemplateUri = templateSearchPageMapModel(siteRequest.getServiceRequest());
+      if(listMapModel.size() == 0)
+        pageTemplateUri = templateSearchPageMapModel(siteRequest.getServiceRequest());
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
       String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
@@ -844,7 +846,7 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, created, location, id, archived, entityShortId, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage FROM MapModel WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, created, location, id, archived, entityShortId, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, editPage, userPage, download FROM MapModel WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -1153,6 +1155,9 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       page.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
       page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
       page.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
+      page.persistForClass(MapModel.VAR_editPage, MapModel.staticSetEditPage(siteRequest2, (String)result.get(MapModel.VAR_editPage)));
+      page.persistForClass(MapModel.VAR_userPage, MapModel.staticSetUserPage(siteRequest2, (String)result.get(MapModel.VAR_userPage)));
+      page.persistForClass(MapModel.VAR_download, MapModel.staticSetDownload(siteRequest2, (String)result.get(MapModel.VAR_download)));
 
       page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
         try {

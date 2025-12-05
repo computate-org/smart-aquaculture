@@ -225,882 +225,900 @@ import org.computate.search.response.solr.SolrResponse;
  * Generated: true
  **/
 public abstract class FishingTripGen<DEV> extends MapModel {
-	protected static final Logger LOG = LoggerFactory.getLogger(FishingTrip.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FishingTrip.class);
 
-	public static final String Description_enUS = "A fishing trip";
-	public static final String AName_enUS = "a fishing trip";
-	public static final String This_enUS = "this ";
-	public static final String ThisName_enUS = "this fishing trip";
-	public static final String A_enUS = "a ";
-	public static final String TheName_enUS = "the fishing trip";
-	public static final String SingularName_enUS = "fishing trip";
-	public static final String PluralName_enUS = "fishing trips";
-	public static final String NameActual_enUS = "current fishing trip";
-	public static final String AllName_enUS = "all fishing trips";
-	public static final String SearchAllNameBy_enUS = "search fishing trips by ";
-	public static final String SearchAllName_enUS = "search fishing trips";
-	public static final String Title_enUS = "fishing trips";
-	public static final String ThePluralName_enUS = "the fishing trips";
-	public static final String NoNameFound_enUS = "no fishing trip found";
-	public static final String ApiUri_enUS = "/en-us/api/fishing-trip";
-	public static final String ApiUriSearchPage_enUS = "/en-us/search/fishing-trip";
-	public static final String ApiUriEditPage_enUS = "/en-us/edit/fishing-trip/{entityShortId}";
-	public static final String OfName_enUS = "of fishing trip";
-	public static final String ANameAdjective_enUS = "a fishing trip";
-	public static final String NameAdjectiveSingular_enUS = "fishing trip";
-	public static final String NameAdjectivePlural_enUS = "fishing trips";
-	public static final String Search_enUS_OpenApiUri = "/en-us/api/fishing-trip";
-	public static final String Search_enUS_StringFormatUri = "/en-us/api/fishing-trip";
-	public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
-	public static final String GET_enUS_OpenApiUri = "/en-us/api/fishing-trip/{entityShortId}";
-	public static final String GET_enUS_StringFormatUri = "/en-us/api/fishing-trip/%s";
-	public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip/%s";
-	public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fishing-trip";
-	public static final String PATCH_enUS_StringFormatUri = "/en-us/api/fishing-trip";
-	public static final String PATCH_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
-	public static final String POST_enUS_OpenApiUri = "/en-us/api/fishing-trip";
-	public static final String POST_enUS_StringFormatUri = "/en-us/api/fishing-trip";
-	public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
-	public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fishing-trip/{entityShortId}";
-	public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fishing-trip/%s";
-	public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip/%s";
-	public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fishing-trip-import";
-	public static final String PUTImport_enUS_StringFormatUri = "/en-us/api/fishing-trip-import";
-	public static final String PUTImport_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip-import";
-	public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fishing-trip";
-	public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fishing-trip";
-	public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fishing-trip";
-	public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fishing-trip/{entityShortId}";
-	public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fishing-trip/%s";
-	public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fishing-trip/%s";
-	public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fishing-trip";
-	public static final String DELETEFilter_enUS_StringFormatUri = "/en-us/api/fishing-trip";
-	public static final String DELETEFilter_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
+  public static final String Description_enUS = "A fishing trip";
+  public static final String AName_enUS = "a fishing trip";
+  public static final String This_enUS = "this ";
+  public static final String ThisName_enUS = "this fishing trip";
+  public static final String A_enUS = "a ";
+  public static final String TheName_enUS = "the fishing trip";
+  public static final String SingularName_enUS = "fishing trip";
+  public static final String PluralName_enUS = "fishing trips";
+  public static final String NameActual_enUS = "current fishing trip";
+  public static final String AllName_enUS = "all fishing trips";
+  public static final String SearchAllNameBy_enUS = "search fishing trips by ";
+  public static final String SearchAllName_enUS = "search fishing trips";
+  public static final String Title_enUS = "fishing trips";
+  public static final String ThePluralName_enUS = "the fishing trips";
+  public static final String NoNameFound_enUS = "no fishing trip found";
+  public static final String ApiUri_enUS = "/en-us/api/fishing-trip";
+  public static final String ApiUriSearchPage_enUS = "/en-us/search/fishing-trip";
+  public static final String ApiUriEditPage_enUS = "/en-us/edit/fishing-trip/{entityShortId}";
+  public static final String OfName_enUS = "of fishing trip";
+  public static final String ANameAdjective_enUS = "a fishing trip";
+  public static final String NameAdjectiveSingular_enUS = "fishing trip";
+  public static final String NameAdjectivePlural_enUS = "fishing trips";
+  public static final String Search_enUS_OpenApiUri = "/en-us/api/fishing-trip";
+  public static final String Search_enUS_StringFormatUri = "/en-us/api/fishing-trip";
+  public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
+  public static final String GET_enUS_OpenApiUri = "/en-us/api/fishing-trip/{entityShortId}";
+  public static final String GET_enUS_StringFormatUri = "/en-us/api/fishing-trip/%s";
+  public static final String GET_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip/%s";
+  public static final String PATCH_enUS_OpenApiUri = "/en-us/api/fishing-trip";
+  public static final String PATCH_enUS_StringFormatUri = "/en-us/api/fishing-trip";
+  public static final String PATCH_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
+  public static final String POST_enUS_OpenApiUri = "/en-us/api/fishing-trip";
+  public static final String POST_enUS_StringFormatUri = "/en-us/api/fishing-trip";
+  public static final String POST_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
+  public static final String DELETE_enUS_OpenApiUri = "/en-us/api/fishing-trip/{entityShortId}";
+  public static final String DELETE_enUS_StringFormatUri = "/en-us/api/fishing-trip/%s";
+  public static final String DELETE_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip/%s";
+  public static final String PUTImport_enUS_OpenApiUri = "/en-us/api/fishing-trip-import";
+  public static final String PUTImport_enUS_StringFormatUri = "/en-us/api/fishing-trip-import";
+  public static final String PUTImport_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip-import";
+  public static final String SearchPage_enUS_OpenApiUri = "/en-us/search/fishing-trip";
+  public static final String SearchPage_enUS_StringFormatUri = "/en-us/search/fishing-trip";
+  public static final String SearchPage_enUS_StringFormatUrl = "%s/en-us/search/fishing-trip";
+  public static final String EditPage_enUS_OpenApiUri = "/en-us/edit/fishing-trip/{entityShortId}";
+  public static final String EditPage_enUS_StringFormatUri = "/en-us/edit/fishing-trip/%s";
+  public static final String EditPage_enUS_StringFormatUrl = "%s/en-us/edit/fishing-trip/%s";
+  public static final String DELETEFilter_enUS_OpenApiUri = "/en-us/api/fishing-trip";
+  public static final String DELETEFilter_enUS_StringFormatUri = "/en-us/api/fishing-trip";
+  public static final String DELETEFilter_enUS_StringFormatUrl = "%s/en-us/api/fishing-trip";
 
-	public static final String Icon = "<i class=\"fa-duotone fa-regular fa-fishing-rod\"></i>";
-	public static final Integer Rows = 100;
+  public static final String Icon = "<i class=\"fa-duotone fa-regular fa-fishing-rod\"></i>";
+  public static final Integer Rows = 100;
 
 	//////////////
-	// timeZone //
+  // timeZone //
 	//////////////
 
 
-	/**	 The entity timeZone
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonInclude(Include.NON_NULL)
-	protected String timeZone;
+  /**
+   *  The entity timeZone
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String timeZone;
 
-	/**	<br> The entity timeZone
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _timeZone(Wrap<String> w);
+  /**
+   * <br> The entity timeZone
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _timeZone(Wrap<String> w);
 
-	public String getTimeZone() {
-		return timeZone;
-	}
-	public void setTimeZone(String o) {
-		this.timeZone = FishingTrip.staticSetTimeZone(siteRequest_, o);
-	}
-	public static String staticSetTimeZone(SiteRequest siteRequest_, String o) {
-		return o;
-	}
-	protected FishingTrip timeZoneInit() {
-		Wrap<String> timeZoneWrap = new Wrap<String>().var("timeZone");
-		if(timeZone == null) {
-			_timeZone(timeZoneWrap);
-			Optional.ofNullable(timeZoneWrap.getO()).ifPresent(o -> {
-				setTimeZone(o);
-			});
-		}
-		return (FishingTrip)this;
-	}
+  public String getTimeZone() {
+    return timeZone;
+  }
+  public void setTimeZone(String o) {
+    this.timeZone = FishingTrip.staticSetTimeZone(siteRequest_, o);
+  }
+  public static String staticSetTimeZone(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected FishingTrip timeZoneInit() {
+    Wrap<String> timeZoneWrap = new Wrap<String>().var("timeZone");
+    if(timeZone == null) {
+      _timeZone(timeZoneWrap);
+      Optional.ofNullable(timeZoneWrap.getO()).ifPresent(o -> {
+        setTimeZone(o);
+      });
+    }
+    return (FishingTrip)this;
+  }
 
-	public static String staticSearchTimeZone(SiteRequest siteRequest_, String o) {
-		return o;
-	}
+  public static String staticSearchTimeZone(SiteRequest siteRequest_, String o) {
+    return o;
+  }
 
-	public static String staticSearchStrTimeZone(SiteRequest siteRequest_, String o) {
-		return o == null ? null : o.toString();
-	}
+  public static String staticSearchStrTimeZone(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
 
-	public static String staticSearchFqTimeZone(SiteRequest siteRequest_, String o) {
-		return FishingTrip.staticSearchTimeZone(siteRequest_, FishingTrip.staticSetTimeZone(siteRequest_, o)).toString();
-	}
+  public static String staticSearchFqTimeZone(SiteRequest siteRequest_, String o) {
+    return FishingTrip.staticSearchTimeZone(siteRequest_, FishingTrip.staticSetTimeZone(siteRequest_, o)).toString();
+  }
 
-	public String sqlTimeZone() {
-		return timeZone;
-	}
+  public String sqlTimeZone() {
+    return timeZone;
+  }
+
+  public static String staticJsonTimeZone(String timeZone) {
+    return timeZone;
+  }
 
 	///////////////////
-	// departureDate //
+  // departureDate //
 	///////////////////
 
 
-	/**	 The entity departureDate
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
-	@JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
-	@JsonInclude(Include.NON_NULL)
-	protected ZonedDateTime departureDate;
+  /**
+   *  The entity departureDate
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
+  @JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
+  @JsonInclude(Include.NON_NULL)
+  protected ZonedDateTime departureDate;
 
-	/**	<br> The entity departureDate
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:departureDate">Find the entity departureDate in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _departureDate(Wrap<ZonedDateTime> w);
+  /**
+   * <br> The entity departureDate
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:departureDate">Find the entity departureDate in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _departureDate(Wrap<ZonedDateTime> w);
 
-	public ZonedDateTime getDepartureDate() {
-		return departureDate;
-	}
+  public ZonedDateTime getDepartureDate() {
+    return departureDate;
+  }
 
-	public void setDepartureDate(ZonedDateTime departureDate) {
-		this.departureDate = Optional.ofNullable(departureDate).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
-	}
-	@JsonIgnore
-	public void setDepartureDate(Instant o) {
-		this.departureDate = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
-	}
-	/** Example: 2011-12-03T10:15:30+01:00 **/
-	@JsonIgnore
-	public void setDepartureDate(String o) {
-		ZoneId zoneId = Optional.ofNullable(timeZone).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")));
-		this.departureDate = FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId);
-	}
-	@JsonIgnore
-	public void setDepartureDate(Date o) {
-		this.departureDate = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
-	}
-	public static ZonedDateTime staticSetDepartureDate(SiteRequest siteRequest_, String o, ZoneId zoneId) {
-		if(StringUtils.endsWith(o, "]"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
-		else if(StringUtils.endsWith(o, "Z"))
-			return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
-		else if(StringUtils.contains(o, "T"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
-		else
-			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
-	}
-	protected FishingTrip departureDateInit() {
-		Wrap<ZonedDateTime> departureDateWrap = new Wrap<ZonedDateTime>().var("departureDate");
-		if(departureDate == null) {
-			_departureDate(departureDateWrap);
-			Optional.ofNullable(departureDateWrap.getO()).ifPresent(o -> {
-				setDepartureDate(o);
-			});
-		}
-		return (FishingTrip)this;
-	}
+  public void setDepartureDate(ZonedDateTime departureDate) {
+    this.departureDate = Optional.ofNullable(departureDate).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
+  }
+  @JsonIgnore
+  public void setDepartureDate(Instant o) {
+    this.departureDate = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
+  }
+  /** Example: 2011-12-03T10:15:30+01:00 **/
+  @JsonIgnore
+  public void setDepartureDate(String o) {
+    ZoneId zoneId = Optional.ofNullable(timeZone).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")));
+    this.departureDate = FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId);
+  }
+  @JsonIgnore
+  public void setDepartureDate(Date o) {
+    this.departureDate = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
+  }
+  public static ZonedDateTime staticSetDepartureDate(SiteRequest siteRequest_, String o, ZoneId zoneId) {
+    if(StringUtils.endsWith(o, "]"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
+    else if(StringUtils.endsWith(o, "Z"))
+      return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
+    else if(StringUtils.contains(o, "T"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
+    else
+      return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
+  }
+  protected FishingTrip departureDateInit() {
+    Wrap<ZonedDateTime> departureDateWrap = new Wrap<ZonedDateTime>().var("departureDate");
+    if(departureDate == null) {
+      _departureDate(departureDateWrap);
+      Optional.ofNullable(departureDateWrap.getO()).ifPresent(o -> {
+        setDepartureDate(o);
+      });
+    }
+    return (FishingTrip)this;
+  }
 
-	public static String staticSearchDepartureDate(SiteRequest siteRequest_, ZonedDateTime o) {
-		return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
-	}
+  public static String staticSearchDepartureDate(SiteRequest siteRequest_, ZonedDateTime o) {
+    return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
+  }
 
-	public static String staticSearchStrDepartureDate(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId));
-	}
+  public static String staticSearchStrDepartureDate(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId));
+  }
 
-	public static String staticSearchFqDepartureDate(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId)).toString();
-	}
+  public static String staticSearchFqDepartureDate(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return FishingTrip.staticSearchDepartureDate(siteRequest_, FishingTrip.staticSetDepartureDate(siteRequest_, o, zoneId)).toString();
+  }
 
-	public OffsetDateTime sqlDepartureDate() {
-		return departureDate == null ? null : departureDate.toOffsetDateTime();
-	}
+  public OffsetDateTime sqlDepartureDate() {
+    return departureDate == null ? null : departureDate.toOffsetDateTime();
+  }
 
-	/////////////////
-	// arrivalDate //
-	/////////////////
-
-
-	/**	 The entity arrivalDate
-	 *	 is defined as null before being initialized. 
-	 */
-	@JsonProperty
-	@JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
-	@JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
-	@JsonInclude(Include.NON_NULL)
-	protected ZonedDateTime arrivalDate;
-
-	/**	<br> The entity arrivalDate
-	 *  is defined as null before being initialized. 
-	 * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:arrivalDate">Find the entity arrivalDate in Solr</a>
-	 * <br>
-	 * @param w is for wrapping a value to assign to this entity during initialization. 
-	 **/
-	protected abstract void _arrivalDate(Wrap<ZonedDateTime> w);
-
-	public ZonedDateTime getArrivalDate() {
-		return arrivalDate;
-	}
-
-	public void setArrivalDate(ZonedDateTime arrivalDate) {
-		this.arrivalDate = Optional.ofNullable(arrivalDate).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
-	}
-	@JsonIgnore
-	public void setArrivalDate(Instant o) {
-		this.arrivalDate = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
-	}
-	/** Example: 2011-12-03T10:15:30+01:00 **/
-	@JsonIgnore
-	public void setArrivalDate(String o) {
-		ZoneId zoneId = Optional.ofNullable(timeZone).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")));
-		this.arrivalDate = FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId);
-	}
-	@JsonIgnore
-	public void setArrivalDate(Date o) {
-		this.arrivalDate = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
-	}
-	public static ZonedDateTime staticSetArrivalDate(SiteRequest siteRequest_, String o, ZoneId zoneId) {
-		if(StringUtils.endsWith(o, "]"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
-		else if(StringUtils.endsWith(o, "Z"))
-			return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
-		else if(StringUtils.contains(o, "T"))
-			return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
-		else
-			return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
-	}
-	protected FishingTrip arrivalDateInit() {
-		Wrap<ZonedDateTime> arrivalDateWrap = new Wrap<ZonedDateTime>().var("arrivalDate");
-		if(arrivalDate == null) {
-			_arrivalDate(arrivalDateWrap);
-			Optional.ofNullable(arrivalDateWrap.getO()).ifPresent(o -> {
-				setArrivalDate(o);
-			});
-		}
-		return (FishingTrip)this;
-	}
-
-	public static String staticSearchArrivalDate(SiteRequest siteRequest_, ZonedDateTime o) {
-		return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
-	}
-
-	public static String staticSearchStrArrivalDate(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId));
-	}
-
-	public static String staticSearchFqArrivalDate(SiteRequest siteRequest_, String o) {
-		ZoneId zoneId = ZoneId.of("UTC");
-		return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId)).toString();
-	}
-
-	public OffsetDateTime sqlArrivalDate() {
-		return arrivalDate == null ? null : arrivalDate.toOffsetDateTime();
-	}
-
-	//////////////
-	// initDeep //
-	//////////////
-
-	public Future<FishingTripGen<DEV>> promiseDeepFishingTrip(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFishingTrip();
-	}
-
-	public Future<FishingTripGen<DEV>> promiseDeepFishingTrip() {
-		Promise<FishingTripGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFishingTrip(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	public Future<Void> promiseFishingTrip(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				timeZoneInit();
-				departureDateInit();
-				arrivalDateInit();
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
-
-	@Override public Future<? extends FishingTripGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFishingTrip(siteRequest_);
-	}
+  public static String staticJsonDepartureDate(ZonedDateTime departureDate) {
+    return Optional.ofNullable(departureDate).map(v -> v.format(ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER)).orElse(null);
+  }
 
 	/////////////////
-	// siteRequest //
+  // arrivalDate //
 	/////////////////
 
-	public void siteRequestFishingTrip(SiteRequest siteRequest_) {
-			super.siteRequestMapModel(siteRequest_);
+
+  /**
+   *  The entity arrivalDate
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonDeserialize(using = ComputateZonedDateTimeDeserializer.class)
+  @JsonSerialize(using = ComputateZonedDateTimeSerializer.class)
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSV'['VV']'")
+  @JsonInclude(Include.NON_NULL)
+  protected ZonedDateTime arrivalDate;
+
+  /**
+   * <br> The entity arrivalDate
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip&fq=entiteVar_enUS_indexed_string:arrivalDate">Find the entity arrivalDate in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _arrivalDate(Wrap<ZonedDateTime> w);
+
+  public ZonedDateTime getArrivalDate() {
+    return arrivalDate;
+  }
+
+  public void setArrivalDate(ZonedDateTime arrivalDate) {
+    this.arrivalDate = Optional.ofNullable(arrivalDate).map(v -> v.truncatedTo(ChronoUnit.MILLIS)).orElse(null);
+  }
+  @JsonIgnore
+  public void setArrivalDate(Instant o) {
+    this.arrivalDate = o == null ? null : ZonedDateTime.from(o).truncatedTo(ChronoUnit.MILLIS);
+  }
+  /** Example: 2011-12-03T10:15:30+01:00 **/
+  @JsonIgnore
+  public void setArrivalDate(String o) {
+    ZoneId zoneId = Optional.ofNullable(timeZone).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")));
+    this.arrivalDate = FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId);
+  }
+  @JsonIgnore
+  public void setArrivalDate(Date o) {
+    this.arrivalDate = o == null ? null : ZonedDateTime.ofInstant(o.toInstant(), ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))).truncatedTo(ChronoUnit.MILLIS);
+  }
+  public static ZonedDateTime staticSetArrivalDate(SiteRequest siteRequest_, String o, ZoneId zoneId) {
+    if(StringUtils.endsWith(o, "]"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER);
+    else if(StringUtils.endsWith(o, "Z"))
+      return o == null ? null : Instant.parse(o).atZone(zoneId).truncatedTo(ChronoUnit.MILLIS);
+    else if(StringUtils.contains(o, "T"))
+      return o == null ? null : ZonedDateTime.parse(o, ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER).truncatedTo(ChronoUnit.MILLIS);
+    else
+      return o == null ? null : LocalDate.parse(o, DateTimeFormatter.ISO_DATE).atStartOfDay(zoneId).truncatedTo(ChronoUnit.MILLIS);
+  }
+  protected FishingTrip arrivalDateInit() {
+    Wrap<ZonedDateTime> arrivalDateWrap = new Wrap<ZonedDateTime>().var("arrivalDate");
+    if(arrivalDate == null) {
+      _arrivalDate(arrivalDateWrap);
+      Optional.ofNullable(arrivalDateWrap.getO()).ifPresent(o -> {
+        setArrivalDate(o);
+      });
+    }
+    return (FishingTrip)this;
+  }
+
+  public static String staticSearchArrivalDate(SiteRequest siteRequest_, ZonedDateTime o) {
+    return o == null ? null : ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER.format(o.toInstant().atOffset(ZoneOffset.UTC));
+  }
+
+  public static String staticSearchStrArrivalDate(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId));
+  }
+
+  public static String staticSearchFqArrivalDate(SiteRequest siteRequest_, String o) {
+    ZoneId zoneId = ZoneId.of("UTC");
+    return FishingTrip.staticSearchArrivalDate(siteRequest_, FishingTrip.staticSetArrivalDate(siteRequest_, o, zoneId)).toString();
+  }
+
+  public OffsetDateTime sqlArrivalDate() {
+    return arrivalDate == null ? null : arrivalDate.toOffsetDateTime();
+  }
+
+  public static String staticJsonArrivalDate(ZonedDateTime arrivalDate) {
+    return Optional.ofNullable(arrivalDate).map(v -> v.format(ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER)).orElse(null);
+  }
+
+  //////////////
+  // initDeep //
+  //////////////
+
+  public Future<FishingTripGen<DEV>> promiseDeepFishingTrip(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFishingTrip();
+  }
+
+  public Future<FishingTripGen<DEV>> promiseDeepFishingTrip() {
+    Promise<FishingTripGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFishingTrip(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepMapModel(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
+
+  public Future<Void> promiseFishingTrip(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        timeZoneInit();
+        departureDateInit();
+        arrivalDateInit();
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
+
+  @Override public Future<? extends FishingTripGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFishingTrip(siteRequest_);
+  }
+
+  /////////////////
+  // siteRequest //
+  /////////////////
+
+  public void siteRequestFishingTrip(SiteRequest siteRequest_) {
+      super.siteRequestMapModel(siteRequest_);
+  }
+
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFishingTrip(siteRequest_);
+  }
+
+  /////////////
+  // obtain //
+  /////////////
+
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFishingTrip(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFishingTrip(String var) {
+    FishingTrip oFishingTrip = (FishingTrip)this;
+    switch(var) {
+      case "timeZone":
+        return oFishingTrip.timeZone;
+      case "departureDate":
+        return oFishingTrip.departureDate;
+      case "arrivalDate":
+        return oFishingTrip.arrivalDate;
+      default:
+        return super.obtainMapModel(var);
+    }
+  }
+
+  ///////////////
+  // relate //
+  ///////////////
+
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFishingTrip(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFishingTrip(String var, Object val) {
+    FishingTrip oFishingTrip = (FishingTrip)this;
+    switch(var) {
+      case "timeZone":
+        if(oFishingTrip.getTimeZone() == null)
+          oFishingTrip.setTimeZone(Optional.ofNullable(val).map(v -> v.toString()).orElse(null));
+        if(!saves.contains("timeZone"))
+          saves.add("timeZone");
+        return val;
+      default:
+        return super.relateMapModel(var, val);
+    }
+  }
+
+  ///////////////
+  // staticSet //
+  ///////////////
+
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingTrip o) {
+    return staticSetFishingTrip(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFishingTrip(String entityVar, SiteRequest siteRequest_, String v, FishingTrip o) {
+    switch(entityVar) {
+    case "timeZone":
+      return FishingTrip.staticSetTimeZone(siteRequest_, v);
+    case "departureDate":
+      return FishingTrip.staticSetDepartureDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+    case "arrivalDate":
+      return FishingTrip.staticSetArrivalDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      default:
+        return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
+    }
+  }
+
+  ////////////////
+  // staticSearch //
+  ////////////////
+
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFishingTrip(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFishingTrip(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "timeZone":
+      return FishingTrip.staticSearchTimeZone(siteRequest_, (String)o);
+    case "departureDate":
+      return FishingTrip.staticSearchDepartureDate(siteRequest_, (ZonedDateTime)o);
+    case "arrivalDate":
+      return FishingTrip.staticSearchArrivalDate(siteRequest_, (ZonedDateTime)o);
+      default:
+        return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
+    }
+  }
+
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
+
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFishingTrip(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFishingTrip(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+    case "timeZone":
+      return FishingTrip.staticSearchStrTimeZone(siteRequest_, (String)o);
+    case "departureDate":
+      return FishingTrip.staticSearchStrDepartureDate(siteRequest_, (String)o);
+    case "arrivalDate":
+      return FishingTrip.staticSearchStrArrivalDate(siteRequest_, (String)o);
+      default:
+        return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
+    }
+  }
+
+  //////////////////
+  // staticSearchFq //
+  //////////////////
+
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFishingTrip(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFishingTrip(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+    case "timeZone":
+      return FishingTrip.staticSearchFqTimeZone(siteRequest_, o);
+    case "departureDate":
+      return FishingTrip.staticSearchFqDepartureDate(siteRequest_, o);
+    case "arrivalDate":
+      return FishingTrip.staticSearchFqArrivalDate(siteRequest_, o);
+      default:
+        return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
+    }
+  }
+
+  /////////////
+  // persist //
+  /////////////
+
+  @Override public boolean persistForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    if(val != null) {
+      for(String v : vars) {
+        if(o == null)
+          o = persistFishingTrip(v, val);
+        else if(o instanceof BaseModel) {
+          BaseModel oBaseModel = (BaseModel)o;
+          o = oBaseModel.persistForClass(v, val);
+        }
+      }
+    }
+    return o != null;
+  }
+  public Object persistFishingTrip(String var, Object val) {
+    String varLower = var.toLowerCase();
+      if("timezone".equals(varLower)) {
+        if(val instanceof String) {
+          setTimeZone((String)val);
+        }
+        saves.add("timeZone");
+        return val;
+      } else if("departuredate".equals(varLower)) {
+        if(val instanceof String) {
+          setDepartureDate((String)val);
+        } else if(val instanceof OffsetDateTime) {
+          setDepartureDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        }
+        saves.add("departureDate");
+        return val;
+      } else if("arrivaldate".equals(varLower)) {
+        if(val instanceof String) {
+          setArrivalDate((String)val);
+        } else if(val instanceof OffsetDateTime) {
+          setArrivalDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        }
+        saves.add("arrivalDate");
+        return val;
+    } else {
+      return super.persistMapModel(var, val);
+    }
+  }
+
+  /////////////
+  // populate //
+  /////////////
+
+  @Override public void populateForClass(SolrResponse.Doc doc) {
+    populateFishingTrip(doc);
+  }
+  public void populateFishingTrip(SolrResponse.Doc doc) {
+    FishingTrip oFishingTrip = (FishingTrip)this;
+    saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
+    if(saves != null) {
+
+      String timeZone = (String)doc.get("timeZone_docvalues_string");
+      if(timeZone != null)
+        oFishingTrip.setTimeZone(timeZone);
+
+      if(saves.contains("departureDate")) {
+        String departureDate = (String)doc.get("departureDate_docvalues_date");
+        if(departureDate != null)
+          oFishingTrip.setDepartureDate(departureDate);
+      }
+
+      if(saves.contains("arrivalDate")) {
+        String arrivalDate = (String)doc.get("arrivalDate_docvalues_date");
+        if(arrivalDate != null)
+          oFishingTrip.setArrivalDate(arrivalDate);
+      }
+    }
+
+    super.populateMapModel(doc);
+  }
+
+  public void indexFishingTrip(JsonObject doc) {
+    if(timeZone != null) {
+      doc.put("timeZone_docvalues_string", timeZone);
+    }
+    if(departureDate != null) {
+      doc.put("departureDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(departureDate.toInstant(), ZoneId.of("UTC"))));
+    }
+    if(arrivalDate != null) {
+      doc.put("arrivalDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(arrivalDate.toInstant(), ZoneId.of("UTC"))));
+    }
+    super.indexMapModel(doc);
+
 	}
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFishingTrip(siteRequest_);
-	}
+  public static String varStoredFishingTrip(String entityVar) {
+    switch(entityVar) {
+      case "timeZone":
+        return "timeZone_docvalues_string";
+      case "departureDate":
+        return "departureDate_docvalues_date";
+      case "arrivalDate":
+        return "arrivalDate_docvalues_date";
+      default:
+        return MapModel.varStoredMapModel(entityVar);
+    }
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  public static String varIndexedFishingTrip(String entityVar) {
+    switch(entityVar) {
+      case "timeZone":
+        return "timeZone_docvalues_string";
+      case "departureDate":
+        return "departureDate_docvalues_date";
+      case "arrivalDate":
+        return "arrivalDate_docvalues_date";
+      default:
+        return MapModel.varIndexedMapModel(entityVar);
+    }
+  }
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFishingTrip(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFishingTrip(String var) {
-		FishingTrip oFishingTrip = (FishingTrip)this;
-		switch(var) {
-			case "timeZone":
-				return oFishingTrip.timeZone;
-			case "departureDate":
-				return oFishingTrip.departureDate;
-			case "arrivalDate":
-				return oFishingTrip.arrivalDate;
-			default:
-				return super.obtainMapModel(var);
-		}
-	}
+  public static String searchVarFishingTrip(String searchVar) {
+    switch(searchVar) {
+      case "timeZone_docvalues_string":
+        return "timeZone";
+      case "departureDate_docvalues_date":
+        return "departureDate";
+      case "arrivalDate_docvalues_date":
+        return "arrivalDate";
+      default:
+        return MapModel.searchVarMapModel(searchVar);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  public static String varSearchFishingTrip(String entityVar) {
+    switch(entityVar) {
+      default:
+        return MapModel.varSearchMapModel(entityVar);
+    }
+  }
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFishingTrip(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFishingTrip(String var, Object val) {
-		FishingTrip oFishingTrip = (FishingTrip)this;
-		switch(var) {
-			case "timeZone":
-				if(oFishingTrip.getTimeZone() == null)
-					oFishingTrip.setTimeZone(Optional.ofNullable(val).map(v -> v.toString()).orElse(null));
-				if(!saves.contains("timeZone"))
-					saves.add("timeZone");
-				return val;
-			default:
-				return super.relateMapModel(var, val);
-		}
-	}
+  public static String varSuggestedFishingTrip(String entityVar) {
+    switch(entityVar) {
+      default:
+        return MapModel.varSuggestedMapModel(entityVar);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  /////////////
+  // store //
+  /////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingTrip o) {
-		return staticSetFishingTrip(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFishingTrip(String entityVar, SiteRequest siteRequest_, String v, FishingTrip o) {
-		switch(entityVar) {
-		case "timeZone":
-			return FishingTrip.staticSetTimeZone(siteRequest_, v);
-		case "departureDate":
-			return FishingTrip.staticSetDepartureDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-		case "arrivalDate":
-			return FishingTrip.staticSetArrivalDate(siteRequest_, v, Optional.ofNullable(o.getTimeZone()).map(zoneId -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest_).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-			default:
-				return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
-		}
-	}
+  @Override public void storeForClass(SolrResponse.Doc doc) {
+    storeFishingTrip(doc);
+  }
+  public void storeFishingTrip(SolrResponse.Doc doc) {
+    FishingTrip oFishingTrip = (FishingTrip)this;
+    SiteRequest siteRequest = oFishingTrip.getSiteRequest_();
 
-	////////////////
-	// staticSearch //
-	////////////////
+    oFishingTrip.setTimeZone(Optional.ofNullable(doc.get("timeZone_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishingTrip.setDepartureDate(Optional.ofNullable(doc.get("departureDate_docvalues_date")).map(v -> v.toString()).orElse(null));
+    oFishingTrip.setArrivalDate(Optional.ofNullable(doc.get("arrivalDate_docvalues_date")).map(v -> v.toString()).orElse(null));
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFishingTrip(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFishingTrip(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "timeZone":
-			return FishingTrip.staticSearchTimeZone(siteRequest_, (String)o);
-		case "departureDate":
-			return FishingTrip.staticSearchDepartureDate(siteRequest_, (ZonedDateTime)o);
-		case "arrivalDate":
-			return FishingTrip.staticSearchArrivalDate(siteRequest_, (ZonedDateTime)o);
-			default:
-				return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
-		}
-	}
+    super.storeMapModel(doc);
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  //////////////////
+  // apiRequest //
+  //////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFishingTrip(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFishingTrip(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-		case "timeZone":
-			return FishingTrip.staticSearchStrTimeZone(siteRequest_, (String)o);
-		case "departureDate":
-			return FishingTrip.staticSearchStrDepartureDate(siteRequest_, (String)o);
-		case "arrivalDate":
-			return FishingTrip.staticSearchStrArrivalDate(siteRequest_, (String)o);
-			default:
-				return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
-		}
-	}
+  public void apiRequestFishingTrip() {
+    ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(r -> r.getApiRequest_()).orElse(null);
+    Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
+    if(o != null && o instanceof FishingTrip) {
+      FishingTrip original = (FishingTrip)o;
+      if(!Objects.equals(timeZone, original.getTimeZone()))
+        apiRequest.addVars("timeZone");
+      if(!Objects.equals(departureDate, original.getDepartureDate()))
+        apiRequest.addVars("departureDate");
+      if(!Objects.equals(arrivalDate, original.getArrivalDate()))
+        apiRequest.addVars("arrivalDate");
+      super.apiRequestMapModel();
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////
+  // toString //
+  //////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFishingTrip(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFishingTrip(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-		case "timeZone":
-			return FishingTrip.staticSearchFqTimeZone(siteRequest_, o);
-		case "departureDate":
-			return FishingTrip.staticSearchFqDepartureDate(siteRequest_, o);
-		case "arrivalDate":
-			return FishingTrip.staticSearchFqArrivalDate(siteRequest_, o);
-			default:
-				return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
-		}
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    sb.append(Optional.ofNullable(timeZone).map(v -> "timeZone: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(departureDate).map(v -> "departureDate: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(arrivalDate).map(v -> "arrivalDate: " + v + "\n").orElse(""));
+    return sb.toString();
+  }
 
-	/////////////
-	// persist //
-	/////////////
+  public static final String CLASS_SIMPLE_NAME = "FishingTrip";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip";
+  public static final String CLASS_AUTH_RESOURCE = "FISHINGTRIP";
+  public static final String CLASS_API_ADDRESS_FishingTrip = "smart-aquaculture-enUS-FishingTrip";
+  public static String getClassApiAddress() {
+    return CLASS_API_ADDRESS_FishingTrip;
+  }
+  public static final String VAR_timeZone = "timeZone";
+  public static final String VAR_departureDate = "departureDate";
+  public static final String VAR_arrivalDate = "arrivalDate";
 
-	@Override public boolean persistForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		if(val != null) {
-			for(String v : vars) {
-				if(o == null)
-					o = persistFishingTrip(v, val);
-				else if(o instanceof BaseModel) {
-					BaseModel oBaseModel = (BaseModel)o;
-					o = oBaseModel.persistForClass(v, val);
-				}
-			}
-		}
-		return o != null;
-	}
-	public Object persistFishingTrip(String var, Object val) {
-		String varLower = var.toLowerCase();
-			if("timezone".equals(varLower)) {
-				if(val instanceof String) {
-					setTimeZone((String)val);
-				}
-				saves.add("timeZone");
-				return val;
-			} else if("departuredate".equals(varLower)) {
-				if(val instanceof String) {
-					setDepartureDate((String)val);
-				} else if(val instanceof OffsetDateTime) {
-					setDepartureDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
-				}
-				saves.add("departureDate");
-				return val;
-			} else if("arrivaldate".equals(varLower)) {
-				if(val instanceof String) {
-					setArrivalDate((String)val);
-				} else if(val instanceof OffsetDateTime) {
-					setArrivalDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
-				}
-				saves.add("arrivalDate");
-				return val;
-		} else {
-			return super.persistMapModel(var, val);
-		}
-	}
+  public static List<String> varsQForClass() {
+    return FishingTrip.varsQFishingTrip(new ArrayList<String>());
+  }
+  public static List<String> varsQFishingTrip(List<String> vars) {
+    MapModel.varsQMapModel(vars);
+    return vars;
+  }
 
-	/////////////
-	// populate //
-	/////////////
+  public static List<String> varsFqForClass() {
+    return FishingTrip.varsFqFishingTrip(new ArrayList<String>());
+  }
+  public static List<String> varsFqFishingTrip(List<String> vars) {
+    vars.add(VAR_timeZone);
+    vars.add(VAR_departureDate);
+    vars.add(VAR_arrivalDate);
+    MapModel.varsFqMapModel(vars);
+    return vars;
+  }
 
-	@Override public void populateForClass(SolrResponse.Doc doc) {
-		populateFishingTrip(doc);
-	}
-	public void populateFishingTrip(SolrResponse.Doc doc) {
-		FishingTrip oFishingTrip = (FishingTrip)this;
-		saves = Optional.ofNullable((ArrayList<String>)doc.get("saves_docvalues_strings")).orElse(new ArrayList<String>());
-		if(saves != null) {
+  public static List<String> varsRangeForClass() {
+    return FishingTrip.varsRangeFishingTrip(new ArrayList<String>());
+  }
+  public static List<String> varsRangeFishingTrip(List<String> vars) {
+    vars.add(VAR_departureDate);
+    vars.add(VAR_arrivalDate);
+    MapModel.varsRangeMapModel(vars);
+    return vars;
+  }
 
-			String timeZone = (String)doc.get("timeZone_docvalues_string");
-			if(timeZone != null)
-				oFishingTrip.setTimeZone(timeZone);
+  public static final String DISPLAY_NAME_timeZone = "time zone";
+  public static final String DISPLAY_NAME_departureDate = "departure date";
+  public static final String DISPLAY_NAME_arrivalDate = "arrival date";
 
-			if(saves.contains("departureDate")) {
-				String departureDate = (String)doc.get("departureDate_docvalues_date");
-				if(departureDate != null)
-					oFishingTrip.setDepartureDate(departureDate);
-			}
+  @Override
+  public String idForClass() {
+    return entityShortId;
+  }
 
-			if(saves.contains("arrivalDate")) {
-				String arrivalDate = (String)doc.get("arrivalDate_docvalues_date");
-				if(arrivalDate != null)
-					oFishingTrip.setArrivalDate(arrivalDate);
-			}
-		}
+  @Override
+  public String titleForClass() {
+    return objectTitle;
+  }
 
-		super.populateMapModel(doc);
-	}
+  @Override
+  public String nameForClass() {
+    return name;
+  }
 
-	public void indexFishingTrip(JsonObject doc) {
-		if(timeZone != null) {
-			doc.put("timeZone_docvalues_string", timeZone);
-		}
-		if(departureDate != null) {
-			doc.put("departureDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(departureDate.toInstant(), ZoneId.of("UTC"))));
-		}
-		if(arrivalDate != null) {
-			doc.put("arrivalDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(arrivalDate.toInstant(), ZoneId.of("UTC"))));
-		}
-		super.indexMapModel(doc);
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return FishingTrip.NameAdjectiveSingular_enUS;
+  }
 
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	public static String varStoredFishingTrip(String entityVar) {
-		switch(entityVar) {
-			case "timeZone":
-				return "timeZone_docvalues_string";
-			case "departureDate":
-				return "departureDate_docvalues_date";
-			case "arrivalDate":
-				return "arrivalDate_docvalues_date";
-			default:
-				return MapModel.varStoredMapModel(entityVar);
-		}
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return "%s/en-us/edit/fishing-trip/%s";
+  }
 
-	public static String varIndexedFishingTrip(String entityVar) {
-		switch(entityVar) {
-			case "timeZone":
-				return "timeZone_docvalues_string";
-			case "departureDate":
-				return "departureDate_docvalues_date";
-			case "arrivalDate":
-				return "arrivalDate_docvalues_date";
-			default:
-				return MapModel.varIndexedMapModel(entityVar);
-		}
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	public static String searchVarFishingTrip(String searchVar) {
-		switch(searchVar) {
-			case "timeZone_docvalues_string":
-				return "timeZone";
-			case "departureDate_docvalues_date":
-				return "departureDate";
-			case "arrivalDate_docvalues_date":
-				return "arrivalDate";
-			default:
-				return MapModel.searchVarMapModel(searchVar);
-		}
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	public static String varSearchFishingTrip(String entityVar) {
-		switch(entityVar) {
-			default:
-				return MapModel.varSearchMapModel(entityVar);
-		}
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String varSuggestedFishingTrip(String entityVar) {
-		switch(entityVar) {
-			default:
-				return MapModel.varSuggestedMapModel(entityVar);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return FishingTrip.displayNameFishingTrip(var);
+  }
+  public static String displayNameFishingTrip(String var) {
+    switch(var) {
+    case VAR_timeZone:
+      return DISPLAY_NAME_timeZone;
+    case VAR_departureDate:
+      return DISPLAY_NAME_departureDate;
+    case VAR_arrivalDate:
+      return DISPLAY_NAME_arrivalDate;
+    default:
+      return MapModel.displayNameMapModel(var);
+    }
+  }
 
-	/////////////
-	// store //
-	/////////////
+  public static String descriptionFishingTrip(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+    case VAR_timeZone:
+      return "The local time zone the fishing trip departure and arrival dates are based on. ";
+    case VAR_departureDate:
+      return "The date and time the fishing trip departed. ";
+    case VAR_arrivalDate:
+      return "The date and time the fishing trip returned. ";
+      default:
+        return MapModel.descriptionMapModel(var);
+    }
+  }
 
-	@Override public void storeForClass(SolrResponse.Doc doc) {
-		storeFishingTrip(doc);
-	}
-	public void storeFishingTrip(SolrResponse.Doc doc) {
-		FishingTrip oFishingTrip = (FishingTrip)this;
-		SiteRequest siteRequest = oFishingTrip.getSiteRequest_();
+  public static String classSimpleNameFishingTrip(String var) {
+    switch(var) {
+    case VAR_timeZone:
+      return "String";
+    case VAR_departureDate:
+      return "ZonedDateTime";
+    case VAR_arrivalDate:
+      return "ZonedDateTime";
+      default:
+        return MapModel.classSimpleNameMapModel(var);
+    }
+  }
 
-		oFishingTrip.setTimeZone(Optional.ofNullable(doc.get("timeZone_docvalues_string")).map(v -> v.toString()).orElse(null));
-		oFishingTrip.setDepartureDate(Optional.ofNullable(doc.get("departureDate_docvalues_date")).map(v -> v.toString()).orElse(null));
-		oFishingTrip.setArrivalDate(Optional.ofNullable(doc.get("arrivalDate_docvalues_date")).map(v -> v.toString()).orElse(null));
+  public static Integer htmColumnFishingTrip(String var) {
+    switch(var) {
+    case VAR_departureDate:
+      return 1;
+    case VAR_arrivalDate:
+      return 2;
+      default:
+        return MapModel.htmColumnMapModel(var);
+    }
+  }
 
-		super.storeMapModel(doc);
-	}
+  public static Integer htmRowFishingTrip(String var) {
+    switch(var) {
+    case VAR_timeZone:
+      return 3;
+    case VAR_departureDate:
+      return 3;
+    case VAR_arrivalDate:
+      return 3;
+      default:
+        return MapModel.htmRowMapModel(var);
+    }
+  }
 
-	//////////////////
-	// apiRequest //
-	//////////////////
+  public static Integer htmCellFishingTrip(String var) {
+    switch(var) {
+    case VAR_timeZone:
+      return 0;
+    case VAR_departureDate:
+      return 1;
+    case VAR_arrivalDate:
+      return 2;
+      default:
+        return MapModel.htmCellMapModel(var);
+    }
+  }
 
-	public void apiRequestFishingTrip() {
-		ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(r -> r.getApiRequest_()).orElse(null);
-		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
-		if(o != null && o instanceof FishingTrip) {
-			FishingTrip original = (FishingTrip)o;
-			if(!Objects.equals(timeZone, original.getTimeZone()))
-				apiRequest.addVars("timeZone");
-			if(!Objects.equals(departureDate, original.getDepartureDate()))
-				apiRequest.addVars("departureDate");
-			if(!Objects.equals(arrivalDate, original.getArrivalDate()))
-				apiRequest.addVars("arrivalDate");
-			super.apiRequestMapModel();
-		}
-	}
+  public static Integer lengthMinFishingTrip(String var) {
+    switch(var) {
+      default:
+        return MapModel.lengthMinMapModel(var);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  public static Integer lengthMaxFishingTrip(String var) {
+    switch(var) {
+      default:
+        return MapModel.lengthMaxMapModel(var);
+    }
+  }
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		sb.append(Optional.ofNullable(timeZone).map(v -> "timeZone: \"" + v + "\"\n" ).orElse(""));
-		sb.append(Optional.ofNullable(departureDate).map(v -> "departureDate: " + v + "\n").orElse(""));
-		sb.append(Optional.ofNullable(arrivalDate).map(v -> "arrivalDate: " + v + "\n").orElse(""));
-		return sb.toString();
-	}
+  public static Integer maxFishingTrip(String var) {
+    switch(var) {
+      default:
+        return MapModel.maxMapModel(var);
+    }
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "FishingTrip";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip";
-	public static final String CLASS_AUTH_RESOURCE = "FISHINGTRIP";
-	public static final String CLASS_API_ADDRESS_FishingTrip = "smart-aquaculture-enUS-FishingTrip";
-	public static String getClassApiAddress() {
-		return CLASS_API_ADDRESS_FishingTrip;
-	}
-	public static final String VAR_timeZone = "timeZone";
-	public static final String VAR_departureDate = "departureDate";
-	public static final String VAR_arrivalDate = "arrivalDate";
-
-	public static List<String> varsQForClass() {
-		return FishingTrip.varsQFishingTrip(new ArrayList<String>());
-	}
-	public static List<String> varsQFishingTrip(List<String> vars) {
-		MapModel.varsQMapModel(vars);
-		return vars;
-	}
-
-	public static List<String> varsFqForClass() {
-		return FishingTrip.varsFqFishingTrip(new ArrayList<String>());
-	}
-	public static List<String> varsFqFishingTrip(List<String> vars) {
-		vars.add(VAR_timeZone);
-		vars.add(VAR_departureDate);
-		vars.add(VAR_arrivalDate);
-		MapModel.varsFqMapModel(vars);
-		return vars;
-	}
-
-	public static List<String> varsRangeForClass() {
-		return FishingTrip.varsRangeFishingTrip(new ArrayList<String>());
-	}
-	public static List<String> varsRangeFishingTrip(List<String> vars) {
-		vars.add(VAR_departureDate);
-		vars.add(VAR_arrivalDate);
-		MapModel.varsRangeMapModel(vars);
-		return vars;
-	}
-
-	public static final String DISPLAY_NAME_timeZone = "time zone";
-	public static final String DISPLAY_NAME_departureDate = "departure date";
-	public static final String DISPLAY_NAME_arrivalDate = "arrival date";
-
-	@Override
-	public String idForClass() {
-		return entityShortId;
-	}
-
-	@Override
-	public String titleForClass() {
-		return objectTitle;
-	}
-
-	@Override
-	public String nameForClass() {
-		return name;
-	}
-
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return FishingTrip.NameAdjectiveSingular_enUS;
-	}
-
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
-
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return "%s/en-us/edit/fishing-trip/%s";
-	}
-
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
-
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
-
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
-
-	public static String displayNameForClass(String var) {
-		return FishingTrip.displayNameFishingTrip(var);
-	}
-	public static String displayNameFishingTrip(String var) {
-		switch(var) {
-		case VAR_timeZone:
-			return DISPLAY_NAME_timeZone;
-		case VAR_departureDate:
-			return DISPLAY_NAME_departureDate;
-		case VAR_arrivalDate:
-			return DISPLAY_NAME_arrivalDate;
-		default:
-			return MapModel.displayNameMapModel(var);
-		}
-	}
-
-	public static String descriptionFishingTrip(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-		case VAR_timeZone:
-			return "The local time zone the fishing trip departure and arrival dates are based on. ";
-		case VAR_departureDate:
-			return "The date and time the fishing trip departed. ";
-		case VAR_arrivalDate:
-			return "The date and time the fishing trip returned. ";
-			default:
-				return MapModel.descriptionMapModel(var);
-		}
-	}
-
-	public static String classSimpleNameFishingTrip(String var) {
-		switch(var) {
-		case VAR_timeZone:
-			return "String";
-		case VAR_departureDate:
-			return "ZonedDateTime";
-		case VAR_arrivalDate:
-			return "ZonedDateTime";
-			default:
-				return MapModel.classSimpleNameMapModel(var);
-		}
-	}
-
-	public static Integer htmColumnFishingTrip(String var) {
-		switch(var) {
-		case VAR_departureDate:
-			return 1;
-		case VAR_arrivalDate:
-			return 2;
-			default:
-				return MapModel.htmColumnMapModel(var);
-		}
-	}
-
-	public static Integer htmRowFishingTrip(String var) {
-		switch(var) {
-		case VAR_timeZone:
-			return 3;
-		case VAR_departureDate:
-			return 3;
-		case VAR_arrivalDate:
-			return 3;
-			default:
-				return MapModel.htmRowMapModel(var);
-		}
-	}
-
-	public static Integer htmCellFishingTrip(String var) {
-		switch(var) {
-		case VAR_timeZone:
-			return 0;
-		case VAR_departureDate:
-			return 1;
-		case VAR_arrivalDate:
-			return 2;
-			default:
-				return MapModel.htmCellMapModel(var);
-		}
-	}
-
-	public static Integer lengthMinFishingTrip(String var) {
-		switch(var) {
-			default:
-				return MapModel.lengthMinMapModel(var);
-		}
-	}
-
-	public static Integer lengthMaxFishingTrip(String var) {
-		switch(var) {
-			default:
-				return MapModel.lengthMaxMapModel(var);
-		}
-	}
-
-	public static Integer maxFishingTrip(String var) {
-		switch(var) {
-			default:
-				return MapModel.maxMapModel(var);
-		}
-	}
-
-	public static Integer minFishingTrip(String var) {
-		switch(var) {
-			default:
-				return MapModel.minMapModel(var);
-		}
-	}
+  public static Integer minFishingTrip(String var) {
+    switch(var) {
+      default:
+        return MapModel.minMapModel(var);
+    }
+  }
 }

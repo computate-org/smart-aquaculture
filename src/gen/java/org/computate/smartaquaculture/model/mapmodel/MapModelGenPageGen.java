@@ -141,14 +141,16 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 	/////////////////////////
 
 
-  /**   The entity searchListMapModel_
+  /**
+   *  The entity searchListMapModel_
    *	 is defined as null before being initialized. 
    */
   @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected SearchList<MapModel> searchListMapModel_;
 
-  /**  <br> The entity searchListMapModel_
+  /**
+   * <br> The entity searchListMapModel_
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:searchListMapModel_">Find the entity searchListMapModel_ in Solr</a>
    * <br>
@@ -182,7 +184,8 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 	//////////////////
 
 
-  /**   The entity listMapModel
+  /**
+   *  The entity listMapModel
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -190,7 +193,8 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
   @JsonInclude(Include.NON_NULL)
   protected JsonArray listMapModel = new JsonArray();
 
-  /**  <br> The entity listMapModel
+  /**
+   * <br> The entity listMapModel
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:listMapModel">Find the entity listMapModel in Solr</a>
    * <br>
@@ -237,7 +241,8 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 	/////////////////
 
 
-  /**   The entity resultCount
+  /**
+   *  The entity resultCount
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -245,7 +250,8 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
   @JsonInclude(Include.NON_NULL)
   protected Integer resultCount;
 
-  /**  <br> The entity resultCount
+  /**
+   * <br> The entity resultCount
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:resultCount">Find the entity resultCount in Solr</a>
    * <br>
@@ -297,14 +303,16 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 	////////////
 
 
-  /**   The entity result
+  /**
+   *  The entity result
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected MapModel result;
 
-  /**  <br> The entity result
+  /**
+   * <br> The entity result
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:result">Find the entity result in Solr</a>
    * <br>
@@ -338,7 +346,8 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 	////////
 
 
-  /**   The entity pk
+  /**
+   *  The entity pk
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -346,7 +355,8 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
   @JsonInclude(Include.NON_NULL)
   protected Long pk;
 
-  /**  <br> The entity pk
+  /**
+   * <br> The entity pk
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:pk">Find the entity pk in Solr</a>
    * <br>
@@ -398,14 +408,16 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 	////////////
 
 
-  /**   The entity solrId
+  /**
+   *  The entity solrId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String solrId;
 
-  /**  <br> The entity solrId
+  /**
+   * <br> The entity solrId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:solrId">Find the entity solrId in Solr</a>
    * <br>
@@ -450,14 +462,16 @@ public abstract class MapModelGenPageGen<DEV> extends PageLayout {
 	/////////////////////
 
 
-  /**   The entity pageUriMapModel
+  /**
+   *  The entity pageUriMapModel
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String pageUriMapModel;
 
-  /**  <br> The entity pageUriMapModel
+  /**
+   * <br> The entity pageUriMapModel
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.mapmodel.MapModelGenPage&fq=entiteVar_enUS_indexed_string:pageUriMapModel">Find the entity pageUriMapModel in Solr</a>
    * <br>

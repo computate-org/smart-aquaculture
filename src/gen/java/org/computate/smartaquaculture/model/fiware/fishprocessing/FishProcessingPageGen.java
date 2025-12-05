@@ -111,308 +111,308 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class FishProcessingPageGen<DEV> extends FishProcessingGenPage {
-	protected static final Logger LOG = LoggerFactory.getLogger(FishProcessingPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FishProcessingPage.class);
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<FishProcessingPageGen<DEV>> promiseDeepFishProcessingPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFishProcessingPage();
-	}
+  public Future<FishProcessingPageGen<DEV>> promiseDeepFishProcessingPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFishProcessingPage();
+  }
 
-	public Future<FishProcessingPageGen<DEV>> promiseDeepFishProcessingPage() {
-		Promise<FishProcessingPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFishProcessingPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepFishProcessingGenPage(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<FishProcessingPageGen<DEV>> promiseDeepFishProcessingPage() {
+    Promise<FishProcessingPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFishProcessingPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepFishProcessingGenPage(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseFishProcessingPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseFishProcessingPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends FishProcessingPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFishProcessingPage(siteRequest_);
-	}
+  @Override public Future<? extends FishProcessingPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFishProcessingPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestFishProcessingPage(SiteRequest siteRequest_) {
-			super.siteRequestFishProcessingGenPage(siteRequest_);
-	}
+  public void siteRequestFishProcessingPage(SiteRequest siteRequest_) {
+      super.siteRequestFishProcessingGenPage(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFishProcessingPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFishProcessingPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFishProcessingPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFishProcessingPage(String var) {
-		FishProcessingPage oFishProcessingPage = (FishProcessingPage)this;
-		switch(var) {
-			default:
-				return super.obtainFishProcessingGenPage(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFishProcessingPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFishProcessingPage(String var) {
+    FishProcessingPage oFishProcessingPage = (FishProcessingPage)this;
+    switch(var) {
+      default:
+        return super.obtainFishProcessingGenPage(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFishProcessingPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFishProcessingPage(String var, Object val) {
-		FishProcessingPage oFishProcessingPage = (FishProcessingPage)this;
-		switch(var) {
-			default:
-				return super.relateFishProcessingGenPage(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFishProcessingPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFishProcessingPage(String var, Object val) {
+    FishProcessingPage oFishProcessingPage = (FishProcessingPage)this;
+    switch(var) {
+      default:
+        return super.relateFishProcessingGenPage(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishProcessingPage o) {
-		return staticSetFishProcessingPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFishProcessingPage(String entityVar, SiteRequest siteRequest_, String v, FishProcessingPage o) {
-		switch(entityVar) {
-			default:
-				return FishProcessingGenPage.staticSetFishProcessingGenPage(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishProcessingPage o) {
+    return staticSetFishProcessingPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFishProcessingPage(String entityVar, SiteRequest siteRequest_, String v, FishProcessingPage o) {
+    switch(entityVar) {
+      default:
+        return FishProcessingGenPage.staticSetFishProcessingGenPage(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFishProcessingPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFishProcessingPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FishProcessingGenPage.staticSearchFishProcessingGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFishProcessingPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFishProcessingPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FishProcessingGenPage.staticSearchFishProcessingGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFishProcessingPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFishProcessingPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FishProcessingGenPage.staticSearchStrFishProcessingGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFishProcessingPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFishProcessingPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FishProcessingGenPage.staticSearchStrFishProcessingGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFishProcessingPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFishProcessingPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return FishProcessingGenPage.staticSearchFqFishProcessingGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFishProcessingPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFishProcessingPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return FishProcessingGenPage.staticSearchFqFishProcessingGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "FishProcessingPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String CLASS_SIMPLE_NAME = "FishProcessingPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
 
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return FishProcessingPage.displayNameFishProcessingPage(var);
-	}
-	public static String displayNameFishProcessingPage(String var) {
-		switch(var) {
-		default:
-			return FishProcessingGenPage.displayNameFishProcessingGenPage(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return FishProcessingPage.displayNameFishProcessingPage(var);
+  }
+  public static String displayNameFishProcessingPage(String var) {
+    switch(var) {
+    default:
+      return FishProcessingGenPage.displayNameFishProcessingGenPage(var);
+    }
+  }
 
-	public static String descriptionFishProcessingPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return FishProcessingGenPage.descriptionFishProcessingGenPage(var);
-		}
-	}
+  public static String descriptionFishProcessingPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return FishProcessingGenPage.descriptionFishProcessingGenPage(var);
+    }
+  }
 
-	public static String classSimpleNameFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.classSimpleNameFishProcessingGenPage(var);
-		}
-	}
+  public static String classSimpleNameFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.classSimpleNameFishProcessingGenPage(var);
+    }
+  }
 
-	public static Integer htmColumnFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.htmColumnFishProcessingGenPage(var);
-		}
-	}
+  public static Integer htmColumnFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.htmColumnFishProcessingGenPage(var);
+    }
+  }
 
-	public static Integer htmRowFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.htmRowFishProcessingGenPage(var);
-		}
-	}
+  public static Integer htmRowFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.htmRowFishProcessingGenPage(var);
+    }
+  }
 
-	public static Integer htmCellFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.htmCellFishProcessingGenPage(var);
-		}
-	}
+  public static Integer htmCellFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.htmCellFishProcessingGenPage(var);
+    }
+  }
 
-	public static Integer lengthMinFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.lengthMinFishProcessingGenPage(var);
-		}
-	}
+  public static Integer lengthMinFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.lengthMinFishProcessingGenPage(var);
+    }
+  }
 
-	public static Integer lengthMaxFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.lengthMaxFishProcessingGenPage(var);
-		}
-	}
+  public static Integer lengthMaxFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.lengthMaxFishProcessingGenPage(var);
+    }
+  }
 
-	public static Integer maxFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.maxFishProcessingGenPage(var);
-		}
-	}
+  public static Integer maxFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.maxFishProcessingGenPage(var);
+    }
+  }
 
-	public static Integer minFishProcessingPage(String var) {
-		switch(var) {
-			default:
-				return FishProcessingGenPage.minFishProcessingGenPage(var);
-		}
-	}
+  public static Integer minFishProcessingPage(String var) {
+    switch(var) {
+      default:
+        return FishProcessingGenPage.minFishProcessingGenPage(var);
+    }
+  }
 }

@@ -15,7 +15,7 @@ import io.vertx.pgclient.data.Polygon;
  * Fiware: true
  *
  * Order: 6
- * Description: 
+ * Description: Tracking fish population counts, maturation, and incubation over time. 
  * AName: a fish population
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
  * Rows: 100
@@ -309,7 +309,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName: maturity days begin
    * Description: The range of days from birth for the fish population to become sexually mature. 
    * HtmRowTitleOpen: reproduction parameters
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 0
    **/
   protected void _maturityDaysBegin(Wrap<BigDecimal> w) {
@@ -322,7 +322,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Persist: true
    * DisplayName: maturity days end
    * Description: The range of days from birth for the fish population to become sexually mature. 
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 1
    **/
   protected void _maturityDaysEnd(Wrap<BigDecimal> w) {
@@ -336,7 +336,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName: incubation days begin
    * Description: The range of days for egg incubation. 
    * HtmRowTitleOpen: reproduction parameters
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 2
    **/
   protected void _incubationDaysBegin(Wrap<BigDecimal> w) {
@@ -349,7 +349,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Persist: true
    * DisplayName: incubation days end
    * Description: The range of days for egg incubation. 
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 3
    **/
   protected void _incubationDaysEnd(Wrap<BigDecimal> w) {
@@ -363,7 +363,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName: incubation number min
    * Description: The range of fish born after incubation. 
    * HtmRowTitleOpen: reproduction parameters
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 3
    **/
   protected void _incubationNumberMin(Wrap<BigDecimal> w) {
@@ -376,7 +376,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Persist: true
    * DisplayName: incubation number max
    * Description: The range of fish born after incubation. 
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 4
    **/
   protected void _incubationNumberMax(Wrap<BigDecimal> w) {
@@ -389,7 +389,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Persist: true
    * DisplayName: min percent of population pregnant
    * Description: The the percentage of the population that becomes pregnant at incubation time. 
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 5
    **/
   protected void _percentPopulationPregnantMin(Wrap<BigDecimal> w) {
@@ -402,7 +402,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Persist: true
    * DisplayName: max percent of population pregnant
    * Description: The the percentage of the population that becomes pregnant at incubation time. 
-   * HtmRow: 5
+   * HtmRow: 7
    * HtmCell: 6
    **/
   protected void _percentPopulationPregnantMax(Wrap<BigDecimal> w) {
@@ -416,8 +416,8 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName: populations at birth
    * Description: A list of population counts at birth. 
    * HtmRowTitleOpen: population parameters
-   * HtmRow: 6
-   * HtmCell: 0
+   * HtmRow: 7
+   * HtmCell: 8
    **/
   protected void _populationsAtBirth(List<Long> l) {
   }
@@ -428,10 +428,48 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Persist: true
    * DisplayName: populations now
    * Description: A list of population counts now, since birth. 
-   * HtmRow: 6
-   * HtmCell: 1
+   * HtmRow: 7
+   * HtmCell: 9
    **/
   protected void _populationsNow(List<Long> l) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation date
+   * Description: The date and time that incubation started for this fish population. 
+   * HtmRow: 7
+   * HtmCell: 10
+   **/
+  protected void _incubationDate(Wrap<ZonedDateTime> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: incubation days now
+   * Description: The current number of days of egg incubation. 
+   * HtmRow: 7
+   * HtmCell: 11
+   **/
+  protected void _incubationDaysNow(Wrap<BigDecimal> w) {
+    w.o(BigDecimal.ZERO);
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: previous pouplation
+   * Description: The previously known population count. 
+   * HtmRow: 7
+   * HtmCell: 12
+   **/
+  protected void _previousPopulation(Wrap<Long> w) {
+    w.o(0L);
   }
 
   /**
@@ -441,7 +479,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName: simulation
    * Description: Toggle the digital twin simulation
    * HtmRowTitleOpen: simulation parameters
-   * HtmRow: 7
+   * HtmRow: 8
    * HtmCell: 0
    **/
   protected void _simulation(Wrap<Boolean> w) {
@@ -454,36 +492,11 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Persist: true
    * DisplayName: simulation delay in milliseconds
    * Description: The number of milliseconds to asynchronously wait before the next update event is sent. 
-   * HtmRow: 7
+   * HtmRow: 8
    * HtmCell: 1
    **/
   protected void _simulationDelayMillis(Wrap<Long> w) {
     w.o(500L);
-  }
-
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * DisplayName: incubation date
-   * Description: The date and time that incubation started for this fish population. 
-   * HtmRow: 7
-   * HtmCell: 2
-   **/
-  protected void _incubationDate(Wrap<ZonedDateTime> w) {
-  }
-
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * DisplayName: incubation days now
-   * Description: The current number of days of egg incubation. 
-   * HtmRow: 7
-   * HtmCell: 3
-   **/
-  protected void _incubationDaysNow(Wrap<BigDecimal> w) {
-    w.o(BigDecimal.ZERO);
   }
 }
 

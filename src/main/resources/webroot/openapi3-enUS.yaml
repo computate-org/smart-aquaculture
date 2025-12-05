@@ -18363,6 +18363,40 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  maturityDaysBegin:
+                    type: string
+                  maturityDaysEnd:
+                    type: string
+                  incubationDaysBegin:
+                    type: string
+                  incubationDaysEnd:
+                    type: string
+                  incubationNumberMin:
+                    type: string
+                  incubationNumberMax:
+                    type: string
+                  percentPopulationPregnantMin:
+                    type: string
+                  percentPopulationPregnantMax:
+                    type: string
+                  populationsAtBirth:
+                    type: array
+                    items:
+                      type: string
+                  populationsNow:
+                    type: array
+                    items:
+                      type: string
+                  incubationDate:
+                    type: string
+                  incubationDaysNow:
+                    type: string
+                  previousPopulation:
+                    type: string
+                  simulation:
+                    type: boolean
+                  simulationDelayMillis:
+                    type: string
     PATCHFishPopulationRequest:
       allOf:
         - type: object
@@ -18523,6 +18557,131 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setMaturityDaysBegin:
+              type: string
+              nullable: true
+            removeMaturityDaysBegin:
+              type: string
+            removeAllMaturityDaysBegin:
+              type: string
+            setMaturityDaysEnd:
+              type: string
+              nullable: true
+            removeMaturityDaysEnd:
+              type: string
+            removeAllMaturityDaysEnd:
+              type: string
+            setIncubationDaysBegin:
+              type: string
+              nullable: true
+            removeIncubationDaysBegin:
+              type: string
+            removeAllIncubationDaysBegin:
+              type: string
+            setIncubationDaysEnd:
+              type: string
+              nullable: true
+            removeIncubationDaysEnd:
+              type: string
+            removeAllIncubationDaysEnd:
+              type: string
+            setIncubationNumberMin:
+              type: string
+              nullable: true
+            removeIncubationNumberMin:
+              type: string
+            removeAllIncubationNumberMin:
+              type: string
+            setIncubationNumberMax:
+              type: string
+              nullable: true
+            removeIncubationNumberMax:
+              type: string
+            removeAllIncubationNumberMax:
+              type: string
+            setPercentPopulationPregnantMin:
+              type: string
+              nullable: true
+            removePercentPopulationPregnantMin:
+              type: string
+            removeAllPercentPopulationPregnantMin:
+              type: string
+            setPercentPopulationPregnantMax:
+              type: string
+              nullable: true
+            removePercentPopulationPregnantMax:
+              type: string
+            removeAllPercentPopulationPregnantMax:
+              type: string
+            setPopulationsAtBirth:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removePopulationsAtBirth:
+              type: string
+            removeAllPopulationsAtBirth:
+              type: array
+              items:
+                type: string
+            addPopulationsAtBirth:
+              type: string
+            addAllPopulationsAtBirth:
+              type: array
+              items:
+                type: string
+            setPopulationsNow:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removePopulationsNow:
+              type: string
+            removeAllPopulationsNow:
+              type: array
+              items:
+                type: string
+            addPopulationsNow:
+              type: string
+            addAllPopulationsNow:
+              type: array
+              items:
+                type: string
+            setIncubationDate:
+              type: string
+              nullable: true
+            removeIncubationDate:
+              type: string
+            removeAllIncubationDate:
+              type: string
+            setIncubationDaysNow:
+              type: string
+              nullable: true
+            removeIncubationDaysNow:
+              type: string
+            removeAllIncubationDaysNow:
+              type: string
+            setPreviousPopulation:
+              type: string
+              nullable: true
+            removePreviousPopulation:
+              type: string
+            removeAllPreviousPopulation:
+              type: string
+            setSimulation:
+              type: boolean
+              nullable: true
+            removeSimulation:
+              type: boolean
+            removeAllSimulation:
+              type: boolean
+            setSimulationDelayMillis:
+              type: string
+              nullable: true
+            removeSimulationDelayMillis:
+              type: string
+            removeAllSimulationDelayMillis:
+              type: string
     PATCHFishPopulationResponse:
       allOf:
         - type: object
@@ -18683,6 +18842,131 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setMaturityDaysBegin:
+              type: string
+              nullable: true
+            removeMaturityDaysBegin:
+              type: string
+            removeAllMaturityDaysBegin:
+              type: string
+            setMaturityDaysEnd:
+              type: string
+              nullable: true
+            removeMaturityDaysEnd:
+              type: string
+            removeAllMaturityDaysEnd:
+              type: string
+            setIncubationDaysBegin:
+              type: string
+              nullable: true
+            removeIncubationDaysBegin:
+              type: string
+            removeAllIncubationDaysBegin:
+              type: string
+            setIncubationDaysEnd:
+              type: string
+              nullable: true
+            removeIncubationDaysEnd:
+              type: string
+            removeAllIncubationDaysEnd:
+              type: string
+            setIncubationNumberMin:
+              type: string
+              nullable: true
+            removeIncubationNumberMin:
+              type: string
+            removeAllIncubationNumberMin:
+              type: string
+            setIncubationNumberMax:
+              type: string
+              nullable: true
+            removeIncubationNumberMax:
+              type: string
+            removeAllIncubationNumberMax:
+              type: string
+            setPercentPopulationPregnantMin:
+              type: string
+              nullable: true
+            removePercentPopulationPregnantMin:
+              type: string
+            removeAllPercentPopulationPregnantMin:
+              type: string
+            setPercentPopulationPregnantMax:
+              type: string
+              nullable: true
+            removePercentPopulationPregnantMax:
+              type: string
+            removeAllPercentPopulationPregnantMax:
+              type: string
+            setPopulationsAtBirth:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removePopulationsAtBirth:
+              type: string
+            removeAllPopulationsAtBirth:
+              type: array
+              items:
+                type: string
+            addPopulationsAtBirth:
+              type: string
+            addAllPopulationsAtBirth:
+              type: array
+              items:
+                type: string
+            setPopulationsNow:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removePopulationsNow:
+              type: string
+            removeAllPopulationsNow:
+              type: array
+              items:
+                type: string
+            addPopulationsNow:
+              type: string
+            addAllPopulationsNow:
+              type: array
+              items:
+                type: string
+            setIncubationDate:
+              type: string
+              nullable: true
+            removeIncubationDate:
+              type: string
+            removeAllIncubationDate:
+              type: string
+            setIncubationDaysNow:
+              type: string
+              nullable: true
+            removeIncubationDaysNow:
+              type: string
+            removeAllIncubationDaysNow:
+              type: string
+            setPreviousPopulation:
+              type: string
+              nullable: true
+            removePreviousPopulation:
+              type: string
+            removeAllPreviousPopulation:
+              type: string
+            setSimulation:
+              type: boolean
+              nullable: true
+            removeSimulation:
+              type: boolean
+            removeAllSimulation:
+              type: boolean
+            setSimulationDelayMillis:
+              type: string
+              nullable: true
+            removeSimulationDelayMillis:
+              type: string
+            removeAllSimulationDelayMillis:
+              type: string
     POSTFishPopulationRequest:
       allOf:
         - type: object
@@ -18729,6 +19013,40 @@ components:
                 type: string
             areaServed:
               type: object
+            maturityDaysBegin:
+              type: string
+            maturityDaysEnd:
+              type: string
+            incubationDaysBegin:
+              type: string
+            incubationDaysEnd:
+              type: string
+            incubationNumberMin:
+              type: string
+            incubationNumberMax:
+              type: string
+            percentPopulationPregnantMin:
+              type: string
+            percentPopulationPregnantMax:
+              type: string
+            populationsAtBirth:
+              type: array
+              items:
+                type: string
+            populationsNow:
+              type: array
+              items:
+                type: string
+            incubationDate:
+              type: string
+            incubationDaysNow:
+              type: string
+            previousPopulation:
+              type: string
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     POSTFishPopulationResponse:
       allOf:
         - type: object
@@ -18775,6 +19093,40 @@ components:
                 type: string
             areaServed:
               type: object
+            maturityDaysBegin:
+              type: string
+            maturityDaysEnd:
+              type: string
+            incubationDaysBegin:
+              type: string
+            incubationDaysEnd:
+              type: string
+            incubationNumberMin:
+              type: string
+            incubationNumberMax:
+              type: string
+            percentPopulationPregnantMin:
+              type: string
+            percentPopulationPregnantMax:
+              type: string
+            populationsAtBirth:
+              type: array
+              items:
+                type: string
+            populationsNow:
+              type: array
+              items:
+                type: string
+            incubationDate:
+              type: string
+            incubationDaysNow:
+              type: string
+            previousPopulation:
+              type: string
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     DELETEFilterFishPopulationResponse:
       allOf:
         - type: object
@@ -18821,6 +19173,40 @@ components:
                 type: string
             areaServed:
               type: object
+            maturityDaysBegin:
+              type: string
+            maturityDaysEnd:
+              type: string
+            incubationDaysBegin:
+              type: string
+            incubationDaysEnd:
+              type: string
+            incubationNumberMin:
+              type: string
+            incubationNumberMax:
+              type: string
+            percentPopulationPregnantMin:
+              type: string
+            percentPopulationPregnantMax:
+              type: string
+            populationsAtBirth:
+              type: array
+              items:
+                type: string
+            populationsNow:
+              type: array
+              items:
+                type: string
+            incubationDate:
+              type: string
+            incubationDaysNow:
+              type: string
+            previousPopulation:
+              type: string
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     PUTImportFishPopulationRequest:
       allOf:
         - type: object
@@ -18872,6 +19258,40 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  maturityDaysBegin:
+                    type: string
+                  maturityDaysEnd:
+                    type: string
+                  incubationDaysBegin:
+                    type: string
+                  incubationDaysEnd:
+                    type: string
+                  incubationNumberMin:
+                    type: string
+                  incubationNumberMax:
+                    type: string
+                  percentPopulationPregnantMin:
+                    type: string
+                  percentPopulationPregnantMax:
+                    type: string
+                  populationsAtBirth:
+                    type: array
+                    items:
+                      type: string
+                  populationsNow:
+                    type: array
+                    items:
+                      type: string
+                  incubationDate:
+                    type: string
+                  incubationDaysNow:
+                    type: string
+                  previousPopulation:
+                    type: string
+                  simulation:
+                    type: boolean
+                  simulationDelayMillis:
+                    type: string
     PUTImportFishPopulationResponse:
       allOf:
         - type: object
@@ -18918,6 +19338,40 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  maturityDaysBegin:
+                    type: string
+                  maturityDaysEnd:
+                    type: string
+                  incubationDaysBegin:
+                    type: string
+                  incubationDaysEnd:
+                    type: string
+                  incubationNumberMin:
+                    type: string
+                  incubationNumberMax:
+                    type: string
+                  percentPopulationPregnantMin:
+                    type: string
+                  percentPopulationPregnantMax:
+                    type: string
+                  populationsAtBirth:
+                    type: array
+                    items:
+                      type: string
+                  populationsNow:
+                    type: array
+                    items:
+                      type: string
+                  incubationDate:
+                    type: string
+                  incubationDaysNow:
+                    type: string
+                  previousPopulation:
+                    type: string
+                  simulation:
+                    type: boolean
+                  simulationDelayMillis:
+                    type: string
     GETFishPopulationResponse:
       allOf:
         - $ref: "#/components/schemas/GETMapModelResponse"
@@ -18965,6 +19419,40 @@ components:
                 type: string
             areaServed:
               type: object
+            maturityDaysBegin:
+              type: string
+            maturityDaysEnd:
+              type: string
+            incubationDaysBegin:
+              type: string
+            incubationDaysEnd:
+              type: string
+            incubationNumberMin:
+              type: string
+            incubationNumberMax:
+              type: string
+            percentPopulationPregnantMin:
+              type: string
+            percentPopulationPregnantMax:
+              type: string
+            populationsAtBirth:
+              type: array
+              items:
+                type: string
+            populationsNow:
+              type: array
+              items:
+                type: string
+            incubationDate:
+              type: string
+            incubationDaysNow:
+              type: string
+            previousPopulation:
+              type: string
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     DELETEFishPopulationResponse:
       allOf:
         - type: object
@@ -19011,6 +19499,40 @@ components:
                 type: string
             areaServed:
               type: object
+            maturityDaysBegin:
+              type: string
+            maturityDaysEnd:
+              type: string
+            incubationDaysBegin:
+              type: string
+            incubationDaysEnd:
+              type: string
+            incubationNumberMin:
+              type: string
+            incubationNumberMax:
+              type: string
+            percentPopulationPregnantMin:
+              type: string
+            percentPopulationPregnantMax:
+              type: string
+            populationsAtBirth:
+              type: array
+              items:
+                type: string
+            populationsNow:
+              type: array
+              items:
+                type: string
+            incubationDate:
+              type: string
+            incubationDaysNow:
+              type: string
+            previousPopulation:
+              type: string
+            simulation:
+              type: boolean
+            simulationDelayMillis:
+              type: string
     EditPageFishPopulationResponse:
       allOf:
         - type: string

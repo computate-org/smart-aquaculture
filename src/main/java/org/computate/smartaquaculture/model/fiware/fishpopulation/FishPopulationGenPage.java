@@ -3,7 +3,7 @@
  * Fiware: true
  *
  * Order: 6
- * Description: 
+ * Description: Tracking fish population counts, maturation, and incubation over time. 
  * AName: a fish population
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
  * Rows: 100
@@ -52,10 +52,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import io.vertx.pgclient.data.Polygon;
 import java.lang.Long;
-import java.lang.Boolean;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.lang.Boolean;
 import org.computate.smartaquaculture.page.PageLayout;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -579,7 +579,7 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
 
   @Override
   protected void _pageDescription(Wrap<String> c) {
-      c.o("AName: a fish population");
+      c.o("Tracking fish population counts, maturation, and incubation over time. ");
   }
 
   @Override

@@ -3,7 +3,7 @@
  * Fiware: true
  *
  * Order: 6
- * Description: 
+ * Description: Tracking fish population counts, maturation, and incubation over time. 
  * AName: a fish population
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
  * Rows: 100

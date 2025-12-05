@@ -111,308 +111,308 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class FeederPageGen<DEV> extends FeederGenPage {
-	protected static final Logger LOG = LoggerFactory.getLogger(FeederPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FeederPage.class);
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<FeederPageGen<DEV>> promiseDeepFeederPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFeederPage();
-	}
+  public Future<FeederPageGen<DEV>> promiseDeepFeederPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFeederPage();
+  }
 
-	public Future<FeederPageGen<DEV>> promiseDeepFeederPage() {
-		Promise<FeederPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFeederPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepFeederGenPage(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<FeederPageGen<DEV>> promiseDeepFeederPage() {
+    Promise<FeederPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFeederPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepFeederGenPage(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseFeederPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseFeederPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends FeederPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFeederPage(siteRequest_);
-	}
+  @Override public Future<? extends FeederPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFeederPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestFeederPage(SiteRequest siteRequest_) {
-			super.siteRequestFeederGenPage(siteRequest_);
-	}
+  public void siteRequestFeederPage(SiteRequest siteRequest_) {
+      super.siteRequestFeederGenPage(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFeederPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFeederPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFeederPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFeederPage(String var) {
-		FeederPage oFeederPage = (FeederPage)this;
-		switch(var) {
-			default:
-				return super.obtainFeederGenPage(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFeederPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFeederPage(String var) {
+    FeederPage oFeederPage = (FeederPage)this;
+    switch(var) {
+      default:
+        return super.obtainFeederGenPage(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFeederPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFeederPage(String var, Object val) {
-		FeederPage oFeederPage = (FeederPage)this;
-		switch(var) {
-			default:
-				return super.relateFeederGenPage(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFeederPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFeederPage(String var, Object val) {
+    FeederPage oFeederPage = (FeederPage)this;
+    switch(var) {
+      default:
+        return super.relateFeederGenPage(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeederPage o) {
-		return staticSetFeederPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFeederPage(String entityVar, SiteRequest siteRequest_, String v, FeederPage o) {
-		switch(entityVar) {
-			default:
-				return FeederGenPage.staticSetFeederGenPage(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FeederPage o) {
+    return staticSetFeederPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFeederPage(String entityVar, SiteRequest siteRequest_, String v, FeederPage o) {
+    switch(entityVar) {
+      default:
+        return FeederGenPage.staticSetFeederGenPage(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFeederPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFeederPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FeederGenPage.staticSearchFeederGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFeederPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFeederPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FeederGenPage.staticSearchFeederGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFeederPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFeederPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FeederGenPage.staticSearchStrFeederGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFeederPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFeederPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FeederGenPage.staticSearchStrFeederGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFeederPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFeederPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return FeederGenPage.staticSearchFqFeederGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFeederPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFeederPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return FeederGenPage.staticSearchFqFeederGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "FeederPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feeder.FeederPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String CLASS_SIMPLE_NAME = "FeederPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.feeder.FeederPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
 
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return FeederPage.displayNameFeederPage(var);
-	}
-	public static String displayNameFeederPage(String var) {
-		switch(var) {
-		default:
-			return FeederGenPage.displayNameFeederGenPage(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return FeederPage.displayNameFeederPage(var);
+  }
+  public static String displayNameFeederPage(String var) {
+    switch(var) {
+    default:
+      return FeederGenPage.displayNameFeederGenPage(var);
+    }
+  }
 
-	public static String descriptionFeederPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return FeederGenPage.descriptionFeederGenPage(var);
-		}
-	}
+  public static String descriptionFeederPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return FeederGenPage.descriptionFeederGenPage(var);
+    }
+  }
 
-	public static String classSimpleNameFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.classSimpleNameFeederGenPage(var);
-		}
-	}
+  public static String classSimpleNameFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.classSimpleNameFeederGenPage(var);
+    }
+  }
 
-	public static Integer htmColumnFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.htmColumnFeederGenPage(var);
-		}
-	}
+  public static Integer htmColumnFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.htmColumnFeederGenPage(var);
+    }
+  }
 
-	public static Integer htmRowFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.htmRowFeederGenPage(var);
-		}
-	}
+  public static Integer htmRowFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.htmRowFeederGenPage(var);
+    }
+  }
 
-	public static Integer htmCellFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.htmCellFeederGenPage(var);
-		}
-	}
+  public static Integer htmCellFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.htmCellFeederGenPage(var);
+    }
+  }
 
-	public static Integer lengthMinFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.lengthMinFeederGenPage(var);
-		}
-	}
+  public static Integer lengthMinFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.lengthMinFeederGenPage(var);
+    }
+  }
 
-	public static Integer lengthMaxFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.lengthMaxFeederGenPage(var);
-		}
-	}
+  public static Integer lengthMaxFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.lengthMaxFeederGenPage(var);
+    }
+  }
 
-	public static Integer maxFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.maxFeederGenPage(var);
-		}
-	}
+  public static Integer maxFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.maxFeederGenPage(var);
+    }
+  }
 
-	public static Integer minFeederPage(String var) {
-		switch(var) {
-			default:
-				return FeederGenPage.minFeederGenPage(var);
-		}
-	}
+  public static Integer minFeederPage(String var) {
+    switch(var) {
+      default:
+        return FeederGenPage.minFeederGenPage(var);
+    }
+  }
 }

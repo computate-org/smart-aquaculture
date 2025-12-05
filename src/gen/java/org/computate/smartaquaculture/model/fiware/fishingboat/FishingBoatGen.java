@@ -93,6 +93,7 @@ import java.time.OffsetDateTime;
 import java.math.BigDecimal;
 import io.vertx.core.json.JsonArray;
 import io.vertx.pgclient.data.Path;
+import org.computate.vertx.tool.VertxTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
@@ -301,14 +302,16 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	//////////////
 
 
-  /**   The entity timeZone
+  /**
+   *  The entity timeZone
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String timeZone;
 
-  /**  <br> The entity timeZone
+  /**
+   * <br> The entity timeZone
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:timeZone">Find the entity timeZone in Solr</a>
    * <br>
@@ -352,19 +355,25 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return timeZone;
   }
 
+  public static String staticJsonTimeZone(String timeZone) {
+    return timeZone;
+  }
+
 	///////////////////
   // fishingDockId //
 	///////////////////
 
 
-  /**   The entity fishingDockId
+  /**
+   *  The entity fishingDockId
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected String fishingDockId;
 
-  /**  <br> The entity fishingDockId
+  /**
+   * <br> The entity fishingDockId
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:fishingDockId">Find the entity fishingDockId in Solr</a>
    * <br>
@@ -408,12 +417,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return fishingDockId;
   }
 
+  public static String staticJsonFishingDockId(String fishingDockId) {
+    return fishingDockId;
+  }
+
 	///////////////////
   // departureDate //
 	///////////////////
 
 
-  /**   The entity departureDate
+  /**
+   *  The entity departureDate
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -423,7 +437,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected ZonedDateTime departureDate;
 
-  /**  <br> The entity departureDate
+  /**
+   * <br> The entity departureDate
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:departureDate">Find the entity departureDate in Solr</a>
    * <br>
@@ -491,12 +506,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return departureDate == null ? null : departureDate.toOffsetDateTime();
   }
 
+  public static String staticJsonDepartureDate(ZonedDateTime departureDate) {
+    return Optional.ofNullable(departureDate).map(v -> v.format(ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER)).orElse(null);
+  }
+
 	/////////////////
   // arrivalDate //
 	/////////////////
 
 
-  /**   The entity arrivalDate
+  /**
+   *  The entity arrivalDate
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -506,7 +526,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected ZonedDateTime arrivalDate;
 
-  /**  <br> The entity arrivalDate
+  /**
+   * <br> The entity arrivalDate
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:arrivalDate">Find the entity arrivalDate in Solr</a>
    * <br>
@@ -574,12 +595,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return arrivalDate == null ? null : arrivalDate.toOffsetDateTime();
   }
 
+  public static String staticJsonArrivalDate(ZonedDateTime arrivalDate) {
+    return Optional.ofNullable(arrivalDate).map(v -> v.format(ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER)).orElse(null);
+  }
+
 	///////////////////
   // avgSpeedInMph //
 	///////////////////
 
 
-  /**   The entity avgSpeedInMph
+  /**
+   *  The entity avgSpeedInMph
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -587,7 +613,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected BigDecimal avgSpeedInMph;
 
-  /**  <br> The entity avgSpeedInMph
+  /**
+   * <br> The entity avgSpeedInMph
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:avgSpeedInMph">Find the entity avgSpeedInMph in Solr</a>
    * <br>
@@ -651,12 +678,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return avgSpeedInMph;
   }
 
+  public static String staticJsonAvgSpeedInMph(BigDecimal avgSpeedInMph) {
+    return Optional.ofNullable(avgSpeedInMph).map(v -> v.toString()).orElse(null);
+  }
+
 	///////////////////
   // maxSpeedInMph //
 	///////////////////
 
 
-  /**   The entity maxSpeedInMph
+  /**
+   *  The entity maxSpeedInMph
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -664,7 +696,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected BigDecimal maxSpeedInMph;
 
-  /**  <br> The entity maxSpeedInMph
+  /**
+   * <br> The entity maxSpeedInMph
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:maxSpeedInMph">Find the entity maxSpeedInMph in Solr</a>
    * <br>
@@ -728,12 +761,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return maxSpeedInMph;
   }
 
+  public static String staticJsonMaxSpeedInMph(BigDecimal maxSpeedInMph) {
+    return Optional.ofNullable(maxSpeedInMph).map(v -> v.toString()).orElse(null);
+  }
+
 	////////////////////
   // milesPerGallon //
 	////////////////////
 
 
-  /**   The entity milesPerGallon
+  /**
+   *  The entity milesPerGallon
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -741,7 +779,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected BigDecimal milesPerGallon;
 
-  /**  <br> The entity milesPerGallon
+  /**
+   * <br> The entity milesPerGallon
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:milesPerGallon">Find the entity milesPerGallon in Solr</a>
    * <br>
@@ -805,12 +844,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return milesPerGallon;
   }
 
+  public static String staticJsonMilesPerGallon(BigDecimal milesPerGallon) {
+    return Optional.ofNullable(milesPerGallon).map(v -> v.toString()).orElse(null);
+  }
+
 	//////////////////
   // gallonsOfGas //
 	//////////////////
 
 
-  /**   The entity gallonsOfGas
+  /**
+   *  The entity gallonsOfGas
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -818,7 +862,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected BigDecimal gallonsOfGas;
 
-  /**  <br> The entity gallonsOfGas
+  /**
+   * <br> The entity gallonsOfGas
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:gallonsOfGas">Find the entity gallonsOfGas in Solr</a>
    * <br>
@@ -882,12 +927,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return gallonsOfGas;
   }
 
+  public static String staticJsonGallonsOfGas(BigDecimal gallonsOfGas) {
+    return Optional.ofNullable(gallonsOfGas).map(v -> v.toString()).orElse(null);
+  }
+
 	//////////////////////
   // areaServedColors //
 	//////////////////////
 
 
-  /**   The entity areaServedColors
+  /**
+   *  The entity areaServedColors
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -895,7 +945,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected List<String> areaServedColors = new ArrayList<String>();
 
-  /**  <br> The entity areaServedColors
+  /**
+   * <br> The entity areaServedColors
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:areaServedColors">Find the entity areaServedColors in Solr</a>
    * <br>
@@ -962,7 +1013,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	//////////////////////
 
 
-  /**   The entity areaServedTitles
+  /**
+   *  The entity areaServedTitles
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -970,7 +1022,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected List<String> areaServedTitles = new ArrayList<String>();
 
-  /**  <br> The entity areaServedTitles
+  /**
+   * <br> The entity areaServedTitles
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:areaServedTitles">Find the entity areaServedTitles in Solr</a>
    * <br>
@@ -1037,7 +1090,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	/////////////////////
 
 
-  /**   The entity areaServedLinks
+  /**
+   *  The entity areaServedLinks
    *	 It is constructed before being initialized with the constructor by default. 
    */
   @JsonProperty
@@ -1045,7 +1099,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected List<String> areaServedLinks = new ArrayList<String>();
 
-  /**  <br> The entity areaServedLinks
+  /**
+   * <br> The entity areaServedLinks
    *  It is constructed before being initialized with the constructor by default. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:areaServedLinks">Find the entity areaServedLinks in Solr</a>
    * <br>
@@ -1112,7 +1167,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 	//////////
 
 
-  /**   The entity path
+  /**
+   *  The entity path
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1121,7 +1177,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected Path path;
 
-  /**  <br> The entity path
+  /**
+   * <br> The entity path
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:path">Find the entity path in Solr</a>
    * <br>
@@ -1213,19 +1270,25 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return path;
   }
 
+  public static JsonObject staticJsonPath(Path path) {
+    return Optional.ofNullable(path).map(v -> VertxTool.toGeoJson(v)).orElse(null);
+  }
+
 	////////////////
   // simulation //
 	////////////////
 
 
-  /**   The entity simulation
+  /**
+   *  The entity simulation
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
   @JsonInclude(Include.NON_NULL)
   protected Boolean simulation;
 
-  /**  <br> The entity simulation
+  /**
+   * <br> The entity simulation
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:simulation">Find the entity simulation in Solr</a>
    * <br>
@@ -1274,12 +1337,17 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return simulation;
   }
 
+  public static Boolean staticJsonSimulation(Boolean simulation) {
+    return simulation;
+  }
+
 	///////////////////////////
   // simulationDelayMillis //
 	///////////////////////////
 
 
-  /**   The entity simulationDelayMillis
+  /**
+   *  The entity simulationDelayMillis
    *	 is defined as null before being initialized. 
    */
   @JsonProperty
@@ -1287,7 +1355,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   @JsonInclude(Include.NON_NULL)
   protected Long simulationDelayMillis;
 
-  /**  <br> The entity simulationDelayMillis
+  /**
+   * <br> The entity simulationDelayMillis
    *  is defined as null before being initialized. 
    * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat&fq=entiteVar_enUS_indexed_string:simulationDelayMillis">Find the entity simulationDelayMillis in Solr</a>
    * <br>
@@ -1336,6 +1405,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
 
   public Long sqlSimulationDelayMillis() {
     return simulationDelayMillis;
+  }
+
+  public static String staticJsonSimulationDelayMillis(Long simulationDelayMillis) {
+    return Optional.ofNullable(simulationDelayMillis).map(v -> v.toString()).orElse(null);
   }
 
   //////////////

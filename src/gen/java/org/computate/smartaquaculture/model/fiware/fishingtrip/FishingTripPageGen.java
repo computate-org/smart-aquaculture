@@ -111,308 +111,308 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class FishingTripPageGen<DEV> extends FishingTripGenPage {
-	protected static final Logger LOG = LoggerFactory.getLogger(FishingTripPage.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(FishingTripPage.class);
 
-	//////////////
-	// initDeep //
-	//////////////
+  //////////////
+  // initDeep //
+  //////////////
 
-	public Future<FishingTripPageGen<DEV>> promiseDeepFishingTripPage(SiteRequest siteRequest_) {
-		setSiteRequest_(siteRequest_);
-		return promiseDeepFishingTripPage();
-	}
+  public Future<FishingTripPageGen<DEV>> promiseDeepFishingTripPage(SiteRequest siteRequest_) {
+    setSiteRequest_(siteRequest_);
+    return promiseDeepFishingTripPage();
+  }
 
-	public Future<FishingTripPageGen<DEV>> promiseDeepFishingTripPage() {
-		Promise<FishingTripPageGen<DEV>> promise = Promise.promise();
-		Promise<Void> promise2 = Promise.promise();
-		promiseFishingTripPage(promise2);
-		promise2.future().onSuccess(a -> {
-			super.promiseDeepFishingTripGenPage(siteRequest_).onSuccess(b -> {
-				promise.complete(this);
-			}).onFailure(ex -> {
-				promise.fail(ex);
-			});
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<FishingTripPageGen<DEV>> promiseDeepFishingTripPage() {
+    Promise<FishingTripPageGen<DEV>> promise = Promise.promise();
+    Promise<Void> promise2 = Promise.promise();
+    promiseFishingTripPage(promise2);
+    promise2.future().onSuccess(a -> {
+      super.promiseDeepFishingTripGenPage(siteRequest_).onSuccess(b -> {
+        promise.complete(this);
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	public Future<Void> promiseFishingTripPage(Promise<Void> promise) {
-		Future.future(a -> a.complete()).compose(a -> {
-			Promise<Void> promise2 = Promise.promise();
-			try {
-				promise2.complete();
-			} catch(Exception ex) {
-				promise2.fail(ex);
-			}
-			return promise2.future();
-		}).onSuccess(a -> {
-			promise.complete();
-		}).onFailure(ex -> {
-			promise.fail(ex);
-		});
-		return promise.future();
-	}
+  public Future<Void> promiseFishingTripPage(Promise<Void> promise) {
+    Future.future(a -> a.complete()).compose(a -> {
+      Promise<Void> promise2 = Promise.promise();
+      try {
+        promise2.complete();
+      } catch(Exception ex) {
+        promise2.fail(ex);
+      }
+      return promise2.future();
+    }).onSuccess(a -> {
+      promise.complete();
+    }).onFailure(ex -> {
+      promise.fail(ex);
+    });
+    return promise.future();
+  }
 
-	@Override public Future<? extends FishingTripPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
-		return promiseDeepFishingTripPage(siteRequest_);
-	}
+  @Override public Future<? extends FishingTripPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+    return promiseDeepFishingTripPage(siteRequest_);
+  }
 
-	/////////////////
-	// siteRequest //
-	/////////////////
+  /////////////////
+  // siteRequest //
+  /////////////////
 
-	public void siteRequestFishingTripPage(SiteRequest siteRequest_) {
-			super.siteRequestFishingTripGenPage(siteRequest_);
-	}
+  public void siteRequestFishingTripPage(SiteRequest siteRequest_) {
+      super.siteRequestFishingTripGenPage(siteRequest_);
+  }
 
-	public void siteRequestForClass(SiteRequest siteRequest_) {
-		siteRequestFishingTripPage(siteRequest_);
-	}
+  public void siteRequestForClass(SiteRequest siteRequest_) {
+    siteRequestFishingTripPage(siteRequest_);
+  }
 
-	/////////////
-	// obtain //
-	/////////////
+  /////////////
+  // obtain //
+  /////////////
 
-	@Override public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainFishingTripPage(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainFishingTripPage(String var) {
-		FishingTripPage oFishingTripPage = (FishingTripPage)this;
-		switch(var) {
-			default:
-				return super.obtainFishingTripGenPage(var);
-		}
-	}
+  @Override public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainFishingTripPage(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainFishingTripPage(String var) {
+    FishingTripPage oFishingTripPage = (FishingTripPage)this;
+    switch(var) {
+      default:
+        return super.obtainFishingTripGenPage(var);
+    }
+  }
 
-	///////////////
-	// relate //
-	///////////////
+  ///////////////
+  // relate //
+  ///////////////
 
-	@Override public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateFishingTripPage(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateFishingTripPage(String var, Object val) {
-		FishingTripPage oFishingTripPage = (FishingTripPage)this;
-		switch(var) {
-			default:
-				return super.relateFishingTripGenPage(var, val);
-		}
-	}
+  @Override public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateFishingTripPage(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateFishingTripPage(String var, Object val) {
+    FishingTripPage oFishingTripPage = (FishingTripPage)this;
+    switch(var) {
+      default:
+        return super.relateFishingTripGenPage(var, val);
+    }
+  }
 
-	///////////////
-	// staticSet //
-	///////////////
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingTripPage o) {
-		return staticSetFishingTripPage(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetFishingTripPage(String entityVar, SiteRequest siteRequest_, String v, FishingTripPage o) {
-		switch(entityVar) {
-			default:
-				return FishingTripGenPage.staticSetFishingTripGenPage(entityVar,  siteRequest_, v, o);
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, FishingTripPage o) {
+    return staticSetFishingTripPage(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetFishingTripPage(String entityVar, SiteRequest siteRequest_, String v, FishingTripPage o) {
+    switch(entityVar) {
+      default:
+        return FishingTripGenPage.staticSetFishingTripGenPage(entityVar,  siteRequest_, v, o);
+    }
+  }
 
-	////////////////
-	// staticSearch //
-	////////////////
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchFishingTripPage(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchFishingTripPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FishingTripGenPage.staticSearchFishingTripGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchFishingTripPage(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchFishingTripPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FishingTripGenPage.staticSearchFishingTripGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	///////////////////
-	// staticSearchStr //
-	///////////////////
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrFishingTripPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrFishingTripPage(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return FishingTripGenPage.staticSearchStrFishingTripGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrFishingTripPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrFishingTripPage(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return FishingTripGenPage.staticSearchStrFishingTripGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////////
-	// staticSearchFq //
-	//////////////////
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqFishingTripPage(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqFishingTripPage(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return FishingTripGenPage.staticSearchFqFishingTripGenPage(entityVar,  siteRequest_, o);
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqFishingTripPage(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqFishingTripPage(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return FishingTripGenPage.staticSearchFqFishingTripGenPage(entityVar,  siteRequest_, o);
+    }
+  }
 
-	//////////////
-	// toString //
-	//////////////
+  //////////////
+  // toString //
+  //////////////
 
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
-		return sb.toString();
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    return sb.toString();
+  }
 
-	public static final String CLASS_SIMPLE_NAME = "FishingTripPage";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripPage";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String CLASS_SIMPLE_NAME = "FishingTripPage";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripPage";
+  public static final String CLASS_AUTH_RESOURCE = "";
 
 
-	@Override
-	public String idForClass() {
-		return null;
-	}
+  @Override
+  public String idForClass() {
+    return null;
+  }
 
-	@Override
-	public String titleForClass() {
-		return null;
-	}
+  @Override
+  public String titleForClass() {
+    return null;
+  }
 
-	@Override
-	public String nameForClass() {
-		return null;
-	}
+  @Override
+  public String nameForClass() {
+    return null;
+  }
 
-	@Override
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  @Override
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
 
-	@Override
-	public String descriptionForClass() {
-		return null;
-	}
+  @Override
+  public String descriptionForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
 
-	@Override
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  @Override
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
 
-	public static String displayNameForClass(String var) {
-		return FishingTripPage.displayNameFishingTripPage(var);
-	}
-	public static String displayNameFishingTripPage(String var) {
-		switch(var) {
-		default:
-			return FishingTripGenPage.displayNameFishingTripGenPage(var);
-		}
-	}
+  public static String displayNameForClass(String var) {
+    return FishingTripPage.displayNameFishingTripPage(var);
+  }
+  public static String displayNameFishingTripPage(String var) {
+    switch(var) {
+    default:
+      return FishingTripGenPage.displayNameFishingTripGenPage(var);
+    }
+  }
 
-	public static String descriptionFishingTripPage(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return FishingTripGenPage.descriptionFishingTripGenPage(var);
-		}
-	}
+  public static String descriptionFishingTripPage(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return FishingTripGenPage.descriptionFishingTripGenPage(var);
+    }
+  }
 
-	public static String classSimpleNameFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.classSimpleNameFishingTripGenPage(var);
-		}
-	}
+  public static String classSimpleNameFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.classSimpleNameFishingTripGenPage(var);
+    }
+  }
 
-	public static Integer htmColumnFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.htmColumnFishingTripGenPage(var);
-		}
-	}
+  public static Integer htmColumnFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.htmColumnFishingTripGenPage(var);
+    }
+  }
 
-	public static Integer htmRowFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.htmRowFishingTripGenPage(var);
-		}
-	}
+  public static Integer htmRowFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.htmRowFishingTripGenPage(var);
+    }
+  }
 
-	public static Integer htmCellFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.htmCellFishingTripGenPage(var);
-		}
-	}
+  public static Integer htmCellFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.htmCellFishingTripGenPage(var);
+    }
+  }
 
-	public static Integer lengthMinFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.lengthMinFishingTripGenPage(var);
-		}
-	}
+  public static Integer lengthMinFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.lengthMinFishingTripGenPage(var);
+    }
+  }
 
-	public static Integer lengthMaxFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.lengthMaxFishingTripGenPage(var);
-		}
-	}
+  public static Integer lengthMaxFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.lengthMaxFishingTripGenPage(var);
+    }
+  }
 
-	public static Integer maxFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.maxFishingTripGenPage(var);
-		}
-	}
+  public static Integer maxFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.maxFishingTripGenPage(var);
+    }
+  }
 
-	public static Integer minFishingTripPage(String var) {
-		switch(var) {
-			default:
-				return FishingTripGenPage.minFishingTripGenPage(var);
-		}
-	}
+  public static Integer minFishingTripPage(String var) {
+    switch(var) {
+      default:
+        return FishingTripGenPage.minFishingTripGenPage(var);
+    }
+  }
 }

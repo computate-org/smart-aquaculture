@@ -89,281 +89,281 @@ import io.vertx.core.json.JsonArray;
  * Generated: true
  **/
 public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
-	protected static final Logger LOG = LoggerFactory.getLogger(DbToSolrSync.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(DbToSolrSync.class);
 
-	public static final String SITE_NAME = "smart-aquaculture";
-	public static final String runDbToSolrSyncComplete1 = "database to solr sync completed. ";
-	public static final String runDbToSolrSyncComplete = runDbToSolrSyncComplete1;
+  public static final String SITE_NAME = "smart-aquaculture";
+  public static final String runDbToSolrSyncComplete1 = "database to solr sync completed. ";
+  public static final String runDbToSolrSyncComplete = runDbToSolrSyncComplete1;
 
-	public static final String dbToSolrSyncComplete1 = "database to solr sync completed. ";
-	public static final String dbToSolrSyncComplete = dbToSolrSyncComplete1;
+  public static final String dbToSolrSyncComplete1 = "database to solr sync completed. ";
+  public static final String dbToSolrSyncComplete = dbToSolrSyncComplete1;
 
-	public static final String dbToSolrSyncRecordComplete1 = "%s data sync completed. ";
-	public static final String dbToSolrSyncRecordComplete = dbToSolrSyncRecordComplete1;
-	public static final String dbToSolrSyncRecordFail1 = "%s data sync failed. ";
-	public static final String dbToSolrSyncRecordFail = dbToSolrSyncRecordFail1;
-	public static final String dbToSolrSyncRecordCounterResetFail1 = "%s data sync failed to reset counter. ";
-	public static final String dbToSolrSyncRecordCounterResetFail = dbToSolrSyncRecordCounterResetFail1;
-	public static final String dbToSolrSyncRecordSkip1 = "%s data sync skipped. ";
-	public static final String dbToSolrSyncRecordSkip = dbToSolrSyncRecordSkip1;
-	public static final String dbToSolrSyncRecordStarted1 = "%s data sync started. ";
-	public static final String dbToSolrSyncRecordStarted = dbToSolrSyncRecordStarted1;
-
-
-	//////////////
-	// initDeep //
-	//////////////
-
-	public DbToSolrSync initDeepDbToSolrSync(SiteRequest siteRequest_) {
-		initDeepDbToSolrSync();
-		return (DbToSolrSync)this;
-	}
-
-	public void initDeepDbToSolrSync() {
-		initDbToSolrSync();
-	}
-
-	public void initDbToSolrSync() {
-	}
-
-	public void initDeepForClass(SiteRequest siteRequest_) {
-		initDeepDbToSolrSync(siteRequest_);
-	}
-
-	/////////////
-	// obtain //
-	/////////////
-
-	public Object obtainForClass(String var) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = obtainDbToSolrSync(v);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.obtainForClass(v);
-			}
-			else if(o instanceof Map) {
-				Map<?, ?> map = (Map<?, ?>)o;
-				o = map.get(v);
-			}
-		}
-		return o;
-	}
-	public Object obtainDbToSolrSync(String var) {
-		DbToSolrSync oDbToSolrSync = (DbToSolrSync)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	///////////////
-	// relate //
-	///////////////
-
-	public boolean relateForClass(String var, Object val) {
-		String[] vars = StringUtils.split(var, ".");
-		Object o = null;
-		for(String v : vars) {
-			if(o == null)
-				o = relateDbToSolrSync(v, val);
-			else if(o instanceof BaseModel) {
-				BaseModel baseModel = (BaseModel)o;
-				o = baseModel.relateForClass(v, val);
-			}
-		}
-		return o != null;
-	}
-	public Object relateDbToSolrSync(String var, Object val) {
-		DbToSolrSync oDbToSolrSync = (DbToSolrSync)this;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
-
-	///////////////
-	// staticSet //
-	///////////////
-
-	public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, DbToSolrSync o) {
-		return staticSetDbToSolrSync(entityVar,  siteRequest_, v, o);
-	}
-	public static Object staticSetDbToSolrSync(String entityVar, SiteRequest siteRequest_, String v, DbToSolrSync o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	////////////////
-	// staticSearch //
-	////////////////
-
-	public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchDbToSolrSync(entityVar,  siteRequest_, o);
-	}
-	public static Object staticSearchDbToSolrSync(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	///////////////////
-	// staticSearchStr //
-	///////////////////
-
-	public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
-		return staticSearchStrDbToSolrSync(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchStrDbToSolrSync(String entityVar, SiteRequest siteRequest_, Object o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	//////////////////
-	// staticSearchFq //
-	//////////////////
-
-	public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
-		return staticSearchFqDbToSolrSync(entityVar,  siteRequest_, o);
-	}
-	public static String staticSearchFqDbToSolrSync(String entityVar, SiteRequest siteRequest_, String o) {
-		switch(entityVar) {
-			default:
-				return null;
-		}
-	}
-
-	//////////////
-	// toString //
-	//////////////
-
-	@Override public String toString() {
-		StringBuilder sb = new StringBuilder();
-		return sb.toString();
-	}
-
-	public static final String[] DbToSolrSyncVals = new String[] { runDbToSolrSyncComplete1, dbToSolrSyncComplete1, dbToSolrSyncRecordComplete1, dbToSolrSyncRecordFail1, dbToSolrSyncRecordCounterResetFail1, dbToSolrSyncRecordSkip1, dbToSolrSyncRecordStarted1 };
-
-	public static final String CLASS_SIMPLE_NAME = "DbToSolrSync";
-	public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.verticle.DbToSolrSync";
-	public static final String CLASS_AUTH_RESOURCE = "";
+  public static final String dbToSolrSyncRecordComplete1 = "%s data sync completed. ";
+  public static final String dbToSolrSyncRecordComplete = dbToSolrSyncRecordComplete1;
+  public static final String dbToSolrSyncRecordFail1 = "%s data sync failed. ";
+  public static final String dbToSolrSyncRecordFail = dbToSolrSyncRecordFail1;
+  public static final String dbToSolrSyncRecordCounterResetFail1 = "%s data sync failed to reset counter. ";
+  public static final String dbToSolrSyncRecordCounterResetFail = dbToSolrSyncRecordCounterResetFail1;
+  public static final String dbToSolrSyncRecordSkip1 = "%s data sync skipped. ";
+  public static final String dbToSolrSyncRecordSkip = dbToSolrSyncRecordSkip1;
+  public static final String dbToSolrSyncRecordStarted1 = "%s data sync started. ";
+  public static final String dbToSolrSyncRecordStarted = dbToSolrSyncRecordStarted1;
 
 
-	public String idForClass() {
-		return null;
-	}
+  //////////////
+  // initDeep //
+  //////////////
 
-	public String titleForClass() {
-		return null;
-	}
+  public DbToSolrSync initDeepDbToSolrSync(SiteRequest siteRequest_) {
+    initDeepDbToSolrSync();
+    return (DbToSolrSync)this;
+  }
 
-	public String nameForClass() {
-		return null;
-	}
+  public void initDeepDbToSolrSync() {
+    initDbToSolrSync();
+  }
 
-	public String classNameAdjectiveSingularForClass() {
-		return null;
-	}
+  public void initDbToSolrSync() {
+  }
 
-	public String descriptionForClass() {
-		return null;
-	}
+  public void initDeepForClass(SiteRequest siteRequest_) {
+    initDeepDbToSolrSync(siteRequest_);
+  }
 
-	public String classStringFormatUrlEditPageForClass() {
-		return null;
-	}
+  /////////////
+  // obtain //
+  /////////////
 
-	public String classStringFormatUrlDisplayPageForClass() {
-		return null;
-	}
+  public Object obtainForClass(String var) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = obtainDbToSolrSync(v);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.obtainForClass(v);
+      }
+      else if(o instanceof Map) {
+        Map<?, ?> map = (Map<?, ?>)o;
+        o = map.get(v);
+      }
+    }
+    return o;
+  }
+  public Object obtainDbToSolrSync(String var) {
+    DbToSolrSync oDbToSolrSync = (DbToSolrSync)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public String classStringFormatUrlUserPageForClass() {
-		return null;
-	}
+  ///////////////
+  // relate //
+  ///////////////
 
-	public String classStringFormatUrlDownloadForClass() {
-		return null;
-	}
+  public boolean relateForClass(String var, Object val) {
+    String[] vars = StringUtils.split(var, ".");
+    Object o = null;
+    for(String v : vars) {
+      if(o == null)
+        o = relateDbToSolrSync(v, val);
+      else if(o instanceof BaseModel) {
+        BaseModel baseModel = (BaseModel)o;
+        o = baseModel.relateForClass(v, val);
+      }
+    }
+    return o != null;
+  }
+  public Object relateDbToSolrSync(String var, Object val) {
+    DbToSolrSync oDbToSolrSync = (DbToSolrSync)this;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 
-	public static String displayNameForClass(String var) {
-		return DbToSolrSync.displayNameDbToSolrSync(var);
-	}
-	public static String displayNameDbToSolrSync(String var) {
-		switch(var) {
-		default:
-			return null;
-		}
-	}
+  ///////////////
+  // staticSet //
+  ///////////////
 
-	public static String descriptionDbToSolrSync(String var) {
-		if(var == null)
-			return null;
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Object staticSetForClass(String entityVar, SiteRequest siteRequest_, String v, DbToSolrSync o) {
+    return staticSetDbToSolrSync(entityVar,  siteRequest_, v, o);
+  }
+  public static Object staticSetDbToSolrSync(String entityVar, SiteRequest siteRequest_, String v, DbToSolrSync o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static String classSimpleNameDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  ////////////////
+  // staticSearch //
+  ////////////////
 
-	public static Integer htmColumnDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchDbToSolrSync(entityVar,  siteRequest_, o);
+  }
+  public static Object staticSearchDbToSolrSync(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer htmRowDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  ///////////////////
+  // staticSearchStr //
+  ///////////////////
 
-	public static Integer htmCellDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static String staticSearchStrForClass(String entityVar, SiteRequest siteRequest_, Object o) {
+    return staticSearchStrDbToSolrSync(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchStrDbToSolrSync(String entityVar, SiteRequest siteRequest_, Object o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer lengthMinDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  //////////////////
+  // staticSearchFq //
+  //////////////////
 
-	public static Integer lengthMaxDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  public static String staticSearchFqForClass(String entityVar, SiteRequest siteRequest_, String o) {
+    return staticSearchFqDbToSolrSync(entityVar,  siteRequest_, o);
+  }
+  public static String staticSearchFqDbToSolrSync(String entityVar, SiteRequest siteRequest_, String o) {
+    switch(entityVar) {
+      default:
+        return null;
+    }
+  }
 
-	public static Integer maxDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  //////////////
+  // toString //
+  //////////////
 
-	public static Integer minDbToSolrSync(String var) {
-		switch(var) {
-			default:
-				return null;
-		}
-	}
+  @Override public String toString() {
+    StringBuilder sb = new StringBuilder();
+    return sb.toString();
+  }
+
+  public static final String[] DbToSolrSyncVals = new String[] { runDbToSolrSyncComplete1, dbToSolrSyncComplete1, dbToSolrSyncRecordComplete1, dbToSolrSyncRecordFail1, dbToSolrSyncRecordCounterResetFail1, dbToSolrSyncRecordSkip1, dbToSolrSyncRecordStarted1 };
+
+  public static final String CLASS_SIMPLE_NAME = "DbToSolrSync";
+  public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.verticle.DbToSolrSync";
+  public static final String CLASS_AUTH_RESOURCE = "";
+
+
+  public String idForClass() {
+    return null;
+  }
+
+  public String titleForClass() {
+    return null;
+  }
+
+  public String nameForClass() {
+    return null;
+  }
+
+  public String classNameAdjectiveSingularForClass() {
+    return null;
+  }
+
+  public String descriptionForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlEditPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String classStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public static String displayNameForClass(String var) {
+    return DbToSolrSync.displayNameDbToSolrSync(var);
+  }
+  public static String displayNameDbToSolrSync(String var) {
+    switch(var) {
+    default:
+      return null;
+    }
+  }
+
+  public static String descriptionDbToSolrSync(String var) {
+    if(var == null)
+      return null;
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static String classSimpleNameDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmColumnDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmRowDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer htmCellDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMinDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer lengthMaxDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer maxDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
+
+  public static Integer minDbToSolrSync(String var) {
+    switch(var) {
+      default:
+        return null;
+    }
+  }
 }

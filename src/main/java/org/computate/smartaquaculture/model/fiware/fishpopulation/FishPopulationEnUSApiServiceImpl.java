@@ -69,23 +69,23 @@ public class FishPopulationEnUSApiServiceImpl extends FishPopulationEnUSGenApiSe
         BigDecimal incubationDaysNow = Optional.ofNullable(o.getIncubationDaysNow()).orElse(BigDecimal.ZERO);
         Duration duration = Duration.between(modified, now);
         BigDecimal durationMillis = new BigDecimal(duration.toMillis());
+        MathContext mc = new MathContext(15);
+        int scale = mc.getPrecision();
 
         if(incubationDate == null) {
           incubationDate = ZonedDateTime.now();
           jsonObject.put("setIncubationDate", FishPopulation.staticSearchIncubationDate(siteRequest, incubationDate));
         }
-        if(BigDecimal.ZERO.compareTo(incubationDaysNow) <= 0) {
+        if(incubationDaysNow.compareTo(BigDecimal.ZERO) <= 0) {
           BigDecimal incubationDaysBegin = Optional.ofNullable(o.getIncubationDaysBegin()).orElse(BigDecimal.ZERO);
           BigDecimal incubationDaysEnd = Optional.ofNullable(o.getIncubationDaysEnd()).orElse(BigDecimal.ZERO);
           BigDecimal incubationNumberMax = Optional.ofNullable(o.getIncubationNumberMax()).orElse(BigDecimal.ZERO);
           BigDecimal incubationNumberMin = Optional.ofNullable(o.getIncubationNumberMin()).orElse(BigDecimal.ZERO);
           BigDecimal percentPopulationPregnantMin = Optional.ofNullable(o.getPercentPopulationPregnantMin()).orElse(BigDecimal.ZERO);
           BigDecimal percentPopulationPregnantMax = Optional.ofNullable(o.getPercentPopulationPregnantMax()).orElse(BigDecimal.ZERO);
-          MathContext mc = new MathContext(5);
-          int scale = mc.getPrecision();
           Random random = new Random();
 
-          BigDecimal previousPopulation = BigDecimal.ZERO;
+          BigDecimal previousPopulation = new BigDecimal(o.getPreviousPopulation());
           populationsNow.stream().forEach(p -> previousPopulation.add(new BigDecimal(p)));
 
           BigDecimal incubationDaysRandomFactor = new BigDecimal(new BigInteger(scale, random))
@@ -103,13 +103,13 @@ public class FishPopulationEnUSApiServiceImpl extends FishPopulationEnUSGenApiSe
           BigDecimal percentPopulationPregnantRange = percentPopulationPregnantMax.subtract(percentPopulationPregnantMin);
           BigDecimal percentPopulationPregnant = percentPopulationPregnantMin.add(percentPopulationPregnantRange.multiply(percentPopulationPregnantRandomFactor, mc));
 
-          BigDecimal populationIncrease = previousPopulation.multiply(percentPopulationPregnant).multiply(incubationNumber);
+          BigDecimal populationIncrease = previousPopulation.multiply(percentPopulationPregnant.add(BigDecimal.ONE)).multiply(incubationNumber);
 
           populationsAtBirth.add(populationIncrease.longValue());
           populationsNow.add(populationIncrease.longValue());
           jsonObject.put("setPopulationsAtBirth", FishPopulation.staticJsonPopulationsAtBirth(populationsAtBirth));
         } else {
-          incubationDaysNow = incubationDaysNow.subtract(durationMillis);
+          incubationDaysNow = incubationDaysNow.subtract(new BigDecimal(1.0 / 24.0 / 60.0 / 60.0 / 1000.0).multiply(durationMillis, mc), mc);
         }
         jsonObject.put("setPopulationsNow", FishPopulation.staticJsonPopulationsNow(populationsNow));
         jsonObject.put("setIncubationDaysNow", FishPopulation.staticJsonIncubationDaysNow(incubationDaysNow));

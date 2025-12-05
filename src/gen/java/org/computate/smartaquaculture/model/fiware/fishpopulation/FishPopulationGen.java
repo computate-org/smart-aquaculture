@@ -3,7 +3,7 @@
  * Fiware: true
  *
  * Order: 6
- * Description: 
+ * Description: Tracking fish population counts, maturation, and incubation over time. 
  * AName: a fish population
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
  * Rows: 100
@@ -99,7 +99,6 @@ import io.vertx.pgclient.data.Point;
 import org.computate.vertx.serialize.pgclient.PgClientPolygonSerializer;
 import org.computate.vertx.serialize.pgclient.PgClientPolygonDeserializer;
 import java.lang.Long;
-import java.lang.Boolean;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -110,6 +109,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.Instant;
 import java.util.Locale;
 import java.time.OffsetDateTime;
+import java.lang.Boolean;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
@@ -247,7 +247,7 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class FishPopulationGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishPopulation.class);
 
-  public static final String Description_enUS = "AName: a fish population";
+  public static final String Description_enUS = "Tracking fish population counts, maturation, and incubation over time. ";
   public static final String AName_enUS = "a fish population";
   public static final String This_enUS = "this ";
   public static final String ThisName_enUS = "this fish population";
@@ -2532,143 +2532,6 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return a;
   }
 
-	////////////////
-  // simulation //
-	////////////////
-
-
-  /**
-   *  The entity simulation
-   *	 is defined as null before being initialized. 
-   */
-  @JsonProperty
-  @JsonInclude(Include.NON_NULL)
-  protected Boolean simulation;
-
-  /**
-   * <br> The entity simulation
-   *  is defined as null before being initialized. 
-   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:simulation">Find the entity simulation in Solr</a>
-   * <br>
-   * @param w is for wrapping a value to assign to this entity during initialization. 
-   **/
-  protected abstract void _simulation(Wrap<Boolean> w);
-
-  public Boolean getSimulation() {
-    return simulation;
-  }
-
-  public void setSimulation(Boolean simulation) {
-    this.simulation = simulation;
-  }
-  @JsonIgnore
-  public void setSimulation(String o) {
-    this.simulation = FishPopulation.staticSetSimulation(siteRequest_, o);
-  }
-  public static Boolean staticSetSimulation(SiteRequest siteRequest_, String o) {
-    return Boolean.parseBoolean(o);
-  }
-  protected FishPopulation simulationInit() {
-    Wrap<Boolean> simulationWrap = new Wrap<Boolean>().var("simulation");
-    if(simulation == null) {
-      _simulation(simulationWrap);
-      Optional.ofNullable(simulationWrap.getO()).ifPresent(o -> {
-        setSimulation(o);
-      });
-    }
-    return (FishPopulation)this;
-  }
-
-  public static Boolean staticSearchSimulation(SiteRequest siteRequest_, Boolean o) {
-    return o;
-  }
-
-  public static String staticSearchStrSimulation(SiteRequest siteRequest_, Boolean o) {
-    return o == null ? null : o.toString();
-  }
-
-  public static String staticSearchFqSimulation(SiteRequest siteRequest_, String o) {
-    return FishPopulation.staticSearchSimulation(siteRequest_, FishPopulation.staticSetSimulation(siteRequest_, o)).toString();
-  }
-
-  public Boolean sqlSimulation() {
-    return simulation;
-  }
-
-  public static Boolean staticJsonSimulation(Boolean simulation) {
-    return simulation;
-  }
-
-	///////////////////////////
-  // simulationDelayMillis //
-	///////////////////////////
-
-
-  /**
-   *  The entity simulationDelayMillis
-   *	 is defined as null before being initialized. 
-   */
-  @JsonProperty
-  @JsonSerialize(using = ToStringSerializer.class)
-  @JsonInclude(Include.NON_NULL)
-  protected Long simulationDelayMillis;
-
-  /**
-   * <br> The entity simulationDelayMillis
-   *  is defined as null before being initialized. 
-   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:simulationDelayMillis">Find the entity simulationDelayMillis in Solr</a>
-   * <br>
-   * @param w is for wrapping a value to assign to this entity during initialization. 
-   **/
-  protected abstract void _simulationDelayMillis(Wrap<Long> w);
-
-  public Long getSimulationDelayMillis() {
-    return simulationDelayMillis;
-  }
-
-  public void setSimulationDelayMillis(Long simulationDelayMillis) {
-    this.simulationDelayMillis = simulationDelayMillis;
-  }
-  @JsonIgnore
-  public void setSimulationDelayMillis(String o) {
-    this.simulationDelayMillis = FishPopulation.staticSetSimulationDelayMillis(siteRequest_, o);
-  }
-  public static Long staticSetSimulationDelayMillis(SiteRequest siteRequest_, String o) {
-    if(NumberUtils.isParsable(o))
-      return Long.parseLong(o);
-    return null;
-  }
-  protected FishPopulation simulationDelayMillisInit() {
-    Wrap<Long> simulationDelayMillisWrap = new Wrap<Long>().var("simulationDelayMillis");
-    if(simulationDelayMillis == null) {
-      _simulationDelayMillis(simulationDelayMillisWrap);
-      Optional.ofNullable(simulationDelayMillisWrap.getO()).ifPresent(o -> {
-        setSimulationDelayMillis(o);
-      });
-    }
-    return (FishPopulation)this;
-  }
-
-  public static Long staticSearchSimulationDelayMillis(SiteRequest siteRequest_, Long o) {
-    return o;
-  }
-
-  public static String staticSearchStrSimulationDelayMillis(SiteRequest siteRequest_, Long o) {
-    return o == null ? null : o.toString();
-  }
-
-  public static String staticSearchFqSimulationDelayMillis(SiteRequest siteRequest_, String o) {
-    return FishPopulation.staticSearchSimulationDelayMillis(siteRequest_, FishPopulation.staticSetSimulationDelayMillis(siteRequest_, o)).toString();
-  }
-
-  public Long sqlSimulationDelayMillis() {
-    return simulationDelayMillis;
-  }
-
-  public static String staticJsonSimulationDelayMillis(Long simulationDelayMillis) {
-    return Optional.ofNullable(simulationDelayMillis).map(v -> v.toString()).orElse(null);
-  }
-
 	////////////////////
   // incubationDate //
 	////////////////////
@@ -2841,6 +2704,213 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return Optional.ofNullable(incubationDaysNow).map(v -> v.toString()).orElse(null);
   }
 
+	////////////////////////
+  // previousPopulation //
+	////////////////////////
+
+
+  /**
+   *  The entity previousPopulation
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Long previousPopulation;
+
+  /**
+   * <br> The entity previousPopulation
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:previousPopulation">Find the entity previousPopulation in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _previousPopulation(Wrap<Long> w);
+
+  public Long getPreviousPopulation() {
+    return previousPopulation;
+  }
+
+  public void setPreviousPopulation(Long previousPopulation) {
+    this.previousPopulation = previousPopulation;
+  }
+  @JsonIgnore
+  public void setPreviousPopulation(String o) {
+    this.previousPopulation = FishPopulation.staticSetPreviousPopulation(siteRequest_, o);
+  }
+  public static Long staticSetPreviousPopulation(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Long.parseLong(o);
+    return null;
+  }
+  protected FishPopulation previousPopulationInit() {
+    Wrap<Long> previousPopulationWrap = new Wrap<Long>().var("previousPopulation");
+    if(previousPopulation == null) {
+      _previousPopulation(previousPopulationWrap);
+      Optional.ofNullable(previousPopulationWrap.getO()).ifPresent(o -> {
+        setPreviousPopulation(o);
+      });
+    }
+    return (FishPopulation)this;
+  }
+
+  public static Long staticSearchPreviousPopulation(SiteRequest siteRequest_, Long o) {
+    return o;
+  }
+
+  public static String staticSearchStrPreviousPopulation(SiteRequest siteRequest_, Long o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqPreviousPopulation(SiteRequest siteRequest_, String o) {
+    return FishPopulation.staticSearchPreviousPopulation(siteRequest_, FishPopulation.staticSetPreviousPopulation(siteRequest_, o)).toString();
+  }
+
+  public Long sqlPreviousPopulation() {
+    return previousPopulation;
+  }
+
+  public static String staticJsonPreviousPopulation(Long previousPopulation) {
+    return Optional.ofNullable(previousPopulation).map(v -> v.toString()).orElse(null);
+  }
+
+	////////////////
+  // simulation //
+	////////////////
+
+
+  /**
+   *  The entity simulation
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected Boolean simulation;
+
+  /**
+   * <br> The entity simulation
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:simulation">Find the entity simulation in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _simulation(Wrap<Boolean> w);
+
+  public Boolean getSimulation() {
+    return simulation;
+  }
+
+  public void setSimulation(Boolean simulation) {
+    this.simulation = simulation;
+  }
+  @JsonIgnore
+  public void setSimulation(String o) {
+    this.simulation = FishPopulation.staticSetSimulation(siteRequest_, o);
+  }
+  public static Boolean staticSetSimulation(SiteRequest siteRequest_, String o) {
+    return Boolean.parseBoolean(o);
+  }
+  protected FishPopulation simulationInit() {
+    Wrap<Boolean> simulationWrap = new Wrap<Boolean>().var("simulation");
+    if(simulation == null) {
+      _simulation(simulationWrap);
+      Optional.ofNullable(simulationWrap.getO()).ifPresent(o -> {
+        setSimulation(o);
+      });
+    }
+    return (FishPopulation)this;
+  }
+
+  public static Boolean staticSearchSimulation(SiteRequest siteRequest_, Boolean o) {
+    return o;
+  }
+
+  public static String staticSearchStrSimulation(SiteRequest siteRequest_, Boolean o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqSimulation(SiteRequest siteRequest_, String o) {
+    return FishPopulation.staticSearchSimulation(siteRequest_, FishPopulation.staticSetSimulation(siteRequest_, o)).toString();
+  }
+
+  public Boolean sqlSimulation() {
+    return simulation;
+  }
+
+  public static Boolean staticJsonSimulation(Boolean simulation) {
+    return simulation;
+  }
+
+	///////////////////////////
+  // simulationDelayMillis //
+	///////////////////////////
+
+
+  /**
+   *  The entity simulationDelayMillis
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected Long simulationDelayMillis;
+
+  /**
+   * <br> The entity simulationDelayMillis
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:simulationDelayMillis">Find the entity simulationDelayMillis in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _simulationDelayMillis(Wrap<Long> w);
+
+  public Long getSimulationDelayMillis() {
+    return simulationDelayMillis;
+  }
+
+  public void setSimulationDelayMillis(Long simulationDelayMillis) {
+    this.simulationDelayMillis = simulationDelayMillis;
+  }
+  @JsonIgnore
+  public void setSimulationDelayMillis(String o) {
+    this.simulationDelayMillis = FishPopulation.staticSetSimulationDelayMillis(siteRequest_, o);
+  }
+  public static Long staticSetSimulationDelayMillis(SiteRequest siteRequest_, String o) {
+    if(NumberUtils.isParsable(o))
+      return Long.parseLong(o);
+    return null;
+  }
+  protected FishPopulation simulationDelayMillisInit() {
+    Wrap<Long> simulationDelayMillisWrap = new Wrap<Long>().var("simulationDelayMillis");
+    if(simulationDelayMillis == null) {
+      _simulationDelayMillis(simulationDelayMillisWrap);
+      Optional.ofNullable(simulationDelayMillisWrap.getO()).ifPresent(o -> {
+        setSimulationDelayMillis(o);
+      });
+    }
+    return (FishPopulation)this;
+  }
+
+  public static Long staticSearchSimulationDelayMillis(SiteRequest siteRequest_, Long o) {
+    return o;
+  }
+
+  public static String staticSearchStrSimulationDelayMillis(SiteRequest siteRequest_, Long o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqSimulationDelayMillis(SiteRequest siteRequest_, String o) {
+    return FishPopulation.staticSearchSimulationDelayMillis(siteRequest_, FishPopulation.staticSetSimulationDelayMillis(siteRequest_, o)).toString();
+  }
+
+  public Long sqlSimulationDelayMillis() {
+    return simulationDelayMillis;
+  }
+
+  public static String staticJsonSimulationDelayMillis(Long simulationDelayMillis) {
+    return Optional.ofNullable(simulationDelayMillis).map(v -> v.toString()).orElse(null);
+  }
+
   //////////////
   // initDeep //
   //////////////
@@ -2898,10 +2968,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         percentPopulationPregnantMaxInit();
         populationsAtBirthInit();
         populationsNowInit();
-        simulationInit();
-        simulationDelayMillisInit();
         incubationDateInit();
         incubationDaysNowInit();
+        previousPopulationInit();
+        simulationInit();
+        simulationDelayMillisInit();
         promise2.complete();
       } catch(Exception ex) {
         promise2.fail(ex);
@@ -3011,14 +3082,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return oFishPopulation.populationsAtBirth;
       case "populationsNow":
         return oFishPopulation.populationsNow;
-      case "simulation":
-        return oFishPopulation.simulation;
-      case "simulationDelayMillis":
-        return oFishPopulation.simulationDelayMillis;
       case "incubationDate":
         return oFishPopulation.incubationDate;
       case "incubationDaysNow":
         return oFishPopulation.incubationDaysNow;
+      case "previousPopulation":
+        return oFishPopulation.previousPopulation;
+      case "simulation":
+        return oFishPopulation.simulation;
+      case "simulationDelayMillis":
+        return oFishPopulation.simulationDelayMillis;
       default:
         return super.obtainMapModel(var);
     }
@@ -3114,13 +3187,15 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSetPopulationsAtBirth(siteRequest_, v);
     case "populationsNow":
       return FishPopulation.staticSetPopulationsNow(siteRequest_, v);
+    case "incubationDate":
+    case "incubationDaysNow":
+      return FishPopulation.staticSetIncubationDaysNow(siteRequest_, v);
+    case "previousPopulation":
+      return FishPopulation.staticSetPreviousPopulation(siteRequest_, v);
     case "simulation":
       return FishPopulation.staticSetSimulation(siteRequest_, v);
     case "simulationDelayMillis":
       return FishPopulation.staticSetSimulationDelayMillis(siteRequest_, v);
-    case "incubationDate":
-    case "incubationDaysNow":
-      return FishPopulation.staticSetIncubationDaysNow(siteRequest_, v);
       default:
         return MapModel.staticSetMapModel(entityVar,  siteRequest_, v, o);
     }
@@ -3191,14 +3266,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSearchPopulationsAtBirth(siteRequest_, (Long)o);
     case "populationsNow":
       return FishPopulation.staticSearchPopulationsNow(siteRequest_, (Long)o);
-    case "simulation":
-      return FishPopulation.staticSearchSimulation(siteRequest_, (Boolean)o);
-    case "simulationDelayMillis":
-      return FishPopulation.staticSearchSimulationDelayMillis(siteRequest_, (Long)o);
     case "incubationDate":
       return FishPopulation.staticSearchIncubationDate(siteRequest_, (ZonedDateTime)o);
     case "incubationDaysNow":
       return FishPopulation.staticSearchIncubationDaysNow(siteRequest_, (BigDecimal)o);
+    case "previousPopulation":
+      return FishPopulation.staticSearchPreviousPopulation(siteRequest_, (Long)o);
+    case "simulation":
+      return FishPopulation.staticSearchSimulation(siteRequest_, (Boolean)o);
+    case "simulationDelayMillis":
+      return FishPopulation.staticSearchSimulationDelayMillis(siteRequest_, (Long)o);
       default:
         return MapModel.staticSearchMapModel(entityVar,  siteRequest_, o);
     }
@@ -3269,14 +3346,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSearchStrPopulationsAtBirth(siteRequest_, (Long)o);
     case "populationsNow":
       return FishPopulation.staticSearchStrPopulationsNow(siteRequest_, (Long)o);
-    case "simulation":
-      return FishPopulation.staticSearchStrSimulation(siteRequest_, (Boolean)o);
-    case "simulationDelayMillis":
-      return FishPopulation.staticSearchStrSimulationDelayMillis(siteRequest_, (Long)o);
     case "incubationDate":
       return FishPopulation.staticSearchStrIncubationDate(siteRequest_, (String)o);
     case "incubationDaysNow":
       return FishPopulation.staticSearchStrIncubationDaysNow(siteRequest_, (Double)o);
+    case "previousPopulation":
+      return FishPopulation.staticSearchStrPreviousPopulation(siteRequest_, (Long)o);
+    case "simulation":
+      return FishPopulation.staticSearchStrSimulation(siteRequest_, (Boolean)o);
+    case "simulationDelayMillis":
+      return FishPopulation.staticSearchStrSimulationDelayMillis(siteRequest_, (Long)o);
       default:
         return MapModel.staticSearchStrMapModel(entityVar,  siteRequest_, o);
     }
@@ -3347,14 +3426,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSearchFqPopulationsAtBirth(siteRequest_, o);
     case "populationsNow":
       return FishPopulation.staticSearchFqPopulationsNow(siteRequest_, o);
-    case "simulation":
-      return FishPopulation.staticSearchFqSimulation(siteRequest_, o);
-    case "simulationDelayMillis":
-      return FishPopulation.staticSearchFqSimulationDelayMillis(siteRequest_, o);
     case "incubationDate":
       return FishPopulation.staticSearchFqIncubationDate(siteRequest_, o);
     case "incubationDaysNow":
       return FishPopulation.staticSearchFqIncubationDaysNow(siteRequest_, o);
+    case "previousPopulation":
+      return FishPopulation.staticSearchFqPreviousPopulation(siteRequest_, o);
+    case "simulation":
+      return FishPopulation.staticSearchFqSimulation(siteRequest_, o);
+    case "simulationDelayMillis":
+      return FishPopulation.staticSearchFqSimulationDelayMillis(siteRequest_, o);
       default:
         return MapModel.staticSearchFqMapModel(entityVar,  siteRequest_, o);
     }
@@ -3587,22 +3668,6 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           saves.add("populationsNow");
         }
         return val;
-      } else if("simulation".equals(varLower)) {
-        if(val instanceof Boolean) {
-          setSimulation((Boolean)val);
-        } else {
-          setSimulation(val == null ? null : val.toString());
-        }
-        saves.add("simulation");
-        return val;
-      } else if("simulationdelaymillis".equals(varLower)) {
-        if(val instanceof Long) {
-          setSimulationDelayMillis((Long)val);
-        } else {
-          setSimulationDelayMillis(val == null ? null : val.toString());
-        }
-        saves.add("simulationDelayMillis");
-        return val;
       } else if("incubationdate".equals(varLower)) {
         if(val instanceof String) {
           setIncubationDate((String)val);
@@ -3618,6 +3683,30 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setIncubationDaysNow(new BigDecimal(((Number)val).doubleValue()));
         }
         saves.add("incubationDaysNow");
+        return val;
+      } else if("previouspopulation".equals(varLower)) {
+        if(val instanceof Long) {
+          setPreviousPopulation((Long)val);
+        } else {
+          setPreviousPopulation(val == null ? null : val.toString());
+        }
+        saves.add("previousPopulation");
+        return val;
+      } else if("simulation".equals(varLower)) {
+        if(val instanceof Boolean) {
+          setSimulation((Boolean)val);
+        } else {
+          setSimulation(val == null ? null : val.toString());
+        }
+        saves.add("simulation");
+        return val;
+      } else if("simulationdelaymillis".equals(varLower)) {
+        if(val instanceof Long) {
+          setSimulationDelayMillis((Long)val);
+        } else {
+          setSimulationDelayMillis(val == null ? null : val.toString());
+        }
+        saves.add("simulationDelayMillis");
         return val;
     } else {
       return super.persistMapModel(var, val);
@@ -3822,18 +3911,6 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         }
       }
 
-      if(saves.contains("simulation")) {
-        Boolean simulation = (Boolean)doc.get("simulation_docvalues_boolean");
-        if(simulation != null)
-          oFishPopulation.setSimulation(simulation);
-      }
-
-      if(saves.contains("simulationDelayMillis")) {
-        Long simulationDelayMillis = (Long)doc.get("simulationDelayMillis_docvalues_long");
-        if(simulationDelayMillis != null)
-          oFishPopulation.setSimulationDelayMillis(simulationDelayMillis);
-      }
-
       if(saves.contains("incubationDate")) {
         String incubationDate = (String)doc.get("incubationDate_docvalues_date");
         if(incubationDate != null)
@@ -3844,6 +3921,24 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         Double incubationDaysNow = (Double)doc.get("incubationDaysNow_docvalues_double");
         if(incubationDaysNow != null)
           oFishPopulation.setIncubationDaysNow(incubationDaysNow);
+      }
+
+      if(saves.contains("previousPopulation")) {
+        Long previousPopulation = (Long)doc.get("previousPopulation_docvalues_long");
+        if(previousPopulation != null)
+          oFishPopulation.setPreviousPopulation(previousPopulation);
+      }
+
+      if(saves.contains("simulation")) {
+        Boolean simulation = (Boolean)doc.get("simulation_docvalues_boolean");
+        if(simulation != null)
+          oFishPopulation.setSimulation(simulation);
+      }
+
+      if(saves.contains("simulationDelayMillis")) {
+        Long simulationDelayMillis = (Long)doc.get("simulationDelayMillis_docvalues_long");
+        if(simulationDelayMillis != null)
+          oFishPopulation.setSimulationDelayMillis(simulationDelayMillis);
       }
     }
 
@@ -3955,17 +4050,20 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         l.add(FishPopulation.staticSearchPopulationsNow(siteRequest_, o));
       }
     }
-    if(simulation != null) {
-      doc.put("simulation_docvalues_boolean", simulation);
-    }
-    if(simulationDelayMillis != null) {
-      doc.put("simulationDelayMillis_docvalues_long", simulationDelayMillis);
-    }
     if(incubationDate != null) {
       doc.put("incubationDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(incubationDate.toInstant(), ZoneId.of("UTC"))));
     }
     if(incubationDaysNow != null) {
       doc.put("incubationDaysNow_docvalues_double", incubationDaysNow.doubleValue());
+    }
+    if(previousPopulation != null) {
+      doc.put("previousPopulation_docvalues_long", previousPopulation);
+    }
+    if(simulation != null) {
+      doc.put("simulation_docvalues_boolean", simulation);
+    }
+    if(simulationDelayMillis != null) {
+      doc.put("simulationDelayMillis_docvalues_long", simulationDelayMillis);
     }
     super.indexMapModel(doc);
 
@@ -4029,14 +4127,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return "populationsAtBirth_docvalues_longs";
       case "populationsNow":
         return "populationsNow_docvalues_longs";
-      case "simulation":
-        return "simulation_docvalues_boolean";
-      case "simulationDelayMillis":
-        return "simulationDelayMillis_docvalues_long";
       case "incubationDate":
         return "incubationDate_docvalues_date";
       case "incubationDaysNow":
         return "incubationDaysNow_docvalues_double";
+      case "previousPopulation":
+        return "previousPopulation_docvalues_long";
+      case "simulation":
+        return "simulation_docvalues_boolean";
+      case "simulationDelayMillis":
+        return "simulationDelayMillis_docvalues_long";
       default:
         return MapModel.varStoredMapModel(entityVar);
     }
@@ -4100,14 +4200,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return "populationsAtBirth_docvalues_longs";
       case "populationsNow":
         return "populationsNow_docvalues_longs";
-      case "simulation":
-        return "simulation_docvalues_boolean";
-      case "simulationDelayMillis":
-        return "simulationDelayMillis_docvalues_long";
       case "incubationDate":
         return "incubationDate_docvalues_date";
       case "incubationDaysNow":
         return "incubationDaysNow_docvalues_double";
+      case "previousPopulation":
+        return "previousPopulation_docvalues_long";
+      case "simulation":
+        return "simulation_docvalues_boolean";
+      case "simulationDelayMillis":
+        return "simulationDelayMillis_docvalues_long";
       default:
         return MapModel.varIndexedMapModel(entityVar);
     }
@@ -4171,14 +4273,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return "populationsAtBirth";
       case "populationsNow_docvalues_longs":
         return "populationsNow";
-      case "simulation_docvalues_boolean":
-        return "simulation";
-      case "simulationDelayMillis_docvalues_long":
-        return "simulationDelayMillis";
       case "incubationDate_docvalues_date":
         return "incubationDate";
       case "incubationDaysNow_docvalues_double":
         return "incubationDaysNow";
+      case "previousPopulation_docvalues_long":
+        return "previousPopulation";
+      case "simulation_docvalues_boolean":
+        return "simulation";
+      case "simulationDelayMillis_docvalues_long":
+        return "simulationDelayMillis";
       default:
         return MapModel.searchVarMapModel(searchVar);
     }
@@ -4247,10 +4351,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     Optional.ofNullable((List<?>)doc.get("populationsNow_docvalues_longs")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
       oFishPopulation.addPopulationsNow(FishPopulation.staticSetPopulationsNow(siteRequest, v.toString()));
     });
-    oFishPopulation.setSimulation(Optional.ofNullable(doc.get("simulation_docvalues_boolean")).map(v -> v.toString()).orElse(null));
-    oFishPopulation.setSimulationDelayMillis(Optional.ofNullable(doc.get("simulationDelayMillis_docvalues_long")).map(v -> v.toString()).orElse(null));
     oFishPopulation.setIncubationDate(Optional.ofNullable(doc.get("incubationDate_docvalues_date")).map(v -> v.toString()).orElse(null));
     oFishPopulation.setIncubationDaysNow(Optional.ofNullable(doc.get("incubationDaysNow_docvalues_double")).map(v -> v.toString()).orElse(null));
+    oFishPopulation.setPreviousPopulation(Optional.ofNullable(doc.get("previousPopulation_docvalues_long")).map(v -> v.toString()).orElse(null));
+    oFishPopulation.setSimulation(Optional.ofNullable(doc.get("simulation_docvalues_boolean")).map(v -> v.toString()).orElse(null));
+    oFishPopulation.setSimulationDelayMillis(Optional.ofNullable(doc.get("simulationDelayMillis_docvalues_long")).map(v -> v.toString()).orElse(null));
 
     super.storeMapModel(doc);
   }
@@ -4320,14 +4425,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         apiRequest.addVars("populationsAtBirth");
       if(!Objects.equals(populationsNow, original.getPopulationsNow()))
         apiRequest.addVars("populationsNow");
-      if(!Objects.equals(simulation, original.getSimulation()))
-        apiRequest.addVars("simulation");
-      if(!Objects.equals(simulationDelayMillis, original.getSimulationDelayMillis()))
-        apiRequest.addVars("simulationDelayMillis");
       if(!Objects.equals(incubationDate, original.getIncubationDate()))
         apiRequest.addVars("incubationDate");
       if(!Objects.equals(incubationDaysNow, original.getIncubationDaysNow()) && incubationDaysNow != null && original.getIncubationDaysNow() != null && incubationDaysNow.compareTo(original.getIncubationDaysNow()) != 0)
         apiRequest.addVars("incubationDaysNow");
+      if(!Objects.equals(previousPopulation, original.getPreviousPopulation()))
+        apiRequest.addVars("previousPopulation");
+      if(!Objects.equals(simulation, original.getSimulation()))
+        apiRequest.addVars("simulation");
+      if(!Objects.equals(simulationDelayMillis, original.getSimulationDelayMillis()))
+        apiRequest.addVars("simulationDelayMillis");
       super.apiRequestMapModel();
     }
   }
@@ -4367,10 +4474,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     sb.append(Optional.ofNullable(percentPopulationPregnantMax).map(v -> "percentPopulationPregnantMax: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(populationsAtBirth).map(v -> "populationsAtBirth: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(populationsNow).map(v -> "populationsNow: " + v + "\n").orElse(""));
-    sb.append(Optional.ofNullable(simulation).map(v -> "simulation: " + v + "\n").orElse(""));
-    sb.append(Optional.ofNullable(simulationDelayMillis).map(v -> "simulationDelayMillis: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(incubationDate).map(v -> "incubationDate: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(incubationDaysNow).map(v -> "incubationDaysNow: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(previousPopulation).map(v -> "previousPopulation: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(simulation).map(v -> "simulation: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(simulationDelayMillis).map(v -> "simulationDelayMillis: " + v + "\n").orElse(""));
     return sb.toString();
   }
 
@@ -4409,10 +4517,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public static final String VAR_percentPopulationPregnantMax = "percentPopulationPregnantMax";
   public static final String VAR_populationsAtBirth = "populationsAtBirth";
   public static final String VAR_populationsNow = "populationsNow";
-  public static final String VAR_simulation = "simulation";
-  public static final String VAR_simulationDelayMillis = "simulationDelayMillis";
   public static final String VAR_incubationDate = "incubationDate";
   public static final String VAR_incubationDaysNow = "incubationDaysNow";
+  public static final String VAR_previousPopulation = "previousPopulation";
+  public static final String VAR_simulation = "simulation";
+  public static final String VAR_simulationDelayMillis = "simulationDelayMillis";
 
   public static List<String> varsQForClass() {
     return FishPopulation.varsQFishPopulation(new ArrayList<String>());
@@ -4489,10 +4598,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public static final String DISPLAY_NAME_percentPopulationPregnantMax = "max percent of population pregnant";
   public static final String DISPLAY_NAME_populationsAtBirth = "populations at birth";
   public static final String DISPLAY_NAME_populationsNow = "populations now";
-  public static final String DISPLAY_NAME_simulation = "simulation";
-  public static final String DISPLAY_NAME_simulationDelayMillis = "simulation delay in milliseconds";
   public static final String DISPLAY_NAME_incubationDate = "incubation date";
   public static final String DISPLAY_NAME_incubationDaysNow = "incubation days now";
+  public static final String DISPLAY_NAME_previousPopulation = "previous pouplation";
+  public static final String DISPLAY_NAME_simulation = "simulation";
+  public static final String DISPLAY_NAME_simulationDelayMillis = "simulation delay in milliseconds";
 
   @Override
   public String idForClass() {
@@ -4600,14 +4710,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return DISPLAY_NAME_populationsAtBirth;
     case VAR_populationsNow:
       return DISPLAY_NAME_populationsNow;
-    case VAR_simulation:
-      return DISPLAY_NAME_simulation;
-    case VAR_simulationDelayMillis:
-      return DISPLAY_NAME_simulationDelayMillis;
     case VAR_incubationDate:
       return DISPLAY_NAME_incubationDate;
     case VAR_incubationDaysNow:
       return DISPLAY_NAME_incubationDaysNow;
+    case VAR_previousPopulation:
+      return DISPLAY_NAME_previousPopulation;
+    case VAR_simulation:
+      return DISPLAY_NAME_simulation;
+    case VAR_simulationDelayMillis:
+      return DISPLAY_NAME_simulationDelayMillis;
     default:
       return MapModel.displayNameMapModel(var);
     }
@@ -4673,14 +4785,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return "A list of population counts at birth. ";
     case VAR_populationsNow:
       return "A list of population counts now, since birth. ";
-    case VAR_simulation:
-      return "Toggle the digital twin simulation";
-    case VAR_simulationDelayMillis:
-      return "The number of milliseconds to asynchronously wait before the next update event is sent. ";
     case VAR_incubationDate:
       return "The date and time that incubation started for this fish population. ";
     case VAR_incubationDaysNow:
       return "The current number of days of egg incubation. ";
+    case VAR_previousPopulation:
+      return "The previously known population count. ";
+    case VAR_simulation:
+      return "Toggle the digital twin simulation";
+    case VAR_simulationDelayMillis:
+      return "The number of milliseconds to asynchronously wait before the next update event is sent. ";
       default:
         return MapModel.descriptionMapModel(var);
     }
@@ -4744,14 +4858,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return "List";
     case VAR_populationsNow:
       return "List";
-    case VAR_simulation:
-      return "Boolean";
-    case VAR_simulationDelayMillis:
-      return "Long";
     case VAR_incubationDate:
       return "ZonedDateTime";
     case VAR_incubationDaysNow:
       return "BigDecimal";
+    case VAR_previousPopulation:
+      return "Long";
+    case VAR_simulation:
+      return "Boolean";
+    case VAR_simulationDelayMillis:
+      return "Long";
       default:
         return MapModel.classSimpleNameMapModel(var);
     }
@@ -4815,13 +4931,15 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return "Property";
     case VAR_populationsNow:
       return "Property";
-    case VAR_simulation:
-      return "Property";
-    case VAR_simulationDelayMillis:
-      return "Property";
     case VAR_incubationDate:
       return "Property";
     case VAR_incubationDaysNow:
+      return "Property";
+    case VAR_previousPopulation:
+      return "Property";
+    case VAR_simulation:
+      return "Property";
+    case VAR_simulationDelayMillis:
       return "Property";
       default:
         return MapModel.ngsiType(var);
@@ -4886,14 +5004,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return o.getPopulationsAtBirth();
     case VAR_populationsNow:
       return o.getPopulationsNow();
-    case VAR_simulation:
-      return o.getSimulation();
-    case VAR_simulationDelayMillis:
-      return o.getSimulationDelayMillis();
     case VAR_incubationDate:
       return o.getIncubationDate();
     case VAR_incubationDaysNow:
       return o.getIncubationDaysNow();
+    case VAR_previousPopulation:
+      return o.getPreviousPopulation();
+    case VAR_simulation:
+      return o.getSimulation();
+    case VAR_simulationDelayMillis:
+      return o.getSimulationDelayMillis();
       default:
         return ngsiMapModel(var, o);
     }
@@ -4939,33 +5059,35 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     case VAR_areaServed:
       return 4;
     case VAR_maturityDaysBegin:
-      return 5;
-    case VAR_maturityDaysEnd:
-      return 5;
-    case VAR_incubationDaysBegin:
-      return 5;
-    case VAR_incubationDaysEnd:
-      return 5;
-    case VAR_incubationNumberMin:
-      return 5;
-    case VAR_incubationNumberMax:
-      return 5;
-    case VAR_percentPopulationPregnantMin:
-      return 5;
-    case VAR_percentPopulationPregnantMax:
-      return 5;
-    case VAR_populationsAtBirth:
-      return 6;
-    case VAR_populationsNow:
-      return 6;
-    case VAR_simulation:
       return 7;
-    case VAR_simulationDelayMillis:
+    case VAR_maturityDaysEnd:
+      return 7;
+    case VAR_incubationDaysBegin:
+      return 7;
+    case VAR_incubationDaysEnd:
+      return 7;
+    case VAR_incubationNumberMin:
+      return 7;
+    case VAR_incubationNumberMax:
+      return 7;
+    case VAR_percentPopulationPregnantMin:
+      return 7;
+    case VAR_percentPopulationPregnantMax:
+      return 7;
+    case VAR_populationsAtBirth:
+      return 7;
+    case VAR_populationsNow:
       return 7;
     case VAR_incubationDate:
       return 7;
     case VAR_incubationDaysNow:
       return 7;
+    case VAR_previousPopulation:
+      return 7;
+    case VAR_simulation:
+      return 8;
+    case VAR_simulationDelayMillis:
+      return 8;
       default:
         return MapModel.htmRowMapModel(var);
     }
@@ -5020,17 +5142,19 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     case VAR_percentPopulationPregnantMax:
       return 6;
     case VAR_populationsAtBirth:
-      return 0;
+      return 8;
     case VAR_populationsNow:
-      return 1;
+      return 9;
+    case VAR_incubationDate:
+      return 10;
+    case VAR_incubationDaysNow:
+      return 11;
+    case VAR_previousPopulation:
+      return 12;
     case VAR_simulation:
       return 0;
     case VAR_simulationDelayMillis:
       return 1;
-    case VAR_incubationDate:
-      return 2;
-    case VAR_incubationDaysNow:
-      return 3;
       default:
         return MapModel.htmCellMapModel(var);
     }
