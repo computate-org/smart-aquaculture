@@ -18363,6 +18363,8 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  scientificName:
+                    type: string
                   maturityDaysBegin:
                     type: string
                   maturityDaysEnd:
@@ -18389,9 +18391,11 @@ components:
                       type: string
                   incubationDate:
                     type: string
+                  previousPopulation:
+                    type: string
                   incubationDaysNow:
                     type: string
-                  previousPopulation:
+                  waterTemperature:
                     type: string
                   simulation:
                     type: boolean
@@ -18557,6 +18561,13 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setScientificName:
+              type: string
+              nullable: true
+            removeScientificName:
+              type: string
+            removeAllScientificName:
+              type: string
             setMaturityDaysBegin:
               type: string
               nullable: true
@@ -18654,6 +18665,13 @@ components:
               type: string
             removeAllIncubationDate:
               type: string
+            setPreviousPopulation:
+              type: string
+              nullable: true
+            removePreviousPopulation:
+              type: string
+            removeAllPreviousPopulation:
+              type: string
             setIncubationDaysNow:
               type: string
               nullable: true
@@ -18661,12 +18679,12 @@ components:
               type: string
             removeAllIncubationDaysNow:
               type: string
-            setPreviousPopulation:
+            setWaterTemperature:
               type: string
               nullable: true
-            removePreviousPopulation:
+            removeWaterTemperature:
               type: string
-            removeAllPreviousPopulation:
+            removeAllWaterTemperature:
               type: string
             setSimulation:
               type: boolean
@@ -18842,6 +18860,13 @@ components:
               type: object
             removeAllAreaServed:
               type: object
+            setScientificName:
+              type: string
+              nullable: true
+            removeScientificName:
+              type: string
+            removeAllScientificName:
+              type: string
             setMaturityDaysBegin:
               type: string
               nullable: true
@@ -18939,6 +18964,13 @@ components:
               type: string
             removeAllIncubationDate:
               type: string
+            setPreviousPopulation:
+              type: string
+              nullable: true
+            removePreviousPopulation:
+              type: string
+            removeAllPreviousPopulation:
+              type: string
             setIncubationDaysNow:
               type: string
               nullable: true
@@ -18946,12 +18978,12 @@ components:
               type: string
             removeAllIncubationDaysNow:
               type: string
-            setPreviousPopulation:
+            setWaterTemperature:
               type: string
               nullable: true
-            removePreviousPopulation:
+            removeWaterTemperature:
               type: string
-            removeAllPreviousPopulation:
+            removeAllWaterTemperature:
               type: string
             setSimulation:
               type: boolean
@@ -19013,6 +19045,8 @@ components:
                 type: string
             areaServed:
               type: object
+            scientificName:
+              type: string
             maturityDaysBegin:
               type: string
             maturityDaysEnd:
@@ -19039,9 +19073,11 @@ components:
                 type: string
             incubationDate:
               type: string
+            previousPopulation:
+              type: string
             incubationDaysNow:
               type: string
-            previousPopulation:
+            waterTemperature:
               type: string
             simulation:
               type: boolean
@@ -19093,6 +19129,8 @@ components:
                 type: string
             areaServed:
               type: object
+            scientificName:
+              type: string
             maturityDaysBegin:
               type: string
             maturityDaysEnd:
@@ -19119,9 +19157,11 @@ components:
                 type: string
             incubationDate:
               type: string
+            previousPopulation:
+              type: string
             incubationDaysNow:
               type: string
-            previousPopulation:
+            waterTemperature:
               type: string
             simulation:
               type: boolean
@@ -19173,6 +19213,8 @@ components:
                 type: string
             areaServed:
               type: object
+            scientificName:
+              type: string
             maturityDaysBegin:
               type: string
             maturityDaysEnd:
@@ -19199,9 +19241,11 @@ components:
                 type: string
             incubationDate:
               type: string
+            previousPopulation:
+              type: string
             incubationDaysNow:
               type: string
-            previousPopulation:
+            waterTemperature:
               type: string
             simulation:
               type: boolean
@@ -19258,6 +19302,8 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  scientificName:
+                    type: string
                   maturityDaysBegin:
                     type: string
                   maturityDaysEnd:
@@ -19284,9 +19330,11 @@ components:
                       type: string
                   incubationDate:
                     type: string
+                  previousPopulation:
+                    type: string
                   incubationDaysNow:
                     type: string
-                  previousPopulation:
+                  waterTemperature:
                     type: string
                   simulation:
                     type: boolean
@@ -19338,6 +19386,8 @@ components:
                       type: string
                   areaServed:
                     type: object
+                  scientificName:
+                    type: string
                   maturityDaysBegin:
                     type: string
                   maturityDaysEnd:
@@ -19364,9 +19414,11 @@ components:
                       type: string
                   incubationDate:
                     type: string
+                  previousPopulation:
+                    type: string
                   incubationDaysNow:
                     type: string
-                  previousPopulation:
+                  waterTemperature:
                     type: string
                   simulation:
                     type: boolean
@@ -19419,6 +19471,8 @@ components:
                 type: string
             areaServed:
               type: object
+            scientificName:
+              type: string
             maturityDaysBegin:
               type: string
             maturityDaysEnd:
@@ -19445,9 +19499,11 @@ components:
                 type: string
             incubationDate:
               type: string
+            previousPopulation:
+              type: string
             incubationDaysNow:
               type: string
-            previousPopulation:
+            waterTemperature:
               type: string
             simulation:
               type: boolean
@@ -19499,6 +19555,8 @@ components:
                 type: string
             areaServed:
               type: object
+            scientificName:
+              type: string
             maturityDaysBegin:
               type: string
             maturityDaysEnd:
@@ -19525,9 +19583,11 @@ components:
                 type: string
             incubationDate:
               type: string
+            previousPopulation:
+              type: string
             incubationDaysNow:
               type: string
-            previousPopulation:
+            waterTemperature:
               type: string
             simulation:
               type: boolean

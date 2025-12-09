@@ -91,7 +91,7 @@ public class FishPopulationEnUSApiServiceImpl extends FishPopulationEnUSGenApiSe
           BigDecimal incubationDaysRandomFactor = new BigDecimal(new BigInteger(scale, random))
               .divide(new BigDecimal(BigInteger.ONE.shiftLeft(scale)), mc);
           BigDecimal incubationDaysRange = incubationDaysEnd.subtract(incubationDaysBegin);
-          incubationDaysNow = incubationDaysNow.add(incubationDaysRange.multiply(incubationDaysRandomFactor, mc));
+          incubationDaysNow = incubationDaysRange.multiply(incubationDaysRandomFactor, mc);
 
           BigDecimal incubationNumberRandomFactor = new BigDecimal(new BigInteger(scale, random))
               .divide(new BigDecimal(BigInteger.ONE.shiftLeft(scale)), mc);
@@ -107,6 +107,7 @@ public class FishPopulationEnUSApiServiceImpl extends FishPopulationEnUSGenApiSe
 
           populationsAtBirth.add(populationIncrease.longValue());
           populationsNow.add(populationIncrease.longValue());
+          jsonObject.put("setPreviousPopulation", populationIncrease.setScale(0, RoundingMode.HALF_UP).toPlainString());
           jsonObject.put("setPopulationsAtBirth", FishPopulation.staticJsonPopulationsAtBirth(populationsAtBirth));
         } else {
           incubationDaysNow = incubationDaysNow.subtract(new BigDecimal(1.0 / 24.0 / 60.0 / 60.0 / 1000.0).multiply(durationMillis, mc), mc);

@@ -52,71 +52,71 @@ import io.vertx.pgclient.data.Polygon;
  **/
 public class FishProcessing extends FishProcessingGen<MapModel> {
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: address
-	 * Description: The mailing address
-	 * HtmRowTitleOpen: FishPopulation details
-	 * HtmRow: 6
-	 * HtmCell: 0
-	 * Facet: true
-	 **/
-	protected void _address(Wrap<JsonObject> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: address
+   * Description: The mailing address
+   * HtmRowTitleOpen: FishPopulation details
+   * HtmRow: 6
+   * HtmCell: 0
+   * Facet: true
+   **/
+  protected void _address(Wrap<JsonObject> w) {
+  }
 
   @Override
   protected void _color(Wrap<String> w) {
     w.o("#036730ff");
   }
 
-	/**
-	 * {@inheritDoc}
-	
-	 * LocationColor: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served colors
-	 * Description: The colors of each areaServed Paths. 
-	 */
-	protected void _areaServedColors(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+  
+   * LocationColor: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served colors
+   * Description: The colors of each areaServed Paths. 
+   */
+  protected void _areaServedColors(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * LocationTitle: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served titles
-	 * Description: The titles of each areaServed Paths. 
-	 */
-	protected void _areaServedTitles(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * LocationTitle: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served titles
+   * Description: The titles of each areaServed Paths. 
+   */
+  protected void _areaServedTitles(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * LocationUrl: true
-	 * Indexed: true
-	 * Stored: true
-	 * DisplayName: area served links
-	 * Description: The links of each areaServed Paths. 
-	 */
-	protected void _areaServedLinks(List<String> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * LocationUrl: true
+   * Indexed: true
+   * Stored: true
+   * DisplayName: area served links
+   * Description: The links of each areaServed Paths. 
+   */
+  protected void _areaServedLinks(List<String> l) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * FiwareType: geo:linestring
-	 * Area: true
-	 * DocValues: true
-	 * Persist: true
-	 * DisplayName: area served
-	 * Description: The geographic area where a service or offered item is provided
-	 * HtmRow: 4
-	 * HtmCell: 1
-	 * Facet: true
-	 **/
-	protected void _areaServed(List<Polygon> l) {
-	}
+  /**
+   * {@inheritDoc}
+   * FiwareType: geo:linestring
+   * Area: true
+   * DocValues: true
+   * Persist: true
+   * DisplayName: area served
+   * Description: The geographic area where a service or offered item is provided
+   * HtmRow: 4
+   * HtmCell: 1
+   * Facet: true
+   **/
+  protected void _areaServed(List<Polygon> l) {
+  }
 }

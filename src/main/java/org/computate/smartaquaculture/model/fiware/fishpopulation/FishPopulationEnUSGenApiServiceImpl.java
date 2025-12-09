@@ -1049,6 +1049,14 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlAreaServed());
             break;
+          case "setScientificName":
+              o2.setScientificName(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishPopulation.VAR_scientificName + "=$" + num);
+              num++;
+              bParams.add(o2.sqlScientificName());
+            break;
           case "setMaturityDaysBegin":
               o2.setMaturityDaysBegin(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1137,6 +1145,14 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlIncubationDate());
             break;
+          case "setPreviousPopulation":
+              o2.setPreviousPopulation(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishPopulation.VAR_previousPopulation + "=$" + num);
+              num++;
+              bParams.add(o2.sqlPreviousPopulation());
+            break;
           case "setIncubationDaysNow":
               o2.setIncubationDaysNow(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1145,13 +1161,13 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlIncubationDaysNow());
             break;
-          case "setPreviousPopulation":
-              o2.setPreviousPopulation(jsonObject.getString(entityVar));
+          case "setWaterTemperature":
+              o2.setWaterTemperature(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishPopulation.VAR_previousPopulation + "=$" + num);
+              bSql.append(FishPopulation.VAR_waterTemperature + "=$" + num);
               num++;
-              bParams.add(o2.sqlPreviousPopulation());
+              bParams.add(o2.sqlWaterTemperature());
             break;
           case "setSimulation":
               o2.setSimulation(jsonObject.getString(entityVar));
@@ -1824,6 +1840,15 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             num++;
             bParams.add(o2.sqlAreaServed());
             break;
+          case FishPopulation.VAR_scientificName:
+            o2.setScientificName(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishPopulation.VAR_scientificName + "=$" + num);
+            num++;
+            bParams.add(o2.sqlScientificName());
+            break;
           case FishPopulation.VAR_maturityDaysBegin:
             o2.setMaturityDaysBegin(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1923,6 +1948,15 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             num++;
             bParams.add(o2.sqlIncubationDate());
             break;
+          case FishPopulation.VAR_previousPopulation:
+            o2.setPreviousPopulation(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishPopulation.VAR_previousPopulation + "=$" + num);
+            num++;
+            bParams.add(o2.sqlPreviousPopulation());
+            break;
           case FishPopulation.VAR_incubationDaysNow:
             o2.setIncubationDaysNow(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1932,14 +1966,14 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             num++;
             bParams.add(o2.sqlIncubationDaysNow());
             break;
-          case FishPopulation.VAR_previousPopulation:
-            o2.setPreviousPopulation(jsonObject.getString(entityVar));
+          case FishPopulation.VAR_waterTemperature:
+            o2.setWaterTemperature(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishPopulation.VAR_previousPopulation + "=$" + num);
+            bSql.append(FishPopulation.VAR_waterTemperature + "=$" + num);
             num++;
-            bParams.add(o2.sqlPreviousPopulation());
+            bParams.add(o2.sqlWaterTemperature());
             break;
           case FishPopulation.VAR_simulation:
             o2.setSimulation(jsonObject.getString(entityVar));
@@ -3728,7 +3762,7 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, address, description, alternateName, created, location, bodyMasse, id, culturedIn, archived, entityShortId, dataProvider, ngsildTenant, dateCreated, ngsildPath, dateModified, ngsildContext, fishRemoved, sessionId, ngsildData, initialNumber, userKey, color, owner, refSpecie, relatedSource, objectTitle, seeAlso, displayPage, source, editPage, userPage, download, ST_AsGeoJSON(areaServed) as areaServed, maturityDaysBegin, maturityDaysEnd, incubationDaysBegin, incubationDaysEnd, incubationNumberMin, incubationNumberMax, percentPopulationPregnantMin, percentPopulationPregnantMax, populationsAtBirth, populationsNow, incubationDate, incubationDaysNow, previousPopulation, simulation, simulationDelayMillis FROM FishPopulation WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, alternateName, created, location, bodyMasse, id, culturedIn, archived, entityShortId, dataProvider, ngsildTenant, dateCreated, ngsildPath, dateModified, ngsildContext, fishRemoved, sessionId, ngsildData, initialNumber, userKey, color, owner, refSpecie, relatedSource, objectTitle, seeAlso, displayPage, source, editPage, userPage, download, ST_AsGeoJSON(areaServed) as areaServed, scientificName, maturityDaysBegin, maturityDaysEnd, incubationDaysBegin, incubationDaysEnd, incubationNumberMin, incubationNumberMax, percentPopulationPregnantMin, percentPopulationPregnantMax, populationsAtBirth, populationsNow, incubationDate, previousPopulation, incubationDaysNow, waterTemperature, simulation, simulationDelayMillis FROM FishPopulation WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -4117,6 +4151,7 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       page.persistForClass(FishPopulation.VAR_userPage, FishPopulation.staticSetUserPage(siteRequest2, (String)result.get(FishPopulation.VAR_userPage)));
       page.persistForClass(FishPopulation.VAR_download, FishPopulation.staticSetDownload(siteRequest2, (String)result.get(FishPopulation.VAR_download)));
       page.persistForClass(FishPopulation.VAR_areaServed, FishPopulation.staticSetAreaServed(siteRequest2, (String)result.get(FishPopulation.VAR_areaServed)));
+      page.persistForClass(FishPopulation.VAR_scientificName, FishPopulation.staticSetScientificName(siteRequest2, (String)result.get(FishPopulation.VAR_scientificName)));
       page.persistForClass(FishPopulation.VAR_maturityDaysBegin, FishPopulation.staticSetMaturityDaysBegin(siteRequest2, (String)result.get(FishPopulation.VAR_maturityDaysBegin)));
       page.persistForClass(FishPopulation.VAR_maturityDaysEnd, FishPopulation.staticSetMaturityDaysEnd(siteRequest2, (String)result.get(FishPopulation.VAR_maturityDaysEnd)));
       page.persistForClass(FishPopulation.VAR_incubationDaysBegin, FishPopulation.staticSetIncubationDaysBegin(siteRequest2, (String)result.get(FishPopulation.VAR_incubationDaysBegin)));
@@ -4128,8 +4163,9 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       page.persistForClass(FishPopulation.VAR_populationsAtBirth, FishPopulation.staticSetPopulationsAtBirth(siteRequest2, (String)result.get(FishPopulation.VAR_populationsAtBirth)));
       page.persistForClass(FishPopulation.VAR_populationsNow, FishPopulation.staticSetPopulationsNow(siteRequest2, (String)result.get(FishPopulation.VAR_populationsNow)));
       page.persistForClass(FishPopulation.VAR_incubationDate, FishPopulation.staticSetIncubationDate(siteRequest2, (String)result.get(FishPopulation.VAR_incubationDate), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(FishPopulation.VAR_incubationDaysNow, FishPopulation.staticSetIncubationDaysNow(siteRequest2, (String)result.get(FishPopulation.VAR_incubationDaysNow)));
       page.persistForClass(FishPopulation.VAR_previousPopulation, FishPopulation.staticSetPreviousPopulation(siteRequest2, (String)result.get(FishPopulation.VAR_previousPopulation)));
+      page.persistForClass(FishPopulation.VAR_incubationDaysNow, FishPopulation.staticSetIncubationDaysNow(siteRequest2, (String)result.get(FishPopulation.VAR_incubationDaysNow)));
+      page.persistForClass(FishPopulation.VAR_waterTemperature, FishPopulation.staticSetWaterTemperature(siteRequest2, (String)result.get(FishPopulation.VAR_waterTemperature)));
       page.persistForClass(FishPopulation.VAR_simulation, FishPopulation.staticSetSimulation(siteRequest2, (String)result.get(FishPopulation.VAR_simulation)));
       page.persistForClass(FishPopulation.VAR_simulationDelayMillis, FishPopulation.staticSetSimulationDelayMillis(siteRequest2, (String)result.get(FishPopulation.VAR_simulationDelayMillis)));
 

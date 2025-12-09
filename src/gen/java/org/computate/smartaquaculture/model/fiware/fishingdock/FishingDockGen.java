@@ -720,7 +720,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
         }
         return shape;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -742,7 +742,7 @@ public abstract class FishingDockGen<DEV> extends MapModel {
         });
         return shapes;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -1075,9 +1075,9 @@ public abstract class FishingDockGen<DEV> extends MapModel {
         } else if(val instanceof Polygon[]) {
           Arrays.asList((Polygon[])val).stream().forEach(v -> addAreaServed((Polygon)v));
         } else if(val instanceof JsonObject) {
-          staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v));
+          Optional.ofNullable(staticSetAreaServed(siteRequest_, val.toString())).ifPresent(u -> u.stream().forEach(v -> addAreaServed(v)));
         } else if(val instanceof String) {
-          staticSetAreaServed(siteRequest_, (String)val).stream().forEach(v -> addAreaServed(v));
+          Optional.ofNullable(staticSetAreaServed(siteRequest_, (String)val)).ifPresent(u -> u.stream().forEach(v -> addAreaServed(v)));
         }
         if(!saves.contains("areaServed")) {
           saves.add("areaServed");

@@ -73,7 +73,7 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * DisplayName: location
 	 * Description: Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon
 	 * HtmRow: 4
-	 * HtmCell: 0
+	 * HtmCell: 2
 	 * Facet: true
 	 **/
 	protected void _location(Wrap<Point> w) {

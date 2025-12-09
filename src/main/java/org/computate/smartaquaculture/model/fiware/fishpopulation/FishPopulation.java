@@ -296,11 +296,23 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName: area served
    * Description: The geographic area where a service or offered item is provided
    * HtmRow: 4
-   * HtmCell: 1
+   * HtmCell: 4
    * Facet: true
    **/
   protected void _areaServed(List<Polygon> l) {
   }
+
+	/**
+	 * {@inheritDoc}
+	 * DocValues: true
+	 * Persist: true
+	 * DisplayName: scientific name
+	 * Description: The scientific name of the fish species. 
+	 * HtmRow: 4
+	 * HtmCell: 5
+	 **/
+	protected void _scientificName(Wrap<String> w) {
+	}
 
   /**
    * {@inheritDoc}
@@ -311,6 +323,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * HtmRowTitleOpen: reproduction parameters
    * HtmRow: 7
    * HtmCell: 0
+   * Precision: 16
    **/
   protected void _maturityDaysBegin(Wrap<BigDecimal> w) {
     w.o(new BigDecimal(30));
@@ -324,6 +337,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Description: The range of days from birth for the fish population to become sexually mature. 
    * HtmRow: 7
    * HtmCell: 1
+   * Precision: 16
    **/
   protected void _maturityDaysEnd(Wrap<BigDecimal> w) {
     w.o(new BigDecimal(160));
@@ -338,6 +352,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * HtmRowTitleOpen: reproduction parameters
    * HtmRow: 7
    * HtmCell: 2
+   * Precision: 16
    **/
   protected void _incubationDaysBegin(Wrap<BigDecimal> w) {
     w.o(new BigDecimal(20));
@@ -351,6 +366,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * Description: The range of days for egg incubation. 
    * HtmRow: 7
    * HtmCell: 3
+   * Precision: 16
    **/
   protected void _incubationDaysEnd(Wrap<BigDecimal> w) {
     w.o(new BigDecimal(40));
@@ -450,10 +466,24 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
+   * DisplayName: previous pouplation
+   * Description: The previously known population count. 
+   * HtmRow: 7
+   * HtmCell: 12
+   **/
+  protected void _previousPopulation(Wrap<Long> w) {
+    w.o(0L);
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
    * DisplayName: incubation days now
    * Description: The current number of days of egg incubation. 
    * HtmRow: 7
    * HtmCell: 11
+   * Precision: 16
    **/
   protected void _incubationDaysNow(Wrap<BigDecimal> w) {
     w.o(BigDecimal.ZERO);
@@ -463,13 +493,14 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: previous pouplation
-   * Description: The previously known population count. 
+   * DisplayName: water temperature in Fahrenheit
+   * Description: The water temperature can affect fish population survival. 
    * HtmRow: 7
    * HtmCell: 12
+   * Precision: 3
    **/
-  protected void _previousPopulation(Wrap<Long> w) {
-    w.o(0L);
+  protected void _waterTemperature(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(60));
   }
 
   /**
