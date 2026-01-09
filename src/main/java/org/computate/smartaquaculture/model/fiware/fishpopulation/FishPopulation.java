@@ -507,6 +507,48 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
+   * DisplayName: salinity in ppt
+   * Description: The water salinity can affect fish population survival. 
+   * HtmRow: 7
+   * HtmCell: 13
+   * Precision: 3
+   **/
+  protected void _waterSalinity(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(30));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: oxygen in mg/L
+   * Description: The water oxygen levels can affect fish population survival. 
+   * HtmRow: 7
+   * HtmCell: 14
+   * Precision: 3
+   **/
+  protected void _waterOxygen(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(5));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: pH
+   * Description: The water pH levels can affect fish population survival. 
+   * HtmRow: 7
+   * HtmCell: 15
+   * Precision: 3
+   **/
+  protected void _waterPh(Wrap<BigDecimal> w) {
+    w.o(new BigDecimal(8.1));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
    * DisplayName: simulation
    * Description: Toggle the digital twin simulation
    * HtmRowTitleOpen: simulation parameters

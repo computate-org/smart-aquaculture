@@ -18397,6 +18397,12 @@ components:
                     type: string
                   waterTemperature:
                     type: string
+                  waterSalinity:
+                    type: string
+                  waterOxygen:
+                    type: string
+                  waterPh:
+                    type: string
                   simulation:
                     type: boolean
                   simulationDelayMillis:
@@ -18685,6 +18691,27 @@ components:
             removeWaterTemperature:
               type: string
             removeAllWaterTemperature:
+              type: string
+            setWaterSalinity:
+              type: string
+              nullable: true
+            removeWaterSalinity:
+              type: string
+            removeAllWaterSalinity:
+              type: string
+            setWaterOxygen:
+              type: string
+              nullable: true
+            removeWaterOxygen:
+              type: string
+            removeAllWaterOxygen:
+              type: string
+            setWaterPh:
+              type: string
+              nullable: true
+            removeWaterPh:
+              type: string
+            removeAllWaterPh:
               type: string
             setSimulation:
               type: boolean
@@ -18985,6 +19012,27 @@ components:
               type: string
             removeAllWaterTemperature:
               type: string
+            setWaterSalinity:
+              type: string
+              nullable: true
+            removeWaterSalinity:
+              type: string
+            removeAllWaterSalinity:
+              type: string
+            setWaterOxygen:
+              type: string
+              nullable: true
+            removeWaterOxygen:
+              type: string
+            removeAllWaterOxygen:
+              type: string
+            setWaterPh:
+              type: string
+              nullable: true
+            removeWaterPh:
+              type: string
+            removeAllWaterPh:
+              type: string
             setSimulation:
               type: boolean
               nullable: true
@@ -19079,6 +19127,12 @@ components:
               type: string
             waterTemperature:
               type: string
+            waterSalinity:
+              type: string
+            waterOxygen:
+              type: string
+            waterPh:
+              type: string
             simulation:
               type: boolean
             simulationDelayMillis:
@@ -19163,6 +19217,12 @@ components:
               type: string
             waterTemperature:
               type: string
+            waterSalinity:
+              type: string
+            waterOxygen:
+              type: string
+            waterPh:
+              type: string
             simulation:
               type: boolean
             simulationDelayMillis:
@@ -19246,6 +19306,12 @@ components:
             incubationDaysNow:
               type: string
             waterTemperature:
+              type: string
+            waterSalinity:
+              type: string
+            waterOxygen:
+              type: string
+            waterPh:
               type: string
             simulation:
               type: boolean
@@ -19336,6 +19402,12 @@ components:
                     type: string
                   waterTemperature:
                     type: string
+                  waterSalinity:
+                    type: string
+                  waterOxygen:
+                    type: string
+                  waterPh:
+                    type: string
                   simulation:
                     type: boolean
                   simulationDelayMillis:
@@ -19419,6 +19491,12 @@ components:
                   incubationDaysNow:
                     type: string
                   waterTemperature:
+                    type: string
+                  waterSalinity:
+                    type: string
+                  waterOxygen:
+                    type: string
+                  waterPh:
                     type: string
                   simulation:
                     type: boolean
@@ -19505,6 +19583,12 @@ components:
               type: string
             waterTemperature:
               type: string
+            waterSalinity:
+              type: string
+            waterOxygen:
+              type: string
+            waterPh:
+              type: string
             simulation:
               type: boolean
             simulationDelayMillis:
@@ -19588,6 +19672,12 @@ components:
             incubationDaysNow:
               type: string
             waterTemperature:
+              type: string
+            waterSalinity:
+              type: string
+            waterOxygen:
+              type: string
+            waterPh:
               type: string
             simulation:
               type: boolean

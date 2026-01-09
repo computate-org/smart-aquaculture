@@ -1169,6 +1169,30 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlWaterTemperature());
             break;
+          case "setWaterSalinity":
+              o2.setWaterSalinity(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishPopulation.VAR_waterSalinity + "=$" + num);
+              num++;
+              bParams.add(o2.sqlWaterSalinity());
+            break;
+          case "setWaterOxygen":
+              o2.setWaterOxygen(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishPopulation.VAR_waterOxygen + "=$" + num);
+              num++;
+              bParams.add(o2.sqlWaterOxygen());
+            break;
+          case "setWaterPh":
+              o2.setWaterPh(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishPopulation.VAR_waterPh + "=$" + num);
+              num++;
+              bParams.add(o2.sqlWaterPh());
+            break;
           case "setSimulation":
               o2.setSimulation(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1974,6 +1998,33 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             bSql.append(FishPopulation.VAR_waterTemperature + "=$" + num);
             num++;
             bParams.add(o2.sqlWaterTemperature());
+            break;
+          case FishPopulation.VAR_waterSalinity:
+            o2.setWaterSalinity(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishPopulation.VAR_waterSalinity + "=$" + num);
+            num++;
+            bParams.add(o2.sqlWaterSalinity());
+            break;
+          case FishPopulation.VAR_waterOxygen:
+            o2.setWaterOxygen(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishPopulation.VAR_waterOxygen + "=$" + num);
+            num++;
+            bParams.add(o2.sqlWaterOxygen());
+            break;
+          case FishPopulation.VAR_waterPh:
+            o2.setWaterPh(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishPopulation.VAR_waterPh + "=$" + num);
+            num++;
+            bParams.add(o2.sqlWaterPh());
             break;
           case FishPopulation.VAR_simulation:
             o2.setSimulation(jsonObject.getString(entityVar));
@@ -3762,7 +3813,7 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, address, description, alternateName, created, location, bodyMasse, id, culturedIn, archived, entityShortId, dataProvider, ngsildTenant, dateCreated, ngsildPath, dateModified, ngsildContext, fishRemoved, sessionId, ngsildData, initialNumber, userKey, color, owner, refSpecie, relatedSource, objectTitle, seeAlso, displayPage, source, editPage, userPage, download, ST_AsGeoJSON(areaServed) as areaServed, scientificName, maturityDaysBegin, maturityDaysEnd, incubationDaysBegin, incubationDaysEnd, incubationNumberMin, incubationNumberMax, percentPopulationPregnantMin, percentPopulationPregnantMax, populationsAtBirth, populationsNow, incubationDate, previousPopulation, incubationDaysNow, waterTemperature, simulation, simulationDelayMillis FROM FishPopulation WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, alternateName, created, location, bodyMasse, id, culturedIn, archived, entityShortId, dataProvider, ngsildTenant, dateCreated, ngsildPath, dateModified, ngsildContext, fishRemoved, sessionId, ngsildData, initialNumber, userKey, color, owner, refSpecie, relatedSource, objectTitle, seeAlso, displayPage, source, editPage, userPage, download, ST_AsGeoJSON(areaServed) as areaServed, scientificName, maturityDaysBegin, maturityDaysEnd, incubationDaysBegin, incubationDaysEnd, incubationNumberMin, incubationNumberMax, percentPopulationPregnantMin, percentPopulationPregnantMax, populationsAtBirth, populationsNow, incubationDate, previousPopulation, incubationDaysNow, waterTemperature, waterSalinity, waterOxygen, waterPh, simulation, simulationDelayMillis FROM FishPopulation WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -4166,6 +4217,9 @@ public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       page.persistForClass(FishPopulation.VAR_previousPopulation, FishPopulation.staticSetPreviousPopulation(siteRequest2, (String)result.get(FishPopulation.VAR_previousPopulation)));
       page.persistForClass(FishPopulation.VAR_incubationDaysNow, FishPopulation.staticSetIncubationDaysNow(siteRequest2, (String)result.get(FishPopulation.VAR_incubationDaysNow)));
       page.persistForClass(FishPopulation.VAR_waterTemperature, FishPopulation.staticSetWaterTemperature(siteRequest2, (String)result.get(FishPopulation.VAR_waterTemperature)));
+      page.persistForClass(FishPopulation.VAR_waterSalinity, FishPopulation.staticSetWaterSalinity(siteRequest2, (String)result.get(FishPopulation.VAR_waterSalinity)));
+      page.persistForClass(FishPopulation.VAR_waterOxygen, FishPopulation.staticSetWaterOxygen(siteRequest2, (String)result.get(FishPopulation.VAR_waterOxygen)));
+      page.persistForClass(FishPopulation.VAR_waterPh, FishPopulation.staticSetWaterPh(siteRequest2, (String)result.get(FishPopulation.VAR_waterPh)));
       page.persistForClass(FishPopulation.VAR_simulation, FishPopulation.staticSetSimulation(siteRequest2, (String)result.get(FishPopulation.VAR_simulation)));
       page.persistForClass(FishPopulation.VAR_simulationDelayMillis, FishPopulation.staticSetSimulationDelayMillis(siteRequest2, (String)result.get(FishPopulation.VAR_simulationDelayMillis)));
 

@@ -2964,6 +2964,264 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return Optional.ofNullable(waterTemperature).map(v -> v.toString()).orElse(null);
   }
 
+	///////////////////
+  // waterSalinity //
+	///////////////////
+
+
+  /**
+   *  The entity waterSalinity
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected BigDecimal waterSalinity;
+
+  /**
+   * <br> The entity waterSalinity
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:waterSalinity">Find the entity waterSalinity in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _waterSalinity(Wrap<BigDecimal> w);
+
+  public BigDecimal getWaterSalinity() {
+    return waterSalinity;
+  }
+
+  public void setWaterSalinity(BigDecimal waterSalinity) {
+    this.waterSalinity = waterSalinity;
+  }
+  @JsonIgnore
+  public void setWaterSalinity(String o) {
+    this.waterSalinity = FishPopulation.staticSetWaterSalinity(siteRequest_, o);
+  }
+  public static MathContext staticMathContextWaterSalinity() {
+    return new MathContext(3, RoundingMode.valueOf("HALF_UP"));
+  }
+  public static BigDecimal staticSetWaterSalinity(SiteRequest siteRequest_, String o) {
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
+    if(NumberUtils.isParsable(o))
+      return new BigDecimal(o, staticMathContextWaterSalinity());
+    return null;
+  }
+  @JsonIgnore
+  public void setWaterSalinity(Double o) {
+    setWaterSalinity(new BigDecimal(o, staticMathContextWaterSalinity()));
+  }
+  @JsonIgnore
+  public void setWaterSalinity(Integer o) {
+    setWaterSalinity(new BigDecimal(o, staticMathContextWaterSalinity()));
+  }
+  @JsonIgnore
+  public void setWaterSalinity(Number o) {
+    setWaterSalinity(new BigDecimal(o.doubleValue(), staticMathContextWaterSalinity()));
+  }
+  protected FishPopulation waterSalinityInit() {
+    Wrap<BigDecimal> waterSalinityWrap = new Wrap<BigDecimal>().var("waterSalinity");
+    if(waterSalinity == null) {
+      _waterSalinity(waterSalinityWrap);
+      Optional.ofNullable(waterSalinityWrap.getO()).ifPresent(o -> {
+        setWaterSalinity(o);
+      });
+    }
+    return (FishPopulation)this;
+  }
+
+  public static Double staticSearchWaterSalinity(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.doubleValue();
+  }
+
+  public static String staticSearchStrWaterSalinity(SiteRequest siteRequest_, Double o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqWaterSalinity(SiteRequest siteRequest_, String o) {
+    return FishPopulation.staticSearchWaterSalinity(siteRequest_, FishPopulation.staticSetWaterSalinity(siteRequest_, o)).toString();
+  }
+
+  public BigDecimal sqlWaterSalinity() {
+    return waterSalinity;
+  }
+
+  public static String staticJsonWaterSalinity(BigDecimal waterSalinity) {
+    return Optional.ofNullable(waterSalinity).map(v -> v.toString()).orElse(null);
+  }
+
+	/////////////////
+  // waterOxygen //
+	/////////////////
+
+
+  /**
+   *  The entity waterOxygen
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected BigDecimal waterOxygen;
+
+  /**
+   * <br> The entity waterOxygen
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:waterOxygen">Find the entity waterOxygen in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _waterOxygen(Wrap<BigDecimal> w);
+
+  public BigDecimal getWaterOxygen() {
+    return waterOxygen;
+  }
+
+  public void setWaterOxygen(BigDecimal waterOxygen) {
+    this.waterOxygen = waterOxygen;
+  }
+  @JsonIgnore
+  public void setWaterOxygen(String o) {
+    this.waterOxygen = FishPopulation.staticSetWaterOxygen(siteRequest_, o);
+  }
+  public static MathContext staticMathContextWaterOxygen() {
+    return new MathContext(3, RoundingMode.valueOf("HALF_UP"));
+  }
+  public static BigDecimal staticSetWaterOxygen(SiteRequest siteRequest_, String o) {
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
+    if(NumberUtils.isParsable(o))
+      return new BigDecimal(o, staticMathContextWaterOxygen());
+    return null;
+  }
+  @JsonIgnore
+  public void setWaterOxygen(Double o) {
+    setWaterOxygen(new BigDecimal(o, staticMathContextWaterOxygen()));
+  }
+  @JsonIgnore
+  public void setWaterOxygen(Integer o) {
+    setWaterOxygen(new BigDecimal(o, staticMathContextWaterOxygen()));
+  }
+  @JsonIgnore
+  public void setWaterOxygen(Number o) {
+    setWaterOxygen(new BigDecimal(o.doubleValue(), staticMathContextWaterOxygen()));
+  }
+  protected FishPopulation waterOxygenInit() {
+    Wrap<BigDecimal> waterOxygenWrap = new Wrap<BigDecimal>().var("waterOxygen");
+    if(waterOxygen == null) {
+      _waterOxygen(waterOxygenWrap);
+      Optional.ofNullable(waterOxygenWrap.getO()).ifPresent(o -> {
+        setWaterOxygen(o);
+      });
+    }
+    return (FishPopulation)this;
+  }
+
+  public static Double staticSearchWaterOxygen(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.doubleValue();
+  }
+
+  public static String staticSearchStrWaterOxygen(SiteRequest siteRequest_, Double o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqWaterOxygen(SiteRequest siteRequest_, String o) {
+    return FishPopulation.staticSearchWaterOxygen(siteRequest_, FishPopulation.staticSetWaterOxygen(siteRequest_, o)).toString();
+  }
+
+  public BigDecimal sqlWaterOxygen() {
+    return waterOxygen;
+  }
+
+  public static String staticJsonWaterOxygen(BigDecimal waterOxygen) {
+    return Optional.ofNullable(waterOxygen).map(v -> v.toString()).orElse(null);
+  }
+
+	/////////////
+  // waterPh //
+	/////////////
+
+
+  /**
+   *  The entity waterPh
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonSerialize(using = ToStringSerializer.class)
+  @JsonInclude(Include.NON_NULL)
+  protected BigDecimal waterPh;
+
+  /**
+   * <br> The entity waterPh
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation&fq=entiteVar_enUS_indexed_string:waterPh">Find the entity waterPh in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _waterPh(Wrap<BigDecimal> w);
+
+  public BigDecimal getWaterPh() {
+    return waterPh;
+  }
+
+  public void setWaterPh(BigDecimal waterPh) {
+    this.waterPh = waterPh;
+  }
+  @JsonIgnore
+  public void setWaterPh(String o) {
+    this.waterPh = FishPopulation.staticSetWaterPh(siteRequest_, o);
+  }
+  public static MathContext staticMathContextWaterPh() {
+    return new MathContext(3, RoundingMode.valueOf("HALF_UP"));
+  }
+  public static BigDecimal staticSetWaterPh(SiteRequest siteRequest_, String o) {
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
+    if(NumberUtils.isParsable(o))
+      return new BigDecimal(o, staticMathContextWaterPh());
+    return null;
+  }
+  @JsonIgnore
+  public void setWaterPh(Double o) {
+    setWaterPh(new BigDecimal(o, staticMathContextWaterPh()));
+  }
+  @JsonIgnore
+  public void setWaterPh(Integer o) {
+    setWaterPh(new BigDecimal(o, staticMathContextWaterPh()));
+  }
+  @JsonIgnore
+  public void setWaterPh(Number o) {
+    setWaterPh(new BigDecimal(o.doubleValue(), staticMathContextWaterPh()));
+  }
+  protected FishPopulation waterPhInit() {
+    Wrap<BigDecimal> waterPhWrap = new Wrap<BigDecimal>().var("waterPh");
+    if(waterPh == null) {
+      _waterPh(waterPhWrap);
+      Optional.ofNullable(waterPhWrap.getO()).ifPresent(o -> {
+        setWaterPh(o);
+      });
+    }
+    return (FishPopulation)this;
+  }
+
+  public static Double staticSearchWaterPh(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.doubleValue();
+  }
+
+  public static String staticSearchStrWaterPh(SiteRequest siteRequest_, Double o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqWaterPh(SiteRequest siteRequest_, String o) {
+    return FishPopulation.staticSearchWaterPh(siteRequest_, FishPopulation.staticSetWaterPh(siteRequest_, o)).toString();
+  }
+
+  public BigDecimal sqlWaterPh() {
+    return waterPh;
+  }
+
+  public static String staticJsonWaterPh(BigDecimal waterPh) {
+    return Optional.ofNullable(waterPh).map(v -> v.toString()).orElse(null);
+  }
+
 	////////////////
   // simulation //
 	////////////////
@@ -3163,6 +3421,9 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         previousPopulationInit();
         incubationDaysNowInit();
         waterTemperatureInit();
+        waterSalinityInit();
+        waterOxygenInit();
+        waterPhInit();
         simulationInit();
         simulationDelayMillisInit();
         promise2.complete();
@@ -3284,6 +3545,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return oFishPopulation.incubationDaysNow;
       case "waterTemperature":
         return oFishPopulation.waterTemperature;
+      case "waterSalinity":
+        return oFishPopulation.waterSalinity;
+      case "waterOxygen":
+        return oFishPopulation.waterOxygen;
+      case "waterPh":
+        return oFishPopulation.waterPh;
       case "simulation":
         return oFishPopulation.simulation;
       case "simulationDelayMillis":
@@ -3392,6 +3659,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSetIncubationDaysNow(siteRequest_, v);
     case "waterTemperature":
       return FishPopulation.staticSetWaterTemperature(siteRequest_, v);
+    case "waterSalinity":
+      return FishPopulation.staticSetWaterSalinity(siteRequest_, v);
+    case "waterOxygen":
+      return FishPopulation.staticSetWaterOxygen(siteRequest_, v);
+    case "waterPh":
+      return FishPopulation.staticSetWaterPh(siteRequest_, v);
     case "simulation":
       return FishPopulation.staticSetSimulation(siteRequest_, v);
     case "simulationDelayMillis":
@@ -3476,6 +3749,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSearchIncubationDaysNow(siteRequest_, (BigDecimal)o);
     case "waterTemperature":
       return FishPopulation.staticSearchWaterTemperature(siteRequest_, (BigDecimal)o);
+    case "waterSalinity":
+      return FishPopulation.staticSearchWaterSalinity(siteRequest_, (BigDecimal)o);
+    case "waterOxygen":
+      return FishPopulation.staticSearchWaterOxygen(siteRequest_, (BigDecimal)o);
+    case "waterPh":
+      return FishPopulation.staticSearchWaterPh(siteRequest_, (BigDecimal)o);
     case "simulation":
       return FishPopulation.staticSearchSimulation(siteRequest_, (Boolean)o);
     case "simulationDelayMillis":
@@ -3560,6 +3839,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSearchStrIncubationDaysNow(siteRequest_, (Double)o);
     case "waterTemperature":
       return FishPopulation.staticSearchStrWaterTemperature(siteRequest_, (Double)o);
+    case "waterSalinity":
+      return FishPopulation.staticSearchStrWaterSalinity(siteRequest_, (Double)o);
+    case "waterOxygen":
+      return FishPopulation.staticSearchStrWaterOxygen(siteRequest_, (Double)o);
+    case "waterPh":
+      return FishPopulation.staticSearchStrWaterPh(siteRequest_, (Double)o);
     case "simulation":
       return FishPopulation.staticSearchStrSimulation(siteRequest_, (Boolean)o);
     case "simulationDelayMillis":
@@ -3644,6 +3929,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return FishPopulation.staticSearchFqIncubationDaysNow(siteRequest_, o);
     case "waterTemperature":
       return FishPopulation.staticSearchFqWaterTemperature(siteRequest_, o);
+    case "waterSalinity":
+      return FishPopulation.staticSearchFqWaterSalinity(siteRequest_, o);
+    case "waterOxygen":
+      return FishPopulation.staticSearchFqWaterOxygen(siteRequest_, o);
+    case "waterPh":
+      return FishPopulation.staticSearchFqWaterPh(siteRequest_, o);
     case "simulation":
       return FishPopulation.staticSearchFqSimulation(siteRequest_, o);
     case "simulationDelayMillis":
@@ -3918,6 +4209,30 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         }
         saves.add("waterTemperature");
         return val;
+      } else if("watersalinity".equals(varLower)) {
+        if(val instanceof String) {
+          setWaterSalinity((String)val);
+        } else if(val instanceof Number) {
+          setWaterSalinity(new BigDecimal(((Number)val).doubleValue()));
+        }
+        saves.add("waterSalinity");
+        return val;
+      } else if("wateroxygen".equals(varLower)) {
+        if(val instanceof String) {
+          setWaterOxygen((String)val);
+        } else if(val instanceof Number) {
+          setWaterOxygen(new BigDecimal(((Number)val).doubleValue()));
+        }
+        saves.add("waterOxygen");
+        return val;
+      } else if("waterph".equals(varLower)) {
+        if(val instanceof String) {
+          setWaterPh((String)val);
+        } else if(val instanceof Number) {
+          setWaterPh(new BigDecimal(((Number)val).doubleValue()));
+        }
+        saves.add("waterPh");
+        return val;
       } else if("simulation".equals(varLower)) {
         if(val instanceof Boolean) {
           setSimulation((Boolean)val);
@@ -4167,6 +4482,24 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           oFishPopulation.setWaterTemperature(waterTemperature);
       }
 
+      if(saves.contains("waterSalinity")) {
+        Double waterSalinity = (Double)doc.get("waterSalinity_docvalues_string");
+        if(waterSalinity != null)
+          oFishPopulation.setWaterSalinity(waterSalinity);
+      }
+
+      if(saves.contains("waterOxygen")) {
+        Double waterOxygen = (Double)doc.get("waterOxygen_docvalues_string");
+        if(waterOxygen != null)
+          oFishPopulation.setWaterOxygen(waterOxygen);
+      }
+
+      if(saves.contains("waterPh")) {
+        Double waterPh = (Double)doc.get("waterPh_docvalues_string");
+        if(waterPh != null)
+          oFishPopulation.setWaterPh(waterPh);
+      }
+
       if(saves.contains("simulation")) {
         Boolean simulation = (Boolean)doc.get("simulation_docvalues_boolean");
         if(simulation != null)
@@ -4303,6 +4636,15 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     if(waterTemperature != null) {
       doc.put("waterTemperature_docvalues_string", waterTemperature.toPlainString());
     }
+    if(waterSalinity != null) {
+      doc.put("waterSalinity_docvalues_string", waterSalinity.toPlainString());
+    }
+    if(waterOxygen != null) {
+      doc.put("waterOxygen_docvalues_string", waterOxygen.toPlainString());
+    }
+    if(waterPh != null) {
+      doc.put("waterPh_docvalues_string", waterPh.toPlainString());
+    }
     if(simulation != null) {
       doc.put("simulation_docvalues_boolean", simulation);
     }
@@ -4381,6 +4723,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return "incubationDaysNow_docvalues_string";
       case "waterTemperature":
         return "waterTemperature_docvalues_string";
+      case "waterSalinity":
+        return "waterSalinity_docvalues_string";
+      case "waterOxygen":
+        return "waterOxygen_docvalues_string";
+      case "waterPh":
+        return "waterPh_docvalues_string";
       case "simulation":
         return "simulation_docvalues_boolean";
       case "simulationDelayMillis":
@@ -4458,6 +4806,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return "incubationDaysNow_docvalues_string";
       case "waterTemperature":
         return "waterTemperature_docvalues_string";
+      case "waterSalinity":
+        return "waterSalinity_docvalues_string";
+      case "waterOxygen":
+        return "waterOxygen_docvalues_string";
+      case "waterPh":
+        return "waterPh_docvalues_string";
       case "simulation":
         return "simulation_docvalues_boolean";
       case "simulationDelayMillis":
@@ -4535,6 +4889,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         return "incubationDaysNow";
       case "waterTemperature_docvalues_string":
         return "waterTemperature";
+      case "waterSalinity_docvalues_string":
+        return "waterSalinity";
+      case "waterOxygen_docvalues_string":
+        return "waterOxygen";
+      case "waterPh_docvalues_string":
+        return "waterPh";
       case "simulation_docvalues_boolean":
         return "simulation";
       case "simulationDelayMillis_docvalues_long":
@@ -4612,6 +4972,9 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     oFishPopulation.setPreviousPopulation(Optional.ofNullable(doc.get("previousPopulation_docvalues_long")).map(v -> v.toString()).orElse(null));
     oFishPopulation.setIncubationDaysNow(Optional.ofNullable(doc.get("incubationDaysNow_docvalues_string")).map(v -> v.toString()).orElse(null));
     oFishPopulation.setWaterTemperature(Optional.ofNullable(doc.get("waterTemperature_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishPopulation.setWaterSalinity(Optional.ofNullable(doc.get("waterSalinity_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishPopulation.setWaterOxygen(Optional.ofNullable(doc.get("waterOxygen_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishPopulation.setWaterPh(Optional.ofNullable(doc.get("waterPh_docvalues_string")).map(v -> v.toString()).orElse(null));
     oFishPopulation.setSimulation(Optional.ofNullable(doc.get("simulation_docvalues_boolean")).map(v -> v.toString()).orElse(null));
     oFishPopulation.setSimulationDelayMillis(Optional.ofNullable(doc.get("simulationDelayMillis_docvalues_long")).map(v -> v.toString()).orElse(null));
 
@@ -4693,6 +5056,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
         apiRequest.addVars("incubationDaysNow");
       if(!Objects.equals(waterTemperature, original.getWaterTemperature()) && waterTemperature != null && original.getWaterTemperature() != null && waterTemperature.compareTo(original.getWaterTemperature()) != 0)
         apiRequest.addVars("waterTemperature");
+      if(!Objects.equals(waterSalinity, original.getWaterSalinity()) && waterSalinity != null && original.getWaterSalinity() != null && waterSalinity.compareTo(original.getWaterSalinity()) != 0)
+        apiRequest.addVars("waterSalinity");
+      if(!Objects.equals(waterOxygen, original.getWaterOxygen()) && waterOxygen != null && original.getWaterOxygen() != null && waterOxygen.compareTo(original.getWaterOxygen()) != 0)
+        apiRequest.addVars("waterOxygen");
+      if(!Objects.equals(waterPh, original.getWaterPh()) && waterPh != null && original.getWaterPh() != null && waterPh.compareTo(original.getWaterPh()) != 0)
+        apiRequest.addVars("waterPh");
       if(!Objects.equals(simulation, original.getSimulation()))
         apiRequest.addVars("simulation");
       if(!Objects.equals(simulationDelayMillis, original.getSimulationDelayMillis()))
@@ -4741,6 +5110,9 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     sb.append(Optional.ofNullable(previousPopulation).map(v -> "previousPopulation: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(incubationDaysNow).map(v -> "incubationDaysNow: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(waterTemperature).map(v -> "waterTemperature: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(waterSalinity).map(v -> "waterSalinity: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(waterOxygen).map(v -> "waterOxygen: " + v + "\n").orElse(""));
+    sb.append(Optional.ofNullable(waterPh).map(v -> "waterPh: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(simulation).map(v -> "simulation: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(simulationDelayMillis).map(v -> "simulationDelayMillis: " + v + "\n").orElse(""));
     return sb.toString();
@@ -4786,6 +5158,9 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public static final String VAR_previousPopulation = "previousPopulation";
   public static final String VAR_incubationDaysNow = "incubationDaysNow";
   public static final String VAR_waterTemperature = "waterTemperature";
+  public static final String VAR_waterSalinity = "waterSalinity";
+  public static final String VAR_waterOxygen = "waterOxygen";
+  public static final String VAR_waterPh = "waterPh";
   public static final String VAR_simulation = "simulation";
   public static final String VAR_simulationDelayMillis = "simulationDelayMillis";
 
@@ -4869,6 +5244,9 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public static final String DISPLAY_NAME_previousPopulation = "previous pouplation";
   public static final String DISPLAY_NAME_incubationDaysNow = "incubation days now";
   public static final String DISPLAY_NAME_waterTemperature = "water temperature in Fahrenheit";
+  public static final String DISPLAY_NAME_waterSalinity = "salinity in ppt";
+  public static final String DISPLAY_NAME_waterOxygen = "oxygen in mg/L";
+  public static final String DISPLAY_NAME_waterPh = "pH";
   public static final String DISPLAY_NAME_simulation = "simulation";
   public static final String DISPLAY_NAME_simulationDelayMillis = "simulation delay in milliseconds";
 
@@ -4988,6 +5366,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return DISPLAY_NAME_incubationDaysNow;
     case VAR_waterTemperature:
       return DISPLAY_NAME_waterTemperature;
+    case VAR_waterSalinity:
+      return DISPLAY_NAME_waterSalinity;
+    case VAR_waterOxygen:
+      return DISPLAY_NAME_waterOxygen;
+    case VAR_waterPh:
+      return DISPLAY_NAME_waterPh;
     case VAR_simulation:
       return DISPLAY_NAME_simulation;
     case VAR_simulationDelayMillis:
@@ -5067,6 +5451,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return "The current number of days of egg incubation. ";
     case VAR_waterTemperature:
       return "The water temperature can affect fish population survival. ";
+    case VAR_waterSalinity:
+      return "The water salinity can affect fish population survival. ";
+    case VAR_waterOxygen:
+      return "The water oxygen levels can affect fish population survival. ";
+    case VAR_waterPh:
+      return "The water pH levels can affect fish population survival. ";
     case VAR_simulation:
       return "Toggle the digital twin simulation";
     case VAR_simulationDelayMillis:
@@ -5143,6 +5533,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     case VAR_incubationDaysNow:
       return "BigDecimal";
     case VAR_waterTemperature:
+      return "BigDecimal";
+    case VAR_waterSalinity:
+      return "BigDecimal";
+    case VAR_waterOxygen:
+      return "BigDecimal";
+    case VAR_waterPh:
       return "BigDecimal";
     case VAR_simulation:
       return "Boolean";
@@ -5221,6 +5617,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return "Property";
     case VAR_waterTemperature:
       return "Property";
+    case VAR_waterSalinity:
+      return "Property";
+    case VAR_waterOxygen:
+      return "Property";
+    case VAR_waterPh:
+      return "Property";
     case VAR_simulation:
       return "Property";
     case VAR_simulationDelayMillis:
@@ -5298,6 +5700,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return o.getIncubationDaysNow();
     case VAR_waterTemperature:
       return o.getWaterTemperature();
+    case VAR_waterSalinity:
+      return o.getWaterSalinity();
+    case VAR_waterOxygen:
+      return o.getWaterOxygen();
+    case VAR_waterPh:
+      return o.getWaterPh();
     case VAR_simulation:
       return o.getSimulation();
     case VAR_simulationDelayMillis:
@@ -5376,6 +5784,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return 7;
     case VAR_waterTemperature:
       return 7;
+    case VAR_waterSalinity:
+      return 7;
+    case VAR_waterOxygen:
+      return 7;
+    case VAR_waterPh:
+      return 7;
     case VAR_simulation:
       return 8;
     case VAR_simulationDelayMillis:
@@ -5447,6 +5861,12 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       return 11;
     case VAR_waterTemperature:
       return 12;
+    case VAR_waterSalinity:
+      return 13;
+    case VAR_waterOxygen:
+      return 14;
+    case VAR_waterPh:
+      return 15;
     case VAR_simulation:
       return 0;
     case VAR_simulationDelayMillis:

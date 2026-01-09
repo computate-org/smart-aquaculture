@@ -190,6 +190,9 @@ ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS incubationDate timestamp wit
 ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS previousPopulation bigint;
 ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS incubationDaysNow decimal;
 ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS waterTemperature decimal;
+ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS waterSalinity decimal;
+ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS waterOxygen decimal;
+ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS waterPh decimal;
 ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS simulation boolean;
 ALTER TABLE FishPopulation ADD COLUMN IF NOT EXISTS simulationDelayMillis bigint;
 
