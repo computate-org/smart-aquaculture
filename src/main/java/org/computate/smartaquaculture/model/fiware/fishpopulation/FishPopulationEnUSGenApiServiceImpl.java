@@ -3,8 +3,11 @@
  * Fiware: true
  *
  * Order: 6
- * Description: Tracking fish population counts, maturation, and incubation over time. 
- * AName: a fish population
+ * Description.enUS: Tracking fish population counts, maturation, and incubation over time. 
+ * Description.frFR: Suivi du nombre de poissons, de leur maturation et de leur incubation au fil du temps. 
+ * AName.enUS: a fish population
+ * AName.frFR: une population de poissons
+ * PluralName.frFR: population de poissons
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
  * Rows: 100
  * LocationSvg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path class="fa-secondary" opacity=".4" d="M70.6 195.3l21.1 36.9c8.4 14.8 8.4 32.9 0 47.6L70.6 316.7l54.3-24.9c19.2-8.8 41.9-4 56 11.8c9.2 10.4 19.4 20.6 30.7 30.1c33.7 28.5 76 50.2 124.5 50.2s90.8-21.8 124.5-50.2c30.3-25.5 52.7-55.7 65.3-77.8c-12.6-22.1-35-52.2-65.3-77.8C426.8 149.7 384.5 128 336 128s-90.8 21.7-124.5 50.2c-11.3 9.5-21.5 19.7-30.7 30.1c-14 15.8-36.7 20.6-56 11.8L70.6 195.3zM448 256a32 32 0 1 1 -64 0 32 32 0 1 1 64 0z"/><path class="fa-primary" d="M180.8 303.7c9.2 10.4 19.4 20.6 30.7 30.1c33.7 28.5 76 50.2 124.5 50.2s90.8-21.8 124.5-50.2c30.3-25.5 52.7-55.7 65.3-77.8c-12.6-22.1-35-52.2-65.3-77.8C426.8 149.7 384.5 128 336 128s-90.8 21.7-124.5 50.2c-11.3 9.5-21.5 19.7-30.7 30.1c-14 15.8-36.7 20.6-56 11.8L70.6 195.3l21.1 36.9c8.4 14.8 8.4 32.9 0 47.6L70.6 316.7l54.3-24.9c19.2-8.8 41.9-4 56 11.8zM4.2 336.1L50 256 4.2 175.9c-6.9-12.1-5.2-27.2 4.2-37.5s24.3-13.3 36.9-7.5l99.5 45.6c10.5-11.9 22.5-23.8 35.7-35C219.7 108.5 272.6 80 336 80s116.3 28.5 155.5 61.5c39.1 33 66.9 72.4 81 99.8c4.7 9.2 4.7 20.1 0 29.3c-14.1 27.4-41.9 66.8-81 99.8C452.3 403.5 399.4 432 336 432s-116.3-28.5-155.5-61.5c-13.2-11.2-25.1-23.1-35.7-35L45.3 381.1c-12.6 5.8-27.6 2.8-36.9-7.5S-2.7 348.2 4.2 336.1zM416 224a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
@@ -14,6 +17,14 @@
  * EditPageUri: /en-us/edit/fish-population/{entityShortId}
  * ApiUri: /en-us/api/fish-population
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: FishPopulationPage
+ *     ApiUri: /fr-fr/rechercher/population-poissons
+ *   EditPageFrFR:
+ *     Language: frFR
+ *     Page: FishPopulationPage
+ *     ApiUri: /fr-fr/edition/population-poissons/{entityShortId}
  *   Search:
  *   GET:
  *   PATCH:
@@ -158,6 +169,347 @@ import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation
 public class FishPopulationEnUSGenApiServiceImpl extends BaseApiServiceImpl implements FishPopulationEnUSGenApiService {
 
   protected static final Logger LOG = LoggerFactory.getLogger(FishPopulationEnUSGenApiServiceImpl.class);
+
+  // SearchPageFrFR //
+
+  @Override
+  public void searchpagefrfrFishPopulation(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = false;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+      String FISHPOPULATION = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHPOPULATION");
+      MultiMap form = MultiMap.caseInsensitiveMultiMap();
+      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+      form.add("response_mode", "permissions");
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "GET"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "POST"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "DELETE"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "PATCH"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "PUT"));
+      if(entityShortId != null)
+        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+      webClient.post(
+          config.getInteger(ComputateConfigKeys.AUTH_PORT)
+          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+          )
+          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+          .sendForm(form)
+          .expecting(HttpResponseExpectation.SC_OK)
+      .onComplete(authorizationDecisionResponse -> {
+        try {
+          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+          {
+            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+            List<String> scopes2 = siteRequest.getScopes();
+            searchFishPopulationList(siteRequest, false, true, false).onSuccess(listFishPopulation -> {
+              response200SearchPageFrFRFishPopulation(listFishPopulation).onSuccess(response -> {
+                eventHandler.handle(Future.succeededFuture(response));
+                LOG.debug(String.format("searchpagefrfrFishPopulation succeeded. "));
+              }).onFailure(ex -> {
+                LOG.error(String.format("searchpagefrfrFishPopulation failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+            }).onFailure(ex -> {
+              LOG.error(String.format("searchpagefrfrFishPopulation failed. "), ex);
+              error(siteRequest, eventHandler, ex);
+            });
+          }
+        } catch(Exception ex) {
+          LOG.error(String.format("searchpagefrfrFishPopulation failed. "), ex);
+          error(null, eventHandler, ex);
+        }
+      });
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("searchpagefrfrFishPopulation failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("searchpagefrfrFishPopulation failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void searchpagefrfrFishPopulationPageInit(JsonObject ctx, FishPopulationPage page, SearchList<FishPopulation> listFishPopulation, Promise<Void> promise) {
+    promise.complete();
+  }
+
+  public String templateSearchPageFrFRFishPopulation(ServiceRequest serviceRequest) {
+    return "fr-fr/rechercher/population-poissons/FishPopulationSearchPage.htm";
+  }
+  public Future<ServiceResponse> response200SearchPageFrFRFishPopulation(SearchList<FishPopulation> listFishPopulation) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listFishPopulation.getSiteRequest_(SiteRequest.class);
+      String pageTemplateUri = templateSearchPageFrFRFishPopulation(siteRequest.getServiceRequest());
+      if(listFishPopulation.size() == 0)
+        pageTemplateUri = templateSearchPageFishPopulation(siteRequest.getServiceRequest());
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      FishPopulationPage page = new FishPopulationPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listFishPopulation.size() >= 1)
+        siteRequest.setRequestPk(listFishPopulation.get(0).getPk());
+      page.setSearchListFishPopulation_(listFishPopulation);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepFishPopulationPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          searchpagefrfrFishPopulationPageInit(ctx, page, listFishPopulation, promise1);
+          promise1.future().onSuccess(b -> {
+            String renderedTemplate = jinjava.render(template, ctx.getMap());
+            Buffer buffer = Buffer.buffer(renderedTemplate);
+            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+          }).onFailure(ex -> {
+            promise.fail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200SearchPageFrFRFishPopulation failed. "), ex);
+          promise.fail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200SearchPageFrFRFishPopulation failed. "), ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotSearchPageFrFRFishPopulation(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotSearchPageFrFRFishPopulation(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
+  // EditPageFrFR //
+
+  @Override
+  public void editpagefrfrFishPopulation(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = false;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+      String FISHPOPULATION = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHPOPULATION");
+      MultiMap form = MultiMap.caseInsensitiveMultiMap();
+      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+      form.add("response_mode", "permissions");
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "GET"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "POST"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "DELETE"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "PATCH"));
+      form.add("permission", String.format("%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, "PUT"));
+      form.add("permission", String.format("%s-%s#%s", FishPopulation.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+      if(entityShortId != null)
+        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+      webClient.post(
+          config.getInteger(ComputateConfigKeys.AUTH_PORT)
+          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+          )
+          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+          .sendForm(form)
+          .expecting(HttpResponseExpectation.SC_OK)
+      .onComplete(authorizationDecisionResponse -> {
+        try {
+          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+          {
+            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+            List<String> scopes2 = siteRequest.getScopes();
+            searchFishPopulationList(siteRequest, false, true, false).onSuccess(listFishPopulation -> {
+              response200EditPageFrFRFishPopulation(listFishPopulation).onSuccess(response -> {
+                eventHandler.handle(Future.succeededFuture(response));
+                LOG.debug(String.format("editpagefrfrFishPopulation succeeded. "));
+              }).onFailure(ex -> {
+                LOG.error(String.format("editpagefrfrFishPopulation failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+            }).onFailure(ex -> {
+              LOG.error(String.format("editpagefrfrFishPopulation failed. "), ex);
+              error(siteRequest, eventHandler, ex);
+            });
+          }
+        } catch(Exception ex) {
+          LOG.error(String.format("editpagefrfrFishPopulation failed. "), ex);
+          error(null, eventHandler, ex);
+        }
+      });
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("editpagefrfrFishPopulation failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("editpagefrfrFishPopulation failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void editpagefrfrFishPopulationPageInit(JsonObject ctx, FishPopulationPage page, SearchList<FishPopulation> listFishPopulation, Promise<Void> promise) {
+    promise.complete();
+  }
+
+  public String templateEditPageFrFRFishPopulation(ServiceRequest serviceRequest) {
+    return "fr-fr/edition/population-poissons/FishPopulationEditPage.htm";
+  }
+  public Future<ServiceResponse> response200EditPageFrFRFishPopulation(SearchList<FishPopulation> listFishPopulation) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listFishPopulation.getSiteRequest_(SiteRequest.class);
+      String pageTemplateUri = templateEditPageFrFRFishPopulation(siteRequest.getServiceRequest());
+      if(listFishPopulation.size() == 0)
+        pageTemplateUri = templateSearchPageFishPopulation(siteRequest.getServiceRequest());
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      FishPopulationPage page = new FishPopulationPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listFishPopulation.size() >= 1)
+        siteRequest.setRequestPk(listFishPopulation.get(0).getPk());
+      page.setSearchListFishPopulation_(listFishPopulation);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepFishPopulationPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          editpagefrfrFishPopulationPageInit(ctx, page, listFishPopulation, promise1);
+          promise1.future().onSuccess(b -> {
+            String renderedTemplate = jinjava.render(template, ctx.getMap());
+            Buffer buffer = Buffer.buffer(renderedTemplate);
+            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+          }).onFailure(ex -> {
+            promise.fail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200EditPageFrFRFishPopulation failed. "), ex);
+          promise.fail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200EditPageFrFRFishPopulation failed. "), ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotEditPageFrFRFishPopulation(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotEditPageFrFRFishPopulation(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
 
   // Search //
 

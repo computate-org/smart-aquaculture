@@ -3,8 +3,11 @@
  * Fiware: true
  *
  * Order: 6
- * Description: Tracking fish population counts, maturation, and incubation over time. 
- * AName: a fish population
+ * Description.enUS: Tracking fish population counts, maturation, and incubation over time. 
+ * Description.frFR: Suivi du nombre de poissons, de leur maturation et de leur incubation au fil du temps. 
+ * AName.enUS: a fish population
+ * AName.frFR: une population de poissons
+ * PluralName.frFR: population de poissons
  * Icon: <i class="fa-duotone fa-regular fa-fish"></i>
  * Rows: 100
  * LocationSvg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path class="fa-secondary" opacity=".4" d="M70.6 195.3l21.1 36.9c8.4 14.8 8.4 32.9 0 47.6L70.6 316.7l54.3-24.9c19.2-8.8 41.9-4 56 11.8c9.2 10.4 19.4 20.6 30.7 30.1c33.7 28.5 76 50.2 124.5 50.2s90.8-21.8 124.5-50.2c30.3-25.5 52.7-55.7 65.3-77.8c-12.6-22.1-35-52.2-65.3-77.8C426.8 149.7 384.5 128 336 128s-90.8 21.7-124.5 50.2c-11.3 9.5-21.5 19.7-30.7 30.1c-14 15.8-36.7 20.6-56 11.8L70.6 195.3zM448 256a32 32 0 1 1 -64 0 32 32 0 1 1 64 0z"/><path class="fa-primary" d="M180.8 303.7c9.2 10.4 19.4 20.6 30.7 30.1c33.7 28.5 76 50.2 124.5 50.2s90.8-21.8 124.5-50.2c30.3-25.5 52.7-55.7 65.3-77.8c-12.6-22.1-35-52.2-65.3-77.8C426.8 149.7 384.5 128 336 128s-90.8 21.7-124.5 50.2c-11.3 9.5-21.5 19.7-30.7 30.1c-14 15.8-36.7 20.6-56 11.8L70.6 195.3l21.1 36.9c8.4 14.8 8.4 32.9 0 47.6L70.6 316.7l54.3-24.9c19.2-8.8 41.9-4 56 11.8zM4.2 336.1L50 256 4.2 175.9c-6.9-12.1-5.2-27.2 4.2-37.5s24.3-13.3 36.9-7.5l99.5 45.6c10.5-11.9 22.5-23.8 35.7-35C219.7 108.5 272.6 80 336 80s116.3 28.5 155.5 61.5c39.1 33 66.9 72.4 81 99.8c4.7 9.2 4.7 20.1 0 29.3c-14.1 27.4-41.9 66.8-81 99.8C452.3 403.5 399.4 432 336 432s-116.3-28.5-155.5-61.5c-13.2-11.2-25.1-23.1-35.7-35L45.3 381.1c-12.6 5.8-27.6 2.8-36.9-7.5S-2.7 348.2 4.2 336.1zM416 224a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
@@ -14,6 +17,14 @@
  * EditPageUri: /en-us/edit/fish-population/{entityShortId}
  * ApiUri: /en-us/api/fish-population
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: FishPopulationPage
+ *     ApiUri: /fr-fr/rechercher/population-poissons
+ *   EditPageFrFR:
+ *     Language: frFR
+ *     Page: FishPopulationPage
+ *     ApiUri: /fr-fr/edition/population-poissons/{entityShortId}
  *   Search:
  *   GET:
  *   PATCH:
@@ -140,33 +151,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: GET</h2>
- * <p>This class contains a comment <b>"ApiMethod: GET"</b>, which creates an API "GET". 
- * </p>
- * <h2>ApiMethode: PATCH</h2>
- * <p>This class contains a comment <b>"ApiMethod: PATCH"</b>, which creates an API "PATCH". 
- * </p>
- * <h2>ApiMethode: POST</h2>
- * <p>This class contains a comment <b>"ApiMethod: POST"</b>, which creates an API "POST". 
- * </p>
- * <h2>ApiMethode: DELETE</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETE"</b>, which creates an API "DELETE". 
- * </p>
- * <h2>ApiMethode: PUTImport</h2>
- * <p>This class contains a comment <b>"ApiMethod: PUTImport"</b>, which creates an API "PUTImport". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
- * <h2>ApiMethode: EditPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: EditPage"</b>, which creates an API "EditPage". 
- * </p>
- * <h2>ApiMethode: DELETEFilter</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: fish populations"</b>, which groups all of the OpenAPIs for FishPopulation objects under the tag "fish populations". 
  * </p>
@@ -246,6 +230,31 @@ import org.computate.search.response.solr.SolrResponse;
  **/
 public abstract class FishPopulationGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishPopulation.class);
+
+  public static final String Description_frFR = "Suivi du nombre de poissons, de leur maturation et de leur incubation au fil du temps. ";
+  public static final String AName_frFR = "une population de poissons";
+  public static final String This_frFR = "cette ";
+  public static final String ThisName_frFR = "cette population de poissons";
+  public static final String A_frFR = "une ";
+  public static final String TheName_frFR = "la population de poissons";
+  public static final String SingularName_frFR = "population de poissons";
+  public static final String PluralName_frFR = "population de poissons";
+  public static final String NameActual_frFR = "population de poissons actuelle";
+  public static final String AllName_frFR = "toutes population de poissons";
+  public static final String SearchAllNameBy_frFR = "rechercher population de poissons par ";
+  public static final String SearchAllName_frFR = "rechercher population de poissons";
+  public static final String Title_frFR = "population de poissons";
+  public static final String ThePluralName_frFR = "les population de poissons";
+  public static final String NoNameFound_frFR = "aucune population de poissons trouvée";
+  public static final String OfName_frFR = "de population de poissons";
+  public static final String NameAdjectiveSingular_frFR = "population de poissons";
+  public static final String NameAdjectivePlural_frFR = "population de poissons";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/population-poissons";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/population-poissons";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/population-poissons";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/population-poissons/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/population-poissons/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/population-poissons/%s";
 
   public static final String Description_enUS = "Tracking fish population counts, maturation, and incubation over time. ";
   public static final String AName_enUS = "a fish population";
@@ -3970,6 +3979,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setAddress((String)val);
         } else if(val instanceof JsonObject) {
           setAddress((JsonObject)val);
+        } else if(val instanceof JsonObject) {
+          setAddress((JsonObject)val);
         }
         saves.add("address");
         return val;
@@ -3984,6 +3995,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setBodyMasse((String)val);
         } else if(val instanceof Number) {
           setBodyMasse(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setBodyMasse((BigDecimal)val);
         }
         saves.add("bodyMasse");
         return val;
@@ -3992,6 +4005,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setCulturedIn((String)val);
         } else if(val instanceof Number) {
           setCulturedIn(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setCulturedIn((BigDecimal)val);
         }
         saves.add("culturedIn");
         return val;
@@ -4018,6 +4033,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setFishRemoved((String)val);
         } else if(val instanceof Number) {
           setFishRemoved(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setFishRemoved((BigDecimal)val);
         }
         saves.add("fishRemoved");
         return val;
@@ -4026,12 +4043,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setInitialNumber((String)val);
         } else if(val instanceof Number) {
           setInitialNumber(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setInitialNumber((BigDecimal)val);
         }
         saves.add("initialNumber");
         return val;
       } else if("owner".equals(varLower)) {
         if(val instanceof String) {
           setOwner((String)val);
+        } else if(val instanceof JsonObject) {
+          setOwner((JsonObject)val);
         } else if(val instanceof JsonObject) {
           setOwner((JsonObject)val);
         }
@@ -4042,12 +4063,16 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setRefSpecie((String)val);
         } else if(val instanceof Number) {
           setRefSpecie(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setRefSpecie((BigDecimal)val);
         }
         saves.add("refSpecie");
         return val;
       } else if("relatedsource".equals(varLower)) {
         if(val instanceof String) {
           setRelatedSource((String)val);
+        } else if(val instanceof JsonObject) {
+          setRelatedSource((JsonObject)val);
         } else if(val instanceof JsonObject) {
           setRelatedSource((JsonObject)val);
         }
@@ -4090,6 +4115,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setMaturityDaysBegin((String)val);
         } else if(val instanceof Number) {
           setMaturityDaysBegin(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setMaturityDaysBegin((BigDecimal)val);
         }
         saves.add("maturityDaysBegin");
         return val;
@@ -4098,6 +4125,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setMaturityDaysEnd((String)val);
         } else if(val instanceof Number) {
           setMaturityDaysEnd(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setMaturityDaysEnd((BigDecimal)val);
         }
         saves.add("maturityDaysEnd");
         return val;
@@ -4106,6 +4135,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setIncubationDaysBegin((String)val);
         } else if(val instanceof Number) {
           setIncubationDaysBegin(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setIncubationDaysBegin((BigDecimal)val);
         }
         saves.add("incubationDaysBegin");
         return val;
@@ -4114,6 +4145,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setIncubationDaysEnd((String)val);
         } else if(val instanceof Number) {
           setIncubationDaysEnd(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setIncubationDaysEnd((BigDecimal)val);
         }
         saves.add("incubationDaysEnd");
         return val;
@@ -4122,6 +4155,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setIncubationNumberMin((String)val);
         } else if(val instanceof Number) {
           setIncubationNumberMin(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setIncubationNumberMin((BigDecimal)val);
         }
         saves.add("incubationNumberMin");
         return val;
@@ -4130,6 +4165,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setIncubationNumberMax((String)val);
         } else if(val instanceof Number) {
           setIncubationNumberMax(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setIncubationNumberMax((BigDecimal)val);
         }
         saves.add("incubationNumberMax");
         return val;
@@ -4138,6 +4175,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setPercentPopulationPregnantMin((String)val);
         } else if(val instanceof Number) {
           setPercentPopulationPregnantMin(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setPercentPopulationPregnantMin((BigDecimal)val);
         }
         saves.add("percentPopulationPregnantMin");
         return val;
@@ -4146,6 +4185,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setPercentPopulationPregnantMax((String)val);
         } else if(val instanceof Number) {
           setPercentPopulationPregnantMax(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setPercentPopulationPregnantMax((BigDecimal)val);
         }
         saves.add("percentPopulationPregnantMax");
         return val;
@@ -4182,6 +4223,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setIncubationDate((String)val);
         } else if(val instanceof OffsetDateTime) {
           setIncubationDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setIncubationDate((ZonedDateTime)val);
         }
         saves.add("incubationDate");
         return val;
@@ -4198,6 +4241,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setIncubationDaysNow((String)val);
         } else if(val instanceof Number) {
           setIncubationDaysNow(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setIncubationDaysNow((BigDecimal)val);
         }
         saves.add("incubationDaysNow");
         return val;
@@ -4206,6 +4251,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setWaterTemperature((String)val);
         } else if(val instanceof Number) {
           setWaterTemperature(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setWaterTemperature((BigDecimal)val);
         }
         saves.add("waterTemperature");
         return val;
@@ -4214,6 +4261,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setWaterSalinity((String)val);
         } else if(val instanceof Number) {
           setWaterSalinity(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setWaterSalinity((BigDecimal)val);
         }
         saves.add("waterSalinity");
         return val;
@@ -4222,6 +4271,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setWaterOxygen((String)val);
         } else if(val instanceof Number) {
           setWaterOxygen(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setWaterOxygen((BigDecimal)val);
         }
         saves.add("waterOxygen");
         return val;
@@ -4230,6 +4281,8 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
           setWaterPh((String)val);
         } else if(val instanceof Number) {
           setWaterPh(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setWaterPh((BigDecimal)val);
         }
         saves.add("waterPh");
         return val;

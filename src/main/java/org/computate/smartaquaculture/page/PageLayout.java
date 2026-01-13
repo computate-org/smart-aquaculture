@@ -36,7 +36,8 @@ import io.vertx.ext.web.client.WebClient;
 /**
  * Keyword: classSimpleNamePageLayout
  * Description: Defines variables to be used when rendering Handlebars template pages
- * PageTemplate: en-us/PageLayout.htm
+ * PageTemplate.enUS: en-us/PageLayout.htm
+ * PageTemplate.frFR: fr-fr/PageLayout.htm
  * Promise: true
  **/
 public class PageLayout extends PageLayoutGen<Object> {
