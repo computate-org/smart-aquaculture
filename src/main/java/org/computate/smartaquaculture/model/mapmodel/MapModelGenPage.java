@@ -531,13 +531,14 @@ public class MapModelGenPage extends MapModelGenPageGen<PageLayout> {
   }
 
   @Override
-  protected void _pageUri(Wrap<String> c) {
-    c.o("/en-us/search/map-model");
+  protected void _pageUri(Wrap<String> w) {
+    if("enUS".equals(lang))
+      w.o("/en-us/search/map-model");
   }
 
   @Override
-  protected void _apiUri(Wrap<String> c) {
-    c.o("/en-us/api/map-model");
+  protected void _apiUri(Wrap<String> w) {
+    w.o("/en-us/api/map-model");
   }
 
   @Override

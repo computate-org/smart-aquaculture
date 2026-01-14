@@ -45,7 +45,9 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * HidePOST: true
    * HidePATCH: true
    * DisplayName.enUS: primary key
-   * Description: The primary key of this object in the database
+   * DisplayName.frFR: clé primaire
+   * Description.enUS: The primary key of this object in the database
+   * Description.frFR: La clé primaire de cet objet dans la base de données
    * Facet: true
    */
   protected void _pk(Wrap<Long> w) {}
@@ -61,8 +63,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * HidePOST: true
    * HidePATCH: true
    * DisplayName.enUS: created
+   * DisplayName.frFR: créé
    * FormatHtm: MMM d, yyyy h:mm:ss a
-   * Description: A created timestamp for this record in the database
+   * Description.enUS: A created timestamp for this record in the database
+   * Description.frFR: Un horodatage de création pour cet enregistrement dans la base de données
    * Facet: true
    */
   protected void _created(Wrap<ZonedDateTime> w) {}
@@ -77,7 +81,9 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * HidePOST: true
    * HidePATCH: true
    * DisplayName.enUS: modified
-   * Description: A modified timestamp for this record in the database
+   * DisplayName.frFR: modifié
+   * Description.enUS: A modified timestamp for this record in the database
+   * Description.frFR: Un horodatage de modification pour cet enregistrement dans la base de données
    * Facet: true
    */
   protected void _modified(Wrap<ZonedDateTime> w) {
@@ -94,7 +100,9 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * HidePOST: true
    * HidePATCH: true
    * DisplayName.enUS: archive
-   * Description: For archiving this record
+   * DisplayName.frFR: archiver
+   * Description.enUS: For archiving this record
+   * Description.frFR: Pour archiver cet enregistrement
    */
   protected void _archived(Wrap<Boolean> w) {
     w.o(false);
@@ -181,8 +189,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: title
-   * Description: The title of this page. 
+   * DisplayName.enUS: title
+   * DisplayName.frFR: titre
+   * Description.enUS: The title of this page. 
+   * Description.frFR: Le titre de cette page.
    * VarTitle: true
    */
   protected void _objectTitle(Wrap<String> w) {
@@ -194,8 +204,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: display page
-   * Description: Visit this landing page. 
+   * DisplayName.enUS: display page
+   * DisplayName.frFR: page d'affichage
+   * Description.enUS: Visit this landing page. 
+   * Description.frFR: Visitez cette page d'accueil. 
    * Link: true
    * VarUrlDisplayPage.enUS: true
    */
@@ -216,8 +228,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: display page
-   * Description: Visit this landing page. 
+   * DisplayName.enUS: display page
+   * DisplayName.frFR: page d'affichage
+   * Description.enUS: Visit this landing page. 
+   * Description.frFR: Visitez cette page d'accueil. 
    * Link: true
    * VarUrlDisplayPage.frFR: true
    */
@@ -238,8 +252,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: manage
-   * Description: Manage this
+   * DisplayName.enUS: manage
+   * DisplayName.frFR: gérer
+   * Description.enUS: Manage this
+   * Description.frFR: Gérer ceci
    * Link: true
    * Icon: <i class="fa-duotone fa-regular fa-pen-to-square"></i>
    * VarUrlEditPage.enUS: true
@@ -255,8 +271,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: manage
-   * Description: Manage this
+   * DisplayName.enUS: manage
+   * DisplayName.frFR: gérer
+   * Description.enUS: Manage this
+   * Description.frFR: Gérer ceci
    * Link: true
    * Icon: <i class="fa-duotone fa-regular fa-pen-to-square"></i>
    * VarUrlEditPage.frFR: true
@@ -272,8 +290,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: user
-   * Description: User page
+   * DisplayName.enUS: user
+   * DisplayName.frFR: utilisateur
+   * Description.enUS: User page
+   * Description.frFR: Page utilisateur
    * Link: true
    * VarUrlUserPage.enUS: true
    */
@@ -288,8 +308,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: user
-   * Description: User page
+   * DisplayName.enUS: user
+   * DisplayName.frFR: utilisateur
+   * Description.enUS: User page
+   * Description.frFR: Page utilisateur
    * Link: true
    * VarUrlUserPage.frFR: true
    */
@@ -304,8 +326,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: download
-   * Description: the download URL
+   * DisplayName.enUS: download
+   * DisplayName.frFR: télécharger
+   * Description.enUS: the download URL
+   * Description.frFR: l'URL de téléchargement
    * Link: true
    * VarUrlDownload.enUS: true
    */
@@ -320,8 +344,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: download
-   * Description: the download URL
+   * DisplayName.enUS: download
+   * DisplayName.frFR: télécharger
+   * Description.enUS: the download URL
+   * Description.frFR: l'URL de téléchargement
    * Link: true
    * VarUrlDownload.frFR: true
    */
@@ -334,8 +360,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
   /**
    * {@inheritDoc}
    * Suggested: true
-   * Description: The indexed field in the search engine for this record while using autosuggest
-   * DisplayName: autosuggest
+   * DisplayName.enUS: autosuggest
+   * DisplayName.frFR: suggérer automatiquement
+   * Description.enUS: The indexed field in the search engine for this record while using autosuggest
+   * Description.frFR: Le champ indexé dans le moteur de recherche pour cet enregistrement lors de l'utilisation de la suggestion automatique
    */
   protected void _objectSuggest(Wrap<String> w) { 
     StringBuilder b = new StringBuilder();
@@ -353,8 +381,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
   /**
    * {@inheritDoc}
    * Text: true
-   * Description: The full text search field in the search engine for this record while using autosuggest
-   * DisplayName: text
+   * DisplayName.enUS: text
+   * DisplayName.frFR: texte
+   * Description.enUS: The full text search field in the search engine for this record while using autosuggest
+   * Description.frFR: Le champ de recherche plein texte dans le moteur de recherche pour cet enregistrement lors de l'utilisation de la suggestion automatique
    */
   protected void _objectText(List<String> l) { 
     String objectId = idForClass();

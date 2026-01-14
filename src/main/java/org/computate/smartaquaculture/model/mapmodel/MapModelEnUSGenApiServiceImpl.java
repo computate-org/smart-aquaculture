@@ -120,55 +120,61 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void searchMapModel(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchMapModelList(siteRequest, false, true, false).onSuccess(listMapModel -> {
-              response200SearchMapModel(listMapModel).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchMapModel succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchMapModelList(siteRequest, false, true, false).onSuccess(listMapModel -> {
+                response200SearchMapModel(listMapModel).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchMapModel succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchMapModel failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchMapModel failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchMapModel failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("searchMapModel failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("searchMapModel failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchMapModel failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -284,55 +290,61 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void getMapModel(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchMapModelList(siteRequest, false, true, false).onSuccess(listMapModel -> {
-              response200GETMapModel(listMapModel).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("getMapModel succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchMapModelList(siteRequest, false, true, false).onSuccess(listMapModel -> {
+                response200GETMapModel(listMapModel).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("getMapModel succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("getMapModel failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("getMapModel failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("getMapModel failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("getMapModel failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("getMapModel failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("getMapModel failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -386,55 +398,61 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void searchpageMapModel(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchMapModelList(siteRequest, false, true, false).onSuccess(listMapModel -> {
-              response200SearchPageMapModel(listMapModel).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchpageMapModel succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String MAPMODEL = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("MAPMODEL");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", MapModel.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchMapModelList(siteRequest, false, true, false).onSuccess(listMapModel -> {
+                response200SearchPageMapModel(listMapModel).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchpageMapModel succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchpageMapModel failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchpageMapModel failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchpageMapModel failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("searchpageMapModel failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("searchpageMapModel failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchpageMapModel failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -462,6 +480,20 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   }
 
   public void searchpageMapModelPageInit(JsonObject ctx, MapModelPage page, SearchList<MapModel> listMapModel, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/map-model"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/map-model"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
     promise.complete();
   }
 
@@ -846,7 +878,7 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, created, location, id, archived, entityShortId, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM MapModel WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, location, created, id, entityShortId, archived, ngsildTenant, ngsildPath, ngsildContext, ngsildData, sessionId, color, userKey, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM MapModel WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -1141,18 +1173,18 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
       page.persistForClass(MapModel.VAR_name, MapModel.staticSetName(siteRequest2, (String)result.get(MapModel.VAR_name)));
       page.persistForClass(MapModel.VAR_description, MapModel.staticSetDescription(siteRequest2, (String)result.get(MapModel.VAR_description)));
-      page.persistForClass(MapModel.VAR_created, MapModel.staticSetCreated(siteRequest2, (String)result.get(MapModel.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       page.persistForClass(MapModel.VAR_location, MapModel.staticSetLocation(siteRequest2, (String)result.get(MapModel.VAR_location)));
+      page.persistForClass(MapModel.VAR_created, MapModel.staticSetCreated(siteRequest2, (String)result.get(MapModel.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       page.persistForClass(MapModel.VAR_id, MapModel.staticSetId(siteRequest2, (String)result.get(MapModel.VAR_id)));
-      page.persistForClass(MapModel.VAR_archived, MapModel.staticSetArchived(siteRequest2, (String)result.get(MapModel.VAR_archived)));
       page.persistForClass(MapModel.VAR_entityShortId, MapModel.staticSetEntityShortId(siteRequest2, (String)result.get(MapModel.VAR_entityShortId)));
+      page.persistForClass(MapModel.VAR_archived, MapModel.staticSetArchived(siteRequest2, (String)result.get(MapModel.VAR_archived)));
       page.persistForClass(MapModel.VAR_ngsildTenant, MapModel.staticSetNgsildTenant(siteRequest2, (String)result.get(MapModel.VAR_ngsildTenant)));
       page.persistForClass(MapModel.VAR_ngsildPath, MapModel.staticSetNgsildPath(siteRequest2, (String)result.get(MapModel.VAR_ngsildPath)));
       page.persistForClass(MapModel.VAR_ngsildContext, MapModel.staticSetNgsildContext(siteRequest2, (String)result.get(MapModel.VAR_ngsildContext)));
-      page.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
       page.persistForClass(MapModel.VAR_ngsildData, MapModel.staticSetNgsildData(siteRequest2, (String)result.get(MapModel.VAR_ngsildData)));
-      page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
+      page.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
       page.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
+      page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
       page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
       page.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
       page.persistForClass(MapModel.VAR_displayPageFrFR, MapModel.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(MapModel.VAR_displayPageFrFR)));

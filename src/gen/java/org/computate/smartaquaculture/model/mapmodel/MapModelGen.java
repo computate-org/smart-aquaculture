@@ -1718,6 +1718,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
       return "The NGSILD context URL for @context data";
     case VAR_ngsildData:
       return "The NGSILD data with @context from the context broker";
+    case VAR_color:
+      return "The color of the map item";
       default:
         return BaseModel.descriptionBaseModel(var);
     }

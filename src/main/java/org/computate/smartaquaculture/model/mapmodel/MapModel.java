@@ -38,8 +38,8 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * Persist: true
 	 * DisplayName.enUS: name
 	 * DisplayName.frFR: nom
-	 * Description: The name. 
-	 * Description: Le nom. 
+	 * Description.enUS: The name. 
+	 * Description.frFR: Le nom. 
 	 * HtmRowTitleOpen: name and description
 	 * HtmColumn: 0
 	 * VarName: true
@@ -54,8 +54,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: description
-	 * Description: The description. 
+	 * DisplayName.enUS: description
+	 * DisplayName.frFR: description
+	 * Description.enUS: The description. 
+	 * Description.frFR: La description. 
 	 * HtmColumn: 3
 	 * VarDescription: true
 	 * HtmRow: 4
@@ -72,8 +74,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * Location: true
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: location
-	 * Description: Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon
+	 * DisplayName.enUS: location
+	 * DisplayName.frFR: emplacement
+	 * Description.enUS: Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon
+	 * Description.frFR: Référence Geojson à l'élément. Il peut s'agir d'un Point, LineString, Polygon, MultiPoint, MultiLineString ou MultiPolygon
 	 * HtmRow: 4
 	 * HtmCell: 2
 	 * Facet: true
@@ -86,8 +90,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: id
-	 * Description: Unique identifier of the entity
+	 * DisplayName.enUS: id
+	 * DisplayName.frFR: identifiant
+	 * Description.enUS: Unique identifier of the entity
+	 * Description.frFR: Identifiant unique de l'entité
 	 * HtmRowTitleOpen: NGSI-LD details
 	 * HtmRow: 5
 	 * HtmCell: 0
@@ -99,8 +105,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 
 	/**
 	 * {@inheritDoc}
-	 * DisplayName: short entity ID
-	 * Description: A short ID for this Smart Data Model
+	 * DisplayName.enUS: short entity ID
+	 * DisplayName.frFR: identifiant court de l'entité
+	 * Description.enUS: A short ID for this Smart Data Model
+	 * Description.frFR: Un identifiant court pour ce modèle de données intelligent
 	 * DocValues: true
 	 * Persist: true
 	 * Facet: true
@@ -116,8 +124,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD-Tenant
-	 * Description: The NGSILD-Tenant or Fiware-Service
+	 * DisplayName.enUS: NGSILD-Tenant
+	 * DisplayName.frFR: NGSILD-Tenant
+	 * Description.enUS: The NGSILD-Tenant or Fiware-Service
+	 * Description.frFR: Le NGSILD-Tenant ou Fiware-Service
 	 * HtmRow: 5
 	 * HtmCell: 1
 	 * Facet: true
@@ -130,8 +140,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD-Path
-	 * Description: The NGSILD-Path or Fiware-ServicePath
+	 * DisplayName.enUS: NGSILD-Path
+	 * DisplayName.frFR: NGSILD-Path
+	 * Description.enUS: The NGSILD-Path or Fiware-ServicePath
+	 * Description.frFR: Le NGSILD-Path ou Fiware-ServicePath
 	 * HtmRow: 5
 	 * HtmCell: 2
 	 * Facet: true
@@ -144,8 +156,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD context
-	 * Description: The NGSILD context URL for @context data
+	 * DisplayName.enUS: NGSILD context
+	 * DisplayName.frFR: NGSILD context
+	 * Description.enUS: The NGSILD context URL for @context data
+	 * Description.frFR: L'URL du contexte NGSILD pour les données @context
 	 * HtmRow: 5
 	 * HtmCell: 3
 	 * Facet: true
@@ -158,8 +172,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD data
-	 * Description: The NGSILD data with @context from the context broker
+	 * DisplayName.enUS: NGSILD data
+	 * DisplayName.frFR: données NGSILD
+	 * Description.enUS: The NGSILD data with @context from the context broker
+	 * Description.frFR: Les données NGSILD avec @context du context broker
 	 * HtmRow: 5
 	 * HtmCell: 4
 	 * Facet: true
@@ -172,7 +188,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: color
+	 * DisplayName.enUS: color
+   * DisplayName.frFR: couleur
+   * Description.enUS: The color of the map item
+   * Description.frFR: La couleur de l'élément de la carte
 	 * HtmRow: 4
 	 * HtmCell: 3
 	 * Facet: true
