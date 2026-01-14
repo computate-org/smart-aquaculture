@@ -5329,22 +5329,42 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
+    return "%s/fr-fr/edition/population-poissons/%s";
+  }
+
+  @Override
+  public String enUSStringFormatUrlEditPageForClass() {
     return "%s/en-us/edit/fish-population/%s";
   }
 
   @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

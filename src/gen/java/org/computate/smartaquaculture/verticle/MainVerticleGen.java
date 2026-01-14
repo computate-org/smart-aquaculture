@@ -90,6 +90,8 @@ import io.vertx.core.json.JsonArray;
  **/
 public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
   protected static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+
+  public static final String SITE_NAME = "smart-aquaculture";
   public static final String authorizeDataFail1 = "Adding Keycloak authorization resources, policies, and permissions failed. ";
   public static final String authorizeDataFail = authorizeDataFail1;
 
@@ -269,19 +271,35 @@ public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
     return null;
   }
 
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

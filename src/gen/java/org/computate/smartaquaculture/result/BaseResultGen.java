@@ -804,6 +804,68 @@ public abstract class BaseResultGen<DEV> extends Object {
     return displayPage;
   }
 
+	/////////////////////
+  // displayPageFrFR //
+	/////////////////////
+
+
+  /**
+   *  The entity displayPageFrFR
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String displayPageFrFR;
+
+  /**
+   * <br> The entity displayPageFrFR
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:displayPageFrFR">Find the entity displayPageFrFR in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _displayPageFrFR(Wrap<String> w);
+
+  public String getDisplayPageFrFR() {
+    return displayPageFrFR;
+  }
+  public void setDisplayPageFrFR(String o) {
+    this.displayPageFrFR = BaseResult.staticSetDisplayPageFrFR(siteRequest_, o);
+  }
+  public static String staticSetDisplayPageFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult displayPageFrFRInit() {
+    Wrap<String> displayPageFrFRWrap = new Wrap<String>().var("displayPageFrFR");
+    if(displayPageFrFR == null) {
+      _displayPageFrFR(displayPageFrFRWrap);
+      Optional.ofNullable(displayPageFrFRWrap.getO()).ifPresent(o -> {
+        setDisplayPageFrFR(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static String staticSearchDisplayPageFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrDisplayPageFrFR(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqDisplayPageFrFR(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchDisplayPageFrFR(siteRequest_, BaseResult.staticSetDisplayPageFrFR(siteRequest_, o)).toString();
+  }
+
+  public String sqlDisplayPageFrFR() {
+    return displayPageFrFR;
+  }
+
+  public static String staticJsonDisplayPageFrFR(String displayPageFrFR) {
+    return displayPageFrFR;
+  }
+
 	//////////////
   // editPage //
 	//////////////
@@ -864,6 +926,68 @@ public abstract class BaseResultGen<DEV> extends Object {
 
   public static String staticJsonEditPage(String editPage) {
     return editPage;
+  }
+
+	//////////////////
+  // editPageFrFR //
+	//////////////////
+
+
+  /**
+   *  The entity editPageFrFR
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String editPageFrFR;
+
+  /**
+   * <br> The entity editPageFrFR
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:editPageFrFR">Find the entity editPageFrFR in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _editPageFrFR(Wrap<String> w);
+
+  public String getEditPageFrFR() {
+    return editPageFrFR;
+  }
+  public void setEditPageFrFR(String o) {
+    this.editPageFrFR = BaseResult.staticSetEditPageFrFR(siteRequest_, o);
+  }
+  public static String staticSetEditPageFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult editPageFrFRInit() {
+    Wrap<String> editPageFrFRWrap = new Wrap<String>().var("editPageFrFR");
+    if(editPageFrFR == null) {
+      _editPageFrFR(editPageFrFRWrap);
+      Optional.ofNullable(editPageFrFRWrap.getO()).ifPresent(o -> {
+        setEditPageFrFR(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static String staticSearchEditPageFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrEditPageFrFR(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqEditPageFrFR(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchEditPageFrFR(siteRequest_, BaseResult.staticSetEditPageFrFR(siteRequest_, o)).toString();
+  }
+
+  public String sqlEditPageFrFR() {
+    return editPageFrFR;
+  }
+
+  public static String staticJsonEditPageFrFR(String editPageFrFR) {
+    return editPageFrFR;
   }
 
 	//////////////
@@ -928,6 +1052,68 @@ public abstract class BaseResultGen<DEV> extends Object {
     return userPage;
   }
 
+	//////////////////
+  // userPageFrFR //
+	//////////////////
+
+
+  /**
+   *  The entity userPageFrFR
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userPageFrFR;
+
+  /**
+   * <br> The entity userPageFrFR
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:userPageFrFR">Find the entity userPageFrFR in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userPageFrFR(Wrap<String> w);
+
+  public String getUserPageFrFR() {
+    return userPageFrFR;
+  }
+  public void setUserPageFrFR(String o) {
+    this.userPageFrFR = BaseResult.staticSetUserPageFrFR(siteRequest_, o);
+  }
+  public static String staticSetUserPageFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult userPageFrFRInit() {
+    Wrap<String> userPageFrFRWrap = new Wrap<String>().var("userPageFrFR");
+    if(userPageFrFR == null) {
+      _userPageFrFR(userPageFrFRWrap);
+      Optional.ofNullable(userPageFrFRWrap.getO()).ifPresent(o -> {
+        setUserPageFrFR(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static String staticSearchUserPageFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrUserPageFrFR(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqUserPageFrFR(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchUserPageFrFR(siteRequest_, BaseResult.staticSetUserPageFrFR(siteRequest_, o)).toString();
+  }
+
+  public String sqlUserPageFrFR() {
+    return userPageFrFR;
+  }
+
+  public static String staticJsonUserPageFrFR(String userPageFrFR) {
+    return userPageFrFR;
+  }
+
 	//////////////
   // download //
 	//////////////
@@ -988,6 +1174,68 @@ public abstract class BaseResultGen<DEV> extends Object {
 
   public static String staticJsonDownload(String download) {
     return download;
+  }
+
+	//////////////////
+  // downloadFrFR //
+	//////////////////
+
+
+  /**
+   *  The entity downloadFrFR
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String downloadFrFR;
+
+  /**
+   * <br> The entity downloadFrFR
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.result.BaseResult&fq=entiteVar_enUS_indexed_string:downloadFrFR">Find the entity downloadFrFR in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _downloadFrFR(Wrap<String> w);
+
+  public String getDownloadFrFR() {
+    return downloadFrFR;
+  }
+  public void setDownloadFrFR(String o) {
+    this.downloadFrFR = BaseResult.staticSetDownloadFrFR(siteRequest_, o);
+  }
+  public static String staticSetDownloadFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected BaseResult downloadFrFRInit() {
+    Wrap<String> downloadFrFRWrap = new Wrap<String>().var("downloadFrFR");
+    if(downloadFrFR == null) {
+      _downloadFrFR(downloadFrFRWrap);
+      Optional.ofNullable(downloadFrFRWrap.getO()).ifPresent(o -> {
+        setDownloadFrFR(o);
+      });
+    }
+    return (BaseResult)this;
+  }
+
+  public static String staticSearchDownloadFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrDownloadFrFR(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqDownloadFrFR(SiteRequest siteRequest_, String o) {
+    return BaseResult.staticSearchDownloadFrFR(siteRequest_, BaseResult.staticSetDownloadFrFR(siteRequest_, o)).toString();
+  }
+
+  public String sqlDownloadFrFR() {
+    return downloadFrFR;
+  }
+
+  public static String staticJsonDownloadFrFR(String downloadFrFR) {
+    return downloadFrFR;
   }
 
 	///////////////////
@@ -1218,9 +1466,13 @@ public abstract class BaseResultGen<DEV> extends Object {
         savesInit();
         objectTitleInit();
         displayPageInit();
+        displayPageFrFRInit();
         editPageInit();
+        editPageFrFRInit();
         userPageInit();
+        userPageFrFRInit();
         downloadInit();
+        downloadFrFRInit();
         objectSuggestInit();
         objectTextInit();
         solrIdInit();
@@ -1296,12 +1548,20 @@ public abstract class BaseResultGen<DEV> extends Object {
         return oBaseResult.objectTitle;
       case "displayPage":
         return oBaseResult.displayPage;
+      case "displayPageFrFR":
+        return oBaseResult.displayPageFrFR;
       case "editPage":
         return oBaseResult.editPage;
+      case "editPageFrFR":
+        return oBaseResult.editPageFrFR;
       case "userPage":
         return oBaseResult.userPage;
+      case "userPageFrFR":
+        return oBaseResult.userPageFrFR;
       case "download":
         return oBaseResult.download;
+      case "downloadFrFR":
+        return oBaseResult.downloadFrFR;
       case "objectSuggest":
         return oBaseResult.objectSuggest;
       case "objectText":
@@ -1363,12 +1623,20 @@ public abstract class BaseResultGen<DEV> extends Object {
       return BaseResult.staticSetObjectTitle(siteRequest_, v);
     case "displayPage":
       return BaseResult.staticSetDisplayPage(siteRequest_, v);
+    case "displayPageFrFR":
+      return BaseResult.staticSetDisplayPageFrFR(siteRequest_, v);
     case "editPage":
       return BaseResult.staticSetEditPage(siteRequest_, v);
+    case "editPageFrFR":
+      return BaseResult.staticSetEditPageFrFR(siteRequest_, v);
     case "userPage":
       return BaseResult.staticSetUserPage(siteRequest_, v);
+    case "userPageFrFR":
+      return BaseResult.staticSetUserPageFrFR(siteRequest_, v);
     case "download":
       return BaseResult.staticSetDownload(siteRequest_, v);
+    case "downloadFrFR":
+      return BaseResult.staticSetDownloadFrFR(siteRequest_, v);
     case "objectSuggest":
       return BaseResult.staticSetObjectSuggest(siteRequest_, v);
     case "objectText":
@@ -1407,12 +1675,20 @@ public abstract class BaseResultGen<DEV> extends Object {
       return BaseResult.staticSearchObjectTitle(siteRequest_, (String)o);
     case "displayPage":
       return BaseResult.staticSearchDisplayPage(siteRequest_, (String)o);
+    case "displayPageFrFR":
+      return BaseResult.staticSearchDisplayPageFrFR(siteRequest_, (String)o);
     case "editPage":
       return BaseResult.staticSearchEditPage(siteRequest_, (String)o);
+    case "editPageFrFR":
+      return BaseResult.staticSearchEditPageFrFR(siteRequest_, (String)o);
     case "userPage":
       return BaseResult.staticSearchUserPage(siteRequest_, (String)o);
+    case "userPageFrFR":
+      return BaseResult.staticSearchUserPageFrFR(siteRequest_, (String)o);
     case "download":
       return BaseResult.staticSearchDownload(siteRequest_, (String)o);
+    case "downloadFrFR":
+      return BaseResult.staticSearchDownloadFrFR(siteRequest_, (String)o);
     case "objectSuggest":
       return BaseResult.staticSearchObjectSuggest(siteRequest_, (String)o);
     case "objectText":
@@ -1451,12 +1727,20 @@ public abstract class BaseResultGen<DEV> extends Object {
       return BaseResult.staticSearchStrObjectTitle(siteRequest_, (String)o);
     case "displayPage":
       return BaseResult.staticSearchStrDisplayPage(siteRequest_, (String)o);
+    case "displayPageFrFR":
+      return BaseResult.staticSearchStrDisplayPageFrFR(siteRequest_, (String)o);
     case "editPage":
       return BaseResult.staticSearchStrEditPage(siteRequest_, (String)o);
+    case "editPageFrFR":
+      return BaseResult.staticSearchStrEditPageFrFR(siteRequest_, (String)o);
     case "userPage":
       return BaseResult.staticSearchStrUserPage(siteRequest_, (String)o);
+    case "userPageFrFR":
+      return BaseResult.staticSearchStrUserPageFrFR(siteRequest_, (String)o);
     case "download":
       return BaseResult.staticSearchStrDownload(siteRequest_, (String)o);
+    case "downloadFrFR":
+      return BaseResult.staticSearchStrDownloadFrFR(siteRequest_, (String)o);
     case "objectSuggest":
       return BaseResult.staticSearchStrObjectSuggest(siteRequest_, (String)o);
     case "objectText":
@@ -1495,12 +1779,20 @@ public abstract class BaseResultGen<DEV> extends Object {
       return BaseResult.staticSearchFqObjectTitle(siteRequest_, o);
     case "displayPage":
       return BaseResult.staticSearchFqDisplayPage(siteRequest_, o);
+    case "displayPageFrFR":
+      return BaseResult.staticSearchFqDisplayPageFrFR(siteRequest_, o);
     case "editPage":
       return BaseResult.staticSearchFqEditPage(siteRequest_, o);
+    case "editPageFrFR":
+      return BaseResult.staticSearchFqEditPageFrFR(siteRequest_, o);
     case "userPage":
       return BaseResult.staticSearchFqUserPage(siteRequest_, o);
+    case "userPageFrFR":
+      return BaseResult.staticSearchFqUserPageFrFR(siteRequest_, o);
     case "download":
       return BaseResult.staticSearchFqDownload(siteRequest_, o);
+    case "downloadFrFR":
+      return BaseResult.staticSearchFqDownloadFrFR(siteRequest_, o);
     case "objectSuggest":
       return BaseResult.staticSearchFqObjectSuggest(siteRequest_, o);
     case "objectText":
@@ -1538,6 +1830,8 @@ public abstract class BaseResultGen<DEV> extends Object {
           setCreated((String)val);
         } else if(val instanceof OffsetDateTime) {
           setCreated(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setCreated((ZonedDateTime)val);
         }
         saves.add("created");
         return val;
@@ -1561,11 +1855,23 @@ public abstract class BaseResultGen<DEV> extends Object {
         }
         saves.add("displayPage");
         return val;
+      } else if("displaypagefrfr".equals(varLower)) {
+        if(val instanceof String) {
+          setDisplayPageFrFR((String)val);
+        }
+        saves.add("displayPageFrFR");
+        return val;
       } else if("editpage".equals(varLower)) {
         if(val instanceof String) {
           setEditPage((String)val);
         }
         saves.add("editPage");
+        return val;
+      } else if("editpagefrfr".equals(varLower)) {
+        if(val instanceof String) {
+          setEditPageFrFR((String)val);
+        }
+        saves.add("editPageFrFR");
         return val;
       } else if("userpage".equals(varLower)) {
         if(val instanceof String) {
@@ -1573,11 +1879,23 @@ public abstract class BaseResultGen<DEV> extends Object {
         }
         saves.add("userPage");
         return val;
+      } else if("userpagefrfr".equals(varLower)) {
+        if(val instanceof String) {
+          setUserPageFrFR((String)val);
+        }
+        saves.add("userPageFrFR");
+        return val;
       } else if("download".equals(varLower)) {
         if(val instanceof String) {
           setDownload((String)val);
         }
         saves.add("download");
+        return val;
+      } else if("downloadfrfr".equals(varLower)) {
+        if(val instanceof String) {
+          setDownloadFrFR((String)val);
+        }
+        saves.add("downloadFrFR");
         return val;
       } else if("solrid".equals(varLower)) {
         if(val instanceof String) {
@@ -1662,10 +1980,22 @@ public abstract class BaseResultGen<DEV> extends Object {
           oBaseResult.setDisplayPage(displayPage);
       }
 
+      if(saves.contains("displayPageFrFR")) {
+        String displayPageFrFR = (String)doc.get("displayPageFrFR_docvalues_string");
+        if(displayPageFrFR != null)
+          oBaseResult.setDisplayPageFrFR(displayPageFrFR);
+      }
+
       if(saves.contains("editPage")) {
         String editPage = (String)doc.get("editPage_docvalues_string");
         if(editPage != null)
           oBaseResult.setEditPage(editPage);
+      }
+
+      if(saves.contains("editPageFrFR")) {
+        String editPageFrFR = (String)doc.get("editPageFrFR_docvalues_string");
+        if(editPageFrFR != null)
+          oBaseResult.setEditPageFrFR(editPageFrFR);
       }
 
       if(saves.contains("userPage")) {
@@ -1674,10 +2004,22 @@ public abstract class BaseResultGen<DEV> extends Object {
           oBaseResult.setUserPage(userPage);
       }
 
+      if(saves.contains("userPageFrFR")) {
+        String userPageFrFR = (String)doc.get("userPageFrFR_docvalues_string");
+        if(userPageFrFR != null)
+          oBaseResult.setUserPageFrFR(userPageFrFR);
+      }
+
       if(saves.contains("download")) {
         String download = (String)doc.get("download_docvalues_string");
         if(download != null)
           oBaseResult.setDownload(download);
+      }
+
+      if(saves.contains("downloadFrFR")) {
+        String downloadFrFR = (String)doc.get("downloadFrFR_docvalues_string");
+        if(downloadFrFR != null)
+          oBaseResult.setDownloadFrFR(downloadFrFR);
       }
 
       if(saves.contains("objectSuggest")) {
@@ -1726,14 +2068,26 @@ public abstract class BaseResultGen<DEV> extends Object {
     if(displayPage != null) {
       doc.put("displayPage_docvalues_string", displayPage);
     }
+    if(displayPageFrFR != null) {
+      doc.put("displayPageFrFR_docvalues_string", displayPageFrFR);
+    }
     if(editPage != null) {
       doc.put("editPage_docvalues_string", editPage);
+    }
+    if(editPageFrFR != null) {
+      doc.put("editPageFrFR_docvalues_string", editPageFrFR);
     }
     if(userPage != null) {
       doc.put("userPage_docvalues_string", userPage);
     }
+    if(userPageFrFR != null) {
+      doc.put("userPageFrFR_docvalues_string", userPageFrFR);
+    }
     if(download != null) {
       doc.put("download_docvalues_string", download);
+    }
+    if(downloadFrFR != null) {
+      doc.put("downloadFrFR_docvalues_string", downloadFrFR);
     }
     if(objectSuggest != null) {
       doc.put("objectSuggest_suggested", objectSuggest);
@@ -1770,12 +2124,20 @@ public abstract class BaseResultGen<DEV> extends Object {
         return "objectTitle_docvalues_string";
       case "displayPage":
         return "displayPage_docvalues_string";
+      case "displayPageFrFR":
+        return "displayPageFrFR_docvalues_string";
       case "editPage":
         return "editPage_docvalues_string";
+      case "editPageFrFR":
+        return "editPageFrFR_docvalues_string";
       case "userPage":
         return "userPage_docvalues_string";
+      case "userPageFrFR":
+        return "userPageFrFR_docvalues_string";
       case "download":
         return "download_docvalues_string";
+      case "downloadFrFR":
+        return "downloadFrFR_docvalues_string";
       default:
         return null;
     }
@@ -1801,12 +2163,20 @@ public abstract class BaseResultGen<DEV> extends Object {
         return "objectTitle_docvalues_string";
       case "displayPage":
         return "displayPage_docvalues_string";
+      case "displayPageFrFR":
+        return "displayPageFrFR_docvalues_string";
       case "editPage":
         return "editPage_docvalues_string";
+      case "editPageFrFR":
+        return "editPageFrFR_docvalues_string";
       case "userPage":
         return "userPage_docvalues_string";
+      case "userPageFrFR":
+        return "userPageFrFR_docvalues_string";
       case "download":
         return "download_docvalues_string";
+      case "downloadFrFR":
+        return "downloadFrFR_docvalues_string";
       case "objectSuggest":
         return "objectSuggest_suggested";
       case "objectText":
@@ -1838,12 +2208,20 @@ public abstract class BaseResultGen<DEV> extends Object {
         return "objectTitle";
       case "displayPage_docvalues_string":
         return "displayPage";
+      case "displayPageFrFR_docvalues_string":
+        return "displayPageFrFR";
       case "editPage_docvalues_string":
         return "editPage";
+      case "editPageFrFR_docvalues_string":
+        return "editPageFrFR";
       case "userPage_docvalues_string":
         return "userPage";
+      case "userPageFrFR_docvalues_string":
+        return "userPageFrFR";
       case "download_docvalues_string":
         return "download";
+      case "downloadFrFR_docvalues_string":
+        return "downloadFrFR";
       case "objectSuggest_suggested":
         return "objectSuggest";
       case "objectText_text_enUS":
@@ -1899,9 +2277,13 @@ public abstract class BaseResultGen<DEV> extends Object {
     });
     oBaseResult.setObjectTitle(Optional.ofNullable(doc.get("objectTitle_docvalues_string")).map(v -> v.toString()).orElse(null));
     oBaseResult.setDisplayPage(Optional.ofNullable(doc.get("displayPage_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setDisplayPageFrFR(Optional.ofNullable(doc.get("displayPageFrFR_docvalues_string")).map(v -> v.toString()).orElse(null));
     oBaseResult.setEditPage(Optional.ofNullable(doc.get("editPage_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setEditPageFrFR(Optional.ofNullable(doc.get("editPageFrFR_docvalues_string")).map(v -> v.toString()).orElse(null));
     oBaseResult.setUserPage(Optional.ofNullable(doc.get("userPage_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setUserPageFrFR(Optional.ofNullable(doc.get("userPageFrFR_docvalues_string")).map(v -> v.toString()).orElse(null));
     oBaseResult.setDownload(Optional.ofNullable(doc.get("download_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oBaseResult.setDownloadFrFR(Optional.ofNullable(doc.get("downloadFrFR_docvalues_string")).map(v -> v.toString()).orElse(null));
     oBaseResult.setObjectSuggest(Optional.ofNullable(doc.get("objectSuggest_suggested")).map(v -> v.toString()).orElse(null));
     Optional.ofNullable((List<?>)doc.get("objectText_text_enUS")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
       oBaseResult.addObjectText(BaseResult.staticSetObjectText(siteRequest, v.toString()));
@@ -1937,12 +2319,20 @@ public abstract class BaseResultGen<DEV> extends Object {
         apiRequest.addVars("objectTitle");
       if(!Objects.equals(displayPage, original.getDisplayPage()))
         apiRequest.addVars("displayPage");
+      if(!Objects.equals(displayPageFrFR, original.getDisplayPageFrFR()))
+        apiRequest.addVars("displayPageFrFR");
       if(!Objects.equals(editPage, original.getEditPage()))
         apiRequest.addVars("editPage");
+      if(!Objects.equals(editPageFrFR, original.getEditPageFrFR()))
+        apiRequest.addVars("editPageFrFR");
       if(!Objects.equals(userPage, original.getUserPage()))
         apiRequest.addVars("userPage");
+      if(!Objects.equals(userPageFrFR, original.getUserPageFrFR()))
+        apiRequest.addVars("userPageFrFR");
       if(!Objects.equals(download, original.getDownload()))
         apiRequest.addVars("download");
+      if(!Objects.equals(downloadFrFR, original.getDownloadFrFR()))
+        apiRequest.addVars("downloadFrFR");
       if(!Objects.equals(objectSuggest, original.getObjectSuggest()))
         apiRequest.addVars("objectSuggest");
       if(!Objects.equals(objectText, original.getObjectText()))
@@ -1967,9 +2357,13 @@ public abstract class BaseResultGen<DEV> extends Object {
     sb.append(Optional.ofNullable(saves).map(v -> "saves: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(objectTitle).map(v -> "objectTitle: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(displayPage).map(v -> "displayPage: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(displayPageFrFR).map(v -> "displayPageFrFR: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(editPage).map(v -> "editPage: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(editPageFrFR).map(v -> "editPageFrFR: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(userPage).map(v -> "userPage: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(userPageFrFR).map(v -> "userPageFrFR: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(download).map(v -> "download: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(downloadFrFR).map(v -> "downloadFrFR: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(objectSuggest).map(v -> "objectSuggest: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(objectText).map(v -> "objectText: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(solrId).map(v -> "solrId: \"" + v + "\"\n" ).orElse(""));
@@ -1989,9 +2383,13 @@ public abstract class BaseResultGen<DEV> extends Object {
   public static final String VAR_saves = "saves";
   public static final String VAR_objectTitle = "objectTitle";
   public static final String VAR_displayPage = "displayPage";
+  public static final String VAR_displayPageFrFR = "displayPageFrFR";
   public static final String VAR_editPage = "editPage";
+  public static final String VAR_editPageFrFR = "editPageFrFR";
   public static final String VAR_userPage = "userPage";
+  public static final String VAR_userPageFrFR = "userPageFrFR";
   public static final String VAR_download = "download";
+  public static final String VAR_downloadFrFR = "downloadFrFR";
   public static final String VAR_objectSuggest = "objectSuggest";
   public static final String VAR_objectText = "objectText";
   public static final String VAR_solrId = "solrId";
@@ -2013,9 +2411,13 @@ public abstract class BaseResultGen<DEV> extends Object {
     vars.add(VAR_modified);
     vars.add(VAR_classSimpleName);
     vars.add(VAR_displayPage);
+    vars.add(VAR_displayPageFrFR);
     vars.add(VAR_editPage);
+    vars.add(VAR_editPageFrFR);
     vars.add(VAR_userPage);
+    vars.add(VAR_userPageFrFR);
     vars.add(VAR_download);
+    vars.add(VAR_downloadFrFR);
     return vars;
   }
 
@@ -2037,10 +2439,14 @@ public abstract class BaseResultGen<DEV> extends Object {
   public static final String DISPLAY_NAME_classCanonicalNames = "";
   public static final String DISPLAY_NAME_saves = "";
   public static final String DISPLAY_NAME_objectTitle = "title";
-  public static final String DISPLAY_NAME_displayPage = "";
+  public static final String DISPLAY_NAME_displayPage = "display page";
+  public static final String DISPLAY_NAME_displayPageFrFR = "display page";
   public static final String DISPLAY_NAME_editPage = "manage";
+  public static final String DISPLAY_NAME_editPageFrFR = "manage";
   public static final String DISPLAY_NAME_userPage = "user";
+  public static final String DISPLAY_NAME_userPageFrFR = "user";
   public static final String DISPLAY_NAME_download = "download";
+  public static final String DISPLAY_NAME_downloadFrFR = "download";
   public static final String DISPLAY_NAME_objectSuggest = "autosuggest";
   public static final String DISPLAY_NAME_objectText = "text";
   public static final String DISPLAY_NAME_solrId = "";
@@ -2065,19 +2471,35 @@ public abstract class BaseResultGen<DEV> extends Object {
     return null;
   }
 
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 
@@ -2106,12 +2528,20 @@ public abstract class BaseResultGen<DEV> extends Object {
       return DISPLAY_NAME_objectTitle;
     case VAR_displayPage:
       return DISPLAY_NAME_displayPage;
+    case VAR_displayPageFrFR:
+      return DISPLAY_NAME_displayPageFrFR;
     case VAR_editPage:
       return DISPLAY_NAME_editPage;
+    case VAR_editPageFrFR:
+      return DISPLAY_NAME_editPageFrFR;
     case VAR_userPage:
       return DISPLAY_NAME_userPage;
+    case VAR_userPageFrFR:
+      return DISPLAY_NAME_userPageFrFR;
     case VAR_download:
       return DISPLAY_NAME_download;
+    case VAR_downloadFrFR:
+      return DISPLAY_NAME_downloadFrFR;
     case VAR_objectSuggest:
       return DISPLAY_NAME_objectSuggest;
     case VAR_objectText:
@@ -2145,11 +2575,21 @@ public abstract class BaseResultGen<DEV> extends Object {
       return "A list of fields that are saved for this record in the database";
     case VAR_objectTitle:
       return "The title of this page. ";
+    case VAR_displayPage:
+      return "Visit this landing page. ";
+    case VAR_displayPageFrFR:
+      return "Visit this landing page. ";
     case VAR_editPage:
+      return "Manage this";
+    case VAR_editPageFrFR:
       return "Manage this";
     case VAR_userPage:
       return "User page";
+    case VAR_userPageFrFR:
+      return "User page";
     case VAR_download:
+      return "the download URL";
+    case VAR_downloadFrFR:
       return "the download URL";
     case VAR_objectSuggest:
       return "The indexed field in the search engine for this record while using autosuggest";
@@ -2184,11 +2624,19 @@ public abstract class BaseResultGen<DEV> extends Object {
       return "String";
     case VAR_displayPage:
       return "String";
+    case VAR_displayPageFrFR:
+      return "String";
     case VAR_editPage:
+      return "String";
+    case VAR_editPageFrFR:
       return "String";
     case VAR_userPage:
       return "String";
+    case VAR_userPageFrFR:
+      return "String";
     case VAR_download:
+      return "String";
+    case VAR_downloadFrFR:
       return "String";
     case VAR_objectSuggest:
       return "String";
@@ -2216,8 +2664,6 @@ public abstract class BaseResultGen<DEV> extends Object {
       return 1;
     case VAR_archived:
       return 2;
-    case VAR_displayPage:
-      return 99;
       default:
         return null;
     }
@@ -2231,8 +2677,6 @@ public abstract class BaseResultGen<DEV> extends Object {
       return 3;
     case VAR_archived:
       return 1;
-    case VAR_displayPage:
-      return 2;
       default:
         return null;
     }

@@ -286,19 +286,35 @@ public abstract class WorkerVerticleGen<DEV> extends AbstractVerticle {
     return null;
   }
 
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

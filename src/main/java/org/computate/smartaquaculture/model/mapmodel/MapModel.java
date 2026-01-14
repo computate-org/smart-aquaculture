@@ -36,8 +36,10 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: name
+	 * DisplayName.enUS: name
+	 * DisplayName.frFR: nom
 	 * Description: The name. 
+	 * Description: Le nom. 
 	 * HtmRowTitleOpen: name and description
 	 * HtmColumn: 0
 	 * VarName: true

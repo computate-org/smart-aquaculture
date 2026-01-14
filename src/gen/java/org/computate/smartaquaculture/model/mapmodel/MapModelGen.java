@@ -80,15 +80,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: GET</h2>
- * <p>This class contains a comment <b>"ApiMethod: GET"</b>, which creates an API "GET". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: map models"</b>, which groups all of the OpenAPIs for MapModel objects under the tag "map models". 
  * </p>
@@ -168,6 +159,15 @@ import org.computate.search.response.solr.SolrResponse;
  **/
 public abstract class MapModelGen<DEV> extends BaseModel {
   protected static final Logger LOG = LoggerFactory.getLogger(MapModel.class);
+
+  public static final String Description_frFR = "A map model";
+  public static final String AName_frFR = "a map model";
+  public static final String SingularName_frFR = "map model";
+  public static final String PluralName_frFR = "map models";
+  public static final String Title_frFR = "map models";
+  public static final String ThePluralName_frFR = "les map models";
+  public static final String NameAdjectiveSingular_frFR = "map model";
+  public static final String NameAdjectivePlural_frFR = "map models";
 
   public static final String Description_enUS = "A map model";
   public static final String AName_enUS = "a map model";
@@ -1196,6 +1196,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
           setLocation((String)val);
         } else if(val instanceof Point) {
           setLocation((Point)val);
+        } else if(val instanceof Point) {
+          setLocation((Point)val);
         }
         saves.add("location");
         return val;
@@ -1232,6 +1234,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
       } else if("ngsilddata".equals(varLower)) {
         if(val instanceof String) {
           setNgsildData((String)val);
+        } else if(val instanceof JsonObject) {
+          setNgsildData((JsonObject)val);
         } else if(val instanceof JsonObject) {
           setNgsildData((JsonObject)val);
         }
@@ -1623,22 +1627,42 @@ public abstract class MapModelGen<DEV> extends BaseModel {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

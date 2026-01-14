@@ -851,22 +851,42 @@ public abstract class FishPopulationGenPageGen<DEV> extends PageLayout {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

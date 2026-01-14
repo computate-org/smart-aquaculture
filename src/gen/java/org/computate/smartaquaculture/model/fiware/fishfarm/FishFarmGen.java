@@ -123,33 +123,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: GET</h2>
- * <p>This class contains a comment <b>"ApiMethod: GET"</b>, which creates an API "GET". 
- * </p>
- * <h2>ApiMethode: PATCH</h2>
- * <p>This class contains a comment <b>"ApiMethod: PATCH"</b>, which creates an API "PATCH". 
- * </p>
- * <h2>ApiMethode: POST</h2>
- * <p>This class contains a comment <b>"ApiMethod: POST"</b>, which creates an API "POST". 
- * </p>
- * <h2>ApiMethode: DELETE</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETE"</b>, which creates an API "DELETE". 
- * </p>
- * <h2>ApiMethode: PUTImport</h2>
- * <p>This class contains a comment <b>"ApiMethod: PUTImport"</b>, which creates an API "PUTImport". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
- * <h2>ApiMethode: EditPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: EditPage"</b>, which creates an API "EditPage". 
- * </p>
- * <h2>ApiMethode: DELETEFilter</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: fish farms"</b>, which groups all of the OpenAPIs for FishFarm objects under the tag "fish farms". 
  * </p>
@@ -229,6 +202,15 @@ import org.computate.search.response.solr.SolrResponse;
  **/
 public abstract class FishFarmGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishFarm.class);
+
+  public static final String Description_frFR = "A fish farm";
+  public static final String AName_frFR = "a fish farm";
+  public static final String SingularName_frFR = "fish farm";
+  public static final String PluralName_frFR = "fish farms";
+  public static final String Title_frFR = "fish farms";
+  public static final String ThePluralName_frFR = "les fish farms";
+  public static final String NameAdjectiveSingular_frFR = "fish farm";
+  public static final String NameAdjectivePlural_frFR = "fish farms";
 
   public static final String Description_enUS = "A fish farm";
   public static final String AName_enUS = "a fish farm";
@@ -656,7 +638,7 @@ public abstract class FishFarmGen<DEV> extends MapModel {
         }
         return shape;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -678,7 +660,7 @@ public abstract class FishFarmGen<DEV> extends MapModel {
         });
         return shapes;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -979,6 +961,8 @@ public abstract class FishFarmGen<DEV> extends MapModel {
           setAddress((String)val);
         } else if(val instanceof JsonObject) {
           setAddress((JsonObject)val);
+        } else if(val instanceof JsonObject) {
+          setAddress((JsonObject)val);
         }
         saves.add("address");
         return val;
@@ -988,9 +972,9 @@ public abstract class FishFarmGen<DEV> extends MapModel {
         } else if(val instanceof Polygon[]) {
           Arrays.asList((Polygon[])val).stream().forEach(v -> addAreaServed((Polygon)v));
         } else if(val instanceof JsonObject) {
-          staticSetAreaServed(siteRequest_, val.toString()).stream().forEach(v -> addAreaServed(v));
+          Optional.ofNullable(staticSetAreaServed(siteRequest_, val.toString())).ifPresent(u -> u.stream().forEach(v -> addAreaServed(v)));
         } else if(val instanceof String) {
-          staticSetAreaServed(siteRequest_, (String)val).stream().forEach(v -> addAreaServed(v));
+          Optional.ofNullable(staticSetAreaServed(siteRequest_, (String)val)).ifPresent(u -> u.stream().forEach(v -> addAreaServed(v)));
         }
         if(!saves.contains("areaServed")) {
           saves.add("areaServed");
@@ -1292,22 +1276,42 @@ public abstract class FishFarmGen<DEV> extends MapModel {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
-    return "%s/en-us/edit/fish-farm/%s";
-  }
-
-  @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

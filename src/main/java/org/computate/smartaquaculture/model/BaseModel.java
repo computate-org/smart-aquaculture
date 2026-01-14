@@ -197,14 +197,36 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DisplayName: display page
    * Description: Visit this landing page. 
    * Link: true
-   * VarUrlDisplayPage: true
+   * VarUrlDisplayPage.enUS: true
    */
   protected void _displayPage(Wrap<String> w) {
-    String f = classStringFormatUrlDisplayPageForClass();
+    String f = enUSStringFormatUrlDisplayPageForClass();
     if(f != null) {
       w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
     } else {
-      f = classStringFormatUrlEditPageForClass();
+      f = enUSStringFormatUrlEditPageForClass();
+      if(f != null) {
+        w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
+      }
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: display page
+   * Description: Visit this landing page. 
+   * Link: true
+   * VarUrlDisplayPage.frFR: true
+   */
+  protected void _displayPageFrFR(Wrap<String> w) {
+    String f = frFRStringFormatUrlDisplayPageForClass();
+    if(f != null) {
+      w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
+    } else {
+      f = frFRStringFormatUrlEditPageForClass();
       if(f != null) {
         w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
       }
@@ -220,10 +242,27 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * Description: Manage this
    * Link: true
    * Icon: <i class="fa-duotone fa-regular fa-pen-to-square"></i>
-   * VarUrlEditPage: true
+   * VarUrlEditPage.enUS: true
    */
   protected void _editPage(Wrap<String> w) {
-    String f = classStringFormatUrlEditPageForClass();
+    String f = enUSStringFormatUrlEditPageForClass();
+    if(f != null)
+      w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: manage
+   * Description: Manage this
+   * Link: true
+   * Icon: <i class="fa-duotone fa-regular fa-pen-to-square"></i>
+   * VarUrlEditPage.frFR: true
+   */
+  protected void _editPageFrFR(Wrap<String> w) {
+    String f = frFRStringFormatUrlEditPageForClass();
     if(f != null)
       w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
   }
@@ -236,10 +275,26 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DisplayName: user
    * Description: User page
    * Link: true
-   * VarUrlUserPage: true
+   * VarUrlUserPage.enUS: true
    */
   protected void _userPage(Wrap<String> w) {
-    String f = classStringFormatUrlUserPageForClass();
+    String f = enUSStringFormatUrlUserPageForClass();
+    if(f != null)
+      w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: user
+   * Description: User page
+   * Link: true
+   * VarUrlUserPage.frFR: true
+   */
+  protected void _userPageFrFR(Wrap<String> w) {
+    String f = frFRStringFormatUrlUserPageForClass();
     if(f != null)
       w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
   }
@@ -252,10 +307,26 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DisplayName: download
    * Description: the download URL
    * Link: true
-   * VarUrlDownload: true
+   * VarUrlDownload.enUS: true
    */
   protected void _download(Wrap<String> w) {
-    String f = classStringFormatUrlDownloadForClass();
+    String f = enUSStringFormatUrlDownloadForClass();
+    if(f != null)
+      w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: download
+   * Description: the download URL
+   * Link: true
+   * VarUrlDownload.frFR: true
+   */
+  protected void _downloadFrFR(Wrap<String> w) {
+    String f = frFRStringFormatUrlDownloadForClass();
     if(f != null)
       w.o(String.format(f, siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_BASE_URL), urlEncode(idForClass())));
   }

@@ -137,33 +137,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: GET</h2>
- * <p>This class contains a comment <b>"ApiMethod: GET"</b>, which creates an API "GET". 
- * </p>
- * <h2>ApiMethode: PATCH</h2>
- * <p>This class contains a comment <b>"ApiMethod: PATCH"</b>, which creates an API "PATCH". 
- * </p>
- * <h2>ApiMethode: POST</h2>
- * <p>This class contains a comment <b>"ApiMethod: POST"</b>, which creates an API "POST". 
- * </p>
- * <h2>ApiMethode: DELETE</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETE"</b>, which creates an API "DELETE". 
- * </p>
- * <h2>ApiMethode: PUTImport</h2>
- * <p>This class contains a comment <b>"ApiMethod: PUTImport"</b>, which creates an API "PUTImport". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
- * <h2>ApiMethode: EditPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: EditPage"</b>, which creates an API "EditPage". 
- * </p>
- * <h2>ApiMethode: DELETEFilter</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: fishing boats"</b>, which groups all of the OpenAPIs for FishingBoat objects under the tag "fishing boats". 
  * </p>
@@ -243,6 +216,15 @@ import org.computate.search.response.solr.SolrResponse;
  **/
 public abstract class FishingBoatGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishingBoat.class);
+
+  public static final String Description_frFR = "A fishing boat that catches fish from a fish population and returns the fish to a dock. ";
+  public static final String AName_frFR = "a fishing boat";
+  public static final String SingularName_frFR = "fishing boat";
+  public static final String PluralName_frFR = "fishing boats";
+  public static final String Title_frFR = "fishing boats";
+  public static final String ThePluralName_frFR = "les fishing boats";
+  public static final String NameAdjectiveSingular_frFR = "fishing boat";
+  public static final String NameAdjectivePlural_frFR = "fishing boats";
 
   public static final String Description_enUS = "A fishing boat that catches fish from a fish population and returns the fish to a dock. ";
   public static final String AName_enUS = "a fishing boat";
@@ -633,23 +615,26 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setAvgSpeedInMph(String o) {
     this.avgSpeedInMph = FishingBoat.staticSetAvgSpeedInMph(siteRequest_, o);
   }
+  public static MathContext staticMathContextAvgSpeedInMph() {
+    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+  }
   public static BigDecimal staticSetAvgSpeedInMph(SiteRequest siteRequest_, String o) {
-    o = StringUtils.removeAll(o, "[^\\d\\.]");
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP);
+      return new BigDecimal(o, staticMathContextAvgSpeedInMph());
     return null;
   }
   @JsonIgnore
   public void setAvgSpeedInMph(Double o) {
-    setAvgSpeedInMph(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setAvgSpeedInMph(new BigDecimal(o, staticMathContextAvgSpeedInMph()));
   }
   @JsonIgnore
   public void setAvgSpeedInMph(Integer o) {
-    setAvgSpeedInMph(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setAvgSpeedInMph(new BigDecimal(o, staticMathContextAvgSpeedInMph()));
   }
   @JsonIgnore
   public void setAvgSpeedInMph(Number o) {
-    setAvgSpeedInMph(new BigDecimal(o.doubleValue(), MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setAvgSpeedInMph(new BigDecimal(o.doubleValue(), staticMathContextAvgSpeedInMph()));
   }
   protected FishingBoat avgSpeedInMphInit() {
     Wrap<BigDecimal> avgSpeedInMphWrap = new Wrap<BigDecimal>().var("avgSpeedInMph");
@@ -716,23 +701,26 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setMaxSpeedInMph(String o) {
     this.maxSpeedInMph = FishingBoat.staticSetMaxSpeedInMph(siteRequest_, o);
   }
+  public static MathContext staticMathContextMaxSpeedInMph() {
+    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+  }
   public static BigDecimal staticSetMaxSpeedInMph(SiteRequest siteRequest_, String o) {
-    o = StringUtils.removeAll(o, "[^\\d\\.]");
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP);
+      return new BigDecimal(o, staticMathContextMaxSpeedInMph());
     return null;
   }
   @JsonIgnore
   public void setMaxSpeedInMph(Double o) {
-    setMaxSpeedInMph(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setMaxSpeedInMph(new BigDecimal(o, staticMathContextMaxSpeedInMph()));
   }
   @JsonIgnore
   public void setMaxSpeedInMph(Integer o) {
-    setMaxSpeedInMph(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setMaxSpeedInMph(new BigDecimal(o, staticMathContextMaxSpeedInMph()));
   }
   @JsonIgnore
   public void setMaxSpeedInMph(Number o) {
-    setMaxSpeedInMph(new BigDecimal(o.doubleValue(), MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setMaxSpeedInMph(new BigDecimal(o.doubleValue(), staticMathContextMaxSpeedInMph()));
   }
   protected FishingBoat maxSpeedInMphInit() {
     Wrap<BigDecimal> maxSpeedInMphWrap = new Wrap<BigDecimal>().var("maxSpeedInMph");
@@ -799,23 +787,26 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setMilesPerGallon(String o) {
     this.milesPerGallon = FishingBoat.staticSetMilesPerGallon(siteRequest_, o);
   }
+  public static MathContext staticMathContextMilesPerGallon() {
+    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+  }
   public static BigDecimal staticSetMilesPerGallon(SiteRequest siteRequest_, String o) {
-    o = StringUtils.removeAll(o, "[^\\d\\.]");
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP);
+      return new BigDecimal(o, staticMathContextMilesPerGallon());
     return null;
   }
   @JsonIgnore
   public void setMilesPerGallon(Double o) {
-    setMilesPerGallon(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setMilesPerGallon(new BigDecimal(o, staticMathContextMilesPerGallon()));
   }
   @JsonIgnore
   public void setMilesPerGallon(Integer o) {
-    setMilesPerGallon(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setMilesPerGallon(new BigDecimal(o, staticMathContextMilesPerGallon()));
   }
   @JsonIgnore
   public void setMilesPerGallon(Number o) {
-    setMilesPerGallon(new BigDecimal(o.doubleValue(), MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setMilesPerGallon(new BigDecimal(o.doubleValue(), staticMathContextMilesPerGallon()));
   }
   protected FishingBoat milesPerGallonInit() {
     Wrap<BigDecimal> milesPerGallonWrap = new Wrap<BigDecimal>().var("milesPerGallon");
@@ -882,23 +873,26 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setGallonsOfGas(String o) {
     this.gallonsOfGas = FishingBoat.staticSetGallonsOfGas(siteRequest_, o);
   }
+  public static MathContext staticMathContextGallonsOfGas() {
+    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+  }
   public static BigDecimal staticSetGallonsOfGas(SiteRequest siteRequest_, String o) {
-    o = StringUtils.removeAll(o, "[^\\d\\.]");
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP);
+      return new BigDecimal(o, staticMathContextGallonsOfGas());
     return null;
   }
   @JsonIgnore
   public void setGallonsOfGas(Double o) {
-    setGallonsOfGas(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setGallonsOfGas(new BigDecimal(o, staticMathContextGallonsOfGas()));
   }
   @JsonIgnore
   public void setGallonsOfGas(Integer o) {
-    setGallonsOfGas(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setGallonsOfGas(new BigDecimal(o, staticMathContextGallonsOfGas()));
   }
   @JsonIgnore
   public void setGallonsOfGas(Number o) {
-    setGallonsOfGas(new BigDecimal(o.doubleValue(), MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setGallonsOfGas(new BigDecimal(o.doubleValue(), staticMathContextGallonsOfGas()));
   }
   protected FishingBoat gallonsOfGasInit() {
     Wrap<BigDecimal> gallonsOfGasWrap = new Wrap<BigDecimal>().var("gallonsOfGas");
@@ -1218,7 +1212,7 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
         }
         return shape;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -1236,7 +1230,7 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
         });
         return shape;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -1783,6 +1777,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
           setDepartureDate((String)val);
         } else if(val instanceof OffsetDateTime) {
           setDepartureDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setDepartureDate((ZonedDateTime)val);
         }
         saves.add("departureDate");
         return val;
@@ -1791,6 +1787,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
           setArrivalDate((String)val);
         } else if(val instanceof OffsetDateTime) {
           setArrivalDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setArrivalDate((ZonedDateTime)val);
         }
         saves.add("arrivalDate");
         return val;
@@ -1799,6 +1797,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
           setAvgSpeedInMph((String)val);
         } else if(val instanceof Number) {
           setAvgSpeedInMph(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setAvgSpeedInMph((BigDecimal)val);
         }
         saves.add("avgSpeedInMph");
         return val;
@@ -1807,6 +1807,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
           setMaxSpeedInMph((String)val);
         } else if(val instanceof Number) {
           setMaxSpeedInMph(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setMaxSpeedInMph((BigDecimal)val);
         }
         saves.add("maxSpeedInMph");
         return val;
@@ -1815,6 +1817,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
           setMilesPerGallon((String)val);
         } else if(val instanceof Number) {
           setMilesPerGallon(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setMilesPerGallon((BigDecimal)val);
         }
         saves.add("milesPerGallon");
         return val;
@@ -1823,6 +1827,8 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
           setGallonsOfGas((String)val);
         } else if(val instanceof Number) {
           setGallonsOfGas(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setGallonsOfGas((BigDecimal)val);
         }
         saves.add("gallonsOfGas");
         return val;
@@ -1888,25 +1894,25 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
       }
 
       if(saves.contains("avgSpeedInMph")) {
-        Double avgSpeedInMph = (Double)doc.get("avgSpeedInMph_docvalues_double");
+        Double avgSpeedInMph = (Double)doc.get("avgSpeedInMph_docvalues_string");
         if(avgSpeedInMph != null)
           oFishingBoat.setAvgSpeedInMph(avgSpeedInMph);
       }
 
       if(saves.contains("maxSpeedInMph")) {
-        Double maxSpeedInMph = (Double)doc.get("maxSpeedInMph_docvalues_double");
+        Double maxSpeedInMph = (Double)doc.get("maxSpeedInMph_docvalues_string");
         if(maxSpeedInMph != null)
           oFishingBoat.setMaxSpeedInMph(maxSpeedInMph);
       }
 
       if(saves.contains("milesPerGallon")) {
-        Double milesPerGallon = (Double)doc.get("milesPerGallon_docvalues_double");
+        Double milesPerGallon = (Double)doc.get("milesPerGallon_docvalues_string");
         if(milesPerGallon != null)
           oFishingBoat.setMilesPerGallon(milesPerGallon);
       }
 
       if(saves.contains("gallonsOfGas")) {
-        Double gallonsOfGas = (Double)doc.get("gallonsOfGas_docvalues_double");
+        Double gallonsOfGas = (Double)doc.get("gallonsOfGas_docvalues_string");
         if(gallonsOfGas != null)
           oFishingBoat.setGallonsOfGas(gallonsOfGas);
       }
@@ -1974,16 +1980,16 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
       doc.put("arrivalDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(arrivalDate.toInstant(), ZoneId.of("UTC"))));
     }
     if(avgSpeedInMph != null) {
-      doc.put("avgSpeedInMph_docvalues_double", avgSpeedInMph.doubleValue());
+      doc.put("avgSpeedInMph_docvalues_string", avgSpeedInMph.toPlainString());
     }
     if(maxSpeedInMph != null) {
-      doc.put("maxSpeedInMph_docvalues_double", maxSpeedInMph.doubleValue());
+      doc.put("maxSpeedInMph_docvalues_string", maxSpeedInMph.toPlainString());
     }
     if(milesPerGallon != null) {
-      doc.put("milesPerGallon_docvalues_double", milesPerGallon.doubleValue());
+      doc.put("milesPerGallon_docvalues_string", milesPerGallon.toPlainString());
     }
     if(gallonsOfGas != null) {
-      doc.put("gallonsOfGas_docvalues_double", gallonsOfGas.doubleValue());
+      doc.put("gallonsOfGas_docvalues_string", gallonsOfGas.toPlainString());
     }
     if(areaServedColors != null) {
       JsonArray l = new JsonArray();
@@ -2032,13 +2038,13 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
       case "arrivalDate":
         return "arrivalDate_docvalues_date";
       case "avgSpeedInMph":
-        return "avgSpeedInMph_docvalues_double";
+        return "avgSpeedInMph_docvalues_string";
       case "maxSpeedInMph":
-        return "maxSpeedInMph_docvalues_double";
+        return "maxSpeedInMph_docvalues_string";
       case "milesPerGallon":
-        return "milesPerGallon_docvalues_double";
+        return "milesPerGallon_docvalues_string";
       case "gallonsOfGas":
-        return "gallonsOfGas_docvalues_double";
+        return "gallonsOfGas_docvalues_string";
       case "areaServedColors":
         return "areaServedColors_indexedstored_strings";
       case "areaServedTitles":
@@ -2067,13 +2073,13 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
       case "arrivalDate":
         return "arrivalDate_docvalues_date";
       case "avgSpeedInMph":
-        return "avgSpeedInMph_docvalues_double";
+        return "avgSpeedInMph_docvalues_string";
       case "maxSpeedInMph":
-        return "maxSpeedInMph_docvalues_double";
+        return "maxSpeedInMph_docvalues_string";
       case "milesPerGallon":
-        return "milesPerGallon_docvalues_double";
+        return "milesPerGallon_docvalues_string";
       case "gallonsOfGas":
-        return "gallonsOfGas_docvalues_double";
+        return "gallonsOfGas_docvalues_string";
       case "areaServedColors":
         return "areaServedColors_indexedstored_strings";
       case "areaServedTitles":
@@ -2101,13 +2107,13 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
         return "departureDate";
       case "arrivalDate_docvalues_date":
         return "arrivalDate";
-      case "avgSpeedInMph_docvalues_double":
+      case "avgSpeedInMph_docvalues_string":
         return "avgSpeedInMph";
-      case "maxSpeedInMph_docvalues_double":
+      case "maxSpeedInMph_docvalues_string":
         return "maxSpeedInMph";
-      case "milesPerGallon_docvalues_double":
+      case "milesPerGallon_docvalues_string":
         return "milesPerGallon";
-      case "gallonsOfGas_docvalues_double":
+      case "gallonsOfGas_docvalues_string":
         return "gallonsOfGas";
       case "areaServedColors_indexedstored_strings":
         return "areaServedColors";
@@ -2155,10 +2161,10 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     oFishingBoat.setFishingDockId(Optional.ofNullable(doc.get("fishingDockId_docvalues_string")).map(v -> v.toString()).orElse(null));
     oFishingBoat.setDepartureDate(Optional.ofNullable(doc.get("departureDate_docvalues_date")).map(v -> v.toString()).orElse(null));
     oFishingBoat.setArrivalDate(Optional.ofNullable(doc.get("arrivalDate_docvalues_date")).map(v -> v.toString()).orElse(null));
-    oFishingBoat.setAvgSpeedInMph(Optional.ofNullable(doc.get("avgSpeedInMph_docvalues_double")).map(v -> v.toString()).orElse(null));
-    oFishingBoat.setMaxSpeedInMph(Optional.ofNullable(doc.get("maxSpeedInMph_docvalues_double")).map(v -> v.toString()).orElse(null));
-    oFishingBoat.setMilesPerGallon(Optional.ofNullable(doc.get("milesPerGallon_docvalues_double")).map(v -> v.toString()).orElse(null));
-    oFishingBoat.setGallonsOfGas(Optional.ofNullable(doc.get("gallonsOfGas_docvalues_double")).map(v -> v.toString()).orElse(null));
+    oFishingBoat.setAvgSpeedInMph(Optional.ofNullable(doc.get("avgSpeedInMph_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishingBoat.setMaxSpeedInMph(Optional.ofNullable(doc.get("maxSpeedInMph_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishingBoat.setMilesPerGallon(Optional.ofNullable(doc.get("milesPerGallon_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oFishingBoat.setGallonsOfGas(Optional.ofNullable(doc.get("gallonsOfGas_docvalues_string")).map(v -> v.toString()).orElse(null));
     Optional.ofNullable((List<?>)doc.get("areaServedColors_indexedstored_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
       oFishingBoat.addAreaServedColors(FishingBoat.staticSetAreaServedColors(siteRequest, v.toString()));
     });
@@ -2342,22 +2348,42 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
-    return "%s/en-us/edit/fishing-boat/%s";
-  }
-
-  @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

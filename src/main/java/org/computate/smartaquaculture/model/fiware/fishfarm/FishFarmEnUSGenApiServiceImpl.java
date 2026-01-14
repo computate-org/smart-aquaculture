@@ -726,14 +726,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
       for(String entityVar : methodNames) {
         switch(entityVar) {
-          case "setAddress":
-              o2.setAddress(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishFarm.VAR_address + "=$" + num);
-              num++;
-              bParams.add(o2.sqlAddress());
-            break;
           case "setName":
               o2.setName(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -741,6 +733,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(FishFarm.VAR_name + "=$" + num);
               num++;
               bParams.add(o2.sqlName());
+            break;
+          case "setAddress":
+              o2.setAddress(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishFarm.VAR_address + "=$" + num);
+              num++;
+              bParams.add(o2.sqlAddress());
             break;
           case "setDescription":
               o2.setDescription(jsonObject.getString(entityVar));
@@ -782,14 +782,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               num++;
               bParams.add(o2.sqlArchived());
             break;
-          case "setAreaServed":
-              o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishFarm.VAR_areaServed, num));
-              num++;
-              bParams.add(o2.sqlAreaServed());
-            break;
           case "setEntityShortId":
               o2.setEntityShortId(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -797,6 +789,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(FishFarm.VAR_entityShortId + "=$" + num);
               num++;
               bParams.add(o2.sqlEntityShortId());
+            break;
+          case "setAreaServed":
+              o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishFarm.VAR_areaServed, num));
+              num++;
+              bParams.add(o2.sqlAreaServed());
             break;
           case "setNgsildTenant":
               o2.setNgsildTenant(jsonObject.getString(entityVar));
@@ -870,6 +870,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               num++;
               bParams.add(o2.sqlDisplayPage());
             break;
+          case "setDisplayPageFrFR":
+              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishFarm.VAR_displayPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDisplayPageFrFR());
+            break;
           case "setEditPage":
               o2.setEditPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -877,6 +885,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(FishFarm.VAR_editPage + "=$" + num);
               num++;
               bParams.add(o2.sqlEditPage());
+            break;
+          case "setEditPageFrFR":
+              o2.setEditPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishFarm.VAR_editPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlEditPageFrFR());
             break;
           case "setUserPage":
               o2.setUserPage(jsonObject.getString(entityVar));
@@ -886,6 +902,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               num++;
               bParams.add(o2.sqlUserPage());
             break;
+          case "setUserPageFrFR":
+              o2.setUserPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishFarm.VAR_userPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlUserPageFrFR());
+            break;
           case "setDownload":
               o2.setDownload(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -893,6 +917,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(FishFarm.VAR_download + "=$" + num);
               num++;
               bParams.add(o2.sqlDownload());
+            break;
+          case "setDownloadFrFR":
+              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishFarm.VAR_downloadFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDownloadFrFR());
             break;
         }
       }
@@ -1243,15 +1275,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         Set<String> entityVars = jsonObject.fieldNames();
         for(String entityVar : entityVars) {
           switch(entityVar) {
-          case FishFarm.VAR_address:
-            o2.setAddress(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishFarm.VAR_address + "=$" + num);
-            num++;
-            bParams.add(o2.sqlAddress());
-            break;
           case FishFarm.VAR_name:
             o2.setName(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1260,6 +1283,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(FishFarm.VAR_name + "=$" + num);
             num++;
             bParams.add(o2.sqlName());
+            break;
+          case FishFarm.VAR_address:
+            o2.setAddress(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishFarm.VAR_address + "=$" + num);
+            num++;
+            bParams.add(o2.sqlAddress());
             break;
           case FishFarm.VAR_description:
             o2.setDescription(jsonObject.getString(entityVar));
@@ -1306,15 +1338,6 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             num++;
             bParams.add(o2.sqlArchived());
             break;
-          case FishFarm.VAR_areaServed:
-            o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishFarm.VAR_areaServed + "=$" + num);
-            num++;
-            bParams.add(o2.sqlAreaServed());
-            break;
           case FishFarm.VAR_entityShortId:
             o2.setEntityShortId(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1323,6 +1346,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(FishFarm.VAR_entityShortId + "=$" + num);
             num++;
             bParams.add(o2.sqlEntityShortId());
+            break;
+          case FishFarm.VAR_areaServed:
+            o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishFarm.VAR_areaServed + "=$" + num);
+            num++;
+            bParams.add(o2.sqlAreaServed());
             break;
           case FishFarm.VAR_ngsildTenant:
             o2.setNgsildTenant(jsonObject.getString(entityVar));
@@ -1405,6 +1437,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             num++;
             bParams.add(o2.sqlDisplayPage());
             break;
+          case FishFarm.VAR_displayPageFrFR:
+            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishFarm.VAR_displayPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDisplayPageFrFR());
+            break;
           case FishFarm.VAR_editPage:
             o2.setEditPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1413,6 +1454,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(FishFarm.VAR_editPage + "=$" + num);
             num++;
             bParams.add(o2.sqlEditPage());
+            break;
+          case FishFarm.VAR_editPageFrFR:
+            o2.setEditPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishFarm.VAR_editPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlEditPageFrFR());
             break;
           case FishFarm.VAR_userPage:
             o2.setUserPage(jsonObject.getString(entityVar));
@@ -1423,6 +1473,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             num++;
             bParams.add(o2.sqlUserPage());
             break;
+          case FishFarm.VAR_userPageFrFR:
+            o2.setUserPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishFarm.VAR_userPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlUserPageFrFR());
+            break;
           case FishFarm.VAR_download:
             o2.setDownload(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1431,6 +1490,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(FishFarm.VAR_download + "=$" + num);
             num++;
             bParams.add(o2.sqlDownload());
+            break;
+          case FishFarm.VAR_downloadFrFR:
+            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishFarm.VAR_downloadFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDownloadFrFR());
             break;
           }
         }
@@ -3183,7 +3251,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT address, name, description, created, location, id, archived, ST_AsGeoJSON(areaServed) as areaServed, entityShortId, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, editPage, userPage, download FROM FishFarm WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, created, location, id, archived, entityShortId, ST_AsGeoJSON(areaServed) as areaServed, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishFarm WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3388,15 +3456,15 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       FishFarm page = new FishFarm();
       page.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(FishFarm.VAR_address, FishFarm.staticSetAddress(siteRequest2, (String)result.get(FishFarm.VAR_address)));
       page.persistForClass(FishFarm.VAR_name, FishFarm.staticSetName(siteRequest2, (String)result.get(FishFarm.VAR_name)));
+      page.persistForClass(FishFarm.VAR_address, FishFarm.staticSetAddress(siteRequest2, (String)result.get(FishFarm.VAR_address)));
       page.persistForClass(FishFarm.VAR_description, FishFarm.staticSetDescription(siteRequest2, (String)result.get(FishFarm.VAR_description)));
       page.persistForClass(FishFarm.VAR_created, FishFarm.staticSetCreated(siteRequest2, (String)result.get(FishFarm.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       page.persistForClass(FishFarm.VAR_location, FishFarm.staticSetLocation(siteRequest2, (String)result.get(FishFarm.VAR_location)));
       page.persistForClass(FishFarm.VAR_id, FishFarm.staticSetId(siteRequest2, (String)result.get(FishFarm.VAR_id)));
       page.persistForClass(FishFarm.VAR_archived, FishFarm.staticSetArchived(siteRequest2, (String)result.get(FishFarm.VAR_archived)));
-      page.persistForClass(FishFarm.VAR_areaServed, FishFarm.staticSetAreaServed(siteRequest2, (String)result.get(FishFarm.VAR_areaServed)));
       page.persistForClass(FishFarm.VAR_entityShortId, FishFarm.staticSetEntityShortId(siteRequest2, (String)result.get(FishFarm.VAR_entityShortId)));
+      page.persistForClass(FishFarm.VAR_areaServed, FishFarm.staticSetAreaServed(siteRequest2, (String)result.get(FishFarm.VAR_areaServed)));
       page.persistForClass(FishFarm.VAR_ngsildTenant, FishFarm.staticSetNgsildTenant(siteRequest2, (String)result.get(FishFarm.VAR_ngsildTenant)));
       page.persistForClass(FishFarm.VAR_ngsildPath, FishFarm.staticSetNgsildPath(siteRequest2, (String)result.get(FishFarm.VAR_ngsildPath)));
       page.persistForClass(FishFarm.VAR_ngsildContext, FishFarm.staticSetNgsildContext(siteRequest2, (String)result.get(FishFarm.VAR_ngsildContext)));
@@ -3406,9 +3474,13 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       page.persistForClass(FishFarm.VAR_color, FishFarm.staticSetColor(siteRequest2, (String)result.get(FishFarm.VAR_color)));
       page.persistForClass(FishFarm.VAR_objectTitle, FishFarm.staticSetObjectTitle(siteRequest2, (String)result.get(FishFarm.VAR_objectTitle)));
       page.persistForClass(FishFarm.VAR_displayPage, FishFarm.staticSetDisplayPage(siteRequest2, (String)result.get(FishFarm.VAR_displayPage)));
+      page.persistForClass(FishFarm.VAR_displayPageFrFR, FishFarm.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FishFarm.VAR_displayPageFrFR)));
       page.persistForClass(FishFarm.VAR_editPage, FishFarm.staticSetEditPage(siteRequest2, (String)result.get(FishFarm.VAR_editPage)));
+      page.persistForClass(FishFarm.VAR_editPageFrFR, FishFarm.staticSetEditPageFrFR(siteRequest2, (String)result.get(FishFarm.VAR_editPageFrFR)));
       page.persistForClass(FishFarm.VAR_userPage, FishFarm.staticSetUserPage(siteRequest2, (String)result.get(FishFarm.VAR_userPage)));
+      page.persistForClass(FishFarm.VAR_userPageFrFR, FishFarm.staticSetUserPageFrFR(siteRequest2, (String)result.get(FishFarm.VAR_userPageFrFR)));
       page.persistForClass(FishFarm.VAR_download, FishFarm.staticSetDownload(siteRequest2, (String)result.get(FishFarm.VAR_download)));
+      page.persistForClass(FishFarm.VAR_downloadFrFR, FishFarm.staticSetDownloadFrFR(siteRequest2, (String)result.get(FishFarm.VAR_downloadFrFR)));
 
       page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
         try {

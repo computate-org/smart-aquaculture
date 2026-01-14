@@ -72,21 +72,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: PATCH</h2>
- * <p>This class contains a comment <b>"ApiMethod: PATCH"</b>, which creates an API "PATCH". 
- * </p>
- * <h2>ApiMethode: POST</h2>
- * <p>This class contains a comment <b>"ApiMethod: POST"</b>, which creates an API "POST". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
- * <h2>ApiMethode: EditPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: EditPage"</b>, which creates an API "EditPage". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: site users"</b>, which groups all of the OpenAPIs for SiteUser objects under the tag "site users". 
  * </p>
@@ -163,6 +148,15 @@ import org.computate.search.response.solr.SolrResponse;
  **/
 public abstract class SiteUserGen<DEV> extends BaseModel {
   protected static final Logger LOG = LoggerFactory.getLogger(SiteUser.class);
+
+  public static final String Description_frFR = "A user record for each site user";
+  public static final String AName_frFR = "a site user";
+  public static final String SingularName_frFR = "site user";
+  public static final String PluralName_frFR = "site users";
+  public static final String Title_frFR = "site users";
+  public static final String ThePluralName_frFR = "les site users";
+  public static final String NameAdjectiveSingular_frFR = "site user";
+  public static final String NameAdjectivePlural_frFR = "site users";
 
   public static final String Description_enUS = "A user record for each site user";
   public static final String AName_enUS = "a site user";
@@ -1885,22 +1879,42 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
-    return "%s/en-us/edit/user/%s";
-  }
-
-  @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

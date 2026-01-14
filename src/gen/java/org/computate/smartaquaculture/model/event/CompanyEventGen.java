@@ -95,39 +95,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: GET</h2>
- * <p>This class contains a comment <b>"ApiMethod: GET"</b>, which creates an API "GET". 
- * </p>
- * <h2>ApiMethode: PATCH</h2>
- * <p>This class contains a comment <b>"ApiMethod: PATCH"</b>, which creates an API "PATCH". 
- * </p>
- * <h2>ApiMethode: POST</h2>
- * <p>This class contains a comment <b>"ApiMethod: POST"</b>, which creates an API "POST". 
- * </p>
- * <h2>ApiMethode: DELETE</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETE"</b>, which creates an API "DELETE". 
- * </p>
- * <h2>ApiMethode: PUTImport</h2>
- * <p>This class contains a comment <b>"ApiMethod: PUTImport"</b>, which creates an API "PUTImport". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
- * <h2>ApiMethode: EditPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: EditPage"</b>, which creates an API "EditPage". 
- * </p>
- * <h2>ApiMethode: DisplayPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: DisplayPage"</b>, which creates an API "DisplayPage". 
- * </p>
- * <h2>ApiMethode: UserPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: UserPage"</b>, which creates an API "UserPage". 
- * </p>
- * <h2>ApiMethode: DELETEFilter</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: events"</b>, which groups all of the OpenAPIs for CompanyEvent objects under the tag "events". 
  * </p>
@@ -201,6 +168,15 @@ import org.computate.search.response.solr.SolrResponse;
  **/
 public abstract class CompanyEventGen<DEV> extends BaseResult {
   protected static final Logger LOG = LoggerFactory.getLogger(CompanyEvent.class);
+
+  public static final String Description_frFR = "See the upcoming computate in-person and online events";
+  public static final String AName_frFR = "an event";
+  public static final String SingularName_frFR = "event";
+  public static final String PluralName_frFR = "events";
+  public static final String Title_frFR = "events";
+  public static final String ThePluralName_frFR = "les events";
+  public static final String NameAdjectiveSingular_frFR = "event";
+  public static final String NameAdjectivePlural_frFR = "events";
 
   public static final String Description_enUS = "See the upcoming computate in-person and online events";
   public static final String AName_enUS = "an event";
@@ -596,23 +572,26 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   public void setPrice(String o) {
     this.price = CompanyEvent.staticSetPrice(siteRequest_, o);
   }
+  public static MathContext staticMathContextPrice() {
+    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+  }
   public static BigDecimal staticSetPrice(SiteRequest siteRequest_, String o) {
-    o = StringUtils.removeAll(o, "[^\\d\\.]");
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP);
+      return new BigDecimal(o, staticMathContextPrice());
     return null;
   }
   @JsonIgnore
   public void setPrice(Double o) {
-    setPrice(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setPrice(new BigDecimal(o, staticMathContextPrice()));
   }
   @JsonIgnore
   public void setPrice(Integer o) {
-    setPrice(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setPrice(new BigDecimal(o, staticMathContextPrice()));
   }
   @JsonIgnore
   public void setPrice(Number o) {
-    setPrice(new BigDecimal(o.doubleValue(), MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setPrice(new BigDecimal(o.doubleValue(), staticMathContextPrice()));
   }
   protected CompanyEvent priceInit() {
     Wrap<BigDecimal> priceWrap = new Wrap<BigDecimal>().var("price");
@@ -887,7 +866,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         }
         return shape;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -905,7 +884,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         shape.setY(coordinates.getDouble(1));
         return shape;
       } catch(Exception ex) {
-        ExceptionUtils.rethrow(ex);
+        LOG.error(String.format("Could not parse GeoJSON. %s: %s", ex.getMessage(), o));
       }
     }
     return null;
@@ -1508,6 +1487,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
           setStartDateTime((String)val);
         } else if(val instanceof OffsetDateTime) {
           setStartDateTime(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setStartDateTime((ZonedDateTime)val);
         }
         saves.add("startDateTime");
         return val;
@@ -1516,6 +1497,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
           setEndDateTime((String)val);
         } else if(val instanceof OffsetDateTime) {
           setEndDateTime(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setEndDateTime((ZonedDateTime)val);
         }
         saves.add("endDateTime");
         return val;
@@ -1524,6 +1507,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
           setPrice((String)val);
         } else if(val instanceof Number) {
           setPrice(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setPrice((BigDecimal)val);
         }
         saves.add("price");
         return val;
@@ -1548,6 +1533,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       } else if("location".equals(varLower)) {
         if(val instanceof String) {
           setLocation((String)val);
+        } else if(val instanceof Point) {
+          setLocation((Point)val);
         } else if(val instanceof Point) {
           setLocation((Point)val);
         }
@@ -1595,7 +1582,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       }
 
       if(saves.contains("price")) {
-        Double price = (Double)doc.get("price_docvalues_double");
+        Double price = (Double)doc.get("price_docvalues_string");
         if(price != null)
           oCompanyEvent.setPrice(price);
       }
@@ -1669,7 +1656,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       doc.put("endDateTime_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(endDateTime.toInstant(), ZoneId.of("UTC"))));
     }
     if(price != null) {
-      doc.put("price_docvalues_double", price.doubleValue());
+      doc.put("price_docvalues_string", price.toPlainString());
     }
     if(pageId != null) {
       doc.put("pageId_docvalues_string", pageId);
@@ -1719,7 +1706,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       case "endDateTime":
         return "endDateTime_docvalues_date";
       case "price":
-        return "price_docvalues_double";
+        return "price_docvalues_string";
       case "pageId":
         return "pageId_docvalues_string";
       case "emailTemplate":
@@ -1750,7 +1737,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       case "endDateTime":
         return "endDateTime_docvalues_date";
       case "price":
-        return "price_docvalues_double";
+        return "price_docvalues_string";
       case "pageId":
         return "pageId_docvalues_string";
       case "emailTemplate":
@@ -1780,7 +1767,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         return "startDateTime";
       case "endDateTime_docvalues_date":
         return "endDateTime";
-      case "price_docvalues_double":
+      case "price_docvalues_string":
         return "price";
       case "pageId_docvalues_string":
         return "pageId";
@@ -1830,7 +1817,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     oCompanyEvent.setDescription(Optional.ofNullable(doc.get("description_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setStartDateTime(Optional.ofNullable(doc.get("startDateTime_docvalues_date")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setEndDateTime(Optional.ofNullable(doc.get("endDateTime_docvalues_date")).map(v -> v.toString()).orElse(null));
-    oCompanyEvent.setPrice(Optional.ofNullable(doc.get("price_docvalues_double")).map(v -> v.toString()).orElse(null));
+    oCompanyEvent.setPrice(Optional.ofNullable(doc.get("price_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setPageId(Optional.ofNullable(doc.get("pageId_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setEmailTemplate(Optional.ofNullable(doc.get("emailTemplate_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setStoreUrl(Optional.ofNullable(doc.get("storeUrl_docvalues_string")).map(v -> v.toString()).orElse(null));
@@ -2003,22 +1990,42 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
-    return "%s/en-us/edit/event/%s";
+  public String frFRStringFormatUrlEditPageForClass() {
+    return null;
   }
 
   @Override
-  public String classStringFormatUrlDisplayPageForClass() {
-    return "%s/en-us/shop/event/%s";
+  public String enUSStringFormatUrlEditPageForClass() {
+    return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
-    return "%s/en-us/use/event/%s";
+  public String frFRStringFormatUrlDisplayPageForClass() {
+    return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

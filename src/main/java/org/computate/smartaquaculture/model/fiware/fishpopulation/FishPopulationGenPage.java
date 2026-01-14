@@ -590,13 +590,16 @@ public class FishPopulationGenPage extends FishPopulationGenPageGen<PageLayout> 
   }
 
   @Override
-  protected void _pageUri(Wrap<String> c) {
-    c.o("/en-us/search/fish-population");
+  protected void _pageUri(Wrap<String> w) {
+    if("enUS".equals(lang))
+      w.o("/en-us/search/fish-population");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/population-poissons");
   }
 
   @Override
-  protected void _apiUri(Wrap<String> c) {
-    c.o("/en-us/api/fish-population");
+  protected void _apiUri(Wrap<String> w) {
+    w.o("/en-us/api/fish-population");
   }
 
   @Override

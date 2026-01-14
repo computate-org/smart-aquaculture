@@ -731,6 +731,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               num++;
               bParams.add(o2.sqlDisplayPage());
             break;
+          case "setDisplayPageFrFR":
+              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SiteUser.VAR_displayPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDisplayPageFrFR());
+            break;
           case "setEditPage":
               o2.setEditPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -738,6 +746,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(SiteUser.VAR_editPage + "=$" + num);
               num++;
               bParams.add(o2.sqlEditPage());
+            break;
+          case "setEditPageFrFR":
+              o2.setEditPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SiteUser.VAR_editPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlEditPageFrFR());
             break;
           case "setUserPage":
               o2.setUserPage(jsonObject.getString(entityVar));
@@ -747,6 +763,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               num++;
               bParams.add(o2.sqlUserPage());
             break;
+          case "setUserPageFrFR":
+              o2.setUserPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SiteUser.VAR_userPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlUserPageFrFR());
+            break;
           case "setDownload":
               o2.setDownload(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -754,6 +778,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(SiteUser.VAR_download + "=$" + num);
               num++;
               bParams.add(o2.sqlDownload());
+            break;
+          case "setDownloadFrFR":
+              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SiteUser.VAR_downloadFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDownloadFrFR());
             break;
         }
       }
@@ -1277,6 +1309,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             num++;
             bParams.add(o2.sqlDisplayPage());
             break;
+          case SiteUser.VAR_displayPageFrFR:
+            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SiteUser.VAR_displayPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDisplayPageFrFR());
+            break;
           case SiteUser.VAR_editPage:
             o2.setEditPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1285,6 +1326,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(SiteUser.VAR_editPage + "=$" + num);
             num++;
             bParams.add(o2.sqlEditPage());
+            break;
+          case SiteUser.VAR_editPageFrFR:
+            o2.setEditPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SiteUser.VAR_editPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlEditPageFrFR());
             break;
           case SiteUser.VAR_userPage:
             o2.setUserPage(jsonObject.getString(entityVar));
@@ -1295,6 +1345,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             num++;
             bParams.add(o2.sqlUserPage());
             break;
+          case SiteUser.VAR_userPageFrFR:
+            o2.setUserPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SiteUser.VAR_userPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlUserPageFrFR());
+            break;
           case SiteUser.VAR_download:
             o2.setDownload(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1303,6 +1362,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(SiteUser.VAR_download + "=$" + num);
             num++;
             bParams.add(o2.sqlDownload());
+            break;
+          case SiteUser.VAR_downloadFrFR:
+            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SiteUser.VAR_downloadFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDownloadFrFR());
             break;
           }
         }
@@ -2035,7 +2103,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT userId, created, userName, userEmail, archived, userFirstName, userLastName, userFullName, seeArchived, sessionId, displayName, userKey, siteFontSize, siteTheme, webComponentsTheme, objectTitle, customerProfileId, displayPage, editPage, userPage, download FROM SiteUser WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT userId, created, userName, userEmail, archived, userFirstName, userLastName, userFullName, seeArchived, sessionId, displayName, userKey, siteFontSize, siteTheme, webComponentsTheme, objectTitle, customerProfileId, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM SiteUser WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -2223,9 +2291,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       page.persistForClass(SiteUser.VAR_objectTitle, SiteUser.staticSetObjectTitle(siteRequest2, (String)result.get(SiteUser.VAR_objectTitle)));
       page.persistForClass(SiteUser.VAR_customerProfileId, SiteUser.staticSetCustomerProfileId(siteRequest2, (String)result.get(SiteUser.VAR_customerProfileId)));
       page.persistForClass(SiteUser.VAR_displayPage, SiteUser.staticSetDisplayPage(siteRequest2, (String)result.get(SiteUser.VAR_displayPage)));
+      page.persistForClass(SiteUser.VAR_displayPageFrFR, SiteUser.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(SiteUser.VAR_displayPageFrFR)));
       page.persistForClass(SiteUser.VAR_editPage, SiteUser.staticSetEditPage(siteRequest2, (String)result.get(SiteUser.VAR_editPage)));
+      page.persistForClass(SiteUser.VAR_editPageFrFR, SiteUser.staticSetEditPageFrFR(siteRequest2, (String)result.get(SiteUser.VAR_editPageFrFR)));
       page.persistForClass(SiteUser.VAR_userPage, SiteUser.staticSetUserPage(siteRequest2, (String)result.get(SiteUser.VAR_userPage)));
+      page.persistForClass(SiteUser.VAR_userPageFrFR, SiteUser.staticSetUserPageFrFR(siteRequest2, (String)result.get(SiteUser.VAR_userPageFrFR)));
       page.persistForClass(SiteUser.VAR_download, SiteUser.staticSetDownload(siteRequest2, (String)result.get(SiteUser.VAR_download)));
+      page.persistForClass(SiteUser.VAR_downloadFrFR, SiteUser.staticSetDownloadFrFR(siteRequest2, (String)result.get(SiteUser.VAR_downloadFrFR)));
 
       page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
         try {

@@ -90,8 +90,6 @@ import io.vertx.core.json.JsonArray;
  **/
 public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
   protected static final Logger LOG = LoggerFactory.getLogger(DbToSolrSync.class);
-
-  public static final String SITE_NAME = "smart-aquaculture";
   public static final String runDbToSolrSyncComplete1 = "database to solr sync completed. ";
   public static final String runDbToSolrSyncComplete = runDbToSolrSyncComplete1;
 
@@ -276,19 +274,35 @@ public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
     return null;
   }
 
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

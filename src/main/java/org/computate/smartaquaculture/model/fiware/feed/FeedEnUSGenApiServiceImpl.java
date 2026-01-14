@@ -748,14 +748,6 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlDescription());
             break;
-          case "setLocation":
-              o2.setLocation(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feed.VAR_location + "=$" + num);
-              num++;
-              bParams.add(o2.sqlLocation());
-            break;
           case "setCreated":
               o2.setCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -763,6 +755,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               bSql.append(Feed.VAR_created + "=$" + num);
               num++;
               bParams.add(o2.sqlCreated());
+            break;
+          case "setLocation":
+              o2.setLocation(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feed.VAR_location + "=$" + num);
+              num++;
+              bParams.add(o2.sqlLocation());
             break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
@@ -796,14 +796,6 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlSessionId());
             break;
-          case "setNgsildTenant":
-              o2.setNgsildTenant(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feed.VAR_ngsildTenant + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildTenant());
-            break;
           case "setUserKey":
               o2.setUserKey(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -811,6 +803,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               bSql.append(Feed.VAR_userKey + "=$" + num);
               num++;
               bParams.add(o2.sqlUserKey());
+            break;
+          case "setNgsildTenant":
+              o2.setNgsildTenant(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feed.VAR_ngsildTenant + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNgsildTenant());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -828,6 +828,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlNgsildContext());
             break;
+          case "setObjectTitle":
+              o2.setObjectTitle(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feed.VAR_objectTitle + "=$" + num);
+              num++;
+              bParams.add(o2.sqlObjectTitle());
+            break;
           case "setNgsildData":
               o2.setNgsildData(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -836,13 +844,13 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlNgsildData());
             break;
-          case "setObjectTitle":
-              o2.setObjectTitle(jsonObject.getString(entityVar));
+          case "setDisplayPage":
+              o2.setDisplayPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feed.VAR_objectTitle + "=$" + num);
+              bSql.append(Feed.VAR_displayPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlObjectTitle());
+              bParams.add(o2.sqlDisplayPage());
             break;
           case "setAddress":
               o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -852,13 +860,13 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlAddress());
             break;
-          case "setDisplayPage":
-              o2.setDisplayPage(jsonObject.getString(entityVar));
+          case "setDisplayPageFrFR":
+              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feed.VAR_displayPage + "=$" + num);
+              bSql.append(Feed.VAR_displayPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlDisplayPage());
+              bParams.add(o2.sqlDisplayPageFrFR());
             break;
           case "setAlternateName":
               o2.setAlternateName(jsonObject.getString(entityVar));
@@ -884,13 +892,13 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlDataProvider());
             break;
-          case "setUserPage":
-              o2.setUserPage(jsonObject.getString(entityVar));
+          case "setEditPageFrFR":
+              o2.setEditPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feed.VAR_userPage + "=$" + num);
+              bSql.append(Feed.VAR_editPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlUserPage());
+              bParams.add(o2.sqlEditPageFrFR());
             break;
           case "setDateCreated":
               o2.setDateCreated(jsonObject.getString(entityVar));
@@ -900,13 +908,13 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlDateCreated());
             break;
-          case "setDownload":
-              o2.setDownload(jsonObject.getString(entityVar));
+          case "setUserPage":
+              o2.setUserPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feed.VAR_download + "=$" + num);
+              bSql.append(Feed.VAR_userPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlDownload());
+              bParams.add(o2.sqlUserPage());
             break;
           case "setDateModified":
               o2.setDateModified(jsonObject.getString(entityVar));
@@ -916,6 +924,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlDateModified());
             break;
+          case "setUserPageFrFR":
+              o2.setUserPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feed.VAR_userPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlUserPageFrFR());
+            break;
           case "setOwner":
               o2.setOwner(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -924,6 +940,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               num++;
               bParams.add(o2.sqlOwner());
             break;
+          case "setDownload":
+              o2.setDownload(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feed.VAR_download + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDownload());
+            break;
           case "setRelatedSource":
               o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -931,6 +955,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               bSql.append(Feed.VAR_relatedSource + "=$" + num);
               num++;
               bParams.add(o2.sqlRelatedSource());
+            break;
+          case "setDownloadFrFR":
+              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feed.VAR_downloadFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDownloadFrFR());
             break;
           case "setSeeAlso":
               o2.setSeeAlso(jsonObject.getString(entityVar));
@@ -1315,15 +1347,6 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlDescription());
             break;
-          case Feed.VAR_location:
-            o2.setLocation(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feed.VAR_location + "=$" + num);
-            num++;
-            bParams.add(o2.sqlLocation());
-            break;
           case Feed.VAR_created:
             o2.setCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1332,6 +1355,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             bSql.append(Feed.VAR_created + "=$" + num);
             num++;
             bParams.add(o2.sqlCreated());
+            break;
+          case Feed.VAR_location:
+            o2.setLocation(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feed.VAR_location + "=$" + num);
+            num++;
+            bParams.add(o2.sqlLocation());
             break;
           case Feed.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
@@ -1369,15 +1401,6 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case Feed.VAR_ngsildTenant:
-            o2.setNgsildTenant(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feed.VAR_ngsildTenant + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildTenant());
-            break;
           case Feed.VAR_userKey:
             o2.setUserKey(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1386,6 +1409,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             bSql.append(Feed.VAR_userKey + "=$" + num);
             num++;
             bParams.add(o2.sqlUserKey());
+            break;
+          case Feed.VAR_ngsildTenant:
+            o2.setNgsildTenant(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feed.VAR_ngsildTenant + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNgsildTenant());
             break;
           case Feed.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1405,6 +1437,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlNgsildContext());
             break;
+          case Feed.VAR_objectTitle:
+            o2.setObjectTitle(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feed.VAR_objectTitle + "=$" + num);
+            num++;
+            bParams.add(o2.sqlObjectTitle());
+            break;
           case Feed.VAR_ngsildData:
             o2.setNgsildData(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1414,14 +1455,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlNgsildData());
             break;
-          case Feed.VAR_objectTitle:
-            o2.setObjectTitle(jsonObject.getString(entityVar));
+          case Feed.VAR_displayPage:
+            o2.setDisplayPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feed.VAR_objectTitle + "=$" + num);
+            bSql.append(Feed.VAR_displayPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlObjectTitle());
+            bParams.add(o2.sqlDisplayPage());
             break;
           case Feed.VAR_address:
             o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -1432,14 +1473,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlAddress());
             break;
-          case Feed.VAR_displayPage:
-            o2.setDisplayPage(jsonObject.getString(entityVar));
+          case Feed.VAR_displayPageFrFR:
+            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feed.VAR_displayPage + "=$" + num);
+            bSql.append(Feed.VAR_displayPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlDisplayPage());
+            bParams.add(o2.sqlDisplayPageFrFR());
             break;
           case Feed.VAR_alternateName:
             o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1468,14 +1509,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlDataProvider());
             break;
-          case Feed.VAR_userPage:
-            o2.setUserPage(jsonObject.getString(entityVar));
+          case Feed.VAR_editPageFrFR:
+            o2.setEditPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feed.VAR_userPage + "=$" + num);
+            bSql.append(Feed.VAR_editPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlUserPage());
+            bParams.add(o2.sqlEditPageFrFR());
             break;
           case Feed.VAR_dateCreated:
             o2.setDateCreated(jsonObject.getString(entityVar));
@@ -1486,14 +1527,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlDateCreated());
             break;
-          case Feed.VAR_download:
-            o2.setDownload(jsonObject.getString(entityVar));
+          case Feed.VAR_userPage:
+            o2.setUserPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feed.VAR_download + "=$" + num);
+            bSql.append(Feed.VAR_userPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlDownload());
+            bParams.add(o2.sqlUserPage());
             break;
           case Feed.VAR_dateModified:
             o2.setDateModified(jsonObject.getString(entityVar));
@@ -1504,6 +1545,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlDateModified());
             break;
+          case Feed.VAR_userPageFrFR:
+            o2.setUserPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feed.VAR_userPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlUserPageFrFR());
+            break;
           case Feed.VAR_owner:
             o2.setOwner(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1513,6 +1563,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             num++;
             bParams.add(o2.sqlOwner());
             break;
+          case Feed.VAR_download:
+            o2.setDownload(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feed.VAR_download + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDownload());
+            break;
           case Feed.VAR_relatedSource:
             o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1521,6 +1580,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             bSql.append(Feed.VAR_relatedSource + "=$" + num);
             num++;
             bParams.add(o2.sqlRelatedSource());
+            break;
+          case Feed.VAR_downloadFrFR:
+            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feed.VAR_downloadFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDownloadFrFR());
             break;
           case Feed.VAR_seeAlso:
             o2.setSeeAlso(jsonObject.getString(entityVar));
@@ -3309,7 +3377,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, location, created, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, address, displayPage, alternateName, editPage, dataProvider, userPage, dateCreated, download, dateModified, owner, relatedSource, seeAlso, source FROM Feed WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, address, displayPageFrFR, alternateName, editPage, dataProvider, editPageFrFR, dateCreated, userPage, dateModified, userPageFrFR, owner, download, relatedSource, downloadFrFR, seeAlso, source FROM Feed WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3666,29 +3734,33 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
 
       page.persistForClass(Feed.VAR_name, Feed.staticSetName(siteRequest2, (String)result.get(Feed.VAR_name)));
       page.persistForClass(Feed.VAR_description, Feed.staticSetDescription(siteRequest2, (String)result.get(Feed.VAR_description)));
-      page.persistForClass(Feed.VAR_location, Feed.staticSetLocation(siteRequest2, (String)result.get(Feed.VAR_location)));
       page.persistForClass(Feed.VAR_created, Feed.staticSetCreated(siteRequest2, (String)result.get(Feed.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      page.persistForClass(Feed.VAR_location, Feed.staticSetLocation(siteRequest2, (String)result.get(Feed.VAR_location)));
       page.persistForClass(Feed.VAR_archived, Feed.staticSetArchived(siteRequest2, (String)result.get(Feed.VAR_archived)));
       page.persistForClass(Feed.VAR_areaServed, Feed.staticSetAreaServed(siteRequest2, (String)result.get(Feed.VAR_areaServed)));
       page.persistForClass(Feed.VAR_id, Feed.staticSetId(siteRequest2, (String)result.get(Feed.VAR_id)));
       page.persistForClass(Feed.VAR_sessionId, Feed.staticSetSessionId(siteRequest2, (String)result.get(Feed.VAR_sessionId)));
-      page.persistForClass(Feed.VAR_ngsildTenant, Feed.staticSetNgsildTenant(siteRequest2, (String)result.get(Feed.VAR_ngsildTenant)));
       page.persistForClass(Feed.VAR_userKey, Feed.staticSetUserKey(siteRequest2, (String)result.get(Feed.VAR_userKey)));
+      page.persistForClass(Feed.VAR_ngsildTenant, Feed.staticSetNgsildTenant(siteRequest2, (String)result.get(Feed.VAR_ngsildTenant)));
       page.persistForClass(Feed.VAR_ngsildPath, Feed.staticSetNgsildPath(siteRequest2, (String)result.get(Feed.VAR_ngsildPath)));
       page.persistForClass(Feed.VAR_ngsildContext, Feed.staticSetNgsildContext(siteRequest2, (String)result.get(Feed.VAR_ngsildContext)));
-      page.persistForClass(Feed.VAR_ngsildData, Feed.staticSetNgsildData(siteRequest2, (String)result.get(Feed.VAR_ngsildData)));
       page.persistForClass(Feed.VAR_objectTitle, Feed.staticSetObjectTitle(siteRequest2, (String)result.get(Feed.VAR_objectTitle)));
-      page.persistForClass(Feed.VAR_address, Feed.staticSetAddress(siteRequest2, (String)result.get(Feed.VAR_address)));
+      page.persistForClass(Feed.VAR_ngsildData, Feed.staticSetNgsildData(siteRequest2, (String)result.get(Feed.VAR_ngsildData)));
       page.persistForClass(Feed.VAR_displayPage, Feed.staticSetDisplayPage(siteRequest2, (String)result.get(Feed.VAR_displayPage)));
+      page.persistForClass(Feed.VAR_address, Feed.staticSetAddress(siteRequest2, (String)result.get(Feed.VAR_address)));
+      page.persistForClass(Feed.VAR_displayPageFrFR, Feed.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(Feed.VAR_displayPageFrFR)));
       page.persistForClass(Feed.VAR_alternateName, Feed.staticSetAlternateName(siteRequest2, (String)result.get(Feed.VAR_alternateName)));
       page.persistForClass(Feed.VAR_editPage, Feed.staticSetEditPage(siteRequest2, (String)result.get(Feed.VAR_editPage)));
       page.persistForClass(Feed.VAR_dataProvider, Feed.staticSetDataProvider(siteRequest2, (String)result.get(Feed.VAR_dataProvider)));
-      page.persistForClass(Feed.VAR_userPage, Feed.staticSetUserPage(siteRequest2, (String)result.get(Feed.VAR_userPage)));
+      page.persistForClass(Feed.VAR_editPageFrFR, Feed.staticSetEditPageFrFR(siteRequest2, (String)result.get(Feed.VAR_editPageFrFR)));
       page.persistForClass(Feed.VAR_dateCreated, Feed.staticSetDateCreated(siteRequest2, (String)result.get(Feed.VAR_dateCreated)));
-      page.persistForClass(Feed.VAR_download, Feed.staticSetDownload(siteRequest2, (String)result.get(Feed.VAR_download)));
+      page.persistForClass(Feed.VAR_userPage, Feed.staticSetUserPage(siteRequest2, (String)result.get(Feed.VAR_userPage)));
       page.persistForClass(Feed.VAR_dateModified, Feed.staticSetDateModified(siteRequest2, (String)result.get(Feed.VAR_dateModified)));
+      page.persistForClass(Feed.VAR_userPageFrFR, Feed.staticSetUserPageFrFR(siteRequest2, (String)result.get(Feed.VAR_userPageFrFR)));
       page.persistForClass(Feed.VAR_owner, Feed.staticSetOwner(siteRequest2, (String)result.get(Feed.VAR_owner)));
+      page.persistForClass(Feed.VAR_download, Feed.staticSetDownload(siteRequest2, (String)result.get(Feed.VAR_download)));
       page.persistForClass(Feed.VAR_relatedSource, Feed.staticSetRelatedSource(siteRequest2, (String)result.get(Feed.VAR_relatedSource)));
+      page.persistForClass(Feed.VAR_downloadFrFR, Feed.staticSetDownloadFrFR(siteRequest2, (String)result.get(Feed.VAR_downloadFrFR)));
       page.persistForClass(Feed.VAR_seeAlso, Feed.staticSetSeeAlso(siteRequest2, (String)result.get(Feed.VAR_seeAlso)));
       page.persistForClass(Feed.VAR_source, Feed.staticSetSource(siteRequest2, (String)result.get(Feed.VAR_source)));
 

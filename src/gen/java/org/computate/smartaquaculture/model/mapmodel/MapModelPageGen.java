@@ -127,11 +127,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
     Promise<Void> promise2 = Promise.promise();
     promiseMapModelPage(promise2);
     promise2.future().onSuccess(a -> {
-      super.promiseDeepMapModelGenPage(siteRequest_).onSuccess(b -> {
-        promise.complete(this);
-      }).onFailure(ex -> {
-        promise.fail(ex);
-      });
+      promise.complete(this);
     }).onFailure(ex -> {
       promise.fail(ex);
     });
@@ -155,7 +151,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
     return promise.future();
   }
 
-  @Override public Future<? extends MapModelPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
+  public Future<? extends MapModelPageGen<DEV>> promiseDeepForClass(SiteRequest siteRequest_) {
     return promiseDeepMapModelPage(siteRequest_);
   }
 
@@ -164,7 +160,6 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   /////////////////
 
   public void siteRequestMapModelPage(SiteRequest siteRequest_) {
-      super.siteRequestMapModelGenPage(siteRequest_);
   }
 
   public void siteRequestForClass(SiteRequest siteRequest_) {
@@ -175,7 +170,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   // obtain //
   /////////////
 
-  @Override public Object obtainForClass(String var) {
+  public Object obtainForClass(String var) {
     String[] vars = StringUtils.split(var, ".");
     Object o = null;
     for(String v : vars) {
@@ -196,7 +191,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
     MapModelPage oMapModelPage = (MapModelPage)this;
     switch(var) {
       default:
-        return super.obtainMapModelGenPage(var);
+        return null;
     }
   }
 
@@ -204,7 +199,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   // relate //
   ///////////////
 
-  @Override public boolean relateForClass(String var, Object val) {
+  public boolean relateForClass(String var, Object val) {
     String[] vars = StringUtils.split(var, ".");
     Object o = null;
     for(String v : vars) {
@@ -221,7 +216,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
     MapModelPage oMapModelPage = (MapModelPage)this;
     switch(var) {
       default:
-        return super.relateMapModelGenPage(var, val);
+        return null;
     }
   }
 
@@ -235,7 +230,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   public static Object staticSetMapModelPage(String entityVar, SiteRequest siteRequest_, String v, MapModelPage o) {
     switch(entityVar) {
       default:
-        return MapModelGenPage.staticSetMapModelGenPage(entityVar,  siteRequest_, v, o);
+        return null;
     }
   }
 
@@ -249,7 +244,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   public static Object staticSearchMapModelPage(String entityVar, SiteRequest siteRequest_, Object o) {
     switch(entityVar) {
       default:
-        return MapModelGenPage.staticSearchMapModelGenPage(entityVar,  siteRequest_, o);
+        return null;
     }
   }
 
@@ -263,7 +258,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   public static String staticSearchStrMapModelPage(String entityVar, SiteRequest siteRequest_, Object o) {
     switch(entityVar) {
       default:
-        return MapModelGenPage.staticSearchStrMapModelGenPage(entityVar,  siteRequest_, o);
+        return null;
     }
   }
 
@@ -277,7 +272,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   public static String staticSearchFqMapModelPage(String entityVar, SiteRequest siteRequest_, String o) {
     switch(entityVar) {
       default:
-        return MapModelGenPage.staticSearchFqMapModelGenPage(entityVar,  siteRequest_, o);
+        return null;
     }
   }
 
@@ -287,7 +282,6 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
 
   @Override public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append(super.toString());
     return sb.toString();
   }
 
@@ -296,48 +290,55 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
   public String idForClass() {
     return null;
   }
 
-  @Override
   public String titleForClass() {
     return null;
   }
 
-  @Override
   public String nameForClass() {
     return null;
   }
 
-  @Override
   public String classNameAdjectiveSingularForClass() {
     return null;
   }
 
-  @Override
   public String descriptionForClass() {
     return null;
   }
 
-  @Override
-  public String classStringFormatUrlEditPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
-  @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
     return null;
   }
 
-  @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 
@@ -347,7 +348,7 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
   public static String displayNameMapModelPage(String var) {
     switch(var) {
     default:
-      return MapModelGenPage.displayNameMapModelGenPage(var);
+      return null;
     }
   }
 
@@ -356,63 +357,63 @@ public abstract class MapModelPageGen<DEV> extends MapModelGenPage {
       return null;
     switch(var) {
       default:
-        return MapModelGenPage.descriptionMapModelGenPage(var);
+        return null;
     }
   }
 
   public static String classSimpleNameMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.classSimpleNameMapModelGenPage(var);
+        return null;
     }
   }
 
   public static Integer htmColumnMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.htmColumnMapModelGenPage(var);
+        return null;
     }
   }
 
   public static Integer htmRowMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.htmRowMapModelGenPage(var);
+        return null;
     }
   }
 
   public static Integer htmCellMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.htmCellMapModelGenPage(var);
+        return null;
     }
   }
 
   public static Integer lengthMinMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.lengthMinMapModelGenPage(var);
+        return null;
     }
   }
 
   public static Integer lengthMaxMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.lengthMaxMapModelGenPage(var);
+        return null;
     }
   }
 
   public static Integer maxMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.maxMapModelGenPage(var);
+        return null;
     }
   }
 
   public static Integer minMapModelPage(String var) {
     switch(var) {
       default:
-        return MapModelGenPage.minMapModelGenPage(var);
+        return null;
     }
   }
 }

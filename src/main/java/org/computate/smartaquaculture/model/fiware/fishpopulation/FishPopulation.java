@@ -119,7 +119,7 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: cultured in
+   * DisplayName.enUS: cultured in
    * Description: Reference to the FishContainment
    * HtmRow: 6
    * HtmCell: 3
@@ -191,8 +191,10 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: initial number
-   * Description: Number of initial number of cultured fishes
+   * DisplayName.enUS: initial number
+   * DisplayName.frFR: nombre initial
+   * Description.enUS: Number of initial number of cultured fishes
+   * Description.frFR: Nombre initial de poissons d'élevage
    * HtmRow: 6
    * HtmCell: 8
    * Facet: true

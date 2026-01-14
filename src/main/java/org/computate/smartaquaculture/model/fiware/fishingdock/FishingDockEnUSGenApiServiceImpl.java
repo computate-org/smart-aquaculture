@@ -800,14 +800,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlDescription());
             break;
-          case "setLocation":
-              o2.setLocation(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishingDock.VAR_location + "=$" + num);
-              num++;
-              bParams.add(o2.sqlLocation());
-            break;
           case "setCreated":
               o2.setCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -815,6 +807,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               bSql.append(FishingDock.VAR_created + "=$" + num);
               num++;
               bParams.add(o2.sqlCreated());
+            break;
+          case "setLocation":
+              o2.setLocation(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_location + "=$" + num);
+              num++;
+              bParams.add(o2.sqlLocation());
             break;
           case "setTimeZone":
             Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
@@ -855,14 +855,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlId());
             break;
-          case "setEntityShortId":
-              o2.setEntityShortId(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishingDock.VAR_entityShortId + "=$" + num);
-              num++;
-              bParams.add(o2.sqlEntityShortId());
-            break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -870,6 +862,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               bSql.append(FishingDock.VAR_archived + "=$" + num);
               num++;
               bParams.add(o2.sqlArchived());
+            break;
+          case "setEntityShortId":
+              o2.setEntityShortId(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_entityShortId + "=$" + num);
+              num++;
+              bParams.add(o2.sqlEntityShortId());
             break;
           case "setNgsildTenant":
               o2.setNgsildTenant(jsonObject.getString(entityVar));
@@ -903,14 +903,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlNgsildContext());
             break;
-          case "setNgsildData":
-              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishingDock.VAR_ngsildData + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildData());
-            break;
           case "setSessionId":
               o2.setSessionId(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -919,13 +911,13 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlSessionId());
             break;
-          case "setColor":
-              o2.setColor(jsonObject.getString(entityVar));
+          case "setNgsildData":
+              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishingDock.VAR_color + "=$" + num);
+              bSql.append(FishingDock.VAR_ngsildData + "=$" + num);
               num++;
-              bParams.add(o2.sqlColor());
+              bParams.add(o2.sqlNgsildData());
             break;
           case "setUserKey":
               o2.setUserKey(jsonObject.getString(entityVar));
@@ -934,6 +926,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               bSql.append(FishingDock.VAR_userKey + "=$" + num);
               num++;
               bParams.add(o2.sqlUserKey());
+            break;
+          case "setColor":
+              o2.setColor(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_color + "=$" + num);
+              num++;
+              bParams.add(o2.sqlColor());
             break;
           case "setObjectTitle":
               o2.setObjectTitle(jsonObject.getString(entityVar));
@@ -951,6 +951,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlDisplayPage());
             break;
+          case "setDisplayPageFrFR":
+              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_displayPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDisplayPageFrFR());
+            break;
           case "setEditPage":
               o2.setEditPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -958,6 +966,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               bSql.append(FishingDock.VAR_editPage + "=$" + num);
               num++;
               bParams.add(o2.sqlEditPage());
+            break;
+          case "setEditPageFrFR":
+              o2.setEditPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_editPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlEditPageFrFR());
             break;
           case "setUserPage":
               o2.setUserPage(jsonObject.getString(entityVar));
@@ -967,6 +983,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlUserPage());
             break;
+          case "setUserPageFrFR":
+              o2.setUserPageFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_userPageFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlUserPageFrFR());
+            break;
           case "setDownload":
               o2.setDownload(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -974,6 +998,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               bSql.append(FishingDock.VAR_download + "=$" + num);
               num++;
               bParams.add(o2.sqlDownload());
+            break;
+          case "setDownloadFrFR":
+              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_downloadFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDownloadFrFR());
             break;
         }
       }
@@ -1351,15 +1383,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlDescription());
             break;
-          case FishingDock.VAR_location:
-            o2.setLocation(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishingDock.VAR_location + "=$" + num);
-            num++;
-            bParams.add(o2.sqlLocation());
-            break;
           case FishingDock.VAR_created:
             o2.setCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1368,6 +1391,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             bSql.append(FishingDock.VAR_created + "=$" + num);
             num++;
             bParams.add(o2.sqlCreated());
+            break;
+          case FishingDock.VAR_location:
+            o2.setLocation(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_location + "=$" + num);
+            num++;
+            bParams.add(o2.sqlLocation());
             break;
           case FishingDock.VAR_timeZone:
             Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
@@ -1398,15 +1430,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlId());
             break;
-          case FishingDock.VAR_entityShortId:
-            o2.setEntityShortId(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishingDock.VAR_entityShortId + "=$" + num);
-            num++;
-            bParams.add(o2.sqlEntityShortId());
-            break;
           case FishingDock.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1415,6 +1438,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             bSql.append(FishingDock.VAR_archived + "=$" + num);
             num++;
             bParams.add(o2.sqlArchived());
+            break;
+          case FishingDock.VAR_entityShortId:
+            o2.setEntityShortId(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_entityShortId + "=$" + num);
+            num++;
+            bParams.add(o2.sqlEntityShortId());
             break;
           case FishingDock.VAR_ngsildTenant:
             o2.setNgsildTenant(jsonObject.getString(entityVar));
@@ -1452,15 +1484,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlNgsildContext());
             break;
-          case FishingDock.VAR_ngsildData:
-            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishingDock.VAR_ngsildData + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildData());
-            break;
           case FishingDock.VAR_sessionId:
             o2.setSessionId(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1470,14 +1493,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case FishingDock.VAR_color:
-            o2.setColor(jsonObject.getString(entityVar));
+          case FishingDock.VAR_ngsildData:
+            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishingDock.VAR_color + "=$" + num);
+            bSql.append(FishingDock.VAR_ngsildData + "=$" + num);
             num++;
-            bParams.add(o2.sqlColor());
+            bParams.add(o2.sqlNgsildData());
             break;
           case FishingDock.VAR_userKey:
             o2.setUserKey(jsonObject.getString(entityVar));
@@ -1487,6 +1510,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             bSql.append(FishingDock.VAR_userKey + "=$" + num);
             num++;
             bParams.add(o2.sqlUserKey());
+            break;
+          case FishingDock.VAR_color:
+            o2.setColor(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_color + "=$" + num);
+            num++;
+            bParams.add(o2.sqlColor());
             break;
           case FishingDock.VAR_objectTitle:
             o2.setObjectTitle(jsonObject.getString(entityVar));
@@ -1506,6 +1538,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlDisplayPage());
             break;
+          case FishingDock.VAR_displayPageFrFR:
+            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_displayPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDisplayPageFrFR());
+            break;
           case FishingDock.VAR_editPage:
             o2.setEditPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1514,6 +1555,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             bSql.append(FishingDock.VAR_editPage + "=$" + num);
             num++;
             bParams.add(o2.sqlEditPage());
+            break;
+          case FishingDock.VAR_editPageFrFR:
+            o2.setEditPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_editPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlEditPageFrFR());
             break;
           case FishingDock.VAR_userPage:
             o2.setUserPage(jsonObject.getString(entityVar));
@@ -1524,6 +1574,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlUserPage());
             break;
+          case FishingDock.VAR_userPageFrFR:
+            o2.setUserPageFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_userPageFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlUserPageFrFR());
+            break;
           case FishingDock.VAR_download:
             o2.setDownload(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1532,6 +1591,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             bSql.append(FishingDock.VAR_download + "=$" + num);
             num++;
             bParams.add(o2.sqlDownload());
+            break;
+          case FishingDock.VAR_downloadFrFR:
+            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_downloadFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDownloadFrFR());
             break;
           }
         }
@@ -3342,7 +3410,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, address, description, location, created, timeZone, id, entityShortId, archived, ngsildTenant, ngsildPath, ST_AsGeoJSON(areaServed) as areaServed, ngsildContext, ngsildData, sessionId, color, userKey, objectTitle, displayPage, editPage, userPage, download FROM FishingDock WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, created, location, timeZone, id, archived, entityShortId, ngsildTenant, ngsildPath, ST_AsGeoJSON(areaServed) as areaServed, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishingDock WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3735,25 +3803,29 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       page.persistForClass(FishingDock.VAR_name, FishingDock.staticSetName(siteRequest2, (String)result.get(FishingDock.VAR_name)));
       page.persistForClass(FishingDock.VAR_address, FishingDock.staticSetAddress(siteRequest2, (String)result.get(FishingDock.VAR_address)));
       page.persistForClass(FishingDock.VAR_description, FishingDock.staticSetDescription(siteRequest2, (String)result.get(FishingDock.VAR_description)));
-      page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
       page.persistForClass(FishingDock.VAR_created, FishingDock.staticSetCreated(siteRequest2, (String)result.get(FishingDock.VAR_created), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
+      page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
       page.persistForClass(FishingDock.VAR_timeZone, FishingDock.staticSetTimeZone(siteRequest2, (String)result.get(FishingDock.VAR_timeZone)));
       page.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));
-      page.persistForClass(FishingDock.VAR_entityShortId, FishingDock.staticSetEntityShortId(siteRequest2, (String)result.get(FishingDock.VAR_entityShortId)));
       page.persistForClass(FishingDock.VAR_archived, FishingDock.staticSetArchived(siteRequest2, (String)result.get(FishingDock.VAR_archived)));
+      page.persistForClass(FishingDock.VAR_entityShortId, FishingDock.staticSetEntityShortId(siteRequest2, (String)result.get(FishingDock.VAR_entityShortId)));
       page.persistForClass(FishingDock.VAR_ngsildTenant, FishingDock.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingDock.VAR_ngsildTenant)));
       page.persistForClass(FishingDock.VAR_ngsildPath, FishingDock.staticSetNgsildPath(siteRequest2, (String)result.get(FishingDock.VAR_ngsildPath)));
       page.persistForClass(FishingDock.VAR_areaServed, FishingDock.staticSetAreaServed(siteRequest2, (String)result.get(FishingDock.VAR_areaServed)));
       page.persistForClass(FishingDock.VAR_ngsildContext, FishingDock.staticSetNgsildContext(siteRequest2, (String)result.get(FishingDock.VAR_ngsildContext)));
-      page.persistForClass(FishingDock.VAR_ngsildData, FishingDock.staticSetNgsildData(siteRequest2, (String)result.get(FishingDock.VAR_ngsildData)));
       page.persistForClass(FishingDock.VAR_sessionId, FishingDock.staticSetSessionId(siteRequest2, (String)result.get(FishingDock.VAR_sessionId)));
-      page.persistForClass(FishingDock.VAR_color, FishingDock.staticSetColor(siteRequest2, (String)result.get(FishingDock.VAR_color)));
+      page.persistForClass(FishingDock.VAR_ngsildData, FishingDock.staticSetNgsildData(siteRequest2, (String)result.get(FishingDock.VAR_ngsildData)));
       page.persistForClass(FishingDock.VAR_userKey, FishingDock.staticSetUserKey(siteRequest2, (String)result.get(FishingDock.VAR_userKey)));
+      page.persistForClass(FishingDock.VAR_color, FishingDock.staticSetColor(siteRequest2, (String)result.get(FishingDock.VAR_color)));
       page.persistForClass(FishingDock.VAR_objectTitle, FishingDock.staticSetObjectTitle(siteRequest2, (String)result.get(FishingDock.VAR_objectTitle)));
       page.persistForClass(FishingDock.VAR_displayPage, FishingDock.staticSetDisplayPage(siteRequest2, (String)result.get(FishingDock.VAR_displayPage)));
+      page.persistForClass(FishingDock.VAR_displayPageFrFR, FishingDock.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_displayPageFrFR)));
       page.persistForClass(FishingDock.VAR_editPage, FishingDock.staticSetEditPage(siteRequest2, (String)result.get(FishingDock.VAR_editPage)));
+      page.persistForClass(FishingDock.VAR_editPageFrFR, FishingDock.staticSetEditPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_editPageFrFR)));
       page.persistForClass(FishingDock.VAR_userPage, FishingDock.staticSetUserPage(siteRequest2, (String)result.get(FishingDock.VAR_userPage)));
+      page.persistForClass(FishingDock.VAR_userPageFrFR, FishingDock.staticSetUserPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_userPageFrFR)));
       page.persistForClass(FishingDock.VAR_download, FishingDock.staticSetDownload(siteRequest2, (String)result.get(FishingDock.VAR_download)));
+      page.persistForClass(FishingDock.VAR_downloadFrFR, FishingDock.staticSetDownloadFrFR(siteRequest2, (String)result.get(FishingDock.VAR_downloadFrFR)));
 
       page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
         try {

@@ -74,36 +74,6 @@ import io.vertx.core.json.JsonObject;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: GET</h2>
- * <p>This class contains a comment <b>"ApiMethod: GET"</b>, which creates an API "GET". 
- * </p>
- * <h2>ApiMethode: PATCH</h2>
- * <p>This class contains a comment <b>"ApiMethod: PATCH"</b>, which creates an API "PATCH". 
- * </p>
- * <h2>ApiMethode: POST</h2>
- * <p>This class contains a comment <b>"ApiMethod: POST"</b>, which creates an API "POST". 
- * </p>
- * <h2>ApiMethode: PUTImport</h2>
- * <p>This class contains a comment <b>"ApiMethod: PUTImport"</b>, which creates an API "PUTImport". 
- * </p>
- * <h2>ApiMethode: DELETE</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETE"</b>, which creates an API "DELETE". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
- * <h2>ApiMethode: EditPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: EditPage"</b>, which creates an API "EditPage". 
- * </p>
- * <h2>ApiMethode: DisplayPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: DisplayPage"</b>, which creates an API "DisplayPage". 
- * </p>
- * <h2>ApiMethode: DELETEFilter</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: articles"</b>, which groups all of the OpenAPIs for SitePage objects under the tag "articles". 
  * </p>
@@ -180,6 +150,15 @@ import io.vertx.core.json.JsonObject;
  **/
 public abstract class SitePageGen<DEV> extends BaseResult {
   protected static final Logger LOG = LoggerFactory.getLogger(SitePage.class);
+
+  public static final String Description_frFR = "Read the latest articles to learn more";
+  public static final String AName_frFR = "an article";
+  public static final String SingularName_frFR = "article";
+  public static final String PluralName_frFR = "articles";
+  public static final String Title_frFR = "articles";
+  public static final String ThePluralName_frFR = "les articles";
+  public static final String NameAdjectiveSingular_frFR = "article";
+  public static final String NameAdjectivePlural_frFR = "articles";
 
   public static final String Description_enUS = "Read the latest articles to learn more";
   public static final String AName_enUS = "an article";
@@ -870,23 +849,26 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   public void setImportance(String o) {
     this.importance = SitePage.staticSetImportance(siteRequest_, o);
   }
+  public static MathContext staticMathContextImportance() {
+    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+  }
   public static BigDecimal staticSetImportance(SiteRequest siteRequest_, String o) {
-    o = StringUtils.removeAll(o, "[^\\d\\.]");
+    o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP);
+      return new BigDecimal(o, staticMathContextImportance());
     return null;
   }
   @JsonIgnore
   public void setImportance(Double o) {
-    setImportance(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setImportance(new BigDecimal(o, staticMathContextImportance()));
   }
   @JsonIgnore
   public void setImportance(Integer o) {
-    setImportance(new BigDecimal(o, MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setImportance(new BigDecimal(o, staticMathContextImportance()));
   }
   @JsonIgnore
   public void setImportance(Number o) {
-    setImportance(new BigDecimal(o.doubleValue(), MathContext.DECIMAL64).setScale(2, RoundingMode.HALF_UP));
+    setImportance(new BigDecimal(o.doubleValue(), staticMathContextImportance()));
   }
   protected SitePage importanceInit() {
     Wrap<BigDecimal> importanceWrap = new Wrap<BigDecimal>().var("importance");
@@ -3106,6 +3088,8 @@ public abstract class SitePageGen<DEV> extends BaseResult {
           setImportance((String)val);
         } else if(val instanceof Number) {
           setImportance(new BigDecimal(((Number)val).doubleValue()));
+        } else if(val instanceof BigDecimal) {
+          setImportance((BigDecimal)val);
         }
         saves.add("importance");
         return val;
@@ -3233,7 +3217,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     if(saves != null) {
 
       if(saves.contains("importance")) {
-        Double importance = (Double)doc.get("importance_docvalues_double");
+        Double importance = (Double)doc.get("importance_docvalues_string");
         if(importance != null)
           oSitePage.setImportance(importance);
       }
@@ -3379,7 +3363,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
   public void indexSitePage(JsonObject doc) {
     if(importance != null) {
-      doc.put("importance_docvalues_double", importance.doubleValue());
+      doc.put("importance_docvalues_string", importance.toPlainString());
     }
     if(courseNum != null) {
       doc.put("courseNum_docvalues_int", courseNum);
@@ -3458,7 +3442,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   public static String varStoredSitePage(String entityVar) {
     switch(entityVar) {
       case "importance":
-        return "importance_docvalues_double";
+        return "importance_docvalues_string";
       case "courseNum":
         return "courseNum_docvalues_int";
       case "lessonNum":
@@ -3511,7 +3495,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   public static String varIndexedSitePage(String entityVar) {
     switch(entityVar) {
       case "importance":
-        return "importance_docvalues_double";
+        return "importance_docvalues_string";
       case "courseNum":
         return "courseNum_docvalues_int";
       case "lessonNum":
@@ -3557,7 +3541,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
 
   public static String searchVarSitePage(String searchVar) {
     switch(searchVar) {
-      case "importance_docvalues_double":
+      case "importance_docvalues_string":
         return "importance";
       case "courseNum_docvalues_int":
         return "courseNum";
@@ -3627,7 +3611,7 @@ public abstract class SitePageGen<DEV> extends BaseResult {
     SitePage oSitePage = (SitePage)this;
     SiteRequest siteRequest = oSitePage.getSiteRequest_();
 
-    oSitePage.setImportance(Optional.ofNullable(doc.get("importance_docvalues_double")).map(v -> v.toString()).orElse(null));
+    oSitePage.setImportance(Optional.ofNullable(doc.get("importance_docvalues_string")).map(v -> v.toString()).orElse(null));
     oSitePage.setCourseNum(Optional.ofNullable(doc.get("courseNum_docvalues_int")).map(v -> v.toString()).orElse(null));
     oSitePage.setLessonNum(Optional.ofNullable(doc.get("lessonNum_docvalues_int")).map(v -> v.toString()).orElse(null));
     oSitePage.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
@@ -3891,22 +3875,42 @@ public abstract class SitePageGen<DEV> extends BaseResult {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
-    return "%s/en-us/edit/article/%s";
-  }
-
-  @Override
-  public String classStringFormatUrlDisplayPageForClass() {
-    return "%s/en-us/view/article/%s";
-  }
-
-  @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 

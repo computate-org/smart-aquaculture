@@ -120,33 +120,6 @@ import org.computate.search.response.solr.SolrResponse;
  * <h2>Api: true</h2>
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
- * <h2>ApiMethode: Search</h2>
- * <p>This class contains a comment <b>"ApiMethod: Search"</b>, which creates an API "Search". 
- * </p>
- * <h2>ApiMethode: GET</h2>
- * <p>This class contains a comment <b>"ApiMethod: GET"</b>, which creates an API "GET". 
- * </p>
- * <h2>ApiMethode: PATCH</h2>
- * <p>This class contains a comment <b>"ApiMethod: PATCH"</b>, which creates an API "PATCH". 
- * </p>
- * <h2>ApiMethode: POST</h2>
- * <p>This class contains a comment <b>"ApiMethod: POST"</b>, which creates an API "POST". 
- * </p>
- * <h2>ApiMethode: DELETE</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETE"</b>, which creates an API "DELETE". 
- * </p>
- * <h2>ApiMethode: PUTImport</h2>
- * <p>This class contains a comment <b>"ApiMethod: PUTImport"</b>, which creates an API "PUTImport". 
- * </p>
- * <h2>ApiMethode: SearchPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: SearchPage"</b>, which creates an API "SearchPage". 
- * </p>
- * <h2>ApiMethode: EditPage</h2>
- * <p>This class contains a comment <b>"ApiMethod: EditPage"</b>, which creates an API "EditPage". 
- * </p>
- * <h2>ApiMethode: DELETEFilter</h2>
- * <p>This class contains a comment <b>"ApiMethod: DELETEFilter"</b>, which creates an API "DELETEFilter". 
- * </p>
  * <h2>ApiTag.enUS: true</h2>
  * <p>This class contains a comment <b>"ApiTag: fishing trips"</b>, which groups all of the OpenAPIs for FishingTrip objects under the tag "fishing trips". 
  * </p>
@@ -226,6 +199,15 @@ import org.computate.search.response.solr.SolrResponse;
  **/
 public abstract class FishingTripGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishingTrip.class);
+
+  public static final String Description_frFR = "A fishing trip";
+  public static final String AName_frFR = "a fishing trip";
+  public static final String SingularName_frFR = "fishing trip";
+  public static final String PluralName_frFR = "fishing trips";
+  public static final String Title_frFR = "fishing trips";
+  public static final String ThePluralName_frFR = "les fishing trips";
+  public static final String NameAdjectiveSingular_frFR = "fishing trip";
+  public static final String NameAdjectivePlural_frFR = "fishing trips";
 
   public static final String Description_enUS = "A fishing trip";
   public static final String AName_enUS = "a fishing trip";
@@ -759,6 +741,8 @@ public abstract class FishingTripGen<DEV> extends MapModel {
           setDepartureDate((String)val);
         } else if(val instanceof OffsetDateTime) {
           setDepartureDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setDepartureDate((ZonedDateTime)val);
         }
         saves.add("departureDate");
         return val;
@@ -767,6 +751,8 @@ public abstract class FishingTripGen<DEV> extends MapModel {
           setArrivalDate((String)val);
         } else if(val instanceof OffsetDateTime) {
           setArrivalDate(((OffsetDateTime)val).atZoneSameInstant(ZoneId.of(siteRequest_.getConfig().getString(ConfigKeys.SITE_ZONE))));
+        } else if(val instanceof ZonedDateTime) {
+          setArrivalDate((ZonedDateTime)val);
         }
         saves.add("arrivalDate");
         return val;
@@ -994,22 +980,42 @@ public abstract class FishingTripGen<DEV> extends MapModel {
   }
 
   @Override
-  public String classStringFormatUrlEditPageForClass() {
-    return "%s/en-us/edit/fishing-trip/%s";
-  }
-
-  @Override
-  public String classStringFormatUrlDisplayPageForClass() {
+  public String frFRStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlUserPageForClass() {
+  public String enUSStringFormatUrlEditPageForClass() {
     return null;
   }
 
   @Override
-  public String classStringFormatUrlDownloadForClass() {
+  public String frFRStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDisplayPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlUserPageForClass() {
+    return null;
+  }
+
+  @Override
+  public String frFRStringFormatUrlDownloadForClass() {
+    return null;
+  }
+
+  @Override
+  public String enUSStringFormatUrlDownloadForClass() {
     return null;
   }
 
