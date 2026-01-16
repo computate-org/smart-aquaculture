@@ -40,7 +40,8 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * DisplayName.frFR: nom
 	 * Description.enUS: The name. 
 	 * Description.frFR: Le nom. 
-	 * HtmRowTitleOpen: name and description
+	 * HtmRowTitleOpen.enUS: name and description
+   * HtmRowTitleOpen.frFR: nom et description
 	 * HtmColumn: 0
 	 * VarName: true
 	 * HtmRow: 4
@@ -69,7 +70,8 @@ public class MapModel extends MapModelGen<BaseModel> {
 
 	/**
 	 * {@inheritDoc}
-	 * HtmRowTitleOpen: GeoJSON details
+	 * HtmRowTitleOpen.enUS: GeoJSON details
+   * HtmRowTitleOpen.frFR: Détails GeoJSON
 	 * FiwareType: geo:point
 	 * Location: true
 	 * DocValues: true
@@ -94,7 +96,8 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * DisplayName.frFR: identifiant
 	 * Description.enUS: Unique identifier of the entity
 	 * Description.frFR: Identifiant unique de l'entité
-	 * HtmRowTitleOpen: NGSI-LD details
+	 * HtmRowTitleOpen.enUS: NGSI-LD details
+	 * HtmRowTitleOpen.frFR: Détails NGSI-LD
 	 * HtmRow: 5
 	 * HtmCell: 0
 	 * Facet: true

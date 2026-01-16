@@ -46,7 +46,8 @@ public class BaseResult extends BaseResultGen<Object> implements ComputateBaseRe
    * HtmCell: 2
    * HidePOST: true
    * HidePATCH: true
-   * HtmRowTitle: primary key, ID, created, modified, archive details
+   * HtmRowTitle.enUS: ID, created, modified, archive details
+   * HtmRowTitle.frFR: ID, créé, modifié, détails d'archivage
    * DisplayName.enUS: created
    * FormatHtm: MMM d, yyyy h:mm:ss a
    * Description: A created timestamp for this record in the database

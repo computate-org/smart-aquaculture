@@ -76,7 +76,8 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName.frFR: adresse
    * Description.enUS: The mailing address
    * Description.frFR: L'adresse postale
-   * HtmRowTitleOpen: FishPopulation details
+   * HtmRowTitleOpen.enUS: FishPopulation details
+   * HtmRowTitleOpen.frFR: Détails de la population de poissons
    * HtmRow: 6
    * HtmCell: 0
    * Facet: true
@@ -371,7 +372,8 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName.frFR: jours de maturité début
    * Description.enUS: The range of days from birth for the fish population to become sexually mature. 
    * Description.frFR: La plage de jours à partir de la naissance pour que la population de poissons devienne sexuellement mature.
-   * HtmRowTitleOpen: reproduction parameters
+   * HtmRowTitleOpen.enUS: reproduction parameters
+   * HtmRowTitleOpen.frFR: paramètres de reproduction
    * HtmRow: 7
    * HtmCell: 0
    * Precision: 16
@@ -404,7 +406,8 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName.frFR: jours d'incubation début
    * Description.enUS: The range of days for egg incubation. 
    * Description.frFR: La plage de jours pour l'incubation des œufs.
-   * HtmRowTitleOpen: reproduction parameters
+   * HtmRowTitleOpen.enUS: reproduction parameters
+   * HtmRowTitleOpen.frFR: paramètres de reproduction
    * HtmRow: 7
    * HtmCell: 2
    * Precision: 16
@@ -437,7 +440,8 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName.frFR: nombre d'incubation min
    * Description.enUS: The range of fish born after incubation. 
    * Description.frFR: La plage de poissons nés après l'incubation.
-   * HtmRowTitleOpen: reproduction parameters
+   * HtmRowTitleOpen.enUS: reproduction parameters
+   * HtmRowTitleOpen.frFR: paramètres de reproduction
    * HtmRow: 7
    * HtmCell: 3
    **/
@@ -498,7 +502,8 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName.frFR: populations à la naissance
    * Description.enUS: A list of population counts at birth. 
    * Description.frFR: Une liste de nombres de population à la naissance. 
-   * HtmRowTitleOpen: population parameters
+   * HtmRowTitleOpen.enUS: population parameters
+   * HtmRowTitleOpen.frFR: paramètres de population
    * HtmRow: 7
    * HtmCell: 8
    **/
@@ -636,7 +641,8 @@ public class FishPopulation extends FishPopulationGen<MapModel> {
    * DisplayName.frFR: simulation
    * Description.enUS: Toggle the digital twin simulation
    * Description.frFR: Basculer la simulation du jumeau numérique
-   * HtmRowTitleOpen: simulation parameters
+   * HtmRowTitleOpen.enUS: simulation parameters
+   * HtmRowTitleOpen.frFR: paramètres de simulation
    * HtmRow: 8
    * HtmCell: 0
    **/

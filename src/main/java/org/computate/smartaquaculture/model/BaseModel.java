@@ -39,7 +39,8 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * DocValues: true
    * PrimaryKey: true
    * Modify: false
-   * HtmRowTitle: primary key, ID, created, modified, archive details
+   * HtmRowTitle.enUS: primary key, ID, created, modified, archive details
+   * HtmRowTitle.frFR: clé primaire, ID, créé, modifié, détails d'archivage
    * HtmRow: 1
    * HtmCell: 1
    * HidePOST: true
