@@ -656,6 +656,68 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return userFullName;
   }
 
+	////////////////////
+  // userProfileUrl //
+	////////////////////
+
+
+  /**
+   *  The entity userProfileUrl
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String userProfileUrl;
+
+  /**
+   * <br> The entity userProfileUrl
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:userProfileUrl">Find the entity userProfileUrl in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _userProfileUrl(Wrap<String> w);
+
+  public String getUserProfileUrl() {
+    return userProfileUrl;
+  }
+  public void setUserProfileUrl(String o) {
+    this.userProfileUrl = SiteUser.staticSetUserProfileUrl(siteRequest_, o);
+  }
+  public static String staticSetUserProfileUrl(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected SiteUser userProfileUrlInit() {
+    Wrap<String> userProfileUrlWrap = new Wrap<String>().var("userProfileUrl");
+    if(userProfileUrl == null) {
+      _userProfileUrl(userProfileUrlWrap);
+      Optional.ofNullable(userProfileUrlWrap.getO()).ifPresent(o -> {
+        setUserProfileUrl(o);
+      });
+    }
+    return (SiteUser)this;
+  }
+
+  public static String staticSearchUserProfileUrl(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrUserProfileUrl(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqUserProfileUrl(SiteRequest siteRequest_, String o) {
+    return SiteUser.staticSearchUserProfileUrl(siteRequest_, SiteUser.staticSetUserProfileUrl(siteRequest_, o)).toString();
+  }
+
+  public String sqlUserProfileUrl() {
+    return userProfileUrl;
+  }
+
+  public static String staticJsonUserProfileUrl(String userProfileUrl) {
+    return userProfileUrl;
+  }
+
 	/////////////////
   // seeArchived //
 	/////////////////
@@ -909,68 +971,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return siteTheme;
   }
 
-	////////////////////////
-  // webComponentsTheme //
-	////////////////////////
-
-
-  /**
-   *  The entity webComponentsTheme
-   *	 is defined as null before being initialized. 
-   */
-  @JsonProperty
-  @JsonInclude(Include.NON_NULL)
-  protected String webComponentsTheme;
-
-  /**
-   * <br> The entity webComponentsTheme
-   *  is defined as null before being initialized. 
-   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.user.SiteUser&fq=entiteVar_enUS_indexed_string:webComponentsTheme">Find the entity webComponentsTheme in Solr</a>
-   * <br>
-   * @param w is for wrapping a value to assign to this entity during initialization. 
-   **/
-  protected abstract void _webComponentsTheme(Wrap<String> w);
-
-  public String getWebComponentsTheme() {
-    return webComponentsTheme;
-  }
-  public void setWebComponentsTheme(String o) {
-    this.webComponentsTheme = SiteUser.staticSetWebComponentsTheme(siteRequest_, o);
-  }
-  public static String staticSetWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return o;
-  }
-  protected SiteUser webComponentsThemeInit() {
-    Wrap<String> webComponentsThemeWrap = new Wrap<String>().var("webComponentsTheme");
-    if(webComponentsTheme == null) {
-      _webComponentsTheme(webComponentsThemeWrap);
-      Optional.ofNullable(webComponentsThemeWrap.getO()).ifPresent(o -> {
-        setWebComponentsTheme(o);
-      });
-    }
-    return (SiteUser)this;
-  }
-
-  public static String staticSearchWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return o;
-  }
-
-  public static String staticSearchStrWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return o == null ? null : o.toString();
-  }
-
-  public static String staticSearchFqWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return SiteUser.staticSearchWebComponentsTheme(siteRequest_, SiteUser.staticSetWebComponentsTheme(siteRequest_, o)).toString();
-  }
-
-  public String sqlWebComponentsTheme() {
-    return webComponentsTheme;
-  }
-
-  public static String staticJsonWebComponentsTheme(String webComponentsTheme) {
-    return webComponentsTheme;
-  }
-
 	///////////////////////
   // customerProfileId //
 	///////////////////////
@@ -1069,11 +1069,11 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         userFirstNameInit();
         userLastNameInit();
         userFullNameInit();
+        userProfileUrlInit();
         seeArchivedInit();
         displayNameInit();
         siteFontSizeInit();
         siteThemeInit();
-        webComponentsThemeInit();
         customerProfileIdInit();
         promise2.complete();
       } catch(Exception ex) {
@@ -1142,6 +1142,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return oSiteUser.userLastName;
       case "userFullName":
         return oSiteUser.userFullName;
+      case "userProfileUrl":
+        return oSiteUser.userProfileUrl;
       case "seeArchived":
         return oSiteUser.seeArchived;
       case "displayName":
@@ -1150,8 +1152,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return oSiteUser.siteFontSize;
       case "siteTheme":
         return oSiteUser.siteTheme;
-      case "webComponentsTheme":
-        return oSiteUser.webComponentsTheme;
       case "customerProfileId":
         return oSiteUser.customerProfileId;
       default:
@@ -1207,6 +1207,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSetUserLastName(siteRequest_, v);
     case "userFullName":
       return SiteUser.staticSetUserFullName(siteRequest_, v);
+    case "userProfileUrl":
+      return SiteUser.staticSetUserProfileUrl(siteRequest_, v);
     case "seeArchived":
       return SiteUser.staticSetSeeArchived(siteRequest_, v);
     case "displayName":
@@ -1215,8 +1217,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSetSiteFontSize(siteRequest_, v);
     case "siteTheme":
       return SiteUser.staticSetSiteTheme(siteRequest_, v);
-    case "webComponentsTheme":
-      return SiteUser.staticSetWebComponentsTheme(siteRequest_, v);
     case "customerProfileId":
       return SiteUser.staticSetCustomerProfileId(siteRequest_, v);
       default:
@@ -1247,6 +1247,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSearchUserLastName(siteRequest_, (String)o);
     case "userFullName":
       return SiteUser.staticSearchUserFullName(siteRequest_, (String)o);
+    case "userProfileUrl":
+      return SiteUser.staticSearchUserProfileUrl(siteRequest_, (String)o);
     case "seeArchived":
       return SiteUser.staticSearchSeeArchived(siteRequest_, (Boolean)o);
     case "displayName":
@@ -1255,8 +1257,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSearchSiteFontSize(siteRequest_, (String)o);
     case "siteTheme":
       return SiteUser.staticSearchSiteTheme(siteRequest_, (String)o);
-    case "webComponentsTheme":
-      return SiteUser.staticSearchWebComponentsTheme(siteRequest_, (String)o);
     case "customerProfileId":
       return SiteUser.staticSearchCustomerProfileId(siteRequest_, (String)o);
       default:
@@ -1287,6 +1287,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSearchStrUserLastName(siteRequest_, (String)o);
     case "userFullName":
       return SiteUser.staticSearchStrUserFullName(siteRequest_, (String)o);
+    case "userProfileUrl":
+      return SiteUser.staticSearchStrUserProfileUrl(siteRequest_, (String)o);
     case "seeArchived":
       return SiteUser.staticSearchStrSeeArchived(siteRequest_, (Boolean)o);
     case "displayName":
@@ -1295,8 +1297,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSearchStrSiteFontSize(siteRequest_, (String)o);
     case "siteTheme":
       return SiteUser.staticSearchStrSiteTheme(siteRequest_, (String)o);
-    case "webComponentsTheme":
-      return SiteUser.staticSearchStrWebComponentsTheme(siteRequest_, (String)o);
     case "customerProfileId":
       return SiteUser.staticSearchStrCustomerProfileId(siteRequest_, (String)o);
       default:
@@ -1327,6 +1327,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSearchFqUserLastName(siteRequest_, o);
     case "userFullName":
       return SiteUser.staticSearchFqUserFullName(siteRequest_, o);
+    case "userProfileUrl":
+      return SiteUser.staticSearchFqUserProfileUrl(siteRequest_, o);
     case "seeArchived":
       return SiteUser.staticSearchFqSeeArchived(siteRequest_, o);
     case "displayName":
@@ -1335,8 +1337,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return SiteUser.staticSearchFqSiteFontSize(siteRequest_, o);
     case "siteTheme":
       return SiteUser.staticSearchFqSiteTheme(siteRequest_, o);
-    case "webComponentsTheme":
-      return SiteUser.staticSearchFqWebComponentsTheme(siteRequest_, o);
     case "customerProfileId":
       return SiteUser.staticSearchFqCustomerProfileId(siteRequest_, o);
       default:
@@ -1401,6 +1401,12 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         }
         saves.add("userFullName");
         return val;
+      } else if("userprofileurl".equals(varLower)) {
+        if(val instanceof String) {
+          setUserProfileUrl((String)val);
+        }
+        saves.add("userProfileUrl");
+        return val;
       } else if("seearchived".equals(varLower)) {
         if(val instanceof Boolean) {
           setSeeArchived((Boolean)val);
@@ -1426,12 +1432,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
           setSiteTheme((String)val);
         }
         saves.add("siteTheme");
-        return val;
-      } else if("webcomponentstheme".equals(varLower)) {
-        if(val instanceof String) {
-          setWebComponentsTheme((String)val);
-        }
-        saves.add("webComponentsTheme");
         return val;
       } else if("customerprofileid".equals(varLower)) {
         if(val instanceof String) {
@@ -1501,6 +1501,12 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
           oSiteUser.setUserFullName(userFullName);
       }
 
+      if(saves.contains("userProfileUrl")) {
+        String userProfileUrl = (String)doc.get("userProfileUrl_docvalues_string");
+        if(userProfileUrl != null)
+          oSiteUser.setUserProfileUrl(userProfileUrl);
+      }
+
       if(saves.contains("seeArchived")) {
         Boolean seeArchived = (Boolean)doc.get("seeArchived_docvalues_boolean");
         if(seeArchived != null)
@@ -1523,12 +1529,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         String siteTheme = (String)doc.get("siteTheme_docvalues_string");
         if(siteTheme != null)
           oSiteUser.setSiteTheme(siteTheme);
-      }
-
-      if(saves.contains("webComponentsTheme")) {
-        String webComponentsTheme = (String)doc.get("webComponentsTheme_docvalues_string");
-        if(webComponentsTheme != null)
-          oSiteUser.setWebComponentsTheme(webComponentsTheme);
       }
 
       if(saves.contains("customerProfileId")) {
@@ -1567,6 +1567,9 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     if(userFullName != null) {
       doc.put("userFullName_docvalues_string", userFullName);
     }
+    if(userProfileUrl != null) {
+      doc.put("userProfileUrl_docvalues_string", userProfileUrl);
+    }
     if(seeArchived != null) {
       doc.put("seeArchived_docvalues_boolean", seeArchived);
     }
@@ -1578,9 +1581,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     }
     if(siteTheme != null) {
       doc.put("siteTheme_docvalues_string", siteTheme);
-    }
-    if(webComponentsTheme != null) {
-      doc.put("webComponentsTheme_docvalues_string", webComponentsTheme);
     }
     if(customerProfileId != null) {
       doc.put("customerProfileId_docvalues_string", customerProfileId);
@@ -1605,6 +1605,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return "userLastName_docvalues_string";
       case "userFullName":
         return "userFullName_docvalues_string";
+      case "userProfileUrl":
+        return "userProfileUrl_docvalues_string";
       case "seeArchived":
         return "seeArchived_docvalues_boolean";
       case "displayName":
@@ -1613,8 +1615,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return "siteFontSize_docvalues_string";
       case "siteTheme":
         return "siteTheme_docvalues_string";
-      case "webComponentsTheme":
-        return "webComponentsTheme_docvalues_string";
       case "customerProfileId":
         return "customerProfileId_docvalues_string";
       default:
@@ -1638,6 +1638,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return "userLastName_docvalues_string";
       case "userFullName":
         return "userFullName_docvalues_string";
+      case "userProfileUrl":
+        return "userProfileUrl_docvalues_string";
       case "seeArchived":
         return "seeArchived_docvalues_boolean";
       case "displayName":
@@ -1646,8 +1648,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return "siteFontSize_docvalues_string";
       case "siteTheme":
         return "siteTheme_docvalues_string";
-      case "webComponentsTheme":
-        return "webComponentsTheme_docvalues_string";
       case "customerProfileId":
         return "customerProfileId_docvalues_string";
       default:
@@ -1671,6 +1671,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return "userLastName";
       case "userFullName_docvalues_string":
         return "userFullName";
+      case "userProfileUrl_docvalues_string":
+        return "userProfileUrl";
       case "seeArchived_docvalues_boolean":
         return "seeArchived";
       case "displayName_docvalues_string":
@@ -1679,8 +1681,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         return "siteFontSize";
       case "siteTheme_docvalues_string":
         return "siteTheme";
-      case "webComponentsTheme_docvalues_string":
-        return "webComponentsTheme";
       case "customerProfileId_docvalues_string":
         return "customerProfileId";
       default:
@@ -1722,11 +1722,11 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     oSiteUser.setUserFirstName(Optional.ofNullable(doc.get("userFirstName_docvalues_string")).map(v -> v.toString()).orElse(null));
     oSiteUser.setUserLastName(Optional.ofNullable(doc.get("userLastName_docvalues_string")).map(v -> v.toString()).orElse(null));
     oSiteUser.setUserFullName(Optional.ofNullable(doc.get("userFullName_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oSiteUser.setUserProfileUrl(Optional.ofNullable(doc.get("userProfileUrl_docvalues_string")).map(v -> v.toString()).orElse(null));
     oSiteUser.setSeeArchived(Optional.ofNullable(doc.get("seeArchived_docvalues_boolean")).map(v -> v.toString()).orElse(null));
     oSiteUser.setDisplayName(Optional.ofNullable(doc.get("displayName_docvalues_string")).map(v -> v.toString()).orElse(null));
     oSiteUser.setSiteFontSize(Optional.ofNullable(doc.get("siteFontSize_docvalues_string")).map(v -> v.toString()).orElse(null));
     oSiteUser.setSiteTheme(Optional.ofNullable(doc.get("siteTheme_docvalues_string")).map(v -> v.toString()).orElse(null));
-    oSiteUser.setWebComponentsTheme(Optional.ofNullable(doc.get("webComponentsTheme_docvalues_string")).map(v -> v.toString()).orElse(null));
     oSiteUser.setCustomerProfileId(Optional.ofNullable(doc.get("customerProfileId_docvalues_string")).map(v -> v.toString()).orElse(null));
 
     super.storeBaseModel(doc);
@@ -1755,6 +1755,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         apiRequest.addVars("userLastName");
       if(!Objects.equals(userFullName, original.getUserFullName()))
         apiRequest.addVars("userFullName");
+      if(!Objects.equals(userProfileUrl, original.getUserProfileUrl()))
+        apiRequest.addVars("userProfileUrl");
       if(!Objects.equals(seeArchived, original.getSeeArchived()))
         apiRequest.addVars("seeArchived");
       if(!Objects.equals(displayName, original.getDisplayName()))
@@ -1763,8 +1765,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
         apiRequest.addVars("siteFontSize");
       if(!Objects.equals(siteTheme, original.getSiteTheme()))
         apiRequest.addVars("siteTheme");
-      if(!Objects.equals(webComponentsTheme, original.getWebComponentsTheme()))
-        apiRequest.addVars("webComponentsTheme");
       if(!Objects.equals(customerProfileId, original.getCustomerProfileId()))
         apiRequest.addVars("customerProfileId");
       super.apiRequestBaseModel();
@@ -1785,11 +1785,11 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     sb.append(Optional.ofNullable(userFirstName).map(v -> "userFirstName: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(userLastName).map(v -> "userLastName: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(userFullName).map(v -> "userFullName: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(userProfileUrl).map(v -> "userProfileUrl: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(seeArchived).map(v -> "seeArchived: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(displayName).map(v -> "displayName: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(siteFontSize).map(v -> "siteFontSize: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(siteTheme).map(v -> "siteTheme: \"" + v + "\"\n" ).orElse(""));
-    sb.append(Optional.ofNullable(webComponentsTheme).map(v -> "webComponentsTheme: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(customerProfileId).map(v -> "customerProfileId: \"" + v + "\"\n" ).orElse(""));
     return sb.toString();
   }
@@ -1808,11 +1808,11 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
   public static final String VAR_userFirstName = "userFirstName";
   public static final String VAR_userLastName = "userLastName";
   public static final String VAR_userFullName = "userFullName";
+  public static final String VAR_userProfileUrl = "userProfileUrl";
   public static final String VAR_seeArchived = "seeArchived";
   public static final String VAR_displayName = "displayName";
   public static final String VAR_siteFontSize = "siteFontSize";
   public static final String VAR_siteTheme = "siteTheme";
-  public static final String VAR_webComponentsTheme = "webComponentsTheme";
   public static final String VAR_customerProfileId = "customerProfileId";
 
   public static List<String> varsQForClass() {
@@ -1841,16 +1841,16 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 
   public static final String DISPLAY_NAME_userKeys = "";
   public static final String DISPLAY_NAME_userId = "";
-  public static final String DISPLAY_NAME_userName = "";
+  public static final String DISPLAY_NAME_userName = "user name";
   public static final String DISPLAY_NAME_userEmail = "";
   public static final String DISPLAY_NAME_userFirstName = "";
   public static final String DISPLAY_NAME_userLastName = "";
-  public static final String DISPLAY_NAME_userFullName = "";
+  public static final String DISPLAY_NAME_userFullName = "full name";
+  public static final String DISPLAY_NAME_userProfileUrl = "Keycloak user profile";
   public static final String DISPLAY_NAME_seeArchived = "see archived";
   public static final String DISPLAY_NAME_displayName = "";
   public static final String DISPLAY_NAME_siteFontSize = "font size";
   public static final String DISPLAY_NAME_siteTheme = "site theme";
-  public static final String DISPLAY_NAME_webComponentsTheme = "web components theme";
   public static final String DISPLAY_NAME_customerProfileId = "customer profile ID";
 
   @Override
@@ -1885,7 +1885,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 
   @Override
   public String enUSStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/en-us/edit/user/%s";
   }
 
   @Override
@@ -1937,6 +1937,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return DISPLAY_NAME_userLastName;
     case VAR_userFullName:
       return DISPLAY_NAME_userFullName;
+    case VAR_userProfileUrl:
+      return DISPLAY_NAME_userProfileUrl;
     case VAR_seeArchived:
       return DISPLAY_NAME_seeArchived;
     case VAR_displayName:
@@ -1945,8 +1947,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return DISPLAY_NAME_siteFontSize;
     case VAR_siteTheme:
       return DISPLAY_NAME_siteTheme;
-    case VAR_webComponentsTheme:
-      return DISPLAY_NAME_webComponentsTheme;
     case VAR_customerProfileId:
       return DISPLAY_NAME_customerProfileId;
     default:
@@ -1972,6 +1972,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return "The user's last name";
     case VAR_userFullName:
       return "The user's full name";
+    case VAR_userProfileUrl:
+      return "View and update your user profile in Keycloak";
     case VAR_seeArchived:
       return "A user field allowing a user to see archived records";
     case VAR_displayName:
@@ -1980,8 +1982,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return "The default font size for the site";
     case VAR_siteTheme:
       return "The site theme, either light or dark. ";
-    case VAR_webComponentsTheme:
-      return "The web components theme for the site. ";
     case VAR_customerProfileId:
       return "Authorize.net customer profile ID. ";
       default:
@@ -2005,6 +2005,8 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
       return "String";
     case VAR_userFullName:
       return "String";
+    case VAR_userProfileUrl:
+      return "String";
     case VAR_seeArchived:
       return "Boolean";
     case VAR_displayName:
@@ -2012,8 +2014,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     case VAR_siteFontSize:
       return "String";
     case VAR_siteTheme:
-      return "String";
-    case VAR_webComponentsTheme:
       return "String";
     case VAR_customerProfileId:
       return "String";
@@ -2025,7 +2025,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
   public static Integer htmColumnSiteUser(String var) {
     switch(var) {
     case VAR_userName:
-      return 2;
+      return 0;
     case VAR_userFullName:
       return 1;
       default:
@@ -2035,13 +2035,13 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 
   public static Integer htmRowSiteUser(String var) {
     switch(var) {
+    case VAR_userProfileUrl:
+      return 4;
     case VAR_seeArchived:
       return 4;
     case VAR_siteFontSize:
       return 4;
     case VAR_siteTheme:
-      return 4;
-    case VAR_webComponentsTheme:
       return 4;
       default:
         return BaseModel.htmRowBaseModel(var);
@@ -2050,14 +2050,14 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 
   public static Integer htmCellSiteUser(String var) {
     switch(var) {
+    case VAR_userProfileUrl:
+      return 3;
     case VAR_seeArchived:
-      return 1;
+      return 0;
     case VAR_siteFontSize:
       return 1;
     case VAR_siteTheme:
       return 2;
-    case VAR_webComponentsTheme:
-      return 3;
       default:
         return BaseModel.htmCellBaseModel(var);
     }

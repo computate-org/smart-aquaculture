@@ -43,7 +43,7 @@ SITE_NAMESPACE: "{{ lookup('env', 'SITE_NAMESPACE') | default('smartaquaculture'
 # The main locale of this application. 
 SITE_LOCALE: en-US
 # Adding French language support. 
-OTHER_LANGUAGES: ["frFR"]
+OTHER_LANGUAGES: '["frFR"]'
 # A computate specific identifier for the locale and language of the code. 
 SITE_LANG: "{{ SITE_LOCALE | replace('-', '') }}"
 # The timezone of the site. 
@@ -214,7 +214,7 @@ SITE_FONT_SIZE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=W
 # An optional FontAwesome Pro Kit for additional FontAwesome icons. 
 FONTAWESOME_KIT: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_KIT | default('', true) | b64decode | default('', true) }}"
 # A default FontAwesome style. 
-FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('default', true) }}"
+FONTAWESOME_STYLE: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.FONTAWESOME_STYLE | default('', true) | b64decode | default('fa-duotone fa-regular ', true) }}"
 # Site default theme, light or dark. 
 SITE_THEME: "{{ (query('kubernetes.core.k8s', kind='Secret', resource_name=WEB_COMPONENTS_SECRET, namespace=SITE_NAMESPACE) | first | default({})).data.SITE_THEME | default('', true) | b64decode | default('dark', true) }}"
 # The site logo relative URI

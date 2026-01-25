@@ -32,6 +32,8 @@ import io.vertx.ext.auth.authorization.AuthorizationProvider;
 @ProxyGen
 public interface TimeZoneEnUSGenApiService {
 
+  public void searchpagefrfrTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler);
+  public void editpagefrfrTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler);
 
   public void searchTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler);
   public void getTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler);

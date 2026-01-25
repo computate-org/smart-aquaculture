@@ -4,9 +4,11 @@ import org.computate.search.wrap.Wrap;
 import org.computate.smartaquaculture.result.BaseResult;
 
 /**
- * Order: 0
- * Description: A timezone
- * AName: a time zone
+ * Order: 99
+ * Description.enUS: For managing time series data in different time zones.
+ * Description.frFR: Pour gérer les données de séries chronologiques dans différents fuseaux horaires.
+ * AName.enUS: a time zone
+ * AName.frFR: un fuseau horaire
  * Icon: <i class="fa-duotone fa-regular fa-globe"></i>
  * Rows: 10
  * Ignore: true
@@ -17,6 +19,14 @@ import org.computate.smartaquaculture.result.BaseResult;
  * PublicRead: true
  * Sort.asc: id
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: TimeZonePage
+ *     ApiUri: /fr-fr/rechercher/fuseau-horaire
+ *   EditPageFrFR:
+ *     Language: frFR
+ *     Page: TimeZonePage
+ *     ApiUri: /fr-fr/edition/fuseau-horaire/{entityShortId}
  *   Search:
  *   GET:
  *   PATCH:
@@ -37,13 +47,16 @@ public class TimeZone extends TimeZoneGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * HtmRowTitleOpen: time zone details
+   * HtmRowTitleOpen.enUS: time zone details
+   * HtmRowTitleOpen.frFR: détails du fuseau horaire
    * HtmRow: 3
    * HtmCell: 0
    * HtmColumn: 1
    * Facet: true
-   * DisplayName: abbreviation
-   * Description: The abbreviation for this time zone. 
+   * DisplayName.enUS: abbreviation
+   * DisplayName.frFR: abréviation
+   * Description.enUS: The abbreviation for this time zone. 
+   * Description.frFR: L'abréviation pour ce fuseau horaire.
    */
   protected void _abbreviation(Wrap<String> w) {
   }
@@ -56,8 +69,10 @@ public class TimeZone extends TimeZoneGen<BaseResult> {
    * HtmCell: 1
    * HtmColumn: 2
    * Facet: true
-   * DisplayName: location
-   * Description: The location for this time zone. 
+   * DisplayName.enUS: location
+   * DisplayName.frFR: emplacement
+   * Description.enUS: The location for this time zone. 
+   * Description.frFR: L'emplacement pour ce fuseau horaire.
    */
   protected void _location(Wrap<String> w) {
   }
@@ -70,8 +85,10 @@ public class TimeZone extends TimeZoneGen<BaseResult> {
    * HtmCell: 2
    * HtmColumn: 3
    * Facet: true
-   * DisplayName: name
-   * Description: The name for this time zone. 
+   * DisplayName.enUS: name
+   * DisplayName.frFR: nom
+   * Description.enUS: The name for this time zone. 
+   * Description.frFR: Le nom pour ce fuseau horaire.
    */
   protected void _name(Wrap<String> w) {
   }
@@ -81,8 +98,10 @@ public class TimeZone extends TimeZoneGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: display name
-   * Description: The display name for this time zone. 
+   * DisplayName.enUS: display name
+   * DisplayName.frFR: nom d'affichage
+   * Description.enUS: The display name for this time zone. 
+   * Description.frFR: Le nom d'affichage pour ce fuseau horaire.
    * VarName: true
    */
   protected void _displayName(Wrap<String> w) {
@@ -97,8 +116,10 @@ public class TimeZone extends TimeZoneGen<BaseResult> {
    * HtmCell: 2
    * HtmColumn: 0
    * Facet: true
-   * DisplayName: id
-   * Description: The id for this time zone. 
+   * DisplayName.enUS: id
+   * DisplayName.frFR: identifiant
+   * Description.enUS: The id for this time zone. 
+   * Description.frFR: L'identifiant pour ce fuseau horaire.
    * VarId: true
    */
   protected void _id(Wrap<String> w) {

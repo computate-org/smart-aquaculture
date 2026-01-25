@@ -36,7 +36,9 @@ import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
+import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.client.HttpRequest;
@@ -126,7 +128,59 @@ public class SiteRoutes {
     return promise.future();
   }
 
-  public static void routes(Vertx vertx, Router router, ComputateOAuth2AuthHandlerImpl oauth2AuthHandler, JsonObject config, WebClient webClient, Jinjava jinjava, SiteUserEnUSApiServiceImpl apiSiteUser) {
+  public static void routes(Vertx vertx, Router router, OAuth2Auth oauth2AuthenticationProvider, ComputateOAuth2AuthHandlerImpl oauth2AuthHandler, JsonObject config, WebClient webClient, Jinjava jinjava, SiteUserEnUSApiServiceImpl apiSiteUser) {
+
+    router.get("/refresh").handler(eventHandler -> {
+      ServiceRequest serviceRequest = apiSiteUser.generateServiceRequest(eventHandler);
+      apiSiteUser.user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.CLASS_API_ADDRESS_ComputateSiteUser, "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+        oauth2AuthenticationProvider.refresh(User.create(serviceRequest.getUser())).onSuccess(refreshedUser -> {
+          eventHandler.setUser(refreshedUser);
+          eventHandler.response().setStatusCode(200).setStatusMessage("OK").send(new JsonObject().toBuffer());
+        }).onFailure(ex -> {
+          if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+            try {
+              eventHandler.redirect("/logout?redirect_uri=" + URLEncoder.encode("/", "UTF-8"));
+            } catch(Exception ex2) {
+              LOG.error(String.format("searchSiteUser failed. ", ex2));
+              eventHandler.fail(ex2);
+            }
+          } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+            eventHandler.response().setStatusCode(401).setStatusMessage("UNAUTHORIZED")
+                .send(Buffer.buffer().appendString(
+                  new JsonObject()
+                    .put("errorCode", "401")
+                    .put("errorMessage", "SSO Resource Permission check returned DENY")
+                    .encodePrettily()
+                  )
+                );
+          } else {
+            LOG.error(String.format("searchSiteUser failed. "), ex);
+            eventHandler.fail(ex);
+          }
+        });
+      }).onFailure(ex -> {
+        if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+          try {
+            eventHandler.redirect("/logout?redirect_uri=" + URLEncoder.encode("/", "UTF-8"));
+          } catch(Exception ex2) {
+            LOG.error(String.format("searchSiteUser failed. ", ex2));
+            eventHandler.fail(ex2);
+          }
+        } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+          eventHandler.response().setStatusCode(401).setStatusMessage("UNAUTHORIZED")
+              .send(Buffer.buffer().appendString(
+                new JsonObject()
+                  .put("errorCode", "401")
+                  .put("errorMessage", "SSO Resource Permission check returned DENY")
+                  .encodePrettily()
+                )
+              );
+        } else {
+          LOG.error(String.format("searchSiteUser failed. "), ex);
+          eventHandler.fail(ex);
+        }
+      });
+    });
 
     router.get("/").handler(eventHandler -> {
       ServiceRequest serviceRequest = apiSiteUser.generateServiceRequest(eventHandler);

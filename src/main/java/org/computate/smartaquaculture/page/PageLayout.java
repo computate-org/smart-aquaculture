@@ -214,13 +214,6 @@ public class PageLayout extends PageLayoutGen<Object> {
   }
 
   /**
-   * Description: The user's web components theme
-   */
-  protected void _userWebComponentsTheme(Wrap<String> w) {
-    w.o(siteRequest_.getSessionWebComponentsTheme());
-  }
-
-  /**
    * Description: The user's siteTheme
    */
   protected void _userSiteTheme(Wrap<String> w) {

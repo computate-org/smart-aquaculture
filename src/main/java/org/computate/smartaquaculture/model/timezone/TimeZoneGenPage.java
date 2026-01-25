@@ -524,13 +524,16 @@ public class TimeZoneGenPage extends TimeZoneGenPageGen<PageLayout> {
   }
 
   @Override
-  protected void _pageUri(Wrap<String> c) {
-    c.o("/en-us/search/time-zone");
+  protected void _pageUri(Wrap<String> w) {
+    if("enUS".equals(lang))
+      w.o("/en-us/search/time-zone");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/fuseau-horaire");
   }
 
   @Override
-  protected void _apiUri(Wrap<String> c) {
-    c.o("/en-us/api/time-zone");
+  protected void _apiUri(Wrap<String> w) {
+    w.o("/en-us/api/time-zone");
   }
 
   @Override
@@ -540,7 +543,7 @@ public class TimeZoneGenPage extends TimeZoneGenPageGen<PageLayout> {
 
   @Override
   protected void _pageDescription(Wrap<String> c) {
-      c.o("A timezone");
+      c.o("For managing time series data in different time zones.");
   }
 
   @Override

@@ -86,31 +86,7 @@ public class SiteRequest extends SiteRequestGen<Object> implements ComputateSite
    * Description: The session site font size. 
    **/
   protected void _sessionSiteFontSize(Wrap<String> w) {
-    String s = null;
-    if(serviceRequest != null) {
-      Object cookie = serviceRequest.getParams().getJsonObject("cookie").getValue(ComputateConfigKeys.SITE_FONT_SIZE);
-      if(cookie instanceof JsonObject)
-        s = ((JsonObject)cookie).getString("value");
-      else
-        s = Optional.ofNullable(cookie).map(c -> c.toString()).orElse(null);
-    }
-    w.o(Optional.ofNullable(s).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_FONT_SIZE)));
-  }
-
-  /**
-   * {@inheritDoc}
-   * Description: The session site font size. 
-   **/
-  protected void _sessionWebComponentsTheme(Wrap<String> w) {
-    String s = null;
-    if(serviceRequest != null) {
-      Object cookie = serviceRequest.getParams().getJsonObject("cookie").getValue(ComputateConfigKeys.WEB_COMPONENTS_THEME);
-      if(cookie instanceof JsonObject)
-        s = ((JsonObject)cookie).getString("value");
-      else
-        s = Optional.ofNullable(cookie).map(c -> c.toString()).orElse(null);
-    }
-    w.o(Optional.ofNullable(s).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.WEB_COMPONENTS_THEME)));
+    w.o(Optional.ofNullable(user).map(u -> u.attributes()).map(a -> a.getJsonObject("accessToken")).map(a -> a.getString(SiteUser.VAR_siteFontSize)).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_FONT_SIZE)));
   }
 
   /**
@@ -118,15 +94,7 @@ public class SiteRequest extends SiteRequestGen<Object> implements ComputateSite
    * Description: The session site theme. 
    **/
   protected void _sessionSiteTheme(Wrap<String> w) {
-    String s = null;
-    if(serviceRequest != null) {
-      Object cookie = serviceRequest.getParams().getJsonObject("cookie").getValue(ComputateConfigKeys.SITE_THEME);
-      if(cookie instanceof JsonObject)
-        s = ((JsonObject)cookie).getString("value");
-      else
-        s = Optional.ofNullable(cookie).map(c -> c.toString()).orElse(null);
-    }
-    w.o(Optional.ofNullable(s).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_THEME)));
+    w.o(Optional.ofNullable(user).map(u -> u.attributes()).map(a -> a.getJsonObject("accessToken")).map(a -> a.getString(SiteUser.VAR_siteTheme)).orElse(siteRequest_.getConfig().getString(ComputateConfigKeys.SITE_THEME)));
   }
 
   /**

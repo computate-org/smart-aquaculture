@@ -1478,60 +1478,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
     return PageLayout.staticSearchUserFontSize(siteRequest_, PageLayout.staticSetUserFontSize(siteRequest_, o)).toString();
   }
 
-	////////////////////////////
-  // userWebComponentsTheme //
-	////////////////////////////
-
-
-  /**
-   *  The entity userWebComponentsTheme
-   *	 is defined as null before being initialized. 
-   */
-  @JsonProperty
-  @JsonInclude(Include.NON_NULL)
-  protected String userWebComponentsTheme;
-
-  /**
-   * <br> The entity userWebComponentsTheme
-   *  is defined as null before being initialized. 
-   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:userWebComponentsTheme">Find the entity userWebComponentsTheme in Solr</a>
-   * <br>
-   * @param w is for wrapping a value to assign to this entity during initialization. 
-   **/
-  protected abstract void _userWebComponentsTheme(Wrap<String> w);
-
-  public String getUserWebComponentsTheme() {
-    return userWebComponentsTheme;
-  }
-  public void setUserWebComponentsTheme(String o) {
-    this.userWebComponentsTheme = PageLayout.staticSetUserWebComponentsTheme(siteRequest_, o);
-  }
-  public static String staticSetUserWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return o;
-  }
-  protected PageLayout userWebComponentsThemeInit() {
-    Wrap<String> userWebComponentsThemeWrap = new Wrap<String>().var("userWebComponentsTheme");
-    if(userWebComponentsTheme == null) {
-      _userWebComponentsTheme(userWebComponentsThemeWrap);
-      Optional.ofNullable(userWebComponentsThemeWrap.getO()).ifPresent(o -> {
-        setUserWebComponentsTheme(o);
-      });
-    }
-    return (PageLayout)this;
-  }
-
-  public static String staticSearchUserWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return o;
-  }
-
-  public static String staticSearchStrUserWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return o == null ? null : o.toString();
-  }
-
-  public static String staticSearchFqUserWebComponentsTheme(SiteRequest siteRequest_, String o) {
-    return PageLayout.staticSearchUserWebComponentsTheme(siteRequest_, PageLayout.staticSetUserWebComponentsTheme(siteRequest_, o)).toString();
-  }
-
 	///////////////////
   // userSiteTheme //
 	///////////////////
@@ -4615,7 +4561,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
         userEmailInit();
         userGroupsInit();
         userFontSizeInit();
-        userWebComponentsThemeInit();
         userSiteThemeInit();
         logoutUrlInit();
         promise2.complete();
@@ -4798,8 +4743,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
         return oPageLayout.userGroups;
       case "userFontSize":
         return oPageLayout.userFontSize;
-      case "userWebComponentsTheme":
-        return oPageLayout.userWebComponentsTheme;
       case "userSiteTheme":
         return oPageLayout.userSiteTheme;
       case "logoutUrl":
@@ -4979,8 +4922,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSetUserGroups(siteRequest_, v);
     case "userFontSize":
       return PageLayout.staticSetUserFontSize(siteRequest_, v);
-    case "userWebComponentsTheme":
-      return PageLayout.staticSetUserWebComponentsTheme(siteRequest_, v);
     case "userSiteTheme":
       return PageLayout.staticSetUserSiteTheme(siteRequest_, v);
     case "logoutUrl":
@@ -5119,8 +5060,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSearchUserGroups(siteRequest_, (String)o);
     case "userFontSize":
       return PageLayout.staticSearchUserFontSize(siteRequest_, (String)o);
-    case "userWebComponentsTheme":
-      return PageLayout.staticSearchUserWebComponentsTheme(siteRequest_, (String)o);
     case "userSiteTheme":
       return PageLayout.staticSearchUserSiteTheme(siteRequest_, (String)o);
     case "logoutUrl":
@@ -5263,8 +5202,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSearchStrUserGroups(siteRequest_, (String)o);
     case "userFontSize":
       return PageLayout.staticSearchStrUserFontSize(siteRequest_, (String)o);
-    case "userWebComponentsTheme":
-      return PageLayout.staticSearchStrUserWebComponentsTheme(siteRequest_, (String)o);
     case "userSiteTheme":
       return PageLayout.staticSearchStrUserSiteTheme(siteRequest_, (String)o);
     case "logoutUrl":
@@ -5407,8 +5344,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSearchFqUserGroups(siteRequest_, o);
     case "userFontSize":
       return PageLayout.staticSearchFqUserFontSize(siteRequest_, o);
-    case "userWebComponentsTheme":
-      return PageLayout.staticSearchFqUserWebComponentsTheme(siteRequest_, o);
     case "userSiteTheme":
       return PageLayout.staticSearchFqUserSiteTheme(siteRequest_, o);
     case "logoutUrl":
@@ -5539,7 +5474,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
   public static final String VAR_userEmail = "userEmail";
   public static final String VAR_userGroups = "userGroups";
   public static final String VAR_userFontSize = "userFontSize";
-  public static final String VAR_userWebComponentsTheme = "userWebComponentsTheme";
   public static final String VAR_userSiteTheme = "userSiteTheme";
   public static final String VAR_logoutUrl = "logoutUrl";
   public static final String VAR_promiseBefore = "promiseBefore";
@@ -5616,7 +5550,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
   public static final String DISPLAY_NAME_userEmail = "";
   public static final String DISPLAY_NAME_userGroups = "";
   public static final String DISPLAY_NAME_userFontSize = "";
-  public static final String DISPLAY_NAME_userWebComponentsTheme = "";
   public static final String DISPLAY_NAME_userSiteTheme = "";
   public static final String DISPLAY_NAME_logoutUrl = "";
   public static final String DISPLAY_NAME_promiseBefore = "";
@@ -5775,8 +5708,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return DISPLAY_NAME_userGroups;
     case VAR_userFontSize:
       return DISPLAY_NAME_userFontSize;
-    case VAR_userWebComponentsTheme:
-      return DISPLAY_NAME_userWebComponentsTheme;
     case VAR_userSiteTheme:
       return DISPLAY_NAME_userSiteTheme;
     case VAR_logoutUrl:
@@ -5922,8 +5853,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return "The current user's groups";
     case VAR_userFontSize:
       return "The user's default font size. ";
-    case VAR_userWebComponentsTheme:
-      return "The user's web components theme";
     case VAR_userSiteTheme:
       return "The user's siteTheme";
     case VAR_logoutUrl:
@@ -6018,8 +5947,6 @@ public abstract class PageLayoutGen<DEV> extends Object {
     case VAR_userGroups:
       return "List";
     case VAR_userFontSize:
-      return "String";
-    case VAR_userWebComponentsTheme:
       return "String";
     case VAR_userSiteTheme:
       return "String";

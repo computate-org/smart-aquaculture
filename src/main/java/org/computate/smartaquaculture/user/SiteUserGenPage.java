@@ -530,13 +530,14 @@ public class SiteUserGenPage extends SiteUserGenPageGen<PageLayout> {
   }
 
   @Override
-  protected void _pageUri(Wrap<String> c) {
-    c.o("/en-us/search/user");
+  protected void _pageUri(Wrap<String> w) {
+    if("enUS".equals(lang))
+      w.o("/en-us/search/user");
   }
 
   @Override
-  protected void _apiUri(Wrap<String> c) {
-    c.o("/en-us/api/user");
+  protected void _apiUri(Wrap<String> w) {
+    w.o("/en-us/api/user");
   }
 
   @Override

@@ -114,24 +114,374 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
   protected static final Logger LOG = LoggerFactory.getLogger(TimeZoneEnUSGenApiServiceImpl.class);
 
+  // SearchPageFrFR //
+
+  @Override
+  public void searchpagefrfrTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = true;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("frFR");
+              searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
+                response200SearchPageFrFRTimeZone(listTimeZone).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchpagefrfrTimeZone succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchpagefrfrTimeZone failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("searchpagefrfrTimeZone failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchpagefrfrTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("searchpagefrfrTimeZone failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("searchpagefrfrTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void searchpagefrfrTimeZonePageInit(JsonObject ctx, TimeZonePage page, SearchList<TimeZone> listTimeZone, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateSearchPageFrFRTimeZone(ServiceRequest serviceRequest) {
+    return "fr-fr/rechercher/fuseau-horaire/TimeZoneSearchPage.htm";
+  }
+  public Future<ServiceResponse> response200SearchPageFrFRTimeZone(SearchList<TimeZone> listTimeZone) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listTimeZone.getSiteRequest_(SiteRequest.class);
+      String pageTemplateUri = templateSearchPageFrFRTimeZone(siteRequest.getServiceRequest());
+      if(listTimeZone.size() == 0)
+        pageTemplateUri = templateSearchPageTimeZone(siteRequest.getServiceRequest());
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      TimeZonePage page = new TimeZonePage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      page.setSearchListTimeZone_(listTimeZone);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepTimeZonePage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          searchpagefrfrTimeZonePageInit(ctx, page, listTimeZone, promise1);
+          promise1.future().onSuccess(b -> {
+            String renderedTemplate = jinjava.render(template, ctx.getMap());
+            Buffer buffer = Buffer.buffer(renderedTemplate);
+            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+          }).onFailure(ex -> {
+            promise.fail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200SearchPageFrFRTimeZone failed. "), ex);
+          promise.fail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200SearchPageFrFRTimeZone failed. "), ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotSearchPageFrFRTimeZone(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotSearchPageFrFRTimeZone(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
+  // EditPageFrFR //
+
+  @Override
+  public void editpagefrfrTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = true;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("frFR");
+        String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+        String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "GET"));
+        if(id != null)
+          form.add("permission", String.format("%s#%s", id, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+              , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+              , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+              )
+              .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+              .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+              .sendForm(form)
+              .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
+                response200EditPageFrFRTimeZone(listTimeZone).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("editpagefrfrTimeZone succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("editpagefrfrTimeZone failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("editpagefrfrTimeZone failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("editpagefrfrTimeZone failed. "), ex);
+            error(null, eventHandler, ex);
+          }
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("editpagefrfrTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("editpagefrfrTimeZone failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("editpagefrfrTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void editpagefrfrTimeZonePageInit(JsonObject ctx, TimeZonePage page, SearchList<TimeZone> listTimeZone, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateEditPageFrFRTimeZone(ServiceRequest serviceRequest) {
+    return "fr-fr/edition/fuseau-horaire/TimeZoneEditPage.htm";
+  }
+  public Future<ServiceResponse> response200EditPageFrFRTimeZone(SearchList<TimeZone> listTimeZone) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listTimeZone.getSiteRequest_(SiteRequest.class);
+      String pageTemplateUri = templateEditPageFrFRTimeZone(siteRequest.getServiceRequest());
+      if(listTimeZone.size() == 0)
+        pageTemplateUri = templateSearchPageTimeZone(siteRequest.getServiceRequest());
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      TimeZonePage page = new TimeZonePage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      page.setSearchListTimeZone_(listTimeZone);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepTimeZonePage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          editpagefrfrTimeZonePageInit(ctx, page, listTimeZone, promise1);
+          promise1.future().onSuccess(b -> {
+            String renderedTemplate = jinjava.render(template, ctx.getMap());
+            Buffer buffer = Buffer.buffer(renderedTemplate);
+            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+          }).onFailure(ex -> {
+            promise.fail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200EditPageFrFRTimeZone failed. "), ex);
+          promise.fail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.fail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200EditPageFrFRTimeZone failed. "), ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotEditPageFrFRTimeZone(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotEditPageFrFRTimeZone(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
   // Search //
 
   @Override
   public void searchTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-            searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
-              response200SearchTimeZone(listTimeZone).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchTimeZone succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+              searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
+                response200SearchTimeZone(listTimeZone).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchTimeZone succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchTimeZone failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -247,18 +597,24 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void getTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-            searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
-              response200GETTimeZone(listTimeZone).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("getTimeZone succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+              searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
+                response200GETTimeZone(listTimeZone).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("getTimeZone succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("getTimeZone failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("getTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("getTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+      } catch(Exception ex) {
+        LOG.error(String.format("getTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -313,88 +669,94 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     LOG.debug(String.format("patchTimeZone started. "));
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-      String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
-      if(id != null)
-        form.add("permission", String.format("%s#%s", id, "PATCH"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchTimeZoneList(siteRequest, true, false, true).onSuccess(listTimeZone -> {
-              try {
-                ApiRequest apiRequest = new ApiRequest();
-                apiRequest.setRows(listTimeZone.getRequest().getRows());
-                apiRequest.setNumFound(listTimeZone.getResponse().getResponse().getNumFound());
-                apiRequest.setNumPATCH(0L);
-                apiRequest.initDeepApiRequest(siteRequest);
-                siteRequest.setApiRequest_(apiRequest);
-                if(apiRequest.getNumFound() == 1L)
-                  apiRequest.setOriginal(listTimeZone.first());
-                apiRequest.setId(Optional.ofNullable(listTimeZone.first()).map(o2 -> o2.getId().toString()).orElse(null));
-                eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
+      try {
+        siteRequest.setLang("enUS");
+        String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+        String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
+        if(id != null)
+          form.add("permission", String.format("%s#%s", id, "PATCH"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchTimeZoneList(siteRequest, true, false, true).onSuccess(listTimeZone -> {
+                try {
+                  ApiRequest apiRequest = new ApiRequest();
+                  apiRequest.setRows(listTimeZone.getRequest().getRows());
+                  apiRequest.setNumFound(listTimeZone.getResponse().getResponse().getNumFound());
+                  apiRequest.setNumPATCH(0L);
+                  apiRequest.initDeepApiRequest(siteRequest);
+                  siteRequest.setApiRequest_(apiRequest);
+                  if(apiRequest.getNumFound() == 1L)
+                    apiRequest.setOriginal(listTimeZone.first());
+                  apiRequest.setId(Optional.ofNullable(listTimeZone.first()).map(o2 -> o2.getId().toString()).orElse(null));
+                  eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
 
-                listPATCHTimeZone(apiRequest, listTimeZone).onSuccess(e -> {
-                  response200PATCHTimeZone(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("patchTimeZone succeeded. "));
-                    eventHandler.handle(Future.succeededFuture(response));
+                  listPATCHTimeZone(apiRequest, listTimeZone).onSuccess(e -> {
+                    response200PATCHTimeZone(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("patchTimeZone succeeded. "));
+                      eventHandler.handle(Future.succeededFuture(response));
+                    }).onFailure(ex -> {
+                      LOG.error(String.format("patchTimeZone failed. "), ex);
+                      error(siteRequest, eventHandler, ex);
+                    });
                   }).onFailure(ex -> {
                     LOG.error(String.format("patchTimeZone failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
-                }).onFailure(ex -> {
+                } catch(Exception ex) {
                   LOG.error(String.format("patchTimeZone failed. "), ex);
                   error(siteRequest, eventHandler, ex);
-                });
-              } catch(Exception ex) {
+                }
+              }).onFailure(ex -> {
                 LOG.error(String.format("patchTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              }
-            }).onFailure(ex -> {
-              LOG.error(String.format("patchTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("patchTimeZone failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("patchTimeZone failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("patchTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -470,6 +832,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         siteRequest.setJsonObject(body);
         serviceRequest.getParams().getJsonObject("query").put("rows", 1);
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
@@ -581,89 +944,95 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     LOG.debug(String.format("postTimeZone started. "));
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-      String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
-      if(id != null)
-        form.add("permission", String.format("%s#%s", id, "POST"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            ApiRequest apiRequest = new ApiRequest();
-            apiRequest.setRows(1L);
-            apiRequest.setNumFound(1L);
-            apiRequest.setNumPATCH(0L);
-            apiRequest.initDeepApiRequest(siteRequest);
-            siteRequest.setApiRequest_(apiRequest);
-            eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
-            JsonObject params = new JsonObject();
-            params.put("body", siteRequest.getJsonObject());
-            params.put("path", new JsonObject());
-            params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
-            params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
-            params.put("form", new JsonObject());
-            JsonObject query = new JsonObject();
-            Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
-            Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
-            if(softCommit == null && commitWithin == null)
-              softCommit = true;
-            if(softCommit != null)
-              query.put("softCommit", softCommit);
-            if(commitWithin != null)
-              query.put("commitWithin", commitWithin);
-            params.put("query", query);
-            JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
-            JsonObject json = new JsonObject().put("context", context);
-            eventBus.request(TimeZone.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postTimeZoneFuture")).onSuccess(a -> {
-              JsonObject responseMessage = (JsonObject)a.body();
-              JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
-              eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
-              LOG.debug(String.format("postTimeZone succeeded. "));
-            }).onFailure(ex -> {
-              LOG.error(String.format("postTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+      try {
+        siteRequest.setLang("enUS");
+        String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+        String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
+        if(id != null)
+          form.add("permission", String.format("%s#%s", id, "POST"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              ApiRequest apiRequest = new ApiRequest();
+              apiRequest.setRows(1L);
+              apiRequest.setNumFound(1L);
+              apiRequest.setNumPATCH(0L);
+              apiRequest.initDeepApiRequest(siteRequest);
+              siteRequest.setApiRequest_(apiRequest);
+              eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
+              JsonObject params = new JsonObject();
+              params.put("body", siteRequest.getJsonObject());
+              params.put("path", new JsonObject());
+              params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
+              params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
+              params.put("form", new JsonObject());
+              JsonObject query = new JsonObject();
+              Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
+              Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
+              if(softCommit == null && commitWithin == null)
+                softCommit = true;
+              if(softCommit != null)
+                query.put("softCommit", softCommit);
+              if(commitWithin != null)
+                query.put("commitWithin", commitWithin);
+              params.put("query", query);
+              JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
+              JsonObject json = new JsonObject().put("context", context);
+              eventBus.request(TimeZone.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postTimeZoneFuture")).onSuccess(a -> {
+                JsonObject responseMessage = (JsonObject)a.body();
+                JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
+                eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
+                LOG.debug(String.format("postTimeZone succeeded. "));
+              }).onFailure(ex -> {
+                LOG.error(String.format("postTimeZone failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("postTimeZone failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("postTimeZone failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("postTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -695,6 +1064,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
           scopes.stream().map(v -> v.toString()).forEach(scope -> {
             siteRequest.addScopes(scope);
@@ -796,87 +1166,93 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     LOG.debug(String.format("deleteTimeZone started. "));
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-      String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
-      if(id != null)
-        form.add("permission", String.format("%s#%s", id, "DELETE"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchTimeZoneList(siteRequest, true, false, true).onSuccess(listTimeZone -> {
-              try {
-                ApiRequest apiRequest = new ApiRequest();
-                apiRequest.setRows(listTimeZone.getRequest().getRows());
-                apiRequest.setNumFound(listTimeZone.getResponse().getResponse().getNumFound());
-                apiRequest.setNumPATCH(0L);
-                apiRequest.initDeepApiRequest(siteRequest);
-                siteRequest.setApiRequest_(apiRequest);
-                if(apiRequest.getNumFound() == 1L)
-                  apiRequest.setOriginal(listTimeZone.first());
-                eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
+      try {
+        siteRequest.setLang("enUS");
+        String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+        String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
+        if(id != null)
+          form.add("permission", String.format("%s#%s", id, "DELETE"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchTimeZoneList(siteRequest, true, false, true).onSuccess(listTimeZone -> {
+                try {
+                  ApiRequest apiRequest = new ApiRequest();
+                  apiRequest.setRows(listTimeZone.getRequest().getRows());
+                  apiRequest.setNumFound(listTimeZone.getResponse().getResponse().getNumFound());
+                  apiRequest.setNumPATCH(0L);
+                  apiRequest.initDeepApiRequest(siteRequest);
+                  siteRequest.setApiRequest_(apiRequest);
+                  if(apiRequest.getNumFound() == 1L)
+                    apiRequest.setOriginal(listTimeZone.first());
+                  eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
 
-                listDELETETimeZone(apiRequest, listTimeZone).onSuccess(e -> {
-                  response200DELETETimeZone(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("deleteTimeZone succeeded. "));
-                    eventHandler.handle(Future.succeededFuture(response));
+                  listDELETETimeZone(apiRequest, listTimeZone).onSuccess(e -> {
+                    response200DELETETimeZone(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("deleteTimeZone succeeded. "));
+                      eventHandler.handle(Future.succeededFuture(response));
+                    }).onFailure(ex -> {
+                      LOG.error(String.format("deleteTimeZone failed. "), ex);
+                      error(siteRequest, eventHandler, ex);
+                    });
                   }).onFailure(ex -> {
                     LOG.error(String.format("deleteTimeZone failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
-                }).onFailure(ex -> {
+                } catch(Exception ex) {
                   LOG.error(String.format("deleteTimeZone failed. "), ex);
                   error(siteRequest, eventHandler, ex);
-                });
-              } catch(Exception ex) {
+                }
+              }).onFailure(ex -> {
                 LOG.error(String.format("deleteTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              }
-            }).onFailure(ex -> {
-              LOG.error(String.format("deleteTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("deleteTimeZone failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("deleteTimeZone failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("deleteTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -952,6 +1328,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         siteRequest.setJsonObject(body);
         serviceRequest.getParams().getJsonObject("query").put("rows", 1);
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
@@ -1046,62 +1423,68 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     LOG.debug(String.format("putimportTimeZone started. "));
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-      String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
-      if(id != null)
-        form.add("permission", String.format("%s#%s", id, "PUT"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            ApiRequest apiRequest = new ApiRequest();
-            JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
-            apiRequest.setRows(Long.valueOf(jsonArray.size()));
-            apiRequest.setNumFound(Long.valueOf(jsonArray.size()));
-            apiRequest.setNumPATCH(0L);
-            apiRequest.initDeepApiRequest(siteRequest);
-            siteRequest.setApiRequest_(apiRequest);
-            eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
-            varsTimeZone(siteRequest).onSuccess(d -> {
-              listPUTImportTimeZone(apiRequest, siteRequest).onSuccess(e -> {
-                response200PUTImportTimeZone(siteRequest).onSuccess(response -> {
-                  LOG.debug(String.format("putimportTimeZone succeeded. "));
-                  eventHandler.handle(Future.succeededFuture(response));
+      try {
+        siteRequest.setLang("enUS");
+        String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+        String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
+        if(id != null)
+          form.add("permission", String.format("%s#%s", id, "PUT"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              ApiRequest apiRequest = new ApiRequest();
+              JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
+              apiRequest.setRows(Long.valueOf(jsonArray.size()));
+              apiRequest.setNumFound(Long.valueOf(jsonArray.size()));
+              apiRequest.setNumPATCH(0L);
+              apiRequest.initDeepApiRequest(siteRequest);
+              siteRequest.setApiRequest_(apiRequest);
+              eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
+              varsTimeZone(siteRequest).onSuccess(d -> {
+                listPUTImportTimeZone(apiRequest, siteRequest).onSuccess(e -> {
+                  response200PUTImportTimeZone(siteRequest).onSuccess(response -> {
+                    LOG.debug(String.format("putimportTimeZone succeeded. "));
+                    eventHandler.handle(Future.succeededFuture(response));
+                  }).onFailure(ex -> {
+                    LOG.error(String.format("putimportTimeZone failed. "), ex);
+                    error(siteRequest, eventHandler, ex);
+                  });
                 }).onFailure(ex -> {
                   LOG.error(String.format("putimportTimeZone failed. "), ex);
                   error(siteRequest, eventHandler, ex);
@@ -1110,16 +1493,16 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                 LOG.error(String.format("putimportTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("putimportTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("putimportTimeZone failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("putimportTimeZone failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("putimportTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1198,6 +1581,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
           scopes.stream().map(v -> v.toString()).forEach(scope -> {
             siteRequest.addScopes(scope);
@@ -1351,18 +1735,24 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void searchpageTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-            searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
-              response200SearchPageTimeZone(listTimeZone).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchpageTimeZone succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+              searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
+                response200SearchPageTimeZone(listTimeZone).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchpageTimeZone succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchpageTimeZone failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchpageTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchpageTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchpageTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1390,6 +1780,22 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   }
 
   public void searchpageTimeZonePageInit(JsonObject ctx, TimeZonePage page, SearchList<TimeZone> listTimeZone, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
     promise.complete();
   }
 
@@ -1482,56 +1888,62 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void editpageTimeZone(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-      String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
-      form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "GET"));
-      if(id != null)
-        form.add("permission", String.format("%s#%s", id, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
-              response200EditPageTimeZone(listTimeZone).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("editpageTimeZone succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+        String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "GET"));
+        if(id != null)
+          form.add("permission", String.format("%s#%s", id, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+              , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+              , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+              )
+              .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+              .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+              .sendForm(form)
+              .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchTimeZoneList(siteRequest, false, true, false).onSuccess(listTimeZone -> {
+                response200EditPageTimeZone(listTimeZone).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("editpageTimeZone succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("editpageTimeZone failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("editpageTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              });
-            }).onFailure(ex -> {
-              LOG.error(String.format("editpageTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
             });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("editpageTimeZone failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("editpageTimeZone failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("editpageTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1559,6 +1971,22 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   }
 
   public void editpageTimeZonePageInit(JsonObject ctx, TimeZonePage page, SearchList<TimeZone> listTimeZone, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
     promise.complete();
   }
 
@@ -1652,87 +2080,93 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     LOG.debug(String.format("deletefilterTimeZone started. "));
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
-      String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
-      if(id != null)
-        form.add("permission", String.format("%s#%s", id, "DELETE"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchTimeZoneList(siteRequest, true, false, true).onSuccess(listTimeZone -> {
-              try {
-                ApiRequest apiRequest = new ApiRequest();
-                apiRequest.setRows(listTimeZone.getRequest().getRows());
-                apiRequest.setNumFound(listTimeZone.getResponse().getResponse().getNumFound());
-                apiRequest.setNumPATCH(0L);
-                apiRequest.initDeepApiRequest(siteRequest);
-                siteRequest.setApiRequest_(apiRequest);
-                if(apiRequest.getNumFound() == 1L)
-                  apiRequest.setOriginal(listTimeZone.first());
-                eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
+      try {
+        siteRequest.setLang("enUS");
+        String id = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("id");
+        String TIMEZONE = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("TIMEZONE");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "PUT"));
+        if(id != null)
+          form.add("permission", String.format("%s#%s", id, "DELETE"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchTimeZoneList(siteRequest, true, false, true).onSuccess(listTimeZone -> {
+                try {
+                  ApiRequest apiRequest = new ApiRequest();
+                  apiRequest.setRows(listTimeZone.getRequest().getRows());
+                  apiRequest.setNumFound(listTimeZone.getResponse().getResponse().getNumFound());
+                  apiRequest.setNumPATCH(0L);
+                  apiRequest.initDeepApiRequest(siteRequest);
+                  siteRequest.setApiRequest_(apiRequest);
+                  if(apiRequest.getNumFound() == 1L)
+                    apiRequest.setOriginal(listTimeZone.first());
+                  eventBus.publish("websocketTimeZone", JsonObject.mapFrom(apiRequest).toString());
 
-                listDELETEFilterTimeZone(apiRequest, listTimeZone).onSuccess(e -> {
-                  response200DELETEFilterTimeZone(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("deletefilterTimeZone succeeded. "));
-                    eventHandler.handle(Future.succeededFuture(response));
+                  listDELETEFilterTimeZone(apiRequest, listTimeZone).onSuccess(e -> {
+                    response200DELETEFilterTimeZone(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("deletefilterTimeZone succeeded. "));
+                      eventHandler.handle(Future.succeededFuture(response));
+                    }).onFailure(ex -> {
+                      LOG.error(String.format("deletefilterTimeZone failed. "), ex);
+                      error(siteRequest, eventHandler, ex);
+                    });
                   }).onFailure(ex -> {
                     LOG.error(String.format("deletefilterTimeZone failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
-                }).onFailure(ex -> {
+                } catch(Exception ex) {
                   LOG.error(String.format("deletefilterTimeZone failed. "), ex);
                   error(siteRequest, eventHandler, ex);
-                });
-              } catch(Exception ex) {
+                }
+              }).onFailure(ex -> {
                 LOG.error(String.format("deletefilterTimeZone failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              }
-            }).onFailure(ex -> {
-              LOG.error(String.format("deletefilterTimeZone failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("deletefilterTimeZone failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("deletefilterTimeZone failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("deletefilterTimeZone failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1808,6 +2242,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         siteRequest.setJsonObject(body);
         serviceRequest.getParams().getJsonObject("query").put("rows", 1);
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
@@ -2346,9 +2781,13 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       page.persistForClass(TimeZone.VAR_id, TimeZone.staticSetId(siteRequest2, (String)result.get(TimeZone.VAR_id)));
       page.persistForClass(TimeZone.VAR_objectTitle, TimeZone.staticSetObjectTitle(siteRequest2, (String)result.get(TimeZone.VAR_objectTitle)));
       page.persistForClass(TimeZone.VAR_displayPage, TimeZone.staticSetDisplayPage(siteRequest2, (String)result.get(TimeZone.VAR_displayPage)));
+      page.persistForClass(TimeZone.VAR_displayPageFrFR, TimeZone.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(TimeZone.VAR_displayPageFrFR)));
       page.persistForClass(TimeZone.VAR_editPage, TimeZone.staticSetEditPage(siteRequest2, (String)result.get(TimeZone.VAR_editPage)));
+      page.persistForClass(TimeZone.VAR_editPageFrFR, TimeZone.staticSetEditPageFrFR(siteRequest2, (String)result.get(TimeZone.VAR_editPageFrFR)));
       page.persistForClass(TimeZone.VAR_userPage, TimeZone.staticSetUserPage(siteRequest2, (String)result.get(TimeZone.VAR_userPage)));
+      page.persistForClass(TimeZone.VAR_userPageFrFR, TimeZone.staticSetUserPageFrFR(siteRequest2, (String)result.get(TimeZone.VAR_userPageFrFR)));
       page.persistForClass(TimeZone.VAR_download, TimeZone.staticSetDownload(siteRequest2, (String)result.get(TimeZone.VAR_download)));
+      page.persistForClass(TimeZone.VAR_downloadFrFR, TimeZone.staticSetDownloadFrFR(siteRequest2, (String)result.get(TimeZone.VAR_downloadFrFR)));
       page.persistForClass(TimeZone.VAR_solrId, TimeZone.staticSetSolrId(siteRequest2, (String)result.get(TimeZone.VAR_solrId)));
 
       page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {

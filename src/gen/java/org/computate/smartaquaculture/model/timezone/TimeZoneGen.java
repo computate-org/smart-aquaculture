@@ -145,16 +145,32 @@ import io.vertx.core.json.JsonObject;
 public abstract class TimeZoneGen<DEV> extends BaseResult {
   protected static final Logger LOG = LoggerFactory.getLogger(TimeZone.class);
 
-  public static final String Description_frFR = "A timezone";
-  public static final String AName_frFR = "a time zone";
-  public static final String SingularName_frFR = "time zone";
-  public static final String PluralName_frFR = "time zones";
-  public static final String Title_frFR = "time zones";
-  public static final String ThePluralName_frFR = "les time zones";
-  public static final String NameAdjectiveSingular_frFR = "time zone";
-  public static final String NameAdjectivePlural_frFR = "time zones";
+  public static final String Description_frFR = "Pour gérer les données de séries chronologiques dans différents fuseaux horaires.";
+  public static final String AName_frFR = "un fuseau horaire";
+  public static final String This_frFR = "ce ";
+  public static final String ThisName_frFR = "ce fuseau horaire";
+  public static final String A_frFR = "un ";
+  public static final String TheName_frFR = "le fuseau horaire";
+  public static final String SingularName_frFR = "fuseau horaire";
+  public static final String PluralName_frFR = "fuseau horaires";
+  public static final String NameActual_frFR = "fuseau horaire actuel";
+  public static final String AllName_frFR = "tous fuseau horaires";
+  public static final String SearchAllNameBy_frFR = "rechercher fuseau horaires par ";
+  public static final String SearchAllName_frFR = "rechercher fuseau horaires";
+  public static final String Title_frFR = "fuseau horaires";
+  public static final String ThePluralName_frFR = "les fuseau horaires";
+  public static final String NoNameFound_frFR = "aucun fuseau horaire trouvé";
+  public static final String OfName_frFR = "de fuseau horaire";
+  public static final String NameAdjectiveSingular_frFR = "fuseau horaire";
+  public static final String NameAdjectivePlural_frFR = "fuseau horaires";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/fuseau-horaire";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/fuseau-horaire";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/fuseau-horaire";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/fuseau-horaire/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/fuseau-horaire/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/fuseau-horaire/%s";
 
-  public static final String Description_enUS = "A timezone";
+  public static final String Description_enUS = "For managing time series data in different time zones.";
   public static final String AName_enUS = "a time zone";
   public static final String This_enUS = "this ";
   public static final String ThisName_enUS = "this time zone";
@@ -1060,12 +1076,12 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
 
   @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/fuseau-horaire/%s";
   }
 
   @Override
   public String enUSStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/en-us/edit/time-zone/%s";
   }
 
   @Override

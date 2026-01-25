@@ -120,56 +120,62 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void searchSiteUser(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-      String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
-      if(userId != null)
-        form.add("permission", String.format("%s#%s", userId, "GET"));
-      siteRequest.setPublicRead(classPublicRead);
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
-              response200SearchSiteUser(listSiteUser).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchSiteUser succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
+        String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
+        if(userId != null)
+          form.add("permission", String.format("%s#%s", userId, "GET"));
+        siteRequest.setPublicRead(classPublicRead);
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
+                response200SearchSiteUser(listSiteUser).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchSiteUser succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchSiteUser failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchSiteUser failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchSiteUser failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("searchSiteUser failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("searchSiteUser failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchSiteUser failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -286,92 +292,89 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     LOG.debug(String.format("patchSiteUser started. "));
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-      String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
-      if(userId != null)
-        form.add("permission", String.format("%s#%s", userId, "PATCH"));
-      siteRequest.setPublicRead(classPublicRead);
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          scopes.add("GET");
-          scopes.add("PATCH");
-          if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchSiteUserList(siteRequest, false, true, true).onSuccess(listSiteUser -> {
+      try {
+        siteRequest.setLang("enUS");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("username", config.getString(ComputateConfigKeys.AUTH_ADMIN_USERNAME));
+        form.add("password", config.getString(ComputateConfigKeys.AUTH_ADMIN_PASSWORD));
+        form.add("grant_type", "password");
+        form.add("client_id", "admin-cli");
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , "/realms/master/protocol/openid-connect/token"
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .sendForm(form)
+        .onSuccess(adminTokenResponse -> {
+          try {
+            String adminAuthToken = adminTokenResponse.bodyAsJsonObject().getString("access_token");
+            String authRealm = config.getString(ComputateConfigKeys.AUTH_REALM);
+            String userId = siteRequest.getUserId();
+            webClient.get(
+                config.getInteger(ComputateConfigKeys.AUTH_PORT)
+                , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+                , String.format("/admin/realms/%s/users/%s", authRealm, userId)
+                )
+                .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+                .putHeader("Authorization", String.format("Bearer %s", adminAuthToken))
+                .send()
+                .expecting(HttpResponseExpectation.SC_OK)
+            .onSuccess(userResponse -> {
               try {
-                ApiRequest apiRequest = new ApiRequest();
-                apiRequest.setRows(listSiteUser.getRequest().getRows());
-                apiRequest.setNumFound(listSiteUser.getResponse().getResponse().getNumFound());
-                apiRequest.setNumPATCH(0L);
-                apiRequest.initDeepApiRequest(siteRequest);
-                siteRequest.setApiRequest_(apiRequest);
-                if(apiRequest.getNumFound() == 1L)
-                  apiRequest.setOriginal(listSiteUser.first());
-                apiRequest.setId(Optional.ofNullable(listSiteUser.first()).map(o2 -> o2.getUserId().toString()).orElse(null));
-                apiRequest.setSolrId(Optional.ofNullable(listSiteUser.first()).map(o2 -> o2.getSolrId()).orElse(null));
-                eventBus.publish("websocketSiteUser", JsonObject.mapFrom(apiRequest).toString());
-
-                listPATCHSiteUser(apiRequest, listSiteUser).onSuccess(e -> {
-                  response200PATCHSiteUser(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("patchSiteUser succeeded. "));
-                    eventHandler.handle(Future.succeededFuture(response));
-                  }).onFailure(ex -> {
+                JsonObject userBody = userResponse.bodyAsJsonObject();
+                if(userBody.getJsonObject("attributes") == null)
+                  userBody.put("attributes", new JsonObject());
+                body.stream().filter(entry -> entry.getKey().startsWith("set")).forEach(entry -> {
+                  userBody.getJsonObject("attributes").put(StringUtils.uncapitalize(entry.getKey().substring(3)), new JsonArray().add(entry.getValue()));
+                });
+                webClient.put(
+                    config.getInteger(ComputateConfigKeys.AUTH_PORT)
+                    , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+                    , String.format("/admin/realms/%s/users/%s", authRealm, userId)
+                    )
+                    .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+                    .putHeader("Authorization", String.format("Bearer %s", adminAuthToken))
+                    .putHeader("Content-Type", "application/json")
+                    .sendJsonObject(userBody)
+                    .expecting(HttpResponseExpectation.SC_NO_CONTENT)
+                .onSuccess(userUpdateResponse -> {
+                  try {
+                    response200PATCHSiteUser(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("patchSiteUser succeeded. "));
+                      eventHandler.handle(Future.succeededFuture(response));
+                    }).onFailure(ex -> {
+                      LOG.error(String.format("patchSiteUser failed. "), ex);
+                      error(siteRequest, eventHandler, ex);
+                    });
+                  } catch(Throwable ex) {
                     LOG.error(String.format("patchSiteUser failed. "), ex);
-                    error(siteRequest, eventHandler, ex);
-                  });
+                    error(null, eventHandler, ex);
+                  }
                 }).onFailure(ex -> {
                   LOG.error(String.format("patchSiteUser failed. "), ex);
-                  error(siteRequest, eventHandler, ex);
+                  error(null, eventHandler, ex);
                 });
-              } catch(Exception ex) {
+              } catch(Throwable ex) {
                 LOG.error(String.format("patchSiteUser failed. "), ex);
-                error(siteRequest, eventHandler, ex);
+                error(null, eventHandler, ex);
               }
             }).onFailure(ex -> {
               LOG.error(String.format("patchSiteUser failed. "), ex);
-              error(siteRequest, eventHandler, ex);
+              error(null, eventHandler, ex);
             });
+          } catch(Throwable ex) {
+            LOG.error(String.format("patchSiteUser failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
+        }).onFailure(ex -> {
           LOG.error(String.format("patchSiteUser failed. "), ex);
           error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("patchSiteUser failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -447,6 +450,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         siteRequest.setJsonObject(body);
         serviceRequest.getParams().getJsonObject("query").put("rows", 1);
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
@@ -651,13 +655,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               num++;
               bParams.add(o2.sqlUserFullName());
             break;
-          case "setSeeArchived":
-              o2.setSeeArchived(jsonObject.getString(entityVar));
+          case "setUserProfileUrl":
+              o2.setUserProfileUrl(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(SiteUser.VAR_seeArchived + "=$" + num);
+              bSql.append(SiteUser.VAR_userProfileUrl + "=$" + num);
               num++;
-              bParams.add(o2.sqlSeeArchived());
+              bParams.add(o2.sqlUserProfileUrl());
             break;
           case "setSessionId":
               o2.setSessionId(jsonObject.getString(entityVar));
@@ -667,13 +671,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               num++;
               bParams.add(o2.sqlSessionId());
             break;
-          case "setDisplayName":
-              o2.setDisplayName(jsonObject.getString(entityVar));
+          case "setSeeArchived":
+              o2.setSeeArchived(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(SiteUser.VAR_displayName + "=$" + num);
+              bSql.append(SiteUser.VAR_seeArchived + "=$" + num);
               num++;
-              bParams.add(o2.sqlDisplayName());
+              bParams.add(o2.sqlSeeArchived());
             break;
           case "setUserKey":
               o2.setUserKey(jsonObject.getString(entityVar));
@@ -682,6 +686,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(SiteUser.VAR_userKey + "=$" + num);
               num++;
               bParams.add(o2.sqlUserKey());
+            break;
+          case "setDisplayName":
+              o2.setDisplayName(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SiteUser.VAR_displayName + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDisplayName());
             break;
           case "setSiteFontSize":
               o2.setSiteFontSize(jsonObject.getString(entityVar));
@@ -698,14 +710,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               bSql.append(SiteUser.VAR_siteTheme + "=$" + num);
               num++;
               bParams.add(o2.sqlSiteTheme());
-            break;
-          case "setWebComponentsTheme":
-              o2.setWebComponentsTheme(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(SiteUser.VAR_webComponentsTheme + "=$" + num);
-              num++;
-              bParams.add(o2.sqlWebComponentsTheme());
             break;
           case "setObjectTitle":
               o2.setObjectTitle(jsonObject.getString(entityVar));
@@ -853,93 +857,99 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     LOG.debug(String.format("postSiteUser started. "));
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-      String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
-      if(userId != null)
-        form.add("permission", String.format("%s#%s", userId, "POST"));
-      siteRequest.setPublicRead(classPublicRead);
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          scopes.add("GET");
-          scopes.add("PATCH");
-          if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            ApiRequest apiRequest = new ApiRequest();
-            apiRequest.setRows(1L);
-            apiRequest.setNumFound(1L);
-            apiRequest.setNumPATCH(0L);
-            apiRequest.initDeepApiRequest(siteRequest);
-            siteRequest.setApiRequest_(apiRequest);
-            eventBus.publish("websocketSiteUser", JsonObject.mapFrom(apiRequest).toString());
-            JsonObject params = new JsonObject();
-            params.put("body", siteRequest.getJsonObject());
-            params.put("path", new JsonObject());
-            params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
-            params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
-            params.put("form", new JsonObject());
-            JsonObject query = new JsonObject();
-            Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
-            Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
-            if(softCommit == null && commitWithin == null)
-              softCommit = true;
-            if(softCommit != null)
-              query.put("softCommit", softCommit);
-            if(commitWithin != null)
-              query.put("commitWithin", commitWithin);
-            params.put("query", query);
-            JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
-            JsonObject json = new JsonObject().put("context", context);
-            eventBus.request(SiteUser.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postSiteUserFuture")).onSuccess(a -> {
-              JsonObject responseMessage = (JsonObject)a.body();
-              JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
-              apiRequest.setSolrId(responseBody.getString(SiteUser.VAR_solrId));
-              eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
-              LOG.debug(String.format("postSiteUser succeeded. "));
-            }).onFailure(ex -> {
-              LOG.error(String.format("postSiteUser failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+      try {
+        siteRequest.setLang("enUS");
+        String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
+        String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
+        if(userId != null)
+          form.add("permission", String.format("%s#%s", userId, "POST"));
+        siteRequest.setPublicRead(classPublicRead);
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            scopes.add("GET");
+            scopes.add("PATCH");
+            if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              ApiRequest apiRequest = new ApiRequest();
+              apiRequest.setRows(1L);
+              apiRequest.setNumFound(1L);
+              apiRequest.setNumPATCH(0L);
+              apiRequest.initDeepApiRequest(siteRequest);
+              siteRequest.setApiRequest_(apiRequest);
+              eventBus.publish("websocketSiteUser", JsonObject.mapFrom(apiRequest).toString());
+              JsonObject params = new JsonObject();
+              params.put("body", siteRequest.getJsonObject());
+              params.put("path", new JsonObject());
+              params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
+              params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
+              params.put("form", new JsonObject());
+              JsonObject query = new JsonObject();
+              Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
+              Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
+              if(softCommit == null && commitWithin == null)
+                softCommit = true;
+              if(softCommit != null)
+                query.put("softCommit", softCommit);
+              if(commitWithin != null)
+                query.put("commitWithin", commitWithin);
+              params.put("query", query);
+              JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
+              JsonObject json = new JsonObject().put("context", context);
+              eventBus.request(SiteUser.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postSiteUserFuture")).onSuccess(a -> {
+                JsonObject responseMessage = (JsonObject)a.body();
+                JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
+                apiRequest.setSolrId(responseBody.getString(SiteUser.VAR_solrId));
+                eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
+                LOG.debug(String.format("postSiteUser succeeded. "));
+              }).onFailure(ex -> {
+                LOG.error(String.format("postSiteUser failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("postSiteUser failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("postSiteUser failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("postSiteUser failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -971,6 +981,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
           scopes.stream().map(v -> v.toString()).forEach(scope -> {
             siteRequest.addScopes(scope);
@@ -1219,14 +1230,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             num++;
             bParams.add(o2.sqlUserFullName());
             break;
-          case SiteUser.VAR_seeArchived:
-            o2.setSeeArchived(jsonObject.getString(entityVar));
+          case SiteUser.VAR_userProfileUrl:
+            o2.setUserProfileUrl(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(SiteUser.VAR_seeArchived + "=$" + num);
+            bSql.append(SiteUser.VAR_userProfileUrl + "=$" + num);
             num++;
-            bParams.add(o2.sqlSeeArchived());
+            bParams.add(o2.sqlUserProfileUrl());
             break;
           case SiteUser.VAR_sessionId:
             o2.setSessionId(jsonObject.getString(entityVar));
@@ -1237,14 +1248,14 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case SiteUser.VAR_displayName:
-            o2.setDisplayName(jsonObject.getString(entityVar));
+          case SiteUser.VAR_seeArchived:
+            o2.setSeeArchived(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(SiteUser.VAR_displayName + "=$" + num);
+            bSql.append(SiteUser.VAR_seeArchived + "=$" + num);
             num++;
-            bParams.add(o2.sqlDisplayName());
+            bParams.add(o2.sqlSeeArchived());
             break;
           case SiteUser.VAR_userKey:
             o2.setUserKey(jsonObject.getString(entityVar));
@@ -1254,6 +1265,15 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(SiteUser.VAR_userKey + "=$" + num);
             num++;
             bParams.add(o2.sqlUserKey());
+            break;
+          case SiteUser.VAR_displayName:
+            o2.setDisplayName(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SiteUser.VAR_displayName + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDisplayName());
             break;
           case SiteUser.VAR_siteFontSize:
             o2.setSiteFontSize(jsonObject.getString(entityVar));
@@ -1272,15 +1292,6 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             bSql.append(SiteUser.VAR_siteTheme + "=$" + num);
             num++;
             bParams.add(o2.sqlSiteTheme());
-            break;
-          case SiteUser.VAR_webComponentsTheme:
-            o2.setWebComponentsTheme(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(SiteUser.VAR_webComponentsTheme + "=$" + num);
-            num++;
-            bParams.add(o2.sqlWebComponentsTheme());
             break;
           case SiteUser.VAR_objectTitle:
             o2.setObjectTitle(jsonObject.getString(entityVar));
@@ -1436,56 +1447,62 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void searchpageSiteUser(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-      String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
-      if(userId != null)
-        form.add("permission", String.format("%s#%s", userId, "GET"));
-      siteRequest.setPublicRead(classPublicRead);
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
-              response200SearchPageSiteUser(listSiteUser).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchpageSiteUser succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
+        String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
+        if(userId != null)
+          form.add("permission", String.format("%s#%s", userId, "GET"));
+        siteRequest.setPublicRead(classPublicRead);
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
+                response200SearchPageSiteUser(listSiteUser).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchpageSiteUser succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchpageSiteUser failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchpageSiteUser failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchpageSiteUser failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("searchpageSiteUser failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("searchpageSiteUser failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchpageSiteUser failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1513,6 +1530,20 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   }
 
   public void searchpageSiteUserPageInit(JsonObject ctx, SiteUserPage page, SearchList<SiteUser> listSiteUser, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/user"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/user"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
     promise.complete();
   }
 
@@ -1607,57 +1638,63 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public void editpageSiteUser(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = true;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
-      String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
-      form.add("permission", String.format("%s-%s#%s", SiteUser.CLASS_AUTH_RESOURCE, userId, "GET"));
-      if(userId != null)
-        form.add("permission", String.format("%s#%s", userId, "GET"));
-      siteRequest.setPublicRead(classPublicRead);
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
-              response200EditPageSiteUser(listSiteUser).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("editpageSiteUser succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String userId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("userId");
+        String SITEUSER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SITEUSER");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SiteUser.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s-%s#%s", SiteUser.CLASS_AUTH_RESOURCE, userId, "GET"));
+        if(userId != null)
+          form.add("permission", String.format("%s#%s", userId, "GET"));
+        siteRequest.setPublicRead(classPublicRead);
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+              , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+              , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+              )
+              .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+              .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+              .sendForm(form)
+              .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchSiteUserList(siteRequest, false, true, false).onSuccess(listSiteUser -> {
+                response200EditPageSiteUser(listSiteUser).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("editpageSiteUser succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("editpageSiteUser failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("editpageSiteUser failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              });
-            }).onFailure(ex -> {
-              LOG.error(String.format("editpageSiteUser failed. "), ex);
-              error(siteRequest, eventHandler, ex);
             });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("editpageSiteUser failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("editpageSiteUser failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("editpageSiteUser failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1685,6 +1722,21 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   }
 
   public void editpageSiteUserPageInit(JsonObject ctx, SiteUserPage page, SearchList<SiteUser> listSiteUser, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/user"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
     promise.complete();
   }
 
@@ -1879,213 +1931,18 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   public Future<SearchList<SiteUser>> searchSiteUserList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
     Promise<SearchList<SiteUser>> promise = Promise.promise();
     try {
-      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
-      String entityListStr = siteRequest.getServiceRequest().getParams().getJsonObject("query").getString("fl");
-      String[] entityList = entityListStr == null ? null : entityListStr.split(",\\s*");
-      SearchList<SiteUser> searchList = new SearchList<SiteUser>();
-      String facetRange = null;
-      Date facetRangeStart = null;
-      Date facetRangeEnd = null;
-      String facetRangeGap = null;
-      String statsField = null;
-      String statsFieldIndexed = null;
-      searchList.setPopulate(populate);
-      searchList.setStore(store);
-      searchList.q("*:*");
-      searchList.setC(SiteUser.class);
-      searchList.setSiteRequest_(siteRequest);
-      searchList.facetMinCount(1);
-      if(entityList != null) {
-        for(String v : entityList) {
-          searchList.fl(SiteUser.varIndexedSiteUser(v));
-        }
-      }
-
-      String userId = serviceRequest.getParams().getJsonObject("path").getString("userId");
-      if(userId != null) {
-        searchList.fq("userId_docvalues_string:" + SearchTool.escapeQueryChars(userId));
-      }
-
-      if(!siteRequest.getScopes().contains("GET")) {
-        searchList.fq("sessionId_docvalues_string:" + SearchTool.escapeQueryChars(Optional.ofNullable(siteRequest.getSessionId()).orElse("\"-----\"")) + " OR " + "sessionId_docvalues_string:" + SearchTool.escapeQueryChars(Optional.ofNullable(siteRequest.getSessionIdBefore()).orElse("\"-----\""))
-            + " OR userId_docvalues_string:" + Optional.ofNullable(siteRequest.getUserId()).orElse("\"-----\""));
-      }
-
-      for(String paramName : serviceRequest.getParams().getJsonObject("query").fieldNames()) {
-        Object paramValuesObject = serviceRequest.getParams().getJsonObject("query").getValue(paramName);
-        String entityVar = null;
-        String valueIndexed = null;
-        String varIndexed = null;
-        String valueSort = null;
-        Long valueStart = null;
-        Long valueRows = null;
-        String valueCursorMark = null;
-        JsonArray paramObjects = paramValuesObject instanceof JsonArray ? (JsonArray)paramValuesObject : new JsonArray().add(paramValuesObject);
-
-        try {
-          if(paramValuesObject != null && "facet.pivot".equals(paramName)) {
-            Matcher mFacetPivot = Pattern.compile("(?:(\\{![^\\}]+\\}))?(.*)").matcher(StringUtils.join(paramObjects.getList().toArray(), ","));
-            if(mFacetPivot.find()) {
-              String solrLocalParams = mFacetPivot.group(1);
-              String[] entityVars = mFacetPivot.group(2).trim().split(",");
-              String[] varsIndexed = new String[entityVars.length];
-              for(Integer i = 0; i < entityVars.length; i++) {
-                entityVar = entityVars[i];
-                varsIndexed[i] = SiteUser.varIndexedSiteUser(entityVar);
-              }
-              searchList.facetPivot((solrLocalParams == null ? "" : solrLocalParams) + StringUtils.join(varsIndexed, ","));
-            }
-          } else if(paramValuesObject != null) {
-            for(Object paramObject : paramObjects) {
-              if(paramName.equals("q")) {
-                Matcher mQ = Pattern.compile("(\\w+):(.+?(?=(\\)|\\s+OR\\s+|\\s+AND\\s+|\\^|$)))").matcher((String)paramObject);
-                StringBuffer sb = new StringBuffer();
-                while(mQ.find()) {
-                  entityVar = mQ.group(1).trim();
-                  valueIndexed = mQ.group(2).trim();
-                  varIndexed = SiteUser.varIndexedSiteUser(entityVar);
-                  String entityQ = searchSiteUserFq(searchList, entityVar, valueIndexed, varIndexed);
-                  mQ.appendReplacement(sb, entityQ);
-                }
-                if(!sb.isEmpty()) {
-                  mQ.appendTail(sb);
-                  searchList.q(sb.toString());
-                }
-              } else if(paramName.equals("fq")) {
-                Matcher mFq = Pattern.compile("(\\w+):(.+?(?=(\\)|\\s+OR\\s+|\\s+AND\\s+|$)))").matcher((String)paramObject);
-                  StringBuffer sb = new StringBuffer();
-                while(mFq.find()) {
-                  entityVar = mFq.group(1).trim();
-                  valueIndexed = mFq.group(2).trim();
-                  varIndexed = SiteUser.varIndexedSiteUser(entityVar);
-                  String entityFq = searchSiteUserFq(searchList, entityVar, valueIndexed, varIndexed);
-                  mFq.appendReplacement(sb, entityFq);
-                }
-                if(!sb.isEmpty()) {
-                  mFq.appendTail(sb);
-                  searchList.fq(sb.toString());
-                }
-              } else if(paramName.equals("sort")) {
-                entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, " "));
-                valueIndexed = StringUtils.trim(StringUtils.substringAfter((String)paramObject, " "));
-                varIndexed = SiteUser.varIndexedSiteUser(entityVar);
-                searchSiteUserSort(searchList, entityVar, valueIndexed, varIndexed);
-              } else if(paramName.equals("start")) {
-                valueStart = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-                searchSiteUserStart(searchList, valueStart);
-              } else if(paramName.equals("rows")) {
-                valueRows = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-                searchSiteUserRows(searchList, valueRows);
-              } else if(paramName.equals("stats")) {
-                searchList.stats((Boolean)paramObject);
-              } else if(paramName.equals("stats.field")) {
-                Matcher mStats = Pattern.compile("(?:(\\{![^\\}]+\\}))?(.*)").matcher((String)paramObject);
-                if(mStats.find()) {
-                  String solrLocalParams = mStats.group(1);
-                  entityVar = mStats.group(2).trim();
-                  varIndexed = SiteUser.varIndexedSiteUser(entityVar);
-                  searchList.statsField((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
-                  statsField = entityVar;
-                  statsFieldIndexed = varIndexed;
-                }
-              } else if(paramName.equals("facet")) {
-                searchList.facet((Boolean)paramObject);
-              } else if(paramName.equals("facet.range.start")) {
-                String startMathStr = (String)paramObject;
-                Date start = SearchTool.parseMath(startMathStr);
-                searchList.facetRangeStart(start.toInstant().toString());
-                facetRangeStart = start;
-              } else if(paramName.equals("facet.range.end")) {
-                String endMathStr = (String)paramObject;
-                Date end = SearchTool.parseMath(endMathStr);
-                searchList.facetRangeEnd(end.toInstant().toString());
-                facetRangeEnd = end;
-              } else if(paramName.equals("facet.range.gap")) {
-                String gap = (String)paramObject;
-                searchList.facetRangeGap(gap);
-                facetRangeGap = gap;
-              } else if(paramName.equals("facet.range")) {
-                Matcher mFacetRange = Pattern.compile("(?:(\\{![^\\}]+\\}))?(.*)").matcher((String)paramObject);
-                if(mFacetRange.find()) {
-                  String solrLocalParams = mFacetRange.group(1);
-                  entityVar = mFacetRange.group(2).trim();
-                  varIndexed = SiteUser.varIndexedSiteUser(entityVar);
-                  searchList.facetRange((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
-                  facetRange = entityVar;
-                }
-              } else if(paramName.equals("facet.field")) {
-                entityVar = (String)paramObject;
-                varIndexed = SiteUser.varIndexedSiteUser(entityVar);
-                if(varIndexed != null)
-                  searchList.facetField(varIndexed);
-              } else if(paramName.equals("var")) {
-                entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, ":"));
-                valueIndexed = URLDecoder.decode(StringUtils.trim(StringUtils.substringAfter((String)paramObject, ":")), "UTF-8");
-                searchSiteUserVar(searchList, entityVar, valueIndexed);
-              } else if(paramName.equals("cursorMark")) {
-                valueCursorMark = (String)paramObject;
-                searchList.cursorMark((String)paramObject);
-              }
-            }
-            searchSiteUserUri(searchList);
-          }
-        } catch(Exception e) {
-          ExceptionUtils.rethrow(e);
-        }
-      }
-      if("*:*".equals(searchList.getQuery()) && searchList.getSorts().size() == 0) {
-        searchList.sort("created_docvalues_date", "desc");
-      }
-      String facetRange2 = facetRange;
-      Date facetRangeStart2 = facetRangeStart;
-      Date facetRangeEnd2 = facetRangeEnd;
-      String facetRangeGap2 = facetRangeGap;
-      String statsField2 = statsField;
-      String statsFieldIndexed2 = statsFieldIndexed;
-      searchSiteUser2(siteRequest, populate, store, modify, searchList);
-      searchList.promiseDeepForClass(siteRequest).onSuccess(searchList2 -> {
-        if(facetRange2 != null && statsField2 != null && facetRange2.equals(statsField2)) {
-          StatsField stats = searchList.getResponse().getStats().getStatsFields().get(statsFieldIndexed2);
-          Instant min = Optional.ofNullable(stats.getMin()).map(val -> Instant.parse(val.toString())).orElse(Instant.now());
-          Instant max = Optional.ofNullable(stats.getMax()).map(val -> Instant.parse(val.toString())).orElse(Instant.now());
-          if(min.equals(max)) {
-            min = min.minus(1, ChronoUnit.DAYS);
-            max = max.plus(2, ChronoUnit.DAYS);
-          }
-          Duration duration = Duration.between(min, max);
-          String gap = "HOUR";
-          if(duration.toDays() >= 365)
-            gap = "YEAR";
-          else if(duration.toDays() >= 28)
-            gap = "MONTH";
-          else if(duration.toDays() >= 1)
-            gap = "DAY";
-          else if(duration.toHours() >= 1)
-            gap = "HOUR";
-          else if(duration.toMinutes() >= 1)
-            gap = "MINUTE";
-          else if(duration.toMillis() >= 1000)
-            gap = "SECOND";
-          else if(duration.toMillis() >= 1)
-            gap = "MILLI";
-
-          if(facetRangeStart2 == null)
-            searchList.facetRangeStart(min.toString());
-          if(facetRangeEnd2 == null)
-            searchList.facetRangeEnd(max.toString());
-          if(facetRangeGap2 == null)
-            searchList.facetRangeGap(String.format("+1%s", gap));
-          searchList.query().onSuccess(b -> {
-            promise.complete(searchList);
-          }).onFailure(ex -> {
-            LOG.error(String.format("searchSiteUser failed. "), ex);
-            promise.fail(ex);
-          });
-        } else {
+      SiteUser siteUser = siteRequest.getSiteUser_();
+      siteUser.promiseDeepForClass(siteRequest).onSuccess(a -> {
+        SearchList<SiteUser> searchList = new SearchList<SiteUser>();
+        searchList.addList(siteUser);
+        searchList.promiseDeepForClass(siteRequest).onSuccess(searchList2 -> {
           promise.complete(searchList);
-        }
+        }).onFailure(ex -> {
+          LOG.error("Unable to create site user", ex);
+          promise.fail(ex);
+        });
       }).onFailure(ex -> {
-        LOG.error(String.format("searchSiteUser failed. "), ex);
+        LOG.error("Unable to create site user", ex);
         promise.fail(ex);
       });
     } catch(Exception ex) {
@@ -2103,7 +1960,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT userId, created, userName, userEmail, archived, userFirstName, userLastName, userFullName, seeArchived, sessionId, displayName, userKey, siteFontSize, siteTheme, webComponentsTheme, objectTitle, customerProfileId, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM SiteUser WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT userId, created, userName, userEmail, archived, userFirstName, userLastName, userFullName, userProfileUrl, sessionId, seeArchived, userKey, displayName, siteFontSize, siteTheme, objectTitle, customerProfileId, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM SiteUser WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -2281,13 +2138,13 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       page.persistForClass(SiteUser.VAR_userFirstName, SiteUser.staticSetUserFirstName(siteRequest2, (String)result.get(SiteUser.VAR_userFirstName)));
       page.persistForClass(SiteUser.VAR_userLastName, SiteUser.staticSetUserLastName(siteRequest2, (String)result.get(SiteUser.VAR_userLastName)));
       page.persistForClass(SiteUser.VAR_userFullName, SiteUser.staticSetUserFullName(siteRequest2, (String)result.get(SiteUser.VAR_userFullName)));
-      page.persistForClass(SiteUser.VAR_seeArchived, SiteUser.staticSetSeeArchived(siteRequest2, (String)result.get(SiteUser.VAR_seeArchived)));
+      page.persistForClass(SiteUser.VAR_userProfileUrl, SiteUser.staticSetUserProfileUrl(siteRequest2, (String)result.get(SiteUser.VAR_userProfileUrl)));
       page.persistForClass(SiteUser.VAR_sessionId, SiteUser.staticSetSessionId(siteRequest2, (String)result.get(SiteUser.VAR_sessionId)));
-      page.persistForClass(SiteUser.VAR_displayName, SiteUser.staticSetDisplayName(siteRequest2, (String)result.get(SiteUser.VAR_displayName)));
+      page.persistForClass(SiteUser.VAR_seeArchived, SiteUser.staticSetSeeArchived(siteRequest2, (String)result.get(SiteUser.VAR_seeArchived)));
       page.persistForClass(SiteUser.VAR_userKey, SiteUser.staticSetUserKey(siteRequest2, (String)result.get(SiteUser.VAR_userKey)));
+      page.persistForClass(SiteUser.VAR_displayName, SiteUser.staticSetDisplayName(siteRequest2, (String)result.get(SiteUser.VAR_displayName)));
       page.persistForClass(SiteUser.VAR_siteFontSize, SiteUser.staticSetSiteFontSize(siteRequest2, (String)result.get(SiteUser.VAR_siteFontSize)));
       page.persistForClass(SiteUser.VAR_siteTheme, SiteUser.staticSetSiteTheme(siteRequest2, (String)result.get(SiteUser.VAR_siteTheme)));
-      page.persistForClass(SiteUser.VAR_webComponentsTheme, SiteUser.staticSetWebComponentsTheme(siteRequest2, (String)result.get(SiteUser.VAR_webComponentsTheme)));
       page.persistForClass(SiteUser.VAR_objectTitle, SiteUser.staticSetObjectTitle(siteRequest2, (String)result.get(SiteUser.VAR_objectTitle)));
       page.persistForClass(SiteUser.VAR_customerProfileId, SiteUser.staticSetCustomerProfileId(siteRequest2, (String)result.get(SiteUser.VAR_customerProfileId)));
       page.persistForClass(SiteUser.VAR_displayPage, SiteUser.staticSetDisplayPage(siteRequest2, (String)result.get(SiteUser.VAR_displayPage)));
