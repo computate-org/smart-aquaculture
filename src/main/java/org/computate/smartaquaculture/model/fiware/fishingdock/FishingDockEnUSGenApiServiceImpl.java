@@ -1,45 +1,16 @@
-/**
- * Fiware: true
- * Order: 8
- * Description: A fishing dock
- * AName: a fishing dock
- * Icon: <i class="fa-duotone fa-regular fa-bridge-water"></i>
- * Rows: 100
- * LocationSvg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path class="fa-secondary" opacity=".4" d="M.8 455.3c4 17.2 21.2 27.9 38.4 23.9c24.5-5.7 44.9-16.5 58.2-25C126.5 469.7 159 480 192 480c31.9 0 60.6-9.9 80.4-18.9c5.8-2.7 11.1-5.3 15.6-7.7c4.5 2.4 9.7 5.1 15.6 7.7c19.8 9 48.5 18.9 80.4 18.9c33 0 65.5-10.3 94.5-25.8c13.4 8.4 33.7 19.3 58.2 25c17.2 4 34.4-6.7 38.4-23.9c.6-2.4 .8-4.9 .8-7.3c0-14.5-10-27.7-24.7-31.1c-18.1-4.2-36.2-13.3-50.6-25.2c-5.9-5-13.3-7.6-20.7-7.6c-6.5 0-12.9 2-18.5 5.9C439.4 405.2 410.9 416 384 416c-27.5 0-55-10.6-77.5-26.1c-11.1-7.9-25.9-7.9-37 0C247 405.4 219.5 416 192 416c-26.9 0-55.3-10.8-77.4-26.1C109 386 102.5 384 96 384c-7.4 0-14.8 2.6-20.7 7.6c-14.4 11.9-32.5 21-50.6 25.2c-17.2 4-27.9 21.2-23.9 38.4z"/><path class="fa-primary" d="M32 64C14.3 64 0 78.3 0 96l0 35.6C0 147.3 12.7 160 28.4 160C65.8 160 96 190.2 96 227.6l0 124.9c12.9 0 25.8 3.9 36.9 11.7c18 12.4 40.1 20.3 59.1 20.3c0-.2 0-.3 0-.5l0-128c0-53 43-96 96-96s96 43 96 96l0 128c0 .2 0 .3 0 .5c0 0 0 0 0 0c19 0 41.2-7.9 59.2-20.3c11.1-7.8 24-11.7 36.8-11.7l0-124.9c0-37.3 30.2-67.6 67.6-67.6c15.7 0 28.4-12.7 28.4-28.4L576 96c0-17.7-14.3-32-32-32L32 64z"/></svg>
- * LocationRadius: 100
+/*
+ * Copyright Computate Limited Liability Company in Utah, USA. 
+ * SPDX-License-Identifier: AGPL-3.0
+ * This program and the accompanying materials are made available under the
+ * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
  * 
- * SearchPageUri: /en-us/search/fishing-dock
- * EditPageUri: /en-us/edit/fishing-dock/{entityShortId}
- * ApiUri: /en-us/api/fishing-dock
- * ApiMethod:
- *   Search:
- *   GET:
- *   PATCH:
- *   POST:
- *   DELETE:
- *   PUTImport:
- * AuthGroup:
- *   FishingDockViewer:
- *     GET:
- *   FishingDockEditor:
- *     GET:
- *     POST:
- *     PATCH:
- *   Admin:
- *     POST:
- *     PATCH:
- *     GET:
- *     PUT:
- *     DELETE:
- *     Admin:
- *   SuperAdmin:
- *     POST:
- *     PATCH:
- *     GET:
- *     PUT:
- *     DELETE:
- *     SuperAdmin:
- **/
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You may not propagate or modify a covered work except as expressly provided 
+ * under this License. Any attempt otherwise to propagate or modify it is void, 
+ * and will automatically terminate your rights under this License (including 
+ * any patent licenses granted under the third paragraph of section 11).
+ */
 package org.computate.smartaquaculture.model.fiware.fishingdock;
 
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
@@ -164,55 +135,61 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
   public void searchFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
-              response200SearchFishingDock(listFishingDock).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchFishingDock succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+                response200SearchFishingDock(listFishingDock).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchFishingDock succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchFishingDock failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("searchFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("searchFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -328,55 +305,61 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
   public void getFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
-              response200GETFishingDock(listFishingDock).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("getFishingDock succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+                response200GETFishingDock(listFishingDock).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("getFishingDock succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("getFishingDock failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("getFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("getFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("getFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("getFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("getFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -431,89 +414,95 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     LOG.debug(String.format("patchFishingDock started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
-              try {
-                ApiRequest apiRequest = new ApiRequest();
-                apiRequest.setRows(listFishingDock.getRequest().getRows());
-                apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
-                apiRequest.setNumPATCH(0L);
-                apiRequest.initDeepApiRequest(siteRequest);
-                siteRequest.setApiRequest_(apiRequest);
-                if(apiRequest.getNumFound() == 1L)
-                  apiRequest.setOriginal(listFishingDock.first());
-                apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-                apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
-                eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
+                try {
+                  ApiRequest apiRequest = new ApiRequest();
+                  apiRequest.setRows(listFishingDock.getRequest().getRows());
+                  apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
+                  apiRequest.setNumPATCH(0L);
+                  apiRequest.initDeepApiRequest(siteRequest);
+                  siteRequest.setApiRequest_(apiRequest);
+                  if(apiRequest.getNumFound() == 1L)
+                    apiRequest.setOriginal(listFishingDock.first());
+                  apiRequest.setId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
+                  apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+                  eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 
-                listPATCHFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
-                  response200PATCHFishingDock(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("patchFishingDock succeeded. "));
-                    eventHandler.handle(Future.succeededFuture(response));
+                  listPATCHFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
+                    response200PATCHFishingDock(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("patchFishingDock succeeded. "));
+                      eventHandler.handle(Future.succeededFuture(response));
+                    }).onFailure(ex -> {
+                      LOG.error(String.format("patchFishingDock failed. "), ex);
+                      error(siteRequest, eventHandler, ex);
+                    });
                   }).onFailure(ex -> {
                     LOG.error(String.format("patchFishingDock failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
-                }).onFailure(ex -> {
+                } catch(Exception ex) {
                   LOG.error(String.format("patchFishingDock failed. "), ex);
                   error(siteRequest, eventHandler, ex);
-                });
-              } catch(Exception ex) {
+                }
+              }).onFailure(ex -> {
                 LOG.error(String.format("patchFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              }
-            }).onFailure(ex -> {
-              LOG.error(String.format("patchFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("patchFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("patchFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("patchFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -589,6 +578,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         siteRequest.setJsonObject(body);
         serviceRequest.getParams().getJsonObject("query").put("rows", 1);
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
@@ -808,14 +798,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlCreated());
             break;
-          case "setLocation":
-              o2.setLocation(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishingDock.VAR_location + "=$" + num);
-              num++;
-              bParams.add(o2.sqlLocation());
-            break;
           case "setTimeZone":
             Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
               futures1.add(Future.future(promise2 -> {
@@ -846,6 +828,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 });
               }));
             });
+            break;
+          case "setLocation":
+              o2.setLocation(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_location + "=$" + num);
+              num++;
+              bParams.add(o2.sqlLocation());
             break;
           case "setId":
               o2.setId(jsonObject.getString(entityVar));
@@ -879,14 +869,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               num++;
               bParams.add(o2.sqlNgsildTenant());
             break;
-          case "setNgsildPath":
-              o2.setNgsildPath(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishingDock.VAR_ngsildPath + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildPath());
-            break;
           case "setAreaServed":
               o2.setAreaServed(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -894,6 +876,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishingDock.VAR_areaServed, num));
               num++;
               bParams.add(o2.sqlAreaServed());
+            break;
+          case "setNgsildPath":
+              o2.setNgsildPath(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishingDock.VAR_ngsildPath + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNgsildPath());
             break;
           case "setNgsildContext":
               o2.setNgsildContext(jsonObject.getString(entityVar));
@@ -1073,90 +1063,96 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     LOG.debug(String.format("postFishingDock started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "POST"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            ApiRequest apiRequest = new ApiRequest();
-            apiRequest.setRows(1L);
-            apiRequest.setNumFound(1L);
-            apiRequest.setNumPATCH(0L);
-            apiRequest.initDeepApiRequest(siteRequest);
-            siteRequest.setApiRequest_(apiRequest);
-            eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
-            JsonObject params = new JsonObject();
-            params.put("body", siteRequest.getJsonObject());
-            params.put("path", new JsonObject());
-            params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
-            params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
-            params.put("form", new JsonObject());
-            JsonObject query = new JsonObject();
-            Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
-            Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
-            if(softCommit == null && commitWithin == null)
-              softCommit = true;
-            if(softCommit != null)
-              query.put("softCommit", softCommit);
-            if(commitWithin != null)
-              query.put("commitWithin", commitWithin);
-            params.put("query", query);
-            JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
-            JsonObject json = new JsonObject().put("context", context);
-            eventBus.request(FishingDock.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFishingDockFuture")).onSuccess(a -> {
-              JsonObject responseMessage = (JsonObject)a.body();
-              JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
-              apiRequest.setSolrId(responseBody.getString(FishingDock.VAR_solrId));
-              eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
-              LOG.debug(String.format("postFishingDock succeeded. "));
-            }).onFailure(ex -> {
-              LOG.error(String.format("postFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "POST"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              ApiRequest apiRequest = new ApiRequest();
+              apiRequest.setRows(1L);
+              apiRequest.setNumFound(1L);
+              apiRequest.setNumPATCH(0L);
+              apiRequest.initDeepApiRequest(siteRequest);
+              siteRequest.setApiRequest_(apiRequest);
+              eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+              JsonObject params = new JsonObject();
+              params.put("body", siteRequest.getJsonObject());
+              params.put("path", new JsonObject());
+              params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
+              params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
+              params.put("form", new JsonObject());
+              JsonObject query = new JsonObject();
+              Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
+              Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
+              if(softCommit == null && commitWithin == null)
+                softCommit = true;
+              if(softCommit != null)
+                query.put("softCommit", softCommit);
+              if(commitWithin != null)
+                query.put("commitWithin", commitWithin);
+              params.put("query", query);
+              JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
+              JsonObject json = new JsonObject().put("context", context);
+              eventBus.request(FishingDock.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFishingDockFuture")).onSuccess(a -> {
+                JsonObject responseMessage = (JsonObject)a.body();
+                JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
+                apiRequest.setSolrId(responseBody.getString(FishingDock.VAR_solrId));
+                eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
+                LOG.debug(String.format("postFishingDock succeeded. "));
+              }).onFailure(ex -> {
+                LOG.error(String.format("postFishingDock failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("postFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("postFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("postFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1188,6 +1184,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
           scopes.stream().map(v -> v.toString()).forEach(scope -> {
             siteRequest.addScopes(scope);
@@ -1392,15 +1389,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlCreated());
             break;
-          case FishingDock.VAR_location:
-            o2.setLocation(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishingDock.VAR_location + "=$" + num);
-            num++;
-            bParams.add(o2.sqlLocation());
-            break;
           case FishingDock.VAR_timeZone:
             Optional.ofNullable(jsonObject.getString(entityVar)).ifPresent(val -> {
               futures1.add(Future.future(promise2 -> {
@@ -1420,6 +1408,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 });
               }));
             });
+            break;
+          case FishingDock.VAR_location:
+            o2.setLocation(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_location + "=$" + num);
+            num++;
+            bParams.add(o2.sqlLocation());
             break;
           case FishingDock.VAR_id:
             o2.setId(jsonObject.getString(entityVar));
@@ -1457,15 +1454,6 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             num++;
             bParams.add(o2.sqlNgsildTenant());
             break;
-          case FishingDock.VAR_ngsildPath:
-            o2.setNgsildPath(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishingDock.VAR_ngsildPath + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildPath());
-            break;
           case FishingDock.VAR_areaServed:
             o2.setAreaServed(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1474,6 +1462,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             bSql.append(FishingDock.VAR_areaServed + "=$" + num);
             num++;
             bParams.add(o2.sqlAreaServed());
+            break;
+          case FishingDock.VAR_ngsildPath:
+            o2.setNgsildPath(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishingDock.VAR_ngsildPath + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNgsildPath());
             break;
           case FishingDock.VAR_ngsildContext:
             o2.setNgsildContext(jsonObject.getString(entityVar));
@@ -1666,88 +1663,94 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     LOG.debug(String.format("deleteFishingDock started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
-              try {
-                ApiRequest apiRequest = new ApiRequest();
-                apiRequest.setRows(listFishingDock.getRequest().getRows());
-                apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
-                apiRequest.setNumPATCH(0L);
-                apiRequest.initDeepApiRequest(siteRequest);
-                siteRequest.setApiRequest_(apiRequest);
-                if(apiRequest.getNumFound() == 1L)
-                  apiRequest.setOriginal(listFishingDock.first());
-                apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
-                eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
+                try {
+                  ApiRequest apiRequest = new ApiRequest();
+                  apiRequest.setRows(listFishingDock.getRequest().getRows());
+                  apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
+                  apiRequest.setNumPATCH(0L);
+                  apiRequest.initDeepApiRequest(siteRequest);
+                  siteRequest.setApiRequest_(apiRequest);
+                  if(apiRequest.getNumFound() == 1L)
+                    apiRequest.setOriginal(listFishingDock.first());
+                  apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+                  eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 
-                listDELETEFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
-                  response200DELETEFishingDock(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("deleteFishingDock succeeded. "));
-                    eventHandler.handle(Future.succeededFuture(response));
+                  listDELETEFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
+                    response200DELETEFishingDock(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("deleteFishingDock succeeded. "));
+                      eventHandler.handle(Future.succeededFuture(response));
+                    }).onFailure(ex -> {
+                      LOG.error(String.format("deleteFishingDock failed. "), ex);
+                      error(siteRequest, eventHandler, ex);
+                    });
                   }).onFailure(ex -> {
                     LOG.error(String.format("deleteFishingDock failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
-                }).onFailure(ex -> {
+                } catch(Exception ex) {
                   LOG.error(String.format("deleteFishingDock failed. "), ex);
                   error(siteRequest, eventHandler, ex);
-                });
-              } catch(Exception ex) {
+                }
+              }).onFailure(ex -> {
                 LOG.error(String.format("deleteFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              }
-            }).onFailure(ex -> {
-              LOG.error(String.format("deleteFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("deleteFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("deleteFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("deleteFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -1823,6 +1826,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         siteRequest.setJsonObject(body);
         serviceRequest.getParams().getJsonObject("query").put("rows", 1);
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
@@ -2046,62 +2050,68 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     LOG.debug(String.format("putimportFishingDock started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            ApiRequest apiRequest = new ApiRequest();
-            JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
-            apiRequest.setRows(Long.valueOf(jsonArray.size()));
-            apiRequest.setNumFound(Long.valueOf(jsonArray.size()));
-            apiRequest.setNumPATCH(0L);
-            apiRequest.initDeepApiRequest(siteRequest);
-            siteRequest.setApiRequest_(apiRequest);
-            eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
-            varsFishingDock(siteRequest).onSuccess(d -> {
-              listPUTImportFishingDock(apiRequest, siteRequest).onSuccess(e -> {
-                response200PUTImportFishingDock(siteRequest).onSuccess(response -> {
-                  LOG.debug(String.format("putimportFishingDock succeeded. "));
-                  eventHandler.handle(Future.succeededFuture(response));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              ApiRequest apiRequest = new ApiRequest();
+              JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
+              apiRequest.setRows(Long.valueOf(jsonArray.size()));
+              apiRequest.setNumFound(Long.valueOf(jsonArray.size()));
+              apiRequest.setNumPATCH(0L);
+              apiRequest.initDeepApiRequest(siteRequest);
+              siteRequest.setApiRequest_(apiRequest);
+              eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+              varsFishingDock(siteRequest).onSuccess(d -> {
+                listPUTImportFishingDock(apiRequest, siteRequest).onSuccess(e -> {
+                  response200PUTImportFishingDock(siteRequest).onSuccess(response -> {
+                    LOG.debug(String.format("putimportFishingDock succeeded. "));
+                    eventHandler.handle(Future.succeededFuture(response));
+                  }).onFailure(ex -> {
+                    LOG.error(String.format("putimportFishingDock failed. "), ex);
+                    error(siteRequest, eventHandler, ex);
+                  });
                 }).onFailure(ex -> {
                   LOG.error(String.format("putimportFishingDock failed. "), ex);
                   error(siteRequest, eventHandler, ex);
@@ -2110,16 +2120,16 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 LOG.error(String.format("putimportFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("putimportFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("putimportFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("putimportFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("putimportFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -2198,6 +2208,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
           scopes.stream().map(v -> v.toString()).forEach(scope -> {
             siteRequest.addScopes(scope);
@@ -2370,55 +2381,61 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
   public void searchpageFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
-              response200SearchPageFishingDock(listFishingDock).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("searchpageFishingDock succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+                response200SearchPageFishingDock(listFishingDock).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchpageFishingDock succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchpageFishingDock failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("searchpageFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
-            }).onFailure(ex -> {
-              LOG.error(String.format("searchpageFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("searchpageFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("searchpageFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchpageFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -2446,6 +2463,20 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
   }
 
   public void searchpageFishingDockPageInit(JsonObject ctx, FishingDockPage page, SearchList<FishingDock> listFishingDock, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fishing-dock"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fishing-dock"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
     promise.complete();
   }
 
@@ -2540,56 +2571,62 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
   public void editpageFishingDock(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "GET"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
-              response200EditPageFishingDock(listFishingDock).onSuccess(response -> {
-                eventHandler.handle(Future.succeededFuture(response));
-                LOG.debug(String.format("editpageFishingDock succeeded. "));
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s-%s#%s", FishingDock.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+              , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+              , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+              )
+              .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+              .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+              .sendForm(form)
+              .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFishingDockList(siteRequest, false, true, false).onSuccess(listFishingDock -> {
+                response200EditPageFishingDock(listFishingDock).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("editpageFishingDock succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("editpageFishingDock failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
               }).onFailure(ex -> {
                 LOG.error(String.format("editpageFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              });
-            }).onFailure(ex -> {
-              LOG.error(String.format("editpageFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
             });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("editpageFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("editpageFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("editpageFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -2617,6 +2654,21 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
   }
 
   public void editpageFishingDockPageInit(JsonObject ctx, FishingDockPage page, SearchList<FishingDock> listFishingDock, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fishing-dock"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
     promise.complete();
   }
 
@@ -2712,88 +2764,94 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     LOG.debug(String.format("deletefilterFishingDock started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
-      String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-      String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
-      MultiMap form = MultiMap.caseInsensitiveMultiMap();
-      form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-      form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
-      form.add("response_mode", "permissions");
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
-      form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
-      if(entityShortId != null)
-        form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
-      webClient.post(
-          config.getInteger(ComputateConfigKeys.AUTH_PORT)
-          , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
-          , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
-          )
-          .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
-          .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
-          .sendForm(form)
-          .expecting(HttpResponseExpectation.SC_OK)
-      .onComplete(authorizationDecisionResponse -> {
-        try {
-          HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-          JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
-          if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
-            String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
-            eventHandler.handle(Future.succeededFuture(
-              new ServiceResponse(403, "FORBIDDEN",
-                Buffer.buffer().appendString(
-                  new JsonObject()
-                    .put("errorCode", "403")
-                    .put("errorMessage", msg)
-                    .encodePrettily()
-                  ), MultiMap.caseInsensitiveMultiMap()
-              )
-            ));
-          } else {
-            siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
-            List<String> scopes2 = siteRequest.getScopes();
-            searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
-              try {
-                ApiRequest apiRequest = new ApiRequest();
-                apiRequest.setRows(listFishingDock.getRequest().getRows());
-                apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
-                apiRequest.setNumPATCH(0L);
-                apiRequest.initDeepApiRequest(siteRequest);
-                siteRequest.setApiRequest_(apiRequest);
-                if(apiRequest.getNumFound() == 1L)
-                  apiRequest.setOriginal(listFishingDock.first());
-                apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
-                eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FISHINGDOCK = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGDOCK");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", FishingDock.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
+              String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
+              eventHandler.handle(Future.succeededFuture(
+                new ServiceResponse(403, "FORBIDDEN",
+                  Buffer.buffer().appendString(
+                    new JsonObject()
+                      .put("errorCode", "403")
+                      .put("errorMessage", msg)
+                      .encodePrettily()
+                    ), MultiMap.caseInsensitiveMultiMap()
+                )
+              ));
+            } else {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFishingDockList(siteRequest, false, true, true).onSuccess(listFishingDock -> {
+                try {
+                  ApiRequest apiRequest = new ApiRequest();
+                  apiRequest.setRows(listFishingDock.getRequest().getRows());
+                  apiRequest.setNumFound(listFishingDock.getResponse().getResponse().getNumFound());
+                  apiRequest.setNumPATCH(0L);
+                  apiRequest.initDeepApiRequest(siteRequest);
+                  siteRequest.setApiRequest_(apiRequest);
+                  if(apiRequest.getNumFound() == 1L)
+                    apiRequest.setOriginal(listFishingDock.first());
+                  apiRequest.setSolrId(Optional.ofNullable(listFishingDock.first()).map(o2 -> o2.getSolrId()).orElse(null));
+                  eventBus.publish("websocketFishingDock", JsonObject.mapFrom(apiRequest).toString());
 
-                listDELETEFilterFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
-                  response200DELETEFilterFishingDock(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("deletefilterFishingDock succeeded. "));
-                    eventHandler.handle(Future.succeededFuture(response));
+                  listDELETEFilterFishingDock(apiRequest, listFishingDock).onSuccess(e -> {
+                    response200DELETEFilterFishingDock(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("deletefilterFishingDock succeeded. "));
+                      eventHandler.handle(Future.succeededFuture(response));
+                    }).onFailure(ex -> {
+                      LOG.error(String.format("deletefilterFishingDock failed. "), ex);
+                      error(siteRequest, eventHandler, ex);
+                    });
                   }).onFailure(ex -> {
                     LOG.error(String.format("deletefilterFishingDock failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
-                }).onFailure(ex -> {
+                } catch(Exception ex) {
                   LOG.error(String.format("deletefilterFishingDock failed. "), ex);
                   error(siteRequest, eventHandler, ex);
-                });
-              } catch(Exception ex) {
+                }
+              }).onFailure(ex -> {
                 LOG.error(String.format("deletefilterFishingDock failed. "), ex);
                 error(siteRequest, eventHandler, ex);
-              }
-            }).onFailure(ex -> {
-              LOG.error(String.format("deletefilterFishingDock failed. "), ex);
-              error(siteRequest, eventHandler, ex);
-            });
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("deletefilterFishingDock failed. "), ex);
+            error(null, eventHandler, ex);
           }
-        } catch(Exception ex) {
-          LOG.error(String.format("deletefilterFishingDock failed. "), ex);
-          error(null, eventHandler, ex);
-        }
-      });
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("deletefilterFishingDock failed. "), ex);
+        error(null, eventHandler, ex);
+      }
     }).onFailure(ex -> {
       if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
         try {
@@ -2869,6 +2927,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
+        siteRequest.setLang("enUS");
         siteRequest.setJsonObject(body);
         serviceRequest.getParams().getJsonObject("query").put("rows", 1);
         Optional.ofNullable(serviceRequest.getParams().getJsonArray("scopes")).ifPresent(scopes -> {
@@ -3410,7 +3469,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, address, description, created, location, timeZone, id, archived, entityShortId, ngsildTenant, ngsildPath, ST_AsGeoJSON(areaServed) as areaServed, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishingDock WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, created, timeZone, location, id, archived, entityShortId, ngsildTenant, ST_AsGeoJSON(areaServed) as areaServed, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishingDock WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3804,14 +3863,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       page.persistForClass(FishingDock.VAR_address, FishingDock.staticSetAddress(siteRequest2, (String)result.get(FishingDock.VAR_address)));
       page.persistForClass(FishingDock.VAR_description, FishingDock.staticSetDescription(siteRequest2, (String)result.get(FishingDock.VAR_description)));
       page.persistForClass(FishingDock.VAR_created, FishingDock.staticSetCreated(siteRequest2, (String)result.get(FishingDock.VAR_created), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
-      page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
       page.persistForClass(FishingDock.VAR_timeZone, FishingDock.staticSetTimeZone(siteRequest2, (String)result.get(FishingDock.VAR_timeZone)));
+      page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
       page.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));
       page.persistForClass(FishingDock.VAR_archived, FishingDock.staticSetArchived(siteRequest2, (String)result.get(FishingDock.VAR_archived)));
       page.persistForClass(FishingDock.VAR_entityShortId, FishingDock.staticSetEntityShortId(siteRequest2, (String)result.get(FishingDock.VAR_entityShortId)));
       page.persistForClass(FishingDock.VAR_ngsildTenant, FishingDock.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingDock.VAR_ngsildTenant)));
-      page.persistForClass(FishingDock.VAR_ngsildPath, FishingDock.staticSetNgsildPath(siteRequest2, (String)result.get(FishingDock.VAR_ngsildPath)));
       page.persistForClass(FishingDock.VAR_areaServed, FishingDock.staticSetAreaServed(siteRequest2, (String)result.get(FishingDock.VAR_areaServed)));
+      page.persistForClass(FishingDock.VAR_ngsildPath, FishingDock.staticSetNgsildPath(siteRequest2, (String)result.get(FishingDock.VAR_ngsildPath)));
       page.persistForClass(FishingDock.VAR_ngsildContext, FishingDock.staticSetNgsildContext(siteRequest2, (String)result.get(FishingDock.VAR_ngsildContext)));
       page.persistForClass(FishingDock.VAR_sessionId, FishingDock.staticSetSessionId(siteRequest2, (String)result.get(FishingDock.VAR_sessionId)));
       page.persistForClass(FishingDock.VAR_ngsildData, FishingDock.staticSetNgsildData(siteRequest2, (String)result.get(FishingDock.VAR_ngsildData)));

@@ -1,3 +1,16 @@
+/*
+ * Copyright Computate Limited Liability Company in Utah, USA. 
+ * SPDX-License-Identifier: AGPL-3.0
+ * This program and the accompanying materials are made available under the
+ * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
+ * 
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You may not propagate or modify a covered work except as expressly provided 
+ * under this License. Any attempt otherwise to propagate or modify it is void, 
+ * and will automatically terminate your rights under this License (including 
+ * any patent licenses granted under the third paragraph of section 11).
+ */
 package org.computate.smartaquaculture.model.fiware.feeder;
 
 import org.computate.smartaquaculture.request.SiteRequest;
@@ -101,11 +114,11 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>This class contains a comment <b>"Rows: 100"</b>, which means the Feeder API will return a default of 100 records instead of 10 by default. 
  * Each API has built in pagination of the search records to ensure a user can query all the data a page at a time without running the application out of memory. 
  * </p>
- * <h2>Order: 1</h2>
- * <p>This class contains a comment <b>"Order: 1"</b>, which means this class will be sorted by the given number 1 ascending when code that relates to multiple classes at the same time is generated. 
+ * <h2>Order: 12</h2>
+ * <p>This class contains a comment <b>"Order: 12"</b>, which means this class will be sorted by the given number 12 ascending when code that relates to multiple classes at the same time is generated. 
  * </p>
- * <h2>SqlOrder: 1</h2>
- * <p>This class contains a comment <b>"SqlOrder: 1"</b>, which means this class will be sorted by the given number 1 ascending when SQL code to create and drop the tables is generated. 
+ * <h2>SqlOrder: 12</h2>
+ * <p>This class contains a comment <b>"SqlOrder: 12"</b>, which means this class will be sorted by the given number 12 ascending when SQL code to create and drop the tables is generated. 
  * </p>
  * <h2>Model: true</h2>
  * <p>This class contains a comment <b>"Model: true"</b>, which means this class will be stored in the database. 
@@ -3040,7 +3053,7 @@ public abstract class FeederGen<DEV> extends BaseModel {
 
   @Override
   public String enUSStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/en-us/edit/feeder/%s";
   }
 
   @Override

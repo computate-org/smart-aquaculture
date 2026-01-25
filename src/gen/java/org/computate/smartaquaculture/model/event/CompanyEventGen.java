@@ -1,3 +1,16 @@
+/*
+ * Copyright Computate Limited Liability Company in Utah, USA. 
+ * SPDX-License-Identifier: AGPL-3.0
+ * This program and the accompanying materials are made available under the
+ * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
+ * 
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You may not propagate or modify a covered work except as expressly provided 
+ * under this License. Any attempt otherwise to propagate or modify it is void, 
+ * and will automatically terminate your rights under this License (including 
+ * any patent licenses granted under the third paragraph of section 11).
+ */
 package org.computate.smartaquaculture.model.event;
 
 import org.computate.smartaquaculture.request.SiteRequest;
@@ -110,11 +123,11 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>By adding a class comment "{@inheritDoc}", the CompanyEvent class will inherit the helpful inherited class comments from the super class CompanyEventGen. 
  * </p>
  * <h2>Rows: null</h2>
- * <h2>Order: 11</h2>
- * <p>This class contains a comment <b>"Order: 11"</b>, which means this class will be sorted by the given number 11 ascending when code that relates to multiple classes at the same time is generated. 
+ * <h2>Order: 2</h2>
+ * <p>This class contains a comment <b>"Order: 2"</b>, which means this class will be sorted by the given number 2 ascending when code that relates to multiple classes at the same time is generated. 
  * </p>
- * <h2>SqlOrder: 11</h2>
- * <p>This class contains a comment <b>"SqlOrder: 11"</b>, which means this class will be sorted by the given number 11 ascending when SQL code to create and drop the tables is generated. 
+ * <h2>SqlOrder: 2</h2>
+ * <p>This class contains a comment <b>"SqlOrder: 2"</b>, which means this class will be sorted by the given number 2 ascending when SQL code to create and drop the tables is generated. 
  * </p>
  * <h2>Model: true</h2>
  * <h2>Page: true</h2>
@@ -1996,7 +2009,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
 
   @Override
   public String enUSStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/en-us/edit/event/%s";
   }
 
   @Override
@@ -2006,7 +2019,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
 
   @Override
   public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
+    return "%s/en-us/shop/event/%s";
   }
 
   @Override
@@ -2016,7 +2029,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
 
   @Override
   public String enUSStringFormatUrlUserPageForClass() {
-    return null;
+    return "%s/en-us/use/event/%s";
   }
 
   @Override

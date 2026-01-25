@@ -1,3 +1,16 @@
+/*
+ * Copyright Computate Limited Liability Company in Utah, USA. 
+ * SPDX-License-Identifier: AGPL-3.0
+ * This program and the accompanying materials are made available under the
+ * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
+ * 
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You may not propagate or modify a covered work except as expressly provided 
+ * under this License. Any attempt otherwise to propagate or modify it is void, 
+ * and will automatically terminate your rights under this License (including 
+ * any patent licenses granted under the third paragraph of section 11).
+ */
 package org.computate.smartaquaculture.model.fiware.fishingboat;
 
 import java.math.BigDecimal;
@@ -11,7 +24,7 @@ import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import io.vertx.pgclient.data.Path;
 
 /**
- * Order: 12
+ * Order: 7
  * Description.enUS: A fishing boat that catches fish from a fish population and returns the fish to a dock. 
  * Description.frFR: Un bateau de pêche qui attrape des poissons d'une population de poissons et ramène les poissons à un quai.
  * AName.enUS: a fishing boat

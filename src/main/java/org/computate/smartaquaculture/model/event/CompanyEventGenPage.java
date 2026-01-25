@@ -1,3 +1,16 @@
+/*
+ * Copyright Computate Limited Liability Company in Utah, USA. 
+ * SPDX-License-Identifier: AGPL-3.0
+ * This program and the accompanying materials are made available under the
+ * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
+ * 
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You may not propagate or modify a covered work except as expressly provided 
+ * under this License. Any attempt otherwise to propagate or modify it is void, 
+ * and will automatically terminate your rights under this License (including 
+ * any patent licenses granted under the third paragraph of section 11).
+ */
 package org.computate.smartaquaculture.model.event;
 
 import org.computate.smartaquaculture.model.event.CompanyEvent;
@@ -526,13 +539,14 @@ public class CompanyEventGenPage extends CompanyEventGenPageGen<PageLayout> {
   }
 
   @Override
-  protected void _pageUri(Wrap<String> c) {
-    c.o("/en-us/search/event");
+  protected void _pageUri(Wrap<String> w) {
+    if("enUS".equals(lang))
+      w.o("/en-us/search/event");
   }
 
   @Override
-  protected void _apiUri(Wrap<String> c) {
-    c.o("/en-us/api/event");
+  protected void _apiUri(Wrap<String> w) {
+    w.o("/en-us/api/event");
   }
 
   @Override
