@@ -103,6 +103,8 @@ import io.vertx.core.json.JsonArray;
  **/
 public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
   protected static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+
+  public static final String SITE_NAME = "smart-aquaculture";
   public static final String authorizeDataFail1 = "Adding Keycloak authorization resources, policies, and permissions failed. ";
   public static final String authorizeDataFail = authorizeDataFail1;
 

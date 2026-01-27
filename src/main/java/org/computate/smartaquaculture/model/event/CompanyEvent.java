@@ -30,6 +30,9 @@ import io.vertx.pgclient.data.Point;
  * AName: an event
  * Icon: <i class="fa-duotone fa-regular fa-map-location-dot"></i>
  * Sort.desc: startDateTime
+ * MenuDetails.enUS: info
+ * MenuDetails.frFR: info
+ * MenuDetailsOpen: true
  * 
  * PublicRead: true
  * SearchPageUri: /en-us/search/event
