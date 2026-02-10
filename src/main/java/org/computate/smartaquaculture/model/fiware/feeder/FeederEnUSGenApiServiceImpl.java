@@ -258,7 +258,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -400,7 +400,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200GETFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -544,7 +544,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listPATCHFeeder failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -555,18 +555,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPATCHFeeder failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listPATCHFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listPATCHFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -670,22 +670,22 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
                       }
                       promise2.complete(feeder);
                     }).onFailure(ex -> {
-                      promise2.fail(ex);
+                      promise2.tryFail(ex);
                     });
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise2.fail(ex);
+                promise2.tryFail(ex);
               });
               return promise2.future();
             }).onSuccess(o2 -> {
               promise1.complete(o2);
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           } else {
             sqlPATCHFeeder(o, inheritPrimaryKey).onSuccess(feeder -> {
@@ -702,43 +702,43 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
                     }
                     promise1.complete(feeder);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feeder -> {
         Promise<Feeder> promise2 = Promise.promise();
         refreshFeeder(feeder).onSuccess(a -> {
           promise2.complete(feeder);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feeder -> {
         promise.complete(feeder);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("patchFeederFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -780,14 +780,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDescription());
             break;
-          case "setCreated":
-              o2.setCreated(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feeder.VAR_created + "=$" + num);
-              num++;
-              bParams.add(o2.sqlCreated());
-            break;
           case "setLocation":
               o2.setLocation(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -795,6 +787,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               bSql.append(Feeder.VAR_location + "=$" + num);
               num++;
               bParams.add(o2.sqlLocation());
+            break;
+          case "setCreated":
+              o2.setCreated(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feeder.VAR_created + "=$" + num);
+              num++;
+              bParams.add(o2.sqlCreated());
             break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
@@ -828,14 +828,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlSessionId());
             break;
-          case "setUserKey":
-              o2.setUserKey(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feeder.VAR_userKey + "=$" + num);
-              num++;
-              bParams.add(o2.sqlUserKey());
-            break;
           case "setNgsildTenant":
               o2.setNgsildTenant(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -843,6 +835,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
               num++;
               bParams.add(o2.sqlNgsildTenant());
+            break;
+          case "setUserKey":
+              o2.setUserKey(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feeder.VAR_userKey + "=$" + num);
+              num++;
+              bParams.add(o2.sqlUserKey());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -860,14 +860,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlNgsildContext());
             break;
-          case "setObjectTitle":
-              o2.setObjectTitle(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feeder.VAR_objectTitle + "=$" + num);
-              num++;
-              bParams.add(o2.sqlObjectTitle());
-            break;
           case "setNgsildData":
               o2.setNgsildData(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -876,13 +868,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlNgsildData());
             break;
-          case "setDisplayPage":
-              o2.setDisplayPage(jsonObject.getString(entityVar));
+          case "setObjectTitle":
+              o2.setObjectTitle(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_displayPage + "=$" + num);
+              bSql.append(Feeder.VAR_objectTitle + "=$" + num);
               num++;
-              bParams.add(o2.sqlDisplayPage());
+              bParams.add(o2.sqlObjectTitle());
             break;
           case "setAddress":
               o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -892,13 +884,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlAddress());
             break;
-          case "setDisplayPageFrFR":
-              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+          case "setDisplayPage":
+              o2.setDisplayPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_displayPageFrFR + "=$" + num);
+              bSql.append(Feeder.VAR_displayPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlDisplayPageFrFR());
+              bParams.add(o2.sqlDisplayPage());
             break;
           case "setAlternateName":
               o2.setAlternateName(jsonObject.getString(entityVar));
@@ -908,13 +900,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlAlternateName());
             break;
-          case "setEditPage":
-              o2.setEditPage(jsonObject.getString(entityVar));
+          case "setDisplayPageFrFR":
+              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_editPage + "=$" + num);
+              bSql.append(Feeder.VAR_displayPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlEditPage());
+              bParams.add(o2.sqlDisplayPageFrFR());
             break;
           case "setDataProvider":
               o2.setDataProvider(jsonObject.getString(entityVar));
@@ -924,13 +916,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDataProvider());
             break;
-          case "setEditPageFrFR":
-              o2.setEditPageFrFR(jsonObject.getString(entityVar));
+          case "setEditPage":
+              o2.setEditPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_editPageFrFR + "=$" + num);
+              bSql.append(Feeder.VAR_editPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlEditPageFrFR());
+              bParams.add(o2.sqlEditPage());
             break;
           case "setDateCreated":
               o2.setDateCreated(jsonObject.getString(entityVar));
@@ -940,13 +932,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDateCreated());
             break;
-          case "setUserPage":
-              o2.setUserPage(jsonObject.getString(entityVar));
+          case "setEditPageFrFR":
+              o2.setEditPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_userPage + "=$" + num);
+              bSql.append(Feeder.VAR_editPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlUserPage());
+              bParams.add(o2.sqlEditPageFrFR());
             break;
           case "setDateModified":
               o2.setDateModified(jsonObject.getString(entityVar));
@@ -956,13 +948,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDateModified());
             break;
-          case "setUserPageFrFR":
-              o2.setUserPageFrFR(jsonObject.getString(entityVar));
+          case "setUserPage":
+              o2.setUserPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_userPageFrFR + "=$" + num);
+              bSql.append(Feeder.VAR_userPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlUserPageFrFR());
+              bParams.add(o2.sqlUserPage());
             break;
           case "setOwner":
               o2.setOwner(jsonObject.getJsonObject(entityVar));
@@ -972,13 +964,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlOwner());
             break;
-          case "setDownload":
-              o2.setDownload(jsonObject.getString(entityVar));
+          case "setUserPageFrFR":
+              o2.setUserPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_download + "=$" + num);
+              bSql.append(Feeder.VAR_userPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlDownload());
+              bParams.add(o2.sqlUserPageFrFR());
             break;
           case "setRelatedSource":
               o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
@@ -988,13 +980,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlRelatedSource());
             break;
-          case "setDownloadFrFR":
-              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+          case "setDownload":
+              o2.setDownload(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_downloadFrFR + "=$" + num);
+              bSql.append(Feeder.VAR_download + "=$" + num);
               num++;
-              bParams.add(o2.sqlDownloadFrFR());
+              bParams.add(o2.sqlDownload());
             break;
           case "setSeeAlso":
               o2.setSeeAlso(jsonObject.getString(entityVar));
@@ -1003,6 +995,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               bSql.append(Feeder.VAR_seeAlso + "=$" + num);
               num++;
               bParams.add(o2.sqlSeeAlso());
+            break;
+          case "setDownloadFrFR":
+              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feeder.VAR_downloadFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDownloadFrFR());
             break;
           case "setSource":
               o2.setSource(jsonObject.getString(entityVar));
@@ -1038,15 +1038,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise.complete(o3);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPATCHFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPATCHFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPATCHFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1066,7 +1066,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1264,29 +1264,29 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
                   indexFeeder(feeder).onSuccess(o2 -> {
                     promise1.complete(feeder);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feeder -> {
         Promise<Feeder> promise2 = Promise.promise();
         refreshFeeder(feeder).onSuccess(a -> {
@@ -1300,10 +1300,10 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             promise2.complete(feeder);
           } catch(Exception ex) {
             LOG.error(String.format("postFeederFuture failed. "), ex);
-            promise2.fail(ex);
+            promise2.tryFail(ex);
           }
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feeder -> {
@@ -1317,14 +1317,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise.complete(feeder);
         } catch(Exception ex) {
           LOG.error(String.format("postFeederFuture failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("postFeederFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1386,15 +1386,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDescription());
             break;
-          case Feeder.VAR_created:
-            o2.setCreated(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feeder.VAR_created + "=$" + num);
-            num++;
-            bParams.add(o2.sqlCreated());
-            break;
           case Feeder.VAR_location:
             o2.setLocation(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1403,6 +1394,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             bSql.append(Feeder.VAR_location + "=$" + num);
             num++;
             bParams.add(o2.sqlLocation());
+            break;
+          case Feeder.VAR_created:
+            o2.setCreated(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feeder.VAR_created + "=$" + num);
+            num++;
+            bParams.add(o2.sqlCreated());
             break;
           case Feeder.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
@@ -1440,15 +1440,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case Feeder.VAR_userKey:
-            o2.setUserKey(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feeder.VAR_userKey + "=$" + num);
-            num++;
-            bParams.add(o2.sqlUserKey());
-            break;
           case Feeder.VAR_ngsildTenant:
             o2.setNgsildTenant(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1457,6 +1448,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
             num++;
             bParams.add(o2.sqlNgsildTenant());
+            break;
+          case Feeder.VAR_userKey:
+            o2.setUserKey(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feeder.VAR_userKey + "=$" + num);
+            num++;
+            bParams.add(o2.sqlUserKey());
             break;
           case Feeder.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1476,15 +1476,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlNgsildContext());
             break;
-          case Feeder.VAR_objectTitle:
-            o2.setObjectTitle(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feeder.VAR_objectTitle + "=$" + num);
-            num++;
-            bParams.add(o2.sqlObjectTitle());
-            break;
           case Feeder.VAR_ngsildData:
             o2.setNgsildData(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1494,14 +1485,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlNgsildData());
             break;
-          case Feeder.VAR_displayPage:
-            o2.setDisplayPage(jsonObject.getString(entityVar));
+          case Feeder.VAR_objectTitle:
+            o2.setObjectTitle(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_displayPage + "=$" + num);
+            bSql.append(Feeder.VAR_objectTitle + "=$" + num);
             num++;
-            bParams.add(o2.sqlDisplayPage());
+            bParams.add(o2.sqlObjectTitle());
             break;
           case Feeder.VAR_address:
             o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -1512,14 +1503,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlAddress());
             break;
-          case Feeder.VAR_displayPageFrFR:
-            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+          case Feeder.VAR_displayPage:
+            o2.setDisplayPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_displayPageFrFR + "=$" + num);
+            bSql.append(Feeder.VAR_displayPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlDisplayPageFrFR());
+            bParams.add(o2.sqlDisplayPage());
             break;
           case Feeder.VAR_alternateName:
             o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1530,14 +1521,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlAlternateName());
             break;
-          case Feeder.VAR_editPage:
-            o2.setEditPage(jsonObject.getString(entityVar));
+          case Feeder.VAR_displayPageFrFR:
+            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_editPage + "=$" + num);
+            bSql.append(Feeder.VAR_displayPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlEditPage());
+            bParams.add(o2.sqlDisplayPageFrFR());
             break;
           case Feeder.VAR_dataProvider:
             o2.setDataProvider(jsonObject.getString(entityVar));
@@ -1548,14 +1539,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDataProvider());
             break;
-          case Feeder.VAR_editPageFrFR:
-            o2.setEditPageFrFR(jsonObject.getString(entityVar));
+          case Feeder.VAR_editPage:
+            o2.setEditPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_editPageFrFR + "=$" + num);
+            bSql.append(Feeder.VAR_editPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlEditPageFrFR());
+            bParams.add(o2.sqlEditPage());
             break;
           case Feeder.VAR_dateCreated:
             o2.setDateCreated(jsonObject.getString(entityVar));
@@ -1566,14 +1557,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDateCreated());
             break;
-          case Feeder.VAR_userPage:
-            o2.setUserPage(jsonObject.getString(entityVar));
+          case Feeder.VAR_editPageFrFR:
+            o2.setEditPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_userPage + "=$" + num);
+            bSql.append(Feeder.VAR_editPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlUserPage());
+            bParams.add(o2.sqlEditPageFrFR());
             break;
           case Feeder.VAR_dateModified:
             o2.setDateModified(jsonObject.getString(entityVar));
@@ -1584,14 +1575,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDateModified());
             break;
-          case Feeder.VAR_userPageFrFR:
-            o2.setUserPageFrFR(jsonObject.getString(entityVar));
+          case Feeder.VAR_userPage:
+            o2.setUserPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_userPageFrFR + "=$" + num);
+            bSql.append(Feeder.VAR_userPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlUserPageFrFR());
+            bParams.add(o2.sqlUserPage());
             break;
           case Feeder.VAR_owner:
             o2.setOwner(jsonObject.getJsonObject(entityVar));
@@ -1602,14 +1593,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlOwner());
             break;
-          case Feeder.VAR_download:
-            o2.setDownload(jsonObject.getString(entityVar));
+          case Feeder.VAR_userPageFrFR:
+            o2.setUserPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_download + "=$" + num);
+            bSql.append(Feeder.VAR_userPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlDownload());
+            bParams.add(o2.sqlUserPageFrFR());
             break;
           case Feeder.VAR_relatedSource:
             o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
@@ -1620,14 +1611,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlRelatedSource());
             break;
-          case Feeder.VAR_downloadFrFR:
-            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+          case Feeder.VAR_download:
+            o2.setDownload(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_downloadFrFR + "=$" + num);
+            bSql.append(Feeder.VAR_download + "=$" + num);
             num++;
-            bParams.add(o2.sqlDownloadFrFR());
+            bParams.add(o2.sqlDownload());
             break;
           case Feeder.VAR_seeAlso:
             o2.setSeeAlso(jsonObject.getString(entityVar));
@@ -1637,6 +1628,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             bSql.append(Feeder.VAR_seeAlso + "=$" + num);
             num++;
             bParams.add(o2.sqlSeeAlso());
+            break;
+          case Feeder.VAR_downloadFrFR:
+            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feeder.VAR_downloadFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDownloadFrFR());
             break;
           case Feeder.VAR_source:
             o2.setSource(jsonObject.getString(entityVar));
@@ -1671,15 +1671,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise.complete(o2);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPOSTFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPOSTFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPOSTFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1700,7 +1700,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1843,7 +1843,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFeeder failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -1854,18 +1854,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFeeder failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -1949,39 +1949,39 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feeder -> {
         Promise<Feeder> promise2 = Promise.promise();
         refreshFeeder(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feeder -> {
         promise.complete(feeder);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deleteFeederFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2032,22 +2032,22 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2067,7 +2067,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2214,7 +2214,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             promise1.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPUTImportFeeder failed. "), ex);
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }));
       });
@@ -2223,11 +2223,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("listPUTImportFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("listPUTImportFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2399,7 +2399,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2509,19 +2509,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     promise.complete();
   }
 
-  public String templateSearchPageFeeder(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFeeder(ServiceRequest serviceRequest) {
     return "en-us/search/feeder/FeederSearchPage.htm";
+  }
+  public String templateSearchPageFeeder(ServiceRequest serviceRequest, Feeder result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriSearchPageFeeder(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFeeder failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200SearchPageFeeder(SearchList<Feeder> listFeeder) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateSearchPageFeeder(siteRequest.getServiceRequest());
-      if(listFeeder.size() == 0)
-        pageTemplateUri = templateSearchPageFeeder(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateSearchPageFeeder(siteRequest.getServiceRequest(), listFeeder.first());
       FeederPage page = new FeederPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2544,18 +2552,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200SearchPageFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2701,19 +2709,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     promise.complete();
   }
 
-  public String templateEditPageFeeder(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFeeder(ServiceRequest serviceRequest) {
     return "en-us/edit/feeder/FeederEditPage.htm";
+  }
+  public String templateEditPageFeeder(ServiceRequest serviceRequest, Feeder result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriEditPageFeeder(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFeeder failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200EditPageFeeder(SearchList<Feeder> listFeeder) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateEditPageFeeder(siteRequest.getServiceRequest());
-      if(listFeeder.size() == 0)
-        pageTemplateUri = templateSearchPageFeeder(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateEditPageFeeder(siteRequest.getServiceRequest(), listFeeder.first());
       FeederPage page = new FeederPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2736,18 +2752,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200EditPageFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200EditPageFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2924,7 +2940,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -2935,18 +2951,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFilterFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -3030,39 +3046,39 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feeder -> {
         Promise<Feeder> promise2 = Promise.promise();
         refreshFeeder(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feeder -> {
         promise.complete(feeder);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deletefilterFeederFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3113,22 +3129,22 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFilterFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3148,7 +3164,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3175,11 +3191,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error("createFeeder failed. ", ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("createFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3245,13 +3261,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           }
         } catch(Exception ex) {
           LOG.error(String.format("searchFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
       promise.complete();
     } catch(Exception ex) {
       LOG.error(String.format("searchFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3454,18 +3470,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             promise.complete(searchList);
           }).onFailure(ex -> {
             LOG.error(String.format("searchFeeder failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete(searchList);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("searchFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("searchFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3478,7 +3494,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, address, displayPageFrFR, alternateName, editPage, dataProvider, editPageFrFR, dateCreated, userPage, dateModified, userPageFrFR, owner, download, relatedSource, downloadFrFR, seeAlso, source FROM Feeder WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, location, created, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, address, displayPage, alternateName, displayPageFrFR, dataProvider, editPage, dateCreated, editPageFrFR, dateModified, userPage, owner, userPageFrFR, relatedSource, download, seeAlso, downloadFrFR, source FROM Feeder WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3502,27 +3518,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
                 promise.complete();
               }).onFailure(ex -> {
                 LOG.error(String.format("persistFeeder failed. "), ex);
-                promise.fail(ex);
+                promise.tryFail(ex);
               });
             } else {
               promise.complete();
             }
           }).onFailure(ex -> {
             LOG.error(String.format("persistFeeder failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("persistFeeder failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error(String.format("persistFeeder failed. "), ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("persistFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3588,11 +3604,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("cbUpsertEntity failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbUpsertEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3627,11 +3643,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         promise.complete(entity);
       }).onFailure(ex -> {
         LOG.error(String.format("postIotServiceFuture failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("postIotServiceFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3658,12 +3674,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise.complete();
         } else {
           LOG.error(String.format("cbDeleteEntity failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbDeleteEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3711,11 +3727,11 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         promise.complete(o);
       }).onFailure(ex -> {
         LOG.error(String.format("indexFeeder failed. "), new RuntimeException(ex));
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("indexFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3748,15 +3764,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise.complete(o);
         }).onFailure(ex -> {
           LOG.error(String.format("unindexFeeder failed. "), new RuntimeException(ex));
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("unindexFeeder failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("unindexFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3804,27 +3820,27 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             if(statusCode.equals(200))
               promise.complete();
             else
-              promise.fail(new RuntimeException(responseMessage.getString("statusMessage")));
+              promise.tryFail(new RuntimeException(responseMessage.getString("statusMessage")));
           }).onFailure(ex -> {
             LOG.error("Refresh relations failed. ", ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         }).onFailure(ex -> {
           LOG.error("Refresh relations failed. ", ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       } else {
         promise.complete();
       }
     } catch(Exception ex) {
       LOG.error(String.format("refreshFeeder failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
 
   @Override
-  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName) {
+  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName, String pageTemplate) {
     Promise<JsonObject> promise = Promise.promise();
     try {
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
@@ -3835,34 +3851,34 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 
       page.persistForClass(Feeder.VAR_name, Feeder.staticSetName(siteRequest2, (String)result.get(Feeder.VAR_name)));
       page.persistForClass(Feeder.VAR_description, Feeder.staticSetDescription(siteRequest2, (String)result.get(Feeder.VAR_description)));
-      page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       page.persistForClass(Feeder.VAR_location, Feeder.staticSetLocation(siteRequest2, (String)result.get(Feeder.VAR_location)));
+      page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       page.persistForClass(Feeder.VAR_archived, Feeder.staticSetArchived(siteRequest2, (String)result.get(Feeder.VAR_archived)));
       page.persistForClass(Feeder.VAR_areaServed, Feeder.staticSetAreaServed(siteRequest2, (String)result.get(Feeder.VAR_areaServed)));
       page.persistForClass(Feeder.VAR_id, Feeder.staticSetId(siteRequest2, (String)result.get(Feeder.VAR_id)));
       page.persistForClass(Feeder.VAR_sessionId, Feeder.staticSetSessionId(siteRequest2, (String)result.get(Feeder.VAR_sessionId)));
-      page.persistForClass(Feeder.VAR_userKey, Feeder.staticSetUserKey(siteRequest2, (String)result.get(Feeder.VAR_userKey)));
       page.persistForClass(Feeder.VAR_ngsildTenant, Feeder.staticSetNgsildTenant(siteRequest2, (String)result.get(Feeder.VAR_ngsildTenant)));
+      page.persistForClass(Feeder.VAR_userKey, Feeder.staticSetUserKey(siteRequest2, (String)result.get(Feeder.VAR_userKey)));
       page.persistForClass(Feeder.VAR_ngsildPath, Feeder.staticSetNgsildPath(siteRequest2, (String)result.get(Feeder.VAR_ngsildPath)));
       page.persistForClass(Feeder.VAR_ngsildContext, Feeder.staticSetNgsildContext(siteRequest2, (String)result.get(Feeder.VAR_ngsildContext)));
-      page.persistForClass(Feeder.VAR_objectTitle, Feeder.staticSetObjectTitle(siteRequest2, (String)result.get(Feeder.VAR_objectTitle)));
       page.persistForClass(Feeder.VAR_ngsildData, Feeder.staticSetNgsildData(siteRequest2, (String)result.get(Feeder.VAR_ngsildData)));
-      page.persistForClass(Feeder.VAR_displayPage, Feeder.staticSetDisplayPage(siteRequest2, (String)result.get(Feeder.VAR_displayPage)));
+      page.persistForClass(Feeder.VAR_objectTitle, Feeder.staticSetObjectTitle(siteRequest2, (String)result.get(Feeder.VAR_objectTitle)));
       page.persistForClass(Feeder.VAR_address, Feeder.staticSetAddress(siteRequest2, (String)result.get(Feeder.VAR_address)));
-      page.persistForClass(Feeder.VAR_displayPageFrFR, Feeder.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_displayPageFrFR)));
+      page.persistForClass(Feeder.VAR_displayPage, Feeder.staticSetDisplayPage(siteRequest2, (String)result.get(Feeder.VAR_displayPage)));
       page.persistForClass(Feeder.VAR_alternateName, Feeder.staticSetAlternateName(siteRequest2, (String)result.get(Feeder.VAR_alternateName)));
-      page.persistForClass(Feeder.VAR_editPage, Feeder.staticSetEditPage(siteRequest2, (String)result.get(Feeder.VAR_editPage)));
+      page.persistForClass(Feeder.VAR_displayPageFrFR, Feeder.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_displayPageFrFR)));
       page.persistForClass(Feeder.VAR_dataProvider, Feeder.staticSetDataProvider(siteRequest2, (String)result.get(Feeder.VAR_dataProvider)));
-      page.persistForClass(Feeder.VAR_editPageFrFR, Feeder.staticSetEditPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_editPageFrFR)));
+      page.persistForClass(Feeder.VAR_editPage, Feeder.staticSetEditPage(siteRequest2, (String)result.get(Feeder.VAR_editPage)));
       page.persistForClass(Feeder.VAR_dateCreated, Feeder.staticSetDateCreated(siteRequest2, (String)result.get(Feeder.VAR_dateCreated)));
-      page.persistForClass(Feeder.VAR_userPage, Feeder.staticSetUserPage(siteRequest2, (String)result.get(Feeder.VAR_userPage)));
+      page.persistForClass(Feeder.VAR_editPageFrFR, Feeder.staticSetEditPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_editPageFrFR)));
       page.persistForClass(Feeder.VAR_dateModified, Feeder.staticSetDateModified(siteRequest2, (String)result.get(Feeder.VAR_dateModified)));
-      page.persistForClass(Feeder.VAR_userPageFrFR, Feeder.staticSetUserPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_userPageFrFR)));
+      page.persistForClass(Feeder.VAR_userPage, Feeder.staticSetUserPage(siteRequest2, (String)result.get(Feeder.VAR_userPage)));
       page.persistForClass(Feeder.VAR_owner, Feeder.staticSetOwner(siteRequest2, (String)result.get(Feeder.VAR_owner)));
-      page.persistForClass(Feeder.VAR_download, Feeder.staticSetDownload(siteRequest2, (String)result.get(Feeder.VAR_download)));
+      page.persistForClass(Feeder.VAR_userPageFrFR, Feeder.staticSetUserPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_userPageFrFR)));
       page.persistForClass(Feeder.VAR_relatedSource, Feeder.staticSetRelatedSource(siteRequest2, (String)result.get(Feeder.VAR_relatedSource)));
-      page.persistForClass(Feeder.VAR_downloadFrFR, Feeder.staticSetDownloadFrFR(siteRequest2, (String)result.get(Feeder.VAR_downloadFrFR)));
+      page.persistForClass(Feeder.VAR_download, Feeder.staticSetDownload(siteRequest2, (String)result.get(Feeder.VAR_download)));
       page.persistForClass(Feeder.VAR_seeAlso, Feeder.staticSetSeeAlso(siteRequest2, (String)result.get(Feeder.VAR_seeAlso)));
+      page.persistForClass(Feeder.VAR_downloadFrFR, Feeder.staticSetDownloadFrFR(siteRequest2, (String)result.get(Feeder.VAR_downloadFrFR)));
       page.persistForClass(Feeder.VAR_source, Feeder.staticSetSource(siteRequest2, (String)result.get(Feeder.VAR_source)));
 
       page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
@@ -3872,15 +3888,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           promise.complete(data);
         } catch(Exception ex) {
           LOG.error(String.format(importModelFail, classSimpleName), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("generatePageBody failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("generatePageBody failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }

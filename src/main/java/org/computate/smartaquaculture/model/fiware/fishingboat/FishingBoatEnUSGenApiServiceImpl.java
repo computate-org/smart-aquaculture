@@ -238,19 +238,27 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateSearchPageFrFRFishingBoat(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFrFRFishingBoat(ServiceRequest serviceRequest) {
     return "fr-fr/rechercher/bateau-de-peche/FishingBoatSearchPage.htm";
+  }
+  public String templateSearchPageFrFRFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriSearchPageFrFRFishingBoat(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFrFRFishingBoat failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200SearchPageFrFRFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateSearchPageFrFRFishingBoat(siteRequest.getServiceRequest());
-      if(listFishingBoat.size() == 0)
-        pageTemplateUri = templateSearchPageFishingBoat(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateSearchPageFrFRFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
       FishingBoatPage page = new FishingBoatPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -273,18 +281,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200SearchPageFrFRFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFrFRFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -431,19 +439,27 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateEditPageFrFRFishingBoat(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFrFRFishingBoat(ServiceRequest serviceRequest) {
     return "fr-fr/edition/bateau-de-peche/FishingBoatEditPage.htm";
+  }
+  public String templateEditPageFrFRFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriEditPageFrFRFishingBoat(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFrFRFishingBoat failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200EditPageFrFRFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateEditPageFrFRFishingBoat(siteRequest.getServiceRequest());
-      if(listFishingBoat.size() == 0)
-        pageTemplateUri = templateSearchPageFishingBoat(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateEditPageFrFRFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
       FishingBoatPage page = new FishingBoatPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -466,18 +482,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200EditPageFrFRFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200EditPageFrFRFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -647,7 +663,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -789,7 +805,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200GETFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -933,7 +949,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listPATCHFishingBoat failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -944,18 +960,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPATCHFishingBoat failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listPATCHFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listPATCHFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -1045,42 +1061,42 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   }
                   promise1.complete(fishingBoat);
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingBoat -> {
         Promise<FishingBoat> promise2 = Promise.promise();
         refreshFishingBoat(fishingBoat).onSuccess(a -> {
           promise2.complete(fishingBoat);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingBoat -> {
         promise.complete(fishingBoat);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("patchFishingBoatFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1126,10 +1142,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_timeZone, TimeZone.class, solrId2, val).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -1140,7 +1156,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 sql(siteRequest).update(FishingBoat.class, pk).setToNull(FishingBoat.VAR_timeZone, TimeZone.class, null).onSuccess(a -> {
                   promise2.complete();
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -1165,10 +1181,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, solrId2, val).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -1179,7 +1195,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 sql(siteRequest).update(FishingBoat.class, pk).setToNull(FishingBoat.VAR_fishingDockId, FishingDock.class, null).onSuccess(a -> {
                   promise2.complete();
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -1450,15 +1466,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(o3);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPATCHFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPATCHFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPATCHFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1478,7 +1494,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1676,29 +1692,29 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   indexFishingBoat(fishingBoat).onSuccess(o2 -> {
                     promise1.complete(fishingBoat);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingBoat -> {
         Promise<FishingBoat> promise2 = Promise.promise();
         refreshFishingBoat(fishingBoat).onSuccess(a -> {
@@ -1712,10 +1728,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise2.complete(fishingBoat);
           } catch(Exception ex) {
             LOG.error(String.format("postFishingBoatFuture failed. "), ex);
-            promise2.fail(ex);
+            promise2.tryFail(ex);
           }
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingBoat -> {
@@ -1729,14 +1745,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(fishingBoat);
         } catch(Exception ex) {
           LOG.error(String.format("postFishingBoatFuture failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("postFishingBoatFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1801,10 +1817,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_timeZone, TimeZone.class, solrId2, val).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -1830,10 +1846,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, solrId2, val).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -2132,15 +2148,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(o2);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPOSTFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPOSTFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPOSTFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2161,7 +2177,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2304,7 +2320,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFishingBoat failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -2315,18 +2331,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFishingBoat failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -2410,39 +2426,39 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingBoat -> {
         Promise<FishingBoat> promise2 = Promise.promise();
         refreshFishingBoat(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingBoat -> {
         promise.complete(fishingBoat);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deleteFishingBoatFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2481,10 +2497,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_timeZone, TimeZone.class, null, null).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -2501,10 +2517,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, null, null).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -2531,15 +2547,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2559,7 +2575,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2706,7 +2722,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise1.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPUTImportFishingBoat failed. "), ex);
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }));
       });
@@ -2715,11 +2731,11 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("listPUTImportFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("listPUTImportFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2891,7 +2907,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3003,19 +3019,27 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateSearchPageFishingBoat(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFishingBoat(ServiceRequest serviceRequest) {
     return "en-us/search/fishing-boat/FishingBoatSearchPage.htm";
+  }
+  public String templateSearchPageFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriSearchPageFishingBoat(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFishingBoat failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200SearchPageFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateSearchPageFishingBoat(siteRequest.getServiceRequest());
-      if(listFishingBoat.size() == 0)
-        pageTemplateUri = templateSearchPageFishingBoat(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateSearchPageFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
       FishingBoatPage page = new FishingBoatPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -3038,18 +3062,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200SearchPageFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3196,19 +3220,27 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateEditPageFishingBoat(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFishingBoat(ServiceRequest serviceRequest) {
     return "en-us/edit/fishing-boat/FishingBoatEditPage.htm";
+  }
+  public String templateEditPageFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriEditPageFishingBoat(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFishingBoat failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200EditPageFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateEditPageFishingBoat(siteRequest.getServiceRequest());
-      if(listFishingBoat.size() == 0)
-        pageTemplateUri = templateSearchPageFishingBoat(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateEditPageFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
       FishingBoatPage page = new FishingBoatPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -3231,18 +3263,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200EditPageFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200EditPageFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3419,7 +3451,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFilterFishingBoat failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -3430,18 +3462,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFilterFishingBoat failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFilterFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFilterFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -3525,39 +3557,39 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingBoat -> {
         Promise<FishingBoat> promise2 = Promise.promise();
         refreshFishingBoat(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingBoat -> {
         promise.complete(fishingBoat);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deletefilterFishingBoatFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3596,10 +3628,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_timeZone, TimeZone.class, null, null).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -3616,10 +3648,10 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingBoat.class, pk).set(FishingBoat.VAR_fishingDockId, FishingDock.class, null, null).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -3646,15 +3678,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFilterFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFilterFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFilterFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3674,7 +3706,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3701,11 +3733,11 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error("createFishingBoat failed. ", ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("createFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3771,13 +3803,13 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           }
         } catch(Exception ex) {
           LOG.error(String.format("searchFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
       promise.complete();
     } catch(Exception ex) {
       LOG.error(String.format("searchFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3980,18 +4012,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete(searchList);
           }).onFailure(ex -> {
             LOG.error(String.format("searchFishingBoat failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete(searchList);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("searchFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("searchFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -4026,20 +4058,20 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("persistFishingBoat failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("persistFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error(String.format("persistFishingBoat failed. "), ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("persistFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -4062,16 +4094,16 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete();
         } catch(Exception ex) {
           LOG.error(String.format("relateFishingBoat failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error(String.format("relateFishingBoat failed. "), ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("relateFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -4113,11 +4145,11 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         promise.complete(o);
       }).onFailure(ex -> {
         LOG.error(String.format("indexFishingBoat failed. "), new RuntimeException(ex));
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("indexFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -4150,15 +4182,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(o);
         }).onFailure(ex -> {
           LOG.error(String.format("unindexFishingBoat failed. "), new RuntimeException(ex));
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("unindexFishingBoat failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("unindexFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -4276,27 +4308,27 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             if(statusCode.equals(200))
               promise.complete();
             else
-              promise.fail(new RuntimeException(responseMessage.getString("statusMessage")));
+              promise.tryFail(new RuntimeException(responseMessage.getString("statusMessage")));
           }).onFailure(ex -> {
             LOG.error("Refresh relations failed. ", ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         }).onFailure(ex -> {
           LOG.error("Refresh relations failed. ", ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       } else {
         promise.complete();
       }
     } catch(Exception ex) {
       LOG.error(String.format("refreshFishingBoat failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
 
   @Override
-  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName) {
+  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName, String pageTemplate) {
     Promise<JsonObject> promise = Promise.promise();
     try {
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
@@ -4347,15 +4379,15 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(data);
         } catch(Exception ex) {
           LOG.error(String.format(importModelFail, classSimpleName), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("generatePageBody failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("generatePageBody failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }

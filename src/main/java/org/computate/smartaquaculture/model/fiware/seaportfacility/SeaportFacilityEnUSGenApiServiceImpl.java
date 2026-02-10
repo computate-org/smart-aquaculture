@@ -1,17 +1,4 @@
-/*
- * Copyright Computate Limited Liability Company in Utah, USA. 
- * SPDX-License-Identifier: AGPL-3.0
- * This program and the accompanying materials are made available under the
- * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
- * 
- * https://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You may not propagate or modify a covered work except as expressly provided 
- * under this License. Any attempt otherwise to propagate or modify it is void, 
- * and will automatically terminate your rights under this License (including 
- * any patent licenses granted under the third paragraph of section 11).
- */
-package org.computate.smartaquaculture.model.fiware.fishfarm;
+package org.computate.smartaquaculture.model.fiware.seaportfacility;
 
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -116,38 +103,38 @@ import java.util.Base64;
 import java.time.ZonedDateTime;
 import org.apache.commons.lang3.BooleanUtils;
 import org.computate.vertx.search.list.SearchList;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmPage;
+import org.computate.smartaquaculture.model.fiware.seaportfacility.SeaportFacilityPage;
 
 
 /**
  * Translate: false
  * Generated: true
  **/
-public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements FishFarmEnUSGenApiService {
+public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl implements SeaportFacilityEnUSGenApiService {
 
-  protected static final Logger LOG = LoggerFactory.getLogger(FishFarmEnUSGenApiServiceImpl.class);
+  protected static final Logger LOG = LoggerFactory.getLogger(SeaportFacilityEnUSGenApiServiceImpl.class);
 
-  // Search //
+  // SearchPageFrFR //
 
   @Override
-  public void searchFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void searchpagefrfrSeaportFacility(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
-        siteRequest.setLang("enUS");
+        siteRequest.setLang("frFR");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -166,26 +153,26 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishFarmList(siteRequest, false, true, false).onSuccess(listFishFarm -> {
-                response200SearchFishFarm(listFishFarm).onSuccess(response -> {
+              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+                response200SearchPageFrFRSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
-                  LOG.debug(String.format("searchFishFarm succeeded. "));
+                  LOG.debug(String.format("searchpagefrfrSeaportFacility succeeded. "));
                 }).onFailure(ex -> {
-                  LOG.error(String.format("searchFishFarm failed. "), ex);
+                  LOG.error(String.format("searchpagefrfrSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 });
               }).onFailure(ex -> {
-                LOG.error(String.format("searchFishFarm failed. "), ex);
+                LOG.error(String.format("searchpagefrfrSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("searchFishFarm failed. "), ex);
+            LOG.error(String.format("searchpagefrfrSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("searchFishFarm failed. "), ex);
+        LOG.error(String.format("searchpagefrfrSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -193,7 +180,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("searchFishFarm failed. ", ex2));
+          LOG.error(String.format("searchpagefrfrSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -208,61 +195,91 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("searchFishFarm failed. "), ex);
+        LOG.error(String.format("searchpagefrfrSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<ServiceResponse> response200SearchFishFarm(SearchList<FishFarm> listFishFarm) {
+  public void searchpagefrfrSeaportFacilityPageInit(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriSearchPageFrFRSeaportFacility(ServiceRequest serviceRequest) {
+    return "fr-fr/rechercher/installations-portuaires/SeaportFacilitySearchPage.htm";
+  }
+  public String templateSearchPageFrFRSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriSearchPageFrFRSeaportFacility(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFrFRSeaportFacility failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
+  }
+  public Future<ServiceResponse> response200SearchPageFrFRSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
-      SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
-      List<String> fls = listFishFarm.getRequest().getFields();
-      JsonObject json = new JsonObject();
-      JsonArray l = new JsonArray();
-      listFishFarm.getList().stream().forEach(o -> {
-        JsonObject json2 = JsonObject.mapFrom(o);
-        if(fls.size() > 0) {
-          Set<String> fieldNames = new HashSet<String>();
-          for(String fieldName : json2.fieldNames()) {
-            String v = FishFarm.varIndexedFishFarm(fieldName);
-            if(v != null)
-              fieldNames.add(FishFarm.varIndexedFishFarm(fieldName));
-          }
-          if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
-            fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
-            fieldNames.remove("pk_docvalues_long");
-            fieldNames.remove("created_docvalues_date");
-          }
-          else if(fls.size() >= 1) {
-            fieldNames.removeAll(fls);
-          }
-          for(String fieldName : fieldNames) {
-            if(!fls.contains(fieldName))
-              json2.remove(fieldName);
-          }
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      String template = templateSearchPageFrFRSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
+      SeaportFacilityPage page = new SeaportFacilityPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listSeaportFacility.size() >= 1)
+        siteRequest.setRequestPk(listSeaportFacility.get(0).getPk());
+      page.setSearchListSeaportFacility_(listSeaportFacility);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepSeaportFacilityPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          searchpagefrfrSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
+          promise1.future().onSuccess(b -> {
+            String renderedTemplate = jinjava.render(template, ctx.getMap());
+            Buffer buffer = Buffer.buffer(renderedTemplate);
+            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200SearchPageFrFRSeaportFacility failed. "), ex);
+          promise.tryFail(ex);
         }
-        l.add(json2);
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
       });
-      json.put("list", l);
-      response200Search(listFishFarm.getRequest(), listFishFarm.getResponse(), json);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fish farm", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
     } catch(Exception ex) {
-      LOG.error(String.format("response200SearchFishFarm failed. "), ex);
+      LOG.error(String.format("response200SearchPageFrFRSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
-  public void responsePivotSearchFishFarm(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+  public void responsePivotSearchPageFrFRSeaportFacility(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
     if(pivots != null) {
       for(SolrResponse.Pivot pivotField : pivots) {
         String entityIndexed = pivotField.getField();
@@ -291,33 +308,234 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         if(pivotFields2 != null) {
           JsonArray pivotArray2 = new JsonArray();
           pivotJson.put("pivot", pivotArray2);
-          responsePivotSearchFishFarm(pivotFields2, pivotArray2);
+          responsePivotSearchPageFrFRSeaportFacility(pivotFields2, pivotArray2);
         }
       }
     }
   }
 
-  // GET //
+  // EditPageFrFR //
 
   @Override
-  public void getFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void editpagefrfrSeaportFacility(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = false;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("frFR");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+              , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+              , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+              )
+              .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+              .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+              .sendForm(form)
+              .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+                response200EditPageFrFRSeaportFacility(listSeaportFacility).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("editpagefrfrSeaportFacility succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("editpagefrfrSeaportFacility failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("editpagefrfrSeaportFacility failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("editpagefrfrSeaportFacility failed. "), ex);
+            error(null, eventHandler, ex);
+          }
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("editpagefrfrSeaportFacility failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("editpagefrfrSeaportFacility failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("editpagefrfrSeaportFacility failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void editpagefrfrSeaportFacilityPageInit(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriEditPageFrFRSeaportFacility(ServiceRequest serviceRequest) {
+    return "fr-fr/edition/installations-portuaires/SeaportFacilityEditPage.htm";
+  }
+  public String templateEditPageFrFRSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriEditPageFrFRSeaportFacility(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFrFRSeaportFacility failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
+  }
+  public Future<ServiceResponse> response200EditPageFrFRSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      String template = templateEditPageFrFRSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
+      SeaportFacilityPage page = new SeaportFacilityPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listSeaportFacility.size() >= 1)
+        siteRequest.setRequestPk(listSeaportFacility.get(0).getPk());
+      page.setSearchListSeaportFacility_(listSeaportFacility);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepSeaportFacilityPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          editpagefrfrSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
+          promise1.future().onSuccess(b -> {
+            String renderedTemplate = jinjava.render(template, ctx.getMap());
+            Buffer buffer = Buffer.buffer(renderedTemplate);
+            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200EditPageFrFRSeaportFacility failed. "), ex);
+          promise.tryFail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200EditPageFrFRSeaportFacility failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotEditPageFrFRSeaportFacility(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotEditPageFrFRSeaportFacility(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
+  // Search //
+
+  @Override
+  public void searchSeaportFacility(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -336,26 +554,26 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishFarmList(siteRequest, false, true, false).onSuccess(listFishFarm -> {
-                response200GETFishFarm(listFishFarm).onSuccess(response -> {
+              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+                response200SearchSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
-                  LOG.debug(String.format("getFishFarm succeeded. "));
+                  LOG.debug(String.format("searchSeaportFacility succeeded. "));
                 }).onFailure(ex -> {
-                  LOG.error(String.format("getFishFarm failed. "), ex);
+                  LOG.error(String.format("searchSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 });
               }).onFailure(ex -> {
-                LOG.error(String.format("getFishFarm failed. "), ex);
+                LOG.error(String.format("searchSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("getFishFarm failed. "), ex);
+            LOG.error(String.format("searchSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("getFishFarm failed. "), ex);
+        LOG.error(String.format("searchSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -363,7 +581,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("getFishFarm failed. ", ex2));
+          LOG.error(String.format("searchSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -378,20 +596,48 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("getFishFarm failed. "), ex);
+        LOG.error(String.format("searchSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<ServiceResponse> response200GETFishFarm(SearchList<FishFarm> listFishFarm) {
+  public Future<ServiceResponse> response200SearchSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
-      SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
-      JsonObject json = JsonObject.mapFrom(listFishFarm.getList().stream().findFirst().orElse(null));
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      List<String> fls = listSeaportFacility.getRequest().getFields();
+      JsonObject json = new JsonObject();
+      JsonArray l = new JsonArray();
+      listSeaportFacility.getList().stream().forEach(o -> {
+        JsonObject json2 = JsonObject.mapFrom(o);
+        if(fls.size() > 0) {
+          Set<String> fieldNames = new HashSet<String>();
+          for(String fieldName : json2.fieldNames()) {
+            String v = SeaportFacility.varIndexedSeaportFacility(fieldName);
+            if(v != null)
+              fieldNames.add(SeaportFacility.varIndexedSeaportFacility(fieldName));
+          }
+          if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
+            fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
+            fieldNames.remove("pk_docvalues_long");
+            fieldNames.remove("created_docvalues_date");
+          }
+          else if(fls.size() >= 1) {
+            fieldNames.removeAll(fls);
+          }
+          for(String fieldName : fieldNames) {
+            if(!fls.contains(fieldName))
+              json2.remove(fieldName);
+          }
+        }
+        l.add(json2);
+      });
+      json.put("list", l);
+      response200Search(listSeaportFacility.getRequest(), listSeaportFacility.getResponse(), json);
       if(json == null) {
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fish farm", entityShortId);
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
         promise.complete(new ServiceResponse(404
             , m
             , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -399,7 +645,149 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
       }
     } catch(Exception ex) {
-      LOG.error(String.format("response200GETFishFarm failed. "), ex);
+      LOG.error(String.format("response200SearchSeaportFacility failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotSearchSeaportFacility(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotSearchSeaportFacility(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
+  // GET //
+
+  @Override
+  public void getSeaportFacility(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = false;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+                response200GETSeaportFacility(listSeaportFacility).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("getSeaportFacility succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("getSeaportFacility failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("getSeaportFacility failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("getSeaportFacility failed. "), ex);
+            error(null, eventHandler, ex);
+          }
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("getSeaportFacility failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("getSeaportFacility failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("getSeaportFacility failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public Future<ServiceResponse> response200GETSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      JsonObject json = JsonObject.mapFrom(listSeaportFacility.getList().stream().findFirst().orElse(null));
+      if(json == null) {
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
+        promise.complete(new ServiceResponse(404
+            , m
+            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
+      } else {
+        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("response200GETSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
@@ -408,25 +796,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   // PATCH //
 
   @Override
-  public void patchFishFarm(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-    LOG.debug(String.format("patchFishFarm started. "));
+  public void patchSeaportFacility(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    LOG.debug(String.format("patchSeaportFacility started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
         webClient.post(
@@ -457,48 +845,48 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishFarmList(siteRequest, false, true, true).onSuccess(listFishFarm -> {
+              searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
-                  apiRequest.setRows(listFishFarm.getRequest().getRows());
-                  apiRequest.setNumFound(listFishFarm.getResponse().getResponse().getNumFound());
+                  apiRequest.setRows(listSeaportFacility.getRequest().getRows());
+                  apiRequest.setNumFound(listSeaportFacility.getResponse().getResponse().getNumFound());
                   apiRequest.setNumPATCH(0L);
                   apiRequest.initDeepApiRequest(siteRequest);
                   siteRequest.setApiRequest_(apiRequest);
                   if(apiRequest.getNumFound() == 1L)
-                    apiRequest.setOriginal(listFishFarm.first());
-                  apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-                  apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
-                  eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+                    apiRequest.setOriginal(listSeaportFacility.first());
+                  apiRequest.setId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
+                  apiRequest.setSolrId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getSolrId()).orElse(null));
+                  eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
 
-                  listPATCHFishFarm(apiRequest, listFishFarm).onSuccess(e -> {
-                    response200PATCHFishFarm(siteRequest).onSuccess(response -> {
-                      LOG.debug(String.format("patchFishFarm succeeded. "));
+                  listPATCHSeaportFacility(apiRequest, listSeaportFacility).onSuccess(e -> {
+                    response200PATCHSeaportFacility(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("patchSeaportFacility succeeded. "));
                       eventHandler.handle(Future.succeededFuture(response));
                     }).onFailure(ex -> {
-                      LOG.error(String.format("patchFishFarm failed. "), ex);
+                      LOG.error(String.format("patchSeaportFacility failed. "), ex);
                       error(siteRequest, eventHandler, ex);
                     });
                   }).onFailure(ex -> {
-                    LOG.error(String.format("patchFishFarm failed. "), ex);
+                    LOG.error(String.format("patchSeaportFacility failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
                 } catch(Exception ex) {
-                  LOG.error(String.format("patchFishFarm failed. "), ex);
+                  LOG.error(String.format("patchSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 }
               }).onFailure(ex -> {
-                LOG.error(String.format("patchFishFarm failed. "), ex);
+                LOG.error(String.format("patchSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("patchFishFarm failed. "), ex);
+            LOG.error(String.format("patchSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("patchFishFarm failed. "), ex);
+        LOG.error(String.format("patchSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -506,7 +894,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("patchFishFarm failed. ", ex2));
+          LOG.error(String.format("patchSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -521,58 +909,58 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("patchFishFarm failed. "), ex);
+        LOG.error(String.format("patchSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<Void> listPATCHFishFarm(ApiRequest apiRequest, SearchList<FishFarm> listFishFarm) {
+  public Future<Void> listPATCHSeaportFacility(ApiRequest apiRequest, SearchList<SeaportFacility> listSeaportFacility) {
     Promise<Void> promise = Promise.promise();
     List<Future> futures = new ArrayList<>();
-    SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
-    listFishFarm.getList().forEach(o -> {
+    SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+    listSeaportFacility.getList().forEach(o -> {
       SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
       siteRequest2.setScopes(siteRequest.getScopes());
       o.setSiteRequest_(siteRequest2);
       siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
       JsonObject jsonObject = JsonObject.mapFrom(o);
-      FishFarm o2 = jsonObject.mapTo(FishFarm.class);
+      SeaportFacility o2 = jsonObject.mapTo(SeaportFacility.class);
       o2.setSiteRequest_(siteRequest2);
       futures.add(Future.future(promise1 -> {
-        patchFishFarmFuture(o2, false).onSuccess(a -> {
+        patchSeaportFacilityFuture(o2, false).onSuccess(a -> {
           promise1.complete();
         }).onFailure(ex -> {
-          LOG.error(String.format("listPATCHFishFarm failed. "), ex);
+          LOG.error(String.format("listPATCHSeaportFacility failed. "), ex);
           promise1.tryFail(ex);
         });
       }));
     });
     CompositeFuture.all(futures).onSuccess( a -> {
-      listFishFarm.next().onSuccess(next -> {
+      listSeaportFacility.next().onSuccess(next -> {
         if(next) {
-          listPATCHFishFarm(apiRequest, listFishFarm).onSuccess(b -> {
+          listPATCHSeaportFacility(apiRequest, listSeaportFacility).onSuccess(b -> {
             promise.complete();
           }).onFailure(ex -> {
-            LOG.error(String.format("listPATCHFishFarm failed. "), ex);
+            LOG.error(String.format("listPATCHSeaportFacility failed. "), ex);
             promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
-        LOG.error(String.format("listPATCHFishFarm failed. "), ex);
+        LOG.error(String.format("listPATCHSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     }).onFailure(ex -> {
-      LOG.error(String.format("listPATCHFishFarm failed. "), ex);
+      LOG.error(String.format("listPATCHSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     });
     return promise.future();
   }
 
   @Override
-  public void patchFishFarmFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void patchSeaportFacilityFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
@@ -584,9 +972,9 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             siteRequest.addScopes(scope);
           });
         });
-        searchFishFarmList(siteRequest, false, true, true).onSuccess(listFishFarm -> {
+        searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
           try {
-            FishFarm o = listFishFarm.first();
+            SeaportFacility o = listSeaportFacility.first();
             ApiRequest apiRequest = new ApiRequest();
             apiRequest.setRows(1L);
             apiRequest.setNumFound(1L);
@@ -596,65 +984,114 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
               siteRequest.getRequestVars().put( "refresh", "false" );
             }
-            FishFarm o2;
+            SeaportFacility o2;
             if(o != null) {
               if(apiRequest.getNumFound() == 1L)
                 apiRequest.setOriginal(o);
-              apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o3 -> o3.getEntityShortId().toString()).orElse(null));
-              apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o3 -> o3.getSolrId()).orElse(null));
+              apiRequest.setId(Optional.ofNullable(listSeaportFacility.first()).map(o3 -> o3.getEntityShortId().toString()).orElse(null));
+              apiRequest.setSolrId(Optional.ofNullable(listSeaportFacility.first()).map(o3 -> o3.getSolrId()).orElse(null));
               JsonObject jsonObject = JsonObject.mapFrom(o);
-              o2 = jsonObject.mapTo(FishFarm.class);
+              o2 = jsonObject.mapTo(SeaportFacility.class);
               o2.setSiteRequest_(siteRequest);
-              patchFishFarmFuture(o2, false).onSuccess(o3 -> {
+              patchSeaportFacilityFuture(o2, false).onSuccess(o3 -> {
                 eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
               }).onFailure(ex -> {
                 eventHandler.handle(Future.failedFuture(ex));
               });
             } else {
-              String m = String.format("%s %s not found", "fish farm", null);
+              String m = String.format("%s %s not found", "seaport facility", null);
               eventHandler.handle(Future.failedFuture(m));
             }
           } catch(Exception ex) {
-            LOG.error(String.format("patchFishFarm failed. "), ex);
+            LOG.error(String.format("patchSeaportFacility failed. "), ex);
             error(siteRequest, eventHandler, ex);
           }
         }).onFailure(ex -> {
-          LOG.error(String.format("patchFishFarm failed. "), ex);
+          LOG.error(String.format("patchSeaportFacility failed. "), ex);
           error(siteRequest, eventHandler, ex);
         });
       } catch(Exception ex) {
-        LOG.error(String.format("patchFishFarm failed. "), ex);
+        LOG.error(String.format("patchSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
-      LOG.error(String.format("patchFishFarm failed. "), ex);
+      LOG.error(String.format("patchSeaportFacility failed. "), ex);
       error(null, eventHandler, ex);
     });
   }
 
-  public Future<FishFarm> patchFishFarmFuture(FishFarm o, Boolean inheritPrimaryKey) {
+  public Future<SeaportFacility> patchSeaportFacilityFuture(SeaportFacility o, Boolean inheritPrimaryKey) {
     SiteRequest siteRequest = o.getSiteRequest_();
-    Promise<FishFarm> promise = Promise.promise();
+    Promise<SeaportFacility> promise = Promise.promise();
 
     try {
       ApiRequest apiRequest = siteRequest.getApiRequest_();
-      Promise<FishFarm> promise1 = Promise.promise();
+      Promise<SeaportFacility> promise1 = Promise.promise();
       pgPool.withTransaction(sqlConnection -> {
         siteRequest.setSqlConnection(sqlConnection);
-        varsFishFarm(siteRequest).onSuccess(a -> {
-          sqlPATCHFishFarm(o, inheritPrimaryKey).onSuccess(fishFarm -> {
-            persistFishFarm(fishFarm, true).onSuccess(c -> {
-              relateFishFarm(fishFarm).onSuccess(d -> {
-                indexFishFarm(fishFarm).onSuccess(o2 -> {
-                  if(apiRequest != null) {
-                    apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-                    if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-                      o2.apiRequestFishFarm();
-                      if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
-                        eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+        varsSeaportFacility(siteRequest).onSuccess(a -> {
+          JsonObject jsonObject = o.getSiteRequest_().getJsonObject();
+          if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+            ngsildGetEntity(o).compose(ngsildData -> {
+              Promise<JsonObject> promise2 = Promise.promise();
+              if(ngsildData == null) {
+                promise2.complete(jsonObject);
+              } else {
+                String setNgsildData = String.format("set%s",StringUtils.capitalize(SeaportFacility.VAR_ngsildData));
+                jsonObject.put(setNgsildData, ngsildData);
+                promise2.complete(jsonObject);
+              }
+              return promise2.future();
+            }).compose(ngsildData -> {
+              Promise<SeaportFacility> promise2 = Promise.promise();
+              sqlPATCHSeaportFacility(o, inheritPrimaryKey).onSuccess(seaportFacility -> {
+                persistSeaportFacility(seaportFacility, true).onSuccess(c -> {
+                  relateSeaportFacility(seaportFacility).onSuccess(d -> {
+                    indexSeaportFacility(seaportFacility).onSuccess(o2 -> {
+                      if(apiRequest != null) {
+                        apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+                        if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+                          o2.apiRequestSeaportFacility();
+                          if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
+                            eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
+                        }
+                      }
+                      promise2.complete(seaportFacility);
+                    }).onFailure(ex -> {
+                      promise2.tryFail(ex);
+                    });
+                  }).onFailure(ex -> {
+                    promise2.tryFail(ex);
+                  });
+                }).onFailure(ex -> {
+                  promise2.tryFail(ex);
+                });
+              }).onFailure(ex -> {
+                promise2.tryFail(ex);
+              });
+              return promise2.future();
+            }).onSuccess(o2 -> {
+              promise1.complete(o2);
+            }).onFailure(ex -> {
+              promise1.tryFail(ex);
+            });
+          } else {
+            sqlPATCHSeaportFacility(o, inheritPrimaryKey).onSuccess(seaportFacility -> {
+              persistSeaportFacility(seaportFacility, true).onSuccess(c -> {
+                relateSeaportFacility(seaportFacility).onSuccess(d -> {
+                  indexSeaportFacility(seaportFacility).onSuccess(o2 -> {
+                    if(apiRequest != null) {
+                      apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
+                      if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
+                        o2.apiRequestSeaportFacility();
+                        if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
+                          eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
+                      }
                     }
-                  }
-                  promise1.complete(fishFarm);
+                    promise1.complete(seaportFacility);
+                  }).onFailure(ex -> {
+                    promise1.tryFail(ex);
+                  });
                 }).onFailure(ex -> {
                   promise1.tryFail(ex);
                 });
@@ -664,9 +1101,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             }).onFailure(ex -> {
               promise1.tryFail(ex);
             });
-          }).onFailure(ex -> {
-            promise1.tryFail(ex);
-          });
+          }
         }).onFailure(ex -> {
           promise1.tryFail(ex);
         });
@@ -676,28 +1111,28 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
         promise.tryFail(ex);
-      }).compose(fishFarm -> {
-        Promise<FishFarm> promise2 = Promise.promise();
-        refreshFishFarm(fishFarm).onSuccess(a -> {
-          promise2.complete(fishFarm);
+      }).compose(seaportFacility -> {
+        Promise<SeaportFacility> promise2 = Promise.promise();
+        refreshSeaportFacility(seaportFacility).onSuccess(a -> {
+          promise2.complete(seaportFacility);
         }).onFailure(ex -> {
           promise2.tryFail(ex);
         });
         return promise2.future();
-      }).onSuccess(fishFarm -> {
-        promise.complete(fishFarm);
+      }).onSuccess(seaportFacility -> {
+        promise.complete(seaportFacility);
       }).onFailure(ex -> {
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("patchFishFarmFuture failed. "), ex);
+      LOG.error(String.format("patchSeaportFacilityFuture failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<FishFarm> sqlPATCHFishFarm(FishFarm o, Boolean inheritPrimaryKey) {
-    Promise<FishFarm> promise = Promise.promise();
+  public Future<SeaportFacility> sqlPATCHSeaportFacility(SeaportFacility o, Boolean inheritPrimaryKey) {
+    Promise<SeaportFacility> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -705,12 +1140,12 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Integer num = 1;
-      StringBuilder bSql = new StringBuilder("UPDATE FishFarm SET ");
+      StringBuilder bSql = new StringBuilder("UPDATE SeaportFacility SET ");
       List<Object> bParams = new ArrayList<Object>();
       Long pk = o.getPk();
       JsonObject jsonObject = siteRequest.getJsonObject();
       Set<String> methodNames = jsonObject.fieldNames();
-      FishFarm o2 = new FishFarm();
+      SeaportFacility o2 = new SeaportFacility();
       o2.setSiteRequest_(siteRequest);
       List<Future> futures1 = new ArrayList<>();
       List<Future> futures2 = new ArrayList<>();
@@ -721,7 +1156,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               o2.setName(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_name + "=$" + num);
+              bSql.append(SeaportFacility.VAR_name + "=$" + num);
               num++;
               bParams.add(o2.sqlName());
             break;
@@ -729,7 +1164,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               o2.setAddress(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_address + "=$" + num);
+              bSql.append(SeaportFacility.VAR_address + "=$" + num);
               num++;
               bParams.add(o2.sqlAddress());
             break;
@@ -737,15 +1172,23 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               o2.setDescription(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_description + "=$" + num);
+              bSql.append(SeaportFacility.VAR_description + "=$" + num);
               num++;
               bParams.add(o2.sqlDescription());
+            break;
+          case "setAlternateName":
+              o2.setAlternateName(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_alternateName + "=$" + num);
+              num++;
+              bParams.add(o2.sqlAlternateName());
             break;
           case "setLocation":
               o2.setLocation(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_location + "=$" + num);
+              bSql.append(SeaportFacility.VAR_location + "=$" + num);
               num++;
               bParams.add(o2.sqlLocation());
             break;
@@ -753,71 +1196,111 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               o2.setCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_created + "=$" + num);
+              bSql.append(SeaportFacility.VAR_created + "=$" + num);
               num++;
               bParams.add(o2.sqlCreated());
+            break;
+          case "setAuthorizedPropulsion":
+              o2.setAuthorizedPropulsion(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_authorizedPropulsion + "=$" + num);
+              num++;
+              bParams.add(o2.sqlAuthorizedPropulsion());
             break;
           case "setId":
               o2.setId(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_id + "=$" + num);
+              bSql.append(SeaportFacility.VAR_id + "=$" + num);
               num++;
               bParams.add(o2.sqlId());
+            break;
+          case "setBoatSupplyingServices":
+              o2.setBoatSupplyingServices(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_boatSupplyingServices + "=$" + num);
+              num++;
+              bParams.add(o2.sqlBoatSupplyingServices());
             break;
           case "setEntityShortId":
               o2.setEntityShortId(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_entityShortId + "=$" + num);
+              bSql.append(SeaportFacility.VAR_entityShortId + "=$" + num);
               num++;
               bParams.add(o2.sqlEntityShortId());
-            break;
-          case "setAreaServed":
-              o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishFarm.VAR_areaServed, num));
-              num++;
-              bParams.add(o2.sqlAreaServed());
             break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_archived + "=$" + num);
+              bSql.append(SeaportFacility.VAR_archived + "=$" + num);
               num++;
               bParams.add(o2.sqlArchived());
+            break;
+          case "setContactPoint":
+              o2.setContactPoint(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_contactPoint + "=$" + num);
+              num++;
+              bParams.add(o2.sqlContactPoint());
             break;
           case "setNgsildTenant":
               o2.setNgsildTenant(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_ngsildTenant + "=$" + num);
+              bSql.append(SeaportFacility.VAR_ngsildTenant + "=$" + num);
               num++;
               bParams.add(o2.sqlNgsildTenant());
+            break;
+          case "setContractingAuthority":
+              o2.setContractingAuthority(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_contractingAuthority + "=$" + num);
+              num++;
+              bParams.add(o2.sqlContractingAuthority());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_ngsildPath + "=$" + num);
+              bSql.append(SeaportFacility.VAR_ngsildPath + "=$" + num);
               num++;
               bParams.add(o2.sqlNgsildPath());
+            break;
+          case "setContractingCompany":
+              o2.setContractingCompany(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_contractingCompany + "=$" + num);
+              num++;
+              bParams.add(o2.sqlContractingCompany());
             break;
           case "setNgsildContext":
               o2.setNgsildContext(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_ngsildContext + "=$" + num);
+              bSql.append(SeaportFacility.VAR_ngsildContext + "=$" + num);
               num++;
               bParams.add(o2.sqlNgsildContext());
+            break;
+          case "setCurrencyAccepted":
+              o2.setCurrencyAccepted(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_currencyAccepted + "=$" + num);
+              num++;
+              bParams.add(o2.sqlCurrencyAccepted());
             break;
           case "setNgsildData":
               o2.setNgsildData(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_ngsildData + "=$" + num);
+              bSql.append(SeaportFacility.VAR_ngsildData + "=$" + num);
               num++;
               bParams.add(o2.sqlNgsildData());
             break;
@@ -825,15 +1308,23 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               o2.setSessionId(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_sessionId + "=$" + num);
+              bSql.append(SeaportFacility.VAR_sessionId + "=$" + num);
               num++;
               bParams.add(o2.sqlSessionId());
+            break;
+          case "setDataProvider":
+              o2.setDataProvider(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_dataProvider + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDataProvider());
             break;
           case "setColor":
               o2.setColor(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_color + "=$" + num);
+              bSql.append(SeaportFacility.VAR_color + "=$" + num);
               num++;
               bParams.add(o2.sqlColor());
             break;
@@ -841,81 +1332,329 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               o2.setUserKey(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_userKey + "=$" + num);
+              bSql.append(SeaportFacility.VAR_userKey + "=$" + num);
               num++;
               bParams.add(o2.sqlUserKey());
+            break;
+          case "setDateCreated":
+              o2.setDateCreated(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_dateCreated + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDateCreated());
+            break;
+          case "setDateLastReported":
+              o2.setDateLastReported(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_dateLastReported + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDateLastReported());
+            break;
+          case "setDateModified":
+              o2.setDateModified(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_dateModified + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDateModified());
             break;
           case "setObjectTitle":
               o2.setObjectTitle(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_objectTitle + "=$" + num);
+              bSql.append(SeaportFacility.VAR_objectTitle + "=$" + num);
               num++;
               bParams.add(o2.sqlObjectTitle());
+            break;
+          case "setElectricTransport":
+              o2.setElectricTransport(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_electricTransport + "=$" + num);
+              num++;
+              bParams.add(o2.sqlElectricTransport());
             break;
           case "setDisplayPage":
               o2.setDisplayPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_displayPage + "=$" + num);
+              bSql.append(SeaportFacility.VAR_displayPage + "=$" + num);
               num++;
               bParams.add(o2.sqlDisplayPage());
+            break;
+          case "setEndDate":
+              o2.setEndDate(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_endDate + "=$" + num);
+              num++;
+              bParams.add(o2.sqlEndDate());
             break;
           case "setDisplayPageFrFR":
               o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_displayPageFrFR + "=$" + num);
+              bSql.append(SeaportFacility.VAR_displayPageFrFR + "=$" + num);
               num++;
               bParams.add(o2.sqlDisplayPageFrFR());
+            break;
+          case "setFacilities":
+              o2.setFacilities(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_facilities + "=$" + num);
+              num++;
+              bParams.add(o2.sqlFacilities());
             break;
           case "setEditPage":
               o2.setEditPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_editPage + "=$" + num);
+              bSql.append(SeaportFacility.VAR_editPage + "=$" + num);
               num++;
               bParams.add(o2.sqlEditPage());
+            break;
+          case "setMaxDraft":
+              o2.setMaxDraft(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_maxDraft + "=$" + num);
+              num++;
+              bParams.add(o2.sqlMaxDraft());
             break;
           case "setEditPageFrFR":
               o2.setEditPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_editPageFrFR + "=$" + num);
+              bSql.append(SeaportFacility.VAR_editPageFrFR + "=$" + num);
               num++;
               bParams.add(o2.sqlEditPageFrFR());
+            break;
+          case "setMaxLength":
+              o2.setMaxLength(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_maxLength + "=$" + num);
+              num++;
+              bParams.add(o2.sqlMaxLength());
             break;
           case "setUserPage":
               o2.setUserPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_userPage + "=$" + num);
+              bSql.append(SeaportFacility.VAR_userPage + "=$" + num);
               num++;
               bParams.add(o2.sqlUserPage());
+            break;
+          case "setMaxTonnage":
+              o2.setMaxTonnage(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_maxTonnage + "=$" + num);
+              num++;
+              bParams.add(o2.sqlMaxTonnage());
             break;
           case "setUserPageFrFR":
               o2.setUserPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_userPageFrFR + "=$" + num);
+              bSql.append(SeaportFacility.VAR_userPageFrFR + "=$" + num);
               num++;
               bParams.add(o2.sqlUserPageFrFR());
+            break;
+          case "setMaxWidth":
+              o2.setMaxWidth(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_maxWidth + "=$" + num);
+              num++;
+              bParams.add(o2.sqlMaxWidth());
             break;
           case "setDownload":
               o2.setDownload(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_download + "=$" + num);
+              bSql.append(SeaportFacility.VAR_download + "=$" + num);
               num++;
               bParams.add(o2.sqlDownload());
+            break;
+          case "setMinLength":
+              o2.setMinLength(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_minLength + "=$" + num);
+              num++;
+              bParams.add(o2.sqlMinLength());
             break;
           case "setDownloadFrFR":
               o2.setDownloadFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FishFarm.VAR_downloadFrFR + "=$" + num);
+              bSql.append(SeaportFacility.VAR_downloadFrFR + "=$" + num);
               num++;
               bParams.add(o2.sqlDownloadFrFR());
+            break;
+          case "setNearbyServices":
+              o2.setNearbyServices(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_nearbyServices + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNearbyServices());
+            break;
+          case "setNumberOfPlace":
+              o2.setNumberOfPlace(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_numberOfPlace + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNumberOfPlace());
+            break;
+          case "setOpeningHours":
+              o2.setOpeningHours(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_openingHours + "=$" + num);
+              num++;
+              bParams.add(o2.sqlOpeningHours());
+            break;
+          case "setOpeningHoursSpecification":
+              o2.setOpeningHoursSpecification(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_openingHoursSpecification + "=$" + num);
+              num++;
+              bParams.add(o2.sqlOpeningHoursSpecification());
+            break;
+          case "setOwner":
+              o2.setOwner(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_owner + "=$" + num);
+              num++;
+              bParams.add(o2.sqlOwner());
+            break;
+          case "setPaymentAccepted":
+              o2.setPaymentAccepted(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_paymentAccepted + "=$" + num);
+              num++;
+              bParams.add(o2.sqlPaymentAccepted());
+            break;
+          case "setPortServicesProvided":
+              o2.setPortServicesProvided(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_portServicesProvided + "=$" + num);
+              num++;
+              bParams.add(o2.sqlPortServicesProvided());
+            break;
+          case "setRefBoatAuthorized":
+              o2.setRefBoatAuthorized(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_refBoatAuthorized + "=$" + num);
+              num++;
+              bParams.add(o2.sqlRefBoatAuthorized());
+            break;
+          case "setRefBoatPlaceAvailable":
+              o2.setRefBoatPlaceAvailable(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_refBoatPlaceAvailable + "=$" + num);
+              num++;
+              bParams.add(o2.sqlRefBoatPlaceAvailable());
+            break;
+          case "setRefBoatPlacePricing":
+              o2.setRefBoatPlacePricing(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_refBoatPlacePricing + "=$" + num);
+              num++;
+              bParams.add(o2.sqlRefBoatPlacePricing());
+            break;
+          case "setRefDevice":
+              o2.setRefDevice(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_refDevice + "=$" + num);
+              num++;
+              bParams.add(o2.sqlRefDevice());
+            break;
+          case "setRefPointOfInterest":
+              o2.setRefPointOfInterest(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_refPointOfInterest + "=$" + num);
+              num++;
+              bParams.add(o2.sqlRefPointOfInterest());
+            break;
+          case "setRentalSaleServices":
+              o2.setRentalSaleServices(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_rentalSaleServices + "=$" + num);
+              num++;
+              bParams.add(o2.sqlRentalSaleServices());
+            break;
+          case "setRouteType":
+              o2.setRouteType(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_routeType + "=$" + num);
+              num++;
+              bParams.add(o2.sqlRouteType());
+            break;
+          case "setSeeAlso":
+              o2.setSeeAlso(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_seeAlso + "=$" + num);
+              num++;
+              bParams.add(o2.sqlSeeAlso());
+            break;
+          case "setSource":
+              o2.setSource(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_source + "=$" + num);
+              num++;
+              bParams.add(o2.sqlSource());
+            break;
+          case "setStartDate":
+              o2.setStartDate(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_startDate + "=$" + num);
+              num++;
+              bParams.add(o2.sqlStartDate());
+            break;
+          case "setTransportServices":
+              o2.setTransportServices(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_transportServices + "=$" + num);
+              num++;
+              bParams.add(o2.sqlTransportServices());
+            break;
+          case "setTypeOfPort":
+              o2.setTypeOfPort(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_typeOfPort + "=$" + num);
+              num++;
+              bParams.add(o2.sqlTypeOfPort());
+            break;
+          case "setWebSite":
+              o2.setWebSite(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_webSite + "=$" + num);
+              num++;
+              bParams.add(o2.sqlWebSite());
             break;
         }
       }
@@ -929,40 +1668,40 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               ).onSuccess(b -> {
             a.handle(Future.succeededFuture());
           }).onFailure(ex -> {
-            RuntimeException ex2 = new RuntimeException("value FishFarm failed", ex);
-            LOG.error(String.format("relateFishFarm failed. "), ex2);
+            RuntimeException ex2 = new RuntimeException("value SeaportFacility failed", ex);
+            LOG.error(String.format("relateSeaportFacility failed. "), ex2);
             a.handle(Future.failedFuture(ex2));
           });
         }));
       }
       CompositeFuture.all(futures1).onSuccess(a -> {
         CompositeFuture.all(futures2).onSuccess(b -> {
-          FishFarm o3 = new FishFarm();
+          SeaportFacility o3 = new SeaportFacility();
           o3.setSiteRequest_(o.getSiteRequest_());
           o3.setPk(pk);
           promise.complete(o3);
         }).onFailure(ex -> {
-          LOG.error(String.format("sqlPATCHFishFarm failed. "), ex);
+          LOG.error(String.format("sqlPATCHSeaportFacility failed. "), ex);
           promise.tryFail(ex);
         });
       }).onFailure(ex -> {
-        LOG.error(String.format("sqlPATCHFishFarm failed. "), ex);
+        LOG.error(String.format("sqlPATCHSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("sqlPATCHFishFarm failed. "), ex);
+      LOG.error(String.format("sqlPATCHSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<ServiceResponse> response200PATCHFishFarm(SiteRequest siteRequest) {
+  public Future<ServiceResponse> response200PATCHSeaportFacility(SiteRequest siteRequest) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
       if(json == null) {
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fish farm", entityShortId);
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
         promise.complete(new ServiceResponse(404
             , m
             , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -970,7 +1709,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
       }
     } catch(Exception ex) {
-      LOG.error(String.format("response200PATCHFishFarm failed. "), ex);
+      LOG.error(String.format("response200PATCHSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
@@ -979,25 +1718,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   // POST //
 
   @Override
-  public void postFishFarm(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-    LOG.debug(String.format("postFishFarm started. "));
+  public void postSeaportFacility(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    LOG.debug(String.format("postSeaportFacility started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "POST"));
         webClient.post(
@@ -1034,7 +1773,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               apiRequest.setNumPATCH(0L);
               apiRequest.initDeepApiRequest(siteRequest);
               siteRequest.setApiRequest_(apiRequest);
-              eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+              eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
               JsonObject params = new JsonObject();
               params.put("body", siteRequest.getJsonObject());
               params.put("path", new JsonObject());
@@ -1053,24 +1792,24 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               params.put("query", query);
               JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
               JsonObject json = new JsonObject().put("context", context);
-              eventBus.request(FishFarm.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postFishFarmFuture")).onSuccess(a -> {
+              eventBus.request(SeaportFacility.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "postSeaportFacilityFuture")).onSuccess(a -> {
                 JsonObject responseMessage = (JsonObject)a.body();
                 JsonObject responseBody = new JsonObject(Buffer.buffer(JsonUtil.BASE64_DECODER.decode(responseMessage.getString("payload"))));
-                apiRequest.setSolrId(responseBody.getString(FishFarm.VAR_solrId));
+                apiRequest.setSolrId(responseBody.getString(SeaportFacility.VAR_solrId));
                 eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(responseBody.encodePrettily()))));
-                LOG.debug(String.format("postFishFarm succeeded. "));
+                LOG.debug(String.format("postSeaportFacility succeeded. "));
               }).onFailure(ex -> {
-                LOG.error(String.format("postFishFarm failed. "), ex);
+                LOG.error(String.format("postSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("postFishFarm failed. "), ex);
+            LOG.error(String.format("postSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("postFishFarm failed. "), ex);
+        LOG.error(String.format("postSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -1078,7 +1817,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("postFishFarm failed. ", ex2));
+          LOG.error(String.format("postSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1093,14 +1832,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("postFishFarm failed. "), ex);
+        LOG.error(String.format("postSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
   @Override
-  public void postFishFarmFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void postSeaportFacilityFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
@@ -1119,13 +1858,13 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
           siteRequest.getRequestVars().put( "refresh", "false" );
         }
-        postFishFarmFuture(siteRequest, false).onSuccess(o -> {
+        postSeaportFacilityFuture(siteRequest, false).onSuccess(o -> {
           eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(JsonObject.mapFrom(o).encodePrettily()))));
         }).onFailure(ex -> {
           eventHandler.handle(Future.failedFuture(ex));
         });
       } catch(Throwable ex) {
-        LOG.error(String.format("postFishFarm failed. "), ex);
+        LOG.error(String.format("postSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -1133,7 +1872,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("postFishFarm failed. ", ex2));
+          LOG.error(String.format("postSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1148,26 +1887,26 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("postFishFarm failed. "), ex);
+        LOG.error(String.format("postSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<FishFarm> postFishFarmFuture(SiteRequest siteRequest, Boolean entityShortId) {
-    Promise<FishFarm> promise = Promise.promise();
+  public Future<SeaportFacility> postSeaportFacilityFuture(SiteRequest siteRequest, Boolean entityShortId) {
+    Promise<SeaportFacility> promise = Promise.promise();
 
     try {
       pgPool.withTransaction(sqlConnection -> {
-        Promise<FishFarm> promise1 = Promise.promise();
+        Promise<SeaportFacility> promise1 = Promise.promise();
         siteRequest.setSqlConnection(sqlConnection);
-        varsFishFarm(siteRequest).onSuccess(a -> {
-          createFishFarm(siteRequest).onSuccess(fishFarm -> {
-            sqlPOSTFishFarm(fishFarm, entityShortId).onSuccess(b -> {
-              persistFishFarm(fishFarm, false).onSuccess(c -> {
-                relateFishFarm(fishFarm).onSuccess(d -> {
-                  indexFishFarm(fishFarm).onSuccess(o2 -> {
-                    promise1.complete(fishFarm);
+        varsSeaportFacility(siteRequest).onSuccess(a -> {
+          createSeaportFacility(siteRequest).onSuccess(seaportFacility -> {
+            sqlPOSTSeaportFacility(seaportFacility, entityShortId).onSuccess(b -> {
+              persistSeaportFacility(seaportFacility, false).onSuccess(c -> {
+                relateSeaportFacility(seaportFacility).onSuccess(d -> {
+                  indexSeaportFacility(seaportFacility).onSuccess(o2 -> {
+                    promise1.complete(seaportFacility);
                   }).onFailure(ex -> {
                     promise1.tryFail(ex);
                   });
@@ -1192,50 +1931,50 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
         promise.tryFail(ex);
-      }).compose(fishFarm -> {
-        Promise<FishFarm> promise2 = Promise.promise();
-        refreshFishFarm(fishFarm).onSuccess(a -> {
+      }).compose(seaportFacility -> {
+        Promise<SeaportFacility> promise2 = Promise.promise();
+        refreshSeaportFacility(seaportFacility).onSuccess(a -> {
           try {
             ApiRequest apiRequest = siteRequest.getApiRequest_();
             if(apiRequest != null) {
               apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-              fishFarm.apiRequestFishFarm();
-              eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+              seaportFacility.apiRequestSeaportFacility();
+              eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
             }
-            promise2.complete(fishFarm);
+            promise2.complete(seaportFacility);
           } catch(Exception ex) {
-            LOG.error(String.format("postFishFarmFuture failed. "), ex);
+            LOG.error(String.format("postSeaportFacilityFuture failed. "), ex);
             promise2.tryFail(ex);
           }
         }).onFailure(ex -> {
           promise2.tryFail(ex);
         });
         return promise2.future();
-      }).onSuccess(fishFarm -> {
+      }).onSuccess(seaportFacility -> {
         try {
           ApiRequest apiRequest = siteRequest.getApiRequest_();
           if(apiRequest != null) {
             apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
-            fishFarm.apiRequestFishFarm();
-            eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+            seaportFacility.apiRequestSeaportFacility();
+            eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
           }
-          promise.complete(fishFarm);
+          promise.complete(seaportFacility);
         } catch(Exception ex) {
-          LOG.error(String.format("postFishFarmFuture failed. "), ex);
+          LOG.error(String.format("postSeaportFacilityFuture failed. "), ex);
           promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("postFishFarmFuture failed. "), ex);
+      LOG.error(String.format("postSeaportFacilityFuture failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<FishFarm> sqlPOSTFishFarm(FishFarm o, Boolean inheritPrimaryKey) {
-    Promise<FishFarm> promise = Promise.promise();
+  public Future<SeaportFacility> sqlPOSTSeaportFacility(SeaportFacility o, Boolean inheritPrimaryKey) {
+    Promise<SeaportFacility> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -1243,11 +1982,11 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Integer num = 1;
-      StringBuilder bSql = new StringBuilder("UPDATE FishFarm SET ");
+      StringBuilder bSql = new StringBuilder("UPDATE SeaportFacility SET ");
       List<Object> bParams = new ArrayList<Object>();
       Long pk = o.getPk();
       JsonObject jsonObject = siteRequest.getJsonObject();
-      FishFarm o2 = new FishFarm();
+      SeaportFacility o2 = new SeaportFacility();
       o2.setSiteRequest_(siteRequest);
       List<Future> futures1 = new ArrayList<>();
       List<Future> futures2 = new ArrayList<>();
@@ -1273,230 +2012,572 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         Set<String> entityVars = jsonObject.fieldNames();
         for(String entityVar : entityVars) {
           switch(entityVar) {
-          case FishFarm.VAR_name:
+          case SeaportFacility.VAR_name:
             o2.setName(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_name + "=$" + num);
+            bSql.append(SeaportFacility.VAR_name + "=$" + num);
             num++;
             bParams.add(o2.sqlName());
             break;
-          case FishFarm.VAR_address:
+          case SeaportFacility.VAR_address:
             o2.setAddress(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_address + "=$" + num);
+            bSql.append(SeaportFacility.VAR_address + "=$" + num);
             num++;
             bParams.add(o2.sqlAddress());
             break;
-          case FishFarm.VAR_description:
+          case SeaportFacility.VAR_description:
             o2.setDescription(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_description + "=$" + num);
+            bSql.append(SeaportFacility.VAR_description + "=$" + num);
             num++;
             bParams.add(o2.sqlDescription());
             break;
-          case FishFarm.VAR_location:
+          case SeaportFacility.VAR_alternateName:
+            o2.setAlternateName(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_alternateName + "=$" + num);
+            num++;
+            bParams.add(o2.sqlAlternateName());
+            break;
+          case SeaportFacility.VAR_location:
             o2.setLocation(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_location + "=$" + num);
+            bSql.append(SeaportFacility.VAR_location + "=$" + num);
             num++;
             bParams.add(o2.sqlLocation());
             break;
-          case FishFarm.VAR_created:
+          case SeaportFacility.VAR_created:
             o2.setCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_created + "=$" + num);
+            bSql.append(SeaportFacility.VAR_created + "=$" + num);
             num++;
             bParams.add(o2.sqlCreated());
             break;
-          case FishFarm.VAR_id:
+          case SeaportFacility.VAR_authorizedPropulsion:
+            o2.setAuthorizedPropulsion(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_authorizedPropulsion + "=$" + num);
+            num++;
+            bParams.add(o2.sqlAuthorizedPropulsion());
+            break;
+          case SeaportFacility.VAR_id:
             o2.setId(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_id + "=$" + num);
+            bSql.append(SeaportFacility.VAR_id + "=$" + num);
             num++;
             bParams.add(o2.sqlId());
             break;
-          case FishFarm.VAR_entityShortId:
+          case SeaportFacility.VAR_boatSupplyingServices:
+            o2.setBoatSupplyingServices(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_boatSupplyingServices + "=$" + num);
+            num++;
+            bParams.add(o2.sqlBoatSupplyingServices());
+            break;
+          case SeaportFacility.VAR_entityShortId:
             o2.setEntityShortId(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_entityShortId + "=$" + num);
+            bSql.append(SeaportFacility.VAR_entityShortId + "=$" + num);
             num++;
             bParams.add(o2.sqlEntityShortId());
             break;
-          case FishFarm.VAR_areaServed:
-            o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishFarm.VAR_areaServed + "=$" + num);
-            num++;
-            bParams.add(o2.sqlAreaServed());
-            break;
-          case FishFarm.VAR_archived:
+          case SeaportFacility.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_archived + "=$" + num);
+            bSql.append(SeaportFacility.VAR_archived + "=$" + num);
             num++;
             bParams.add(o2.sqlArchived());
             break;
-          case FishFarm.VAR_ngsildTenant:
+          case SeaportFacility.VAR_contactPoint:
+            o2.setContactPoint(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_contactPoint + "=$" + num);
+            num++;
+            bParams.add(o2.sqlContactPoint());
+            break;
+          case SeaportFacility.VAR_ngsildTenant:
             o2.setNgsildTenant(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_ngsildTenant + "=$" + num);
+            bSql.append(SeaportFacility.VAR_ngsildTenant + "=$" + num);
             num++;
             bParams.add(o2.sqlNgsildTenant());
             break;
-          case FishFarm.VAR_ngsildPath:
+          case SeaportFacility.VAR_contractingAuthority:
+            o2.setContractingAuthority(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_contractingAuthority + "=$" + num);
+            num++;
+            bParams.add(o2.sqlContractingAuthority());
+            break;
+          case SeaportFacility.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_ngsildPath + "=$" + num);
+            bSql.append(SeaportFacility.VAR_ngsildPath + "=$" + num);
             num++;
             bParams.add(o2.sqlNgsildPath());
             break;
-          case FishFarm.VAR_ngsildContext:
+          case SeaportFacility.VAR_contractingCompany:
+            o2.setContractingCompany(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_contractingCompany + "=$" + num);
+            num++;
+            bParams.add(o2.sqlContractingCompany());
+            break;
+          case SeaportFacility.VAR_ngsildContext:
             o2.setNgsildContext(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_ngsildContext + "=$" + num);
+            bSql.append(SeaportFacility.VAR_ngsildContext + "=$" + num);
             num++;
             bParams.add(o2.sqlNgsildContext());
             break;
-          case FishFarm.VAR_ngsildData:
+          case SeaportFacility.VAR_currencyAccepted:
+            o2.setCurrencyAccepted(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_currencyAccepted + "=$" + num);
+            num++;
+            bParams.add(o2.sqlCurrencyAccepted());
+            break;
+          case SeaportFacility.VAR_ngsildData:
             o2.setNgsildData(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_ngsildData + "=$" + num);
+            bSql.append(SeaportFacility.VAR_ngsildData + "=$" + num);
             num++;
             bParams.add(o2.sqlNgsildData());
             break;
-          case FishFarm.VAR_sessionId:
+          case SeaportFacility.VAR_sessionId:
             o2.setSessionId(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_sessionId + "=$" + num);
+            bSql.append(SeaportFacility.VAR_sessionId + "=$" + num);
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case FishFarm.VAR_color:
+          case SeaportFacility.VAR_dataProvider:
+            o2.setDataProvider(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_dataProvider + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDataProvider());
+            break;
+          case SeaportFacility.VAR_color:
             o2.setColor(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_color + "=$" + num);
+            bSql.append(SeaportFacility.VAR_color + "=$" + num);
             num++;
             bParams.add(o2.sqlColor());
             break;
-          case FishFarm.VAR_userKey:
+          case SeaportFacility.VAR_userKey:
             o2.setUserKey(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_userKey + "=$" + num);
+            bSql.append(SeaportFacility.VAR_userKey + "=$" + num);
             num++;
             bParams.add(o2.sqlUserKey());
             break;
-          case FishFarm.VAR_objectTitle:
+          case SeaportFacility.VAR_dateCreated:
+            o2.setDateCreated(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_dateCreated + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDateCreated());
+            break;
+          case SeaportFacility.VAR_dateLastReported:
+            o2.setDateLastReported(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_dateLastReported + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDateLastReported());
+            break;
+          case SeaportFacility.VAR_dateModified:
+            o2.setDateModified(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_dateModified + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDateModified());
+            break;
+          case SeaportFacility.VAR_objectTitle:
             o2.setObjectTitle(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_objectTitle + "=$" + num);
+            bSql.append(SeaportFacility.VAR_objectTitle + "=$" + num);
             num++;
             bParams.add(o2.sqlObjectTitle());
             break;
-          case FishFarm.VAR_displayPage:
+          case SeaportFacility.VAR_electricTransport:
+            o2.setElectricTransport(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_electricTransport + "=$" + num);
+            num++;
+            bParams.add(o2.sqlElectricTransport());
+            break;
+          case SeaportFacility.VAR_displayPage:
             o2.setDisplayPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_displayPage + "=$" + num);
+            bSql.append(SeaportFacility.VAR_displayPage + "=$" + num);
             num++;
             bParams.add(o2.sqlDisplayPage());
             break;
-          case FishFarm.VAR_displayPageFrFR:
+          case SeaportFacility.VAR_endDate:
+            o2.setEndDate(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_endDate + "=$" + num);
+            num++;
+            bParams.add(o2.sqlEndDate());
+            break;
+          case SeaportFacility.VAR_displayPageFrFR:
             o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_displayPageFrFR + "=$" + num);
+            bSql.append(SeaportFacility.VAR_displayPageFrFR + "=$" + num);
             num++;
             bParams.add(o2.sqlDisplayPageFrFR());
             break;
-          case FishFarm.VAR_editPage:
+          case SeaportFacility.VAR_facilities:
+            o2.setFacilities(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_facilities + "=$" + num);
+            num++;
+            bParams.add(o2.sqlFacilities());
+            break;
+          case SeaportFacility.VAR_editPage:
             o2.setEditPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_editPage + "=$" + num);
+            bSql.append(SeaportFacility.VAR_editPage + "=$" + num);
             num++;
             bParams.add(o2.sqlEditPage());
             break;
-          case FishFarm.VAR_editPageFrFR:
+          case SeaportFacility.VAR_maxDraft:
+            o2.setMaxDraft(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_maxDraft + "=$" + num);
+            num++;
+            bParams.add(o2.sqlMaxDraft());
+            break;
+          case SeaportFacility.VAR_editPageFrFR:
             o2.setEditPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_editPageFrFR + "=$" + num);
+            bSql.append(SeaportFacility.VAR_editPageFrFR + "=$" + num);
             num++;
             bParams.add(o2.sqlEditPageFrFR());
             break;
-          case FishFarm.VAR_userPage:
+          case SeaportFacility.VAR_maxLength:
+            o2.setMaxLength(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_maxLength + "=$" + num);
+            num++;
+            bParams.add(o2.sqlMaxLength());
+            break;
+          case SeaportFacility.VAR_userPage:
             o2.setUserPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_userPage + "=$" + num);
+            bSql.append(SeaportFacility.VAR_userPage + "=$" + num);
             num++;
             bParams.add(o2.sqlUserPage());
             break;
-          case FishFarm.VAR_userPageFrFR:
+          case SeaportFacility.VAR_maxTonnage:
+            o2.setMaxTonnage(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_maxTonnage + "=$" + num);
+            num++;
+            bParams.add(o2.sqlMaxTonnage());
+            break;
+          case SeaportFacility.VAR_userPageFrFR:
             o2.setUserPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_userPageFrFR + "=$" + num);
+            bSql.append(SeaportFacility.VAR_userPageFrFR + "=$" + num);
             num++;
             bParams.add(o2.sqlUserPageFrFR());
             break;
-          case FishFarm.VAR_download:
+          case SeaportFacility.VAR_maxWidth:
+            o2.setMaxWidth(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_maxWidth + "=$" + num);
+            num++;
+            bParams.add(o2.sqlMaxWidth());
+            break;
+          case SeaportFacility.VAR_download:
             o2.setDownload(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_download + "=$" + num);
+            bSql.append(SeaportFacility.VAR_download + "=$" + num);
             num++;
             bParams.add(o2.sqlDownload());
             break;
-          case FishFarm.VAR_downloadFrFR:
+          case SeaportFacility.VAR_minLength:
+            o2.setMinLength(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_minLength + "=$" + num);
+            num++;
+            bParams.add(o2.sqlMinLength());
+            break;
+          case SeaportFacility.VAR_downloadFrFR:
             o2.setDownloadFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FishFarm.VAR_downloadFrFR + "=$" + num);
+            bSql.append(SeaportFacility.VAR_downloadFrFR + "=$" + num);
             num++;
             bParams.add(o2.sqlDownloadFrFR());
+            break;
+          case SeaportFacility.VAR_nearbyServices:
+            o2.setNearbyServices(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_nearbyServices + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNearbyServices());
+            break;
+          case SeaportFacility.VAR_numberOfPlace:
+            o2.setNumberOfPlace(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_numberOfPlace + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNumberOfPlace());
+            break;
+          case SeaportFacility.VAR_openingHours:
+            o2.setOpeningHours(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_openingHours + "=$" + num);
+            num++;
+            bParams.add(o2.sqlOpeningHours());
+            break;
+          case SeaportFacility.VAR_openingHoursSpecification:
+            o2.setOpeningHoursSpecification(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_openingHoursSpecification + "=$" + num);
+            num++;
+            bParams.add(o2.sqlOpeningHoursSpecification());
+            break;
+          case SeaportFacility.VAR_owner:
+            o2.setOwner(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_owner + "=$" + num);
+            num++;
+            bParams.add(o2.sqlOwner());
+            break;
+          case SeaportFacility.VAR_paymentAccepted:
+            o2.setPaymentAccepted(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_paymentAccepted + "=$" + num);
+            num++;
+            bParams.add(o2.sqlPaymentAccepted());
+            break;
+          case SeaportFacility.VAR_portServicesProvided:
+            o2.setPortServicesProvided(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_portServicesProvided + "=$" + num);
+            num++;
+            bParams.add(o2.sqlPortServicesProvided());
+            break;
+          case SeaportFacility.VAR_refBoatAuthorized:
+            o2.setRefBoatAuthorized(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_refBoatAuthorized + "=$" + num);
+            num++;
+            bParams.add(o2.sqlRefBoatAuthorized());
+            break;
+          case SeaportFacility.VAR_refBoatPlaceAvailable:
+            o2.setRefBoatPlaceAvailable(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_refBoatPlaceAvailable + "=$" + num);
+            num++;
+            bParams.add(o2.sqlRefBoatPlaceAvailable());
+            break;
+          case SeaportFacility.VAR_refBoatPlacePricing:
+            o2.setRefBoatPlacePricing(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_refBoatPlacePricing + "=$" + num);
+            num++;
+            bParams.add(o2.sqlRefBoatPlacePricing());
+            break;
+          case SeaportFacility.VAR_refDevice:
+            o2.setRefDevice(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_refDevice + "=$" + num);
+            num++;
+            bParams.add(o2.sqlRefDevice());
+            break;
+          case SeaportFacility.VAR_refPointOfInterest:
+            o2.setRefPointOfInterest(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_refPointOfInterest + "=$" + num);
+            num++;
+            bParams.add(o2.sqlRefPointOfInterest());
+            break;
+          case SeaportFacility.VAR_rentalSaleServices:
+            o2.setRentalSaleServices(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_rentalSaleServices + "=$" + num);
+            num++;
+            bParams.add(o2.sqlRentalSaleServices());
+            break;
+          case SeaportFacility.VAR_routeType:
+            o2.setRouteType(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_routeType + "=$" + num);
+            num++;
+            bParams.add(o2.sqlRouteType());
+            break;
+          case SeaportFacility.VAR_seeAlso:
+            o2.setSeeAlso(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_seeAlso + "=$" + num);
+            num++;
+            bParams.add(o2.sqlSeeAlso());
+            break;
+          case SeaportFacility.VAR_source:
+            o2.setSource(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_source + "=$" + num);
+            num++;
+            bParams.add(o2.sqlSource());
+            break;
+          case SeaportFacility.VAR_startDate:
+            o2.setStartDate(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_startDate + "=$" + num);
+            num++;
+            bParams.add(o2.sqlStartDate());
+            break;
+          case SeaportFacility.VAR_transportServices:
+            o2.setTransportServices(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_transportServices + "=$" + num);
+            num++;
+            bParams.add(o2.sqlTransportServices());
+            break;
+          case SeaportFacility.VAR_typeOfPort:
+            o2.setTypeOfPort(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_typeOfPort + "=$" + num);
+            num++;
+            bParams.add(o2.sqlTypeOfPort());
+            break;
+          case SeaportFacility.VAR_webSite:
+            o2.setWebSite(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_webSite + "=$" + num);
+            num++;
+            bParams.add(o2.sqlWebSite());
             break;
           }
         }
@@ -1511,8 +2592,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               ).onSuccess(b -> {
             a.handle(Future.succeededFuture());
           }).onFailure(ex -> {
-            RuntimeException ex2 = new RuntimeException("value FishFarm failed", ex);
-            LOG.error(String.format("relateFishFarm failed. "), ex2);
+            RuntimeException ex2 = new RuntimeException("value SeaportFacility failed", ex);
+            LOG.error(String.format("relateSeaportFacility failed. "), ex2);
             a.handle(Future.failedFuture(ex2));
           });
         }));
@@ -1521,28 +2602,28 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         CompositeFuture.all(futures2).onSuccess(b -> {
           promise.complete(o2);
         }).onFailure(ex -> {
-          LOG.error(String.format("sqlPOSTFishFarm failed. "), ex);
+          LOG.error(String.format("sqlPOSTSeaportFacility failed. "), ex);
           promise.tryFail(ex);
         });
       }).onFailure(ex -> {
-        LOG.error(String.format("sqlPOSTFishFarm failed. "), ex);
+        LOG.error(String.format("sqlPOSTSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("sqlPOSTFishFarm failed. "), ex);
+      LOG.error(String.format("sqlPOSTSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<ServiceResponse> response200POSTFishFarm(FishFarm o) {
+  public Future<ServiceResponse> response200POSTSeaportFacility(SeaportFacility o) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       JsonObject json = JsonObject.mapFrom(o);
       if(json == null) {
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fish farm", entityShortId);
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
         promise.complete(new ServiceResponse(404
             , m
             , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1550,7 +2631,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
       }
     } catch(Exception ex) {
-      LOG.error(String.format("response200POSTFishFarm failed. "), ex);
+      LOG.error(String.format("response200POSTSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
@@ -1559,25 +2640,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   // DELETE //
 
   @Override
-  public void deleteFishFarm(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-    LOG.debug(String.format("deleteFishFarm started. "));
+  public void deleteSeaportFacility(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    LOG.debug(String.format("deleteSeaportFacility started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -1608,47 +2689,47 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishFarmList(siteRequest, false, true, true).onSuccess(listFishFarm -> {
+              searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
-                  apiRequest.setRows(listFishFarm.getRequest().getRows());
-                  apiRequest.setNumFound(listFishFarm.getResponse().getResponse().getNumFound());
+                  apiRequest.setRows(listSeaportFacility.getRequest().getRows());
+                  apiRequest.setNumFound(listSeaportFacility.getResponse().getResponse().getNumFound());
                   apiRequest.setNumPATCH(0L);
                   apiRequest.initDeepApiRequest(siteRequest);
                   siteRequest.setApiRequest_(apiRequest);
                   if(apiRequest.getNumFound() == 1L)
-                    apiRequest.setOriginal(listFishFarm.first());
-                  apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
-                  eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+                    apiRequest.setOriginal(listSeaportFacility.first());
+                  apiRequest.setSolrId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getSolrId()).orElse(null));
+                  eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
 
-                  listDELETEFishFarm(apiRequest, listFishFarm).onSuccess(e -> {
-                    response200DELETEFishFarm(siteRequest).onSuccess(response -> {
-                      LOG.debug(String.format("deleteFishFarm succeeded. "));
+                  listDELETESeaportFacility(apiRequest, listSeaportFacility).onSuccess(e -> {
+                    response200DELETESeaportFacility(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("deleteSeaportFacility succeeded. "));
                       eventHandler.handle(Future.succeededFuture(response));
                     }).onFailure(ex -> {
-                      LOG.error(String.format("deleteFishFarm failed. "), ex);
+                      LOG.error(String.format("deleteSeaportFacility failed. "), ex);
                       error(siteRequest, eventHandler, ex);
                     });
                   }).onFailure(ex -> {
-                    LOG.error(String.format("deleteFishFarm failed. "), ex);
+                    LOG.error(String.format("deleteSeaportFacility failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
                 } catch(Exception ex) {
-                  LOG.error(String.format("deleteFishFarm failed. "), ex);
+                  LOG.error(String.format("deleteSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 }
               }).onFailure(ex -> {
-                LOG.error(String.format("deleteFishFarm failed. "), ex);
+                LOG.error(String.format("deleteSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("deleteFishFarm failed. "), ex);
+            LOG.error(String.format("deleteSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("deleteFishFarm failed. "), ex);
+        LOG.error(String.format("deleteSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -1656,7 +2737,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("deleteFishFarm failed. ", ex2));
+          LOG.error(String.format("deleteSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -1671,58 +2752,58 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("deleteFishFarm failed. "), ex);
+        LOG.error(String.format("deleteSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<Void> listDELETEFishFarm(ApiRequest apiRequest, SearchList<FishFarm> listFishFarm) {
+  public Future<Void> listDELETESeaportFacility(ApiRequest apiRequest, SearchList<SeaportFacility> listSeaportFacility) {
     Promise<Void> promise = Promise.promise();
     List<Future> futures = new ArrayList<>();
-    SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
-    listFishFarm.getList().forEach(o -> {
+    SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+    listSeaportFacility.getList().forEach(o -> {
       SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
       siteRequest2.setScopes(siteRequest.getScopes());
       o.setSiteRequest_(siteRequest2);
       siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
       JsonObject jsonObject = JsonObject.mapFrom(o);
-      FishFarm o2 = jsonObject.mapTo(FishFarm.class);
+      SeaportFacility o2 = jsonObject.mapTo(SeaportFacility.class);
       o2.setSiteRequest_(siteRequest2);
       futures.add(Future.future(promise1 -> {
-        deleteFishFarmFuture(o).onSuccess(a -> {
+        deleteSeaportFacilityFuture(o).onSuccess(a -> {
           promise1.complete();
         }).onFailure(ex -> {
-          LOG.error(String.format("listDELETEFishFarm failed. "), ex);
+          LOG.error(String.format("listDELETESeaportFacility failed. "), ex);
           promise1.tryFail(ex);
         });
       }));
     });
     CompositeFuture.all(futures).onSuccess( a -> {
-      listFishFarm.next().onSuccess(next -> {
+      listSeaportFacility.next().onSuccess(next -> {
         if(next) {
-          listDELETEFishFarm(apiRequest, listFishFarm).onSuccess(b -> {
+          listDELETESeaportFacility(apiRequest, listSeaportFacility).onSuccess(b -> {
             promise.complete();
           }).onFailure(ex -> {
-            LOG.error(String.format("listDELETEFishFarm failed. "), ex);
+            LOG.error(String.format("listDELETESeaportFacility failed. "), ex);
             promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
-        LOG.error(String.format("listDELETEFishFarm failed. "), ex);
+        LOG.error(String.format("listDELETESeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     }).onFailure(ex -> {
-      LOG.error(String.format("listDELETEFishFarm failed. "), ex);
+      LOG.error(String.format("listDELETESeaportFacility failed. "), ex);
       promise.tryFail(ex);
     });
     return promise.future();
   }
 
   @Override
-  public void deleteFishFarmFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void deleteSeaportFacilityFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
@@ -1734,10 +2815,10 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             siteRequest.addScopes(scope);
           });
         });
-        searchFishFarmList(siteRequest, false, true, true).onSuccess(listFishFarm -> {
+        searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
           try {
-            FishFarm o = listFishFarm.first();
-            if(o != null && listFishFarm.getResponse().getResponse().getNumFound() == 1) {
+            SeaportFacility o = listSeaportFacility.first();
+            if(o != null && listSeaportFacility.getResponse().getResponse().getNumFound() == 1) {
               ApiRequest apiRequest = new ApiRequest();
               apiRequest.setRows(1L);
               apiRequest.setNumFound(1L);
@@ -1749,9 +2830,9 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               }
               if(apiRequest.getNumFound() == 1L)
                 apiRequest.setOriginal(o);
-              apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-              apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
-              deleteFishFarmFuture(o).onSuccess(o2 -> {
+              apiRequest.setId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
+              apiRequest.setSolrId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getSolrId()).orElse(null));
+              deleteSeaportFacilityFuture(o).onSuccess(o2 -> {
                 eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
               }).onFailure(ex -> {
                 eventHandler.handle(Future.failedFuture(ex));
@@ -1760,42 +2841,42 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
             }
           } catch(Exception ex) {
-            LOG.error(String.format("deleteFishFarm failed. "), ex);
+            LOG.error(String.format("deleteSeaportFacility failed. "), ex);
             error(siteRequest, eventHandler, ex);
           }
         }).onFailure(ex -> {
-          LOG.error(String.format("deleteFishFarm failed. "), ex);
+          LOG.error(String.format("deleteSeaportFacility failed. "), ex);
           error(siteRequest, eventHandler, ex);
         });
       } catch(Exception ex) {
-        LOG.error(String.format("deleteFishFarm failed. "), ex);
+        LOG.error(String.format("deleteSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
-      LOG.error(String.format("deleteFishFarm failed. "), ex);
+      LOG.error(String.format("deleteSeaportFacility failed. "), ex);
       error(null, eventHandler, ex);
     });
   }
 
-  public Future<FishFarm> deleteFishFarmFuture(FishFarm o) {
+  public Future<SeaportFacility> deleteSeaportFacilityFuture(SeaportFacility o) {
     SiteRequest siteRequest = o.getSiteRequest_();
-    Promise<FishFarm> promise = Promise.promise();
+    Promise<SeaportFacility> promise = Promise.promise();
 
     try {
       ApiRequest apiRequest = siteRequest.getApiRequest_();
-      Promise<FishFarm> promise1 = Promise.promise();
+      Promise<SeaportFacility> promise1 = Promise.promise();
       pgPool.withTransaction(sqlConnection -> {
         siteRequest.setSqlConnection(sqlConnection);
-        varsFishFarm(siteRequest).onSuccess(a -> {
-          sqlDELETEFishFarm(o).onSuccess(fishFarm -> {
-            relateFishFarm(o).onSuccess(d -> {
-              unindexFishFarm(o).onSuccess(o2 -> {
+        varsSeaportFacility(siteRequest).onSuccess(a -> {
+          sqlDELETESeaportFacility(o).onSuccess(seaportFacility -> {
+            relateSeaportFacility(o).onSuccess(d -> {
+              unindexSeaportFacility(o).onSuccess(o2 -> {
                 if(apiRequest != null) {
                   apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
                   if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-                    o2.apiRequestFishFarm();
+                    o2.apiRequestSeaportFacility();
                     if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
-                      eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+                      eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
                   }
                 }
                 promise1.complete();
@@ -1817,27 +2898,27 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
         promise.tryFail(ex);
-      }).compose(fishFarm -> {
-        Promise<FishFarm> promise2 = Promise.promise();
-        refreshFishFarm(o).onSuccess(a -> {
+      }).compose(seaportFacility -> {
+        Promise<SeaportFacility> promise2 = Promise.promise();
+        refreshSeaportFacility(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
           promise2.tryFail(ex);
         });
         return promise2.future();
-      }).onSuccess(fishFarm -> {
-        promise.complete(fishFarm);
+      }).onSuccess(seaportFacility -> {
+        promise.complete(seaportFacility);
       }).onFailure(ex -> {
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("deleteFishFarmFuture failed. "), ex);
+      LOG.error(String.format("deleteSeaportFacilityFuture failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<Void> sqlDELETEFishFarm(FishFarm o) {
+  public Future<Void> sqlDELETESeaportFacility(SeaportFacility o) {
     Promise<Void> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
@@ -1846,11 +2927,11 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Integer num = 1;
-      StringBuilder bSql = new StringBuilder("DELETE FROM FishFarm ");
+      StringBuilder bSql = new StringBuilder("DELETE FROM SeaportFacility ");
       List<Object> bParams = new ArrayList<Object>();
       Long pk = o.getPk();
       JsonObject jsonObject = siteRequest.getJsonObject();
-      FishFarm o2 = new FishFarm();
+      SeaportFacility o2 = new SeaportFacility();
       o2.setSiteRequest_(siteRequest);
       List<Future> futures1 = new ArrayList<>();
       List<Future> futures2 = new ArrayList<>();
@@ -1871,36 +2952,45 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             ).onSuccess(b -> {
           a.handle(Future.succeededFuture());
         }).onFailure(ex -> {
-          RuntimeException ex2 = new RuntimeException("value FishFarm failed", ex);
-          LOG.error(String.format("unrelateFishFarm failed. "), ex2);
+          RuntimeException ex2 = new RuntimeException("value SeaportFacility failed", ex);
+          LOG.error(String.format("unrelateSeaportFacility failed. "), ex2);
           a.handle(Future.failedFuture(ex2));
         });
       }));
       CompositeFuture.all(futures1).onSuccess(a -> {
         CompositeFuture.all(futures2).onSuccess(b -> {
-          promise.complete();
+          if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+            cbDeleteEntity(o).onSuccess(c -> {
+              promise.complete();
+            }).onFailure(ex -> {
+              LOG.error(String.format("sqlDELETESeaportFacility failed. "), ex);
+              promise.tryFail(ex);
+            });
+          } else {
+            promise.complete();
+          }
         }).onFailure(ex -> {
-          LOG.error(String.format("sqlDELETEFishFarm failed. "), ex);
+          LOG.error(String.format("sqlDELETESeaportFacility failed. "), ex);
           promise.tryFail(ex);
         });
       }).onFailure(ex -> {
-        LOG.error(String.format("sqlDELETEFishFarm failed. "), ex);
+        LOG.error(String.format("sqlDELETESeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("sqlDELETEFishFarm failed. "), ex);
+      LOG.error(String.format("sqlDELETESeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<ServiceResponse> response200DELETEFishFarm(SiteRequest siteRequest) {
+  public Future<ServiceResponse> response200DELETESeaportFacility(SiteRequest siteRequest) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
       if(json == null) {
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fish farm", entityShortId);
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
         promise.complete(new ServiceResponse(404
             , m
             , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -1908,7 +2998,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
       }
     } catch(Exception ex) {
-      LOG.error(String.format("response200DELETEFishFarm failed. "), ex);
+      LOG.error(String.format("response200DELETESeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
@@ -1917,25 +3007,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   // PUTImport //
 
   @Override
-  public void putimportFishFarm(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-    LOG.debug(String.format("putimportFishFarm started. "));
+  public void putimportSeaportFacility(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    LOG.debug(String.format("putimportSeaportFacility started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
         webClient.post(
@@ -1973,32 +3063,32 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               apiRequest.setNumPATCH(0L);
               apiRequest.initDeepApiRequest(siteRequest);
               siteRequest.setApiRequest_(apiRequest);
-              eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
-              varsFishFarm(siteRequest).onSuccess(d -> {
-                listPUTImportFishFarm(apiRequest, siteRequest).onSuccess(e -> {
-                  response200PUTImportFishFarm(siteRequest).onSuccess(response -> {
-                    LOG.debug(String.format("putimportFishFarm succeeded. "));
+              eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
+              varsSeaportFacility(siteRequest).onSuccess(d -> {
+                listPUTImportSeaportFacility(apiRequest, siteRequest).onSuccess(e -> {
+                  response200PUTImportSeaportFacility(siteRequest).onSuccess(response -> {
+                    LOG.debug(String.format("putimportSeaportFacility succeeded. "));
                     eventHandler.handle(Future.succeededFuture(response));
                   }).onFailure(ex -> {
-                    LOG.error(String.format("putimportFishFarm failed. "), ex);
+                    LOG.error(String.format("putimportSeaportFacility failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
                 }).onFailure(ex -> {
-                  LOG.error(String.format("putimportFishFarm failed. "), ex);
+                  LOG.error(String.format("putimportSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 });
               }).onFailure(ex -> {
-                LOG.error(String.format("putimportFishFarm failed. "), ex);
+                LOG.error(String.format("putimportSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("putimportFishFarm failed. "), ex);
+            LOG.error(String.format("putimportSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("putimportFishFarm failed. "), ex);
+        LOG.error(String.format("putimportSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -2006,7 +3096,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("putimportFishFarm failed. ", ex2));
+          LOG.error(String.format("putimportSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2021,13 +3111,13 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("putimportFishFarm failed. "), ex);
+        LOG.error(String.format("putimportSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<Void> listPUTImportFishFarm(ApiRequest apiRequest, SiteRequest siteRequest) {
+  public Future<Void> listPUTImportSeaportFacility(ApiRequest apiRequest, SiteRequest siteRequest) {
     Promise<Void> promise = Promise.promise();
     List<Future> futures = new ArrayList<>();
     JsonArray jsonArray = Optional.ofNullable(siteRequest.getJsonObject()).map(o -> o.getJsonArray("list")).orElse(new JsonArray());
@@ -2052,10 +3142,10 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
           params.put("query", query);
           JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
           JsonObject json = new JsonObject().put("context", context);
-          eventBus.request(FishFarm.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "putimportFishFarmFuture")).onSuccess(a -> {
+          eventBus.request(SeaportFacility.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "putimportSeaportFacilityFuture")).onSuccess(a -> {
             promise1.complete();
           }).onFailure(ex -> {
-            LOG.error(String.format("listPUTImportFishFarm failed. "), ex);
+            LOG.error(String.format("listPUTImportSeaportFacility failed. "), ex);
             promise1.tryFail(ex);
           });
         }));
@@ -2064,18 +3154,18 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
         promise.complete();
       }).onFailure(ex -> {
-        LOG.error(String.format("listPUTImportFishFarm failed. "), ex);
+        LOG.error(String.format("listPUTImportSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("listPUTImportFishFarm failed. "), ex);
+      LOG.error(String.format("listPUTImportSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
   @Override
-  public void putimportFishFarmFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void putimportSeaportFacilityFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
@@ -2091,19 +3181,19 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         apiRequest.setNumPATCH(0L);
         apiRequest.initDeepApiRequest(siteRequest);
         siteRequest.setApiRequest_(apiRequest);
-        String entityShortId = Optional.ofNullable(body.getString(FishFarm.VAR_entityShortId)).orElse(body.getString(FishFarm.VAR_solrId));
+        String entityShortId = Optional.ofNullable(body.getString(SeaportFacility.VAR_entityShortId)).orElse(body.getString(SeaportFacility.VAR_solrId));
         if(Optional.ofNullable(serviceRequest.getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getJsonArray("var")).orElse(new JsonArray()).stream().filter(s -> "refresh:false".equals(s)).count() > 0L) {
           siteRequest.getRequestVars().put( "refresh", "false" );
         }
         pgPool.getConnection().onSuccess(sqlConnection -> {
-          String sqlQuery = String.format("select * from %s WHERE entityShortId=$1", FishFarm.CLASS_SIMPLE_NAME);
+          String sqlQuery = String.format("select * from %s WHERE entityShortId=$1", SeaportFacility.CLASS_SIMPLE_NAME);
           sqlConnection.preparedQuery(sqlQuery)
               .execute(Tuple.tuple(Arrays.asList(entityShortId))
               ).onSuccess(result -> {
             sqlConnection.close().onSuccess(a -> {
               try {
                 if(result.size() >= 1) {
-                  FishFarm o = new FishFarm();
+                  SeaportFacility o = new SeaportFacility();
                   o.setSiteRequest_(siteRequest);
                   for(Row definition : result.value()) {
                     for(Integer i = 0; i < definition.size(); i++) {
@@ -2112,11 +3202,11 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                         Object columnValue = definition.getValue(i);
                         o.persistForClass(columnName, columnValue);
                       } catch(Exception e) {
-                        LOG.error(String.format("persistFishFarm failed. "), e);
+                        LOG.error(String.format("persistSeaportFacility failed. "), e);
                       }
                     }
                   }
-                  FishFarm o2 = new FishFarm();
+                  SeaportFacility o2 = new SeaportFacility();
                   o2.setSiteRequest_(siteRequest);
                   JsonObject body2 = new JsonObject();
                   for(String f : body.fieldNames()) {
@@ -2164,40 +3254,40 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                     apiRequest.setSolrId(o.getSolrId());
                   }
                   siteRequest.setJsonObject(body2);
-                  patchFishFarmFuture(o, true).onSuccess(b -> {
-                    LOG.debug("Import FishFarm {} succeeded, modified FishFarm. ", body.getValue(FishFarm.VAR_entityShortId));
+                  patchSeaportFacilityFuture(o, true).onSuccess(b -> {
+                    LOG.debug("Import SeaportFacility {} succeeded, modified SeaportFacility. ", body.getValue(SeaportFacility.VAR_entityShortId));
                     eventHandler.handle(Future.succeededFuture());
                   }).onFailure(ex -> {
-                    LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+                    LOG.error(String.format("putimportSeaportFacilityFuture failed. "), ex);
                     eventHandler.handle(Future.failedFuture(ex));
                   });
                 } else {
-                  postFishFarmFuture(siteRequest, true).onSuccess(b -> {
-                    LOG.debug("Import FishFarm {} succeeded, created new FishFarm. ", body.getValue(FishFarm.VAR_entityShortId));
+                  postSeaportFacilityFuture(siteRequest, true).onSuccess(b -> {
+                    LOG.debug("Import SeaportFacility {} succeeded, created new SeaportFacility. ", body.getValue(SeaportFacility.VAR_entityShortId));
                     eventHandler.handle(Future.succeededFuture());
                   }).onFailure(ex -> {
-                    LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+                    LOG.error(String.format("putimportSeaportFacilityFuture failed. "), ex);
                     eventHandler.handle(Future.failedFuture(ex));
                   });
                 }
               } catch(Exception ex) {
-                LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+                LOG.error(String.format("putimportSeaportFacilityFuture failed. "), ex);
                 eventHandler.handle(Future.failedFuture(ex));
               }
             }).onFailure(ex -> {
-              LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+              LOG.error(String.format("putimportSeaportFacilityFuture failed. "), ex);
               eventHandler.handle(Future.failedFuture(ex));
             });
           }).onFailure(ex -> {
-            LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+            LOG.error(String.format("putimportSeaportFacilityFuture failed. "), ex);
             eventHandler.handle(Future.failedFuture(ex));
           });
         }).onFailure(ex -> {
-          LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+          LOG.error(String.format("putimportSeaportFacilityFuture failed. "), ex);
           eventHandler.handle(Future.failedFuture(ex));
         });
       } catch(Exception ex) {
-        LOG.error(String.format("putimportFishFarmFuture failed. "), ex);
+        LOG.error(String.format("putimportSeaportFacilityFuture failed. "), ex);
         eventHandler.handle(Future.failedFuture(ex));
       }
     }).onFailure(ex -> {
@@ -2205,7 +3295,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("putimportFishFarm failed. ", ex2));
+          LOG.error(String.format("putimportSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2220,19 +3310,19 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("putimportFishFarm failed. "), ex);
+        LOG.error(String.format("putimportSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<ServiceResponse> response200PUTImportFishFarm(SiteRequest siteRequest) {
+  public Future<ServiceResponse> response200PUTImportSeaportFacility(SiteRequest siteRequest) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
       if(json == null) {
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fish farm", entityShortId);
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
         promise.complete(new ServiceResponse(404
             , m
             , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2240,7 +3330,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
       }
     } catch(Exception ex) {
-      LOG.error(String.format("response200PUTImportFishFarm failed. "), ex);
+      LOG.error(String.format("response200PUTImportSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
@@ -2249,24 +3339,24 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   // SearchPage //
 
   @Override
-  public void searchpageFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void searchpageSeaportFacility(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -2285,26 +3375,26 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishFarmList(siteRequest, false, true, false).onSuccess(listFishFarm -> {
-                response200SearchPageFishFarm(listFishFarm).onSuccess(response -> {
+              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+                response200SearchPageSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
-                  LOG.debug(String.format("searchpageFishFarm succeeded. "));
+                  LOG.debug(String.format("searchpageSeaportFacility succeeded. "));
                 }).onFailure(ex -> {
-                  LOG.error(String.format("searchpageFishFarm failed. "), ex);
+                  LOG.error(String.format("searchpageSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 });
               }).onFailure(ex -> {
-                LOG.error(String.format("searchpageFishFarm failed. "), ex);
+                LOG.error(String.format("searchpageSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("searchpageFishFarm failed. "), ex);
+            LOG.error(String.format("searchpageSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("searchpageFishFarm failed. "), ex);
+        LOG.error(String.format("searchpageSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -2312,7 +3402,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("searchpageFishFarm failed. ", ex2));
+          LOG.error(String.format("searchpageSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2327,22 +3417,24 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("searchpageFishFarm failed. "), ex);
+        LOG.error(String.format("searchpageSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public void searchpageFishFarmPageInit(JsonObject ctx, FishFarmPage page, SearchList<FishFarm> listFishFarm, Promise<Void> promise) {
+  public void searchpageSeaportFacilityPageInit(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<Void> promise) {
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
     ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
     ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
     ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
     ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
 
-    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fish-farm"));
-    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fish-farm"));
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
     ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
     ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
@@ -2351,44 +3443,44 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     promise.complete();
   }
 
-  public String templateUriSearchPageFishFarm(ServiceRequest serviceRequest) {
-    return "en-us/search/fish-farm/FishFarmSearchPage.htm";
+  public String templateUriSearchPageSeaportFacility(ServiceRequest serviceRequest) {
+    return "en-us/search/seaport-facilities/SeaportFacilitySearchPage.htm";
   }
-  public String templateSearchPageFishFarm(ServiceRequest serviceRequest, FishFarm result) {
+  public String templateSearchPageSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
     String template = null;
     try {
-      String pageTemplateUri = templateUriSearchPageFishFarm(serviceRequest);
+      String pageTemplateUri = templateUriSearchPageSeaportFacility(serviceRequest);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
       template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
     } catch(Exception ex) {
-      LOG.error(String.format("templateSearchPageFishFarm failed. "), ex);
+      LOG.error(String.format("templateSearchPageSeaportFacility failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
     return template;
   }
-  public Future<ServiceResponse> response200SearchPageFishFarm(SearchList<FishFarm> listFishFarm) {
+  public Future<ServiceResponse> response200SearchPageSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
-      SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFishFarm(siteRequest.getServiceRequest(), listFishFarm.first());
-      FishFarmPage page = new FishFarmPage();
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      String template = templateSearchPageSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
+      SeaportFacilityPage page = new SeaportFacilityPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
 
-      if(listFishFarm.size() >= 1)
-        siteRequest.setRequestPk(listFishFarm.get(0).getPk());
-      page.setSearchListFishFarm_(listFishFarm);
+      if(listSeaportFacility.size() >= 1)
+        siteRequest.setRequestPk(listSeaportFacility.get(0).getPk());
+      page.setSearchListSeaportFacility_(listSeaportFacility);
       page.setSiteRequest_(siteRequest);
       page.setServiceRequest(siteRequest.getServiceRequest());
       page.setWebClient(webClient);
       page.setVertx(vertx);
-      page.promiseDeepFishFarmPage(siteRequest).onSuccess(a -> {
+      page.promiseDeepSeaportFacilityPage(siteRequest).onSuccess(a -> {
         try {
           JsonObject ctx = ConfigKeys.getPageContext(config);
           ctx.mergeIn(JsonObject.mapFrom(page));
           Promise<Void> promise1 = Promise.promise();
-          searchpageFishFarmPageInit(ctx, page, listFishFarm, promise1);
+          searchpageSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
           promise1.future().onSuccess(b -> {
             String renderedTemplate = jinjava.render(template, ctx.getMap());
             Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2397,19 +3489,19 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             promise.tryFail(ex);
           });
         } catch(Exception ex) {
-          LOG.error(String.format("response200SearchPageFishFarm failed. "), ex);
+          LOG.error(String.format("response200SearchPageSeaportFacility failed. "), ex);
           promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("response200SearchPageFishFarm failed. "), ex);
+      LOG.error(String.format("response200SearchPageSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
-  public void responsePivotSearchPageFishFarm(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+  public void responsePivotSearchPageSeaportFacility(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
     if(pivots != null) {
       for(SolrResponse.Pivot pivotField : pivots) {
         String entityIndexed = pivotField.getField();
@@ -2438,7 +3530,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         if(pivotFields2 != null) {
           JsonArray pivotArray2 = new JsonArray();
           pivotJson.put("pivot", pivotArray2);
-          responsePivotSearchPageFishFarm(pivotFields2, pivotArray2);
+          responsePivotSearchPageSeaportFacility(pivotFields2, pivotArray2);
         }
       }
     }
@@ -2447,25 +3539,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   // EditPage //
 
   @Override
-  public void editpageFishFarm(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void editpageSeaportFacility(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
-        form.add("permission", String.format("%s-%s#%s", FishFarm.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -2484,26 +3576,26 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishFarmList(siteRequest, false, true, false).onSuccess(listFishFarm -> {
-                response200EditPageFishFarm(listFishFarm).onSuccess(response -> {
+              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+                response200EditPageSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
-                  LOG.debug(String.format("editpageFishFarm succeeded. "));
+                  LOG.debug(String.format("editpageSeaportFacility succeeded. "));
                 }).onFailure(ex -> {
-                  LOG.error(String.format("editpageFishFarm failed. "), ex);
+                  LOG.error(String.format("editpageSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 });
               }).onFailure(ex -> {
-                LOG.error(String.format("editpageFishFarm failed. "), ex);
+                LOG.error(String.format("editpageSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
             });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("editpageFishFarm failed. "), ex);
+            LOG.error(String.format("editpageSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("editpageFishFarm failed. "), ex);
+        LOG.error(String.format("editpageSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -2511,7 +3603,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("editpageFishFarm failed. ", ex2));
+          LOG.error(String.format("editpageSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2526,22 +3618,23 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("editpageFishFarm failed. "), ex);
+        LOG.error(String.format("editpageSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public void editpageFishFarmPageInit(JsonObject ctx, FishFarmPage page, SearchList<FishFarm> listFishFarm, Promise<Void> promise) {
+  public void editpageSeaportFacilityPageInit(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<Void> promise) {
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
     ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
     ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
     ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
     ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
     ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
 
-    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fish-farm"));
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
     ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
     ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
@@ -2551,44 +3644,44 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     promise.complete();
   }
 
-  public String templateUriEditPageFishFarm(ServiceRequest serviceRequest) {
-    return "en-us/edit/fish-farm/FishFarmEditPage.htm";
+  public String templateUriEditPageSeaportFacility(ServiceRequest serviceRequest) {
+    return "en-us/edit/seaport-facilities/SeaportFacilityEditPage.htm";
   }
-  public String templateEditPageFishFarm(ServiceRequest serviceRequest, FishFarm result) {
+  public String templateEditPageSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
     String template = null;
     try {
-      String pageTemplateUri = templateUriEditPageFishFarm(serviceRequest);
+      String pageTemplateUri = templateUriEditPageSeaportFacility(serviceRequest);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
       template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
     } catch(Exception ex) {
-      LOG.error(String.format("templateEditPageFishFarm failed. "), ex);
+      LOG.error(String.format("templateEditPageSeaportFacility failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
     return template;
   }
-  public Future<ServiceResponse> response200EditPageFishFarm(SearchList<FishFarm> listFishFarm) {
+  public Future<ServiceResponse> response200EditPageSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
-      SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFishFarm(siteRequest.getServiceRequest(), listFishFarm.first());
-      FishFarmPage page = new FishFarmPage();
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      String template = templateEditPageSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
+      SeaportFacilityPage page = new SeaportFacilityPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
 
-      if(listFishFarm.size() >= 1)
-        siteRequest.setRequestPk(listFishFarm.get(0).getPk());
-      page.setSearchListFishFarm_(listFishFarm);
+      if(listSeaportFacility.size() >= 1)
+        siteRequest.setRequestPk(listSeaportFacility.get(0).getPk());
+      page.setSearchListSeaportFacility_(listSeaportFacility);
       page.setSiteRequest_(siteRequest);
       page.setServiceRequest(siteRequest.getServiceRequest());
       page.setWebClient(webClient);
       page.setVertx(vertx);
-      page.promiseDeepFishFarmPage(siteRequest).onSuccess(a -> {
+      page.promiseDeepSeaportFacilityPage(siteRequest).onSuccess(a -> {
         try {
           JsonObject ctx = ConfigKeys.getPageContext(config);
           ctx.mergeIn(JsonObject.mapFrom(page));
           Promise<Void> promise1 = Promise.promise();
-          editpageFishFarmPageInit(ctx, page, listFishFarm, promise1);
+          editpageSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
           promise1.future().onSuccess(b -> {
             String renderedTemplate = jinjava.render(template, ctx.getMap());
             Buffer buffer = Buffer.buffer(renderedTemplate);
@@ -2597,19 +3690,19 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             promise.tryFail(ex);
           });
         } catch(Exception ex) {
-          LOG.error(String.format("response200EditPageFishFarm failed. "), ex);
+          LOG.error(String.format("response200EditPageSeaportFacility failed. "), ex);
           promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("response200EditPageFishFarm failed. "), ex);
+      LOG.error(String.format("response200EditPageSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
-  public void responsePivotEditPageFishFarm(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+  public void responsePivotEditPageSeaportFacility(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
     if(pivots != null) {
       for(SolrResponse.Pivot pivotField : pivots) {
         String entityIndexed = pivotField.getField();
@@ -2638,7 +3731,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         if(pivotFields2 != null) {
           JsonArray pivotArray2 = new JsonArray();
           pivotJson.put("pivot", pivotArray2);
-          responsePivotEditPageFishFarm(pivotFields2, pivotArray2);
+          responsePivotEditPageSeaportFacility(pivotFields2, pivotArray2);
         }
       }
     }
@@ -2647,25 +3740,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
   // DELETEFilter //
 
   @Override
-  public void deletefilterFishFarm(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
-    LOG.debug(String.format("deletefilterFishFarm started. "));
+  public void deletefilterSeaportFacility(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    LOG.debug(String.format("deletefilterSeaportFacility started. "));
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String FISHFARM = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHFARM");
+        String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "GET"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "DELETE"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PATCH"));
-        form.add("permission", String.format("%s#%s", FishFarm.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -2696,47 +3789,47 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishFarmList(siteRequest, false, true, true).onSuccess(listFishFarm -> {
+              searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
-                  apiRequest.setRows(listFishFarm.getRequest().getRows());
-                  apiRequest.setNumFound(listFishFarm.getResponse().getResponse().getNumFound());
+                  apiRequest.setRows(listSeaportFacility.getRequest().getRows());
+                  apiRequest.setNumFound(listSeaportFacility.getResponse().getResponse().getNumFound());
                   apiRequest.setNumPATCH(0L);
                   apiRequest.initDeepApiRequest(siteRequest);
                   siteRequest.setApiRequest_(apiRequest);
                   if(apiRequest.getNumFound() == 1L)
-                    apiRequest.setOriginal(listFishFarm.first());
-                  apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
-                  eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+                    apiRequest.setOriginal(listSeaportFacility.first());
+                  apiRequest.setSolrId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getSolrId()).orElse(null));
+                  eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
 
-                  listDELETEFilterFishFarm(apiRequest, listFishFarm).onSuccess(e -> {
-                    response200DELETEFilterFishFarm(siteRequest).onSuccess(response -> {
-                      LOG.debug(String.format("deletefilterFishFarm succeeded. "));
+                  listDELETEFilterSeaportFacility(apiRequest, listSeaportFacility).onSuccess(e -> {
+                    response200DELETEFilterSeaportFacility(siteRequest).onSuccess(response -> {
+                      LOG.debug(String.format("deletefilterSeaportFacility succeeded. "));
                       eventHandler.handle(Future.succeededFuture(response));
                     }).onFailure(ex -> {
-                      LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+                      LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
                       error(siteRequest, eventHandler, ex);
                     });
                   }).onFailure(ex -> {
-                    LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+                    LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
                     error(siteRequest, eventHandler, ex);
                   });
                 } catch(Exception ex) {
-                  LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+                  LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
                   error(siteRequest, eventHandler, ex);
                 }
               }).onFailure(ex -> {
-                LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+                LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
                 error(siteRequest, eventHandler, ex);
               });
             }
           } catch(Exception ex) {
-            LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+            LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
             error(null, eventHandler, ex);
           }
         });
       } catch(Exception ex) {
-        LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+        LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
@@ -2744,7 +3837,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         try {
           eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
         } catch(Exception ex2) {
-          LOG.error(String.format("deletefilterFishFarm failed. ", ex2));
+          LOG.error(String.format("deletefilterSeaportFacility failed. ", ex2));
           error(null, eventHandler, ex2);
         }
       } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
@@ -2759,58 +3852,58 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               )
           ));
       } else {
-        LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+        LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     });
   }
 
-  public Future<Void> listDELETEFilterFishFarm(ApiRequest apiRequest, SearchList<FishFarm> listFishFarm) {
+  public Future<Void> listDELETEFilterSeaportFacility(ApiRequest apiRequest, SearchList<SeaportFacility> listSeaportFacility) {
     Promise<Void> promise = Promise.promise();
     List<Future> futures = new ArrayList<>();
-    SiteRequest siteRequest = listFishFarm.getSiteRequest_(SiteRequest.class);
-    listFishFarm.getList().forEach(o -> {
+    SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+    listSeaportFacility.getList().forEach(o -> {
       SiteRequest siteRequest2 = generateSiteRequest(siteRequest.getUser(), siteRequest.getUserPrincipal(), siteRequest.getServiceRequest(), siteRequest.getJsonObject(), SiteRequest.class);
       siteRequest2.setScopes(siteRequest.getScopes());
       o.setSiteRequest_(siteRequest2);
       siteRequest2.setApiRequest_(siteRequest.getApiRequest_());
       JsonObject jsonObject = JsonObject.mapFrom(o);
-      FishFarm o2 = jsonObject.mapTo(FishFarm.class);
+      SeaportFacility o2 = jsonObject.mapTo(SeaportFacility.class);
       o2.setSiteRequest_(siteRequest2);
       futures.add(Future.future(promise1 -> {
-        deletefilterFishFarmFuture(o).onSuccess(a -> {
+        deletefilterSeaportFacilityFuture(o).onSuccess(a -> {
           promise1.complete();
         }).onFailure(ex -> {
-          LOG.error(String.format("listDELETEFilterFishFarm failed. "), ex);
+          LOG.error(String.format("listDELETEFilterSeaportFacility failed. "), ex);
           promise1.tryFail(ex);
         });
       }));
     });
     CompositeFuture.all(futures).onSuccess( a -> {
-      listFishFarm.next().onSuccess(next -> {
+      listSeaportFacility.next().onSuccess(next -> {
         if(next) {
-          listDELETEFilterFishFarm(apiRequest, listFishFarm).onSuccess(b -> {
+          listDELETEFilterSeaportFacility(apiRequest, listSeaportFacility).onSuccess(b -> {
             promise.complete();
           }).onFailure(ex -> {
-            LOG.error(String.format("listDELETEFilterFishFarm failed. "), ex);
+            LOG.error(String.format("listDELETEFilterSeaportFacility failed. "), ex);
             promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
-        LOG.error(String.format("listDELETEFilterFishFarm failed. "), ex);
+        LOG.error(String.format("listDELETEFilterSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     }).onFailure(ex -> {
-      LOG.error(String.format("listDELETEFilterFishFarm failed. "), ex);
+      LOG.error(String.format("listDELETEFilterSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     });
     return promise.future();
   }
 
   @Override
-  public void deletefilterFishFarmFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void deletefilterSeaportFacilityFuture(JsonObject body, ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
@@ -2822,10 +3915,10 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             siteRequest.addScopes(scope);
           });
         });
-        searchFishFarmList(siteRequest, false, true, true).onSuccess(listFishFarm -> {
+        searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
           try {
-            FishFarm o = listFishFarm.first();
-            if(o != null && listFishFarm.getResponse().getResponse().getNumFound() == 1) {
+            SeaportFacility o = listSeaportFacility.first();
+            if(o != null && listSeaportFacility.getResponse().getResponse().getNumFound() == 1) {
               ApiRequest apiRequest = new ApiRequest();
               apiRequest.setRows(1L);
               apiRequest.setNumFound(1L);
@@ -2837,9 +3930,9 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               }
               if(apiRequest.getNumFound() == 1L)
                 apiRequest.setOriginal(o);
-              apiRequest.setId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
-              apiRequest.setSolrId(Optional.ofNullable(listFishFarm.first()).map(o2 -> o2.getSolrId()).orElse(null));
-              deletefilterFishFarmFuture(o).onSuccess(o2 -> {
+              apiRequest.setId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getEntityShortId().toString()).orElse(null));
+              apiRequest.setSolrId(Optional.ofNullable(listSeaportFacility.first()).map(o2 -> o2.getSolrId()).orElse(null));
+              deletefilterSeaportFacilityFuture(o).onSuccess(o2 -> {
                 eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
               }).onFailure(ex -> {
                 eventHandler.handle(Future.failedFuture(ex));
@@ -2848,42 +3941,42 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               eventHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(Buffer.buffer(new JsonObject().encodePrettily()))));
             }
           } catch(Exception ex) {
-            LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+            LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
             error(siteRequest, eventHandler, ex);
           }
         }).onFailure(ex -> {
-          LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+          LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
           error(siteRequest, eventHandler, ex);
         });
       } catch(Exception ex) {
-        LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+        LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
         error(null, eventHandler, ex);
       }
     }).onFailure(ex -> {
-      LOG.error(String.format("deletefilterFishFarm failed. "), ex);
+      LOG.error(String.format("deletefilterSeaportFacility failed. "), ex);
       error(null, eventHandler, ex);
     });
   }
 
-  public Future<FishFarm> deletefilterFishFarmFuture(FishFarm o) {
+  public Future<SeaportFacility> deletefilterSeaportFacilityFuture(SeaportFacility o) {
     SiteRequest siteRequest = o.getSiteRequest_();
-    Promise<FishFarm> promise = Promise.promise();
+    Promise<SeaportFacility> promise = Promise.promise();
 
     try {
       ApiRequest apiRequest = siteRequest.getApiRequest_();
-      Promise<FishFarm> promise1 = Promise.promise();
+      Promise<SeaportFacility> promise1 = Promise.promise();
       pgPool.withTransaction(sqlConnection -> {
         siteRequest.setSqlConnection(sqlConnection);
-        varsFishFarm(siteRequest).onSuccess(a -> {
-          sqlDELETEFilterFishFarm(o).onSuccess(fishFarm -> {
-            relateFishFarm(o).onSuccess(d -> {
-              unindexFishFarm(o).onSuccess(o2 -> {
+        varsSeaportFacility(siteRequest).onSuccess(a -> {
+          sqlDELETEFilterSeaportFacility(o).onSuccess(seaportFacility -> {
+            relateSeaportFacility(o).onSuccess(d -> {
+              unindexSeaportFacility(o).onSuccess(o2 -> {
                 if(apiRequest != null) {
                   apiRequest.setNumPATCH(apiRequest.getNumPATCH() + 1);
                   if(apiRequest.getNumFound() == 1L && Optional.ofNullable(siteRequest.getJsonObject()).map(json -> json.size() > 0).orElse(false)) {
-                    o2.apiRequestFishFarm();
+                    o2.apiRequestSeaportFacility();
                     if(apiRequest.getVars().size() > 0 && Optional.ofNullable(siteRequest.getRequestVars().get("refresh")).map(refresh -> !refresh.equals("false")).orElse(true))
-                      eventBus.publish("websocketFishFarm", JsonObject.mapFrom(apiRequest).toString());
+                      eventBus.publish("websocketSeaportFacility", JsonObject.mapFrom(apiRequest).toString());
                   }
                 }
                 promise1.complete();
@@ -2905,27 +3998,27 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
         promise.tryFail(ex);
-      }).compose(fishFarm -> {
-        Promise<FishFarm> promise2 = Promise.promise();
-        refreshFishFarm(o).onSuccess(a -> {
+      }).compose(seaportFacility -> {
+        Promise<SeaportFacility> promise2 = Promise.promise();
+        refreshSeaportFacility(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
           promise2.tryFail(ex);
         });
         return promise2.future();
-      }).onSuccess(fishFarm -> {
-        promise.complete(fishFarm);
+      }).onSuccess(seaportFacility -> {
+        promise.complete(seaportFacility);
       }).onFailure(ex -> {
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("deletefilterFishFarmFuture failed. "), ex);
+      LOG.error(String.format("deletefilterSeaportFacilityFuture failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<Void> sqlDELETEFilterFishFarm(FishFarm o) {
+  public Future<Void> sqlDELETEFilterSeaportFacility(SeaportFacility o) {
     Promise<Void> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
@@ -2934,11 +4027,11 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       List<String> classes = Optional.ofNullable(apiRequest).map(r -> r.getClasses()).orElse(new ArrayList<>());
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Integer num = 1;
-      StringBuilder bSql = new StringBuilder("DELETE FROM FishFarm ");
+      StringBuilder bSql = new StringBuilder("DELETE FROM SeaportFacility ");
       List<Object> bParams = new ArrayList<Object>();
       Long pk = o.getPk();
       JsonObject jsonObject = siteRequest.getJsonObject();
-      FishFarm o2 = new FishFarm();
+      SeaportFacility o2 = new SeaportFacility();
       o2.setSiteRequest_(siteRequest);
       List<Future> futures1 = new ArrayList<>();
       List<Future> futures2 = new ArrayList<>();
@@ -2959,36 +4052,45 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             ).onSuccess(b -> {
           a.handle(Future.succeededFuture());
         }).onFailure(ex -> {
-          RuntimeException ex2 = new RuntimeException("value FishFarm failed", ex);
-          LOG.error(String.format("unrelateFishFarm failed. "), ex2);
+          RuntimeException ex2 = new RuntimeException("value SeaportFacility failed", ex);
+          LOG.error(String.format("unrelateSeaportFacility failed. "), ex2);
           a.handle(Future.failedFuture(ex2));
         });
       }));
       CompositeFuture.all(futures1).onSuccess(a -> {
         CompositeFuture.all(futures2).onSuccess(b -> {
-          promise.complete();
+          if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+            cbDeleteEntity(o).onSuccess(c -> {
+              promise.complete();
+            }).onFailure(ex -> {
+              LOG.error(String.format("sqlDELETEFilterSeaportFacility failed. "), ex);
+              promise.tryFail(ex);
+            });
+          } else {
+            promise.complete();
+          }
         }).onFailure(ex -> {
-          LOG.error(String.format("sqlDELETEFilterFishFarm failed. "), ex);
+          LOG.error(String.format("sqlDELETEFilterSeaportFacility failed. "), ex);
           promise.tryFail(ex);
         });
       }).onFailure(ex -> {
-        LOG.error(String.format("sqlDELETEFilterFishFarm failed. "), ex);
+        LOG.error(String.format("sqlDELETEFilterSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("sqlDELETEFilterFishFarm failed. "), ex);
+      LOG.error(String.format("sqlDELETEFilterSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<ServiceResponse> response200DELETEFilterFishFarm(SiteRequest siteRequest) {
+  public Future<ServiceResponse> response200DELETEFilterSeaportFacility(SiteRequest siteRequest) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
       if(json == null) {
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fish farm", entityShortId);
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
         promise.complete(new ServiceResponse(404
             , m
             , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
@@ -2996,7 +4098,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
       }
     } catch(Exception ex) {
-      LOG.error(String.format("response200DELETEFilterFishFarm failed. "), ex);
+      LOG.error(String.format("response200DELETEFilterSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
@@ -3004,78 +4106,78 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
   // General //
 
-  public Future<FishFarm> createFishFarm(SiteRequest siteRequest) {
-    Promise<FishFarm> promise = Promise.promise();
+  public Future<SeaportFacility> createSeaportFacility(SiteRequest siteRequest) {
+    Promise<SeaportFacility> promise = Promise.promise();
     try {
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       String userId = siteRequest.getUserId();
       Long userKey = siteRequest.getUserKey();
       ZonedDateTime created = Optional.ofNullable(siteRequest.getJsonObject()).map(j -> j.getString("created")).map(s -> ZonedDateTime.parse(s, ComputateZonedDateTimeSerializer.ZONED_DATE_TIME_FORMATTER.withZone(ZoneId.of(config.getString(ConfigKeys.SITE_ZONE))))).orElse(ZonedDateTime.now(ZoneId.of(config.getString(ConfigKeys.SITE_ZONE))));
 
-      sqlConnection.preparedQuery("INSERT INTO FishFarm(created, userKey) VALUES($1, $2) RETURNING pk")
+      sqlConnection.preparedQuery("INSERT INTO SeaportFacility(created, userKey) VALUES($1, $2) RETURNING pk")
           .collecting(Collectors.toList())
           .execute(Tuple.of(created.toOffsetDateTime(), userKey)).onSuccess(result -> {
         Row createLine = result.value().stream().findFirst().orElseGet(() -> null);
         Long pk = createLine.getLong(0);
-        FishFarm o = new FishFarm();
+        SeaportFacility o = new SeaportFacility();
         o.setPk(pk);
         o.setSiteRequest_(siteRequest);
         promise.complete(o);
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
-        LOG.error("createFishFarm failed. ", ex2);
+        LOG.error("createSeaportFacility failed. ", ex2);
         promise.tryFail(ex2);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("createFishFarm failed. "), ex);
+      LOG.error(String.format("createSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public void searchFishFarmQ(SearchList<FishFarm> searchList, String entityVar, String valueIndexed, String varIndexed) {
+  public void searchSeaportFacilityQ(SearchList<SeaportFacility> searchList, String entityVar, String valueIndexed, String varIndexed) {
     searchList.q(varIndexed + ":" + ("*".equals(valueIndexed) ? valueIndexed : SearchTool.escapeQueryChars(valueIndexed)));
     if(!"*".equals(entityVar)) {
     }
   }
 
-  public String searchFishFarmFq(SearchList<FishFarm> searchList, String entityVar, String valueIndexed, String varIndexed) {
+  public String searchSeaportFacilityFq(SearchList<SeaportFacility> searchList, String entityVar, String valueIndexed, String varIndexed) {
     if(varIndexed == null)
       throw new RuntimeException(String.format("\"%s\" is not an indexed entity. ", entityVar));
     if(StringUtils.startsWith(valueIndexed, "[")) {
       String[] fqs = StringUtils.substringAfter(StringUtils.substringBeforeLast(valueIndexed, "]"), "[").split(" TO ");
       if(fqs.length != 2)
         throw new RuntimeException(String.format("\"%s\" invalid range query. ", valueIndexed));
-      String fq1 = fqs[0].equals("*") ? fqs[0] : FishFarm.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[0]);
-      String fq2 = fqs[1].equals("*") ? fqs[1] : FishFarm.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[1]);
+      String fq1 = fqs[0].equals("*") ? fqs[0] : SeaportFacility.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[0]);
+      String fq2 = fqs[1].equals("*") ? fqs[1] : SeaportFacility.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), fqs[1]);
        return varIndexed + ":[" + fq1 + " TO " + fq2 + "]";
     } else {
-      return varIndexed + ":" + SearchTool.escapeQueryChars(FishFarm.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), valueIndexed)).replace("\\", "\\\\");
+      return varIndexed + ":" + SearchTool.escapeQueryChars(SeaportFacility.staticSearchFqForClass(entityVar, searchList.getSiteRequest_(SiteRequest.class), valueIndexed)).replace("\\", "\\\\");
     }
   }
 
-  public void searchFishFarmSort(SearchList<FishFarm> searchList, String entityVar, String valueIndexed, String varIndexed) {
+  public void searchSeaportFacilitySort(SearchList<SeaportFacility> searchList, String entityVar, String valueIndexed, String varIndexed) {
     if(varIndexed == null)
       throw new RuntimeException(String.format("\"%s\" is not an indexed entity. ", entityVar));
     searchList.sort(varIndexed, valueIndexed);
   }
 
-  public void searchFishFarmRows(SearchList<FishFarm> searchList, Long valueRows) {
+  public void searchSeaportFacilityRows(SearchList<SeaportFacility> searchList, Long valueRows) {
       searchList.rows(valueRows != null ? valueRows : 10L);
   }
 
-  public void searchFishFarmStart(SearchList<FishFarm> searchList, Long valueStart) {
+  public void searchSeaportFacilityStart(SearchList<SeaportFacility> searchList, Long valueStart) {
     searchList.start(valueStart);
   }
 
-  public void searchFishFarmVar(SearchList<FishFarm> searchList, String var, String value) {
+  public void searchSeaportFacilityVar(SearchList<SeaportFacility> searchList, String var, String value) {
     searchList.getSiteRequest_(SiteRequest.class).getRequestVars().put(var, value);
   }
 
-  public void searchFishFarmUri(SearchList<FishFarm> searchList) {
+  public void searchSeaportFacilityUri(SearchList<SeaportFacility> searchList) {
   }
 
-  public Future<ServiceResponse> varsFishFarm(SiteRequest siteRequest) {
+  public Future<ServiceResponse> varsSeaportFacility(SiteRequest siteRequest) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       ServiceRequest serviceRequest = siteRequest.getServiceRequest();
@@ -3093,25 +4195,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
             siteRequest.getRequestVars().put(entityVar, valueIndexed);
           }
         } catch(Exception ex) {
-          LOG.error(String.format("searchFishFarm failed. "), ex);
+          LOG.error(String.format("searchSeaportFacility failed. "), ex);
           promise.tryFail(ex);
         }
       });
       promise.complete();
     } catch(Exception ex) {
-      LOG.error(String.format("searchFishFarm failed. "), ex);
+      LOG.error(String.format("searchSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<SearchList<FishFarm>> searchFishFarmList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
-    Promise<SearchList<FishFarm>> promise = Promise.promise();
+  public Future<SearchList<SeaportFacility>> searchSeaportFacilityList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
+    Promise<SearchList<SeaportFacility>> promise = Promise.promise();
     try {
       ServiceRequest serviceRequest = siteRequest.getServiceRequest();
       String entityListStr = siteRequest.getServiceRequest().getParams().getJsonObject("query").getString("fl");
       String[] entityList = entityListStr == null ? null : entityListStr.split(",\\s*");
-      SearchList<FishFarm> searchList = new SearchList<FishFarm>();
+      SearchList<SeaportFacility> searchList = new SearchList<SeaportFacility>();
       String facetRange = null;
       Date facetRangeStart = null;
       Date facetRangeEnd = null;
@@ -3121,12 +4223,12 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       searchList.setPopulate(populate);
       searchList.setStore(store);
       searchList.q("*:*");
-      searchList.setC(FishFarm.class);
+      searchList.setC(SeaportFacility.class);
       searchList.setSiteRequest_(siteRequest);
       searchList.facetMinCount(1);
       if(entityList != null) {
         for(String v : entityList) {
-          searchList.fl(FishFarm.varIndexedFishFarm(v));
+          searchList.fl(SeaportFacility.varIndexedSeaportFacility(v));
         }
       }
 
@@ -3155,7 +4257,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               String[] varsIndexed = new String[entityVars.length];
               for(Integer i = 0; i < entityVars.length; i++) {
                 entityVar = entityVars[i];
-                varsIndexed[i] = FishFarm.varIndexedFishFarm(entityVar);
+                varsIndexed[i] = SeaportFacility.varIndexedSeaportFacility(entityVar);
               }
               searchList.facetPivot((solrLocalParams == null ? "" : solrLocalParams) + StringUtils.join(varsIndexed, ","));
             }
@@ -3167,8 +4269,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                 while(mQ.find()) {
                   entityVar = mQ.group(1).trim();
                   valueIndexed = mQ.group(2).trim();
-                  varIndexed = FishFarm.varIndexedFishFarm(entityVar);
-                  String entityQ = searchFishFarmFq(searchList, entityVar, valueIndexed, varIndexed);
+                  varIndexed = SeaportFacility.varIndexedSeaportFacility(entityVar);
+                  String entityQ = searchSeaportFacilityFq(searchList, entityVar, valueIndexed, varIndexed);
                   mQ.appendReplacement(sb, entityQ);
                 }
                 if(!sb.isEmpty()) {
@@ -3181,8 +4283,8 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                 while(mFq.find()) {
                   entityVar = mFq.group(1).trim();
                   valueIndexed = mFq.group(2).trim();
-                  varIndexed = FishFarm.varIndexedFishFarm(entityVar);
-                  String entityFq = searchFishFarmFq(searchList, entityVar, valueIndexed, varIndexed);
+                  varIndexed = SeaportFacility.varIndexedSeaportFacility(entityVar);
+                  String entityFq = searchSeaportFacilityFq(searchList, entityVar, valueIndexed, varIndexed);
                   mFq.appendReplacement(sb, entityFq);
                 }
                 if(!sb.isEmpty()) {
@@ -3192,14 +4294,14 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
               } else if(paramName.equals("sort")) {
                 entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, " "));
                 valueIndexed = StringUtils.trim(StringUtils.substringAfter((String)paramObject, " "));
-                varIndexed = FishFarm.varIndexedFishFarm(entityVar);
-                searchFishFarmSort(searchList, entityVar, valueIndexed, varIndexed);
+                varIndexed = SeaportFacility.varIndexedSeaportFacility(entityVar);
+                searchSeaportFacilitySort(searchList, entityVar, valueIndexed, varIndexed);
               } else if(paramName.equals("start")) {
                 valueStart = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-                searchFishFarmStart(searchList, valueStart);
+                searchSeaportFacilityStart(searchList, valueStart);
               } else if(paramName.equals("rows")) {
                 valueRows = paramObject instanceof Long ? (Long)paramObject : Long.parseLong(paramObject.toString());
-                searchFishFarmRows(searchList, valueRows);
+                searchSeaportFacilityRows(searchList, valueRows);
               } else if(paramName.equals("stats")) {
                 searchList.stats((Boolean)paramObject);
               } else if(paramName.equals("stats.field")) {
@@ -3207,7 +4309,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                 if(mStats.find()) {
                   String solrLocalParams = mStats.group(1);
                   entityVar = mStats.group(2).trim();
-                  varIndexed = FishFarm.varIndexedFishFarm(entityVar);
+                  varIndexed = SeaportFacility.varIndexedSeaportFacility(entityVar);
                   searchList.statsField((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
                   statsField = entityVar;
                   statsFieldIndexed = varIndexed;
@@ -3233,25 +4335,25 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                 if(mFacetRange.find()) {
                   String solrLocalParams = mFacetRange.group(1);
                   entityVar = mFacetRange.group(2).trim();
-                  varIndexed = FishFarm.varIndexedFishFarm(entityVar);
+                  varIndexed = SeaportFacility.varIndexedSeaportFacility(entityVar);
                   searchList.facetRange((solrLocalParams == null ? "" : solrLocalParams) + varIndexed);
                   facetRange = entityVar;
                 }
               } else if(paramName.equals("facet.field")) {
                 entityVar = (String)paramObject;
-                varIndexed = FishFarm.varIndexedFishFarm(entityVar);
+                varIndexed = SeaportFacility.varIndexedSeaportFacility(entityVar);
                 if(varIndexed != null)
                   searchList.facetField(varIndexed);
               } else if(paramName.equals("var")) {
                 entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, ":"));
                 valueIndexed = URLDecoder.decode(StringUtils.trim(StringUtils.substringAfter((String)paramObject, ":")), "UTF-8");
-                searchFishFarmVar(searchList, entityVar, valueIndexed);
+                searchSeaportFacilityVar(searchList, entityVar, valueIndexed);
               } else if(paramName.equals("cursorMark")) {
                 valueCursorMark = (String)paramObject;
                 searchList.cursorMark((String)paramObject);
               }
             }
-            searchFishFarmUri(searchList);
+            searchSeaportFacilityUri(searchList);
           }
         } catch(Exception e) {
           ExceptionUtils.rethrow(e);
@@ -3266,7 +4368,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       String facetRangeGap2 = facetRangeGap;
       String statsField2 = statsField;
       String statsFieldIndexed2 = statsFieldIndexed;
-      searchFishFarm2(siteRequest, populate, store, modify, searchList);
+      searchSeaportFacility2(siteRequest, populate, store, modify, searchList);
       searchList.promiseDeepForClass(siteRequest).onSuccess(searchList2 -> {
         if(facetRange2 != null && statsField2 != null && facetRange2.equals(statsField2)) {
           StatsField stats = searchList.getResponse().getStats().getStatsFields().get(statsFieldIndexed2);
@@ -3302,32 +4404,32 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
           searchList.query().onSuccess(b -> {
             promise.complete(searchList);
           }).onFailure(ex -> {
-            LOG.error(String.format("searchFishFarm failed. "), ex);
+            LOG.error(String.format("searchSeaportFacility failed. "), ex);
             promise.tryFail(ex);
           });
         } else {
           promise.complete(searchList);
         }
       }).onFailure(ex -> {
-        LOG.error(String.format("searchFishFarm failed. "), ex);
+        LOG.error(String.format("searchSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("searchFishFarm failed. "), ex);
+      LOG.error(String.format("searchSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
-  public void searchFishFarm2(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, SearchList<FishFarm> searchList) {
+  public void searchSeaportFacility2(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, SearchList<SeaportFacility> searchList) {
   }
 
-  public Future<Void> persistFishFarm(FishFarm o, Boolean patch) {
+  public Future<Void> persistSeaportFacility(SeaportFacility o, Boolean patch) {
     Promise<Void> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, address, description, location, created, id, entityShortId, ST_AsGeoJSON(areaServed) as areaServed, archived, ngsildTenant, ngsildPath, ngsildContext, ngsildData, sessionId, color, userKey, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishFarm WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, alternateName, location, created, authorizedPropulsion, id, boatSupplyingServices, entityShortId, archived, contactPoint, ngsildTenant, contractingAuthority, ngsildPath, contractingCompany, ngsildContext, currencyAccepted, ngsildData, sessionId, dataProvider, color, userKey, dateCreated, dateLastReported, dateModified, objectTitle, electricTransport, displayPage, endDate, displayPageFrFR, facilities, editPage, maxDraft, editPageFrFR, maxLength, userPage, maxTonnage, userPageFrFR, maxWidth, download, minLength, downloadFrFR, nearbyServices, numberOfPlace, openingHours, openingHoursSpecification, owner, paymentAccepted, portServicesProvided, refBoatAuthorized, refBoatPlaceAvailable, refBoatPlacePricing, refDevice, refPointOfInterest, rentalSaleServices, routeType, seeAlso, source, startDate, transportServices, typeOfPort, webSite FROM SeaportFacility WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3340,50 +4442,200 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
                 try {
                   o.persistForClass(columnName, columnValue);
                 } catch(Exception e) {
-                  LOG.error(String.format("persistFishFarm failed. "), e);
+                  LOG.error(String.format("persistSeaportFacility failed. "), e);
                 }
               }
             }
           }
           o.promiseDeepForClass(siteRequest).onSuccess(a -> {
-            promise.complete();
+            if(config.getBoolean(ComputateConfigKeys.ENABLE_CONTEXT_BROKER_SEND)) {
+              cbUpsertEntity(o, patch).onSuccess(b -> {
+                promise.complete();
+              }).onFailure(ex -> {
+                LOG.error(String.format("persistSeaportFacility failed. "), ex);
+                promise.tryFail(ex);
+              });
+            } else {
+              promise.complete();
+            }
           }).onFailure(ex -> {
-            LOG.error(String.format("persistFishFarm failed. "), ex);
+            LOG.error(String.format("persistSeaportFacility failed. "), ex);
             promise.tryFail(ex);
           });
         } catch(Exception ex) {
-          LOG.error(String.format("persistFishFarm failed. "), ex);
+          LOG.error(String.format("persistSeaportFacility failed. "), ex);
           promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
-        LOG.error(String.format("persistFishFarm failed. "), ex2);
+        LOG.error(String.format("persistSeaportFacility failed. "), ex2);
         promise.tryFail(ex2);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("persistFishFarm failed. "), ex);
+      LOG.error(String.format("persistSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<Void> relateFishFarm(FishFarm o) {
+  public Future<Void> cbUpsertEntity(SeaportFacility o, Boolean patch) {
+    Promise<Void> promise = Promise.promise();
+    try {
+      ZonedDateTime observedAt = ZonedDateTime.now(ZoneId.of("UTC"));
+      String observedAtStr = observedAt.format(ComputateZonedDateTimeSerializer.UTC_DATE_TIME_FORMATTER);
+      JsonArray entityArray = new JsonArray();
+      JsonObject entityBody = new JsonObject();
+      entityBody.put("@context", config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT));
+      entityBody.put("id", o.getId());
+      entityBody.put("type", SeaportFacility.CLASS_SIMPLE_NAME);
+      entityBody.put("NGSILD-Tenant"
+          , new JsonObject()
+          .put("type", "Property")
+          .put("value", o.getNgsildTenant())
+          .put("observedAt", observedAtStr)
+          );
+      entityBody.put("NGSILD-Path"
+          , new JsonObject()
+          .put("type", "Property")
+          .put("value", o.getNgsildPath())
+          .put("observedAt", observedAtStr)
+          );
+
+      List<String> vars = SeaportFacility.varsFqForClass();
+      for (String var : vars) {
+        String ngsiType = SeaportFacility.ngsiType(var);
+        String displayName = Optional.ofNullable(SeaportFacility.displayNameSeaportFacility(var)).orElse(var);
+        if (ngsiType != null && displayName != null && !var.equals("id") && !var.equals("ngsildData")) {
+          Object value = o.obtainForClass(var);
+          if(value != null) {
+            Object ngsildVal = SeaportFacility.ngsiSeaportFacility(var, o);
+            String ngsildType = SeaportFacility.ngsiType(var);
+            if(ngsildVal != null) {
+              entityBody.put(displayName
+                  , new JsonObject()
+                  .put("type", ngsildType)
+                  .put("value", ngsildVal)
+                  .put("observedAt", observedAtStr)
+                  );
+            }
+          }
+        }
+      }
+      entityArray.add(entityBody);
+      LOG.debug(entityArray.encodePrettily());
+      webClient.post(
+          Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+          , config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+          , "/ngsi-ld/v1/entityOperations/upsert/"
+          )
+          .ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+          .putHeader("Content-Type", "application/ld+json")
+          .putHeader("Fiware-Service", o.getNgsildTenant())
+          .putHeader("Fiware-ServicePath", o.getNgsildPath())
+          .putHeader("NGSILD-Tenant", o.getNgsildTenant())
+          .putHeader("NGSILD-Path", o.getNgsildPath())
+          .sendJson(entityArray)
+          .expecting(HttpResponseExpectation.SC_NO_CONTENT.or(HttpResponseExpectation.SC_CREATED)).onSuccess(b -> {
+        promise.complete();
+      }).onFailure(ex -> {
+        LOG.error(String.format("cbUpsertEntity failed. "), ex);
+        promise.tryFail(ex);
+      });
+    } catch(Throwable ex) {
+      LOG.error(String.format("cbUpsertEntity failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+
+  public Future<JsonObject> ngsildGetEntity(SeaportFacility o) {
+    Promise<JsonObject> promise = Promise.promise();
+    try {
+      String entityName = o.getName();
+      String entityType = SeaportFacility.CLASS_SIMPLE_NAME;
+      String entityId = o.getId();
+      String ngsildUri = String.format("/ngsi-ld/v1/entities/%s", urlEncode(entityId));
+      String ngsildContext = config.getString(ComputateConfigKeys.CONTEXT_BROKER_CONTEXT);
+      String link = String.format("<%s>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"", ngsildContext);
+
+      webClient.get(
+          Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+          , config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+          , ngsildUri
+          )
+          .ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+          .putHeader("Content-Type", "application/ld+json")
+          .putHeader("Fiware-Service", o.getNgsildTenant())
+          .putHeader("Fiware-ServicePath", o.getNgsildPath())
+          .putHeader("NGSILD-Tenant", o.getNgsildTenant())
+          .putHeader("NGSILD-Path", o.getNgsildPath())
+          .putHeader("Link", link)
+          .putHeader("Accept", "*/*")
+          .send()
+          .expecting(HttpResponseExpectation.SC_OK.or(HttpResponseExpectation.SC_NOT_FOUND)).onSuccess(entityResponse -> {
+        JsonObject entity = entityResponse.bodyAsJsonObject();
+        entity.remove("NGSILD data");
+        promise.complete(entity);
+      }).onFailure(ex -> {
+        LOG.error(String.format("postIotServiceFuture failed. "), ex);
+        promise.tryFail(ex);
+      });
+    } catch(Throwable ex) {
+      LOG.error(String.format("postIotServiceFuture failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+
+  public Future<Void> cbDeleteEntity(SeaportFacility o) {
+    Promise<Void> promise = Promise.promise();
+    try {
+      webClient.delete(
+          Integer.parseInt(config.getString(ComputateConfigKeys.CONTEXT_BROKER_PORT))
+          , config.getString(ComputateConfigKeys.CONTEXT_BROKER_HOST_NAME)
+          , String.format("/ngsi-ld/v1/entities/%s", urlEncode(o.getId()))
+          )
+          .ssl(Boolean.parseBoolean(config.getString(ComputateConfigKeys.CONTEXT_BROKER_SSL)))
+          .putHeader("Content-Type", "application/ld+json")
+          .putHeader("Fiware-Service", o.getNgsildTenant())
+          .putHeader("Fiware-ServicePath", o.getNgsildPath())
+          .putHeader("NGSILD-Tenant", o.getNgsildTenant())
+          .putHeader("NGSILD-Path", o.getNgsildPath())
+          .send()
+          .expecting(HttpResponseExpectation.SC_NO_CONTENT).onSuccess(b -> {
+        promise.complete();
+      }).onFailure(ex -> {
+        if("Response status code 404 is not equal to 204".equals(ex.getMessage())) {
+          promise.complete();
+        } else {
+          LOG.error(String.format("cbDeleteEntity failed. "), ex);
+          promise.tryFail(ex);
+        }
+      });
+    } catch(Throwable ex) {
+      LOG.error(String.format("cbDeleteEntity failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+
+  public Future<Void> relateSeaportFacility(SeaportFacility o) {
     Promise<Void> promise = Promise.promise();
     promise.complete();
     return promise.future();
   }
 
   public String searchVar(String varIndexed) {
-    return FishFarm.searchVarFishFarm(varIndexed);
+    return SeaportFacility.searchVarSeaportFacility(varIndexed);
   }
 
   @Override
   public String getClassApiAddress() {
-    return FishFarm.CLASS_API_ADDRESS_FishFarm;
+    return SeaportFacility.CLASS_API_ADDRESS_SeaportFacility;
   }
 
-  public Future<FishFarm> indexFishFarm(FishFarm o) {
-    Promise<FishFarm> promise = Promise.promise();
+  public Future<SeaportFacility> indexSeaportFacility(SeaportFacility o) {
+    Promise<SeaportFacility> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -3392,7 +4644,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       json.put("add", add);
       JsonObject doc = new JsonObject();
       add.put("doc", doc);
-      o.indexFishFarm(doc);
+      o.indexSeaportFacility(doc);
       String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
       String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
       String solrHostName = siteRequest.getConfig().getString(ConfigKeys.SOLR_HOST_NAME);
@@ -3409,18 +4661,18 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       webClient.post(solrPort, solrHostName, solrRequestUri).ssl(solrSsl).authentication(new UsernamePasswordCredentials(solrUsername, solrPassword)).putHeader("Content-Type", "application/json").sendBuffer(json.toBuffer()).expecting(HttpResponseExpectation.SC_OK).onSuccess(b -> {
         promise.complete(o);
       }).onFailure(ex -> {
-        LOG.error(String.format("indexFishFarm failed. "), new RuntimeException(ex));
+        LOG.error(String.format("indexSeaportFacility failed. "), new RuntimeException(ex));
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("indexFishFarm failed. "), ex);
+      LOG.error(String.format("indexSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<FishFarm> unindexFishFarm(FishFarm o) {
-    Promise<FishFarm> promise = Promise.promise();
+  public Future<SeaportFacility> unindexSeaportFacility(SeaportFacility o) {
+    Promise<SeaportFacility> promise = Promise.promise();
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       ApiRequest apiRequest = siteRequest.getApiRequest_();
@@ -3428,7 +4680,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         JsonObject json = new JsonObject();
         JsonObject delete = new JsonObject();
         json.put("delete", delete);
-        String query = String.format("filter(%s:%s)", FishFarm.VAR_solrId, o.obtainForClass(FishFarm.VAR_solrId));
+        String query = String.format("filter(%s:%s)", SeaportFacility.VAR_solrId, o.obtainForClass(SeaportFacility.VAR_solrId));
         delete.put("query", query);
         String solrUsername = siteRequest.getConfig().getString(ConfigKeys.SOLR_USERNAME);
         String solrPassword = siteRequest.getConfig().getString(ConfigKeys.SOLR_PASSWORD);
@@ -3446,21 +4698,21 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         webClient.post(solrPort, solrHostName, solrRequestUri).ssl(solrSsl).authentication(new UsernamePasswordCredentials(solrUsername, solrPassword)).putHeader("Content-Type", "application/json").sendBuffer(json.toBuffer()).expecting(HttpResponseExpectation.SC_OK).onSuccess(b -> {
           promise.complete(o);
         }).onFailure(ex -> {
-          LOG.error(String.format("unindexFishFarm failed. "), new RuntimeException(ex));
+          LOG.error(String.format("unindexSeaportFacility failed. "), new RuntimeException(ex));
           promise.tryFail(ex);
         });
       }).onFailure(ex -> {
-        LOG.error(String.format("unindexFishFarm failed. "), ex);
+        LOG.error(String.format("unindexSeaportFacility failed. "), ex);
         promise.tryFail(ex);
       });
     } catch(Exception ex) {
-      LOG.error(String.format("unindexFishFarm failed. "), ex);
+      LOG.error(String.format("unindexSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
   }
 
-  public Future<Void> refreshFishFarm(FishFarm o) {
+  public Future<Void> refreshSeaportFacility(SeaportFacility o) {
     Promise<Void> promise = Promise.promise();
     SiteRequest siteRequest = o.getSiteRequest_();
     try {
@@ -3497,7 +4749,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
           params.put("query", query);
           JsonObject context = new JsonObject().put("params", params).put("user", siteRequest.getUserPrincipal());
           JsonObject json = new JsonObject().put("context", context);
-          eventBus.request(FishFarm.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishFarmFuture")).onSuccess(c -> {
+          eventBus.request(SeaportFacility.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchSeaportFacilityFuture")).onSuccess(c -> {
             JsonObject responseMessage = (JsonObject)c.body();
             Integer statusCode = responseMessage.getInteger("statusCode");
             if(statusCode.equals(200))
@@ -3516,7 +4768,7 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         promise.complete();
       }
     } catch(Exception ex) {
-      LOG.error(String.format("refreshFishFarm failed. "), ex);
+      LOG.error(String.format("refreshSeaportFacility failed. "), ex);
       promise.tryFail(ex);
     }
     return promise.future();
@@ -3529,34 +4781,72 @@ public class FishFarmEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      FishFarm page = new FishFarm();
+      SeaportFacility page = new SeaportFacility();
       page.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(FishFarm.VAR_name, FishFarm.staticSetName(siteRequest2, (String)result.get(FishFarm.VAR_name)));
-      page.persistForClass(FishFarm.VAR_address, FishFarm.staticSetAddress(siteRequest2, (String)result.get(FishFarm.VAR_address)));
-      page.persistForClass(FishFarm.VAR_description, FishFarm.staticSetDescription(siteRequest2, (String)result.get(FishFarm.VAR_description)));
-      page.persistForClass(FishFarm.VAR_location, FishFarm.staticSetLocation(siteRequest2, (String)result.get(FishFarm.VAR_location)));
-      page.persistForClass(FishFarm.VAR_created, FishFarm.staticSetCreated(siteRequest2, (String)result.get(FishFarm.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(FishFarm.VAR_id, FishFarm.staticSetId(siteRequest2, (String)result.get(FishFarm.VAR_id)));
-      page.persistForClass(FishFarm.VAR_entityShortId, FishFarm.staticSetEntityShortId(siteRequest2, (String)result.get(FishFarm.VAR_entityShortId)));
-      page.persistForClass(FishFarm.VAR_areaServed, FishFarm.staticSetAreaServed(siteRequest2, (String)result.get(FishFarm.VAR_areaServed)));
-      page.persistForClass(FishFarm.VAR_archived, FishFarm.staticSetArchived(siteRequest2, (String)result.get(FishFarm.VAR_archived)));
-      page.persistForClass(FishFarm.VAR_ngsildTenant, FishFarm.staticSetNgsildTenant(siteRequest2, (String)result.get(FishFarm.VAR_ngsildTenant)));
-      page.persistForClass(FishFarm.VAR_ngsildPath, FishFarm.staticSetNgsildPath(siteRequest2, (String)result.get(FishFarm.VAR_ngsildPath)));
-      page.persistForClass(FishFarm.VAR_ngsildContext, FishFarm.staticSetNgsildContext(siteRequest2, (String)result.get(FishFarm.VAR_ngsildContext)));
-      page.persistForClass(FishFarm.VAR_ngsildData, FishFarm.staticSetNgsildData(siteRequest2, (String)result.get(FishFarm.VAR_ngsildData)));
-      page.persistForClass(FishFarm.VAR_sessionId, FishFarm.staticSetSessionId(siteRequest2, (String)result.get(FishFarm.VAR_sessionId)));
-      page.persistForClass(FishFarm.VAR_color, FishFarm.staticSetColor(siteRequest2, (String)result.get(FishFarm.VAR_color)));
-      page.persistForClass(FishFarm.VAR_userKey, FishFarm.staticSetUserKey(siteRequest2, (String)result.get(FishFarm.VAR_userKey)));
-      page.persistForClass(FishFarm.VAR_objectTitle, FishFarm.staticSetObjectTitle(siteRequest2, (String)result.get(FishFarm.VAR_objectTitle)));
-      page.persistForClass(FishFarm.VAR_displayPage, FishFarm.staticSetDisplayPage(siteRequest2, (String)result.get(FishFarm.VAR_displayPage)));
-      page.persistForClass(FishFarm.VAR_displayPageFrFR, FishFarm.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FishFarm.VAR_displayPageFrFR)));
-      page.persistForClass(FishFarm.VAR_editPage, FishFarm.staticSetEditPage(siteRequest2, (String)result.get(FishFarm.VAR_editPage)));
-      page.persistForClass(FishFarm.VAR_editPageFrFR, FishFarm.staticSetEditPageFrFR(siteRequest2, (String)result.get(FishFarm.VAR_editPageFrFR)));
-      page.persistForClass(FishFarm.VAR_userPage, FishFarm.staticSetUserPage(siteRequest2, (String)result.get(FishFarm.VAR_userPage)));
-      page.persistForClass(FishFarm.VAR_userPageFrFR, FishFarm.staticSetUserPageFrFR(siteRequest2, (String)result.get(FishFarm.VAR_userPageFrFR)));
-      page.persistForClass(FishFarm.VAR_download, FishFarm.staticSetDownload(siteRequest2, (String)result.get(FishFarm.VAR_download)));
-      page.persistForClass(FishFarm.VAR_downloadFrFR, FishFarm.staticSetDownloadFrFR(siteRequest2, (String)result.get(FishFarm.VAR_downloadFrFR)));
+      page.persistForClass(SeaportFacility.VAR_name, SeaportFacility.staticSetName(siteRequest2, (String)result.get(SeaportFacility.VAR_name)));
+      page.persistForClass(SeaportFacility.VAR_address, SeaportFacility.staticSetAddress(siteRequest2, (String)result.get(SeaportFacility.VAR_address)));
+      page.persistForClass(SeaportFacility.VAR_description, SeaportFacility.staticSetDescription(siteRequest2, (String)result.get(SeaportFacility.VAR_description)));
+      page.persistForClass(SeaportFacility.VAR_alternateName, SeaportFacility.staticSetAlternateName(siteRequest2, (String)result.get(SeaportFacility.VAR_alternateName)));
+      page.persistForClass(SeaportFacility.VAR_location, SeaportFacility.staticSetLocation(siteRequest2, (String)result.get(SeaportFacility.VAR_location)));
+      page.persistForClass(SeaportFacility.VAR_created, SeaportFacility.staticSetCreated(siteRequest2, (String)result.get(SeaportFacility.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      page.persistForClass(SeaportFacility.VAR_authorizedPropulsion, SeaportFacility.staticSetAuthorizedPropulsion(siteRequest2, (String)result.get(SeaportFacility.VAR_authorizedPropulsion)));
+      page.persistForClass(SeaportFacility.VAR_id, SeaportFacility.staticSetId(siteRequest2, (String)result.get(SeaportFacility.VAR_id)));
+      page.persistForClass(SeaportFacility.VAR_boatSupplyingServices, SeaportFacility.staticSetBoatSupplyingServices(siteRequest2, (String)result.get(SeaportFacility.VAR_boatSupplyingServices)));
+      page.persistForClass(SeaportFacility.VAR_entityShortId, SeaportFacility.staticSetEntityShortId(siteRequest2, (String)result.get(SeaportFacility.VAR_entityShortId)));
+      page.persistForClass(SeaportFacility.VAR_archived, SeaportFacility.staticSetArchived(siteRequest2, (String)result.get(SeaportFacility.VAR_archived)));
+      page.persistForClass(SeaportFacility.VAR_contactPoint, SeaportFacility.staticSetContactPoint(siteRequest2, (String)result.get(SeaportFacility.VAR_contactPoint)));
+      page.persistForClass(SeaportFacility.VAR_ngsildTenant, SeaportFacility.staticSetNgsildTenant(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildTenant)));
+      page.persistForClass(SeaportFacility.VAR_contractingAuthority, SeaportFacility.staticSetContractingAuthority(siteRequest2, (String)result.get(SeaportFacility.VAR_contractingAuthority)));
+      page.persistForClass(SeaportFacility.VAR_ngsildPath, SeaportFacility.staticSetNgsildPath(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildPath)));
+      page.persistForClass(SeaportFacility.VAR_contractingCompany, SeaportFacility.staticSetContractingCompany(siteRequest2, (String)result.get(SeaportFacility.VAR_contractingCompany)));
+      page.persistForClass(SeaportFacility.VAR_ngsildContext, SeaportFacility.staticSetNgsildContext(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildContext)));
+      page.persistForClass(SeaportFacility.VAR_currencyAccepted, SeaportFacility.staticSetCurrencyAccepted(siteRequest2, (String)result.get(SeaportFacility.VAR_currencyAccepted)));
+      page.persistForClass(SeaportFacility.VAR_ngsildData, SeaportFacility.staticSetNgsildData(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildData)));
+      page.persistForClass(SeaportFacility.VAR_sessionId, SeaportFacility.staticSetSessionId(siteRequest2, (String)result.get(SeaportFacility.VAR_sessionId)));
+      page.persistForClass(SeaportFacility.VAR_dataProvider, SeaportFacility.staticSetDataProvider(siteRequest2, (String)result.get(SeaportFacility.VAR_dataProvider)));
+      page.persistForClass(SeaportFacility.VAR_color, SeaportFacility.staticSetColor(siteRequest2, (String)result.get(SeaportFacility.VAR_color)));
+      page.persistForClass(SeaportFacility.VAR_userKey, SeaportFacility.staticSetUserKey(siteRequest2, (String)result.get(SeaportFacility.VAR_userKey)));
+      page.persistForClass(SeaportFacility.VAR_dateCreated, SeaportFacility.staticSetDateCreated(siteRequest2, (String)result.get(SeaportFacility.VAR_dateCreated)));
+      page.persistForClass(SeaportFacility.VAR_dateLastReported, SeaportFacility.staticSetDateLastReported(siteRequest2, (String)result.get(SeaportFacility.VAR_dateLastReported)));
+      page.persistForClass(SeaportFacility.VAR_dateModified, SeaportFacility.staticSetDateModified(siteRequest2, (String)result.get(SeaportFacility.VAR_dateModified)));
+      page.persistForClass(SeaportFacility.VAR_objectTitle, SeaportFacility.staticSetObjectTitle(siteRequest2, (String)result.get(SeaportFacility.VAR_objectTitle)));
+      page.persistForClass(SeaportFacility.VAR_electricTransport, SeaportFacility.staticSetElectricTransport(siteRequest2, (String)result.get(SeaportFacility.VAR_electricTransport)));
+      page.persistForClass(SeaportFacility.VAR_displayPage, SeaportFacility.staticSetDisplayPage(siteRequest2, (String)result.get(SeaportFacility.VAR_displayPage)));
+      page.persistForClass(SeaportFacility.VAR_endDate, SeaportFacility.staticSetEndDate(siteRequest2, (String)result.get(SeaportFacility.VAR_endDate)));
+      page.persistForClass(SeaportFacility.VAR_displayPageFrFR, SeaportFacility.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_displayPageFrFR)));
+      page.persistForClass(SeaportFacility.VAR_facilities, SeaportFacility.staticSetFacilities(siteRequest2, (String)result.get(SeaportFacility.VAR_facilities)));
+      page.persistForClass(SeaportFacility.VAR_editPage, SeaportFacility.staticSetEditPage(siteRequest2, (String)result.get(SeaportFacility.VAR_editPage)));
+      page.persistForClass(SeaportFacility.VAR_maxDraft, SeaportFacility.staticSetMaxDraft(siteRequest2, (String)result.get(SeaportFacility.VAR_maxDraft)));
+      page.persistForClass(SeaportFacility.VAR_editPageFrFR, SeaportFacility.staticSetEditPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_editPageFrFR)));
+      page.persistForClass(SeaportFacility.VAR_maxLength, SeaportFacility.staticSetMaxLength(siteRequest2, (String)result.get(SeaportFacility.VAR_maxLength)));
+      page.persistForClass(SeaportFacility.VAR_userPage, SeaportFacility.staticSetUserPage(siteRequest2, (String)result.get(SeaportFacility.VAR_userPage)));
+      page.persistForClass(SeaportFacility.VAR_maxTonnage, SeaportFacility.staticSetMaxTonnage(siteRequest2, (String)result.get(SeaportFacility.VAR_maxTonnage)));
+      page.persistForClass(SeaportFacility.VAR_userPageFrFR, SeaportFacility.staticSetUserPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_userPageFrFR)));
+      page.persistForClass(SeaportFacility.VAR_maxWidth, SeaportFacility.staticSetMaxWidth(siteRequest2, (String)result.get(SeaportFacility.VAR_maxWidth)));
+      page.persistForClass(SeaportFacility.VAR_download, SeaportFacility.staticSetDownload(siteRequest2, (String)result.get(SeaportFacility.VAR_download)));
+      page.persistForClass(SeaportFacility.VAR_minLength, SeaportFacility.staticSetMinLength(siteRequest2, (String)result.get(SeaportFacility.VAR_minLength)));
+      page.persistForClass(SeaportFacility.VAR_downloadFrFR, SeaportFacility.staticSetDownloadFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_downloadFrFR)));
+      page.persistForClass(SeaportFacility.VAR_nearbyServices, SeaportFacility.staticSetNearbyServices(siteRequest2, (String)result.get(SeaportFacility.VAR_nearbyServices)));
+      page.persistForClass(SeaportFacility.VAR_numberOfPlace, SeaportFacility.staticSetNumberOfPlace(siteRequest2, (String)result.get(SeaportFacility.VAR_numberOfPlace)));
+      page.persistForClass(SeaportFacility.VAR_openingHours, SeaportFacility.staticSetOpeningHours(siteRequest2, (String)result.get(SeaportFacility.VAR_openingHours)));
+      page.persistForClass(SeaportFacility.VAR_openingHoursSpecification, SeaportFacility.staticSetOpeningHoursSpecification(siteRequest2, (String)result.get(SeaportFacility.VAR_openingHoursSpecification)));
+      page.persistForClass(SeaportFacility.VAR_owner, SeaportFacility.staticSetOwner(siteRequest2, (String)result.get(SeaportFacility.VAR_owner)));
+      page.persistForClass(SeaportFacility.VAR_paymentAccepted, SeaportFacility.staticSetPaymentAccepted(siteRequest2, (String)result.get(SeaportFacility.VAR_paymentAccepted)));
+      page.persistForClass(SeaportFacility.VAR_portServicesProvided, SeaportFacility.staticSetPortServicesProvided(siteRequest2, (String)result.get(SeaportFacility.VAR_portServicesProvided)));
+      page.persistForClass(SeaportFacility.VAR_refBoatAuthorized, SeaportFacility.staticSetRefBoatAuthorized(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatAuthorized)));
+      page.persistForClass(SeaportFacility.VAR_refBoatPlaceAvailable, SeaportFacility.staticSetRefBoatPlaceAvailable(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatPlaceAvailable)));
+      page.persistForClass(SeaportFacility.VAR_refBoatPlacePricing, SeaportFacility.staticSetRefBoatPlacePricing(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatPlacePricing)));
+      page.persistForClass(SeaportFacility.VAR_refDevice, SeaportFacility.staticSetRefDevice(siteRequest2, (String)result.get(SeaportFacility.VAR_refDevice)));
+      page.persistForClass(SeaportFacility.VAR_refPointOfInterest, SeaportFacility.staticSetRefPointOfInterest(siteRequest2, (String)result.get(SeaportFacility.VAR_refPointOfInterest)));
+      page.persistForClass(SeaportFacility.VAR_rentalSaleServices, SeaportFacility.staticSetRentalSaleServices(siteRequest2, (String)result.get(SeaportFacility.VAR_rentalSaleServices)));
+      page.persistForClass(SeaportFacility.VAR_routeType, SeaportFacility.staticSetRouteType(siteRequest2, (String)result.get(SeaportFacility.VAR_routeType)));
+      page.persistForClass(SeaportFacility.VAR_seeAlso, SeaportFacility.staticSetSeeAlso(siteRequest2, (String)result.get(SeaportFacility.VAR_seeAlso)));
+      page.persistForClass(SeaportFacility.VAR_source, SeaportFacility.staticSetSource(siteRequest2, (String)result.get(SeaportFacility.VAR_source)));
+      page.persistForClass(SeaportFacility.VAR_startDate, SeaportFacility.staticSetStartDate(siteRequest2, (String)result.get(SeaportFacility.VAR_startDate)));
+      page.persistForClass(SeaportFacility.VAR_transportServices, SeaportFacility.staticSetTransportServices(siteRequest2, (String)result.get(SeaportFacility.VAR_transportServices)));
+      page.persistForClass(SeaportFacility.VAR_typeOfPort, SeaportFacility.staticSetTypeOfPort(siteRequest2, (String)result.get(SeaportFacility.VAR_typeOfPort)));
+      page.persistForClass(SeaportFacility.VAR_webSite, SeaportFacility.staticSetWebSite(siteRequest2, (String)result.get(SeaportFacility.VAR_webSite)));
 
       page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
         try {

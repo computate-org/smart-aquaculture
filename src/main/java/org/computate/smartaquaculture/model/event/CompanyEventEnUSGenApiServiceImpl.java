@@ -221,7 +221,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -326,7 +326,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200GETCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -469,7 +469,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listPATCHCompanyEvent failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -480,18 +480,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPATCHCompanyEvent failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listPATCHCompanyEvent failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listPATCHCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -574,14 +574,14 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           }
           promise.complete(o);
         }).onFailure(ex -> {
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("patchCompanyEventFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -601,7 +601,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -792,17 +792,17 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           indexCompanyEvent(companyEvent).onSuccess(o2 -> {
             promise.complete(companyEvent);
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("postCompanyEventFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -823,7 +823,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -965,7 +965,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETECompanyEvent failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -976,18 +976,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETECompanyEvent failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETECompanyEvent failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETECompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -1056,11 +1056,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       unindexCompanyEvent(o).onSuccess(e -> {
         promise.complete(o);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deleteCompanyEventFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1080,7 +1080,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETECompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1227,7 +1227,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             promise1.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPUTImportCompanyEvent failed. "), ex);
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }));
       });
@@ -1236,11 +1236,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("listPUTImportCompanyEvent failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("listPUTImportCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1393,7 +1393,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1466,19 +1466,27 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     promise.complete();
   }
 
-  public String templateSearchPageCompanyEvent(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageCompanyEvent(ServiceRequest serviceRequest) {
     return "en-us/search/event/CompanyEventSearchPage.htm";
+  }
+  public String templateSearchPageCompanyEvent(ServiceRequest serviceRequest, CompanyEvent result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriSearchPageCompanyEvent(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageCompanyEvent failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200SearchPageCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateSearchPageCompanyEvent(siteRequest.getServiceRequest());
-      if(listCompanyEvent.size() == 0)
-        pageTemplateUri = templateSearchPageCompanyEvent(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateSearchPageCompanyEvent(siteRequest.getServiceRequest(), listCompanyEvent.first());
       CompanyEventPage page = new CompanyEventPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -1499,18 +1507,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200SearchPageCompanyEvent failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1656,19 +1664,27 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     promise.complete();
   }
 
-  public String templateEditPageCompanyEvent(ServiceRequest serviceRequest) {
+  public String templateUriEditPageCompanyEvent(ServiceRequest serviceRequest) {
     return "en-us/edit/event/CompanyEventEditPage.htm";
+  }
+  public String templateEditPageCompanyEvent(ServiceRequest serviceRequest, CompanyEvent result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriEditPageCompanyEvent(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageCompanyEvent failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200EditPageCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateEditPageCompanyEvent(siteRequest.getServiceRequest());
-      if(listCompanyEvent.size() == 0)
-        pageTemplateUri = templateSearchPageCompanyEvent(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateEditPageCompanyEvent(siteRequest.getServiceRequest(), listCompanyEvent.first());
       CompanyEventPage page = new CompanyEventPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -1689,18 +1705,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200EditPageCompanyEvent failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200EditPageCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1808,19 +1824,27 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     promise.complete();
   }
 
-  public String templateDisplayPageCompanyEvent(ServiceRequest serviceRequest) {
+  public String templateUriDisplayPageCompanyEvent(ServiceRequest serviceRequest) {
     return String.format("%s.htm", StringUtils.substringBefore(serviceRequest.getExtra().getString("uri").substring(1), "?"));
+  }
+  public String templateDisplayPageCompanyEvent(ServiceRequest serviceRequest, CompanyEvent result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriDisplayPageCompanyEvent(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateDisplayPageCompanyEvent failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200DisplayPageCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateDisplayPageCompanyEvent(siteRequest.getServiceRequest());
-      if(listCompanyEvent.size() == 0)
-        pageTemplateUri = templateSearchPageCompanyEvent(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateDisplayPageCompanyEvent(siteRequest.getServiceRequest(), listCompanyEvent.first());
       CompanyEventPage page = new CompanyEventPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -1841,18 +1865,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200DisplayPageCompanyEvent failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200DisplayPageCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1998,19 +2022,27 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     promise.complete();
   }
 
-  public String templateUserPageCompanyEvent(ServiceRequest serviceRequest) {
+  public String templateUriUserPageCompanyEvent(ServiceRequest serviceRequest) {
     return String.format("%s.htm", StringUtils.substringBefore(serviceRequest.getExtra().getString("uri").substring(1), "?"));
+  }
+  public String templateUserPageCompanyEvent(ServiceRequest serviceRequest, CompanyEvent result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriUserPageCompanyEvent(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateUserPageCompanyEvent failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200UserPageCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateUserPageCompanyEvent(siteRequest.getServiceRequest());
-      if(listCompanyEvent.size() == 0)
-        pageTemplateUri = templateSearchPageCompanyEvent(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateUserPageCompanyEvent(siteRequest.getServiceRequest(), listCompanyEvent.first());
       CompanyEventPage page = new CompanyEventPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2031,18 +2063,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200UserPageCompanyEvent failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200UserPageCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2218,7 +2250,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFilterCompanyEvent failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -2229,18 +2261,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFilterCompanyEvent failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFilterCompanyEvent failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFilterCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -2309,11 +2341,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       unindexCompanyEvent(o).onSuccess(e -> {
         promise.complete(o);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deletefilterCompanyEventFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2333,7 +2365,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2348,7 +2380,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       promise.complete(o);
     } catch(Exception ex) {
       LOG.error(String.format("createCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2414,13 +2446,13 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           }
         } catch(Exception ex) {
           LOG.error(String.format("searchCompanyEvent failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
       promise.complete();
     } catch(Exception ex) {
       LOG.error(String.format("searchCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2624,18 +2656,18 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             promise.complete(searchList);
           }).onFailure(ex -> {
             LOG.error(String.format("searchCompanyEvent failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete(searchList);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("searchCompanyEvent failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("searchCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2670,15 +2702,15 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("persistCompanyEvent failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("persistCompanyEvent failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
     } catch(Exception ex) {
       LOG.error(String.format("persistCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2720,11 +2752,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         promise.complete(o);
       }).onFailure(ex -> {
         LOG.error(String.format("indexCompanyEvent failed. "), new RuntimeException(ex));
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("indexCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2757,21 +2789,21 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           promise.complete(o);
         }).onFailure(ex -> {
           LOG.error(String.format("unindexCompanyEvent failed. "), new RuntimeException(ex));
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("unindexCompanyEvent failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("unindexCompanyEvent failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
 
   @Override
-  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName) {
+  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName, String pageTemplate) {
     Promise<JsonObject> promise = Promise.promise();
     try {
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
@@ -2809,15 +2841,15 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
           promise.complete(data);
         } catch(Exception ex) {
           LOG.error(String.format(importModelFail, classSimpleName), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("generatePageBody failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("generatePageBody failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }

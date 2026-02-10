@@ -542,6 +542,8 @@ public class SitePageGenPage extends SitePageGenPageGen<PageLayout> {
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/article");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/article");
   }
 
   @Override

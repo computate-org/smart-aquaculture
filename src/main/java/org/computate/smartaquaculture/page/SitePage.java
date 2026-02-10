@@ -49,8 +49,10 @@ import io.vertx.core.json.JsonObject;
 
 /**
  * Order: 4
- * Description: Read the latest articles to learn more
- * AName: an article
+ * Description.enUS: Read the latest articles to learn more
+ * Description.frFR: Lisez les derniers articles pour en savoir plus
+ * AName.enUS: an article
+ * AName.frFR: un article
  * Icon: <i class="fa-duotone fa-regular fa-newspaper"></i>
  * Sort.desc: courseNum
  * Sort.desc: lessonNum
@@ -62,6 +64,14 @@ import io.vertx.core.json.JsonObject;
  * DisplayPageUri: /en-us/view/article/{pageId}
  * ApiUri: /en-us/api/article
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: TimeZonePage
+ *     ApiUri: /fr-fr/rechercher/article
+ *   EditPageFrFR:
+ *     Language: frFR
+ *     Page: TimeZonePage
+ *     ApiUri: /fr-fr/edition/article/{entityShortId}
  *   Search:
  *   GET:
  *   PATCH:
@@ -167,7 +177,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: importance
+   * DisplayName.enUS: importance
+   * DisplayName.frFR: importance
+    * Description.enUS: The importance of this page. 
+    * Description.frFR: L'importance de cette page.
    * Description: The importance of this page. 
    */
   protected void _importance(Wrap<BigDecimal> w) {
@@ -178,8 +191,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: course number
-   * Description: The course number for this page. 
+   * DisplayName.enUS: course number
+   * DisplayName.frFR: numéro du cours
+   * Description.enUS: The course number for this page. 
+   * Description.frFR: Le numéro du cours pour cette page.
    */
   protected void _courseNum(Wrap<Integer> w) {
   }
@@ -189,8 +204,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: lesson number
-   * Description: The lesson number for this page. 
+   * DisplayName.enUS: lesson number
+   * DisplayName.frFR: numéro de la leçon
+   * Description.enUS: The lesson number for this page. 
+   * Description.frFR: Le numéro de la leçon pour cette page.
    */
   protected void _lessonNum(Wrap<Integer> w) {
   }
@@ -199,8 +216,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: title
-   * Description: The name of this page. 
+   * DisplayName.enUS: title
+   * DisplayName.frFR: titre
+   * Description.enUS: The title of this page. 
+   * Description.frFR: Le titre de cette page.
    * HtmColumn: 1
    * VarName: true
    */
@@ -211,8 +230,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: description
-   * Description: The description of this page. 
+   * DisplayName.enUS: description
+   * DisplayName.frFR: description
+   * Description.enUS: The description of this page. 
+   * Description.frFR: La description de cette page.
    * HtmColumn: 2
    * VarDescription: true
    */
@@ -226,8 +247,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * HtmRow: 3
    * HtmCell: 3
    * Facet: true
-   * DisplayName: author name
-   * Description: The author name
+   * DisplayName.enUS: author name
+   * DisplayName.frFR: nom de l'auteur
+   * Description.enUS: The author name
+   * Description.frFR: Le nom de l'auteur
    */
   protected void _authorName(Wrap<String> w) {
   }
@@ -239,8 +262,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * HtmRow: 3
    * HtmCell: 3
    * Facet: true
-   * DisplayName: author URL
-   * Description: The author URL
+   * DisplayName.enUS: author URL
+   * DisplayName.frFR: URL de l'auteur
+   * Description.enUS: The author URL
+   * Description.frFR: L'URL de l'auteur
    */
   protected void _authorUrl(Wrap<String> w) {
   }
@@ -253,8 +278,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * HtmRow: 99
    * HtmCell: 1
    * Facet: true
-   * DisplayName: Page ID
-   * Description: The ID for this page. 
+   * DisplayName.enUS: Page ID
+   * DisplayName.frFR: ID de la page
+   * Description.enUS: The ID for this page. 
+   * Description.frFR: L'ID de cette page.
    * VarId: true
    */
   protected void _pageId(Wrap<String> w) {
@@ -265,38 +292,21 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: header 1
-   * Description: The 1st header of this page. 
-   */
-  protected void _h1(Wrap<String> w) {
-  }
-
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
-   * DisplayName: header 2
-   * Description: The 2nd header of this page. 
-   */
-  protected void _h2(Wrap<String> w) {
-  }
-
-  /**
-   * {@inheritDoc}
-   * DocValues: true
-   * Persist: true
    * HtmRow: 4
    * HtmCell: 1
    * Facet: true
-   * DisplayName: imageUri
-   * Description: The page image URI
+   * DisplayName.enUS: image URI
+   * DisplayName.frFR: URI de l'image
+   * Description.enUS: The page image URI
+   * Description.frFR: L'URI de l'image de la page
    */
   protected void _pageImageUri(Wrap<String> w) {
   }
   
   /**
    * DocValues: true
-   * Description: The image width
+   * Description.enUS: The image width
+   * Description.frFR: La largeur de l'image
    */
   protected void _pageImageWidth(Wrap<Integer> w) {
     if(pageImageUri != null) {
@@ -317,14 +327,16 @@ public class SitePage extends SitePageGen<BaseResult> {
 
   /**
    * DocValues: true
-   * Description: The image height
+   * Description.enUS: The image height
+   * Description.frFR: La hauteur de l'image
    */
   protected void _pageImageHeight(Wrap<Integer> c) {
   }
 
   /**
    * DocValues: true
-   * Description: The image height
+   * Description.enUS: The image type
+   * Description.frFR: Le format d'image
    */
   protected void _pageImageType(Wrap<String> c) {
   }
@@ -332,7 +344,8 @@ public class SitePage extends SitePageGen<BaseResult> {
   /**
    * Persist: true
    * DocValues: true
-   * Description: The image accessibility text. 
+   * Description.enUS: The image accessibility text. 
+   * Description.frFR: Le texte d'accès de l'image.
    */
   protected void _pageImageAlt(Wrap<String> c) {
   }
@@ -341,8 +354,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: prerequisite article IDs
-   * Description: The prerequisite article IDs comma-separated. 
+   * DisplayName.enUS: prerequisite article IDs
+   * DisplayName.frFR: IDs des articles prérequis
+   * Description.enUS: The prerequisite article IDs comma-separated. 
+   * Description.frFR: Les IDs des articles prérequis séparés par des virgules. 
    */
   protected void _prerequisiteArticleIds(Wrap<String> w) {
   }
@@ -368,8 +383,10 @@ public class SitePage extends SitePageGen<BaseResult> {
   /**
    * {@inheritDoc}
    * Stored: true
-   * DisplayName: prerequisite articles
-   * Description: A JSON array of prerequisite articles. 
+   * DisplayName.enUS: prerequisite articles
+   * DisplayName.frFR: articles prérequis
+   * Description.enUS: A JSON array of prerequisite articles. 
+   * Description.frFR: Un tableau JSON des articles prérequis. 
    */
   protected void _prerequisiteArticles(Wrap<JsonArray> w) {
     JsonArray array = new JsonArray();
@@ -394,8 +411,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: next article IDs
-   * Description: The next article IDs comma-separated. 
+   * DisplayName.enUS: next article IDs
+   * DisplayName.frFR: IDs des articles suivants
+   * Description.enUS: The next article IDs comma-separated. 
+   * Description.frFR: Les IDs des articles suivants séparés par des virgules. 
    */
   protected void _nextArticleIds(Wrap<String> w) {
   }
@@ -421,8 +440,10 @@ public class SitePage extends SitePageGen<BaseResult> {
   /**
    * {@inheritDoc}
    * Stored: true
-   * DisplayName: next articles
-   * Description: A JSON array of next articles. 
+   * DisplayName.enUS: next articles
+   * DisplayName.frFR: articles suivants
+   * Description.enUS: A JSON array of next articles. 
+   * Description.frFR: Un tableau JSON des articles suivants. 
    */
   protected void _nextArticles(Wrap<JsonArray> w) {
     JsonArray array = new JsonArray();
@@ -447,8 +468,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: labels string
-   * Description: The labels String for this article comma-separated. 
+   * DisplayName.enUS: labels string
+   * DisplayName.frFR: texte des étiquettes
+   * Description.enUS: The labels String for this article comma-separated. 
+   * Description.frFR: Le texte des étiquettes séparé par des virgules pour cet article. 
    */
   protected void _labelsString(Wrap<String> w) {
   }
@@ -457,8 +480,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: labels
-   * Description: The labels for this article. 
+   * DisplayName.enUS: labels
+   * DisplayName.frFR: étiquettes
+   * Description.enUS: The labels for this article. 
+   * Description.frFR: Les étiquettes pour cet article. 
    */
   protected void _labels(List<String> l) {
     if(labelsString != null) {
@@ -470,8 +495,10 @@ public class SitePage extends SitePageGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: related article IDs
-   * Description: The related article IDs comma-separated. 
+   * DisplayName.enUS: related article IDs
+   * DisplayName.frFR: IDs des articles liés
+   * Description.enUS: The related article IDs. 
+   * Description.frFR: Les IDs des articles liés. 
    */
   protected void _relatedArticleIds(Wrap<String> w) {
   }
@@ -497,8 +524,10 @@ public class SitePage extends SitePageGen<BaseResult> {
   /**
    * {@inheritDoc}
    * Stored: true
-   * DisplayName: related articles
-   * Description: A JSON array of related articles. 
+   * DisplayName.enUS: related articles
+   * DisplayName.frFR: articles liés
+   * Description.enUS: A JSON array of related articles. 
+   * Description.frFR: Un tableau JSON d'articles liés. 
    */
   protected void _relatedArticles(Wrap<JsonArray> w) {
     JsonArray array = new JsonArray();

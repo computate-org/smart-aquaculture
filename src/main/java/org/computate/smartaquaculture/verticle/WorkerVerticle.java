@@ -1,16 +1,4 @@
-/*
- * Copyright Computate Limited Liability Company in Utah, USA. 
- * SPDX-License-Identifier: AGPL-3.0
- * This program and the accompanying materials are made available under the
- * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
- * 
- * https://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You may not propagate or modify a covered work except as expressly provided 
- * under this License. Any attempt otherwise to propagate or modify it is void, 
- * and will automatically terminate your rights under this License (including 
- * any patent licenses granted under the third paragraph of section 11).
- */
+
 package org.computate.smartaquaculture.verticle;
 
 import java.io.File;
@@ -48,45 +36,48 @@ import org.computate.vertx.api.ApiCounter;
 import org.computate.vertx.api.ApiRequest;
 import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.request.SiteRequest;
+import org.computate.smartaquaculture.model.event.CompanyEvent;
+import org.computate.smartaquaculture.model.event.CompanyEventEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.event.CompanyEventEnUSGenApiService;
 import org.computate.smartaquaculture.model.timezone.TimeZone;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSGenApiService;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
+import org.computate.smartaquaculture.page.SitePage;
+import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
+import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
+import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat;
+import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
+import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing;
+import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.feeder.FeederEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.feed.Feed;
 import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.feed.FeedEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperationEnUSGenApiService;
-import org.computate.smartaquaculture.page.SitePage;
-import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
-import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
-import org.computate.smartaquaculture.model.mapmodel.MapModel;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
-import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarmEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock;
-import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDockEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing;
-import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessingEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
-import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTripEnUSGenApiService;
-import org.computate.smartaquaculture.model.event.CompanyEvent;
-import org.computate.smartaquaculture.model.event.CompanyEventEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.event.CompanyEventEnUSGenApiService;
-import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat;
-import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoatEnUSGenApiService;
+import org.computate.smartaquaculture.model.fiware.seaportfacility.SeaportFacility;
+import org.computate.smartaquaculture.model.fiware.seaportfacility.SeaportFacilityEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.fiware.seaportfacility.SeaportFacilityEnUSGenApiService;
 import org.computate.vertx.api.ApiCounter;
 import org.computate.vertx.api.ApiRequest;
 import org.computate.vertx.config.ComputateConfigKeys;
@@ -227,18 +218,12 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
             configureWebClient().onSuccess(d -> 
               configureSharedWorkerExecutor().onSuccess(e -> 
                 configureKafka().onSuccess(f -> 
-                  configureMqtt().onSuccess(g -> 
-                    configureAmqp().onSuccess(h -> 
-                      configureRabbitmq().onSuccess(i -> 
-                        MainVerticle.authorizeData(vertx, config(), webClient).onComplete(j -> 
+                  MainVerticle.authorizeData(vertx, config(), webClient).onComplete(j -> 
                           importData().onSuccess(k -> 
                             startPromise.complete()
                           ).onFailure(ex -> startPromise.fail(ex))
                         ).onFailure(ex -> startPromise.fail(ex))
                       ).onFailure(ex -> startPromise.fail(ex))
-                    ).onFailure(ex -> startPromise.fail(ex))
-                  ).onFailure(ex -> startPromise.fail(ex))
-                ).onFailure(ex -> startPromise.fail(ex))
               ).onFailure(ex -> startPromise.fail(ex))
             ).onFailure(ex -> startPromise.fail(ex))
           ).onFailure(ex -> startPromise.fail(ex))
@@ -437,136 +422,6 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
     return promise.future();
   }
 
-  /**
-   **/
-  public Future<MqttClient> configureMqtt() {
-    Promise<MqttClient> promise = Promise.promise();
-
-    try {
-      if(BooleanUtils.isTrue(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_MQTT)))) {
-        try {
-          mqttClient = MqttClient.create(vertx);
-          mqttClient.connect(Integer.parseInt(config().getString(ConfigKeys.MQTT_PORT)), config().getString(ConfigKeys.MQTT_HOST_NAME)).onSuccess(mqttConnection -> {
-            try {
-              mqttClient.publishHandler(message -> {
-                LOG.info(String.format("MQTT: %s", message.payload().toString(Charset.defaultCharset())));
-              }).subscribe("workbench-user1", MqttQoS.EXACTLY_ONCE.value());
-              LOG.info("The MQTT client was initialized successfully.");
-              promise.complete(mqttClient);
-            } catch(Exception ex) {
-              LOG.error("The MQTT client failed to initialize.", ex);
-              promise.fail(ex);
-            }
-          }).onFailure(ex -> {
-            LOG.error("The MQTT client failed to initialize.", ex);
-            promise.fail(ex);
-          });
-        } catch(Exception ex) {
-          LOG.error("The MQTT client failed to initialize.", ex);
-          promise.fail(ex);
-        }
-      } else {
-        promise.complete();
-      }
-    } catch(Exception ex) {
-      LOG.error("The MQTT client failed to initialize.", ex);
-      promise.fail(ex);
-    }
-
-    return promise.future();
-  }
-
-  /**
-   **/
-  public Future<AmqpClient> configureAmqp() {
-    Promise<AmqpClient> promise = Promise.promise();
-
-    try {
-      if(BooleanUtils.isTrue(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_AMQP)))) {
-        try {
-          AmqpClientOptions options = new AmqpClientOptions()
-              .setHost(config().getString(ConfigKeys.AMQP_HOST_NAME))
-              .setPort(Integer.parseInt(config().getString(ConfigKeys.AMQP_PORT)))
-              .setUsername(config().getString(ConfigKeys.AMQP_USERNAME))
-              .setPassword(config().getString(ConfigKeys.AMQP_PASSWORD))
-              .setVirtualHost(config().getString(ConfigKeys.AMQP_VIRTUAL_HOST))
-              ;
-          amqpClient = AmqpClient.create(vertx, options);
-          amqpClient.connect().onSuccess(amqpConnection -> {
-            try {
-              AmqpSenderOptions senderOptions = new AmqpSenderOptions();
-              amqpConnection
-                  .createSender("my-queue", senderOptions)
-                  .onSuccess(sender -> {
-                this.amqpSender = sender;
-                LOG.info("The AMQP client was initialized successfully.");
-                promise.complete(amqpClient);
-              }).onFailure(ex -> {
-                LOG.error("The AMQP client failed to initialize.", ex);
-                promise.fail(ex);
-              });
-            } catch(Exception ex) {
-              LOG.error("The AMQP client failed to initialize.", ex);
-              promise.fail(ex);
-            }
-          }).onFailure(ex -> {
-            LOG.error("The AMQP client failed to initialize.", ex);
-            promise.fail(ex);
-          });
-        } catch(Exception ex) {
-          LOG.error("The AMQP client failed to initialize.", ex);
-          promise.fail(ex);
-        }
-      } else {
-        promise.complete();
-      }
-    } catch(Exception ex) {
-      LOG.error("The AMQP client failed to initialize.", ex);
-      promise.fail(ex);
-    }
-
-    return promise.future();
-  }
-
-  /**
-   **/
-  public Future<RabbitMQClient> configureRabbitmq() {
-    Promise<RabbitMQClient> promise = Promise.promise();
-
-    try {
-      if(BooleanUtils.isTrue(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_RABBITMQ)))) {
-        try {
-          RabbitMQOptions options = new RabbitMQOptions()
-              .setHost(config().getString(ConfigKeys.RABBITMQ_HOST_NAME))
-              .setPort(Integer.parseInt(config().getString(ConfigKeys.RABBITMQ_PORT)))
-              .setUser(config().getString(ConfigKeys.RABBITMQ_USERNAME))
-              .setPassword(config().getString(ConfigKeys.RABBITMQ_PASSWORD))
-              .setVirtualHost(config().getString(ConfigKeys.RABBITMQ_VIRTUAL_HOST))
-              .setAutomaticRecoveryEnabled(true)
-              ;
-          this.rabbitmqClient = RabbitMQClient.create(vertx, options);
-          rabbitmqClient.start().onSuccess(a -> {
-            LOG.info("The AMQP client was initialized successfully.");
-            promise.complete(rabbitmqClient);
-          }).onFailure(ex -> {
-            LOG.error("The AMQP client failed to initialize.", ex);
-            promise.fail(ex);
-          });
-        } catch(Exception ex) {
-          LOG.error("The AMQP client failed to initialize.", ex);
-          promise.fail(ex);
-        }
-      } else {
-        promise.complete();
-      }
-    } catch(Exception ex) {
-      LOG.error("The AMQP client failed to initialize.", ex);
-      promise.fail(ex);
-    }
-
-    return promise.future();
-  }
-
   public <API_IMPL extends BaseApiServiceInterface> void initializeApiService(API_IMPL service) {
     service.setVertx(vertx);
     service.setEventBus(vertx.eventBus());
@@ -597,45 +452,49 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
       siteRequest.addScopes("GET");
       String templatePath = config().getString(ComputateConfigKeys.TEMPLATE_PATH);
 
+      CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
+      initializeApiService(apiCompanyEvent);
       TimeZoneEnUSApiServiceImpl apiTimeZone = new TimeZoneEnUSApiServiceImpl();
       initializeApiService(apiTimeZone);
-      FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
-      initializeApiService(apiFeeder);
-      FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
-      initializeApiService(apiFeed);
-      FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
-      initializeApiService(apiFeedingOperation);
       SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
       initializeApiService(apiSitePage);
       FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
       initializeApiService(apiFishPopulation);
-      FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
-      initializeApiService(apiFishFarm);
       FishingDockEnUSApiServiceImpl apiFishingDock = new FishingDockEnUSApiServiceImpl();
       initializeApiService(apiFishingDock);
-      FishProcessingEnUSApiServiceImpl apiFishProcessing = new FishProcessingEnUSApiServiceImpl();
-      initializeApiService(apiFishProcessing);
-      FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
-      initializeApiService(apiFishingTrip);
-      CompanyEventEnUSApiServiceImpl apiCompanyEvent = new CompanyEventEnUSApiServiceImpl();
-      initializeApiService(apiCompanyEvent);
       FishingBoatEnUSApiServiceImpl apiFishingBoat = new FishingBoatEnUSApiServiceImpl();
       initializeApiService(apiFishingBoat);
+      FishFarmEnUSApiServiceImpl apiFishFarm = new FishFarmEnUSApiServiceImpl();
+      initializeApiService(apiFishFarm);
+      FishProcessingEnUSApiServiceImpl apiFishProcessing = new FishProcessingEnUSApiServiceImpl();
+      initializeApiService(apiFishProcessing);
+      FeedingOperationEnUSApiServiceImpl apiFeedingOperation = new FeedingOperationEnUSApiServiceImpl();
+      initializeApiService(apiFeedingOperation);
+      FishingTripEnUSApiServiceImpl apiFishingTrip = new FishingTripEnUSApiServiceImpl();
+      initializeApiService(apiFishingTrip);
+      FeederEnUSApiServiceImpl apiFeeder = new FeederEnUSApiServiceImpl();
+      initializeApiService(apiFeeder);
+      FeedEnUSApiServiceImpl apiFeed = new FeedEnUSApiServiceImpl();
+      initializeApiService(apiFeed);
+      SeaportFacilityEnUSApiServiceImpl apiSeaportFacility = new SeaportFacilityEnUSApiServiceImpl();
+      initializeApiService(apiSeaportFacility);
 
-			apiTimeZone.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, TimeZone.CLASS_CANONICAL_NAME, TimeZone.CLASS_SIMPLE_NAME, TimeZone.CLASS_API_ADDRESS_TimeZone, TimeZone.CLASS_AUTH_RESOURCE, "id", "userPage", "download").onSuccess(q1 -> {
-				apiFeeder.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feeder.CLASS_CANONICAL_NAME, Feeder.CLASS_SIMPLE_NAME, Feeder.CLASS_API_ADDRESS_Feeder, Feeder.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q2 -> {
-					apiFeed.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feed.CLASS_CANONICAL_NAME, Feed.CLASS_SIMPLE_NAME, Feed.CLASS_API_ADDRESS_Feed, Feed.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q3 -> {
-						apiFeedingOperation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FeedingOperation.CLASS_CANONICAL_NAME, FeedingOperation.CLASS_SIMPLE_NAME, FeedingOperation.CLASS_API_ADDRESS_FeedingOperation, FeedingOperation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q4 -> {
-							apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, SitePage.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q5 -> {
-								apiFishPopulation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishPopulation.CLASS_CANONICAL_NAME, FishPopulation.CLASS_SIMPLE_NAME, FishPopulation.CLASS_API_ADDRESS_FishPopulation, FishPopulation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q6 -> {
+			apiCompanyEvent.importTimer(Paths.get(templatePath, "/en-us/shop/event"), vertx, siteRequest, CompanyEvent.CLASS_CANONICAL_NAME, CompanyEvent.CLASS_SIMPLE_NAME, CompanyEvent.CLASS_API_ADDRESS_CompanyEvent, CompanyEvent.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q1 -> {
+				apiTimeZone.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, TimeZone.CLASS_CANONICAL_NAME, TimeZone.CLASS_SIMPLE_NAME, TimeZone.CLASS_API_ADDRESS_TimeZone, TimeZone.CLASS_AUTH_RESOURCE, "id", "userPage", "download").onSuccess(q2 -> {
+					apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, SitePage.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q3 -> {
+						apiFishPopulation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishPopulation.CLASS_CANONICAL_NAME, FishPopulation.CLASS_SIMPLE_NAME, FishPopulation.CLASS_API_ADDRESS_FishPopulation, FishPopulation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q4 -> {
+							apiFishingDock.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingDock.CLASS_CANONICAL_NAME, FishingDock.CLASS_SIMPLE_NAME, FishingDock.CLASS_API_ADDRESS_FishingDock, FishingDock.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q5 -> {
+								apiFishingBoat.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingBoat.CLASS_CANONICAL_NAME, FishingBoat.CLASS_SIMPLE_NAME, FishingBoat.CLASS_API_ADDRESS_FishingBoat, FishingBoat.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q6 -> {
 									apiFishFarm.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishFarm.CLASS_CANONICAL_NAME, FishFarm.CLASS_SIMPLE_NAME, FishFarm.CLASS_API_ADDRESS_FishFarm, FishFarm.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q7 -> {
-										apiFishingDock.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingDock.CLASS_CANONICAL_NAME, FishingDock.CLASS_SIMPLE_NAME, FishingDock.CLASS_API_ADDRESS_FishingDock, FishingDock.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q8 -> {
-											apiFishProcessing.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishProcessing.CLASS_CANONICAL_NAME, FishProcessing.CLASS_SIMPLE_NAME, FishProcessing.CLASS_API_ADDRESS_FishProcessing, FishProcessing.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q9 -> {
+										apiFishProcessing.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishProcessing.CLASS_CANONICAL_NAME, FishProcessing.CLASS_SIMPLE_NAME, FishProcessing.CLASS_API_ADDRESS_FishProcessing, FishProcessing.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q8 -> {
+											apiFeedingOperation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FeedingOperation.CLASS_CANONICAL_NAME, FeedingOperation.CLASS_SIMPLE_NAME, FeedingOperation.CLASS_API_ADDRESS_FeedingOperation, FeedingOperation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q9 -> {
 												apiFishingTrip.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingTrip.CLASS_CANONICAL_NAME, FishingTrip.CLASS_SIMPLE_NAME, FishingTrip.CLASS_API_ADDRESS_FishingTrip, FishingTrip.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q10 -> {
-													apiCompanyEvent.importTimer(Paths.get(templatePath, "/en-us/shop/event"), vertx, siteRequest, CompanyEvent.CLASS_CANONICAL_NAME, CompanyEvent.CLASS_SIMPLE_NAME, CompanyEvent.CLASS_API_ADDRESS_CompanyEvent, CompanyEvent.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q11 -> {
-														apiFishingBoat.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingBoat.CLASS_CANONICAL_NAME, FishingBoat.CLASS_SIMPLE_NAME, FishingBoat.CLASS_API_ADDRESS_FishingBoat, FishingBoat.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q12 -> {
-															LOG.info("data import complete");
-															promise.complete();
+													apiFeeder.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feeder.CLASS_CANONICAL_NAME, Feeder.CLASS_SIMPLE_NAME, Feeder.CLASS_API_ADDRESS_Feeder, Feeder.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q11 -> {
+														apiFeed.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feed.CLASS_CANONICAL_NAME, Feed.CLASS_SIMPLE_NAME, Feed.CLASS_API_ADDRESS_Feed, Feed.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q12 -> {
+															apiSeaportFacility.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, SeaportFacility.CLASS_CANONICAL_NAME, SeaportFacility.CLASS_SIMPLE_NAME, SeaportFacility.CLASS_API_ADDRESS_SeaportFacility, SeaportFacility.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q13 -> {
+																LOG.info("data import complete");
+																promise.complete();
+															}).onFailure(ex -> promise.fail(ex));
 														}).onFailure(ex -> promise.fail(ex));
 													}).onFailure(ex -> promise.fail(ex));
 												}).onFailure(ex -> promise.fail(ex));

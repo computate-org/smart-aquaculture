@@ -258,7 +258,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -400,7 +400,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200GETFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -544,7 +544,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listPATCHFeedingOperation failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -555,18 +555,18 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPATCHFeedingOperation failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listPATCHFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listPATCHFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -670,22 +670,22 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
                       }
                       promise2.complete(feedingOperation);
                     }).onFailure(ex -> {
-                      promise2.fail(ex);
+                      promise2.tryFail(ex);
                     });
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise2.fail(ex);
+                promise2.tryFail(ex);
               });
               return promise2.future();
             }).onSuccess(o2 -> {
               promise1.complete(o2);
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           } else {
             sqlPATCHFeedingOperation(o, inheritPrimaryKey).onSuccess(feedingOperation -> {
@@ -702,43 +702,43 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
                     }
                     promise1.complete(feedingOperation);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feedingOperation -> {
         Promise<FeedingOperation> promise2 = Promise.promise();
         refreshFeedingOperation(feedingOperation).onSuccess(a -> {
           promise2.complete(feedingOperation);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feedingOperation -> {
         promise.complete(feedingOperation);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("patchFeedingOperationFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -780,14 +780,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDescription());
             break;
-          case "setCreated":
-              o2.setCreated(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_created + "=$" + num);
-              num++;
-              bParams.add(o2.sqlCreated());
-            break;
           case "setLocation":
               o2.setLocation(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -795,6 +787,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               bSql.append(FeedingOperation.VAR_location + "=$" + num);
               num++;
               bParams.add(o2.sqlLocation());
+            break;
+          case "setCreated":
+              o2.setCreated(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FeedingOperation.VAR_created + "=$" + num);
+              num++;
+              bParams.add(o2.sqlCreated());
             break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
@@ -828,14 +828,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlSessionId());
             break;
-          case "setUserKey":
-              o2.setUserKey(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_userKey + "=$" + num);
-              num++;
-              bParams.add(o2.sqlUserKey());
-            break;
           case "setNgsildTenant":
               o2.setNgsildTenant(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -843,6 +835,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               bSql.append(FeedingOperation.VAR_ngsildTenant + "=$" + num);
               num++;
               bParams.add(o2.sqlNgsildTenant());
+            break;
+          case "setUserKey":
+              o2.setUserKey(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FeedingOperation.VAR_userKey + "=$" + num);
+              num++;
+              bParams.add(o2.sqlUserKey());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -860,14 +860,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlNgsildContext());
             break;
-          case "setObjectTitle":
-              o2.setObjectTitle(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_objectTitle + "=$" + num);
-              num++;
-              bParams.add(o2.sqlObjectTitle());
-            break;
           case "setNgsildData":
               o2.setNgsildData(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -876,13 +868,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlNgsildData());
             break;
-          case "setDisplayPage":
-              o2.setDisplayPage(jsonObject.getString(entityVar));
+          case "setObjectTitle":
+              o2.setObjectTitle(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_displayPage + "=$" + num);
+              bSql.append(FeedingOperation.VAR_objectTitle + "=$" + num);
               num++;
-              bParams.add(o2.sqlDisplayPage());
+              bParams.add(o2.sqlObjectTitle());
             break;
           case "setAddress":
               o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -892,13 +884,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlAddress());
             break;
-          case "setDisplayPageFrFR":
-              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+          case "setDisplayPage":
+              o2.setDisplayPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_displayPageFrFR + "=$" + num);
+              bSql.append(FeedingOperation.VAR_displayPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlDisplayPageFrFR());
+              bParams.add(o2.sqlDisplayPage());
             break;
           case "setAlternateName":
               o2.setAlternateName(jsonObject.getString(entityVar));
@@ -908,13 +900,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlAlternateName());
             break;
-          case "setEditPage":
-              o2.setEditPage(jsonObject.getString(entityVar));
+          case "setDisplayPageFrFR":
+              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_editPage + "=$" + num);
+              bSql.append(FeedingOperation.VAR_displayPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlEditPage());
+              bParams.add(o2.sqlDisplayPageFrFR());
             break;
           case "setCategory":
               o2.setCategory(jsonObject.getJsonObject(entityVar));
@@ -924,13 +916,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlCategory());
             break;
-          case "setEditPageFrFR":
-              o2.setEditPageFrFR(jsonObject.getString(entityVar));
+          case "setEditPage":
+              o2.setEditPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_editPageFrFR + "=$" + num);
+              bSql.append(FeedingOperation.VAR_editPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlEditPageFrFR());
+              bParams.add(o2.sqlEditPage());
             break;
           case "setDataProvider":
               o2.setDataProvider(jsonObject.getString(entityVar));
@@ -940,13 +932,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDataProvider());
             break;
-          case "setUserPage":
-              o2.setUserPage(jsonObject.getString(entityVar));
+          case "setEditPageFrFR":
+              o2.setEditPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_userPage + "=$" + num);
+              bSql.append(FeedingOperation.VAR_editPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlUserPage());
+              bParams.add(o2.sqlEditPageFrFR());
             break;
           case "setDateCreated":
               o2.setDateCreated(jsonObject.getString(entityVar));
@@ -956,13 +948,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDateCreated());
             break;
-          case "setUserPageFrFR":
-              o2.setUserPageFrFR(jsonObject.getString(entityVar));
+          case "setUserPage":
+              o2.setUserPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_userPageFrFR + "=$" + num);
+              bSql.append(FeedingOperation.VAR_userPage + "=$" + num);
               num++;
-              bParams.add(o2.sqlUserPageFrFR());
+              bParams.add(o2.sqlUserPage());
             break;
           case "setDateModified":
               o2.setDateModified(jsonObject.getString(entityVar));
@@ -972,13 +964,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDateModified());
             break;
-          case "setDownload":
-              o2.setDownload(jsonObject.getString(entityVar));
+          case "setUserPageFrFR":
+              o2.setUserPageFrFR(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_download + "=$" + num);
+              bSql.append(FeedingOperation.VAR_userPageFrFR + "=$" + num);
               num++;
-              bParams.add(o2.sqlDownload());
+              bParams.add(o2.sqlUserPageFrFR());
             break;
           case "setEndpoint":
               o2.setEndpoint(jsonObject.getString(entityVar));
@@ -988,13 +980,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlEndpoint());
             break;
-          case "setDownloadFrFR":
-              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+          case "setDownload":
+              o2.setDownload(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_downloadFrFR + "=$" + num);
+              bSql.append(FeedingOperation.VAR_download + "=$" + num);
               num++;
-              bParams.add(o2.sqlDownloadFrFR());
+              bParams.add(o2.sqlDownload());
             break;
           case "setHasProvider":
               o2.setHasProvider(jsonObject.getString(entityVar));
@@ -1003,6 +995,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               bSql.append(FeedingOperation.VAR_hasProvider + "=$" + num);
               num++;
               bParams.add(o2.sqlHasProvider());
+            break;
+          case "setDownloadFrFR":
+              o2.setDownloadFrFR(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FeedingOperation.VAR_downloadFrFR + "=$" + num);
+              num++;
+              bParams.add(o2.sqlDownloadFrFR());
             break;
           case "setOwner":
               o2.setOwner(jsonObject.getJsonObject(entityVar));
@@ -1070,15 +1070,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise.complete(o3);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPATCHFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPATCHFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPATCHFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1098,7 +1098,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1296,29 +1296,29 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
                   indexFeedingOperation(feedingOperation).onSuccess(o2 -> {
                     promise1.complete(feedingOperation);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feedingOperation -> {
         Promise<FeedingOperation> promise2 = Promise.promise();
         refreshFeedingOperation(feedingOperation).onSuccess(a -> {
@@ -1332,10 +1332,10 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             promise2.complete(feedingOperation);
           } catch(Exception ex) {
             LOG.error(String.format("postFeedingOperationFuture failed. "), ex);
-            promise2.fail(ex);
+            promise2.tryFail(ex);
           }
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feedingOperation -> {
@@ -1349,14 +1349,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise.complete(feedingOperation);
         } catch(Exception ex) {
           LOG.error(String.format("postFeedingOperationFuture failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("postFeedingOperationFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1418,15 +1418,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDescription());
             break;
-          case FeedingOperation.VAR_created:
-            o2.setCreated(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FeedingOperation.VAR_created + "=$" + num);
-            num++;
-            bParams.add(o2.sqlCreated());
-            break;
           case FeedingOperation.VAR_location:
             o2.setLocation(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1435,6 +1426,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             bSql.append(FeedingOperation.VAR_location + "=$" + num);
             num++;
             bParams.add(o2.sqlLocation());
+            break;
+          case FeedingOperation.VAR_created:
+            o2.setCreated(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FeedingOperation.VAR_created + "=$" + num);
+            num++;
+            bParams.add(o2.sqlCreated());
             break;
           case FeedingOperation.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
@@ -1472,15 +1472,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case FeedingOperation.VAR_userKey:
-            o2.setUserKey(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FeedingOperation.VAR_userKey + "=$" + num);
-            num++;
-            bParams.add(o2.sqlUserKey());
-            break;
           case FeedingOperation.VAR_ngsildTenant:
             o2.setNgsildTenant(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1489,6 +1480,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             bSql.append(FeedingOperation.VAR_ngsildTenant + "=$" + num);
             num++;
             bParams.add(o2.sqlNgsildTenant());
+            break;
+          case FeedingOperation.VAR_userKey:
+            o2.setUserKey(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FeedingOperation.VAR_userKey + "=$" + num);
+            num++;
+            bParams.add(o2.sqlUserKey());
             break;
           case FeedingOperation.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1508,15 +1508,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlNgsildContext());
             break;
-          case FeedingOperation.VAR_objectTitle:
-            o2.setObjectTitle(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FeedingOperation.VAR_objectTitle + "=$" + num);
-            num++;
-            bParams.add(o2.sqlObjectTitle());
-            break;
           case FeedingOperation.VAR_ngsildData:
             o2.setNgsildData(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1526,14 +1517,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlNgsildData());
             break;
-          case FeedingOperation.VAR_displayPage:
-            o2.setDisplayPage(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_objectTitle:
+            o2.setObjectTitle(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_displayPage + "=$" + num);
+            bSql.append(FeedingOperation.VAR_objectTitle + "=$" + num);
             num++;
-            bParams.add(o2.sqlDisplayPage());
+            bParams.add(o2.sqlObjectTitle());
             break;
           case FeedingOperation.VAR_address:
             o2.setAddress(jsonObject.getJsonObject(entityVar));
@@ -1544,14 +1535,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlAddress());
             break;
-          case FeedingOperation.VAR_displayPageFrFR:
-            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_displayPage:
+            o2.setDisplayPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_displayPageFrFR + "=$" + num);
+            bSql.append(FeedingOperation.VAR_displayPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlDisplayPageFrFR());
+            bParams.add(o2.sqlDisplayPage());
             break;
           case FeedingOperation.VAR_alternateName:
             o2.setAlternateName(jsonObject.getString(entityVar));
@@ -1562,14 +1553,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlAlternateName());
             break;
-          case FeedingOperation.VAR_editPage:
-            o2.setEditPage(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_displayPageFrFR:
+            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_editPage + "=$" + num);
+            bSql.append(FeedingOperation.VAR_displayPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlEditPage());
+            bParams.add(o2.sqlDisplayPageFrFR());
             break;
           case FeedingOperation.VAR_category:
             o2.setCategory(jsonObject.getJsonObject(entityVar));
@@ -1580,14 +1571,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlCategory());
             break;
-          case FeedingOperation.VAR_editPageFrFR:
-            o2.setEditPageFrFR(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_editPage:
+            o2.setEditPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_editPageFrFR + "=$" + num);
+            bSql.append(FeedingOperation.VAR_editPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlEditPageFrFR());
+            bParams.add(o2.sqlEditPage());
             break;
           case FeedingOperation.VAR_dataProvider:
             o2.setDataProvider(jsonObject.getString(entityVar));
@@ -1598,14 +1589,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDataProvider());
             break;
-          case FeedingOperation.VAR_userPage:
-            o2.setUserPage(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_editPageFrFR:
+            o2.setEditPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_userPage + "=$" + num);
+            bSql.append(FeedingOperation.VAR_editPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlUserPage());
+            bParams.add(o2.sqlEditPageFrFR());
             break;
           case FeedingOperation.VAR_dateCreated:
             o2.setDateCreated(jsonObject.getString(entityVar));
@@ -1616,14 +1607,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDateCreated());
             break;
-          case FeedingOperation.VAR_userPageFrFR:
-            o2.setUserPageFrFR(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_userPage:
+            o2.setUserPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_userPageFrFR + "=$" + num);
+            bSql.append(FeedingOperation.VAR_userPage + "=$" + num);
             num++;
-            bParams.add(o2.sqlUserPageFrFR());
+            bParams.add(o2.sqlUserPage());
             break;
           case FeedingOperation.VAR_dateModified:
             o2.setDateModified(jsonObject.getString(entityVar));
@@ -1634,14 +1625,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDateModified());
             break;
-          case FeedingOperation.VAR_download:
-            o2.setDownload(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_userPageFrFR:
+            o2.setUserPageFrFR(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_download + "=$" + num);
+            bSql.append(FeedingOperation.VAR_userPageFrFR + "=$" + num);
             num++;
-            bParams.add(o2.sqlDownload());
+            bParams.add(o2.sqlUserPageFrFR());
             break;
           case FeedingOperation.VAR_endpoint:
             o2.setEndpoint(jsonObject.getString(entityVar));
@@ -1652,14 +1643,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlEndpoint());
             break;
-          case FeedingOperation.VAR_downloadFrFR:
-            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_download:
+            o2.setDownload(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_downloadFrFR + "=$" + num);
+            bSql.append(FeedingOperation.VAR_download + "=$" + num);
             num++;
-            bParams.add(o2.sqlDownloadFrFR());
+            bParams.add(o2.sqlDownload());
             break;
           case FeedingOperation.VAR_hasProvider:
             o2.setHasProvider(jsonObject.getString(entityVar));
@@ -1669,6 +1660,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             bSql.append(FeedingOperation.VAR_hasProvider + "=$" + num);
             num++;
             bParams.add(o2.sqlHasProvider());
+            break;
+          case FeedingOperation.VAR_downloadFrFR:
+            o2.setDownloadFrFR(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FeedingOperation.VAR_downloadFrFR + "=$" + num);
+            num++;
+            bParams.add(o2.sqlDownloadFrFR());
             break;
           case FeedingOperation.VAR_owner:
             o2.setOwner(jsonObject.getJsonObject(entityVar));
@@ -1739,15 +1739,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise.complete(o2);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPOSTFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPOSTFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPOSTFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1768,7 +1768,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1911,7 +1911,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFeedingOperation failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -1922,18 +1922,18 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFeedingOperation failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -2017,39 +2017,39 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feedingOperation -> {
         Promise<FeedingOperation> promise2 = Promise.promise();
         refreshFeedingOperation(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feedingOperation -> {
         promise.complete(feedingOperation);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deleteFeedingOperationFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2100,22 +2100,22 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFeedingOperation failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2135,7 +2135,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2282,7 +2282,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             promise1.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPUTImportFeedingOperation failed. "), ex);
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }));
       });
@@ -2291,11 +2291,11 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("listPUTImportFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("listPUTImportFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2467,7 +2467,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2577,19 +2577,27 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
     promise.complete();
   }
 
-  public String templateSearchPageFeedingOperation(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFeedingOperation(ServiceRequest serviceRequest) {
     return "en-us/search/feeding-operation/FeedingOperationSearchPage.htm";
+  }
+  public String templateSearchPageFeedingOperation(ServiceRequest serviceRequest, FeedingOperation result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriSearchPageFeedingOperation(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFeedingOperation failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200SearchPageFeedingOperation(SearchList<FeedingOperation> listFeedingOperation) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeedingOperation.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateSearchPageFeedingOperation(siteRequest.getServiceRequest());
-      if(listFeedingOperation.size() == 0)
-        pageTemplateUri = templateSearchPageFeedingOperation(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateSearchPageFeedingOperation(siteRequest.getServiceRequest(), listFeedingOperation.first());
       FeedingOperationPage page = new FeedingOperationPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2612,18 +2620,18 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200SearchPageFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2769,19 +2777,27 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
     promise.complete();
   }
 
-  public String templateEditPageFeedingOperation(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFeedingOperation(ServiceRequest serviceRequest) {
     return "en-us/edit/feeding-operation/FeedingOperationEditPage.htm";
+  }
+  public String templateEditPageFeedingOperation(ServiceRequest serviceRequest, FeedingOperation result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriEditPageFeedingOperation(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFeedingOperation failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200EditPageFeedingOperation(SearchList<FeedingOperation> listFeedingOperation) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeedingOperation.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateEditPageFeedingOperation(siteRequest.getServiceRequest());
-      if(listFeedingOperation.size() == 0)
-        pageTemplateUri = templateSearchPageFeedingOperation(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateEditPageFeedingOperation(siteRequest.getServiceRequest(), listFeedingOperation.first());
       FeedingOperationPage page = new FeedingOperationPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2804,18 +2820,18 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200EditPageFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200EditPageFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2992,7 +3008,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFilterFeedingOperation failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -3003,18 +3019,18 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFilterFeedingOperation failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFilterFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFilterFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -3098,39 +3114,39 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feedingOperation -> {
         Promise<FeedingOperation> promise2 = Promise.promise();
         refreshFeedingOperation(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feedingOperation -> {
         promise.complete(feedingOperation);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deletefilterFeedingOperationFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3181,22 +3197,22 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFilterFeedingOperation failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFilterFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFilterFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFilterFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3216,7 +3232,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3243,11 +3259,11 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error("createFeedingOperation failed. ", ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("createFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3313,13 +3329,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           }
         } catch(Exception ex) {
           LOG.error(String.format("searchFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
       promise.complete();
     } catch(Exception ex) {
       LOG.error(String.format("searchFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3522,18 +3538,18 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             promise.complete(searchList);
           }).onFailure(ex -> {
             LOG.error(String.format("searchFeedingOperation failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete(searchList);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("searchFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("searchFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3546,7 +3562,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, address, displayPageFrFR, alternateName, editPage, category, editPageFrFR, dataProvider, userPage, dateCreated, userPageFrFR, dateModified, download, endpoint, downloadFrFR, hasProvider, owner, relatedSource, seeAlso, source, version FROM FeedingOperation WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, location, created, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, address, displayPage, alternateName, displayPageFrFR, category, editPage, dataProvider, editPageFrFR, dateCreated, userPage, dateModified, userPageFrFR, endpoint, download, hasProvider, downloadFrFR, owner, relatedSource, seeAlso, source, version FROM FeedingOperation WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3570,27 +3586,27 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
                 promise.complete();
               }).onFailure(ex -> {
                 LOG.error(String.format("persistFeedingOperation failed. "), ex);
-                promise.fail(ex);
+                promise.tryFail(ex);
               });
             } else {
               promise.complete();
             }
           }).onFailure(ex -> {
             LOG.error(String.format("persistFeedingOperation failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("persistFeedingOperation failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error(String.format("persistFeedingOperation failed. "), ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("persistFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3656,11 +3672,11 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("cbUpsertEntity failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbUpsertEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3695,11 +3711,11 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
         promise.complete(entity);
       }).onFailure(ex -> {
         LOG.error(String.format("postIotServiceFuture failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("postIotServiceFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3726,12 +3742,12 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise.complete();
         } else {
           LOG.error(String.format("cbDeleteEntity failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbDeleteEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3779,11 +3795,11 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
         promise.complete(o);
       }).onFailure(ex -> {
         LOG.error(String.format("indexFeedingOperation failed. "), new RuntimeException(ex));
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("indexFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3816,15 +3832,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise.complete(o);
         }).onFailure(ex -> {
           LOG.error(String.format("unindexFeedingOperation failed. "), new RuntimeException(ex));
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("unindexFeedingOperation failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("unindexFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3872,27 +3888,27 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             if(statusCode.equals(200))
               promise.complete();
             else
-              promise.fail(new RuntimeException(responseMessage.getString("statusMessage")));
+              promise.tryFail(new RuntimeException(responseMessage.getString("statusMessage")));
           }).onFailure(ex -> {
             LOG.error("Refresh relations failed. ", ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         }).onFailure(ex -> {
           LOG.error("Refresh relations failed. ", ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       } else {
         promise.complete();
       }
     } catch(Exception ex) {
       LOG.error(String.format("refreshFeedingOperation failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
 
   @Override
-  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName) {
+  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName, String pageTemplate) {
     Promise<JsonObject> promise = Promise.promise();
     try {
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
@@ -3903,34 +3919,34 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
 
       page.persistForClass(FeedingOperation.VAR_name, FeedingOperation.staticSetName(siteRequest2, (String)result.get(FeedingOperation.VAR_name)));
       page.persistForClass(FeedingOperation.VAR_description, FeedingOperation.staticSetDescription(siteRequest2, (String)result.get(FeedingOperation.VAR_description)));
-      page.persistForClass(FeedingOperation.VAR_created, FeedingOperation.staticSetCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       page.persistForClass(FeedingOperation.VAR_location, FeedingOperation.staticSetLocation(siteRequest2, (String)result.get(FeedingOperation.VAR_location)));
+      page.persistForClass(FeedingOperation.VAR_created, FeedingOperation.staticSetCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       page.persistForClass(FeedingOperation.VAR_archived, FeedingOperation.staticSetArchived(siteRequest2, (String)result.get(FeedingOperation.VAR_archived)));
       page.persistForClass(FeedingOperation.VAR_areaServed, FeedingOperation.staticSetAreaServed(siteRequest2, (String)result.get(FeedingOperation.VAR_areaServed)));
       page.persistForClass(FeedingOperation.VAR_id, FeedingOperation.staticSetId(siteRequest2, (String)result.get(FeedingOperation.VAR_id)));
       page.persistForClass(FeedingOperation.VAR_sessionId, FeedingOperation.staticSetSessionId(siteRequest2, (String)result.get(FeedingOperation.VAR_sessionId)));
-      page.persistForClass(FeedingOperation.VAR_userKey, FeedingOperation.staticSetUserKey(siteRequest2, (String)result.get(FeedingOperation.VAR_userKey)));
       page.persistForClass(FeedingOperation.VAR_ngsildTenant, FeedingOperation.staticSetNgsildTenant(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildTenant)));
+      page.persistForClass(FeedingOperation.VAR_userKey, FeedingOperation.staticSetUserKey(siteRequest2, (String)result.get(FeedingOperation.VAR_userKey)));
       page.persistForClass(FeedingOperation.VAR_ngsildPath, FeedingOperation.staticSetNgsildPath(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildPath)));
       page.persistForClass(FeedingOperation.VAR_ngsildContext, FeedingOperation.staticSetNgsildContext(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildContext)));
-      page.persistForClass(FeedingOperation.VAR_objectTitle, FeedingOperation.staticSetObjectTitle(siteRequest2, (String)result.get(FeedingOperation.VAR_objectTitle)));
       page.persistForClass(FeedingOperation.VAR_ngsildData, FeedingOperation.staticSetNgsildData(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildData)));
-      page.persistForClass(FeedingOperation.VAR_displayPage, FeedingOperation.staticSetDisplayPage(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPage)));
+      page.persistForClass(FeedingOperation.VAR_objectTitle, FeedingOperation.staticSetObjectTitle(siteRequest2, (String)result.get(FeedingOperation.VAR_objectTitle)));
       page.persistForClass(FeedingOperation.VAR_address, FeedingOperation.staticSetAddress(siteRequest2, (String)result.get(FeedingOperation.VAR_address)));
-      page.persistForClass(FeedingOperation.VAR_displayPageFrFR, FeedingOperation.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPageFrFR)));
+      page.persistForClass(FeedingOperation.VAR_displayPage, FeedingOperation.staticSetDisplayPage(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPage)));
       page.persistForClass(FeedingOperation.VAR_alternateName, FeedingOperation.staticSetAlternateName(siteRequest2, (String)result.get(FeedingOperation.VAR_alternateName)));
-      page.persistForClass(FeedingOperation.VAR_editPage, FeedingOperation.staticSetEditPage(siteRequest2, (String)result.get(FeedingOperation.VAR_editPage)));
+      page.persistForClass(FeedingOperation.VAR_displayPageFrFR, FeedingOperation.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPageFrFR)));
       page.persistForClass(FeedingOperation.VAR_category, FeedingOperation.staticSetCategory(siteRequest2, (String)result.get(FeedingOperation.VAR_category)));
-      page.persistForClass(FeedingOperation.VAR_editPageFrFR, FeedingOperation.staticSetEditPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_editPageFrFR)));
+      page.persistForClass(FeedingOperation.VAR_editPage, FeedingOperation.staticSetEditPage(siteRequest2, (String)result.get(FeedingOperation.VAR_editPage)));
       page.persistForClass(FeedingOperation.VAR_dataProvider, FeedingOperation.staticSetDataProvider(siteRequest2, (String)result.get(FeedingOperation.VAR_dataProvider)));
-      page.persistForClass(FeedingOperation.VAR_userPage, FeedingOperation.staticSetUserPage(siteRequest2, (String)result.get(FeedingOperation.VAR_userPage)));
+      page.persistForClass(FeedingOperation.VAR_editPageFrFR, FeedingOperation.staticSetEditPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_editPageFrFR)));
       page.persistForClass(FeedingOperation.VAR_dateCreated, FeedingOperation.staticSetDateCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_dateCreated)));
-      page.persistForClass(FeedingOperation.VAR_userPageFrFR, FeedingOperation.staticSetUserPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_userPageFrFR)));
+      page.persistForClass(FeedingOperation.VAR_userPage, FeedingOperation.staticSetUserPage(siteRequest2, (String)result.get(FeedingOperation.VAR_userPage)));
       page.persistForClass(FeedingOperation.VAR_dateModified, FeedingOperation.staticSetDateModified(siteRequest2, (String)result.get(FeedingOperation.VAR_dateModified)));
-      page.persistForClass(FeedingOperation.VAR_download, FeedingOperation.staticSetDownload(siteRequest2, (String)result.get(FeedingOperation.VAR_download)));
+      page.persistForClass(FeedingOperation.VAR_userPageFrFR, FeedingOperation.staticSetUserPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_userPageFrFR)));
       page.persistForClass(FeedingOperation.VAR_endpoint, FeedingOperation.staticSetEndpoint(siteRequest2, (String)result.get(FeedingOperation.VAR_endpoint)));
-      page.persistForClass(FeedingOperation.VAR_downloadFrFR, FeedingOperation.staticSetDownloadFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_downloadFrFR)));
+      page.persistForClass(FeedingOperation.VAR_download, FeedingOperation.staticSetDownload(siteRequest2, (String)result.get(FeedingOperation.VAR_download)));
       page.persistForClass(FeedingOperation.VAR_hasProvider, FeedingOperation.staticSetHasProvider(siteRequest2, (String)result.get(FeedingOperation.VAR_hasProvider)));
+      page.persistForClass(FeedingOperation.VAR_downloadFrFR, FeedingOperation.staticSetDownloadFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_downloadFrFR)));
       page.persistForClass(FeedingOperation.VAR_owner, FeedingOperation.staticSetOwner(siteRequest2, (String)result.get(FeedingOperation.VAR_owner)));
       page.persistForClass(FeedingOperation.VAR_relatedSource, FeedingOperation.staticSetRelatedSource(siteRequest2, (String)result.get(FeedingOperation.VAR_relatedSource)));
       page.persistForClass(FeedingOperation.VAR_seeAlso, FeedingOperation.staticSetSeeAlso(siteRequest2, (String)result.get(FeedingOperation.VAR_seeAlso)));
@@ -3944,15 +3960,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           promise.complete(data);
         } catch(Exception ex) {
           LOG.error(String.format(importModelFail, classSimpleName), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("generatePageBody failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("generatePageBody failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }

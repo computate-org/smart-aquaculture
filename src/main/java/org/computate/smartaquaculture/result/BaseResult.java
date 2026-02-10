@@ -356,7 +356,10 @@ public class BaseResult extends BaseResultGen<Object> implements ComputateBaseRe
 
   public static String urlEncode(String str) {
     try {
-      return URLEncoder.encode(str, "UTF-8");
+      if(str == null)
+        return null;
+      else 
+        return URLEncoder.encode(str, "UTF-8");
     } catch(Throwable ex) {
       ExceptionUtils.rethrow(ex);
       return null;

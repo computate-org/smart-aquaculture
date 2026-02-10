@@ -162,14 +162,30 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class SiteUserGen<DEV> extends BaseModel {
   protected static final Logger LOG = LoggerFactory.getLogger(SiteUser.class);
 
-  public static final String Description_frFR = "A user record for each site user";
-  public static final String AName_frFR = "a site user";
-  public static final String SingularName_frFR = "site user";
-  public static final String PluralName_frFR = "site users";
-  public static final String Title_frFR = "site users";
-  public static final String ThePluralName_frFR = "les site users";
-  public static final String NameAdjectiveSingular_frFR = "site user";
-  public static final String NameAdjectivePlural_frFR = "site users";
+  public static final String Description_frFR = "Un enregistrement utilisateur pour chaque utilisateur du site";
+  public static final String AName_frFR = "un utilisateur du site";
+  public static final String This_frFR = "ce ";
+  public static final String ThisName_frFR = "cet utilisateur du site";
+  public static final String A_frFR = "un ";
+  public static final String TheName_frFR = "l'utilisateur du site";
+  public static final String SingularName_frFR = "utilisateur du site";
+  public static final String PluralName_frFR = "utilisateur du sites";
+  public static final String NameActual_frFR = "utilisateur du site actuel";
+  public static final String AllName_frFR = "tous utilisateur du sites";
+  public static final String SearchAllNameBy_frFR = "rechercher utilisateur du sites par ";
+  public static final String SearchAllName_frFR = "rechercher utilisateur du sites";
+  public static final String Title_frFR = "utilisateur du sites";
+  public static final String ThePluralName_frFR = "les utilisateur du sites";
+  public static final String NoNameFound_frFR = "aucun utilisateur du site trouvé";
+  public static final String OfName_frFR = "d'utilisateur du site";
+  public static final String NameAdjectiveSingular_frFR = "utilisateur du site";
+  public static final String NameAdjectivePlural_frFR = "utilisateur du sites";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/utlisateur";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/utlisateur";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/utlisateur";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/utilisateur/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/utilisateur/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/utilisateur/%s";
 
   public static final String Description_enUS = "A user record for each site user";
   public static final String AName_enUS = "a site user";
@@ -1893,7 +1909,7 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 
   @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/utilisateur/%s";
   }
 
   @Override

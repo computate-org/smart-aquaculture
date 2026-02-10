@@ -60,6 +60,8 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * HtmRow: 4
 	 * HtmCell: 0
 	 * Facet: true
+	 * LocationTitle: true
+	 * AreaTitle: true
 	 **/
 	protected void _name(Wrap<String> w) {
 	}
@@ -212,6 +214,8 @@ public class MapModel extends MapModelGen<BaseModel> {
 	 * HtmCell: 3
 	 * Facet: true
 	 * Color: true
+	 * LocationColor: true
+	 * AreaColor: true
 	 */
 	protected void _color(Wrap<String> w) {
 		w.o("magenta");

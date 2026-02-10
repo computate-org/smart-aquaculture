@@ -258,7 +258,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -400,7 +400,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200GETFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -544,7 +544,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listPATCHFeed failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -555,18 +555,18 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPATCHFeed failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listPATCHFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listPATCHFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -670,22 +670,22 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
                       }
                       promise2.complete(feed);
                     }).onFailure(ex -> {
-                      promise2.fail(ex);
+                      promise2.tryFail(ex);
                     });
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise2.fail(ex);
+                promise2.tryFail(ex);
               });
               return promise2.future();
             }).onSuccess(o2 -> {
               promise1.complete(o2);
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           } else {
             sqlPATCHFeed(o, inheritPrimaryKey).onSuccess(feed -> {
@@ -702,43 +702,43 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
                     }
                     promise1.complete(feed);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feed -> {
         Promise<Feed> promise2 = Promise.promise();
         refreshFeed(feed).onSuccess(a -> {
           promise2.complete(feed);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feed -> {
         promise.complete(feed);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("patchFeedFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1038,15 +1038,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise.complete(o3);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPATCHFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPATCHFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPATCHFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1066,7 +1066,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1264,29 +1264,29 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
                   indexFeed(feed).onSuccess(o2 -> {
                     promise1.complete(feed);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feed -> {
         Promise<Feed> promise2 = Promise.promise();
         refreshFeed(feed).onSuccess(a -> {
@@ -1300,10 +1300,10 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             promise2.complete(feed);
           } catch(Exception ex) {
             LOG.error(String.format("postFeedFuture failed. "), ex);
-            promise2.fail(ex);
+            promise2.tryFail(ex);
           }
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feed -> {
@@ -1317,14 +1317,14 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise.complete(feed);
         } catch(Exception ex) {
           LOG.error(String.format("postFeedFuture failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("postFeedFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1671,15 +1671,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise.complete(o2);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPOSTFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPOSTFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPOSTFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1700,7 +1700,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1843,7 +1843,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFeed failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -1854,18 +1854,18 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFeed failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -1949,39 +1949,39 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feed -> {
         Promise<Feed> promise2 = Promise.promise();
         refreshFeed(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feed -> {
         promise.complete(feed);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deleteFeedFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2032,22 +2032,22 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFeed failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2067,7 +2067,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2214,7 +2214,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             promise1.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPUTImportFeed failed. "), ex);
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }));
       });
@@ -2223,11 +2223,11 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("listPUTImportFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("listPUTImportFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2399,7 +2399,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2509,19 +2509,27 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
     promise.complete();
   }
 
-  public String templateSearchPageFeed(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFeed(ServiceRequest serviceRequest) {
     return "en-us/search/feed/FeedSearchPage.htm";
+  }
+  public String templateSearchPageFeed(ServiceRequest serviceRequest, Feed result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriSearchPageFeed(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFeed failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200SearchPageFeed(SearchList<Feed> listFeed) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeed.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateSearchPageFeed(siteRequest.getServiceRequest());
-      if(listFeed.size() == 0)
-        pageTemplateUri = templateSearchPageFeed(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateSearchPageFeed(siteRequest.getServiceRequest(), listFeed.first());
       FeedPage page = new FeedPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2544,18 +2552,18 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200SearchPageFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2701,19 +2709,27 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
     promise.complete();
   }
 
-  public String templateEditPageFeed(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFeed(ServiceRequest serviceRequest) {
     return "en-us/edit/feed/FeedEditPage.htm";
+  }
+  public String templateEditPageFeed(ServiceRequest serviceRequest, Feed result) {
+    String template = null;
+    try {
+      String pageTemplateUri = templateUriEditPageFeed(serviceRequest);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFeed failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+    return template;
   }
   public Future<ServiceResponse> response200EditPageFeed(SearchList<Feed> listFeed) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeed.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateEditPageFeed(siteRequest.getServiceRequest());
-      if(listFeed.size() == 0)
-        pageTemplateUri = templateSearchPageFeed(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = templateEditPageFeed(siteRequest.getServiceRequest(), listFeed.first());
       FeedPage page = new FeedPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2736,18 +2752,18 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             Buffer buffer = Buffer.buffer(renderedTemplate);
             promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200EditPageFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200EditPageFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2924,7 +2940,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFilterFeed failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -2935,18 +2951,18 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFilterFeed failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFilterFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFilterFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -3030,39 +3046,39 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(feed -> {
         Promise<Feed> promise2 = Promise.promise();
         refreshFeed(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(feed -> {
         promise.complete(feed);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deletefilterFeedFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3113,22 +3129,22 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFilterFeed failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFilterFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFilterFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFilterFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3148,7 +3164,7 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3175,11 +3191,11 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error("createFeed failed. ", ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("createFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3245,13 +3261,13 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           }
         } catch(Exception ex) {
           LOG.error(String.format("searchFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
       promise.complete();
     } catch(Exception ex) {
       LOG.error(String.format("searchFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3454,18 +3470,18 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             promise.complete(searchList);
           }).onFailure(ex -> {
             LOG.error(String.format("searchFeed failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete(searchList);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("searchFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("searchFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3502,27 +3518,27 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
                 promise.complete();
               }).onFailure(ex -> {
                 LOG.error(String.format("persistFeed failed. "), ex);
-                promise.fail(ex);
+                promise.tryFail(ex);
               });
             } else {
               promise.complete();
             }
           }).onFailure(ex -> {
             LOG.error(String.format("persistFeed failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("persistFeed failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error(String.format("persistFeed failed. "), ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("persistFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3588,11 +3604,11 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("cbUpsertEntity failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbUpsertEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3627,11 +3643,11 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
         promise.complete(entity);
       }).onFailure(ex -> {
         LOG.error(String.format("postIotServiceFuture failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("postIotServiceFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3658,12 +3674,12 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise.complete();
         } else {
           LOG.error(String.format("cbDeleteEntity failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbDeleteEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3711,11 +3727,11 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
         promise.complete(o);
       }).onFailure(ex -> {
         LOG.error(String.format("indexFeed failed. "), new RuntimeException(ex));
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("indexFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3748,15 +3764,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise.complete(o);
         }).onFailure(ex -> {
           LOG.error(String.format("unindexFeed failed. "), new RuntimeException(ex));
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("unindexFeed failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("unindexFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3804,27 +3820,27 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
             if(statusCode.equals(200))
               promise.complete();
             else
-              promise.fail(new RuntimeException(responseMessage.getString("statusMessage")));
+              promise.tryFail(new RuntimeException(responseMessage.getString("statusMessage")));
           }).onFailure(ex -> {
             LOG.error("Refresh relations failed. ", ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         }).onFailure(ex -> {
           LOG.error("Refresh relations failed. ", ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       } else {
         promise.complete();
       }
     } catch(Exception ex) {
       LOG.error(String.format("refreshFeed failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
 
   @Override
-  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName) {
+  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName, String pageTemplate) {
     Promise<JsonObject> promise = Promise.promise();
     try {
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
@@ -3872,15 +3888,15 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           promise.complete(data);
         } catch(Exception ex) {
           LOG.error(String.format(importModelFail, classSimpleName), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("generatePageBody failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("generatePageBody failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }

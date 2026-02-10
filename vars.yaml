@@ -42,7 +42,7 @@ SITE_DESCRIPTION: "Caring for fish populations, fisheries, and feeding of fish a
 SITE_NAMESPACE: "{{ lookup('env', 'SITE_NAMESPACE') | default('smartaquaculture', true) }}"
 # The main locale of this application. 
 SITE_LOCALE: en-US
-# Adding French language support. 
+# Adding other language support like '["frFR"]'. 
 OTHER_LANGUAGES: '["frFR"]'
 # A computate specific identifier for the locale and language of the code. 
 SITE_LANG: "{{ SITE_LOCALE | replace('-', '') }}"

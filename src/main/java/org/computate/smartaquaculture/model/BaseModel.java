@@ -272,6 +272,8 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * Link: true
    * Icon: <i class="fa-duotone fa-regular fa-pen-to-square"></i>
    * VarUrlEditPage.enUS: true
+	 * LocationUrl.enUS: true
+	 * AreaUrl.enUS: true
    */
   protected void _editPage(Wrap<String> w) {
     String f = enUSStringFormatUrlEditPageForClass();
@@ -291,6 +293,8 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * Link: true
    * Icon: <i class="fa-duotone fa-regular fa-pen-to-square"></i>
    * VarUrlEditPage.frFR: true
+	 * LocationUrl.frFR: true
+	 * AreaUrl.frFR: true
    */
   protected void _editPageFrFR(Wrap<String> w) {
     String f = frFRStringFormatUrlEditPageForClass();
@@ -420,7 +424,10 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
 
   public static String urlEncode(String str) {
     try {
-      return URLEncoder.encode(str, "UTF-8");
+      if(str == null)
+        return null;
+      else 
+        return URLEncoder.encode(str, "UTF-8");
     } catch(Throwable ex) {
       ExceptionUtils.rethrow(ex);
       return null;

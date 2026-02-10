@@ -26,8 +26,10 @@ import org.computate.smartaquaculture.request.SiteRequest;
 
 /**
  * Order: 1
- * Description: A user record for each site user
- * AName: a site user
+ * Description.enUS: A user record for each site user
+ * Description.frFR: Un enregistrement utilisateur pour chaque utilisateur du site
+ * AName.enUS: a site user
+ * AName.frFR: un utilisateur du site
  * Icon: <i class="fa-duotone fa-regular fa-user-gear"></i>
  * 
  * Keyword: classSimpleNameSiteUser
@@ -38,6 +40,14 @@ import org.computate.smartaquaculture.request.SiteRequest;
  * EditPageUri: /en-us/edit/user/{userId}
  * ApiUri: /en-us/api/user
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: TimeZonePage
+ *     ApiUri: /fr-fr/rechercher/utlisateur
+ *   EditPageFrFR:
+ *     Language: frFR
+ *     Page: TimeZonePage
+ *     ApiUri: /fr-fr/edition/utilisateur/{entityShortId}
  *   Search:
  *   PATCH:
  *   POST:
@@ -47,7 +57,8 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
   /**
    * {@inheritDoc}
    * DocValues: true
-   * Description: User keys that relate to this user
+   * Description.enUS: User keys that relate to this user
+   * Description.frFR: Clés d'utilisateur qui se rapportent à cet utilisateur
    */
   protected void _userKeys(List<Long> l) {
     l.add(pk);
@@ -57,7 +68,8 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * Description: The unique user ID from the SSO server
+   * Description.enUS: The unique user ID from the SSO server
+   * Description.frFR: L'ID utilisateur unique du serveur SSO
    * VarId: true
    * Unique: true
    */
@@ -68,8 +80,10 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: user name
-   * Description: The user's username
+   * DisplayName.enUS: user name
+   * DisplayName.frFR: nom d'utilisateur
+   * Description.enUS: The user's username
+   * Description.frFR: Le nom d'utilisateur de l'utilisateur
    * HtmColumn: 0
    */
   protected void _userName(Wrap<String> c) {
@@ -79,7 +93,8 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * Description: The user's email
+   * Description.enUS: The user's email
+   * Description.frFR: L'e-mail de l'utilisateur
    */
   protected void _userEmail(Wrap<String> c) {
   }
@@ -88,7 +103,8 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * Description: The user's first name
+   * Description.enUS: The user's first name
+   * Description.frFR: Le prénom de l'utilisateur
    */
   protected void _userFirstName(Wrap<String> c) {
   }
@@ -97,7 +113,8 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * Description: The user's last name
+   * Description.enUS: The user's last name
+   * Description.frFR: Le nom de famille de l'utilisateur
    */
   protected void _userLastName(Wrap<String> c) {
   }
@@ -106,8 +123,10 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: full name
-   * Description: The user's full name
+   * DisplayName.enUS: full name
+   * DisplayName.frFR: nom complet
+   * Description.enUS: The user's full name
+   * Description.frFR: Le nom complet de l'utilisateur
    * HtmColumn: 1
    */
   protected void _userFullName(Wrap<String> c) {
@@ -117,8 +136,10 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: Keycloak user profile
-   * Description: View and update your user profile in Keycloak
+   * DisplayName.enUS: Keycloak user profile
+   * DisplayName.frFR: Profil utilisateur Keycloak
+   * Description.enUS: View and update your user profile in Keycloak
+   * Description.frFR: Voir et mettre à jour votre profil utilisateur dans Keycloak
    * HtmRow: 4
    * HtmCell: 3
    * Link: true
@@ -134,8 +155,10 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * HtmRow: 4
    * HtmCell: 0
    * HtmRowTitleOpen: user options
-   * DisplayName: see archived
-   * Description: A user field allowing a user to see archived records
+   * DisplayName.enUS: see archived
+   * DisplayName.frFR: voir archives
+   * Description.enUS: A user field allowing a user to see archived records
+   * Description.frFR: Un champ utilisateur permettant à un utilisateur de voir les enregistrements archivés
    */
   protected void _seeArchived(Wrap<Boolean> c) {
     c.o(false);
@@ -144,7 +167,8 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
   /**
    * DocValues: true
    * Persist: true
-   * Description: The display name for this user
+   * Description.enUS: The display name for this user
+   * Description.frFR: Le nom de l'utilisateur
    * VarName: true
    */
   protected void _displayName(Wrap<String> c) {
@@ -157,8 +181,10 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * Persist: true
    * HtmRow: 4
    * HtmCell: 1
-   * DisplayName: font size
-   * Description: The default font size for the site
+   * DisplayName.enUS: font size
+   * DisplayName.frFR: taille de police
+   * Description.enUS: The default font size for the site
+   * Description.frFR: La taille de police par défaut pour le site
    * Refresh: true
    * Radio:
    *   small: small
@@ -175,8 +201,10 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * Persist: true
    * HtmRow: 4
    * HtmCell: 2
-   * DisplayName: site theme
-   * Description: The site theme, either light or dark. 
+   * DisplayName.enUS: site theme
+   * DisplayName.frFR: thème du site
+   * Description.enUS: The site theme, either light or dark. 
+   * Description.frFR: Le thème du site, soit clair ou sombre. 
    * Refresh: true
    * Radio:
    *   light: Light
@@ -190,8 +218,10 @@ public class SiteUser extends SiteUserGen<BaseModel> implements ComputateSiteUse
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: customer profile ID
-   * Description: Authorize.net customer profile ID. 
+   * DisplayName.enUS: customer profile ID
+   * DisplayName.frFR: ID de profil client
+   * Description.enUS: Authorize.net customer profile ID. 
+   * Description.frFR: ID de profil client Authorize.net. 
    */
   protected void _customerProfileId(Wrap<String> w) {
   }
