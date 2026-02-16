@@ -74,6 +74,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,7 +118,6 @@ import java.util.Base64;
 import java.time.ZonedDateTime;
 import org.apache.commons.lang3.BooleanUtils;
 import org.computate.vertx.search.list.SearchList;
-import org.computate.smartaquaculture.model.timezone.TimeZonePage;
 import org.computate.smartaquaculture.page.SitePagePage;
 
 
@@ -178,76 +179,48 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     });
   }
 
-  public void searchpagefrfrSitePagePageInit(JsonObject ctx, TimeZonePage page, SearchList<SitePage> listSitePage, Promise<Void> promise) {
-    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-
-    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/article"));
-    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/article"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
-
-    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/article"));
-    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/article"));
-    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
-    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
-    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
-    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
-
-    promise.complete();
-  }
-
-  public String templateUriSearchPageFrFRSitePage(ServiceRequest serviceRequest) {
-    return "fr-fr/rechercher/article/SitePageSearchPage.htm";
-  }
-  public String templateSearchPageFrFRSitePage(ServiceRequest serviceRequest, SitePage result) {
-    String template = null;
-    try {
-      String pageTemplateUri = templateUriSearchPageFrFRSitePage(serviceRequest);
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-    } catch(Exception ex) {
-      LOG.error(String.format("templateSearchPageFrFRSitePage failed. "), ex);
-      ExceptionUtils.rethrow(ex);
-    }
-    return template;
-  }
   public Future<ServiceResponse> response200SearchPageFrFRSitePage(SearchList<SitePage> listSitePage) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFrFRSitePage(siteRequest.getServiceRequest(), listSitePage.first());
-      TimeZonePage page = new TimeZonePage();
-      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
-      siteRequest.setRequestHeaders(requestHeaders);
-
-      page.setSearchListSitePage_(listSitePage);
-      page.setSiteRequest_(siteRequest);
-      page.setServiceRequest(siteRequest.getServiceRequest());
-      page.setWebClient(webClient);
-      page.setVertx(vertx);
-      page.promiseDeepTimeZonePage(siteRequest).onSuccess(a -> {
-        try {
-          JsonObject ctx = ConfigKeys.getPageContext(config);
-          ctx.mergeIn(JsonObject.mapFrom(page));
-          Promise<Void> promise1 = Promise.promise();
-          searchpagefrfrSitePagePageInit(ctx, page, listSitePage, promise1);
-          promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
-          }).onFailure(ex -> {
-            promise.tryFail(ex);
-          });
-        } catch(Exception ex) {
-          LOG.error(String.format("response200SearchPageFrFRSitePage failed. "), ex);
-          promise.tryFail(ex);
+      List<String> fls = listSitePage.getRequest().getFields();
+      JsonObject json = new JsonObject();
+      JsonArray l = new JsonArray();
+      listSitePage.getList().stream().forEach(o -> {
+        JsonObject json2 = JsonObject.mapFrom(o);
+        if(fls.size() > 0) {
+          Set<String> fieldNames = new HashSet<String>();
+          for(String fieldName : json2.fieldNames()) {
+            String v = SitePage.varIndexedSitePage(fieldName);
+            if(v != null)
+              fieldNames.add(SitePage.varIndexedSitePage(fieldName));
+          }
+          if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
+            fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
+            fieldNames.remove("_docvalues_long");
+            fieldNames.remove("created_docvalues_date");
+          }
+          else if(fls.size() >= 1) {
+            fieldNames.removeAll(fls);
+          }
+          for(String fieldName : fieldNames) {
+            if(!fls.contains(fieldName))
+              json2.remove(fieldName);
+          }
         }
-      }).onFailure(ex -> {
-        promise.tryFail(ex);
+        l.add(json2);
       });
+      json.put("list", l);
+      response200Search(listSitePage.getRequest(), listSitePage.getResponse(), json);
+      if(json == null) {
+        String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
+        String m = String.format("%s %s not found", "article", pageId);
+        promise.complete(new ServiceResponse(404
+            , m
+            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
+      } else {
+        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
+      }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFrFRSitePage failed. "), ex);
       promise.tryFail(ex);
@@ -377,7 +350,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     });
   }
 
-  public void editpagefrfrSitePagePageInit(JsonObject ctx, TimeZonePage page, SearchList<SitePage> listSitePage, Promise<Void> promise) {
+  public void editpagefrfrSitePagePageInit(JsonObject ctx, SitePagePage page, SearchList<SitePage> listSitePage, Promise<Void> promise) {
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/article"));
@@ -397,28 +370,76 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     promise.complete();
   }
 
-  public String templateUriEditPageFrFRSitePage(ServiceRequest serviceRequest) {
-    return "fr-fr/edition/article/SitePageEditPage.htm";
+  public String templateUriEditPageFrFRSitePage(ServiceRequest serviceRequest, SitePage result) {
+    return "";
   }
-  public String templateEditPageFrFRSitePage(ServiceRequest serviceRequest, SitePage result) {
-    String template = null;
+  public void templateEditPageFrFRSitePage(JsonObject ctx, SitePagePage page, SearchList<SitePage> listSitePage, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageFrFRSitePage(serviceRequest);
+      SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SitePage result = listSitePage.first();
+      String pageTemplateUri = templateUriEditPageFrFRSitePage(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageFrFRSitePage failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageFrFRSitePage(SearchList<SitePage> listSitePage) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFrFRSitePage(siteRequest.getServiceRequest(), listSitePage.first());
-      TimeZonePage page = new TimeZonePage();
+      SitePagePage page = new SitePagePage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
 
@@ -427,16 +448,26 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       page.setServiceRequest(siteRequest.getServiceRequest());
       page.setWebClient(webClient);
       page.setVertx(vertx);
-      page.promiseDeepTimeZonePage(siteRequest).onSuccess(a -> {
+      page.promiseDeepSitePagePage(siteRequest).onSuccess(a -> {
         try {
           JsonObject ctx = ConfigKeys.getPageContext(config);
           ctx.mergeIn(JsonObject.mapFrom(page));
           Promise<Void> promise1 = Promise.promise();
           editpagefrfrSitePagePageInit(ctx, page, listSitePage, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFrFRSitePage(ctx, page, listSitePage, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFrFRSitePage failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -1829,27 +1860,75 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     promise.complete();
   }
 
-  public String templateUriSearchPageSitePage(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageSitePage(ServiceRequest serviceRequest, SitePage result) {
     return "en-us/search/article/SitePageSearchPage.htm";
   }
-  public String templateSearchPageSitePage(ServiceRequest serviceRequest, SitePage result) {
-    String template = null;
+  public void templateSearchPageSitePage(JsonObject ctx, SitePagePage page, SearchList<SitePage> listSitePage, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriSearchPageSitePage(serviceRequest);
+      SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SitePage result = listSitePage.first();
+      String pageTemplateUri = templateUriSearchPageSitePage(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateSearchPageSitePage failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200SearchPageSitePage(SearchList<SitePage> listSitePage) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageSitePage(siteRequest.getServiceRequest(), listSitePage.first());
       SitePagePage page = new SitePagePage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -1866,9 +1945,19 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
           Promise<Void> promise1 = Promise.promise();
           searchpageSitePagePageInit(ctx, page, listSitePage, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageSitePage(ctx, page, listSitePage, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageSitePage failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -2028,27 +2117,75 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     promise.complete();
   }
 
-  public String templateUriEditPageSitePage(ServiceRequest serviceRequest) {
+  public String templateUriEditPageSitePage(ServiceRequest serviceRequest, SitePage result) {
     return "en-us/edit/article/SitePageEditPage.htm";
   }
-  public String templateEditPageSitePage(ServiceRequest serviceRequest, SitePage result) {
-    String template = null;
+  public void templateEditPageSitePage(JsonObject ctx, SitePagePage page, SearchList<SitePage> listSitePage, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageSitePage(serviceRequest);
+      SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SitePage result = listSitePage.first();
+      String pageTemplateUri = templateUriEditPageSitePage(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageSitePage failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageSitePage(SearchList<SitePage> listSitePage) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageSitePage(siteRequest.getServiceRequest(), listSitePage.first());
       SitePagePage page = new SitePagePage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2065,9 +2202,19 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
           Promise<Void> promise1 = Promise.promise();
           editpageSitePagePageInit(ctx, page, listSitePage, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageSitePage(ctx, page, listSitePage, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageSitePage failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -2189,27 +2336,75 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     promise.complete();
   }
 
-  public String templateUriDisplayPageSitePage(ServiceRequest serviceRequest) {
+  public String templateUriDisplayPageSitePage(ServiceRequest serviceRequest, SitePage result) {
     return String.format("%s.htm", StringUtils.substringBefore(serviceRequest.getExtra().getString("uri").substring(1), "?"));
   }
-  public String templateDisplayPageSitePage(ServiceRequest serviceRequest, SitePage result) {
-    String template = null;
+  public void templateDisplayPageSitePage(JsonObject ctx, SitePagePage page, SearchList<SitePage> listSitePage, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriDisplayPageSitePage(serviceRequest);
+      SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SitePage result = listSitePage.first();
+      String pageTemplateUri = templateUriDisplayPageSitePage(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateDisplayPageSitePage failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200DisplayPageSitePage(SearchList<SitePage> listSitePage) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSitePage.getSiteRequest_(SiteRequest.class);
-      String template = templateDisplayPageSitePage(siteRequest.getServiceRequest(), listSitePage.first());
       SitePagePage page = new SitePagePage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2226,9 +2421,19 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
           Promise<Void> promise1 = Promise.promise();
           displaypageSitePagePageInit(ctx, page, listSitePage, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateDisplayPageSitePage(ctx, page, listSitePage, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200DisplayPageSitePage failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -2977,40 +3182,40 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      SitePage page = new SitePage();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      SitePage o = new SitePage();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(SitePage.VAR_created, SitePage.staticSetCreated(siteRequest2, (String)result.get(SitePage.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(SitePage.VAR_archived, SitePage.staticSetArchived(siteRequest2, (String)result.get(SitePage.VAR_archived)));
-      page.persistForClass(SitePage.VAR_objectTitle, SitePage.staticSetObjectTitle(siteRequest2, (String)result.get(SitePage.VAR_objectTitle)));
-      page.persistForClass(SitePage.VAR_displayPage, SitePage.staticSetDisplayPage(siteRequest2, (String)result.get(SitePage.VAR_displayPage)));
-      page.persistForClass(SitePage.VAR_displayPageFrFR, SitePage.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(SitePage.VAR_displayPageFrFR)));
-      page.persistForClass(SitePage.VAR_importance, SitePage.staticSetImportance(siteRequest2, (String)result.get(SitePage.VAR_importance)));
-      page.persistForClass(SitePage.VAR_editPage, SitePage.staticSetEditPage(siteRequest2, (String)result.get(SitePage.VAR_editPage)));
-      page.persistForClass(SitePage.VAR_courseNum, SitePage.staticSetCourseNum(siteRequest2, (String)result.get(SitePage.VAR_courseNum)));
-      page.persistForClass(SitePage.VAR_editPageFrFR, SitePage.staticSetEditPageFrFR(siteRequest2, (String)result.get(SitePage.VAR_editPageFrFR)));
-      page.persistForClass(SitePage.VAR_lessonNum, SitePage.staticSetLessonNum(siteRequest2, (String)result.get(SitePage.VAR_lessonNum)));
-      page.persistForClass(SitePage.VAR_userPage, SitePage.staticSetUserPage(siteRequest2, (String)result.get(SitePage.VAR_userPage)));
-      page.persistForClass(SitePage.VAR_name, SitePage.staticSetName(siteRequest2, (String)result.get(SitePage.VAR_name)));
-      page.persistForClass(SitePage.VAR_userPageFrFR, SitePage.staticSetUserPageFrFR(siteRequest2, (String)result.get(SitePage.VAR_userPageFrFR)));
-      page.persistForClass(SitePage.VAR_description, SitePage.staticSetDescription(siteRequest2, (String)result.get(SitePage.VAR_description)));
-      page.persistForClass(SitePage.VAR_download, SitePage.staticSetDownload(siteRequest2, (String)result.get(SitePage.VAR_download)));
-      page.persistForClass(SitePage.VAR_authorName, SitePage.staticSetAuthorName(siteRequest2, (String)result.get(SitePage.VAR_authorName)));
-      page.persistForClass(SitePage.VAR_downloadFrFR, SitePage.staticSetDownloadFrFR(siteRequest2, (String)result.get(SitePage.VAR_downloadFrFR)));
-      page.persistForClass(SitePage.VAR_authorUrl, SitePage.staticSetAuthorUrl(siteRequest2, (String)result.get(SitePage.VAR_authorUrl)));
-      page.persistForClass(SitePage.VAR_pageId, SitePage.staticSetPageId(siteRequest2, (String)result.get(SitePage.VAR_pageId)));
-      page.persistForClass(SitePage.VAR_pageImageUri, SitePage.staticSetPageImageUri(siteRequest2, (String)result.get(SitePage.VAR_pageImageUri)));
-      page.persistForClass(SitePage.VAR_solrId, SitePage.staticSetSolrId(siteRequest2, (String)result.get(SitePage.VAR_solrId)));
-      page.persistForClass(SitePage.VAR_pageImageAlt, SitePage.staticSetPageImageAlt(siteRequest2, (String)result.get(SitePage.VAR_pageImageAlt)));
-      page.persistForClass(SitePage.VAR_prerequisiteArticleIds, SitePage.staticSetPrerequisiteArticleIds(siteRequest2, (String)result.get(SitePage.VAR_prerequisiteArticleIds)));
-      page.persistForClass(SitePage.VAR_nextArticleIds, SitePage.staticSetNextArticleIds(siteRequest2, (String)result.get(SitePage.VAR_nextArticleIds)));
-      page.persistForClass(SitePage.VAR_labelsString, SitePage.staticSetLabelsString(siteRequest2, (String)result.get(SitePage.VAR_labelsString)));
-      page.persistForClass(SitePage.VAR_labels, SitePage.staticSetLabels(siteRequest2, (String)result.get(SitePage.VAR_labels)));
-      page.persistForClass(SitePage.VAR_relatedArticleIds, SitePage.staticSetRelatedArticleIds(siteRequest2, (String)result.get(SitePage.VAR_relatedArticleIds)));
+      o.persistForClass(SitePage.VAR_created, SitePage.staticSetCreated(siteRequest2, (String)result.get(SitePage.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      o.persistForClass(SitePage.VAR_archived, SitePage.staticSetArchived(siteRequest2, (String)result.get(SitePage.VAR_archived)));
+      o.persistForClass(SitePage.VAR_objectTitle, SitePage.staticSetObjectTitle(siteRequest2, (String)result.get(SitePage.VAR_objectTitle)));
+      o.persistForClass(SitePage.VAR_displayPage, SitePage.staticSetDisplayPage(siteRequest2, (String)result.get(SitePage.VAR_displayPage)));
+      o.persistForClass(SitePage.VAR_displayPageFrFR, SitePage.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(SitePage.VAR_displayPageFrFR)));
+      o.persistForClass(SitePage.VAR_importance, SitePage.staticSetImportance(siteRequest2, (String)result.get(SitePage.VAR_importance)));
+      o.persistForClass(SitePage.VAR_editPage, SitePage.staticSetEditPage(siteRequest2, (String)result.get(SitePage.VAR_editPage)));
+      o.persistForClass(SitePage.VAR_courseNum, SitePage.staticSetCourseNum(siteRequest2, (String)result.get(SitePage.VAR_courseNum)));
+      o.persistForClass(SitePage.VAR_editPageFrFR, SitePage.staticSetEditPageFrFR(siteRequest2, (String)result.get(SitePage.VAR_editPageFrFR)));
+      o.persistForClass(SitePage.VAR_lessonNum, SitePage.staticSetLessonNum(siteRequest2, (String)result.get(SitePage.VAR_lessonNum)));
+      o.persistForClass(SitePage.VAR_userPage, SitePage.staticSetUserPage(siteRequest2, (String)result.get(SitePage.VAR_userPage)));
+      o.persistForClass(SitePage.VAR_name, SitePage.staticSetName(siteRequest2, (String)result.get(SitePage.VAR_name)));
+      o.persistForClass(SitePage.VAR_userPageFrFR, SitePage.staticSetUserPageFrFR(siteRequest2, (String)result.get(SitePage.VAR_userPageFrFR)));
+      o.persistForClass(SitePage.VAR_description, SitePage.staticSetDescription(siteRequest2, (String)result.get(SitePage.VAR_description)));
+      o.persistForClass(SitePage.VAR_download, SitePage.staticSetDownload(siteRequest2, (String)result.get(SitePage.VAR_download)));
+      o.persistForClass(SitePage.VAR_authorName, SitePage.staticSetAuthorName(siteRequest2, (String)result.get(SitePage.VAR_authorName)));
+      o.persistForClass(SitePage.VAR_downloadFrFR, SitePage.staticSetDownloadFrFR(siteRequest2, (String)result.get(SitePage.VAR_downloadFrFR)));
+      o.persistForClass(SitePage.VAR_authorUrl, SitePage.staticSetAuthorUrl(siteRequest2, (String)result.get(SitePage.VAR_authorUrl)));
+      o.persistForClass(SitePage.VAR_pageId, SitePage.staticSetPageId(siteRequest2, (String)result.get(SitePage.VAR_pageId)));
+      o.persistForClass(SitePage.VAR_pageImageUri, SitePage.staticSetPageImageUri(siteRequest2, (String)result.get(SitePage.VAR_pageImageUri)));
+      o.persistForClass(SitePage.VAR_solrId, SitePage.staticSetSolrId(siteRequest2, (String)result.get(SitePage.VAR_solrId)));
+      o.persistForClass(SitePage.VAR_pageImageAlt, SitePage.staticSetPageImageAlt(siteRequest2, (String)result.get(SitePage.VAR_pageImageAlt)));
+      o.persistForClass(SitePage.VAR_prerequisiteArticleIds, SitePage.staticSetPrerequisiteArticleIds(siteRequest2, (String)result.get(SitePage.VAR_prerequisiteArticleIds)));
+      o.persistForClass(SitePage.VAR_nextArticleIds, SitePage.staticSetNextArticleIds(siteRequest2, (String)result.get(SitePage.VAR_nextArticleIds)));
+      o.persistForClass(SitePage.VAR_labelsString, SitePage.staticSetLabelsString(siteRequest2, (String)result.get(SitePage.VAR_labelsString)));
+      o.persistForClass(SitePage.VAR_labels, SitePage.staticSetLabels(siteRequest2, (String)result.get(SitePage.VAR_labels)));
+      o.persistForClass(SitePage.VAR_relatedArticleIds, SitePage.staticSetRelatedArticleIds(siteRequest2, (String)result.get(SitePage.VAR_relatedArticleIds)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {

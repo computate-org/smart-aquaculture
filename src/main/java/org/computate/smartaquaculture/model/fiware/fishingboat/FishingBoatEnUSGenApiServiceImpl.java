@@ -78,6 +78,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -218,78 +220,48 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     });
   }
 
-  public void searchpagefrfrFishingBoatPageInit(JsonObject ctx, FishingBoatPage page, SearchList<FishingBoat> listFishingBoat, Promise<Void> promise) {
-    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-
-    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/bateau-de-peche"));
-    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/bateau-de-peche"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
-
-    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fishing-boat"));
-    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fishing-boat"));
-    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
-    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
-    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
-    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
-
-    promise.complete();
-  }
-
-  public String templateUriSearchPageFrFRFishingBoat(ServiceRequest serviceRequest) {
-    return "fr-fr/rechercher/bateau-de-peche/FishingBoatSearchPage.htm";
-  }
-  public String templateSearchPageFrFRFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
-    String template = null;
-    try {
-      String pageTemplateUri = templateUriSearchPageFrFRFishingBoat(serviceRequest);
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-    } catch(Exception ex) {
-      LOG.error(String.format("templateSearchPageFrFRFishingBoat failed. "), ex);
-      ExceptionUtils.rethrow(ex);
-    }
-    return template;
-  }
   public Future<ServiceResponse> response200SearchPageFrFRFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFrFRFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
-      FishingBoatPage page = new FishingBoatPage();
-      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
-      siteRequest.setRequestHeaders(requestHeaders);
-
-      if(listFishingBoat.size() >= 1)
-        siteRequest.setRequestPk(listFishingBoat.get(0).getPk());
-      page.setSearchListFishingBoat_(listFishingBoat);
-      page.setSiteRequest_(siteRequest);
-      page.setServiceRequest(siteRequest.getServiceRequest());
-      page.setWebClient(webClient);
-      page.setVertx(vertx);
-      page.promiseDeepFishingBoatPage(siteRequest).onSuccess(a -> {
-        try {
-          JsonObject ctx = ConfigKeys.getPageContext(config);
-          ctx.mergeIn(JsonObject.mapFrom(page));
-          Promise<Void> promise1 = Promise.promise();
-          searchpagefrfrFishingBoatPageInit(ctx, page, listFishingBoat, promise1);
-          promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
-          }).onFailure(ex -> {
-            promise.tryFail(ex);
-          });
-        } catch(Exception ex) {
-          LOG.error(String.format("response200SearchPageFrFRFishingBoat failed. "), ex);
-          promise.tryFail(ex);
+      List<String> fls = listFishingBoat.getRequest().getFields();
+      JsonObject json = new JsonObject();
+      JsonArray l = new JsonArray();
+      listFishingBoat.getList().stream().forEach(o -> {
+        JsonObject json2 = JsonObject.mapFrom(o);
+        if(fls.size() > 0) {
+          Set<String> fieldNames = new HashSet<String>();
+          for(String fieldName : json2.fieldNames()) {
+            String v = FishingBoat.varIndexedFishingBoat(fieldName);
+            if(v != null)
+              fieldNames.add(FishingBoat.varIndexedFishingBoat(fieldName));
+          }
+          if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
+            fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
+            fieldNames.remove("pk_docvalues_long");
+            fieldNames.remove("created_docvalues_date");
+          }
+          else if(fls.size() >= 1) {
+            fieldNames.removeAll(fls);
+          }
+          for(String fieldName : fieldNames) {
+            if(!fls.contains(fieldName))
+              json2.remove(fieldName);
+          }
         }
-      }).onFailure(ex -> {
-        promise.tryFail(ex);
+        l.add(json2);
       });
+      json.put("list", l);
+      response200Search(listFishingBoat.getRequest(), listFishingBoat.getResponse(), json);
+      if(json == null) {
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String m = String.format("%s %s not found", "fishing boat", entityShortId);
+        promise.complete(new ServiceResponse(404
+            , m
+            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
+      } else {
+        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
+      }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFrFRFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -439,27 +411,75 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateUriEditPageFrFRFishingBoat(ServiceRequest serviceRequest) {
-    return "fr-fr/edition/bateau-de-peche/FishingBoatEditPage.htm";
+  public String templateUriEditPageFrFRFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
+    return "";
   }
-  public String templateEditPageFrFRFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
-    String template = null;
+  public void templateEditPageFrFRFishingBoat(JsonObject ctx, FishingBoatPage page, SearchList<FishingBoat> listFishingBoat, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageFrFRFishingBoat(serviceRequest);
+      SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FishingBoat result = listFishingBoat.first();
+      String pageTemplateUri = templateUriEditPageFrFRFishingBoat(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageFrFRFishingBoat failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageFrFRFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFrFRFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
       FishingBoatPage page = new FishingBoatPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -478,9 +498,19 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           Promise<Void> promise1 = Promise.promise();
           editpagefrfrFishingBoatPageInit(ctx, page, listFishingBoat, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFrFRFishingBoat(ctx, page, listFishingBoat, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFrFRFishingBoat failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -3019,27 +3049,75 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateUriSearchPageFishingBoat(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
     return "en-us/search/fishing-boat/FishingBoatSearchPage.htm";
   }
-  public String templateSearchPageFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
-    String template = null;
+  public void templateSearchPageFishingBoat(JsonObject ctx, FishingBoatPage page, SearchList<FishingBoat> listFishingBoat, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriSearchPageFishingBoat(serviceRequest);
+      SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FishingBoat result = listFishingBoat.first();
+      String pageTemplateUri = templateUriSearchPageFishingBoat(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateSearchPageFishingBoat failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200SearchPageFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
       FishingBoatPage page = new FishingBoatPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -3058,9 +3136,19 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           Promise<Void> promise1 = Promise.promise();
           searchpageFishingBoatPageInit(ctx, page, listFishingBoat, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFishingBoat(ctx, page, listFishingBoat, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFishingBoat failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -3220,27 +3308,75 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateUriEditPageFishingBoat(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
     return "en-us/edit/fishing-boat/FishingBoatEditPage.htm";
   }
-  public String templateEditPageFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
-    String template = null;
+  public void templateEditPageFishingBoat(JsonObject ctx, FishingBoatPage page, SearchList<FishingBoat> listFishingBoat, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageFishingBoat(serviceRequest);
+      SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FishingBoat result = listFishingBoat.first();
+      String pageTemplateUri = templateUriEditPageFishingBoat(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageFishingBoat failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFishingBoat(siteRequest.getServiceRequest(), listFishingBoat.first());
       FishingBoatPage page = new FishingBoatPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -3259,9 +3395,19 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           Promise<Void> promise1 = Promise.promise();
           editpageFishingBoatPageInit(ctx, page, listFishingBoat, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFishingBoat(ctx, page, listFishingBoat, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFishingBoat failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -4334,47 +4480,47 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      FishingBoat page = new FishingBoat();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      FishingBoat o = new FishingBoat();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(FishingBoat.VAR_name, FishingBoat.staticSetName(siteRequest2, (String)result.get(FishingBoat.VAR_name)));
-      page.persistForClass(FishingBoat.VAR_timeZone, FishingBoat.staticSetTimeZone(siteRequest2, (String)result.get(FishingBoat.VAR_timeZone)));
-      page.persistForClass(FishingBoat.VAR_description, FishingBoat.staticSetDescription(siteRequest2, (String)result.get(FishingBoat.VAR_description)));
-      page.persistForClass(FishingBoat.VAR_fishingDockId, FishingBoat.staticSetFishingDockId(siteRequest2, (String)result.get(FishingBoat.VAR_fishingDockId)));
-      page.persistForClass(FishingBoat.VAR_location, FishingBoat.staticSetLocation(siteRequest2, (String)result.get(FishingBoat.VAR_location)));
-      page.persistForClass(FishingBoat.VAR_created, FishingBoat.staticSetCreated(siteRequest2, (String)result.get(FishingBoat.VAR_created), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
-      page.persistForClass(FishingBoat.VAR_departureDate, FishingBoat.staticSetDepartureDate(siteRequest2, (String)result.get(FishingBoat.VAR_departureDate), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
-      page.persistForClass(FishingBoat.VAR_id, FishingBoat.staticSetId(siteRequest2, (String)result.get(FishingBoat.VAR_id)));
-      page.persistForClass(FishingBoat.VAR_arrivalDate, FishingBoat.staticSetArrivalDate(siteRequest2, (String)result.get(FishingBoat.VAR_arrivalDate), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
-      page.persistForClass(FishingBoat.VAR_entityShortId, FishingBoat.staticSetEntityShortId(siteRequest2, (String)result.get(FishingBoat.VAR_entityShortId)));
-      page.persistForClass(FishingBoat.VAR_archived, FishingBoat.staticSetArchived(siteRequest2, (String)result.get(FishingBoat.VAR_archived)));
-      page.persistForClass(FishingBoat.VAR_avgSpeedInMph, FishingBoat.staticSetAvgSpeedInMph(siteRequest2, (String)result.get(FishingBoat.VAR_avgSpeedInMph)));
-      page.persistForClass(FishingBoat.VAR_ngsildTenant, FishingBoat.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildTenant)));
-      page.persistForClass(FishingBoat.VAR_maxSpeedInMph, FishingBoat.staticSetMaxSpeedInMph(siteRequest2, (String)result.get(FishingBoat.VAR_maxSpeedInMph)));
-      page.persistForClass(FishingBoat.VAR_ngsildPath, FishingBoat.staticSetNgsildPath(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildPath)));
-      page.persistForClass(FishingBoat.VAR_milesPerGallon, FishingBoat.staticSetMilesPerGallon(siteRequest2, (String)result.get(FishingBoat.VAR_milesPerGallon)));
-      page.persistForClass(FishingBoat.VAR_ngsildContext, FishingBoat.staticSetNgsildContext(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildContext)));
-      page.persistForClass(FishingBoat.VAR_gallonsOfGas, FishingBoat.staticSetGallonsOfGas(siteRequest2, (String)result.get(FishingBoat.VAR_gallonsOfGas)));
-      page.persistForClass(FishingBoat.VAR_ngsildData, FishingBoat.staticSetNgsildData(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildData)));
-      page.persistForClass(FishingBoat.VAR_sessionId, FishingBoat.staticSetSessionId(siteRequest2, (String)result.get(FishingBoat.VAR_sessionId)));
-      page.persistForClass(FishingBoat.VAR_color, FishingBoat.staticSetColor(siteRequest2, (String)result.get(FishingBoat.VAR_color)));
-      page.persistForClass(FishingBoat.VAR_userKey, FishingBoat.staticSetUserKey(siteRequest2, (String)result.get(FishingBoat.VAR_userKey)));
-      page.persistForClass(FishingBoat.VAR_path, FishingBoat.staticSetPath(siteRequest2, (String)result.get(FishingBoat.VAR_path)));
-      page.persistForClass(FishingBoat.VAR_objectTitle, FishingBoat.staticSetObjectTitle(siteRequest2, (String)result.get(FishingBoat.VAR_objectTitle)));
-      page.persistForClass(FishingBoat.VAR_simulation, FishingBoat.staticSetSimulation(siteRequest2, (String)result.get(FishingBoat.VAR_simulation)));
-      page.persistForClass(FishingBoat.VAR_displayPage, FishingBoat.staticSetDisplayPage(siteRequest2, (String)result.get(FishingBoat.VAR_displayPage)));
-      page.persistForClass(FishingBoat.VAR_simulationDelayMillis, FishingBoat.staticSetSimulationDelayMillis(siteRequest2, (String)result.get(FishingBoat.VAR_simulationDelayMillis)));
-      page.persistForClass(FishingBoat.VAR_displayPageFrFR, FishingBoat.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_displayPageFrFR)));
-      page.persistForClass(FishingBoat.VAR_editPage, FishingBoat.staticSetEditPage(siteRequest2, (String)result.get(FishingBoat.VAR_editPage)));
-      page.persistForClass(FishingBoat.VAR_editPageFrFR, FishingBoat.staticSetEditPageFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_editPageFrFR)));
-      page.persistForClass(FishingBoat.VAR_userPage, FishingBoat.staticSetUserPage(siteRequest2, (String)result.get(FishingBoat.VAR_userPage)));
-      page.persistForClass(FishingBoat.VAR_userPageFrFR, FishingBoat.staticSetUserPageFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_userPageFrFR)));
-      page.persistForClass(FishingBoat.VAR_download, FishingBoat.staticSetDownload(siteRequest2, (String)result.get(FishingBoat.VAR_download)));
-      page.persistForClass(FishingBoat.VAR_downloadFrFR, FishingBoat.staticSetDownloadFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_downloadFrFR)));
+      o.persistForClass(FishingBoat.VAR_name, FishingBoat.staticSetName(siteRequest2, (String)result.get(FishingBoat.VAR_name)));
+      o.persistForClass(FishingBoat.VAR_timeZone, FishingBoat.staticSetTimeZone(siteRequest2, (String)result.get(FishingBoat.VAR_timeZone)));
+      o.persistForClass(FishingBoat.VAR_description, FishingBoat.staticSetDescription(siteRequest2, (String)result.get(FishingBoat.VAR_description)));
+      o.persistForClass(FishingBoat.VAR_fishingDockId, FishingBoat.staticSetFishingDockId(siteRequest2, (String)result.get(FishingBoat.VAR_fishingDockId)));
+      o.persistForClass(FishingBoat.VAR_location, FishingBoat.staticSetLocation(siteRequest2, (String)result.get(FishingBoat.VAR_location)));
+      o.persistForClass(FishingBoat.VAR_created, FishingBoat.staticSetCreated(siteRequest2, (String)result.get(FishingBoat.VAR_created), Optional.ofNullable(o.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
+      o.persistForClass(FishingBoat.VAR_departureDate, FishingBoat.staticSetDepartureDate(siteRequest2, (String)result.get(FishingBoat.VAR_departureDate), Optional.ofNullable(o.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
+      o.persistForClass(FishingBoat.VAR_id, FishingBoat.staticSetId(siteRequest2, (String)result.get(FishingBoat.VAR_id)));
+      o.persistForClass(FishingBoat.VAR_arrivalDate, FishingBoat.staticSetArrivalDate(siteRequest2, (String)result.get(FishingBoat.VAR_arrivalDate), Optional.ofNullable(o.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
+      o.persistForClass(FishingBoat.VAR_entityShortId, FishingBoat.staticSetEntityShortId(siteRequest2, (String)result.get(FishingBoat.VAR_entityShortId)));
+      o.persistForClass(FishingBoat.VAR_archived, FishingBoat.staticSetArchived(siteRequest2, (String)result.get(FishingBoat.VAR_archived)));
+      o.persistForClass(FishingBoat.VAR_avgSpeedInMph, FishingBoat.staticSetAvgSpeedInMph(siteRequest2, (String)result.get(FishingBoat.VAR_avgSpeedInMph)));
+      o.persistForClass(FishingBoat.VAR_ngsildTenant, FishingBoat.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildTenant)));
+      o.persistForClass(FishingBoat.VAR_maxSpeedInMph, FishingBoat.staticSetMaxSpeedInMph(siteRequest2, (String)result.get(FishingBoat.VAR_maxSpeedInMph)));
+      o.persistForClass(FishingBoat.VAR_ngsildPath, FishingBoat.staticSetNgsildPath(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildPath)));
+      o.persistForClass(FishingBoat.VAR_milesPerGallon, FishingBoat.staticSetMilesPerGallon(siteRequest2, (String)result.get(FishingBoat.VAR_milesPerGallon)));
+      o.persistForClass(FishingBoat.VAR_ngsildContext, FishingBoat.staticSetNgsildContext(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildContext)));
+      o.persistForClass(FishingBoat.VAR_gallonsOfGas, FishingBoat.staticSetGallonsOfGas(siteRequest2, (String)result.get(FishingBoat.VAR_gallonsOfGas)));
+      o.persistForClass(FishingBoat.VAR_ngsildData, FishingBoat.staticSetNgsildData(siteRequest2, (String)result.get(FishingBoat.VAR_ngsildData)));
+      o.persistForClass(FishingBoat.VAR_sessionId, FishingBoat.staticSetSessionId(siteRequest2, (String)result.get(FishingBoat.VAR_sessionId)));
+      o.persistForClass(FishingBoat.VAR_color, FishingBoat.staticSetColor(siteRequest2, (String)result.get(FishingBoat.VAR_color)));
+      o.persistForClass(FishingBoat.VAR_userKey, FishingBoat.staticSetUserKey(siteRequest2, (String)result.get(FishingBoat.VAR_userKey)));
+      o.persistForClass(FishingBoat.VAR_path, FishingBoat.staticSetPath(siteRequest2, (String)result.get(FishingBoat.VAR_path)));
+      o.persistForClass(FishingBoat.VAR_objectTitle, FishingBoat.staticSetObjectTitle(siteRequest2, (String)result.get(FishingBoat.VAR_objectTitle)));
+      o.persistForClass(FishingBoat.VAR_simulation, FishingBoat.staticSetSimulation(siteRequest2, (String)result.get(FishingBoat.VAR_simulation)));
+      o.persistForClass(FishingBoat.VAR_displayPage, FishingBoat.staticSetDisplayPage(siteRequest2, (String)result.get(FishingBoat.VAR_displayPage)));
+      o.persistForClass(FishingBoat.VAR_simulationDelayMillis, FishingBoat.staticSetSimulationDelayMillis(siteRequest2, (String)result.get(FishingBoat.VAR_simulationDelayMillis)));
+      o.persistForClass(FishingBoat.VAR_displayPageFrFR, FishingBoat.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_displayPageFrFR)));
+      o.persistForClass(FishingBoat.VAR_editPage, FishingBoat.staticSetEditPage(siteRequest2, (String)result.get(FishingBoat.VAR_editPage)));
+      o.persistForClass(FishingBoat.VAR_editPageFrFR, FishingBoat.staticSetEditPageFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_editPageFrFR)));
+      o.persistForClass(FishingBoat.VAR_userPage, FishingBoat.staticSetUserPage(siteRequest2, (String)result.get(FishingBoat.VAR_userPage)));
+      o.persistForClass(FishingBoat.VAR_userPageFrFR, FishingBoat.staticSetUserPageFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_userPageFrFR)));
+      o.persistForClass(FishingBoat.VAR_download, FishingBoat.staticSetDownload(siteRequest2, (String)result.get(FishingBoat.VAR_download)));
+      o.persistForClass(FishingBoat.VAR_downloadFrFR, FishingBoat.staticSetDownloadFrFR(siteRequest2, (String)result.get(FishingBoat.VAR_downloadFrFR)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {

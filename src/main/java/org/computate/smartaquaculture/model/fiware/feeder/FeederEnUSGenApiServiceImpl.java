@@ -74,6 +74,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -780,14 +782,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDescription());
             break;
-          case "setLocation":
-              o2.setLocation(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feeder.VAR_location + "=$" + num);
-              num++;
-              bParams.add(o2.sqlLocation());
-            break;
           case "setCreated":
               o2.setCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -795,6 +789,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               bSql.append(Feeder.VAR_created + "=$" + num);
               num++;
               bParams.add(o2.sqlCreated());
+            break;
+          case "setLocation":
+              o2.setLocation(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feeder.VAR_location + "=$" + num);
+              num++;
+              bParams.add(o2.sqlLocation());
             break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
@@ -828,14 +830,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlSessionId());
             break;
-          case "setNgsildTenant":
-              o2.setNgsildTenant(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildTenant());
-            break;
           case "setUserKey":
               o2.setUserKey(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -843,6 +837,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               bSql.append(Feeder.VAR_userKey + "=$" + num);
               num++;
               bParams.add(o2.sqlUserKey());
+            break;
+          case "setNgsildTenant":
+              o2.setNgsildTenant(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNgsildTenant());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -860,14 +862,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlNgsildContext());
             break;
-          case "setNgsildData":
-              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(Feeder.VAR_ngsildData + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildData());
-            break;
           case "setObjectTitle":
               o2.setObjectTitle(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -876,13 +870,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlObjectTitle());
             break;
-          case "setAddress":
-              o2.setAddress(jsonObject.getJsonObject(entityVar));
+          case "setNgsildData":
+              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_address + "=$" + num);
+              bSql.append(Feeder.VAR_ngsildData + "=$" + num);
               num++;
-              bParams.add(o2.sqlAddress());
+              bParams.add(o2.sqlNgsildData());
             break;
           case "setDisplayPage":
               o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -892,13 +886,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDisplayPage());
             break;
-          case "setAlternateName":
-              o2.setAlternateName(jsonObject.getString(entityVar));
+          case "setAddress":
+              o2.setAddress(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_alternateName + "=$" + num);
+              bSql.append(Feeder.VAR_address + "=$" + num);
               num++;
-              bParams.add(o2.sqlAlternateName());
+              bParams.add(o2.sqlAddress());
             break;
           case "setDisplayPageFrFR":
               o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
@@ -908,13 +902,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDisplayPageFrFR());
             break;
-          case "setDataProvider":
-              o2.setDataProvider(jsonObject.getString(entityVar));
+          case "setAlternateName":
+              o2.setAlternateName(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_dataProvider + "=$" + num);
+              bSql.append(Feeder.VAR_alternateName + "=$" + num);
               num++;
-              bParams.add(o2.sqlDataProvider());
+              bParams.add(o2.sqlAlternateName());
             break;
           case "setEditPage":
               o2.setEditPage(jsonObject.getString(entityVar));
@@ -924,13 +918,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlEditPage());
             break;
-          case "setDateCreated":
-              o2.setDateCreated(jsonObject.getString(entityVar));
+          case "setDataProvider":
+              o2.setDataProvider(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_dateCreated + "=$" + num);
+              bSql.append(Feeder.VAR_dataProvider + "=$" + num);
               num++;
-              bParams.add(o2.sqlDateCreated());
+              bParams.add(o2.sqlDataProvider());
             break;
           case "setEditPageFrFR":
               o2.setEditPageFrFR(jsonObject.getString(entityVar));
@@ -940,13 +934,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlEditPageFrFR());
             break;
-          case "setDateModified":
-              o2.setDateModified(jsonObject.getString(entityVar));
+          case "setDateCreated":
+              o2.setDateCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_dateModified + "=$" + num);
+              bSql.append(Feeder.VAR_dateCreated + "=$" + num);
               num++;
-              bParams.add(o2.sqlDateModified());
+              bParams.add(o2.sqlDateCreated());
             break;
           case "setUserPage":
               o2.setUserPage(jsonObject.getString(entityVar));
@@ -956,13 +950,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlUserPage());
             break;
-          case "setOwner":
-              o2.setOwner(jsonObject.getJsonObject(entityVar));
+          case "setDateModified":
+              o2.setDateModified(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_owner + "=$" + num);
+              bSql.append(Feeder.VAR_dateModified + "=$" + num);
               num++;
-              bParams.add(o2.sqlOwner());
+              bParams.add(o2.sqlDateModified());
             break;
           case "setUserPageFrFR":
               o2.setUserPageFrFR(jsonObject.getString(entityVar));
@@ -972,13 +966,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlUserPageFrFR());
             break;
-          case "setRelatedSource":
-              o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
+          case "setOwner":
+              o2.setOwner(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_relatedSource + "=$" + num);
+              bSql.append(Feeder.VAR_owner + "=$" + num);
               num++;
-              bParams.add(o2.sqlRelatedSource());
+              bParams.add(o2.sqlOwner());
             break;
           case "setDownload":
               o2.setDownload(jsonObject.getString(entityVar));
@@ -988,13 +982,13 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               num++;
               bParams.add(o2.sqlDownload());
             break;
-          case "setSeeAlso":
-              o2.setSeeAlso(jsonObject.getString(entityVar));
+          case "setRelatedSource":
+              o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(Feeder.VAR_seeAlso + "=$" + num);
+              bSql.append(Feeder.VAR_relatedSource + "=$" + num);
               num++;
-              bParams.add(o2.sqlSeeAlso());
+              bParams.add(o2.sqlRelatedSource());
             break;
           case "setDownloadFrFR":
               o2.setDownloadFrFR(jsonObject.getString(entityVar));
@@ -1003,6 +997,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               bSql.append(Feeder.VAR_downloadFrFR + "=$" + num);
               num++;
               bParams.add(o2.sqlDownloadFrFR());
+            break;
+          case "setSeeAlso":
+              o2.setSeeAlso(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(Feeder.VAR_seeAlso + "=$" + num);
+              num++;
+              bParams.add(o2.sqlSeeAlso());
             break;
           case "setSource":
               o2.setSource(jsonObject.getString(entityVar));
@@ -1386,15 +1388,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDescription());
             break;
-          case Feeder.VAR_location:
-            o2.setLocation(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feeder.VAR_location + "=$" + num);
-            num++;
-            bParams.add(o2.sqlLocation());
-            break;
           case Feeder.VAR_created:
             o2.setCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1403,6 +1396,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             bSql.append(Feeder.VAR_created + "=$" + num);
             num++;
             bParams.add(o2.sqlCreated());
+            break;
+          case Feeder.VAR_location:
+            o2.setLocation(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feeder.VAR_location + "=$" + num);
+            num++;
+            bParams.add(o2.sqlLocation());
             break;
           case Feeder.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
@@ -1440,15 +1442,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case Feeder.VAR_ngsildTenant:
-            o2.setNgsildTenant(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildTenant());
-            break;
           case Feeder.VAR_userKey:
             o2.setUserKey(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1457,6 +1450,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             bSql.append(Feeder.VAR_userKey + "=$" + num);
             num++;
             bParams.add(o2.sqlUserKey());
+            break;
+          case Feeder.VAR_ngsildTenant:
+            o2.setNgsildTenant(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feeder.VAR_ngsildTenant + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNgsildTenant());
             break;
           case Feeder.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1476,15 +1478,6 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlNgsildContext());
             break;
-          case Feeder.VAR_ngsildData:
-            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(Feeder.VAR_ngsildData + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildData());
-            break;
           case Feeder.VAR_objectTitle:
             o2.setObjectTitle(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1494,14 +1487,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlObjectTitle());
             break;
-          case Feeder.VAR_address:
-            o2.setAddress(jsonObject.getJsonObject(entityVar));
+          case Feeder.VAR_ngsildData:
+            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_address + "=$" + num);
+            bSql.append(Feeder.VAR_ngsildData + "=$" + num);
             num++;
-            bParams.add(o2.sqlAddress());
+            bParams.add(o2.sqlNgsildData());
             break;
           case Feeder.VAR_displayPage:
             o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -1512,14 +1505,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDisplayPage());
             break;
-          case Feeder.VAR_alternateName:
-            o2.setAlternateName(jsonObject.getString(entityVar));
+          case Feeder.VAR_address:
+            o2.setAddress(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_alternateName + "=$" + num);
+            bSql.append(Feeder.VAR_address + "=$" + num);
             num++;
-            bParams.add(o2.sqlAlternateName());
+            bParams.add(o2.sqlAddress());
             break;
           case Feeder.VAR_displayPageFrFR:
             o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
@@ -1530,14 +1523,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDisplayPageFrFR());
             break;
-          case Feeder.VAR_dataProvider:
-            o2.setDataProvider(jsonObject.getString(entityVar));
+          case Feeder.VAR_alternateName:
+            o2.setAlternateName(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_dataProvider + "=$" + num);
+            bSql.append(Feeder.VAR_alternateName + "=$" + num);
             num++;
-            bParams.add(o2.sqlDataProvider());
+            bParams.add(o2.sqlAlternateName());
             break;
           case Feeder.VAR_editPage:
             o2.setEditPage(jsonObject.getString(entityVar));
@@ -1548,14 +1541,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlEditPage());
             break;
-          case Feeder.VAR_dateCreated:
-            o2.setDateCreated(jsonObject.getString(entityVar));
+          case Feeder.VAR_dataProvider:
+            o2.setDataProvider(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_dateCreated + "=$" + num);
+            bSql.append(Feeder.VAR_dataProvider + "=$" + num);
             num++;
-            bParams.add(o2.sqlDateCreated());
+            bParams.add(o2.sqlDataProvider());
             break;
           case Feeder.VAR_editPageFrFR:
             o2.setEditPageFrFR(jsonObject.getString(entityVar));
@@ -1566,14 +1559,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlEditPageFrFR());
             break;
-          case Feeder.VAR_dateModified:
-            o2.setDateModified(jsonObject.getString(entityVar));
+          case Feeder.VAR_dateCreated:
+            o2.setDateCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_dateModified + "=$" + num);
+            bSql.append(Feeder.VAR_dateCreated + "=$" + num);
             num++;
-            bParams.add(o2.sqlDateModified());
+            bParams.add(o2.sqlDateCreated());
             break;
           case Feeder.VAR_userPage:
             o2.setUserPage(jsonObject.getString(entityVar));
@@ -1584,14 +1577,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlUserPage());
             break;
-          case Feeder.VAR_owner:
-            o2.setOwner(jsonObject.getJsonObject(entityVar));
+          case Feeder.VAR_dateModified:
+            o2.setDateModified(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_owner + "=$" + num);
+            bSql.append(Feeder.VAR_dateModified + "=$" + num);
             num++;
-            bParams.add(o2.sqlOwner());
+            bParams.add(o2.sqlDateModified());
             break;
           case Feeder.VAR_userPageFrFR:
             o2.setUserPageFrFR(jsonObject.getString(entityVar));
@@ -1602,14 +1595,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlUserPageFrFR());
             break;
-          case Feeder.VAR_relatedSource:
-            o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
+          case Feeder.VAR_owner:
+            o2.setOwner(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_relatedSource + "=$" + num);
+            bSql.append(Feeder.VAR_owner + "=$" + num);
             num++;
-            bParams.add(o2.sqlRelatedSource());
+            bParams.add(o2.sqlOwner());
             break;
           case Feeder.VAR_download:
             o2.setDownload(jsonObject.getString(entityVar));
@@ -1620,14 +1613,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             num++;
             bParams.add(o2.sqlDownload());
             break;
-          case Feeder.VAR_seeAlso:
-            o2.setSeeAlso(jsonObject.getString(entityVar));
+          case Feeder.VAR_relatedSource:
+            o2.setRelatedSource(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(Feeder.VAR_seeAlso + "=$" + num);
+            bSql.append(Feeder.VAR_relatedSource + "=$" + num);
             num++;
-            bParams.add(o2.sqlSeeAlso());
+            bParams.add(o2.sqlRelatedSource());
             break;
           case Feeder.VAR_downloadFrFR:
             o2.setDownloadFrFR(jsonObject.getString(entityVar));
@@ -1637,6 +1630,15 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             bSql.append(Feeder.VAR_downloadFrFR + "=$" + num);
             num++;
             bParams.add(o2.sqlDownloadFrFR());
+            break;
+          case Feeder.VAR_seeAlso:
+            o2.setSeeAlso(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(Feeder.VAR_seeAlso + "=$" + num);
+            num++;
+            bParams.add(o2.sqlSeeAlso());
             break;
           case Feeder.VAR_source:
             o2.setSource(jsonObject.getString(entityVar));
@@ -2509,27 +2511,75 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     promise.complete();
   }
 
-  public String templateUriSearchPageFeeder(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFeeder(ServiceRequest serviceRequest, Feeder result) {
     return "en-us/search/feeder/FeederSearchPage.htm";
   }
-  public String templateSearchPageFeeder(ServiceRequest serviceRequest, Feeder result) {
-    String template = null;
+  public void templateSearchPageFeeder(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriSearchPageFeeder(serviceRequest);
+      SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      Feeder result = listFeeder.first();
+      String pageTemplateUri = templateUriSearchPageFeeder(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateSearchPageFeeder failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200SearchPageFeeder(SearchList<Feeder> listFeeder) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFeeder(siteRequest.getServiceRequest(), listFeeder.first());
       FeederPage page = new FeederPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2548,9 +2598,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           Promise<Void> promise1 = Promise.promise();
           searchpageFeederPageInit(ctx, page, listFeeder, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFeeder(ctx, page, listFeeder, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFeeder failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -2709,27 +2769,75 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     promise.complete();
   }
 
-  public String templateUriEditPageFeeder(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFeeder(ServiceRequest serviceRequest, Feeder result) {
     return "en-us/edit/feeder/FeederEditPage.htm";
   }
-  public String templateEditPageFeeder(ServiceRequest serviceRequest, Feeder result) {
-    String template = null;
+  public void templateEditPageFeeder(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageFeeder(serviceRequest);
+      SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      Feeder result = listFeeder.first();
+      String pageTemplateUri = templateUriEditPageFeeder(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageFeeder failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageFeeder(SearchList<Feeder> listFeeder) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFeeder(siteRequest.getServiceRequest(), listFeeder.first());
       FeederPage page = new FeederPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2748,9 +2856,19 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           Promise<Void> promise1 = Promise.promise();
           editpageFeederPageInit(ctx, page, listFeeder, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFeeder(ctx, page, listFeeder, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFeeder failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -3494,7 +3612,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, location, created, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, address, displayPage, alternateName, displayPageFrFR, dataProvider, editPage, dateCreated, editPageFrFR, dateModified, userPage, owner, userPageFrFR, relatedSource, download, seeAlso, downloadFrFR, source FROM Feeder WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, address, displayPageFrFR, alternateName, editPage, dataProvider, editPageFrFR, dateCreated, userPage, dateModified, userPageFrFR, owner, download, relatedSource, downloadFrFR, seeAlso, source FROM Feeder WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3846,44 +3964,44 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      Feeder page = new Feeder();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      Feeder o = new Feeder();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(Feeder.VAR_name, Feeder.staticSetName(siteRequest2, (String)result.get(Feeder.VAR_name)));
-      page.persistForClass(Feeder.VAR_description, Feeder.staticSetDescription(siteRequest2, (String)result.get(Feeder.VAR_description)));
-      page.persistForClass(Feeder.VAR_location, Feeder.staticSetLocation(siteRequest2, (String)result.get(Feeder.VAR_location)));
-      page.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(Feeder.VAR_archived, Feeder.staticSetArchived(siteRequest2, (String)result.get(Feeder.VAR_archived)));
-      page.persistForClass(Feeder.VAR_areaServed, Feeder.staticSetAreaServed(siteRequest2, (String)result.get(Feeder.VAR_areaServed)));
-      page.persistForClass(Feeder.VAR_id, Feeder.staticSetId(siteRequest2, (String)result.get(Feeder.VAR_id)));
-      page.persistForClass(Feeder.VAR_sessionId, Feeder.staticSetSessionId(siteRequest2, (String)result.get(Feeder.VAR_sessionId)));
-      page.persistForClass(Feeder.VAR_ngsildTenant, Feeder.staticSetNgsildTenant(siteRequest2, (String)result.get(Feeder.VAR_ngsildTenant)));
-      page.persistForClass(Feeder.VAR_userKey, Feeder.staticSetUserKey(siteRequest2, (String)result.get(Feeder.VAR_userKey)));
-      page.persistForClass(Feeder.VAR_ngsildPath, Feeder.staticSetNgsildPath(siteRequest2, (String)result.get(Feeder.VAR_ngsildPath)));
-      page.persistForClass(Feeder.VAR_ngsildContext, Feeder.staticSetNgsildContext(siteRequest2, (String)result.get(Feeder.VAR_ngsildContext)));
-      page.persistForClass(Feeder.VAR_ngsildData, Feeder.staticSetNgsildData(siteRequest2, (String)result.get(Feeder.VAR_ngsildData)));
-      page.persistForClass(Feeder.VAR_objectTitle, Feeder.staticSetObjectTitle(siteRequest2, (String)result.get(Feeder.VAR_objectTitle)));
-      page.persistForClass(Feeder.VAR_address, Feeder.staticSetAddress(siteRequest2, (String)result.get(Feeder.VAR_address)));
-      page.persistForClass(Feeder.VAR_displayPage, Feeder.staticSetDisplayPage(siteRequest2, (String)result.get(Feeder.VAR_displayPage)));
-      page.persistForClass(Feeder.VAR_alternateName, Feeder.staticSetAlternateName(siteRequest2, (String)result.get(Feeder.VAR_alternateName)));
-      page.persistForClass(Feeder.VAR_displayPageFrFR, Feeder.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_displayPageFrFR)));
-      page.persistForClass(Feeder.VAR_dataProvider, Feeder.staticSetDataProvider(siteRequest2, (String)result.get(Feeder.VAR_dataProvider)));
-      page.persistForClass(Feeder.VAR_editPage, Feeder.staticSetEditPage(siteRequest2, (String)result.get(Feeder.VAR_editPage)));
-      page.persistForClass(Feeder.VAR_dateCreated, Feeder.staticSetDateCreated(siteRequest2, (String)result.get(Feeder.VAR_dateCreated)));
-      page.persistForClass(Feeder.VAR_editPageFrFR, Feeder.staticSetEditPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_editPageFrFR)));
-      page.persistForClass(Feeder.VAR_dateModified, Feeder.staticSetDateModified(siteRequest2, (String)result.get(Feeder.VAR_dateModified)));
-      page.persistForClass(Feeder.VAR_userPage, Feeder.staticSetUserPage(siteRequest2, (String)result.get(Feeder.VAR_userPage)));
-      page.persistForClass(Feeder.VAR_owner, Feeder.staticSetOwner(siteRequest2, (String)result.get(Feeder.VAR_owner)));
-      page.persistForClass(Feeder.VAR_userPageFrFR, Feeder.staticSetUserPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_userPageFrFR)));
-      page.persistForClass(Feeder.VAR_relatedSource, Feeder.staticSetRelatedSource(siteRequest2, (String)result.get(Feeder.VAR_relatedSource)));
-      page.persistForClass(Feeder.VAR_download, Feeder.staticSetDownload(siteRequest2, (String)result.get(Feeder.VAR_download)));
-      page.persistForClass(Feeder.VAR_seeAlso, Feeder.staticSetSeeAlso(siteRequest2, (String)result.get(Feeder.VAR_seeAlso)));
-      page.persistForClass(Feeder.VAR_downloadFrFR, Feeder.staticSetDownloadFrFR(siteRequest2, (String)result.get(Feeder.VAR_downloadFrFR)));
-      page.persistForClass(Feeder.VAR_source, Feeder.staticSetSource(siteRequest2, (String)result.get(Feeder.VAR_source)));
+      o.persistForClass(Feeder.VAR_name, Feeder.staticSetName(siteRequest2, (String)result.get(Feeder.VAR_name)));
+      o.persistForClass(Feeder.VAR_description, Feeder.staticSetDescription(siteRequest2, (String)result.get(Feeder.VAR_description)));
+      o.persistForClass(Feeder.VAR_created, Feeder.staticSetCreated(siteRequest2, (String)result.get(Feeder.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      o.persistForClass(Feeder.VAR_location, Feeder.staticSetLocation(siteRequest2, (String)result.get(Feeder.VAR_location)));
+      o.persistForClass(Feeder.VAR_archived, Feeder.staticSetArchived(siteRequest2, (String)result.get(Feeder.VAR_archived)));
+      o.persistForClass(Feeder.VAR_areaServed, Feeder.staticSetAreaServed(siteRequest2, (String)result.get(Feeder.VAR_areaServed)));
+      o.persistForClass(Feeder.VAR_id, Feeder.staticSetId(siteRequest2, (String)result.get(Feeder.VAR_id)));
+      o.persistForClass(Feeder.VAR_sessionId, Feeder.staticSetSessionId(siteRequest2, (String)result.get(Feeder.VAR_sessionId)));
+      o.persistForClass(Feeder.VAR_userKey, Feeder.staticSetUserKey(siteRequest2, (String)result.get(Feeder.VAR_userKey)));
+      o.persistForClass(Feeder.VAR_ngsildTenant, Feeder.staticSetNgsildTenant(siteRequest2, (String)result.get(Feeder.VAR_ngsildTenant)));
+      o.persistForClass(Feeder.VAR_ngsildPath, Feeder.staticSetNgsildPath(siteRequest2, (String)result.get(Feeder.VAR_ngsildPath)));
+      o.persistForClass(Feeder.VAR_ngsildContext, Feeder.staticSetNgsildContext(siteRequest2, (String)result.get(Feeder.VAR_ngsildContext)));
+      o.persistForClass(Feeder.VAR_objectTitle, Feeder.staticSetObjectTitle(siteRequest2, (String)result.get(Feeder.VAR_objectTitle)));
+      o.persistForClass(Feeder.VAR_ngsildData, Feeder.staticSetNgsildData(siteRequest2, (String)result.get(Feeder.VAR_ngsildData)));
+      o.persistForClass(Feeder.VAR_displayPage, Feeder.staticSetDisplayPage(siteRequest2, (String)result.get(Feeder.VAR_displayPage)));
+      o.persistForClass(Feeder.VAR_address, Feeder.staticSetAddress(siteRequest2, (String)result.get(Feeder.VAR_address)));
+      o.persistForClass(Feeder.VAR_displayPageFrFR, Feeder.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_displayPageFrFR)));
+      o.persistForClass(Feeder.VAR_alternateName, Feeder.staticSetAlternateName(siteRequest2, (String)result.get(Feeder.VAR_alternateName)));
+      o.persistForClass(Feeder.VAR_editPage, Feeder.staticSetEditPage(siteRequest2, (String)result.get(Feeder.VAR_editPage)));
+      o.persistForClass(Feeder.VAR_dataProvider, Feeder.staticSetDataProvider(siteRequest2, (String)result.get(Feeder.VAR_dataProvider)));
+      o.persistForClass(Feeder.VAR_editPageFrFR, Feeder.staticSetEditPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_editPageFrFR)));
+      o.persistForClass(Feeder.VAR_dateCreated, Feeder.staticSetDateCreated(siteRequest2, (String)result.get(Feeder.VAR_dateCreated)));
+      o.persistForClass(Feeder.VAR_userPage, Feeder.staticSetUserPage(siteRequest2, (String)result.get(Feeder.VAR_userPage)));
+      o.persistForClass(Feeder.VAR_dateModified, Feeder.staticSetDateModified(siteRequest2, (String)result.get(Feeder.VAR_dateModified)));
+      o.persistForClass(Feeder.VAR_userPageFrFR, Feeder.staticSetUserPageFrFR(siteRequest2, (String)result.get(Feeder.VAR_userPageFrFR)));
+      o.persistForClass(Feeder.VAR_owner, Feeder.staticSetOwner(siteRequest2, (String)result.get(Feeder.VAR_owner)));
+      o.persistForClass(Feeder.VAR_download, Feeder.staticSetDownload(siteRequest2, (String)result.get(Feeder.VAR_download)));
+      o.persistForClass(Feeder.VAR_relatedSource, Feeder.staticSetRelatedSource(siteRequest2, (String)result.get(Feeder.VAR_relatedSource)));
+      o.persistForClass(Feeder.VAR_downloadFrFR, Feeder.staticSetDownloadFrFR(siteRequest2, (String)result.get(Feeder.VAR_downloadFrFR)));
+      o.persistForClass(Feeder.VAR_seeAlso, Feeder.staticSetSeeAlso(siteRequest2, (String)result.get(Feeder.VAR_seeAlso)));
+      o.persistForClass(Feeder.VAR_source, Feeder.staticSetSource(siteRequest2, (String)result.get(Feeder.VAR_source)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {

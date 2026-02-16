@@ -61,6 +61,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,78 +203,48 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     });
   }
 
-  public void searchpagefrfrSeaportFacilityPageInit(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<Void> promise) {
-    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-
-    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
-    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
-
-    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
-    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
-    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
-    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
-    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
-    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
-
-    promise.complete();
-  }
-
-  public String templateUriSearchPageFrFRSeaportFacility(ServiceRequest serviceRequest) {
-    return "fr-fr/rechercher/installations-portuaires/SeaportFacilitySearchPage.htm";
-  }
-  public String templateSearchPageFrFRSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
-    String template = null;
-    try {
-      String pageTemplateUri = templateUriSearchPageFrFRSeaportFacility(serviceRequest);
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-    } catch(Exception ex) {
-      LOG.error(String.format("templateSearchPageFrFRSeaportFacility failed. "), ex);
-      ExceptionUtils.rethrow(ex);
-    }
-    return template;
-  }
   public Future<ServiceResponse> response200SearchPageFrFRSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFrFRSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
-      SeaportFacilityPage page = new SeaportFacilityPage();
-      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
-      siteRequest.setRequestHeaders(requestHeaders);
-
-      if(listSeaportFacility.size() >= 1)
-        siteRequest.setRequestPk(listSeaportFacility.get(0).getPk());
-      page.setSearchListSeaportFacility_(listSeaportFacility);
-      page.setSiteRequest_(siteRequest);
-      page.setServiceRequest(siteRequest.getServiceRequest());
-      page.setWebClient(webClient);
-      page.setVertx(vertx);
-      page.promiseDeepSeaportFacilityPage(siteRequest).onSuccess(a -> {
-        try {
-          JsonObject ctx = ConfigKeys.getPageContext(config);
-          ctx.mergeIn(JsonObject.mapFrom(page));
-          Promise<Void> promise1 = Promise.promise();
-          searchpagefrfrSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
-          promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
-          }).onFailure(ex -> {
-            promise.tryFail(ex);
-          });
-        } catch(Exception ex) {
-          LOG.error(String.format("response200SearchPageFrFRSeaportFacility failed. "), ex);
-          promise.tryFail(ex);
+      List<String> fls = listSeaportFacility.getRequest().getFields();
+      JsonObject json = new JsonObject();
+      JsonArray l = new JsonArray();
+      listSeaportFacility.getList().stream().forEach(o -> {
+        JsonObject json2 = JsonObject.mapFrom(o);
+        if(fls.size() > 0) {
+          Set<String> fieldNames = new HashSet<String>();
+          for(String fieldName : json2.fieldNames()) {
+            String v = SeaportFacility.varIndexedSeaportFacility(fieldName);
+            if(v != null)
+              fieldNames.add(SeaportFacility.varIndexedSeaportFacility(fieldName));
+          }
+          if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
+            fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
+            fieldNames.remove("pk_docvalues_long");
+            fieldNames.remove("created_docvalues_date");
+          }
+          else if(fls.size() >= 1) {
+            fieldNames.removeAll(fls);
+          }
+          for(String fieldName : fieldNames) {
+            if(!fls.contains(fieldName))
+              json2.remove(fieldName);
+          }
         }
-      }).onFailure(ex -> {
-        promise.tryFail(ex);
+        l.add(json2);
       });
+      json.put("list", l);
+      response200Search(listSeaportFacility.getRequest(), listSeaportFacility.getResponse(), json);
+      if(json == null) {
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String m = String.format("%s %s not found", "seaport facility", entityShortId);
+        promise.complete(new ServiceResponse(404
+            , m
+            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
+      } else {
+        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
+      }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFrFRSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -422,27 +394,75 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     promise.complete();
   }
 
-  public String templateUriEditPageFrFRSeaportFacility(ServiceRequest serviceRequest) {
-    return "fr-fr/edition/installations-portuaires/SeaportFacilityEditPage.htm";
+  public String templateUriEditPageFrFRSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
+    return "";
   }
-  public String templateEditPageFrFRSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
-    String template = null;
+  public void templateEditPageFrFRSeaportFacility(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageFrFRSeaportFacility(serviceRequest);
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SeaportFacility result = listSeaportFacility.first();
+      String pageTemplateUri = templateUriEditPageFrFRSeaportFacility(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageFrFRSeaportFacility failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageFrFRSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFrFRSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
       SeaportFacilityPage page = new SeaportFacilityPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -461,9 +481,19 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
           Promise<Void> promise1 = Promise.promise();
           editpagefrfrSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFrFRSeaportFacility(ctx, page, listSeaportFacility, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFrFRSeaportFacility failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -1184,14 +1214,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               num++;
               bParams.add(o2.sqlAlternateName());
             break;
-          case "setLocation":
-              o2.setLocation(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(SeaportFacility.VAR_location + "=$" + num);
-              num++;
-              bParams.add(o2.sqlLocation());
-            break;
           case "setCreated":
               o2.setCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1199,6 +1221,14 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               bSql.append(SeaportFacility.VAR_created + "=$" + num);
               num++;
               bParams.add(o2.sqlCreated());
+            break;
+          case "setLocation":
+              o2.setLocation(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_location + "=$" + num);
+              num++;
+              bParams.add(o2.sqlLocation());
             break;
           case "setAuthorizedPropulsion":
               o2.setAuthorizedPropulsion(jsonObject.getJsonObject(entityVar));
@@ -1224,14 +1254,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               num++;
               bParams.add(o2.sqlBoatSupplyingServices());
             break;
-          case "setEntityShortId":
-              o2.setEntityShortId(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(SeaportFacility.VAR_entityShortId + "=$" + num);
-              num++;
-              bParams.add(o2.sqlEntityShortId());
-            break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1239,6 +1261,14 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               bSql.append(SeaportFacility.VAR_archived + "=$" + num);
               num++;
               bParams.add(o2.sqlArchived());
+            break;
+          case "setEntityShortId":
+              o2.setEntityShortId(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_entityShortId + "=$" + num);
+              num++;
+              bParams.add(o2.sqlEntityShortId());
             break;
           case "setContactPoint":
               o2.setContactPoint(jsonObject.getJsonObject(entityVar));
@@ -1296,14 +1326,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               num++;
               bParams.add(o2.sqlCurrencyAccepted());
             break;
-          case "setNgsildData":
-              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(SeaportFacility.VAR_ngsildData + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildData());
-            break;
           case "setSessionId":
               o2.setSessionId(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1311,6 +1333,14 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               bSql.append(SeaportFacility.VAR_sessionId + "=$" + num);
               num++;
               bParams.add(o2.sqlSessionId());
+            break;
+          case "setNgsildData":
+              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_ngsildData + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNgsildData());
             break;
           case "setDataProvider":
               o2.setDataProvider(jsonObject.getString(entityVar));
@@ -1320,14 +1350,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               num++;
               bParams.add(o2.sqlDataProvider());
             break;
-          case "setColor":
-              o2.setColor(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(SeaportFacility.VAR_color + "=$" + num);
-              num++;
-              bParams.add(o2.sqlColor());
-            break;
           case "setUserKey":
               o2.setUserKey(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1335,6 +1357,14 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               bSql.append(SeaportFacility.VAR_userKey + "=$" + num);
               num++;
               bParams.add(o2.sqlUserKey());
+            break;
+          case "setColor":
+              o2.setColor(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(SeaportFacility.VAR_color + "=$" + num);
+              num++;
+              bParams.add(o2.sqlColor());
             break;
           case "setDateCreated":
               o2.setDateCreated(jsonObject.getString(entityVar));
@@ -2048,15 +2078,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             num++;
             bParams.add(o2.sqlAlternateName());
             break;
-          case SeaportFacility.VAR_location:
-            o2.setLocation(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(SeaportFacility.VAR_location + "=$" + num);
-            num++;
-            bParams.add(o2.sqlLocation());
-            break;
           case SeaportFacility.VAR_created:
             o2.setCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -2065,6 +2086,15 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             bSql.append(SeaportFacility.VAR_created + "=$" + num);
             num++;
             bParams.add(o2.sqlCreated());
+            break;
+          case SeaportFacility.VAR_location:
+            o2.setLocation(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_location + "=$" + num);
+            num++;
+            bParams.add(o2.sqlLocation());
             break;
           case SeaportFacility.VAR_authorizedPropulsion:
             o2.setAuthorizedPropulsion(jsonObject.getJsonObject(entityVar));
@@ -2093,15 +2123,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             num++;
             bParams.add(o2.sqlBoatSupplyingServices());
             break;
-          case SeaportFacility.VAR_entityShortId:
-            o2.setEntityShortId(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(SeaportFacility.VAR_entityShortId + "=$" + num);
-            num++;
-            bParams.add(o2.sqlEntityShortId());
-            break;
           case SeaportFacility.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -2110,6 +2131,15 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             bSql.append(SeaportFacility.VAR_archived + "=$" + num);
             num++;
             bParams.add(o2.sqlArchived());
+            break;
+          case SeaportFacility.VAR_entityShortId:
+            o2.setEntityShortId(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_entityShortId + "=$" + num);
+            num++;
+            bParams.add(o2.sqlEntityShortId());
             break;
           case SeaportFacility.VAR_contactPoint:
             o2.setContactPoint(jsonObject.getJsonObject(entityVar));
@@ -2174,15 +2204,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             num++;
             bParams.add(o2.sqlCurrencyAccepted());
             break;
-          case SeaportFacility.VAR_ngsildData:
-            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(SeaportFacility.VAR_ngsildData + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildData());
-            break;
           case SeaportFacility.VAR_sessionId:
             o2.setSessionId(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -2191,6 +2212,15 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             bSql.append(SeaportFacility.VAR_sessionId + "=$" + num);
             num++;
             bParams.add(o2.sqlSessionId());
+            break;
+          case SeaportFacility.VAR_ngsildData:
+            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_ngsildData + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNgsildData());
             break;
           case SeaportFacility.VAR_dataProvider:
             o2.setDataProvider(jsonObject.getString(entityVar));
@@ -2201,15 +2231,6 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             num++;
             bParams.add(o2.sqlDataProvider());
             break;
-          case SeaportFacility.VAR_color:
-            o2.setColor(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(SeaportFacility.VAR_color + "=$" + num);
-            num++;
-            bParams.add(o2.sqlColor());
-            break;
           case SeaportFacility.VAR_userKey:
             o2.setUserKey(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -2218,6 +2239,15 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             bSql.append(SeaportFacility.VAR_userKey + "=$" + num);
             num++;
             bParams.add(o2.sqlUserKey());
+            break;
+          case SeaportFacility.VAR_color:
+            o2.setColor(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(SeaportFacility.VAR_color + "=$" + num);
+            num++;
+            bParams.add(o2.sqlColor());
             break;
           case SeaportFacility.VAR_dateCreated:
             o2.setDateCreated(jsonObject.getString(entityVar));
@@ -3443,27 +3473,75 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     promise.complete();
   }
 
-  public String templateUriSearchPageSeaportFacility(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
     return "en-us/search/seaport-facilities/SeaportFacilitySearchPage.htm";
   }
-  public String templateSearchPageSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
-    String template = null;
+  public void templateSearchPageSeaportFacility(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriSearchPageSeaportFacility(serviceRequest);
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SeaportFacility result = listSeaportFacility.first();
+      String pageTemplateUri = templateUriSearchPageSeaportFacility(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateSearchPageSeaportFacility failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200SearchPageSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
       SeaportFacilityPage page = new SeaportFacilityPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -3482,9 +3560,19 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
           Promise<Void> promise1 = Promise.promise();
           searchpageSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageSeaportFacility(ctx, page, listSeaportFacility, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageSeaportFacility failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -3644,27 +3732,75 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     promise.complete();
   }
 
-  public String templateUriEditPageSeaportFacility(ServiceRequest serviceRequest) {
+  public String templateUriEditPageSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
     return "en-us/edit/seaport-facilities/SeaportFacilityEditPage.htm";
   }
-  public String templateEditPageSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
-    String template = null;
+  public void templateEditPageSeaportFacility(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageSeaportFacility(serviceRequest);
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SeaportFacility result = listSeaportFacility.first();
+      String pageTemplateUri = templateUriEditPageSeaportFacility(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageSeaportFacility failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageSeaportFacility(siteRequest.getServiceRequest(), listSeaportFacility.first());
       SeaportFacilityPage page = new SeaportFacilityPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -3683,9 +3819,19 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
           Promise<Void> promise1 = Promise.promise();
           editpageSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageSeaportFacility(ctx, page, listSeaportFacility, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageSeaportFacility failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -4429,7 +4575,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, address, description, alternateName, location, created, authorizedPropulsion, id, boatSupplyingServices, entityShortId, archived, contactPoint, ngsildTenant, contractingAuthority, ngsildPath, contractingCompany, ngsildContext, currencyAccepted, ngsildData, sessionId, dataProvider, color, userKey, dateCreated, dateLastReported, dateModified, objectTitle, electricTransport, displayPage, endDate, displayPageFrFR, facilities, editPage, maxDraft, editPageFrFR, maxLength, userPage, maxTonnage, userPageFrFR, maxWidth, download, minLength, downloadFrFR, nearbyServices, numberOfPlace, openingHours, openingHoursSpecification, owner, paymentAccepted, portServicesProvided, refBoatAuthorized, refBoatPlaceAvailable, refBoatPlacePricing, refDevice, refPointOfInterest, rentalSaleServices, routeType, seeAlso, source, startDate, transportServices, typeOfPort, webSite FROM SeaportFacility WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, alternateName, created, location, authorizedPropulsion, id, boatSupplyingServices, archived, entityShortId, contactPoint, ngsildTenant, contractingAuthority, ngsildPath, contractingCompany, ngsildContext, currencyAccepted, sessionId, ngsildData, dataProvider, userKey, color, dateCreated, dateLastReported, dateModified, objectTitle, electricTransport, displayPage, endDate, displayPageFrFR, facilities, editPage, maxDraft, editPageFrFR, maxLength, userPage, maxTonnage, userPageFrFR, maxWidth, download, minLength, downloadFrFR, nearbyServices, numberOfPlace, openingHours, openingHoursSpecification, owner, paymentAccepted, portServicesProvided, refBoatAuthorized, refBoatPlaceAvailable, refBoatPlacePricing, refDevice, refPointOfInterest, rentalSaleServices, routeType, seeAlso, source, startDate, transportServices, typeOfPort, webSite FROM SeaportFacility WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -4781,76 +4927,76 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      SeaportFacility page = new SeaportFacility();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      SeaportFacility o = new SeaportFacility();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(SeaportFacility.VAR_name, SeaportFacility.staticSetName(siteRequest2, (String)result.get(SeaportFacility.VAR_name)));
-      page.persistForClass(SeaportFacility.VAR_address, SeaportFacility.staticSetAddress(siteRequest2, (String)result.get(SeaportFacility.VAR_address)));
-      page.persistForClass(SeaportFacility.VAR_description, SeaportFacility.staticSetDescription(siteRequest2, (String)result.get(SeaportFacility.VAR_description)));
-      page.persistForClass(SeaportFacility.VAR_alternateName, SeaportFacility.staticSetAlternateName(siteRequest2, (String)result.get(SeaportFacility.VAR_alternateName)));
-      page.persistForClass(SeaportFacility.VAR_location, SeaportFacility.staticSetLocation(siteRequest2, (String)result.get(SeaportFacility.VAR_location)));
-      page.persistForClass(SeaportFacility.VAR_created, SeaportFacility.staticSetCreated(siteRequest2, (String)result.get(SeaportFacility.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(SeaportFacility.VAR_authorizedPropulsion, SeaportFacility.staticSetAuthorizedPropulsion(siteRequest2, (String)result.get(SeaportFacility.VAR_authorizedPropulsion)));
-      page.persistForClass(SeaportFacility.VAR_id, SeaportFacility.staticSetId(siteRequest2, (String)result.get(SeaportFacility.VAR_id)));
-      page.persistForClass(SeaportFacility.VAR_boatSupplyingServices, SeaportFacility.staticSetBoatSupplyingServices(siteRequest2, (String)result.get(SeaportFacility.VAR_boatSupplyingServices)));
-      page.persistForClass(SeaportFacility.VAR_entityShortId, SeaportFacility.staticSetEntityShortId(siteRequest2, (String)result.get(SeaportFacility.VAR_entityShortId)));
-      page.persistForClass(SeaportFacility.VAR_archived, SeaportFacility.staticSetArchived(siteRequest2, (String)result.get(SeaportFacility.VAR_archived)));
-      page.persistForClass(SeaportFacility.VAR_contactPoint, SeaportFacility.staticSetContactPoint(siteRequest2, (String)result.get(SeaportFacility.VAR_contactPoint)));
-      page.persistForClass(SeaportFacility.VAR_ngsildTenant, SeaportFacility.staticSetNgsildTenant(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildTenant)));
-      page.persistForClass(SeaportFacility.VAR_contractingAuthority, SeaportFacility.staticSetContractingAuthority(siteRequest2, (String)result.get(SeaportFacility.VAR_contractingAuthority)));
-      page.persistForClass(SeaportFacility.VAR_ngsildPath, SeaportFacility.staticSetNgsildPath(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildPath)));
-      page.persistForClass(SeaportFacility.VAR_contractingCompany, SeaportFacility.staticSetContractingCompany(siteRequest2, (String)result.get(SeaportFacility.VAR_contractingCompany)));
-      page.persistForClass(SeaportFacility.VAR_ngsildContext, SeaportFacility.staticSetNgsildContext(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildContext)));
-      page.persistForClass(SeaportFacility.VAR_currencyAccepted, SeaportFacility.staticSetCurrencyAccepted(siteRequest2, (String)result.get(SeaportFacility.VAR_currencyAccepted)));
-      page.persistForClass(SeaportFacility.VAR_ngsildData, SeaportFacility.staticSetNgsildData(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildData)));
-      page.persistForClass(SeaportFacility.VAR_sessionId, SeaportFacility.staticSetSessionId(siteRequest2, (String)result.get(SeaportFacility.VAR_sessionId)));
-      page.persistForClass(SeaportFacility.VAR_dataProvider, SeaportFacility.staticSetDataProvider(siteRequest2, (String)result.get(SeaportFacility.VAR_dataProvider)));
-      page.persistForClass(SeaportFacility.VAR_color, SeaportFacility.staticSetColor(siteRequest2, (String)result.get(SeaportFacility.VAR_color)));
-      page.persistForClass(SeaportFacility.VAR_userKey, SeaportFacility.staticSetUserKey(siteRequest2, (String)result.get(SeaportFacility.VAR_userKey)));
-      page.persistForClass(SeaportFacility.VAR_dateCreated, SeaportFacility.staticSetDateCreated(siteRequest2, (String)result.get(SeaportFacility.VAR_dateCreated)));
-      page.persistForClass(SeaportFacility.VAR_dateLastReported, SeaportFacility.staticSetDateLastReported(siteRequest2, (String)result.get(SeaportFacility.VAR_dateLastReported)));
-      page.persistForClass(SeaportFacility.VAR_dateModified, SeaportFacility.staticSetDateModified(siteRequest2, (String)result.get(SeaportFacility.VAR_dateModified)));
-      page.persistForClass(SeaportFacility.VAR_objectTitle, SeaportFacility.staticSetObjectTitle(siteRequest2, (String)result.get(SeaportFacility.VAR_objectTitle)));
-      page.persistForClass(SeaportFacility.VAR_electricTransport, SeaportFacility.staticSetElectricTransport(siteRequest2, (String)result.get(SeaportFacility.VAR_electricTransport)));
-      page.persistForClass(SeaportFacility.VAR_displayPage, SeaportFacility.staticSetDisplayPage(siteRequest2, (String)result.get(SeaportFacility.VAR_displayPage)));
-      page.persistForClass(SeaportFacility.VAR_endDate, SeaportFacility.staticSetEndDate(siteRequest2, (String)result.get(SeaportFacility.VAR_endDate)));
-      page.persistForClass(SeaportFacility.VAR_displayPageFrFR, SeaportFacility.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_displayPageFrFR)));
-      page.persistForClass(SeaportFacility.VAR_facilities, SeaportFacility.staticSetFacilities(siteRequest2, (String)result.get(SeaportFacility.VAR_facilities)));
-      page.persistForClass(SeaportFacility.VAR_editPage, SeaportFacility.staticSetEditPage(siteRequest2, (String)result.get(SeaportFacility.VAR_editPage)));
-      page.persistForClass(SeaportFacility.VAR_maxDraft, SeaportFacility.staticSetMaxDraft(siteRequest2, (String)result.get(SeaportFacility.VAR_maxDraft)));
-      page.persistForClass(SeaportFacility.VAR_editPageFrFR, SeaportFacility.staticSetEditPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_editPageFrFR)));
-      page.persistForClass(SeaportFacility.VAR_maxLength, SeaportFacility.staticSetMaxLength(siteRequest2, (String)result.get(SeaportFacility.VAR_maxLength)));
-      page.persistForClass(SeaportFacility.VAR_userPage, SeaportFacility.staticSetUserPage(siteRequest2, (String)result.get(SeaportFacility.VAR_userPage)));
-      page.persistForClass(SeaportFacility.VAR_maxTonnage, SeaportFacility.staticSetMaxTonnage(siteRequest2, (String)result.get(SeaportFacility.VAR_maxTonnage)));
-      page.persistForClass(SeaportFacility.VAR_userPageFrFR, SeaportFacility.staticSetUserPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_userPageFrFR)));
-      page.persistForClass(SeaportFacility.VAR_maxWidth, SeaportFacility.staticSetMaxWidth(siteRequest2, (String)result.get(SeaportFacility.VAR_maxWidth)));
-      page.persistForClass(SeaportFacility.VAR_download, SeaportFacility.staticSetDownload(siteRequest2, (String)result.get(SeaportFacility.VAR_download)));
-      page.persistForClass(SeaportFacility.VAR_minLength, SeaportFacility.staticSetMinLength(siteRequest2, (String)result.get(SeaportFacility.VAR_minLength)));
-      page.persistForClass(SeaportFacility.VAR_downloadFrFR, SeaportFacility.staticSetDownloadFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_downloadFrFR)));
-      page.persistForClass(SeaportFacility.VAR_nearbyServices, SeaportFacility.staticSetNearbyServices(siteRequest2, (String)result.get(SeaportFacility.VAR_nearbyServices)));
-      page.persistForClass(SeaportFacility.VAR_numberOfPlace, SeaportFacility.staticSetNumberOfPlace(siteRequest2, (String)result.get(SeaportFacility.VAR_numberOfPlace)));
-      page.persistForClass(SeaportFacility.VAR_openingHours, SeaportFacility.staticSetOpeningHours(siteRequest2, (String)result.get(SeaportFacility.VAR_openingHours)));
-      page.persistForClass(SeaportFacility.VAR_openingHoursSpecification, SeaportFacility.staticSetOpeningHoursSpecification(siteRequest2, (String)result.get(SeaportFacility.VAR_openingHoursSpecification)));
-      page.persistForClass(SeaportFacility.VAR_owner, SeaportFacility.staticSetOwner(siteRequest2, (String)result.get(SeaportFacility.VAR_owner)));
-      page.persistForClass(SeaportFacility.VAR_paymentAccepted, SeaportFacility.staticSetPaymentAccepted(siteRequest2, (String)result.get(SeaportFacility.VAR_paymentAccepted)));
-      page.persistForClass(SeaportFacility.VAR_portServicesProvided, SeaportFacility.staticSetPortServicesProvided(siteRequest2, (String)result.get(SeaportFacility.VAR_portServicesProvided)));
-      page.persistForClass(SeaportFacility.VAR_refBoatAuthorized, SeaportFacility.staticSetRefBoatAuthorized(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatAuthorized)));
-      page.persistForClass(SeaportFacility.VAR_refBoatPlaceAvailable, SeaportFacility.staticSetRefBoatPlaceAvailable(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatPlaceAvailable)));
-      page.persistForClass(SeaportFacility.VAR_refBoatPlacePricing, SeaportFacility.staticSetRefBoatPlacePricing(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatPlacePricing)));
-      page.persistForClass(SeaportFacility.VAR_refDevice, SeaportFacility.staticSetRefDevice(siteRequest2, (String)result.get(SeaportFacility.VAR_refDevice)));
-      page.persistForClass(SeaportFacility.VAR_refPointOfInterest, SeaportFacility.staticSetRefPointOfInterest(siteRequest2, (String)result.get(SeaportFacility.VAR_refPointOfInterest)));
-      page.persistForClass(SeaportFacility.VAR_rentalSaleServices, SeaportFacility.staticSetRentalSaleServices(siteRequest2, (String)result.get(SeaportFacility.VAR_rentalSaleServices)));
-      page.persistForClass(SeaportFacility.VAR_routeType, SeaportFacility.staticSetRouteType(siteRequest2, (String)result.get(SeaportFacility.VAR_routeType)));
-      page.persistForClass(SeaportFacility.VAR_seeAlso, SeaportFacility.staticSetSeeAlso(siteRequest2, (String)result.get(SeaportFacility.VAR_seeAlso)));
-      page.persistForClass(SeaportFacility.VAR_source, SeaportFacility.staticSetSource(siteRequest2, (String)result.get(SeaportFacility.VAR_source)));
-      page.persistForClass(SeaportFacility.VAR_startDate, SeaportFacility.staticSetStartDate(siteRequest2, (String)result.get(SeaportFacility.VAR_startDate)));
-      page.persistForClass(SeaportFacility.VAR_transportServices, SeaportFacility.staticSetTransportServices(siteRequest2, (String)result.get(SeaportFacility.VAR_transportServices)));
-      page.persistForClass(SeaportFacility.VAR_typeOfPort, SeaportFacility.staticSetTypeOfPort(siteRequest2, (String)result.get(SeaportFacility.VAR_typeOfPort)));
-      page.persistForClass(SeaportFacility.VAR_webSite, SeaportFacility.staticSetWebSite(siteRequest2, (String)result.get(SeaportFacility.VAR_webSite)));
+      o.persistForClass(SeaportFacility.VAR_name, SeaportFacility.staticSetName(siteRequest2, (String)result.get(SeaportFacility.VAR_name)));
+      o.persistForClass(SeaportFacility.VAR_address, SeaportFacility.staticSetAddress(siteRequest2, (String)result.get(SeaportFacility.VAR_address)));
+      o.persistForClass(SeaportFacility.VAR_description, SeaportFacility.staticSetDescription(siteRequest2, (String)result.get(SeaportFacility.VAR_description)));
+      o.persistForClass(SeaportFacility.VAR_alternateName, SeaportFacility.staticSetAlternateName(siteRequest2, (String)result.get(SeaportFacility.VAR_alternateName)));
+      o.persistForClass(SeaportFacility.VAR_created, SeaportFacility.staticSetCreated(siteRequest2, (String)result.get(SeaportFacility.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      o.persistForClass(SeaportFacility.VAR_location, SeaportFacility.staticSetLocation(siteRequest2, (String)result.get(SeaportFacility.VAR_location)));
+      o.persistForClass(SeaportFacility.VAR_authorizedPropulsion, SeaportFacility.staticSetAuthorizedPropulsion(siteRequest2, (String)result.get(SeaportFacility.VAR_authorizedPropulsion)));
+      o.persistForClass(SeaportFacility.VAR_id, SeaportFacility.staticSetId(siteRequest2, (String)result.get(SeaportFacility.VAR_id)));
+      o.persistForClass(SeaportFacility.VAR_boatSupplyingServices, SeaportFacility.staticSetBoatSupplyingServices(siteRequest2, (String)result.get(SeaportFacility.VAR_boatSupplyingServices)));
+      o.persistForClass(SeaportFacility.VAR_archived, SeaportFacility.staticSetArchived(siteRequest2, (String)result.get(SeaportFacility.VAR_archived)));
+      o.persistForClass(SeaportFacility.VAR_entityShortId, SeaportFacility.staticSetEntityShortId(siteRequest2, (String)result.get(SeaportFacility.VAR_entityShortId)));
+      o.persistForClass(SeaportFacility.VAR_contactPoint, SeaportFacility.staticSetContactPoint(siteRequest2, (String)result.get(SeaportFacility.VAR_contactPoint)));
+      o.persistForClass(SeaportFacility.VAR_ngsildTenant, SeaportFacility.staticSetNgsildTenant(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildTenant)));
+      o.persistForClass(SeaportFacility.VAR_contractingAuthority, SeaportFacility.staticSetContractingAuthority(siteRequest2, (String)result.get(SeaportFacility.VAR_contractingAuthority)));
+      o.persistForClass(SeaportFacility.VAR_ngsildPath, SeaportFacility.staticSetNgsildPath(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildPath)));
+      o.persistForClass(SeaportFacility.VAR_contractingCompany, SeaportFacility.staticSetContractingCompany(siteRequest2, (String)result.get(SeaportFacility.VAR_contractingCompany)));
+      o.persistForClass(SeaportFacility.VAR_ngsildContext, SeaportFacility.staticSetNgsildContext(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildContext)));
+      o.persistForClass(SeaportFacility.VAR_currencyAccepted, SeaportFacility.staticSetCurrencyAccepted(siteRequest2, (String)result.get(SeaportFacility.VAR_currencyAccepted)));
+      o.persistForClass(SeaportFacility.VAR_sessionId, SeaportFacility.staticSetSessionId(siteRequest2, (String)result.get(SeaportFacility.VAR_sessionId)));
+      o.persistForClass(SeaportFacility.VAR_ngsildData, SeaportFacility.staticSetNgsildData(siteRequest2, (String)result.get(SeaportFacility.VAR_ngsildData)));
+      o.persistForClass(SeaportFacility.VAR_dataProvider, SeaportFacility.staticSetDataProvider(siteRequest2, (String)result.get(SeaportFacility.VAR_dataProvider)));
+      o.persistForClass(SeaportFacility.VAR_userKey, SeaportFacility.staticSetUserKey(siteRequest2, (String)result.get(SeaportFacility.VAR_userKey)));
+      o.persistForClass(SeaportFacility.VAR_color, SeaportFacility.staticSetColor(siteRequest2, (String)result.get(SeaportFacility.VAR_color)));
+      o.persistForClass(SeaportFacility.VAR_dateCreated, SeaportFacility.staticSetDateCreated(siteRequest2, (String)result.get(SeaportFacility.VAR_dateCreated)));
+      o.persistForClass(SeaportFacility.VAR_dateLastReported, SeaportFacility.staticSetDateLastReported(siteRequest2, (String)result.get(SeaportFacility.VAR_dateLastReported)));
+      o.persistForClass(SeaportFacility.VAR_dateModified, SeaportFacility.staticSetDateModified(siteRequest2, (String)result.get(SeaportFacility.VAR_dateModified)));
+      o.persistForClass(SeaportFacility.VAR_objectTitle, SeaportFacility.staticSetObjectTitle(siteRequest2, (String)result.get(SeaportFacility.VAR_objectTitle)));
+      o.persistForClass(SeaportFacility.VAR_electricTransport, SeaportFacility.staticSetElectricTransport(siteRequest2, (String)result.get(SeaportFacility.VAR_electricTransport)));
+      o.persistForClass(SeaportFacility.VAR_displayPage, SeaportFacility.staticSetDisplayPage(siteRequest2, (String)result.get(SeaportFacility.VAR_displayPage)));
+      o.persistForClass(SeaportFacility.VAR_endDate, SeaportFacility.staticSetEndDate(siteRequest2, (String)result.get(SeaportFacility.VAR_endDate)));
+      o.persistForClass(SeaportFacility.VAR_displayPageFrFR, SeaportFacility.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_displayPageFrFR)));
+      o.persistForClass(SeaportFacility.VAR_facilities, SeaportFacility.staticSetFacilities(siteRequest2, (String)result.get(SeaportFacility.VAR_facilities)));
+      o.persistForClass(SeaportFacility.VAR_editPage, SeaportFacility.staticSetEditPage(siteRequest2, (String)result.get(SeaportFacility.VAR_editPage)));
+      o.persistForClass(SeaportFacility.VAR_maxDraft, SeaportFacility.staticSetMaxDraft(siteRequest2, (String)result.get(SeaportFacility.VAR_maxDraft)));
+      o.persistForClass(SeaportFacility.VAR_editPageFrFR, SeaportFacility.staticSetEditPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_editPageFrFR)));
+      o.persistForClass(SeaportFacility.VAR_maxLength, SeaportFacility.staticSetMaxLength(siteRequest2, (String)result.get(SeaportFacility.VAR_maxLength)));
+      o.persistForClass(SeaportFacility.VAR_userPage, SeaportFacility.staticSetUserPage(siteRequest2, (String)result.get(SeaportFacility.VAR_userPage)));
+      o.persistForClass(SeaportFacility.VAR_maxTonnage, SeaportFacility.staticSetMaxTonnage(siteRequest2, (String)result.get(SeaportFacility.VAR_maxTonnage)));
+      o.persistForClass(SeaportFacility.VAR_userPageFrFR, SeaportFacility.staticSetUserPageFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_userPageFrFR)));
+      o.persistForClass(SeaportFacility.VAR_maxWidth, SeaportFacility.staticSetMaxWidth(siteRequest2, (String)result.get(SeaportFacility.VAR_maxWidth)));
+      o.persistForClass(SeaportFacility.VAR_download, SeaportFacility.staticSetDownload(siteRequest2, (String)result.get(SeaportFacility.VAR_download)));
+      o.persistForClass(SeaportFacility.VAR_minLength, SeaportFacility.staticSetMinLength(siteRequest2, (String)result.get(SeaportFacility.VAR_minLength)));
+      o.persistForClass(SeaportFacility.VAR_downloadFrFR, SeaportFacility.staticSetDownloadFrFR(siteRequest2, (String)result.get(SeaportFacility.VAR_downloadFrFR)));
+      o.persistForClass(SeaportFacility.VAR_nearbyServices, SeaportFacility.staticSetNearbyServices(siteRequest2, (String)result.get(SeaportFacility.VAR_nearbyServices)));
+      o.persistForClass(SeaportFacility.VAR_numberOfPlace, SeaportFacility.staticSetNumberOfPlace(siteRequest2, (String)result.get(SeaportFacility.VAR_numberOfPlace)));
+      o.persistForClass(SeaportFacility.VAR_openingHours, SeaportFacility.staticSetOpeningHours(siteRequest2, (String)result.get(SeaportFacility.VAR_openingHours)));
+      o.persistForClass(SeaportFacility.VAR_openingHoursSpecification, SeaportFacility.staticSetOpeningHoursSpecification(siteRequest2, (String)result.get(SeaportFacility.VAR_openingHoursSpecification)));
+      o.persistForClass(SeaportFacility.VAR_owner, SeaportFacility.staticSetOwner(siteRequest2, (String)result.get(SeaportFacility.VAR_owner)));
+      o.persistForClass(SeaportFacility.VAR_paymentAccepted, SeaportFacility.staticSetPaymentAccepted(siteRequest2, (String)result.get(SeaportFacility.VAR_paymentAccepted)));
+      o.persistForClass(SeaportFacility.VAR_portServicesProvided, SeaportFacility.staticSetPortServicesProvided(siteRequest2, (String)result.get(SeaportFacility.VAR_portServicesProvided)));
+      o.persistForClass(SeaportFacility.VAR_refBoatAuthorized, SeaportFacility.staticSetRefBoatAuthorized(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatAuthorized)));
+      o.persistForClass(SeaportFacility.VAR_refBoatPlaceAvailable, SeaportFacility.staticSetRefBoatPlaceAvailable(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatPlaceAvailable)));
+      o.persistForClass(SeaportFacility.VAR_refBoatPlacePricing, SeaportFacility.staticSetRefBoatPlacePricing(siteRequest2, (String)result.get(SeaportFacility.VAR_refBoatPlacePricing)));
+      o.persistForClass(SeaportFacility.VAR_refDevice, SeaportFacility.staticSetRefDevice(siteRequest2, (String)result.get(SeaportFacility.VAR_refDevice)));
+      o.persistForClass(SeaportFacility.VAR_refPointOfInterest, SeaportFacility.staticSetRefPointOfInterest(siteRequest2, (String)result.get(SeaportFacility.VAR_refPointOfInterest)));
+      o.persistForClass(SeaportFacility.VAR_rentalSaleServices, SeaportFacility.staticSetRentalSaleServices(siteRequest2, (String)result.get(SeaportFacility.VAR_rentalSaleServices)));
+      o.persistForClass(SeaportFacility.VAR_routeType, SeaportFacility.staticSetRouteType(siteRequest2, (String)result.get(SeaportFacility.VAR_routeType)));
+      o.persistForClass(SeaportFacility.VAR_seeAlso, SeaportFacility.staticSetSeeAlso(siteRequest2, (String)result.get(SeaportFacility.VAR_seeAlso)));
+      o.persistForClass(SeaportFacility.VAR_source, SeaportFacility.staticSetSource(siteRequest2, (String)result.get(SeaportFacility.VAR_source)));
+      o.persistForClass(SeaportFacility.VAR_startDate, SeaportFacility.staticSetStartDate(siteRequest2, (String)result.get(SeaportFacility.VAR_startDate)));
+      o.persistForClass(SeaportFacility.VAR_transportServices, SeaportFacility.staticSetTransportServices(siteRequest2, (String)result.get(SeaportFacility.VAR_transportServices)));
+      o.persistForClass(SeaportFacility.VAR_typeOfPort, SeaportFacility.staticSetTypeOfPort(siteRequest2, (String)result.get(SeaportFacility.VAR_typeOfPort)));
+      o.persistForClass(SeaportFacility.VAR_webSite, SeaportFacility.staticSetWebSite(siteRequest2, (String)result.get(SeaportFacility.VAR_webSite)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {

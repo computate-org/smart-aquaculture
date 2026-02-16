@@ -271,6 +271,12 @@ public class PageLayout extends PageLayoutGen<Object> {
   }
 
   /**
+   * Description: The language context for all objects in this model. 
+   */
+  protected void _classAllName(Wrap<String> w) {
+  }
+
+  /**
    * Description: The user request scopes
    */
   protected void _filteredScope(Wrap<Boolean> w) {

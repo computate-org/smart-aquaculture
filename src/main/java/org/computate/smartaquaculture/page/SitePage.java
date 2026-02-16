@@ -66,11 +66,9 @@ import io.vertx.core.json.JsonObject;
  * ApiMethod:
  *   SearchPageFrFR:
  *     Language: frFR
- *     Page: TimeZonePage
  *     ApiUri: /fr-fr/rechercher/article
  *   EditPageFrFR:
  *     Language: frFR
- *     Page: TimeZonePage
  *     ApiUri: /fr-fr/edition/article/{entityShortId}
  *   Search:
  *   GET:

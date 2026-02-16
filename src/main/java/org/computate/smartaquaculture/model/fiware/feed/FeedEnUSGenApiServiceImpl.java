@@ -74,6 +74,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -2509,27 +2511,75 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
     promise.complete();
   }
 
-  public String templateUriSearchPageFeed(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFeed(ServiceRequest serviceRequest, Feed result) {
     return "en-us/search/feed/FeedSearchPage.htm";
   }
-  public String templateSearchPageFeed(ServiceRequest serviceRequest, Feed result) {
-    String template = null;
+  public void templateSearchPageFeed(JsonObject ctx, FeedPage page, SearchList<Feed> listFeed, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriSearchPageFeed(serviceRequest);
+      SiteRequest siteRequest = listFeed.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      Feed result = listFeed.first();
+      String pageTemplateUri = templateUriSearchPageFeed(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateSearchPageFeed failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200SearchPageFeed(SearchList<Feed> listFeed) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeed.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFeed(siteRequest.getServiceRequest(), listFeed.first());
       FeedPage page = new FeedPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2548,9 +2598,19 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           Promise<Void> promise1 = Promise.promise();
           searchpageFeedPageInit(ctx, page, listFeed, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFeed(ctx, page, listFeed, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFeed failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -2709,27 +2769,75 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
     promise.complete();
   }
 
-  public String templateUriEditPageFeed(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFeed(ServiceRequest serviceRequest, Feed result) {
     return "en-us/edit/feed/FeedEditPage.htm";
   }
-  public String templateEditPageFeed(ServiceRequest serviceRequest, Feed result) {
-    String template = null;
+  public void templateEditPageFeed(JsonObject ctx, FeedPage page, SearchList<Feed> listFeed, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageFeed(serviceRequest);
+      SiteRequest siteRequest = listFeed.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      Feed result = listFeed.first();
+      String pageTemplateUri = templateUriEditPageFeed(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageFeed failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageFeed(SearchList<Feed> listFeed) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeed.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFeed(siteRequest.getServiceRequest(), listFeed.first());
       FeedPage page = new FeedPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2748,9 +2856,19 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
           Promise<Void> promise1 = Promise.promise();
           editpageFeedPageInit(ctx, page, listFeed, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFeed(ctx, page, listFeed, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFeed failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -3846,44 +3964,44 @@ public class FeedEnUSGenApiServiceImpl extends BaseApiServiceImpl implements Fee
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      Feed page = new Feed();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      Feed o = new Feed();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(Feed.VAR_name, Feed.staticSetName(siteRequest2, (String)result.get(Feed.VAR_name)));
-      page.persistForClass(Feed.VAR_description, Feed.staticSetDescription(siteRequest2, (String)result.get(Feed.VAR_description)));
-      page.persistForClass(Feed.VAR_created, Feed.staticSetCreated(siteRequest2, (String)result.get(Feed.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(Feed.VAR_location, Feed.staticSetLocation(siteRequest2, (String)result.get(Feed.VAR_location)));
-      page.persistForClass(Feed.VAR_archived, Feed.staticSetArchived(siteRequest2, (String)result.get(Feed.VAR_archived)));
-      page.persistForClass(Feed.VAR_areaServed, Feed.staticSetAreaServed(siteRequest2, (String)result.get(Feed.VAR_areaServed)));
-      page.persistForClass(Feed.VAR_id, Feed.staticSetId(siteRequest2, (String)result.get(Feed.VAR_id)));
-      page.persistForClass(Feed.VAR_sessionId, Feed.staticSetSessionId(siteRequest2, (String)result.get(Feed.VAR_sessionId)));
-      page.persistForClass(Feed.VAR_userKey, Feed.staticSetUserKey(siteRequest2, (String)result.get(Feed.VAR_userKey)));
-      page.persistForClass(Feed.VAR_ngsildTenant, Feed.staticSetNgsildTenant(siteRequest2, (String)result.get(Feed.VAR_ngsildTenant)));
-      page.persistForClass(Feed.VAR_ngsildPath, Feed.staticSetNgsildPath(siteRequest2, (String)result.get(Feed.VAR_ngsildPath)));
-      page.persistForClass(Feed.VAR_ngsildContext, Feed.staticSetNgsildContext(siteRequest2, (String)result.get(Feed.VAR_ngsildContext)));
-      page.persistForClass(Feed.VAR_objectTitle, Feed.staticSetObjectTitle(siteRequest2, (String)result.get(Feed.VAR_objectTitle)));
-      page.persistForClass(Feed.VAR_ngsildData, Feed.staticSetNgsildData(siteRequest2, (String)result.get(Feed.VAR_ngsildData)));
-      page.persistForClass(Feed.VAR_displayPage, Feed.staticSetDisplayPage(siteRequest2, (String)result.get(Feed.VAR_displayPage)));
-      page.persistForClass(Feed.VAR_address, Feed.staticSetAddress(siteRequest2, (String)result.get(Feed.VAR_address)));
-      page.persistForClass(Feed.VAR_displayPageFrFR, Feed.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(Feed.VAR_displayPageFrFR)));
-      page.persistForClass(Feed.VAR_alternateName, Feed.staticSetAlternateName(siteRequest2, (String)result.get(Feed.VAR_alternateName)));
-      page.persistForClass(Feed.VAR_editPage, Feed.staticSetEditPage(siteRequest2, (String)result.get(Feed.VAR_editPage)));
-      page.persistForClass(Feed.VAR_dataProvider, Feed.staticSetDataProvider(siteRequest2, (String)result.get(Feed.VAR_dataProvider)));
-      page.persistForClass(Feed.VAR_editPageFrFR, Feed.staticSetEditPageFrFR(siteRequest2, (String)result.get(Feed.VAR_editPageFrFR)));
-      page.persistForClass(Feed.VAR_dateCreated, Feed.staticSetDateCreated(siteRequest2, (String)result.get(Feed.VAR_dateCreated)));
-      page.persistForClass(Feed.VAR_userPage, Feed.staticSetUserPage(siteRequest2, (String)result.get(Feed.VAR_userPage)));
-      page.persistForClass(Feed.VAR_dateModified, Feed.staticSetDateModified(siteRequest2, (String)result.get(Feed.VAR_dateModified)));
-      page.persistForClass(Feed.VAR_userPageFrFR, Feed.staticSetUserPageFrFR(siteRequest2, (String)result.get(Feed.VAR_userPageFrFR)));
-      page.persistForClass(Feed.VAR_owner, Feed.staticSetOwner(siteRequest2, (String)result.get(Feed.VAR_owner)));
-      page.persistForClass(Feed.VAR_download, Feed.staticSetDownload(siteRequest2, (String)result.get(Feed.VAR_download)));
-      page.persistForClass(Feed.VAR_relatedSource, Feed.staticSetRelatedSource(siteRequest2, (String)result.get(Feed.VAR_relatedSource)));
-      page.persistForClass(Feed.VAR_downloadFrFR, Feed.staticSetDownloadFrFR(siteRequest2, (String)result.get(Feed.VAR_downloadFrFR)));
-      page.persistForClass(Feed.VAR_seeAlso, Feed.staticSetSeeAlso(siteRequest2, (String)result.get(Feed.VAR_seeAlso)));
-      page.persistForClass(Feed.VAR_source, Feed.staticSetSource(siteRequest2, (String)result.get(Feed.VAR_source)));
+      o.persistForClass(Feed.VAR_name, Feed.staticSetName(siteRequest2, (String)result.get(Feed.VAR_name)));
+      o.persistForClass(Feed.VAR_description, Feed.staticSetDescription(siteRequest2, (String)result.get(Feed.VAR_description)));
+      o.persistForClass(Feed.VAR_created, Feed.staticSetCreated(siteRequest2, (String)result.get(Feed.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      o.persistForClass(Feed.VAR_location, Feed.staticSetLocation(siteRequest2, (String)result.get(Feed.VAR_location)));
+      o.persistForClass(Feed.VAR_archived, Feed.staticSetArchived(siteRequest2, (String)result.get(Feed.VAR_archived)));
+      o.persistForClass(Feed.VAR_areaServed, Feed.staticSetAreaServed(siteRequest2, (String)result.get(Feed.VAR_areaServed)));
+      o.persistForClass(Feed.VAR_id, Feed.staticSetId(siteRequest2, (String)result.get(Feed.VAR_id)));
+      o.persistForClass(Feed.VAR_sessionId, Feed.staticSetSessionId(siteRequest2, (String)result.get(Feed.VAR_sessionId)));
+      o.persistForClass(Feed.VAR_userKey, Feed.staticSetUserKey(siteRequest2, (String)result.get(Feed.VAR_userKey)));
+      o.persistForClass(Feed.VAR_ngsildTenant, Feed.staticSetNgsildTenant(siteRequest2, (String)result.get(Feed.VAR_ngsildTenant)));
+      o.persistForClass(Feed.VAR_ngsildPath, Feed.staticSetNgsildPath(siteRequest2, (String)result.get(Feed.VAR_ngsildPath)));
+      o.persistForClass(Feed.VAR_ngsildContext, Feed.staticSetNgsildContext(siteRequest2, (String)result.get(Feed.VAR_ngsildContext)));
+      o.persistForClass(Feed.VAR_objectTitle, Feed.staticSetObjectTitle(siteRequest2, (String)result.get(Feed.VAR_objectTitle)));
+      o.persistForClass(Feed.VAR_ngsildData, Feed.staticSetNgsildData(siteRequest2, (String)result.get(Feed.VAR_ngsildData)));
+      o.persistForClass(Feed.VAR_displayPage, Feed.staticSetDisplayPage(siteRequest2, (String)result.get(Feed.VAR_displayPage)));
+      o.persistForClass(Feed.VAR_address, Feed.staticSetAddress(siteRequest2, (String)result.get(Feed.VAR_address)));
+      o.persistForClass(Feed.VAR_displayPageFrFR, Feed.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(Feed.VAR_displayPageFrFR)));
+      o.persistForClass(Feed.VAR_alternateName, Feed.staticSetAlternateName(siteRequest2, (String)result.get(Feed.VAR_alternateName)));
+      o.persistForClass(Feed.VAR_editPage, Feed.staticSetEditPage(siteRequest2, (String)result.get(Feed.VAR_editPage)));
+      o.persistForClass(Feed.VAR_dataProvider, Feed.staticSetDataProvider(siteRequest2, (String)result.get(Feed.VAR_dataProvider)));
+      o.persistForClass(Feed.VAR_editPageFrFR, Feed.staticSetEditPageFrFR(siteRequest2, (String)result.get(Feed.VAR_editPageFrFR)));
+      o.persistForClass(Feed.VAR_dateCreated, Feed.staticSetDateCreated(siteRequest2, (String)result.get(Feed.VAR_dateCreated)));
+      o.persistForClass(Feed.VAR_userPage, Feed.staticSetUserPage(siteRequest2, (String)result.get(Feed.VAR_userPage)));
+      o.persistForClass(Feed.VAR_dateModified, Feed.staticSetDateModified(siteRequest2, (String)result.get(Feed.VAR_dateModified)));
+      o.persistForClass(Feed.VAR_userPageFrFR, Feed.staticSetUserPageFrFR(siteRequest2, (String)result.get(Feed.VAR_userPageFrFR)));
+      o.persistForClass(Feed.VAR_owner, Feed.staticSetOwner(siteRequest2, (String)result.get(Feed.VAR_owner)));
+      o.persistForClass(Feed.VAR_download, Feed.staticSetDownload(siteRequest2, (String)result.get(Feed.VAR_download)));
+      o.persistForClass(Feed.VAR_relatedSource, Feed.staticSetRelatedSource(siteRequest2, (String)result.get(Feed.VAR_relatedSource)));
+      o.persistForClass(Feed.VAR_downloadFrFR, Feed.staticSetDownloadFrFR(siteRequest2, (String)result.get(Feed.VAR_downloadFrFR)));
+      o.persistForClass(Feed.VAR_seeAlso, Feed.staticSetSeeAlso(siteRequest2, (String)result.get(Feed.VAR_seeAlso)));
+      o.persistForClass(Feed.VAR_source, Feed.staticSetSource(siteRequest2, (String)result.get(Feed.VAR_source)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {

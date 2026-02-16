@@ -74,6 +74,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -510,27 +512,75 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     promise.complete();
   }
 
-  public String templateUriSearchPageMapModel(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageMapModel(ServiceRequest serviceRequest, MapModel result) {
     return "en-us/search/map-model/MapModelSearchPage.htm";
   }
-  public String templateSearchPageMapModel(ServiceRequest serviceRequest, MapModel result) {
-    String template = null;
+  public void templateSearchPageMapModel(JsonObject ctx, MapModelPage page, SearchList<MapModel> listMapModel, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriSearchPageMapModel(serviceRequest);
+      SiteRequest siteRequest = listMapModel.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      MapModel result = listMapModel.first();
+      String pageTemplateUri = templateUriSearchPageMapModel(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateSearchPageMapModel failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200SearchPageMapModel(SearchList<MapModel> listMapModel) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listMapModel.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageMapModel(siteRequest.getServiceRequest(), listMapModel.first());
       MapModelPage page = new MapModelPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -549,9 +599,19 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
           Promise<Void> promise1 = Promise.promise();
           searchpageMapModelPageInit(ctx, page, listMapModel, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageMapModel(ctx, page, listMapModel, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageMapModel failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -1189,36 +1249,36 @@ public class MapModelEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      MapModel page = new MapModel();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      MapModel o = new MapModel();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(MapModel.VAR_name, MapModel.staticSetName(siteRequest2, (String)result.get(MapModel.VAR_name)));
-      page.persistForClass(MapModel.VAR_description, MapModel.staticSetDescription(siteRequest2, (String)result.get(MapModel.VAR_description)));
-      page.persistForClass(MapModel.VAR_created, MapModel.staticSetCreated(siteRequest2, (String)result.get(MapModel.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(MapModel.VAR_location, MapModel.staticSetLocation(siteRequest2, (String)result.get(MapModel.VAR_location)));
-      page.persistForClass(MapModel.VAR_id, MapModel.staticSetId(siteRequest2, (String)result.get(MapModel.VAR_id)));
-      page.persistForClass(MapModel.VAR_archived, MapModel.staticSetArchived(siteRequest2, (String)result.get(MapModel.VAR_archived)));
-      page.persistForClass(MapModel.VAR_entityShortId, MapModel.staticSetEntityShortId(siteRequest2, (String)result.get(MapModel.VAR_entityShortId)));
-      page.persistForClass(MapModel.VAR_ngsildTenant, MapModel.staticSetNgsildTenant(siteRequest2, (String)result.get(MapModel.VAR_ngsildTenant)));
-      page.persistForClass(MapModel.VAR_ngsildPath, MapModel.staticSetNgsildPath(siteRequest2, (String)result.get(MapModel.VAR_ngsildPath)));
-      page.persistForClass(MapModel.VAR_ngsildContext, MapModel.staticSetNgsildContext(siteRequest2, (String)result.get(MapModel.VAR_ngsildContext)));
-      page.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
-      page.persistForClass(MapModel.VAR_ngsildData, MapModel.staticSetNgsildData(siteRequest2, (String)result.get(MapModel.VAR_ngsildData)));
-      page.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
-      page.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
-      page.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
-      page.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
-      page.persistForClass(MapModel.VAR_displayPageFrFR, MapModel.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(MapModel.VAR_displayPageFrFR)));
-      page.persistForClass(MapModel.VAR_editPage, MapModel.staticSetEditPage(siteRequest2, (String)result.get(MapModel.VAR_editPage)));
-      page.persistForClass(MapModel.VAR_editPageFrFR, MapModel.staticSetEditPageFrFR(siteRequest2, (String)result.get(MapModel.VAR_editPageFrFR)));
-      page.persistForClass(MapModel.VAR_userPage, MapModel.staticSetUserPage(siteRequest2, (String)result.get(MapModel.VAR_userPage)));
-      page.persistForClass(MapModel.VAR_userPageFrFR, MapModel.staticSetUserPageFrFR(siteRequest2, (String)result.get(MapModel.VAR_userPageFrFR)));
-      page.persistForClass(MapModel.VAR_download, MapModel.staticSetDownload(siteRequest2, (String)result.get(MapModel.VAR_download)));
-      page.persistForClass(MapModel.VAR_downloadFrFR, MapModel.staticSetDownloadFrFR(siteRequest2, (String)result.get(MapModel.VAR_downloadFrFR)));
+      o.persistForClass(MapModel.VAR_name, MapModel.staticSetName(siteRequest2, (String)result.get(MapModel.VAR_name)));
+      o.persistForClass(MapModel.VAR_description, MapModel.staticSetDescription(siteRequest2, (String)result.get(MapModel.VAR_description)));
+      o.persistForClass(MapModel.VAR_created, MapModel.staticSetCreated(siteRequest2, (String)result.get(MapModel.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      o.persistForClass(MapModel.VAR_location, MapModel.staticSetLocation(siteRequest2, (String)result.get(MapModel.VAR_location)));
+      o.persistForClass(MapModel.VAR_id, MapModel.staticSetId(siteRequest2, (String)result.get(MapModel.VAR_id)));
+      o.persistForClass(MapModel.VAR_archived, MapModel.staticSetArchived(siteRequest2, (String)result.get(MapModel.VAR_archived)));
+      o.persistForClass(MapModel.VAR_entityShortId, MapModel.staticSetEntityShortId(siteRequest2, (String)result.get(MapModel.VAR_entityShortId)));
+      o.persistForClass(MapModel.VAR_ngsildTenant, MapModel.staticSetNgsildTenant(siteRequest2, (String)result.get(MapModel.VAR_ngsildTenant)));
+      o.persistForClass(MapModel.VAR_ngsildPath, MapModel.staticSetNgsildPath(siteRequest2, (String)result.get(MapModel.VAR_ngsildPath)));
+      o.persistForClass(MapModel.VAR_ngsildContext, MapModel.staticSetNgsildContext(siteRequest2, (String)result.get(MapModel.VAR_ngsildContext)));
+      o.persistForClass(MapModel.VAR_sessionId, MapModel.staticSetSessionId(siteRequest2, (String)result.get(MapModel.VAR_sessionId)));
+      o.persistForClass(MapModel.VAR_ngsildData, MapModel.staticSetNgsildData(siteRequest2, (String)result.get(MapModel.VAR_ngsildData)));
+      o.persistForClass(MapModel.VAR_userKey, MapModel.staticSetUserKey(siteRequest2, (String)result.get(MapModel.VAR_userKey)));
+      o.persistForClass(MapModel.VAR_color, MapModel.staticSetColor(siteRequest2, (String)result.get(MapModel.VAR_color)));
+      o.persistForClass(MapModel.VAR_objectTitle, MapModel.staticSetObjectTitle(siteRequest2, (String)result.get(MapModel.VAR_objectTitle)));
+      o.persistForClass(MapModel.VAR_displayPage, MapModel.staticSetDisplayPage(siteRequest2, (String)result.get(MapModel.VAR_displayPage)));
+      o.persistForClass(MapModel.VAR_displayPageFrFR, MapModel.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(MapModel.VAR_displayPageFrFR)));
+      o.persistForClass(MapModel.VAR_editPage, MapModel.staticSetEditPage(siteRequest2, (String)result.get(MapModel.VAR_editPage)));
+      o.persistForClass(MapModel.VAR_editPageFrFR, MapModel.staticSetEditPageFrFR(siteRequest2, (String)result.get(MapModel.VAR_editPageFrFR)));
+      o.persistForClass(MapModel.VAR_userPage, MapModel.staticSetUserPage(siteRequest2, (String)result.get(MapModel.VAR_userPage)));
+      o.persistForClass(MapModel.VAR_userPageFrFR, MapModel.staticSetUserPageFrFR(siteRequest2, (String)result.get(MapModel.VAR_userPageFrFR)));
+      o.persistForClass(MapModel.VAR_download, MapModel.staticSetDownload(siteRequest2, (String)result.get(MapModel.VAR_download)));
+      o.persistForClass(MapModel.VAR_downloadFrFR, MapModel.staticSetDownloadFrFR(siteRequest2, (String)result.get(MapModel.VAR_downloadFrFR)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {

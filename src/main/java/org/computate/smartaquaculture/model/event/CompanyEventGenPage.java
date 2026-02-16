@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.math.BigDecimal;
 import io.vertx.pgclient.data.Point;
 import java.util.List;
+import java.lang.Integer;
 import org.computate.smartaquaculture.page.PageLayout;
 import org.computate.smartaquaculture.request.SiteRequest;
 import org.computate.smartaquaculture.user.SiteUser;
@@ -536,6 +537,11 @@ public class CompanyEventGenPage extends CompanyEventGenPageGen<PageLayout> {
       c.o("no event found");
     else
       c.o("events");
+  }
+
+  @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all events");
   }
 
   @Override

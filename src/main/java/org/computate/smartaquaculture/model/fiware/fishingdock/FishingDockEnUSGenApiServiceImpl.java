@@ -76,6 +76,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -260,7 +262,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -402,7 +404,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200GETFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -546,7 +548,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listPATCHFishingDock failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -557,18 +559,18 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPATCHFishingDock failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listPATCHFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listPATCHFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -672,22 +674,22 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                       }
                       promise2.complete(fishingDock);
                     }).onFailure(ex -> {
-                      promise2.fail(ex);
+                      promise2.tryFail(ex);
                     });
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise2.fail(ex);
+                promise2.tryFail(ex);
               });
               return promise2.future();
             }).onSuccess(o2 -> {
               promise1.complete(o2);
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           } else {
             sqlPATCHFishingDock(o, inheritPrimaryKey).onSuccess(fishingDock -> {
@@ -704,43 +706,43 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                     }
                     promise1.complete(fishingDock);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingDock -> {
         Promise<FishingDock> promise2 = Promise.promise();
         refreshFishingDock(fishingDock).onSuccess(a -> {
           promise2.complete(fishingDock);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingDock -> {
         promise.complete(fishingDock);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("patchFishingDockFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -818,10 +820,10 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingDock.class, pk).set(FishingDock.VAR_timeZone, TimeZone.class, solrId2, val).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -832,7 +834,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 sql(siteRequest).update(FishingDock.class, pk).setToNull(FishingDock.VAR_timeZone, TimeZone.class, null).onSuccess(a -> {
                   promise2.complete();
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -1023,15 +1025,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(o3);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPATCHFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPATCHFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPATCHFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1051,7 +1053,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1249,29 +1251,29 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   indexFishingDock(fishingDock).onSuccess(o2 -> {
                     promise1.complete(fishingDock);
                   }).onFailure(ex -> {
-                    promise1.fail(ex);
+                    promise1.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise1.fail(ex);
+                  promise1.tryFail(ex);
                 });
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingDock -> {
         Promise<FishingDock> promise2 = Promise.promise();
         refreshFishingDock(fishingDock).onSuccess(a -> {
@@ -1285,10 +1287,10 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise2.complete(fishingDock);
           } catch(Exception ex) {
             LOG.error(String.format("postFishingDockFuture failed. "), ex);
-            promise2.fail(ex);
+            promise2.tryFail(ex);
           }
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingDock -> {
@@ -1302,14 +1304,14 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(fishingDock);
         } catch(Exception ex) {
           LOG.error(String.format("postFishingDockFuture failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("postFishingDockFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1410,10 +1412,10 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingDock.class, pk).set(FishingDock.VAR_timeZone, TimeZone.class, solrId2, val).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -1622,15 +1624,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(o2);
         }).onFailure(ex -> {
           LOG.error(String.format("sqlPOSTFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlPOSTFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlPOSTFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1651,7 +1653,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1794,7 +1796,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFishingDock failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -1805,18 +1807,18 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFishingDock failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -1900,39 +1902,39 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingDock -> {
         Promise<FishingDock> promise2 = Promise.promise();
         refreshFishingDock(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingDock -> {
         promise.complete(fishingDock);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deleteFishingDockFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -1971,10 +1973,10 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingDock.class, pk).set(FishingDock.VAR_timeZone, TimeZone.class, null, null).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -2003,22 +2005,22 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2038,7 +2040,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2185,7 +2187,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise1.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listPUTImportFishingDock failed. "), ex);
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }));
       });
@@ -2194,11 +2196,11 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("listPUTImportFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("listPUTImportFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2370,7 +2372,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2480,19 +2482,75 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateSearchPageFishingDock(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFishingDock(ServiceRequest serviceRequest, FishingDock result) {
     return "en-us/search/fishing-dock/FishingDockSearchPage.htm";
+  }
+  public void templateSearchPageFishingDock(JsonObject ctx, FishingDockPage page, SearchList<FishingDock> listFishingDock, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FishingDock result = listFishingDock.first();
+      String pageTemplateUri = templateUriSearchPageFishingDock(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFishingDock failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
   }
   public Future<ServiceResponse> response200SearchPageFishingDock(SearchList<FishingDock> listFishingDock) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateSearchPageFishingDock(siteRequest.getServiceRequest());
-      if(listFishingDock.size() == 0)
-        pageTemplateUri = templateSearchPageFishingDock(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
       FishingDockPage page = new FishingDockPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2511,22 +2569,32 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           Promise<Void> promise1 = Promise.promise();
           searchpageFishingDockPageInit(ctx, page, listFishingDock, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFishingDock(ctx, page, listFishingDock, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFishingDock failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200SearchPageFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2672,19 +2740,75 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     promise.complete();
   }
 
-  public String templateEditPageFishingDock(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFishingDock(ServiceRequest serviceRequest, FishingDock result) {
     return "en-us/edit/fishing-dock/FishingDockEditPage.htm";
+  }
+  public void templateEditPageFishingDock(JsonObject ctx, FishingDockPage page, SearchList<FishingDock> listFishingDock, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FishingDock result = listFishingDock.first();
+      String pageTemplateUri = templateUriEditPageFishingDock(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFishingDock failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
   }
   public Future<ServiceResponse> response200EditPageFishingDock(SearchList<FishingDock> listFishingDock) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingDock.getSiteRequest_(SiteRequest.class);
-      String pageTemplateUri = templateEditPageFishingDock(siteRequest.getServiceRequest());
-      if(listFishingDock.size() == 0)
-        pageTemplateUri = templateSearchPageFishingDock(siteRequest.getServiceRequest());
-      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
-      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
       FishingDockPage page = new FishingDockPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2703,22 +2827,32 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           Promise<Void> promise1 = Promise.promise();
           editpageFishingDockPageInit(ctx, page, listFishingDock, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFishingDock(ctx, page, listFishingDock, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFishingDock failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("response200EditPageFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("response200EditPageFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -2895,7 +3029,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise1.complete();
         }).onFailure(ex -> {
           LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
       }));
     });
@@ -2906,18 +3040,18 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete();
           }).onFailure(ex -> {
             LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete();
         }
       }).onFailure(ex -> {
         LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     }).onFailure(ex -> {
       LOG.error(String.format("listDELETEFilterFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     });
     return promise.future();
   }
@@ -3001,39 +3135,39 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 }
                 promise1.complete();
               }).onFailure(ex -> {
-                promise1.fail(ex);
+                promise1.tryFail(ex);
               });
             }).onFailure(ex -> {
-              promise1.fail(ex);
+              promise1.tryFail(ex);
             });
           }).onFailure(ex -> {
-            promise1.fail(ex);
+            promise1.tryFail(ex);
           });
         }).onFailure(ex -> {
-          promise1.fail(ex);
+          promise1.tryFail(ex);
         });
         return promise1.future();
       }).onSuccess(a -> {
         siteRequest.setSqlConnection(null);
       }).onFailure(ex -> {
         siteRequest.setSqlConnection(null);
-        promise.fail(ex);
+        promise.tryFail(ex);
       }).compose(fishingDock -> {
         Promise<FishingDock> promise2 = Promise.promise();
         refreshFishingDock(o).onSuccess(a -> {
           promise2.complete(o);
         }).onFailure(ex -> {
-          promise2.fail(ex);
+          promise2.tryFail(ex);
         });
         return promise2.future();
       }).onSuccess(fishingDock -> {
         promise.complete(fishingDock);
       }).onFailure(ex -> {
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("deletefilterFishingDockFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3072,10 +3206,10 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                   sql(siteRequest).update(FishingDock.class, pk).set(FishingDock.VAR_timeZone, TimeZone.class, null, null).onSuccess(a -> {
                     promise2.complete();
                   }).onFailure(ex -> {
-                    promise2.fail(ex);
+                    promise2.tryFail(ex);
                   });
                 }).onFailure(ex -> {
-                  promise2.fail(ex);
+                  promise2.tryFail(ex);
                 });
               }));
             });
@@ -3104,22 +3238,22 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               promise.complete();
             }).onFailure(ex -> {
               LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
-              promise.fail(ex);
+              promise.tryFail(ex);
             });
           } else {
             promise.complete();
           }
         }).onFailure(ex -> {
           LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("sqlDELETEFilterFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3139,7 +3273,7 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3166,11 +3300,11 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error("createFishingDock failed. ", ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("createFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3236,13 +3370,13 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           }
         } catch(Exception ex) {
           LOG.error(String.format("searchFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
       promise.complete();
     } catch(Exception ex) {
       LOG.error(String.format("searchFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3445,18 +3579,18 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             promise.complete(searchList);
           }).onFailure(ex -> {
             LOG.error(String.format("searchFishingDock failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } else {
           promise.complete(searchList);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("searchFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("searchFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3493,27 +3627,27 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 promise.complete();
               }).onFailure(ex -> {
                 LOG.error(String.format("persistFishingDock failed. "), ex);
-                promise.fail(ex);
+                promise.tryFail(ex);
               });
             } else {
               promise.complete();
             }
           }).onFailure(ex -> {
             LOG.error(String.format("persistFishingDock failed. "), ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         } catch(Exception ex) {
           LOG.error(String.format("persistFishingDock failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         RuntimeException ex2 = new RuntimeException(ex);
         LOG.error(String.format("persistFishingDock failed. "), ex2);
-        promise.fail(ex2);
+        promise.tryFail(ex2);
       });
     } catch(Exception ex) {
       LOG.error(String.format("persistFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3579,11 +3713,11 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         promise.complete();
       }).onFailure(ex -> {
         LOG.error(String.format("cbUpsertEntity failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbUpsertEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3618,11 +3752,11 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         promise.complete(entity);
       }).onFailure(ex -> {
         LOG.error(String.format("postIotServiceFuture failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Throwable ex) {
       LOG.error(String.format("postIotServiceFuture failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3649,12 +3783,12 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete();
         } else {
           LOG.error(String.format("cbDeleteEntity failed. "), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       });
     } catch(Throwable ex) {
       LOG.error(String.format("cbDeleteEntity failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3702,11 +3836,11 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         promise.complete(o);
       }).onFailure(ex -> {
         LOG.error(String.format("indexFishingDock failed. "), new RuntimeException(ex));
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("indexFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3739,15 +3873,15 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           promise.complete(o);
         }).onFailure(ex -> {
           LOG.error(String.format("unindexFishingDock failed. "), new RuntimeException(ex));
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       }).onFailure(ex -> {
         LOG.error(String.format("unindexFishingDock failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("unindexFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
@@ -3830,78 +3964,78 @@ public class FishingDockEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             if(statusCode.equals(200))
               promise.complete();
             else
-              promise.fail(new RuntimeException(responseMessage.getString("statusMessage")));
+              promise.tryFail(new RuntimeException(responseMessage.getString("statusMessage")));
           }).onFailure(ex -> {
             LOG.error("Refresh relations failed. ", ex);
-            promise.fail(ex);
+            promise.tryFail(ex);
           });
         }).onFailure(ex -> {
           LOG.error("Refresh relations failed. ", ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         });
       } else {
         promise.complete();
       }
     } catch(Exception ex) {
       LOG.error(String.format("refreshFishingDock failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }
 
   @Override
-  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName) {
+  public Future<JsonObject> generatePageBody(ComputateSiteRequest siteRequest, Map<String, Object> ctx, String templatePath, String classSimpleName, String pageTemplate) {
     Promise<JsonObject> promise = Promise.promise();
     try {
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      FishingDock page = new FishingDock();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      FishingDock o = new FishingDock();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(FishingDock.VAR_name, FishingDock.staticSetName(siteRequest2, (String)result.get(FishingDock.VAR_name)));
-      page.persistForClass(FishingDock.VAR_address, FishingDock.staticSetAddress(siteRequest2, (String)result.get(FishingDock.VAR_address)));
-      page.persistForClass(FishingDock.VAR_description, FishingDock.staticSetDescription(siteRequest2, (String)result.get(FishingDock.VAR_description)));
-      page.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
-      page.persistForClass(FishingDock.VAR_created, FishingDock.staticSetCreated(siteRequest2, (String)result.get(FishingDock.VAR_created), Optional.ofNullable(page.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
-      page.persistForClass(FishingDock.VAR_timeZone, FishingDock.staticSetTimeZone(siteRequest2, (String)result.get(FishingDock.VAR_timeZone)));
-      page.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));
-      page.persistForClass(FishingDock.VAR_entityShortId, FishingDock.staticSetEntityShortId(siteRequest2, (String)result.get(FishingDock.VAR_entityShortId)));
-      page.persistForClass(FishingDock.VAR_archived, FishingDock.staticSetArchived(siteRequest2, (String)result.get(FishingDock.VAR_archived)));
-      page.persistForClass(FishingDock.VAR_ngsildTenant, FishingDock.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingDock.VAR_ngsildTenant)));
-      page.persistForClass(FishingDock.VAR_ngsildPath, FishingDock.staticSetNgsildPath(siteRequest2, (String)result.get(FishingDock.VAR_ngsildPath)));
-      page.persistForClass(FishingDock.VAR_areaServed, FishingDock.staticSetAreaServed(siteRequest2, (String)result.get(FishingDock.VAR_areaServed)));
-      page.persistForClass(FishingDock.VAR_ngsildContext, FishingDock.staticSetNgsildContext(siteRequest2, (String)result.get(FishingDock.VAR_ngsildContext)));
-      page.persistForClass(FishingDock.VAR_ngsildData, FishingDock.staticSetNgsildData(siteRequest2, (String)result.get(FishingDock.VAR_ngsildData)));
-      page.persistForClass(FishingDock.VAR_sessionId, FishingDock.staticSetSessionId(siteRequest2, (String)result.get(FishingDock.VAR_sessionId)));
-      page.persistForClass(FishingDock.VAR_color, FishingDock.staticSetColor(siteRequest2, (String)result.get(FishingDock.VAR_color)));
-      page.persistForClass(FishingDock.VAR_userKey, FishingDock.staticSetUserKey(siteRequest2, (String)result.get(FishingDock.VAR_userKey)));
-      page.persistForClass(FishingDock.VAR_objectTitle, FishingDock.staticSetObjectTitle(siteRequest2, (String)result.get(FishingDock.VAR_objectTitle)));
-      page.persistForClass(FishingDock.VAR_displayPage, FishingDock.staticSetDisplayPage(siteRequest2, (String)result.get(FishingDock.VAR_displayPage)));
-      page.persistForClass(FishingDock.VAR_displayPageFrFR, FishingDock.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_displayPageFrFR)));
-      page.persistForClass(FishingDock.VAR_editPage, FishingDock.staticSetEditPage(siteRequest2, (String)result.get(FishingDock.VAR_editPage)));
-      page.persistForClass(FishingDock.VAR_editPageFrFR, FishingDock.staticSetEditPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_editPageFrFR)));
-      page.persistForClass(FishingDock.VAR_userPage, FishingDock.staticSetUserPage(siteRequest2, (String)result.get(FishingDock.VAR_userPage)));
-      page.persistForClass(FishingDock.VAR_userPageFrFR, FishingDock.staticSetUserPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_userPageFrFR)));
-      page.persistForClass(FishingDock.VAR_download, FishingDock.staticSetDownload(siteRequest2, (String)result.get(FishingDock.VAR_download)));
-      page.persistForClass(FishingDock.VAR_downloadFrFR, FishingDock.staticSetDownloadFrFR(siteRequest2, (String)result.get(FishingDock.VAR_downloadFrFR)));
+      o.persistForClass(FishingDock.VAR_name, FishingDock.staticSetName(siteRequest2, (String)result.get(FishingDock.VAR_name)));
+      o.persistForClass(FishingDock.VAR_address, FishingDock.staticSetAddress(siteRequest2, (String)result.get(FishingDock.VAR_address)));
+      o.persistForClass(FishingDock.VAR_description, FishingDock.staticSetDescription(siteRequest2, (String)result.get(FishingDock.VAR_description)));
+      o.persistForClass(FishingDock.VAR_location, FishingDock.staticSetLocation(siteRequest2, (String)result.get(FishingDock.VAR_location)));
+      o.persistForClass(FishingDock.VAR_created, FishingDock.staticSetCreated(siteRequest2, (String)result.get(FishingDock.VAR_created), Optional.ofNullable(o.getTimeZone()).map(v -> ZoneId.of(v)).orElse(Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC")))));
+      o.persistForClass(FishingDock.VAR_timeZone, FishingDock.staticSetTimeZone(siteRequest2, (String)result.get(FishingDock.VAR_timeZone)));
+      o.persistForClass(FishingDock.VAR_id, FishingDock.staticSetId(siteRequest2, (String)result.get(FishingDock.VAR_id)));
+      o.persistForClass(FishingDock.VAR_entityShortId, FishingDock.staticSetEntityShortId(siteRequest2, (String)result.get(FishingDock.VAR_entityShortId)));
+      o.persistForClass(FishingDock.VAR_archived, FishingDock.staticSetArchived(siteRequest2, (String)result.get(FishingDock.VAR_archived)));
+      o.persistForClass(FishingDock.VAR_ngsildTenant, FishingDock.staticSetNgsildTenant(siteRequest2, (String)result.get(FishingDock.VAR_ngsildTenant)));
+      o.persistForClass(FishingDock.VAR_ngsildPath, FishingDock.staticSetNgsildPath(siteRequest2, (String)result.get(FishingDock.VAR_ngsildPath)));
+      o.persistForClass(FishingDock.VAR_areaServed, FishingDock.staticSetAreaServed(siteRequest2, (String)result.get(FishingDock.VAR_areaServed)));
+      o.persistForClass(FishingDock.VAR_ngsildContext, FishingDock.staticSetNgsildContext(siteRequest2, (String)result.get(FishingDock.VAR_ngsildContext)));
+      o.persistForClass(FishingDock.VAR_ngsildData, FishingDock.staticSetNgsildData(siteRequest2, (String)result.get(FishingDock.VAR_ngsildData)));
+      o.persistForClass(FishingDock.VAR_sessionId, FishingDock.staticSetSessionId(siteRequest2, (String)result.get(FishingDock.VAR_sessionId)));
+      o.persistForClass(FishingDock.VAR_color, FishingDock.staticSetColor(siteRequest2, (String)result.get(FishingDock.VAR_color)));
+      o.persistForClass(FishingDock.VAR_userKey, FishingDock.staticSetUserKey(siteRequest2, (String)result.get(FishingDock.VAR_userKey)));
+      o.persistForClass(FishingDock.VAR_objectTitle, FishingDock.staticSetObjectTitle(siteRequest2, (String)result.get(FishingDock.VAR_objectTitle)));
+      o.persistForClass(FishingDock.VAR_displayPage, FishingDock.staticSetDisplayPage(siteRequest2, (String)result.get(FishingDock.VAR_displayPage)));
+      o.persistForClass(FishingDock.VAR_displayPageFrFR, FishingDock.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_displayPageFrFR)));
+      o.persistForClass(FishingDock.VAR_editPage, FishingDock.staticSetEditPage(siteRequest2, (String)result.get(FishingDock.VAR_editPage)));
+      o.persistForClass(FishingDock.VAR_editPageFrFR, FishingDock.staticSetEditPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_editPageFrFR)));
+      o.persistForClass(FishingDock.VAR_userPage, FishingDock.staticSetUserPage(siteRequest2, (String)result.get(FishingDock.VAR_userPage)));
+      o.persistForClass(FishingDock.VAR_userPageFrFR, FishingDock.staticSetUserPageFrFR(siteRequest2, (String)result.get(FishingDock.VAR_userPageFrFR)));
+      o.persistForClass(FishingDock.VAR_download, FishingDock.staticSetDownload(siteRequest2, (String)result.get(FishingDock.VAR_download)));
+      o.persistForClass(FishingDock.VAR_downloadFrFR, FishingDock.staticSetDownloadFrFR(siteRequest2, (String)result.get(FishingDock.VAR_downloadFrFR)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {
           LOG.error(String.format(importModelFail, classSimpleName), ex);
-          promise.fail(ex);
+          promise.tryFail(ex);
         }
       }).onFailure(ex -> {
         LOG.error(String.format("generatePageBody failed. "), ex);
-        promise.fail(ex);
+        promise.tryFail(ex);
       });
     } catch(Exception ex) {
       LOG.error(String.format("generatePageBody failed. "), ex);
-      promise.fail(ex);
+      promise.tryFail(ex);
     }
     return promise.future();
   }

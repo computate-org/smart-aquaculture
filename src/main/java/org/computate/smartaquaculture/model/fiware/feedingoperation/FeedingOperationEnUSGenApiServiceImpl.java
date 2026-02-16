@@ -74,6 +74,8 @@ import org.computate.vertx.config.ComputateConfigKeys;
 import io.vertx.ext.reactivestreams.ReactiveReadStream;
 import io.vertx.ext.reactivestreams.ReactiveWriteStream;
 import io.vertx.core.MultiMap;
+import org.computate.i18n.I18n;
+import org.yaml.snakeyaml.Yaml;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -780,14 +782,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDescription());
             break;
-          case "setLocation":
-              o2.setLocation(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_location + "=$" + num);
-              num++;
-              bParams.add(o2.sqlLocation());
-            break;
           case "setCreated":
               o2.setCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -795,6 +789,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               bSql.append(FeedingOperation.VAR_created + "=$" + num);
               num++;
               bParams.add(o2.sqlCreated());
+            break;
+          case "setLocation":
+              o2.setLocation(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FeedingOperation.VAR_location + "=$" + num);
+              num++;
+              bParams.add(o2.sqlLocation());
             break;
           case "setArchived":
               o2.setArchived(jsonObject.getString(entityVar));
@@ -828,14 +830,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlSessionId());
             break;
-          case "setNgsildTenant":
-              o2.setNgsildTenant(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_ngsildTenant + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildTenant());
-            break;
           case "setUserKey":
               o2.setUserKey(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -843,6 +837,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               bSql.append(FeedingOperation.VAR_userKey + "=$" + num);
               num++;
               bParams.add(o2.sqlUserKey());
+            break;
+          case "setNgsildTenant":
+              o2.setNgsildTenant(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FeedingOperation.VAR_ngsildTenant + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNgsildTenant());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -860,14 +862,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlNgsildContext());
             break;
-          case "setNgsildData":
-              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_ngsildData + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildData());
-            break;
           case "setObjectTitle":
               o2.setObjectTitle(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -876,13 +870,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlObjectTitle());
             break;
-          case "setAddress":
-              o2.setAddress(jsonObject.getJsonObject(entityVar));
+          case "setNgsildData":
+              o2.setNgsildData(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_address + "=$" + num);
+              bSql.append(FeedingOperation.VAR_ngsildData + "=$" + num);
               num++;
-              bParams.add(o2.sqlAddress());
+              bParams.add(o2.sqlNgsildData());
             break;
           case "setDisplayPage":
               o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -892,13 +886,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDisplayPage());
             break;
-          case "setAlternateName":
-              o2.setAlternateName(jsonObject.getString(entityVar));
+          case "setAddress":
+              o2.setAddress(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_alternateName + "=$" + num);
+              bSql.append(FeedingOperation.VAR_address + "=$" + num);
               num++;
-              bParams.add(o2.sqlAlternateName());
+              bParams.add(o2.sqlAddress());
             break;
           case "setDisplayPageFrFR":
               o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
@@ -908,13 +902,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDisplayPageFrFR());
             break;
-          case "setCategory":
-              o2.setCategory(jsonObject.getJsonObject(entityVar));
+          case "setAlternateName":
+              o2.setAlternateName(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_category + "=$" + num);
+              bSql.append(FeedingOperation.VAR_alternateName + "=$" + num);
               num++;
-              bParams.add(o2.sqlCategory());
+              bParams.add(o2.sqlAlternateName());
             break;
           case "setEditPage":
               o2.setEditPage(jsonObject.getString(entityVar));
@@ -924,13 +918,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlEditPage());
             break;
-          case "setDataProvider":
-              o2.setDataProvider(jsonObject.getString(entityVar));
+          case "setCategory":
+              o2.setCategory(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_dataProvider + "=$" + num);
+              bSql.append(FeedingOperation.VAR_category + "=$" + num);
               num++;
-              bParams.add(o2.sqlDataProvider());
+              bParams.add(o2.sqlCategory());
             break;
           case "setEditPageFrFR":
               o2.setEditPageFrFR(jsonObject.getString(entityVar));
@@ -940,13 +934,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlEditPageFrFR());
             break;
-          case "setDateCreated":
-              o2.setDateCreated(jsonObject.getString(entityVar));
+          case "setDataProvider":
+              o2.setDataProvider(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_dateCreated + "=$" + num);
+              bSql.append(FeedingOperation.VAR_dataProvider + "=$" + num);
               num++;
-              bParams.add(o2.sqlDateCreated());
+              bParams.add(o2.sqlDataProvider());
             break;
           case "setUserPage":
               o2.setUserPage(jsonObject.getString(entityVar));
@@ -956,13 +950,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlUserPage());
             break;
-          case "setDateModified":
-              o2.setDateModified(jsonObject.getString(entityVar));
+          case "setDateCreated":
+              o2.setDateCreated(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_dateModified + "=$" + num);
+              bSql.append(FeedingOperation.VAR_dateCreated + "=$" + num);
               num++;
-              bParams.add(o2.sqlDateModified());
+              bParams.add(o2.sqlDateCreated());
             break;
           case "setUserPageFrFR":
               o2.setUserPageFrFR(jsonObject.getString(entityVar));
@@ -972,13 +966,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlUserPageFrFR());
             break;
-          case "setEndpoint":
-              o2.setEndpoint(jsonObject.getString(entityVar));
+          case "setDateModified":
+              o2.setDateModified(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_endpoint + "=$" + num);
+              bSql.append(FeedingOperation.VAR_dateModified + "=$" + num);
               num++;
-              bParams.add(o2.sqlEndpoint());
+              bParams.add(o2.sqlDateModified());
             break;
           case "setDownload":
               o2.setDownload(jsonObject.getString(entityVar));
@@ -988,13 +982,13 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               num++;
               bParams.add(o2.sqlDownload());
             break;
-          case "setHasProvider":
-              o2.setHasProvider(jsonObject.getString(entityVar));
+          case "setEndpoint":
+              o2.setEndpoint(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
                 bSql.append(", ");
-              bSql.append(FeedingOperation.VAR_hasProvider + "=$" + num);
+              bSql.append(FeedingOperation.VAR_endpoint + "=$" + num);
               num++;
-              bParams.add(o2.sqlHasProvider());
+              bParams.add(o2.sqlEndpoint());
             break;
           case "setDownloadFrFR":
               o2.setDownloadFrFR(jsonObject.getString(entityVar));
@@ -1003,6 +997,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
               bSql.append(FeedingOperation.VAR_downloadFrFR + "=$" + num);
               num++;
               bParams.add(o2.sqlDownloadFrFR());
+            break;
+          case "setHasProvider":
+              o2.setHasProvider(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FeedingOperation.VAR_hasProvider + "=$" + num);
+              num++;
+              bParams.add(o2.sqlHasProvider());
             break;
           case "setOwner":
               o2.setOwner(jsonObject.getJsonObject(entityVar));
@@ -1418,15 +1420,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDescription());
             break;
-          case FeedingOperation.VAR_location:
-            o2.setLocation(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FeedingOperation.VAR_location + "=$" + num);
-            num++;
-            bParams.add(o2.sqlLocation());
-            break;
           case FeedingOperation.VAR_created:
             o2.setCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1435,6 +1428,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             bSql.append(FeedingOperation.VAR_created + "=$" + num);
             num++;
             bParams.add(o2.sqlCreated());
+            break;
+          case FeedingOperation.VAR_location:
+            o2.setLocation(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FeedingOperation.VAR_location + "=$" + num);
+            num++;
+            bParams.add(o2.sqlLocation());
             break;
           case FeedingOperation.VAR_archived:
             o2.setArchived(jsonObject.getString(entityVar));
@@ -1472,15 +1474,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlSessionId());
             break;
-          case FeedingOperation.VAR_ngsildTenant:
-            o2.setNgsildTenant(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FeedingOperation.VAR_ngsildTenant + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildTenant());
-            break;
           case FeedingOperation.VAR_userKey:
             o2.setUserKey(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1489,6 +1482,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             bSql.append(FeedingOperation.VAR_userKey + "=$" + num);
             num++;
             bParams.add(o2.sqlUserKey());
+            break;
+          case FeedingOperation.VAR_ngsildTenant:
+            o2.setNgsildTenant(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FeedingOperation.VAR_ngsildTenant + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNgsildTenant());
             break;
           case FeedingOperation.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1508,15 +1510,6 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlNgsildContext());
             break;
-          case FeedingOperation.VAR_ngsildData:
-            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FeedingOperation.VAR_ngsildData + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildData());
-            break;
           case FeedingOperation.VAR_objectTitle:
             o2.setObjectTitle(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1526,14 +1519,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlObjectTitle());
             break;
-          case FeedingOperation.VAR_address:
-            o2.setAddress(jsonObject.getJsonObject(entityVar));
+          case FeedingOperation.VAR_ngsildData:
+            o2.setNgsildData(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_address + "=$" + num);
+            bSql.append(FeedingOperation.VAR_ngsildData + "=$" + num);
             num++;
-            bParams.add(o2.sqlAddress());
+            bParams.add(o2.sqlNgsildData());
             break;
           case FeedingOperation.VAR_displayPage:
             o2.setDisplayPage(jsonObject.getString(entityVar));
@@ -1544,14 +1537,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDisplayPage());
             break;
-          case FeedingOperation.VAR_alternateName:
-            o2.setAlternateName(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_address:
+            o2.setAddress(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_alternateName + "=$" + num);
+            bSql.append(FeedingOperation.VAR_address + "=$" + num);
             num++;
-            bParams.add(o2.sqlAlternateName());
+            bParams.add(o2.sqlAddress());
             break;
           case FeedingOperation.VAR_displayPageFrFR:
             o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
@@ -1562,14 +1555,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDisplayPageFrFR());
             break;
-          case FeedingOperation.VAR_category:
-            o2.setCategory(jsonObject.getJsonObject(entityVar));
+          case FeedingOperation.VAR_alternateName:
+            o2.setAlternateName(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_category + "=$" + num);
+            bSql.append(FeedingOperation.VAR_alternateName + "=$" + num);
             num++;
-            bParams.add(o2.sqlCategory());
+            bParams.add(o2.sqlAlternateName());
             break;
           case FeedingOperation.VAR_editPage:
             o2.setEditPage(jsonObject.getString(entityVar));
@@ -1580,14 +1573,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlEditPage());
             break;
-          case FeedingOperation.VAR_dataProvider:
-            o2.setDataProvider(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_category:
+            o2.setCategory(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_dataProvider + "=$" + num);
+            bSql.append(FeedingOperation.VAR_category + "=$" + num);
             num++;
-            bParams.add(o2.sqlDataProvider());
+            bParams.add(o2.sqlCategory());
             break;
           case FeedingOperation.VAR_editPageFrFR:
             o2.setEditPageFrFR(jsonObject.getString(entityVar));
@@ -1598,14 +1591,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlEditPageFrFR());
             break;
-          case FeedingOperation.VAR_dateCreated:
-            o2.setDateCreated(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_dataProvider:
+            o2.setDataProvider(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_dateCreated + "=$" + num);
+            bSql.append(FeedingOperation.VAR_dataProvider + "=$" + num);
             num++;
-            bParams.add(o2.sqlDateCreated());
+            bParams.add(o2.sqlDataProvider());
             break;
           case FeedingOperation.VAR_userPage:
             o2.setUserPage(jsonObject.getString(entityVar));
@@ -1616,14 +1609,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlUserPage());
             break;
-          case FeedingOperation.VAR_dateModified:
-            o2.setDateModified(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_dateCreated:
+            o2.setDateCreated(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_dateModified + "=$" + num);
+            bSql.append(FeedingOperation.VAR_dateCreated + "=$" + num);
             num++;
-            bParams.add(o2.sqlDateModified());
+            bParams.add(o2.sqlDateCreated());
             break;
           case FeedingOperation.VAR_userPageFrFR:
             o2.setUserPageFrFR(jsonObject.getString(entityVar));
@@ -1634,14 +1627,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlUserPageFrFR());
             break;
-          case FeedingOperation.VAR_endpoint:
-            o2.setEndpoint(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_dateModified:
+            o2.setDateModified(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_endpoint + "=$" + num);
+            bSql.append(FeedingOperation.VAR_dateModified + "=$" + num);
             num++;
-            bParams.add(o2.sqlEndpoint());
+            bParams.add(o2.sqlDateModified());
             break;
           case FeedingOperation.VAR_download:
             o2.setDownload(jsonObject.getString(entityVar));
@@ -1652,14 +1645,14 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             num++;
             bParams.add(o2.sqlDownload());
             break;
-          case FeedingOperation.VAR_hasProvider:
-            o2.setHasProvider(jsonObject.getString(entityVar));
+          case FeedingOperation.VAR_endpoint:
+            o2.setEndpoint(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
               bSql.append(", ");
             }
-            bSql.append(FeedingOperation.VAR_hasProvider + "=$" + num);
+            bSql.append(FeedingOperation.VAR_endpoint + "=$" + num);
             num++;
-            bParams.add(o2.sqlHasProvider());
+            bParams.add(o2.sqlEndpoint());
             break;
           case FeedingOperation.VAR_downloadFrFR:
             o2.setDownloadFrFR(jsonObject.getString(entityVar));
@@ -1669,6 +1662,15 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
             bSql.append(FeedingOperation.VAR_downloadFrFR + "=$" + num);
             num++;
             bParams.add(o2.sqlDownloadFrFR());
+            break;
+          case FeedingOperation.VAR_hasProvider:
+            o2.setHasProvider(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FeedingOperation.VAR_hasProvider + "=$" + num);
+            num++;
+            bParams.add(o2.sqlHasProvider());
             break;
           case FeedingOperation.VAR_owner:
             o2.setOwner(jsonObject.getJsonObject(entityVar));
@@ -2577,27 +2579,75 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
     promise.complete();
   }
 
-  public String templateUriSearchPageFeedingOperation(ServiceRequest serviceRequest) {
+  public String templateUriSearchPageFeedingOperation(ServiceRequest serviceRequest, FeedingOperation result) {
     return "en-us/search/feeding-operation/FeedingOperationSearchPage.htm";
   }
-  public String templateSearchPageFeedingOperation(ServiceRequest serviceRequest, FeedingOperation result) {
-    String template = null;
+  public void templateSearchPageFeedingOperation(JsonObject ctx, FeedingOperationPage page, SearchList<FeedingOperation> listFeedingOperation, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriSearchPageFeedingOperation(serviceRequest);
+      SiteRequest siteRequest = listFeedingOperation.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FeedingOperation result = listFeedingOperation.first();
+      String pageTemplateUri = templateUriSearchPageFeedingOperation(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateSearchPageFeedingOperation failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200SearchPageFeedingOperation(SearchList<FeedingOperation> listFeedingOperation) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeedingOperation.getSiteRequest_(SiteRequest.class);
-      String template = templateSearchPageFeedingOperation(siteRequest.getServiceRequest(), listFeedingOperation.first());
       FeedingOperationPage page = new FeedingOperationPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2616,9 +2666,19 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           Promise<Void> promise1 = Promise.promise();
           searchpageFeedingOperationPageInit(ctx, page, listFeedingOperation, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFeedingOperation(ctx, page, listFeedingOperation, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFeedingOperation failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -2777,27 +2837,75 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
     promise.complete();
   }
 
-  public String templateUriEditPageFeedingOperation(ServiceRequest serviceRequest) {
+  public String templateUriEditPageFeedingOperation(ServiceRequest serviceRequest, FeedingOperation result) {
     return "en-us/edit/feeding-operation/FeedingOperationEditPage.htm";
   }
-  public String templateEditPageFeedingOperation(ServiceRequest serviceRequest, FeedingOperation result) {
-    String template = null;
+  public void templateEditPageFeedingOperation(JsonObject ctx, FeedingOperationPage page, SearchList<FeedingOperation> listFeedingOperation, Promise<String> promise) {
     try {
-      String pageTemplateUri = templateUriEditPageFeedingOperation(serviceRequest);
+      SiteRequest siteRequest = listFeedingOperation.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FeedingOperation result = listFeedingOperation.first();
+      String pageTemplateUri = templateUriEditPageFeedingOperation(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+      if(pageTemplateUri.endsWith(".md")) {
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
     } catch(Exception ex) {
       LOG.error(String.format("templateEditPageFeedingOperation failed. "), ex);
       ExceptionUtils.rethrow(ex);
     }
-    return template;
   }
   public Future<ServiceResponse> response200EditPageFeedingOperation(SearchList<FeedingOperation> listFeedingOperation) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFeedingOperation.getSiteRequest_(SiteRequest.class);
-      String template = templateEditPageFeedingOperation(siteRequest.getServiceRequest(), listFeedingOperation.first());
       FeedingOperationPage page = new FeedingOperationPage();
       MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
       siteRequest.setRequestHeaders(requestHeaders);
@@ -2816,9 +2924,19 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
           Promise<Void> promise1 = Promise.promise();
           editpageFeedingOperationPageInit(ctx, page, listFeedingOperation, promise1);
           promise1.future().onSuccess(b -> {
-            String renderedTemplate = jinjava.render(template, ctx.getMap());
-            Buffer buffer = Buffer.buffer(renderedTemplate);
-            promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFeedingOperation(ctx, page, listFeedingOperation, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFeedingOperation failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
           }).onFailure(ex -> {
             promise.tryFail(ex);
           });
@@ -3562,7 +3680,7 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, location, created, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, ngsildTenant, userKey, ngsildPath, ngsildContext, ngsildData, objectTitle, address, displayPage, alternateName, displayPageFrFR, category, editPage, dataProvider, editPageFrFR, dateCreated, userPage, dateModified, userPageFrFR, endpoint, download, hasProvider, downloadFrFR, owner, relatedSource, seeAlso, source, version FROM FeedingOperation WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, created, location, archived, ST_AsGeoJSON(areaServed) as areaServed, id, sessionId, userKey, ngsildTenant, ngsildPath, ngsildContext, objectTitle, ngsildData, displayPage, address, displayPageFrFR, alternateName, editPage, category, editPageFrFR, dataProvider, userPage, dateCreated, userPageFrFR, dateModified, download, endpoint, downloadFrFR, hasProvider, owner, relatedSource, seeAlso, source, version FROM FeedingOperation WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -3914,48 +4032,48 @@ public class FeedingOperationEnUSGenApiServiceImpl extends BaseApiServiceImpl im
       Map<String, Object> result = (Map<String, Object>)ctx.get("result");
       SiteRequest siteRequest2 = (SiteRequest)siteRequest;
       String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
-      FeedingOperation page = new FeedingOperation();
-      page.setSiteRequest_((SiteRequest)siteRequest);
+      FeedingOperation o = new FeedingOperation();
+      o.setSiteRequest_((SiteRequest)siteRequest);
 
-      page.persistForClass(FeedingOperation.VAR_name, FeedingOperation.staticSetName(siteRequest2, (String)result.get(FeedingOperation.VAR_name)));
-      page.persistForClass(FeedingOperation.VAR_description, FeedingOperation.staticSetDescription(siteRequest2, (String)result.get(FeedingOperation.VAR_description)));
-      page.persistForClass(FeedingOperation.VAR_location, FeedingOperation.staticSetLocation(siteRequest2, (String)result.get(FeedingOperation.VAR_location)));
-      page.persistForClass(FeedingOperation.VAR_created, FeedingOperation.staticSetCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
-      page.persistForClass(FeedingOperation.VAR_archived, FeedingOperation.staticSetArchived(siteRequest2, (String)result.get(FeedingOperation.VAR_archived)));
-      page.persistForClass(FeedingOperation.VAR_areaServed, FeedingOperation.staticSetAreaServed(siteRequest2, (String)result.get(FeedingOperation.VAR_areaServed)));
-      page.persistForClass(FeedingOperation.VAR_id, FeedingOperation.staticSetId(siteRequest2, (String)result.get(FeedingOperation.VAR_id)));
-      page.persistForClass(FeedingOperation.VAR_sessionId, FeedingOperation.staticSetSessionId(siteRequest2, (String)result.get(FeedingOperation.VAR_sessionId)));
-      page.persistForClass(FeedingOperation.VAR_ngsildTenant, FeedingOperation.staticSetNgsildTenant(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildTenant)));
-      page.persistForClass(FeedingOperation.VAR_userKey, FeedingOperation.staticSetUserKey(siteRequest2, (String)result.get(FeedingOperation.VAR_userKey)));
-      page.persistForClass(FeedingOperation.VAR_ngsildPath, FeedingOperation.staticSetNgsildPath(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildPath)));
-      page.persistForClass(FeedingOperation.VAR_ngsildContext, FeedingOperation.staticSetNgsildContext(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildContext)));
-      page.persistForClass(FeedingOperation.VAR_ngsildData, FeedingOperation.staticSetNgsildData(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildData)));
-      page.persistForClass(FeedingOperation.VAR_objectTitle, FeedingOperation.staticSetObjectTitle(siteRequest2, (String)result.get(FeedingOperation.VAR_objectTitle)));
-      page.persistForClass(FeedingOperation.VAR_address, FeedingOperation.staticSetAddress(siteRequest2, (String)result.get(FeedingOperation.VAR_address)));
-      page.persistForClass(FeedingOperation.VAR_displayPage, FeedingOperation.staticSetDisplayPage(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPage)));
-      page.persistForClass(FeedingOperation.VAR_alternateName, FeedingOperation.staticSetAlternateName(siteRequest2, (String)result.get(FeedingOperation.VAR_alternateName)));
-      page.persistForClass(FeedingOperation.VAR_displayPageFrFR, FeedingOperation.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPageFrFR)));
-      page.persistForClass(FeedingOperation.VAR_category, FeedingOperation.staticSetCategory(siteRequest2, (String)result.get(FeedingOperation.VAR_category)));
-      page.persistForClass(FeedingOperation.VAR_editPage, FeedingOperation.staticSetEditPage(siteRequest2, (String)result.get(FeedingOperation.VAR_editPage)));
-      page.persistForClass(FeedingOperation.VAR_dataProvider, FeedingOperation.staticSetDataProvider(siteRequest2, (String)result.get(FeedingOperation.VAR_dataProvider)));
-      page.persistForClass(FeedingOperation.VAR_editPageFrFR, FeedingOperation.staticSetEditPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_editPageFrFR)));
-      page.persistForClass(FeedingOperation.VAR_dateCreated, FeedingOperation.staticSetDateCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_dateCreated)));
-      page.persistForClass(FeedingOperation.VAR_userPage, FeedingOperation.staticSetUserPage(siteRequest2, (String)result.get(FeedingOperation.VAR_userPage)));
-      page.persistForClass(FeedingOperation.VAR_dateModified, FeedingOperation.staticSetDateModified(siteRequest2, (String)result.get(FeedingOperation.VAR_dateModified)));
-      page.persistForClass(FeedingOperation.VAR_userPageFrFR, FeedingOperation.staticSetUserPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_userPageFrFR)));
-      page.persistForClass(FeedingOperation.VAR_endpoint, FeedingOperation.staticSetEndpoint(siteRequest2, (String)result.get(FeedingOperation.VAR_endpoint)));
-      page.persistForClass(FeedingOperation.VAR_download, FeedingOperation.staticSetDownload(siteRequest2, (String)result.get(FeedingOperation.VAR_download)));
-      page.persistForClass(FeedingOperation.VAR_hasProvider, FeedingOperation.staticSetHasProvider(siteRequest2, (String)result.get(FeedingOperation.VAR_hasProvider)));
-      page.persistForClass(FeedingOperation.VAR_downloadFrFR, FeedingOperation.staticSetDownloadFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_downloadFrFR)));
-      page.persistForClass(FeedingOperation.VAR_owner, FeedingOperation.staticSetOwner(siteRequest2, (String)result.get(FeedingOperation.VAR_owner)));
-      page.persistForClass(FeedingOperation.VAR_relatedSource, FeedingOperation.staticSetRelatedSource(siteRequest2, (String)result.get(FeedingOperation.VAR_relatedSource)));
-      page.persistForClass(FeedingOperation.VAR_seeAlso, FeedingOperation.staticSetSeeAlso(siteRequest2, (String)result.get(FeedingOperation.VAR_seeAlso)));
-      page.persistForClass(FeedingOperation.VAR_source, FeedingOperation.staticSetSource(siteRequest2, (String)result.get(FeedingOperation.VAR_source)));
-      page.persistForClass(FeedingOperation.VAR_version, FeedingOperation.staticSetVersion(siteRequest2, (String)result.get(FeedingOperation.VAR_version)));
+      o.persistForClass(FeedingOperation.VAR_name, FeedingOperation.staticSetName(siteRequest2, (String)result.get(FeedingOperation.VAR_name)));
+      o.persistForClass(FeedingOperation.VAR_description, FeedingOperation.staticSetDescription(siteRequest2, (String)result.get(FeedingOperation.VAR_description)));
+      o.persistForClass(FeedingOperation.VAR_created, FeedingOperation.staticSetCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      o.persistForClass(FeedingOperation.VAR_location, FeedingOperation.staticSetLocation(siteRequest2, (String)result.get(FeedingOperation.VAR_location)));
+      o.persistForClass(FeedingOperation.VAR_archived, FeedingOperation.staticSetArchived(siteRequest2, (String)result.get(FeedingOperation.VAR_archived)));
+      o.persistForClass(FeedingOperation.VAR_areaServed, FeedingOperation.staticSetAreaServed(siteRequest2, (String)result.get(FeedingOperation.VAR_areaServed)));
+      o.persistForClass(FeedingOperation.VAR_id, FeedingOperation.staticSetId(siteRequest2, (String)result.get(FeedingOperation.VAR_id)));
+      o.persistForClass(FeedingOperation.VAR_sessionId, FeedingOperation.staticSetSessionId(siteRequest2, (String)result.get(FeedingOperation.VAR_sessionId)));
+      o.persistForClass(FeedingOperation.VAR_userKey, FeedingOperation.staticSetUserKey(siteRequest2, (String)result.get(FeedingOperation.VAR_userKey)));
+      o.persistForClass(FeedingOperation.VAR_ngsildTenant, FeedingOperation.staticSetNgsildTenant(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildTenant)));
+      o.persistForClass(FeedingOperation.VAR_ngsildPath, FeedingOperation.staticSetNgsildPath(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildPath)));
+      o.persistForClass(FeedingOperation.VAR_ngsildContext, FeedingOperation.staticSetNgsildContext(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildContext)));
+      o.persistForClass(FeedingOperation.VAR_objectTitle, FeedingOperation.staticSetObjectTitle(siteRequest2, (String)result.get(FeedingOperation.VAR_objectTitle)));
+      o.persistForClass(FeedingOperation.VAR_ngsildData, FeedingOperation.staticSetNgsildData(siteRequest2, (String)result.get(FeedingOperation.VAR_ngsildData)));
+      o.persistForClass(FeedingOperation.VAR_displayPage, FeedingOperation.staticSetDisplayPage(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPage)));
+      o.persistForClass(FeedingOperation.VAR_address, FeedingOperation.staticSetAddress(siteRequest2, (String)result.get(FeedingOperation.VAR_address)));
+      o.persistForClass(FeedingOperation.VAR_displayPageFrFR, FeedingOperation.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_displayPageFrFR)));
+      o.persistForClass(FeedingOperation.VAR_alternateName, FeedingOperation.staticSetAlternateName(siteRequest2, (String)result.get(FeedingOperation.VAR_alternateName)));
+      o.persistForClass(FeedingOperation.VAR_editPage, FeedingOperation.staticSetEditPage(siteRequest2, (String)result.get(FeedingOperation.VAR_editPage)));
+      o.persistForClass(FeedingOperation.VAR_category, FeedingOperation.staticSetCategory(siteRequest2, (String)result.get(FeedingOperation.VAR_category)));
+      o.persistForClass(FeedingOperation.VAR_editPageFrFR, FeedingOperation.staticSetEditPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_editPageFrFR)));
+      o.persistForClass(FeedingOperation.VAR_dataProvider, FeedingOperation.staticSetDataProvider(siteRequest2, (String)result.get(FeedingOperation.VAR_dataProvider)));
+      o.persistForClass(FeedingOperation.VAR_userPage, FeedingOperation.staticSetUserPage(siteRequest2, (String)result.get(FeedingOperation.VAR_userPage)));
+      o.persistForClass(FeedingOperation.VAR_dateCreated, FeedingOperation.staticSetDateCreated(siteRequest2, (String)result.get(FeedingOperation.VAR_dateCreated)));
+      o.persistForClass(FeedingOperation.VAR_userPageFrFR, FeedingOperation.staticSetUserPageFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_userPageFrFR)));
+      o.persistForClass(FeedingOperation.VAR_dateModified, FeedingOperation.staticSetDateModified(siteRequest2, (String)result.get(FeedingOperation.VAR_dateModified)));
+      o.persistForClass(FeedingOperation.VAR_download, FeedingOperation.staticSetDownload(siteRequest2, (String)result.get(FeedingOperation.VAR_download)));
+      o.persistForClass(FeedingOperation.VAR_endpoint, FeedingOperation.staticSetEndpoint(siteRequest2, (String)result.get(FeedingOperation.VAR_endpoint)));
+      o.persistForClass(FeedingOperation.VAR_downloadFrFR, FeedingOperation.staticSetDownloadFrFR(siteRequest2, (String)result.get(FeedingOperation.VAR_downloadFrFR)));
+      o.persistForClass(FeedingOperation.VAR_hasProvider, FeedingOperation.staticSetHasProvider(siteRequest2, (String)result.get(FeedingOperation.VAR_hasProvider)));
+      o.persistForClass(FeedingOperation.VAR_owner, FeedingOperation.staticSetOwner(siteRequest2, (String)result.get(FeedingOperation.VAR_owner)));
+      o.persistForClass(FeedingOperation.VAR_relatedSource, FeedingOperation.staticSetRelatedSource(siteRequest2, (String)result.get(FeedingOperation.VAR_relatedSource)));
+      o.persistForClass(FeedingOperation.VAR_seeAlso, FeedingOperation.staticSetSeeAlso(siteRequest2, (String)result.get(FeedingOperation.VAR_seeAlso)));
+      o.persistForClass(FeedingOperation.VAR_source, FeedingOperation.staticSetSource(siteRequest2, (String)result.get(FeedingOperation.VAR_source)));
+      o.persistForClass(FeedingOperation.VAR_version, FeedingOperation.staticSetVersion(siteRequest2, (String)result.get(FeedingOperation.VAR_version)));
 
-      page.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o -> {
+      o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {
-          JsonObject data = JsonObject.mapFrom(o);
+          JsonObject data = JsonObject.mapFrom(o2);
           ctx.put("result", data.getMap());
           promise.complete(data);
         } catch(Exception ex) {

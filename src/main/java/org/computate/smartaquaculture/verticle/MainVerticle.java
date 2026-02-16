@@ -176,12 +176,12 @@ import org.computate.smartaquaculture.model.event.CompanyEvent;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSGenApiService;
 import org.computate.smartaquaculture.model.timezone.TimeZoneEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.timezone.TimeZone;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePage;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
@@ -357,14 +357,14 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       apiTimeZone.setVertx(vertx);
       apiTimeZone.setConfig(config);
       apiTimeZone.setWebClient(webClient);
-      MapModelEnUSApiServiceImpl apiMapModel = new MapModelEnUSApiServiceImpl();
-      apiMapModel.setVertx(vertx);
-      apiMapModel.setConfig(config);
-      apiMapModel.setWebClient(webClient);
       SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
       apiSitePage.setVertx(vertx);
       apiSitePage.setConfig(config);
       apiSitePage.setWebClient(webClient);
+      MapModelEnUSApiServiceImpl apiMapModel = new MapModelEnUSApiServiceImpl();
+      apiMapModel.setVertx(vertx);
+      apiMapModel.setConfig(config);
+      apiMapModel.setWebClient(webClient);
       FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
       apiFishPopulation.setVertx(vertx);
       apiFishPopulation.setConfig(config);
@@ -405,17 +405,17 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       apiSeaportFacility.setVertx(vertx);
       apiSeaportFacility.setConfig(config);
       apiSeaportFacility.setWebClient(webClient);
-      apiSiteUser.createAuthorizationScopes().onSuccess(authToken -> {
+      apiSiteUser.createAuthorizationScopes(new String[] { "Admin", "DELETE", "GET", "PATCH", "POST", "SuperAdmin", "GETManager" }).onSuccess(authToken -> {
           apiCompanyEvent.authorizeGroupData(authToken, CompanyEvent.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
               .compose(q2 -> apiCompanyEvent.authorizeGroupData(authToken, CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
               .onSuccess(q2 -> {
             apiTimeZone.authorizeGroupData(authToken, TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" })
                 .onSuccess(q3 -> {
-              apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_AUTH_RESOURCE, "MapModelViewer", new String[] { "GET" })
-                  .compose(q4 -> apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_AUTH_RESOURCE, "Admin", new String[] { "GET" }))
+              apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
+                  .compose(q4 -> apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
                   .onSuccess(q4 -> {
-                apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "Admin", new String[] { "POST", "PATCH", "GET", "DELETE", "Admin" })
-                    .compose(q5 -> apiSitePage.authorizeGroupData(authToken, SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin", new String[] { "POST", "PATCH", "GET", "DELETE", "SuperAdmin" }))
+                apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_AUTH_RESOURCE, "MapModelViewer", new String[] { "GET" })
+                    .compose(q5 -> apiMapModel.authorizeGroupData(authToken, MapModel.CLASS_AUTH_RESOURCE, "Admin", new String[] { "GET" }))
                     .onSuccess(q5 -> {
                   apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "FishPopulationViewer", new String[] { "GET" })
                       .compose(q6 -> apiFishPopulation.authorizeGroupData(authToken, FishPopulation.CLASS_AUTH_RESOURCE, "FishPopulationEditor", new String[] { "GET", "POST", "PATCH" }))
@@ -890,7 +890,8 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
         Map<String, String> kafkaConfig = new HashMap<>();
         kafkaConfig.put("bootstrap.servers", config().getString(ConfigKeys.KAFKA_BROKERS));
         kafkaConfig.put("acks", "1");
-        kafkaConfig.put("security.protocol", "SSL");
+        if(StringUtils.isNotBlank(config().getString(ConfigKeys.KAFKA_SECURITY_PROTOCOL)))
+          kafkaConfig.put("security.protocol", config().getString(ConfigKeys.KAFKA_SECURITY_PROTOCOL));
         kafkaConfig.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         kafkaConfig.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         kafkaConfig.put("group.id", config().getString(ConfigKeys.KAFKA_GROUP));
@@ -913,7 +914,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
               
         // use consumer for interacting with Apache Kafka
         kafkaConsumer = KafkaConsumer.create(vertx, kafkaConfig);
-        SiteRoutes.kafkaConsumer(vertx, kafkaConsumer, config()).onSuccess(a -> {
+        SiteRoutes.kafkaConsumer(vertx, kafkaConsumer, config(), webClient).onSuccess(a -> {
           LOG.info("The Kafka producer was initialized successfully. ");
           promise.complete(kafkaProducer);
         }).onFailure(ex -> {
@@ -1480,8 +1481,8 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
     Promise<Void> promise = Promise.promise();
     try {
       List<Future<?>> futures = new ArrayList<>();
-      List<String> authClassSimpleNames = Arrays.asList("CompanyEvent","MapModel","SitePage","FishPopulation","FishingDock","FishingBoat","FishFarm","FishProcessing","FishingTrip","SeaportFacility");
-      List<String> authResources = Arrays.asList("COMPANYEVENT","MAPMODEL","SITEPAGE","FISHPOPULATION","FISHINGDOCK","FISHINGBOAT","FISHFARM","FISHPROCESSING","FISHINGTRIP","SEAPORTFACILITY");
+      List<String> authClassSimpleNames = Arrays.asList("CompanyEvent","SitePage","MapModel","FishPopulation","FishingDock","FishingBoat","FishFarm","FishProcessing","FishingTrip","SeaportFacility");
+      List<String> authResources = Arrays.asList("COMPANYEVENT","SITEPAGE","MAPMODEL","FISHPOPULATION","FISHINGDOCK","FISHINGBOAT","FISHFARM","FISHPROCESSING","FISHINGTRIP","SEAPORTFACILITY");
       List<String> publicClassSimpleNames = Arrays.asList("CompanyEvent","SitePage");
       SiteUserEnUSApiServiceImpl apiSiteUser = new SiteUserEnUSApiServiceImpl();
       initializeApiService(apiSiteUser);
@@ -1497,13 +1498,13 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
       initializeApiService(apiTimeZone);
       registerApiService(TimeZoneEnUSGenApiService.class, apiTimeZone, TimeZone.getClassApiAddress());
 
-      MapModelEnUSApiServiceImpl apiMapModel = new MapModelEnUSApiServiceImpl();
-      initializeApiService(apiMapModel);
-      registerApiService(MapModelEnUSGenApiService.class, apiMapModel, MapModel.getClassApiAddress());
-
       SitePageEnUSApiServiceImpl apiSitePage = new SitePageEnUSApiServiceImpl();
       initializeApiService(apiSitePage);
       registerApiService(SitePageEnUSGenApiService.class, apiSitePage, SitePage.getClassApiAddress());
+
+      MapModelEnUSApiServiceImpl apiMapModel = new MapModelEnUSApiServiceImpl();
+      initializeApiService(apiMapModel);
+      registerApiService(MapModelEnUSGenApiService.class, apiMapModel, MapModel.getClassApiAddress());
 
       FishPopulationEnUSApiServiceImpl apiFishPopulation = new FishPopulationEnUSApiServiceImpl();
       initializeApiService(apiFishPopulation);

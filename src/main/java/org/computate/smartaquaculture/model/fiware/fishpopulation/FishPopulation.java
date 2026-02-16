@@ -47,11 +47,9 @@ import io.vertx.pgclient.data.Polygon;
  * ApiMethod:
  *   SearchPageFrFR:
  *     Language: frFR
- *     Page: FishPopulationPage
  *     ApiUri: /fr-fr/rechercher/population-poissons
  *   EditPageFrFR:
  *     Language: frFR
- *     Page: FishPopulationPage
  *     ApiUri: /fr-fr/edition/population-poissons/{entityShortId}
  *   Search:
  *   GET:

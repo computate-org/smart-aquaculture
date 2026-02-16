@@ -86,8 +86,6 @@ public class FishProcessing extends FishProcessingGen<MapModel> {
 
   /**
    * {@inheritDoc}
-  
-   * LocationColor: true
    * Indexed: true
    * Stored: true
    * DisplayName: area served colors
@@ -98,7 +96,7 @@ public class FishProcessing extends FishProcessingGen<MapModel> {
 
   /**
    * {@inheritDoc}
-   * LocationTitle: true
+   * AreaTitle: true
    * Indexed: true
    * Stored: true
    * DisplayName: area served titles
@@ -109,7 +107,7 @@ public class FishProcessing extends FishProcessingGen<MapModel> {
 
   /**
    * {@inheritDoc}
-   * LocationUrl: true
+   * AreaUrl: true
    * Indexed: true
    * Stored: true
    * DisplayName: area served links

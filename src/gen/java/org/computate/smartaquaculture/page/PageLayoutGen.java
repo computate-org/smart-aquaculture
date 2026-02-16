@@ -135,15 +135,21 @@ import io.vertx.core.Future;
  * <h2>AName.enUS: null</h2>
  * <p>
  * Delete the class PageLayout in Solr: 
- * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
+ * <pre>
+ * curl -k 'https://solr.apps-crc.testing/solr/computate/update?commitWithin=1000&amp;overwrite=true&amp;wt=json' -X POST -H 'Content-type: text/xml' -u "admin:$(oc -n solr get secret/solr-solrcloud-security-bootstrap -o jsonpath={.data.admin} | base64 -d)" --data-raw '&lt;delete&gt;&lt;query&gt;classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&lt;/query&gt;&lt;/delete&gt;'
+ * </pre>
  * </p>
  * <p>
  * Delete  the package org.computate.smartaquaculture.page in Solr: 
- * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;classeNomEnsemble_enUS_indexed_string:org.computate.smartaquaculture.page&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
+ * <pre>
+ * curl -k 'https://solr.apps-crc.testing/solr/computate/update?commitWithin=1000&amp;overwrite=true&amp;wt=json' -X POST -H 'Content-type: text/xml' -u "admin:$(oc -n solr get secret/solr-solrcloud-security-bootstrap -o jsonpath={.data.admin} | base64 -d)" --data-raw '&lt;delete&gt;&lt;query&gt;classeNomEnsemble_enUS_indexed_string:org.computate.smartaquaculture.page&lt;/query&gt;&lt;/delete&gt;'
+ * </pre>
  * </p>
  * <p>
  * Delete  the project smart-aquaculture in Solr: 
- * curl -k 'https://solr.apps-crc.testing/update?commitWithin=1000&overwrite=true&wt=json' -X POST -H 'Content-type: text/xml' --data-raw '&lt;add&gt;&lt;delete&gt;&lt;query&gt;siteNom_indexed_string:smart\-aquaculture&lt;/query&gt;&lt;/delete&gt;&lt;/add&gt;'
+ * <pre>
+ * curl -k 'https://solr.apps-crc.testing/solr/computate/update?commitWithin=1000&amp;overwrite=true&amp;wt=json' -X POST -H 'Content-type: text/xml' -u "admin:$(oc -n solr get secret/solr-solrcloud-security-bootstrap -o jsonpath={.data.admin} | base64 -d)" --data-raw '&lt;delete&gt;&lt;query&gt;siteNom_indexed_string:smart\-aquaculture&lt;/query&gt;&lt;/delete&gt;'
+ * </pre>
  * </p>
  * Generated: true
  **/
@@ -1750,6 +1756,60 @@ public abstract class PageLayoutGen<DEV> extends Object {
 
   public static String staticSearchFqPageTitle(SiteRequest siteRequest_, String o) {
     return PageLayout.staticSearchPageTitle(siteRequest_, PageLayout.staticSetPageTitle(siteRequest_, o)).toString();
+  }
+
+	//////////////////
+  // classAllName //
+	//////////////////
+
+
+  /**
+   *  The entity classAllName
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String classAllName;
+
+  /**
+   * <br> The entity classAllName
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.page.PageLayout&fq=entiteVar_enUS_indexed_string:classAllName">Find the entity classAllName in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _classAllName(Wrap<String> w);
+
+  public String getClassAllName() {
+    return classAllName;
+  }
+  public void setClassAllName(String o) {
+    this.classAllName = PageLayout.staticSetClassAllName(siteRequest_, o);
+  }
+  public static String staticSetClassAllName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected PageLayout classAllNameInit() {
+    Wrap<String> classAllNameWrap = new Wrap<String>().var("classAllName");
+    if(classAllName == null) {
+      _classAllName(classAllNameWrap);
+      Optional.ofNullable(classAllNameWrap.getO()).ifPresent(o -> {
+        setClassAllName(o);
+      });
+    }
+    return (PageLayout)this;
+  }
+
+  public static String staticSearchClassAllName(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrClassAllName(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqClassAllName(SiteRequest siteRequest_, String o) {
+    return PageLayout.staticSearchClassAllName(siteRequest_, PageLayout.staticSetClassAllName(siteRequest_, o)).toString();
   }
 
 	///////////////////
@@ -4594,6 +4654,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
       try {
         classSimpleNameInit();
         pageTitleInit();
+        classAllNameInit();
         filteredScopeInit();
         scopesInit();
         roleForWriteInit();
@@ -4766,6 +4827,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
         return oPageLayout.classSimpleName;
       case "pageTitle":
         return oPageLayout.pageTitle;
+      case "classAllName":
+        return oPageLayout.classAllName;
       case "filteredScope":
         return oPageLayout.filteredScope;
       case "scopes":
@@ -4943,6 +5006,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSetClassSimpleName(siteRequest_, v);
     case "pageTitle":
       return PageLayout.staticSetPageTitle(siteRequest_, v);
+    case "classAllName":
+      return PageLayout.staticSetClassAllName(siteRequest_, v);
     case "filteredScope":
       return PageLayout.staticSetFilteredScope(siteRequest_, v);
     case "scopes":
@@ -5081,6 +5146,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSearchClassSimpleName(siteRequest_, (String)o);
     case "pageTitle":
       return PageLayout.staticSearchPageTitle(siteRequest_, (String)o);
+    case "classAllName":
+      return PageLayout.staticSearchClassAllName(siteRequest_, (String)o);
     case "filteredScope":
       return PageLayout.staticSearchFilteredScope(siteRequest_, (Boolean)o);
     case "scopes":
@@ -5223,6 +5290,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSearchStrClassSimpleName(siteRequest_, (String)o);
     case "pageTitle":
       return PageLayout.staticSearchStrPageTitle(siteRequest_, (String)o);
+    case "classAllName":
+      return PageLayout.staticSearchStrClassAllName(siteRequest_, (String)o);
     case "filteredScope":
       return PageLayout.staticSearchStrFilteredScope(siteRequest_, (Boolean)o);
     case "scopes":
@@ -5365,6 +5434,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return PageLayout.staticSearchFqClassSimpleName(siteRequest_, o);
     case "pageTitle":
       return PageLayout.staticSearchFqPageTitle(siteRequest_, o);
+    case "classAllName":
+      return PageLayout.staticSearchFqClassAllName(siteRequest_, o);
     case "filteredScope":
       return PageLayout.staticSearchFqFilteredScope(siteRequest_, o);
     case "scopes":
@@ -5492,6 +5563,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
   public static final String VAR_promiseBefore = "promiseBefore";
   public static final String VAR_classSimpleName = "classSimpleName";
   public static final String VAR_pageTitle = "pageTitle";
+  public static final String VAR_classAllName = "classAllName";
   public static final String VAR_filteredScope = "filteredScope";
   public static final String VAR_scopes = "scopes";
   public static final String VAR_roleForWrite = "roleForWrite";
@@ -5568,6 +5640,7 @@ public abstract class PageLayoutGen<DEV> extends Object {
   public static final String DISPLAY_NAME_promiseBefore = "";
   public static final String DISPLAY_NAME_classSimpleName = "";
   public static final String DISPLAY_NAME_pageTitle = "";
+  public static final String DISPLAY_NAME_classAllName = "";
   public static final String DISPLAY_NAME_filteredScope = "";
   public static final String DISPLAY_NAME_scopes = "";
   public static final String DISPLAY_NAME_roleForWrite = "";
@@ -5731,6 +5804,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return DISPLAY_NAME_classSimpleName;
     case VAR_pageTitle:
       return DISPLAY_NAME_pageTitle;
+    case VAR_classAllName:
+      return DISPLAY_NAME_classAllName;
     case VAR_filteredScope:
       return DISPLAY_NAME_filteredScope;
     case VAR_scopes:
@@ -5876,6 +5951,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
       return "The simple name of this Java class";
     case VAR_pageTitle:
       return "The page title to override";
+    case VAR_classAllName:
+      return "The language context for all objects in this model. ";
     case VAR_filteredScope:
       return "The user request scopes";
     case VAR_scopes:
@@ -5970,6 +6047,8 @@ public abstract class PageLayoutGen<DEV> extends Object {
     case VAR_classSimpleName:
       return "String";
     case VAR_pageTitle:
+      return "String";
+    case VAR_classAllName:
       return "String";
     case VAR_filteredScope:
       return "Boolean";

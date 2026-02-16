@@ -13,12 +13,24 @@
  */
 package org.computate.smartaquaculture.model.event;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.wrap.Wrap;
+import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.result.BaseResult;
 import org.computate.vertx.config.ComputateConfigKeys;
 
@@ -133,43 +145,43 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
   protected void _price(Wrap<BigDecimal> w) {
   }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * HtmRowTitleOpen: Useful URLs
-	 * HtmRow: 99
-	 * HtmCell: 1
-	 * Facet: true
-	 * DisplayName: Page ID
-	 * Description: The ID for this page. 
-	 * VarId: true
-	 */
-	protected void _pageId(Wrap<String> w) {
-		w.o(toId(name));
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRowTitleOpen: Useful URLs
+   * HtmRow: 99
+   * HtmCell: 1
+   * Facet: true
+   * DisplayName: Page ID
+   * Description: The ID for this page. 
+   * VarId: true
+   */
+  protected void _pageId(Wrap<String> w) {
+    w.o(toId(name));
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * Facet: true
-	 * DisplayName: email template
-	 * Description: The HTML email template for this product. 
-	 */
-	protected void _emailTemplate(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: email template
+   * Description: The HTML email template for this product. 
+   */
+  protected void _emailTemplate(Wrap<String> w) {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * DocValues: true
-	 * Persist: true
-	 * Facet: true
-	 * DisplayName: store URL
-	 * Description: The store URL for this page. 
-	 */
-	protected void _storeUrl(Wrap<String> w) {
-	}
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * Facet: true
+   * DisplayName: store URL
+   * Description: The store URL for this page. 
+   */
+  protected void _storeUrl(Wrap<String> w) {
+  }
 
   /**
    * {@inheritDoc}
@@ -218,5 +230,121 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    */
   protected void _locationLinks(List<String> l) {
     l.add(editPage);
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: dialog template
+   * Description: The dialog template for this product. 
+   */
+  protected void _dialogTemplate(Wrap<String> w) {
+    w.o(String.format("en-us/shop/event/%s/dialog.inc", pageId));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRow: 4
+   * HtmCell: 1
+   * Facet: true
+   * DisplayName: imageUri
+   * Description: The page image URI
+   */
+  protected void _pageImageUri(Wrap<String> w) {
+  }
+  
+  /**
+   * DocValues: true
+   * Description: The image width
+   */
+  protected void _pageImageWidth(Wrap<Integer> w) {
+    if(pageImageUri != null) {
+      Path path = Paths.get(siteRequest_.getConfig().getString(ConfigKeys.STATIC_PATH), pageImageUri);
+      File file = path.toFile();
+      if(file.exists()) {
+        try {
+          BufferedImage img = ImageIO.read(file);
+          w.o(img.getWidth());
+          setPageImageHeight(img.getHeight());
+          setPageImageType(Files.probeContentType(path));
+        } catch (Exception ex) {
+          ExceptionUtils.rethrow(ex);
+        }
+      }
+    }
+  }
+
+  /**
+   * DocValues: true
+   * Description: The image height
+   */
+  protected void _pageImageHeight(Wrap<Integer> c) {
+  }
+
+  /**
+   * DocValues: true
+   * Description: The image height
+   */
+  protected void _pageImageType(Wrap<String> c) {
+  }
+
+  /**
+   * Persist: true
+   * DocValues: true
+   * Description: The image accessibility text. 
+   */
+  protected void _pageImageAlt(Wrap<String> c) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: labels string
+   * Description: The labels String for this article comma-separated. 
+   */
+  protected void _labelsString(Wrap<String> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName: labels
+   * Description: The labels for this article. 
+   */
+  protected void _labels(List<String> l) {
+    if(labelsString != null) {
+      l.addAll(Arrays.asList(StringUtils.split(labelsString, ",")).stream().map(id -> id.trim()).collect(Collectors.toList()));
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRow: 3
+   * HtmCell: 3
+   * Facet: true
+   * DisplayName: author name
+   * Description: The author name
+   */
+  protected void _authorName(Wrap<String> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * HtmRow: 3
+   * HtmCell: 3
+   * Facet: true
+   * DisplayName: author URL
+   * Description: The author URL
+   */
+  protected void _authorUrl(Wrap<String> w) {
   }
 }

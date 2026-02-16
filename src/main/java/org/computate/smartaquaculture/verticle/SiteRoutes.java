@@ -269,7 +269,7 @@ public class SiteRoutes {
     });
   }
 
-  public static Future<Void> kafkaConsumer(Vertx vertx, KafkaConsumer<String, String> consumer, JsonObject config) {
+  public static Future<Void> kafkaConsumer(Vertx vertx, KafkaConsumer<String, String> consumer, JsonObject config, WebClient webClient) {
     Promise<Void> promise = Promise.promise();
     try {
       promise.complete();
