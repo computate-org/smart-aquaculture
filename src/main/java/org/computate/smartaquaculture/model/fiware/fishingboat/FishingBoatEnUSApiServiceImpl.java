@@ -40,13 +40,55 @@ import io.vertx.pgclient.data.Point;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
 import org.computate.smartaquaculture.request.SiteRequest;
+import org.computate.vertx.search.list.SearchList;
 import org.computate.vertx.tool.GeoTool;
 
 /**
  * Translate: false
  **/
 public class FishingBoatEnUSApiServiceImpl extends FishingBoatEnUSGenApiServiceImpl {
+
+  public Future<SearchList<FishPopulation>> queryFishPopulations(FishingBoat o, Boolean inheritPrimaryKey, Point2D newPoint2D) {
+    Promise<SearchList<FishPopulation>> promise = Promise.promise();
+    try {
+      if(newPoint2D == null) {
+        promise.complete();
+      } else {
+        // Search for nearby Fish Populations. 
+        SiteRequest siteRequest = o.getSiteRequest_();
+        String pointStr = String.format("%s,%s", newPoint2D.getY(), newPoint2D.getX());
+        SearchList<FishPopulation> searchList = new SearchList<FishPopulation>();
+        searchList.setStore(true);
+        searchList.fl("*", "score");
+        searchList.q("{!func}geodist()");
+        searchList.pt(pointStr);
+        searchList.qOp("OR");
+        searchList.sfield("location_docvalues_location");
+        searchList.spatial(true);
+        searchList.sort("score", "asc");
+        searchList.setC(FishPopulation.class);
+        searchList.setSiteRequest_(siteRequest);
+        searchList.promiseDeepForClass(siteRequest).onSuccess(searchList2 -> {
+          try {
+            LOG.info(searchList2.getResponse().getResponse().getDocs().get(0).get("score").toString());
+            promise.complete(searchList);
+          } catch(Throwable ex) {
+            LOG.error(String.format("searchFishPopulation failed. "), ex);
+            promise.tryFail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error(String.format("searchFishPopulation failed. "), ex);
+          promise.tryFail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Failed to query fish populations. ", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   @Override
   public Future<FishingBoat> sqlPATCHFishingBoat(FishingBoat o, Boolean inheritPrimaryKey) {
@@ -56,6 +98,7 @@ public class FishingBoatEnUSApiServiceImpl extends FishingBoatEnUSGenApiServiceI
       JsonObject jsonObject = siteRequest.getJsonObject();
       Point oldLocation = o.getLocation();
       Path path = o.getPath();
+      Point2D newPoint2D = null;
       if(
           !"false".equals(siteRequest.getRequestVars().get("refresh"))
           && path != null && path.getPoints().size() >= 2 
@@ -111,51 +154,59 @@ public class FishingBoatEnUSApiServiceImpl extends FishingBoatEnUSGenApiServiceI
           nextDistanceMeters = nextCoordinateMeters;
         gc.setStartingGeographicPoint(oldLocation.getX(), oldLocation.getY());
         gc.setDirection(azimuth, nextDistanceMeters.doubleValue());
-        Point2D newPoint2D = gc.getDestinationGeographicPoint();
+        newPoint2D = gc.getDestinationGeographicPoint();
 
         JsonObject locationJson = new JsonObject().put("type", "Point").put("coordinates", new JsonArray().add(newPoint2D.getX()).add(newPoint2D.getY()));
         jsonObject.put("setLocation", locationJson);
       }
-      super.sqlPATCHFishingBoat(o, inheritPrimaryKey).onSuccess(fishingBoat -> {
-        if("true".equals(jsonObject.getString("setSimulation"))
-            || "true".equals(siteRequest.getRequestVars().get("simulation"))
-                && BooleanUtils.isNotFalse(o.getSimulation())
-            ) {
-          Long simulationDelayMillis = Optional.ofNullable(o.getSimulationDelayMillis()).orElse(500L);
-          vertx.setTimer(simulationDelayMillis, a -> {
-            workerExecutor.executeBlocking(() -> {
-              Promise<Void> promise1 = Promise.promise();
-              JsonObject params = new JsonObject();
-              params.put("body", new JsonObject());
-              params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
-              params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
-              params.put("form", new JsonObject());
-              params.put("path", new JsonObject());
-              params.put("scopes", new JsonArray().add("GET").add("PATCH"));
-              JsonObject query = new JsonObject();
-              Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
-              Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
-              if(softCommit == null && commitWithin == null)
-                softCommit = true;
-              if(softCommit != null)
-                query.put("softCommit", softCommit);
-              if(commitWithin != null)
-                query.put("commitWithin", commitWithin);
-              query.put("q", "*:*")
-                  .put("fq", new JsonArray().add("pk:" + o.getPk()))
-                  .put("var", new JsonArray().add("simulation:true"));
-              params.put("query", query);
-              JsonObject context = new JsonObject().put("params", params);
-              JsonObject json = new JsonObject().put("context", context);
-              eventBus.send(FishingBoat.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishingBoatFuture"));
-              promise1.complete();
-              return promise1.future();
+      queryFishPopulations(o, inheritPrimaryKey, newPoint2D).onSuccess(fishPopulationsList -> {
+        super.sqlPATCHFishingBoat(o, inheritPrimaryKey).onSuccess(fishingBoat -> {
+          if("true".equals(jsonObject.getString("setSimulation"))
+              || "true".equals(siteRequest.getRequestVars().get("simulation"))
+                  && BooleanUtils.isNotFalse(o.getSimulation())
+              ) {
+            Long simulationDelayMillis = Optional.ofNullable(o.getSimulationDelayMillis()).orElse(500L);
+            vertx.setTimer(simulationDelayMillis, a -> {
+              workerExecutor.executeBlocking(() -> {
+                Promise<Void> promise1 = Promise.promise();
+                JsonObject params = new JsonObject();
+                params.put("body", new JsonObject());
+                params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
+                params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
+                params.put("form", new JsonObject());
+                params.put("path", new JsonObject());
+                params.put("scopes", new JsonArray().add("GET").add("PATCH"));
+                JsonObject query = new JsonObject();
+                Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
+                Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);
+                if(softCommit == null && commitWithin == null)
+                  softCommit = true;
+                if(softCommit != null)
+                  query.put("softCommit", softCommit);
+                if(commitWithin != null)
+                  query.put("commitWithin", commitWithin);
+                query.put("q", "*:*")
+                    .put("fq", new JsonArray().add("pk:" + o.getPk()))
+                    .put("var", new JsonArray().add("simulation:true"));
+                params.put("query", query);
+                JsonObject context = new JsonObject().put("params", params);
+                JsonObject json = new JsonObject().put("context", context);
+                eventBus.send(FishingBoat.getClassApiAddress(), json, new DeliveryOptions().addHeader("action", "patchFishingBoatFuture"));
+                promise1.complete();
+                return promise1.future();
+              });
             });
-          });
-          promise.complete(fishingBoat);
-        } else {
-          promise.complete(fishingBoat);
-        }
+            promise.complete(fishingBoat);
+          } else {
+            promise.complete(fishingBoat);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Failed to PATCH FishingBoat. ", ex);
+          promise.fail(ex);
+        });
+      }).onFailure(ex -> {
+        LOG.error("Failed to query FishPopulations. ", ex);
+        promise.fail(ex);
       });
     } catch(Throwable ex) {
       LOG.error("Failed to calculate new point with geotools. ", ex);
