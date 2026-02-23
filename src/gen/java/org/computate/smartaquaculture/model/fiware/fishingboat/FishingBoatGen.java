@@ -1613,7 +1613,7 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   // staticSearch //
   //////////////////
 
-  public static Future<FishingBoat> fq(SiteRequest siteRequest, String var, Object val) {
+  public static Future<FishingBoat> fqFishingBoat(SiteRequest siteRequest, String var, Object val) {
     Promise<FishingBoat> promise = Promise.promise();
     try {
       if(val == null) {

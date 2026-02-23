@@ -217,9 +217,9 @@ public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchDbToSolrSync(entityVar,  siteRequest_, o);
@@ -275,58 +275,6 @@ public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  public String idForClass() {
-    return null;
-  }
-
-  public String titleForClass() {
-    return null;
-  }
-
-  public String nameForClass() {
-    return null;
-  }
-
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  public String descriptionForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return DbToSolrSync.displayNameDbToSolrSync(var);
   }
@@ -334,71 +282,6 @@ public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
     switch(var) {
     default:
       return null;
-    }
-  }
-
-  public static String descriptionDbToSolrSync(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static String classSimpleNameDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmColumnDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmRowDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmCellDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer lengthMinDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer lengthMaxDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer maxDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer minDbToSolrSync(String var) {
-    switch(var) {
-      default:
-        return null;
     }
   }
 }

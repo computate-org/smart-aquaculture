@@ -199,9 +199,9 @@ public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchMainVerticle(entityVar,  siteRequest_, o);
@@ -257,58 +257,6 @@ public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  public String idForClass() {
-    return null;
-  }
-
-  public String titleForClass() {
-    return null;
-  }
-
-  public String nameForClass() {
-    return null;
-  }
-
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  public String descriptionForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return MainVerticle.displayNameMainVerticle(var);
   }
@@ -316,71 +264,6 @@ public abstract class MainVerticleGen<DEV> extends AbstractVerticle {
     switch(var) {
     default:
       return null;
-    }
-  }
-
-  public static String descriptionMainVerticle(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static String classSimpleNameMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmColumnMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmRowMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmCellMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer lengthMinMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer lengthMaxMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer maxMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer minMainVerticle(String var) {
-    switch(var) {
-      default:
-        return null;
     }
   }
 }

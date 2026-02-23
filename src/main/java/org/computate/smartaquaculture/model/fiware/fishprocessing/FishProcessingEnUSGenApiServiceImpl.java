@@ -250,7 +250,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
       if(result == null || !Files.exists(resourceTemplatePath)) {
-        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/fish-processing/FishProcessingSearchPage.htm"), Charset.forName("UTF-8"));
+        String template = Files.readString(Path.of(siteTemplatePath, "fr-fr/rechercher/usine-transformation-poisson/FishProcessingSearchPage.htm"), Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       } else if(pageTemplateUri.endsWith(".md")) {
@@ -515,7 +515,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
       if(result == null || !Files.exists(resourceTemplatePath)) {
-        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/fish-processing/FishProcessingSearchPage.htm"), Charset.forName("UTF-8"));
+        String template = Files.readString(Path.of(siteTemplatePath, "fr-fr/edition/usine-transformation-poisson/FishProcessingEditPage.htm"), Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       } else if(pageTemplateUri.endsWith(".md")) {
@@ -1287,14 +1287,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 
       for(String entityVar : methodNames) {
         switch(entityVar) {
-          case "setName":
-              o2.setName(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishProcessing.VAR_name + "=$" + num);
-              num++;
-              bParams.add(o2.sqlName());
-            break;
           case "setAddress":
               o2.setAddress(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -1302,6 +1294,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               bSql.append(FishProcessing.VAR_address + "=$" + num);
               num++;
               bParams.add(o2.sqlAddress());
+            break;
+          case "setName":
+              o2.setName(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishProcessing.VAR_name + "=$" + num);
+              num++;
+              bParams.add(o2.sqlName());
             break;
           case "setDescription":
               o2.setDescription(jsonObject.getString(entityVar));
@@ -1351,14 +1351,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlEntityShortId());
             break;
-          case "setNgsildTenant":
-              o2.setNgsildTenant(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
-              num++;
-              bParams.add(o2.sqlNgsildTenant());
-            break;
           case "setAreaServed":
               o2.setAreaServed(jsonObject.getJsonObject(entityVar));
               if(bParams.size() > 0)
@@ -1366,6 +1358,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishProcessing.VAR_areaServed, num));
               num++;
               bParams.add(o2.sqlAreaServed());
+            break;
+          case "setNgsildTenant":
+              o2.setNgsildTenant(jsonObject.getString(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
+              num++;
+              bParams.add(o2.sqlNgsildTenant());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1838,15 +1838,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         Set<String> entityVars = jsonObject.fieldNames();
         for(String entityVar : entityVars) {
           switch(entityVar) {
-          case FishProcessing.VAR_name:
-            o2.setName(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishProcessing.VAR_name + "=$" + num);
-            num++;
-            bParams.add(o2.sqlName());
-            break;
           case FishProcessing.VAR_address:
             o2.setAddress(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1855,6 +1846,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             bSql.append(FishProcessing.VAR_address + "=$" + num);
             num++;
             bParams.add(o2.sqlAddress());
+            break;
+          case FishProcessing.VAR_name:
+            o2.setName(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishProcessing.VAR_name + "=$" + num);
+            num++;
+            bParams.add(o2.sqlName());
             break;
           case FishProcessing.VAR_description:
             o2.setDescription(jsonObject.getString(entityVar));
@@ -1910,15 +1910,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             num++;
             bParams.add(o2.sqlEntityShortId());
             break;
-          case FishProcessing.VAR_ngsildTenant:
-            o2.setNgsildTenant(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
-            num++;
-            bParams.add(o2.sqlNgsildTenant());
-            break;
           case FishProcessing.VAR_areaServed:
             o2.setAreaServed(jsonObject.getJsonObject(entityVar));
             if(bParams.size() > 0) {
@@ -1927,6 +1918,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             bSql.append(FishProcessing.VAR_areaServed + "=$" + num);
             num++;
             bParams.add(o2.sqlAreaServed());
+            break;
+          case FishProcessing.VAR_ngsildTenant:
+            o2.setNgsildTenant(jsonObject.getString(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
+            num++;
+            bParams.add(o2.sqlNgsildTenant());
             break;
           case FishProcessing.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -3186,7 +3186,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
       if(result == null || !Files.exists(resourceTemplatePath)) {
-        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/fish-processing/FishProcessingSearchPage.htm"), Charset.forName("UTF-8"));
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/edit/fish-processing/FishProcessingEditPage.htm"), Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       } else if(pageTemplateUri.endsWith(".md")) {
@@ -4017,7 +4017,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, address, description, created, location, id, archived, entityShortId, ngsildTenant, ST_AsGeoJSON(areaServed) as areaServed, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishProcessing WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT address, name, description, created, location, id, archived, entityShortId, ST_AsGeoJSON(areaServed) as areaServed, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishProcessing WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -4372,16 +4372,16 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       FishProcessing o = new FishProcessing();
       o.setSiteRequest_((SiteRequest)siteRequest);
 
-      o.persistForClass(FishProcessing.VAR_name, FishProcessing.staticSetName(siteRequest2, (String)result.get(FishProcessing.VAR_name)));
       o.persistForClass(FishProcessing.VAR_address, FishProcessing.staticSetAddress(siteRequest2, (String)result.get(FishProcessing.VAR_address)));
+      o.persistForClass(FishProcessing.VAR_name, FishProcessing.staticSetName(siteRequest2, (String)result.get(FishProcessing.VAR_name)));
       o.persistForClass(FishProcessing.VAR_description, FishProcessing.staticSetDescription(siteRequest2, (String)result.get(FishProcessing.VAR_description)));
       o.persistForClass(FishProcessing.VAR_created, FishProcessing.staticSetCreated(siteRequest2, (String)result.get(FishProcessing.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       o.persistForClass(FishProcessing.VAR_location, FishProcessing.staticSetLocation(siteRequest2, (String)result.get(FishProcessing.VAR_location)));
       o.persistForClass(FishProcessing.VAR_id, FishProcessing.staticSetId(siteRequest2, (String)result.get(FishProcessing.VAR_id)));
       o.persistForClass(FishProcessing.VAR_archived, FishProcessing.staticSetArchived(siteRequest2, (String)result.get(FishProcessing.VAR_archived)));
       o.persistForClass(FishProcessing.VAR_entityShortId, FishProcessing.staticSetEntityShortId(siteRequest2, (String)result.get(FishProcessing.VAR_entityShortId)));
-      o.persistForClass(FishProcessing.VAR_ngsildTenant, FishProcessing.staticSetNgsildTenant(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildTenant)));
       o.persistForClass(FishProcessing.VAR_areaServed, FishProcessing.staticSetAreaServed(siteRequest2, (String)result.get(FishProcessing.VAR_areaServed)));
+      o.persistForClass(FishProcessing.VAR_ngsildTenant, FishProcessing.staticSetNgsildTenant(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildTenant)));
       o.persistForClass(FishProcessing.VAR_ngsildPath, FishProcessing.staticSetNgsildPath(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildPath)));
       o.persistForClass(FishProcessing.VAR_ngsildContext, FishProcessing.staticSetNgsildContext(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildContext)));
       o.persistForClass(FishProcessing.VAR_sessionId, FishProcessing.staticSetSessionId(siteRequest2, (String)result.get(FishProcessing.VAR_sessionId)));

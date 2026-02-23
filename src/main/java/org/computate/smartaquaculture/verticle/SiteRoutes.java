@@ -218,8 +218,88 @@ public class SiteRoutes {
                     ctx.put("facetClass", facetClass);
                     ctx.put("recentArticles", pathToComputerEnlightenment);
                     ctx.put("freeTrainingCourses", freeTrainingCourses);
+                    String siteBaseUrl = config.getString(ConfigKeys.SITE_BASE_URL);
+                    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/"));
+                    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/"));
 
                     Path resourceTemplatePath = Path.of(config.getString(ConfigKeys.TEMPLATE_PATH), "/en-us/HomePage.htm");
+                    String template = Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+                    String renderedTemplate = jinjava.render(template, ctx.getMap());
+                    Buffer buffer = Buffer.buffer(renderedTemplate);
+                    eventHandler.response().putHeader("Content-Type", "text/html");
+                    eventHandler.end(buffer);
+                  } catch(Exception ex) {
+                    LOG.error(String.format("GET home page failed. "), ex);
+                  }
+                }).onFailure(ex -> {
+                  LOG.error(String.format("GET home page failed. "), ex);
+                });
+              } catch(Exception ex) {
+                LOG.error("Failed to load page. ", ex);
+                eventHandler.fail(ex);
+              }
+            }).onFailure(ex -> {
+              LOG.error(String.format("Search failed. "), new RuntimeException(ex));
+            });
+          }).onFailure(ex -> {
+            LOG.error(String.format("Search failed. "), new RuntimeException(ex));
+          });
+        }).onFailure(ex -> {
+          LOG.error(String.format("Search failed. "), new RuntimeException(ex));
+        });
+      }).onFailure(ex -> {
+        if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+          try {
+            eventHandler.redirect("/logout?redirect_uri=" + URLEncoder.encode("/", "UTF-8"));
+          } catch(Exception ex2) {
+            LOG.error(String.format("searchSiteUser failed. ", ex2));
+            eventHandler.fail(ex2);
+          }
+        } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+          eventHandler.response().setStatusCode(401).setStatusMessage("UNAUTHORIZED")
+              .send(Buffer.buffer().appendString(
+                new JsonObject()
+                  .put("errorCode", "401")
+                  .put("errorMessage", "SSO Resource Permission check returned DENY")
+                  .encodePrettily()
+                )
+              );
+        } else {
+          LOG.error(String.format("searchSiteUser failed. "), ex);
+          eventHandler.fail(ex);
+        }
+      });
+    });
+
+    router.get("/fr-fr/").handler(eventHandler -> {
+      ServiceRequest serviceRequest = apiSiteUser.generateServiceRequest(eventHandler);
+      apiSiteUser.user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.CLASS_API_ADDRESS_ComputateSiteUser, "postSiteUserFuture", "patchSiteUserFuture", false).onSuccess(siteRequest -> {
+        siteRequest.setLang("frFR");
+        siteRequest.addScopes("GET");
+        facetAll(siteRequest, router, oauth2AuthHandler, config, webClient, jinjava, apiSiteUser).onSuccess(facetResponse -> {
+          searchRecentArticles(siteRequest, router, oauth2AuthHandler, config, webClient, jinjava, apiSiteUser).onSuccess(pathToComputerEnlightenment -> {
+            freeTrainingCourses(siteRequest, router, oauth2AuthHandler, config, webClient, jinjava, apiSiteUser).onSuccess(freeTrainingCourses -> {
+              try {
+                PageLayout page = new PageLayout();
+                MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+                siteRequest.setRequestHeaders(requestHeaders);
+                page.setSiteRequest_(siteRequest);
+                page.setServiceRequest(siteRequest.getServiceRequest());
+                page.setWebClient(webClient);
+                page.promiseDeepPageLayout(siteRequest).onSuccess(a -> {
+                  try {
+                    JsonObject ctx = ConfigKeys.getPageContext(config);
+                    ctx.mergeIn(JsonObject.mapFrom(page));
+
+                    FacetField facetClass = facetResponse.getFacetField("classSimpleName_docvalues_string");
+                    ctx.put("facetClass", facetClass);
+                    ctx.put("recentArticles", pathToComputerEnlightenment);
+                    ctx.put("freeTrainingCourses", freeTrainingCourses);
+                    String siteBaseUrl = config.getString(ConfigKeys.SITE_BASE_URL);
+                    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/"));
+                    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/"));
+
+                    Path resourceTemplatePath = Path.of(config.getString(ConfigKeys.TEMPLATE_PATH), "/fr-fr/HomePage.htm");
                     String template = Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
                     String renderedTemplate = jinjava.render(template, ctx.getMap());
                     Buffer buffer = Buffer.buffer(renderedTemplate);

@@ -2221,9 +2221,9 @@ public abstract class SiteRequestGen<DEV> extends Object {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchSiteRequest(entityVar,  siteRequest_, o);
@@ -2426,39 +2426,73 @@ public abstract class SiteRequestGen<DEV> extends Object {
   public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.request.SiteRequest";
   public static final String CLASS_AUTH_RESOURCE = "";
   public static final String VAR_config = "config";
+  public static final String SET_config = "setConfig";
   public static final String VAR_i18n = "i18n";
+  public static final String SET_i18n = "setI18n";
   public static final String VAR_siteRequest_ = "siteRequest_";
+  public static final String SET_siteRequest_ = "setSiteRequest_";
   public static final String VAR_webClient = "webClient";
+  public static final String SET_webClient = "setWebClient";
   public static final String VAR_apiRequest_ = "apiRequest_";
+  public static final String SET_apiRequest_ = "setApiRequest_";
   public static final String VAR_jsonObject = "jsonObject";
+  public static final String SET_jsonObject = "setJsonObject";
   public static final String VAR_serviceRequest = "serviceRequest";
+  public static final String SET_serviceRequest = "setServiceRequest";
   public static final String VAR_sessionSiteFontSize = "sessionSiteFontSize";
+  public static final String SET_sessionSiteFontSize = "setSessionSiteFontSize";
   public static final String VAR_sessionSiteTheme = "sessionSiteTheme";
+  public static final String SET_sessionSiteTheme = "setSessionSiteTheme";
   public static final String VAR_user = "user";
+  public static final String SET_user = "setUser";
   public static final String VAR_userPrincipal = "userPrincipal";
+  public static final String SET_userPrincipal = "setUserPrincipal";
   public static final String VAR_userId = "userId";
+  public static final String SET_userId = "setUserId";
   public static final String VAR_userKey = "userKey";
+  public static final String SET_userKey = "setUserKey";
   public static final String VAR_sessionId = "sessionId";
+  public static final String SET_sessionId = "setSessionId";
   public static final String VAR_sessionIdBefore = "sessionIdBefore";
+  public static final String SET_sessionIdBefore = "setSessionIdBefore";
   public static final String VAR_customerProfileId = "customerProfileId";
+  public static final String SET_customerProfileId = "setCustomerProfileId";
   public static final String VAR_userName = "userName";
+  public static final String SET_userName = "setUserName";
   public static final String VAR_userLastName = "userLastName";
+  public static final String SET_userLastName = "setUserLastName";
   public static final String VAR_userFirstName = "userFirstName";
+  public static final String SET_userFirstName = "setUserFirstName";
   public static final String VAR_userFullName = "userFullName";
+  public static final String SET_userFullName = "setUserFullName";
   public static final String VAR_userEmail = "userEmail";
+  public static final String SET_userEmail = "setUserEmail";
   public static final String VAR_filteredScope = "filteredScope";
+  public static final String SET_filteredScope = "setFilteredScope";
   public static final String VAR_scopes = "scopes";
+  public static final String SET_scopes = "setScopes";
   public static final String VAR_groups = "groups";
+  public static final String SET_groups = "setGroups";
   public static final String VAR_publicRead = "publicRead";
+  public static final String SET_publicRead = "setPublicRead";
   public static final String VAR_userResource = "userResource";
+  public static final String SET_userResource = "setUserResource";
   public static final String VAR_siteUser_ = "siteUser_";
+  public static final String SET_siteUser_ = "setSiteUser_";
   public static final String VAR_lang = "lang";
+  public static final String SET_lang = "setLang";
   public static final String VAR_requestPk = "requestPk";
+  public static final String SET_requestPk = "setRequestPk";
   public static final String VAR_requestUri = "requestUri";
+  public static final String SET_requestUri = "setRequestUri";
   public static final String VAR_requestMethod = "requestMethod";
+  public static final String SET_requestMethod = "setRequestMethod";
   public static final String VAR_sqlConnection = "sqlConnection";
+  public static final String SET_sqlConnection = "setSqlConnection";
   public static final String VAR_requestHeaders = "requestHeaders";
+  public static final String SET_requestHeaders = "setRequestHeaders";
   public static final String VAR_requestVars = "requestVars";
+  public static final String SET_requestVars = "setRequestVars";
 
   public static final String DISPLAY_NAME_config = "";
   public static final String DISPLAY_NAME_i18n = "";
@@ -2494,58 +2528,6 @@ public abstract class SiteRequestGen<DEV> extends Object {
   public static final String DISPLAY_NAME_sqlConnection = "";
   public static final String DISPLAY_NAME_requestHeaders = "";
   public static final String DISPLAY_NAME_requestVars = "";
-
-  public String idForClass() {
-    return null;
-  }
-
-  public String titleForClass() {
-    return null;
-  }
-
-  public String nameForClass() {
-    return null;
-  }
-
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  public String descriptionForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
 
   public static String displayNameForClass(String var) {
     return SiteRequest.displayNameSiteRequest(var);
@@ -2622,207 +2604,6 @@ public abstract class SiteRequestGen<DEV> extends Object {
       return DISPLAY_NAME_requestVars;
     default:
       return null;
-    }
-  }
-
-  public static String descriptionSiteRequest(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-    case VAR_config:
-      return "The site configuration variables";
-    case VAR_i18n:
-      return "The internationalization data for the site. ";
-    case VAR_siteRequest_:
-      return "A reference to this site request itself";
-    case VAR_webClient:
-      return "A Vert.x web client for making HTTP REST calls";
-    case VAR_apiRequest_:
-      return "An API request object for returning information through websockets about API changes";
-    case VAR_jsonObject:
-      return "The JSON object if passed into the request";
-    case VAR_serviceRequest:
-      return "The Vert.x service request";
-    case VAR_sessionSiteFontSize:
-      return "The session site font size. ";
-    case VAR_sessionSiteTheme:
-      return "The session site theme. ";
-    case VAR_user:
-      return "The authenticated user object";
-    case VAR_userPrincipal:
-      return "The authenticated user principal";
-    case VAR_userId:
-      return "The unique ID of the authenticated user in the SSO application";
-    case VAR_userKey:
-      return "The primary key of the user in the database";
-    case VAR_sessionId:
-      return "The session ID of the user's session";
-    case VAR_sessionIdBefore:
-      return "The session ID of the user before the user logged in";
-    case VAR_customerProfileId:
-      return "The customer profile ID of the user";
-    case VAR_userName:
-      return "The username of the user";
-    case VAR_userLastName:
-      return "The last name of the user";
-    case VAR_userFirstName:
-      return "The first name of the user";
-    case VAR_userFullName:
-      return "The full name of the user";
-    case VAR_userEmail:
-      return "The user email";
-    case VAR_filteredScope:
-      return "Whether the scopes are filtered by specific IDs. ";
-    case VAR_scopes:
-      return "The user auth scopes for the current request within the SSO realm";
-    case VAR_groups:
-      return "The user groups for the current request within the SSO realm";
-    case VAR_publicRead:
-      return "Whether the search results are public read. ";
-    case VAR_userResource:
-      return "The authenticated user's auth resource data";
-    case VAR_siteUser_:
-      return "The site user object of the authenticated user";
-    case VAR_lang:
-      return "The request language. ";
-    case VAR_requestPk:
-      return "The primary key of object of the request";
-    case VAR_requestUri:
-      return "The relative URI of the incoming request";
-    case VAR_requestMethod:
-      return "The HTTP method of the incoming request";
-    case VAR_sqlConnection:
-      return "The current SQL connection if present during the request";
-    case VAR_requestHeaders:
-      return "The request headers";
-    case VAR_requestVars:
-      return "Extra variables sent in the request with the var query parameter";
-      default:
-        return null;
-    }
-  }
-
-  public static String classSimpleNameSiteRequest(String var) {
-    switch(var) {
-    case VAR_config:
-      return "JsonObject";
-    case VAR_i18n:
-      return "JsonObject";
-    case VAR_siteRequest_:
-      return "SiteRequest";
-    case VAR_webClient:
-      return "WebClient";
-    case VAR_apiRequest_:
-      return "ApiRequest";
-    case VAR_jsonObject:
-      return "JsonObject";
-    case VAR_serviceRequest:
-      return "ServiceRequest";
-    case VAR_sessionSiteFontSize:
-      return "String";
-    case VAR_sessionSiteTheme:
-      return "String";
-    case VAR_user:
-      return "User";
-    case VAR_userPrincipal:
-      return "JsonObject";
-    case VAR_userId:
-      return "String";
-    case VAR_userKey:
-      return "Long";
-    case VAR_sessionId:
-      return "String";
-    case VAR_sessionIdBefore:
-      return "String";
-    case VAR_customerProfileId:
-      return "String";
-    case VAR_userName:
-      return "String";
-    case VAR_userLastName:
-      return "String";
-    case VAR_userFirstName:
-      return "String";
-    case VAR_userFullName:
-      return "String";
-    case VAR_userEmail:
-      return "String";
-    case VAR_filteredScope:
-      return "Boolean";
-    case VAR_scopes:
-      return "List";
-    case VAR_groups:
-      return "List";
-    case VAR_publicRead:
-      return "Boolean";
-    case VAR_userResource:
-      return "JsonObject";
-    case VAR_siteUser_:
-      return "SiteUser";
-    case VAR_lang:
-      return "String";
-    case VAR_requestPk:
-      return "Long";
-    case VAR_requestUri:
-      return "String";
-    case VAR_requestMethod:
-      return "String";
-    case VAR_sqlConnection:
-      return "SqlConnection";
-    case VAR_requestHeaders:
-      return "MultiMap";
-    case VAR_requestVars:
-      return "Map";
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmColumnSiteRequest(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmRowSiteRequest(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer htmCellSiteRequest(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer lengthMinSiteRequest(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer lengthMaxSiteRequest(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer maxSiteRequest(String var) {
-    switch(var) {
-      default:
-        return null;
-    }
-  }
-
-  public static Integer minSiteRequest(String var) {
-    switch(var) {
-      default:
-        return null;
     }
   }
 }
