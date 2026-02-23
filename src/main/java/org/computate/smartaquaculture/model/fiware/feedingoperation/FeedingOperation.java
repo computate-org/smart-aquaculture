@@ -34,8 +34,10 @@ import io.vertx.pgclient.data.Polygon;
  * Fiware: true
  *
  * Order: 10
- * Description: Feeding operation on a group of animals
- * AName: a FeedingOperation
+ * Description.enUS: Feeding operation on a group of animals
+ * Description.frFR: Opération d'alimentation sur un groupe d'animaux
+ * AName.enUS: a feeding operation
+ * AName.frFR: une opération d'alimentation
  * Icon: <i class="fa-duotone fa-regular fa-fish-cooked"></i>
  * Rows: 100
  * Ignore: true
@@ -44,6 +46,14 @@ import io.vertx.pgclient.data.Polygon;
  * EditPageUri: /en-us/edit/feeding-operation/{entityShortId}
  * ApiUri: /en-us/api/feeding-operation
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: FeedingOperationPage
+ *     ApiUri: /fr-fr/rechercher/operation-alimentation
+ *   EditPageFrFR:
+ *     Language: frFR
+ *     Page: FeedingOperationPage
+ *     ApiUri: /fr-fr/edition/operation-alimentation/{entityShortId}
  *   Search:
  *   GET:
  *   PATCH:
@@ -79,8 +89,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: name
-	 * Description: The name of this item
+	 * DisplayName.enUS: name
+	 * DisplayName.frFR: nom
+	 * Description.enUS: The name of this item
+	 * Description.frFR: Le nom de cet article
 	 * HtmRowTitleOpen: name and description
 	 * HtmColumn: 1
 	 * VarName: true
@@ -96,8 +108,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: description
-	 * Description: A description of this item
+	 * DisplayName.enUS: description
+	 * DisplayName.frFR: description
+	 * Description.enUS: A description of this item
+	 * Description.frFR: Une description de cet article
 	 * HtmColumn: 2
 	 * VarDescription: true
 	 * HtmRow: 3
@@ -115,8 +129,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * Location: true
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: location
-	 * Description: Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon
+	 * DisplayName.enUS: location
+	 * DisplayName.frFR: emplacement
+	 * Description.enUS: Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon
+	 * Description.frFR: Référence géojson à l'élément. Il peut s'agir d'un Point, d'une LineString, d'un Polygon, d'un MultiPoint, d'une MultiLineString ou d'un MultiPolygon
 	 * HtmRow: 4
 	 * HtmCell: 0
 	 * Facet: true
@@ -132,8 +148,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * LocationColor: true
 	 * Indexed: true
 	 * Stored: true
-	 * DisplayName: area served colors
-	 * Description: The colors of each areaServed Paths. 
+	 * DisplayName.enUS: area served colors
+	 * DisplayName.frFR: couleurs de la zone desservie
+	 * Description.enUS: The colors of each areaServed Paths. 
+	 * Description.frFR: Les couleurs de chaque zone desservie des chemins.
 	 */
 	protected void _areaServedColors(List<String> l) {
 	}
@@ -143,8 +161,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * LocationTitle: true
 	 * Indexed: true
 	 * Stored: true
-	 * DisplayName: area served titles
-	 * Description: The titles of each areaServed Paths. 
+	 * DisplayName.enUS: area served titles
+	 * DisplayName.frFR: titres de la zone desservie
+	 * Description.enUS: The titles of each areaServed Paths. 
+	 * Description.frFR: Les titres de chaque zone desservie des chemins.
 	 */
 	protected void _areaServedTitles(List<String> l) {
 	}
@@ -154,8 +174,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * LocationUrl: true
 	 * Indexed: true
 	 * Stored: true
-	 * DisplayName: area served links
-	 * Description: The links of each areaServed Paths. 
+	 * DisplayName.enUS: area served links
+	 * DisplayName.frFR: liens de la zone desservie
+	 * Description.enUS: The links of each areaServed Paths. 
+	 * Description.frFR: Les liens de chaque zone desservie des chemins.
 	 */
 	protected void _areaServedLinks(List<String> l) {
 	}
@@ -166,8 +188,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * Area: true
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: area served
-	 * Description: The geographic area where a service or offered item is provided
+	 * DisplayName.enUS: area served
+	 * DisplayName.frFR: zone desservie
+	 * Description.enUS: The geographic area where a service or offered item is provided
+	 * Description.frFR: La zone géographique où un service ou un article proposé est fourni
 	 * HtmRow: 4
 	 * HtmCell: 1
 	 * Facet: true
@@ -180,8 +204,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: id
-	 * Description: Unique identifier of the entity
+	 * DisplayName.enUS: id
+	 * DisplayName.frFR: identifiant
+	 * Description.enUS: Unique identifier of the entity
+	 * Description.frFR: Identifiant unique de l'entité
 	 * HtmRowTitleOpen: NGSI-LD details
 	 * HtmRow: 5
 	 * HtmCell: 0
@@ -193,8 +219,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 
 	/**
 	 * {@inheritDoc}
-	 * DisplayName: short entity ID
-	 * Description: A short ID for this Smart Data Model
+	 * DisplayName.enUS: short entity ID
+	 * DisplayName.frFR: identifiant court de l'entité
+	 * Description.enUS: A short ID for this Smart Data Model
+	 * Description.frFR: Un identifiant court pour ce modèle de données intelligentes
 	 * DocValues: true
 	 * Facet: true
 	 * VarId: true
@@ -209,8 +237,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD-Tenant
-	 * Description: The NGSILD-Tenant or Fiware-Service
+	 * DisplayName.enUS: NGSILD-Tenant
+	 * DisplayName.frFR: NGSILD-Tenant
+	 * Description.enUS: The NGSILD-Tenant or Fiware-Service
+	 * Description.frFR: Le NGSILD-Tenant ou Fiware-Service
 	 * HtmRow: 5
 	 * HtmCell: 1
 	 * Facet: true
@@ -223,8 +253,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD-Path
-	 * Description: The NGSILD-Path or Fiware-ServicePath
+	 * DisplayName.enUS: NGSILD-Path
+	 * DisplayName.frFR: NGSILD-Path
+	 * Description.enUS: The NGSILD-Path or Fiware-ServicePath
+	 * Description.frFR: Le NGSILD-Path ou Fiware-ServicePath
 	 * HtmRow: 5
 	 * HtmCell: 2
 	 * Facet: true
@@ -237,8 +269,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD context
-	 * Description: The NGSILD context URL for @context data
+	 * DisplayName.enUS: NGSILD context
+	 * DisplayName.frFR: NGSILD context
+	 * Description.enUS: The NGSILD context URL for @context data
+	 * Description.frFR: L'URL du contexte NGSILD pour les données @context
 	 * HtmRow: 5
 	 * HtmCell: 3
 	 * Facet: true
@@ -251,8 +285,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: NGSILD data
-	 * Description: The NGSILD data with @context from the context broker
+	 * DisplayName.enUS: NGSILD data
+	 * DisplayName.frFR: données NGSILD
+	 * Description.enUS: The NGSILD data with @context from the context broker
+	 * Description.frFR: Les données NGSILD avec @context du courtier de contexte
 	 * HtmRow: 5
 	 * HtmCell: 4
 	 * Facet: true
@@ -266,8 +302,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: address
-	 * Description: The mailing address
+	 * DisplayName.enUS: address
+	 * DisplayName.frFR: adresse
+	 * Description.enUS: The mailing address
+	 * Description.frFR: L'adresse postale
 	 * HtmRowTitleOpen: FeedingOperation details
 	 * HtmRow: 6
 	 * HtmCell: 0
@@ -281,8 +319,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: alternate name
-	 * Description: An alternative name for this item
+	 * DisplayName.enUS: alternate name
+	 * DisplayName.frFR: nom alternatif
+	 * Description.enUS: An alternative name for this item
+	 * Description.frFR: Un nom alternatif pour cet article
 	 * HtmRow: 6
 	 * HtmCell: 1
 	 * Facet: true
@@ -295,8 +335,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: category
-	 * Description: Defines the type of operation
+	 * DisplayName.enUS: category
+	 * DisplayName.frFR: catégorie
+	 * Description.enUS: Defines the type of operation
+	 * Description.frFR: Définit le type d'opération
 	 * HtmRow: 6
 	 * HtmCell: 2
 	 * Facet: true
@@ -309,8 +351,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: data provider
-	 * Description: A sequence of characters identifying the provider of the harmonised data entity
+	 * DisplayName.enUS: data provider
+	 * DisplayName.frFR: fournisseur de données
+	 * Description.enUS: A sequence of characters identifying the provider of the harmonised data entity
+	 * Description.frFR: Une séquence de caractères identifiant le fournisseur de l'entité de données harmonisée
 	 * HtmRow: 6
 	 * HtmCell: 3
 	 * Facet: true
@@ -323,8 +367,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: date created
-	 * Description: Entity creation timestamp. This will usually be allocated by the storage platform
+	 * DisplayName.enUS: date created
+	 * DisplayName.frFR: date de création
+	 * Description.enUS: Entity creation timestamp. This will usually be allocated by the storage platform
+	 * Description.frFR: Horodatage de la création de l'entité. Cela sera généralement alloué par la plateforme de stockage
 	 * HtmRow: 6
 	 * HtmCell: 4
 	 * Facet: true
@@ -337,8 +383,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: date modified
-	 * Description: Timestamp of the last modification of the entity. This will usually be allocated by the storage platform
+	 * DisplayName.enUS: date modified
+	 * DisplayName.frFR: date de modification
+	 * Description.enUS: Timestamp of the last modification of the entity. This will usually be allocated by the storage platform
+	 * Description.frFR: Horodatage de la dernière modification de l'entité. Cela sera généralement alloué par la plateforme de stockage
 	 * HtmRow: 6
 	 * HtmCell: 5
 	 * Facet: true
@@ -351,8 +399,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: endpoint
-	 * Description: The digital connection point for the operation
+	 * DisplayName.enUS: endpoint
+	 * DisplayName.frFR: point de connexion
+	 * Description.enUS: The digital connection point for the operation
+	 * Description.frFR: Le point de connexion numérique pour l'opération
 	 * HtmRow: 6
 	 * HtmCell: 6
 	 * Facet: true
@@ -365,8 +415,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: has provider
-	 * Description: Provider (Person or Organization) of the application
+	 * DisplayName.enUS: has provider
+	 * DisplayName.frFR: a pour fournisseur
+	 * Description.enUS: Provider (Person or Organization) of the application
+	 * Description.frFR: Fournisseur (Personne ou Organisation) de l'application
 	 * HtmRow: 6
 	 * HtmCell: 7
 	 * Facet: true
@@ -379,8 +431,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: owner
-	 * Description: A List containing a JSON encoded sequence of characters referencing the unique Ids of the owner(s)
+	 * DisplayName.enUS: owner
+	 * DisplayName.frFR: propriétaire
+	 * Description.enUS: A List containing a JSON encoded sequence of characters referencing the unique Ids of the owner(s)
+	 * Description.frFR: Une liste contenant une séquence de caractères encodés en JSON référençant les identifiants uniques des propriétaires
 	 * HtmRow: 6
 	 * HtmCell: 8
 	 * Facet: true
@@ -393,8 +447,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: related source
-	 * Description: List of IDs the current entity may have in external applications
+	 * DisplayName.enUS: related source
+	 * DisplayName.frFR: source liée
+	 * Description.enUS: List of IDs the current entity may have in external applications
+	 * Description.frFR: Liste des identifiants que l'entité actuelle peut avoir dans des applications externes
 	 * HtmRow: 6
 	 * HtmCell: 9
 	 * Facet: true
@@ -407,8 +463,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: see also
-	 * Description: list of uri pointing to additional resources about the item
+	 * DisplayName.enUS: see also
+	 * DisplayName.frFR: voir aussi
+	 * Description.enUS: list of uri pointing to additional resources about the item
+	 * Description.frFR: liste d'uri pointant vers des ressources supplémentaires sur l'élément
 	 * HtmRow: 6
 	 * HtmCell: 10
 	 * Facet: true
@@ -421,8 +479,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: source
-	 * Description: A sequence of characters giving the original source of the entity data as a URL. Recommended to be the fully qualified domain name of the source provider, or the URL to the source object
+	 * DisplayName.enUS: source
+	 * DisplayName.frFR: source
+	 * Description.enUS: A sequence of characters giving the original source of the entity data as a URL. Recommended to be the fully qualified domain name of the source provider, or the URL to the source object
+	 * Description.frFR: Une séquence de caractères donnant la source originale des données de l'entité sous forme d'URL. Il est recommandé d'utiliser le nom de domaine entièrement qualifié du fournisseur de la source, ou l'URL vers l'objet source
 	 * HtmRow: 6
 	 * HtmCell: 11
 	 * Facet: true
@@ -435,8 +495,10 @@ public class FeedingOperation extends FeedingOperationGen<BaseModel> {
 	 * {@inheritDoc}
 	 * DocValues: true
 	 * Persist: true
-	 * DisplayName: version
-	 * Description: The version of the operation
+	 * DisplayName.enUS: version
+	 * DisplayName.frFR: version
+	 * Description.enUS: The version of the operation
+	 * Description.frFR: La version de l'opération
 	 * HtmRow: 6
 	 * HtmCell: 12
 	 * Facet: true

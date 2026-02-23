@@ -68,6 +68,8 @@ import org.computate.vertx.serialize.pgclient.PgClientPolygonDeserializer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -181,14 +183,30 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class FishFarmGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishFarm.class);
 
-  public static final String Description_frFR = "A fish farm";
-  public static final String AName_frFR = "a fish farm";
-  public static final String SingularName_frFR = "fish farm";
-  public static final String PluralName_frFR = "fish farms";
-  public static final String Title_frFR = "fish farms";
-  public static final String ThePluralName_frFR = "les fish farms";
-  public static final String NameAdjectiveSingular_frFR = "fish farm";
-  public static final String NameAdjectivePlural_frFR = "fish farms";
+  public static final String Description_frFR = "Une ferme piscicole";
+  public static final String AName_frFR = "une ferme piscicole";
+  public static final String This_frFR = "cette ";
+  public static final String ThisName_frFR = "cette ferme piscicole";
+  public static final String A_frFR = "une ";
+  public static final String TheName_frFR = "la ferme piscicole";
+  public static final String SingularName_frFR = "ferme piscicole";
+  public static final String PluralName_frFR = "ferme piscicoles";
+  public static final String NameActual_frFR = "ferme piscicole actuelle";
+  public static final String AllName_frFR = "toutes ferme piscicoles";
+  public static final String SearchAllNameBy_frFR = "rechercher ferme piscicoles par ";
+  public static final String SearchAllName_frFR = "rechercher ferme piscicoles";
+  public static final String Title_frFR = "ferme piscicoles";
+  public static final String ThePluralName_frFR = "les ferme piscicoles";
+  public static final String NoNameFound_frFR = "aucune ferme piscicole trouvée";
+  public static final String OfName_frFR = "de ferme piscicole";
+  public static final String NameAdjectiveSingular_frFR = "ferme piscicole";
+  public static final String NameAdjectivePlural_frFR = "ferme piscicoles";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/ferme-piscicole";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/ferme-piscicole";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/ferme-piscicole";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/ferme-piscicole/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/ferme-piscicole/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/ferme-piscicole/%s";
 
   public static final String Description_enUS = "A fish farm";
   public static final String AName_enUS = "a fish farm";
@@ -841,9 +859,39 @@ public abstract class FishFarmGen<DEV> extends MapModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<FishFarm> fqFishFarm(SiteRequest siteRequest, String var, Object val) {
+    Promise<FishFarm> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<FishFarm> searchList = new SearchList<FishFarm>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(FishFarm.class);
+        searchList.fq(String.format("%s:", FishFarm.varIndexedFishFarm(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the fish farm", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the fish farm", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the fish farm", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishFarm(entityVar,  siteRequest_, o);
@@ -1190,10 +1238,15 @@ public abstract class FishFarmGen<DEV> extends MapModel {
     return CLASS_API_ADDRESS_FishFarm;
   }
   public static final String VAR_address = "address";
+  public static final String SET_address = "setAddress";
   public static final String VAR_areaServedColors = "areaServedColors";
+  public static final String SET_areaServedColors = "setAreaServedColors";
   public static final String VAR_areaServedTitles = "areaServedTitles";
+  public static final String SET_areaServedTitles = "setAreaServedTitles";
   public static final String VAR_areaServedLinks = "areaServedLinks";
+  public static final String SET_areaServedLinks = "setAreaServedLinks";
   public static final String VAR_areaServed = "areaServed";
+  public static final String SET_areaServed = "setAreaServed";
 
   public static List<String> varsQForClass() {
     return FishFarm.varsQFishFarm(new ArrayList<String>());
@@ -1249,13 +1302,8 @@ public abstract class FishFarmGen<DEV> extends MapModel {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/ferme-piscicole/%s";
   }
 
   @Override
@@ -1263,34 +1311,24 @@ public abstract class FishFarmGen<DEV> extends MapModel {
     return "%s/en-us/edit/fish-farm/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return FishFarm.varJsonFishFarm(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonFishFarm(String var, Boolean patch) {
+    switch(var) {
+    case VAR_address:
+      return patch ? SET_address : VAR_address;
+    case VAR_areaServedColors:
+      return patch ? SET_areaServedColors : VAR_areaServedColors;
+    case VAR_areaServedTitles:
+      return patch ? SET_areaServedTitles : VAR_areaServedTitles;
+    case VAR_areaServedLinks:
+      return patch ? SET_areaServedLinks : VAR_areaServedLinks;
+    case VAR_areaServed:
+      return patch ? SET_areaServed : VAR_areaServed;
+    default:
+      return MapModel.varJsonMapModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

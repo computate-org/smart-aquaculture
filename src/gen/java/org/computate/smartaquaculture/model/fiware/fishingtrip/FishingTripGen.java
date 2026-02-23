@@ -65,6 +65,8 @@ import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -178,14 +180,30 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class FishingTripGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishingTrip.class);
 
-  public static final String Description_frFR = "A fishing trip";
-  public static final String AName_frFR = "a fishing trip";
-  public static final String SingularName_frFR = "fishing trip";
-  public static final String PluralName_frFR = "fishing trips";
-  public static final String Title_frFR = "fishing trips";
-  public static final String ThePluralName_frFR = "les fishing trips";
-  public static final String NameAdjectiveSingular_frFR = "fishing trip";
-  public static final String NameAdjectivePlural_frFR = "fishing trips";
+  public static final String Description_frFR = "Une sortie de pêche";
+  public static final String AName_frFR = "une sortie de pêche";
+  public static final String This_frFR = "cette ";
+  public static final String ThisName_frFR = "cette sortie de pêche";
+  public static final String A_frFR = "une ";
+  public static final String TheName_frFR = "la sortie de pêche";
+  public static final String SingularName_frFR = "sortie de pêche";
+  public static final String PluralName_frFR = "sortie de pêches";
+  public static final String NameActual_frFR = "sortie de pêche actuelle";
+  public static final String AllName_frFR = "toutes sortie de pêches";
+  public static final String SearchAllNameBy_frFR = "rechercher sortie de pêches par ";
+  public static final String SearchAllName_frFR = "rechercher sortie de pêches";
+  public static final String Title_frFR = "sortie de pêches";
+  public static final String ThePluralName_frFR = "les sortie de pêches";
+  public static final String NoNameFound_frFR = "aucune sortie de pêche trouvée";
+  public static final String OfName_frFR = "de sortie de pêche";
+  public static final String NameAdjectiveSingular_frFR = "sortie de pêche";
+  public static final String NameAdjectivePlural_frFR = "sortie de pêches";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/sortie-de-peche";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/sortie-de-peche";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/sortie-de-peche";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/sortie-de-peche/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/sortie-de-peche/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/sortie-de-peche/%s";
 
   public static final String Description_enUS = "A fishing trip";
   public static final String AName_enUS = "a fishing trip";
@@ -627,9 +645,39 @@ public abstract class FishingTripGen<DEV> extends MapModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<FishingTrip> fqFishingTrip(SiteRequest siteRequest, String var, Object val) {
+    Promise<FishingTrip> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<FishingTrip> searchList = new SearchList<FishingTrip>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(FishingTrip.class);
+        searchList.fq(String.format("%s:", FishingTrip.varIndexedFishingTrip(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the fishing trip", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the fishing trip", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the fishing trip", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishingTrip(entityVar,  siteRequest_, o);
@@ -896,8 +944,11 @@ public abstract class FishingTripGen<DEV> extends MapModel {
     return CLASS_API_ADDRESS_FishingTrip;
   }
   public static final String VAR_timeZone = "timeZone";
+  public static final String SET_timeZone = "setTimeZone";
   public static final String VAR_departureDate = "departureDate";
+  public static final String SET_departureDate = "setDepartureDate";
   public static final String VAR_arrivalDate = "arrivalDate";
+  public static final String SET_arrivalDate = "setArrivalDate";
 
   public static List<String> varsQForClass() {
     return FishingTrip.varsQFishingTrip(new ArrayList<String>());
@@ -953,13 +1004,8 @@ public abstract class FishingTripGen<DEV> extends MapModel {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/sortie-de-peche/%s";
   }
 
   @Override
@@ -967,34 +1013,20 @@ public abstract class FishingTripGen<DEV> extends MapModel {
     return "%s/en-us/edit/fishing-trip/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return FishingTrip.varJsonFishingTrip(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonFishingTrip(String var, Boolean patch) {
+    switch(var) {
+    case VAR_timeZone:
+      return patch ? SET_timeZone : VAR_timeZone;
+    case VAR_departureDate:
+      return patch ? SET_departureDate : VAR_departureDate;
+    case VAR_arrivalDate:
+      return patch ? SET_arrivalDate : VAR_arrivalDate;
+    default:
+      return MapModel.varJsonMapModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

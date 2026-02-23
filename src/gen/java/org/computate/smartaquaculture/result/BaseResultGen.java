@@ -1667,9 +1667,9 @@ public abstract class BaseResultGen<DEV> extends Object {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchBaseResult(entityVar,  siteRequest_, o);
@@ -2393,25 +2393,45 @@ public abstract class BaseResultGen<DEV> extends Object {
   public static final String CLASS_CANONICAL_NAME = "org.computate.smartaquaculture.result.BaseResult";
   public static final String CLASS_AUTH_RESOURCE = "";
   public static final String VAR_siteRequest_ = "siteRequest_";
+  public static final String SET_siteRequest_ = "setSiteRequest_";
   public static final String VAR_created = "created";
+  public static final String SET_created = "setCreated";
   public static final String VAR_modified = "modified";
+  public static final String SET_modified = "setModified";
   public static final String VAR_archived = "archived";
+  public static final String SET_archived = "setArchived";
   public static final String VAR_classCanonicalName = "classCanonicalName";
+  public static final String SET_classCanonicalName = "setClassCanonicalName";
   public static final String VAR_classSimpleName = "classSimpleName";
+  public static final String SET_classSimpleName = "setClassSimpleName";
   public static final String VAR_classCanonicalNames = "classCanonicalNames";
+  public static final String SET_classCanonicalNames = "setClassCanonicalNames";
   public static final String VAR_saves = "saves";
+  public static final String SET_saves = "setSaves";
   public static final String VAR_objectTitle = "objectTitle";
+  public static final String SET_objectTitle = "setObjectTitle";
   public static final String VAR_displayPage = "displayPage";
+  public static final String SET_displayPage = "setDisplayPage";
   public static final String VAR_displayPageFrFR = "displayPageFrFR";
+  public static final String SET_displayPageFrFR = "setDisplayPageFrFR";
   public static final String VAR_editPage = "editPage";
+  public static final String SET_editPage = "setEditPage";
   public static final String VAR_editPageFrFR = "editPageFrFR";
+  public static final String SET_editPageFrFR = "setEditPageFrFR";
   public static final String VAR_userPage = "userPage";
+  public static final String SET_userPage = "setUserPage";
   public static final String VAR_userPageFrFR = "userPageFrFR";
+  public static final String SET_userPageFrFR = "setUserPageFrFR";
   public static final String VAR_download = "download";
+  public static final String SET_download = "setDownload";
   public static final String VAR_downloadFrFR = "downloadFrFR";
+  public static final String SET_downloadFrFR = "setDownloadFrFR";
   public static final String VAR_objectSuggest = "objectSuggest";
+  public static final String SET_objectSuggest = "setObjectSuggest";
   public static final String VAR_objectText = "objectText";
+  public static final String SET_objectText = "setObjectText";
   public static final String VAR_solrId = "solrId";
+  public static final String SET_solrId = "setSolrId";
 
   public static List<String> varsQForClass() {
     return BaseResult.varsQBaseResult(new ArrayList<String>());
@@ -2520,6 +2540,56 @@ public abstract class BaseResultGen<DEV> extends Object {
 
   public String enUSStringFormatUrlDownloadForClass() {
     return null;
+  }
+
+  public static String varJsonForClass(String var, Boolean patch) {
+    return BaseResult.varJsonBaseResult(var, patch);
+  }
+  public static String varJsonBaseResult(String var, Boolean patch) {
+    switch(var) {
+    case VAR_siteRequest_:
+      return patch ? SET_siteRequest_ : VAR_siteRequest_;
+    case VAR_created:
+      return patch ? SET_created : VAR_created;
+    case VAR_modified:
+      return patch ? SET_modified : VAR_modified;
+    case VAR_archived:
+      return patch ? SET_archived : VAR_archived;
+    case VAR_classCanonicalName:
+      return patch ? SET_classCanonicalName : VAR_classCanonicalName;
+    case VAR_classSimpleName:
+      return patch ? SET_classSimpleName : VAR_classSimpleName;
+    case VAR_classCanonicalNames:
+      return patch ? SET_classCanonicalNames : VAR_classCanonicalNames;
+    case VAR_saves:
+      return patch ? SET_saves : VAR_saves;
+    case VAR_objectTitle:
+      return patch ? SET_objectTitle : VAR_objectTitle;
+    case VAR_displayPage:
+      return patch ? SET_displayPage : VAR_displayPage;
+    case VAR_displayPageFrFR:
+      return patch ? SET_displayPageFrFR : VAR_displayPageFrFR;
+    case VAR_editPage:
+      return patch ? SET_editPage : VAR_editPage;
+    case VAR_editPageFrFR:
+      return patch ? SET_editPageFrFR : VAR_editPageFrFR;
+    case VAR_userPage:
+      return patch ? SET_userPage : VAR_userPage;
+    case VAR_userPageFrFR:
+      return patch ? SET_userPageFrFR : VAR_userPageFrFR;
+    case VAR_download:
+      return patch ? SET_download : VAR_download;
+    case VAR_downloadFrFR:
+      return patch ? SET_downloadFrFR : VAR_downloadFrFR;
+    case VAR_objectSuggest:
+      return patch ? SET_objectSuggest : VAR_objectSuggest;
+    case VAR_objectText:
+      return patch ? SET_objectText : VAR_objectText;
+    case VAR_solrId:
+      return patch ? SET_solrId : VAR_solrId;
+    default:
+      return null;
+    }
   }
 
   public static String displayNameForClass(String var) {

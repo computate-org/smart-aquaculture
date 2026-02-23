@@ -245,9 +245,9 @@ public abstract class TimeZonePageGen<DEV> extends TimeZoneGenPage {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchTimeZonePage(entityVar,  siteRequest_, o);
@@ -302,71 +302,6 @@ public abstract class TimeZonePageGen<DEV> extends TimeZoneGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return TimeZonePage.displayNameTimeZonePage(var);
   }
@@ -374,71 +309,6 @@ public abstract class TimeZonePageGen<DEV> extends TimeZoneGenPage {
     switch(var) {
     default:
       return TimeZoneGenPage.displayNameTimeZoneGenPage(var);
-    }
-  }
-
-  public static String descriptionTimeZonePage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return TimeZoneGenPage.descriptionTimeZoneGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.classSimpleNameTimeZoneGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.htmColumnTimeZoneGenPage(var);
-    }
-  }
-
-  public static Integer htmRowTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.htmRowTimeZoneGenPage(var);
-    }
-  }
-
-  public static Integer htmCellTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.htmCellTimeZoneGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.lengthMinTimeZoneGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.lengthMaxTimeZoneGenPage(var);
-    }
-  }
-
-  public static Integer maxTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.maxTimeZoneGenPage(var);
-    }
-  }
-
-  public static Integer minTimeZonePage(String var) {
-    switch(var) {
-      default:
-        return TimeZoneGenPage.minTimeZoneGenPage(var);
     }
   }
 }

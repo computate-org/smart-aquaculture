@@ -77,6 +77,8 @@ import java.lang.Integer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -189,14 +191,30 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class CompanyEventGen<DEV> extends BaseResult {
   protected static final Logger LOG = LoggerFactory.getLogger(CompanyEvent.class);
 
-  public static final String Description_frFR = "See the upcoming computate in-person and online events";
-  public static final String AName_frFR = "an event";
-  public static final String SingularName_frFR = "event";
-  public static final String PluralName_frFR = "events";
-  public static final String Title_frFR = "events";
-  public static final String ThePluralName_frFR = "les events";
-  public static final String NameAdjectiveSingular_frFR = "event";
-  public static final String NameAdjectivePlural_frFR = "events";
+  public static final String Description_frFR = "Voir les événements en personne et en ligne à venir de computate";
+  public static final String AName_frFR = "un événement";
+  public static final String This_frFR = "ce ";
+  public static final String ThisName_frFR = "cet événement";
+  public static final String A_frFR = "un ";
+  public static final String TheName_frFR = "l'événement";
+  public static final String SingularName_frFR = "événement";
+  public static final String PluralName_frFR = "événements";
+  public static final String NameActual_frFR = "événement actuel";
+  public static final String AllName_frFR = "tous événements";
+  public static final String SearchAllNameBy_frFR = "rechercher événements par ";
+  public static final String SearchAllName_frFR = "rechercher événements";
+  public static final String Title_frFR = "événements";
+  public static final String ThePluralName_frFR = "les événements";
+  public static final String NoNameFound_frFR = "aucun événement trouvé";
+  public static final String OfName_frFR = "d'événement";
+  public static final String NameAdjectiveSingular_frFR = "événement";
+  public static final String NameAdjectivePlural_frFR = "événements";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/evenement";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/evenement";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/evenement";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/evenement/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/evenement/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/evenement/%s";
 
   public static final String Description_enUS = "See the upcoming computate in-person and online events";
   public static final String AName_enUS = "an event";
@@ -2042,9 +2060,39 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<CompanyEvent> fqCompanyEvent(SiteRequest siteRequest, String var, Object val) {
+    Promise<CompanyEvent> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<CompanyEvent> searchList = new SearchList<CompanyEvent>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(CompanyEvent.class);
+        searchList.fq(String.format("%s:", CompanyEvent.varIndexedCompanyEvent(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying theevent", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying theevent", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying theevent", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchCompanyEvent(entityVar,  siteRequest_, o);
@@ -2918,27 +2966,49 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     return CLASS_API_ADDRESS_CompanyEvent;
   }
   public static final String VAR_name = "name";
+  public static final String SET_name = "setName";
   public static final String VAR_description = "description";
+  public static final String SET_description = "setDescription";
   public static final String VAR_startDateTime = "startDateTime";
+  public static final String SET_startDateTime = "setStartDateTime";
   public static final String VAR_endDateTime = "endDateTime";
+  public static final String SET_endDateTime = "setEndDateTime";
   public static final String VAR_price = "price";
+  public static final String SET_price = "setPrice";
   public static final String VAR_pageId = "pageId";
+  public static final String SET_pageId = "setPageId";
   public static final String VAR_emailTemplate = "emailTemplate";
+  public static final String SET_emailTemplate = "setEmailTemplate";
   public static final String VAR_storeUrl = "storeUrl";
+  public static final String SET_storeUrl = "setStoreUrl";
   public static final String VAR_location = "location";
+  public static final String SET_location = "setLocation";
   public static final String VAR_locationColors = "locationColors";
+  public static final String SET_locationColors = "setLocationColors";
   public static final String VAR_locationTitles = "locationTitles";
+  public static final String SET_locationTitles = "setLocationTitles";
   public static final String VAR_locationLinks = "locationLinks";
+  public static final String SET_locationLinks = "setLocationLinks";
   public static final String VAR_dialogTemplate = "dialogTemplate";
+  public static final String SET_dialogTemplate = "setDialogTemplate";
   public static final String VAR_pageImageUri = "pageImageUri";
+  public static final String SET_pageImageUri = "setPageImageUri";
   public static final String VAR_pageImageWidth = "pageImageWidth";
+  public static final String SET_pageImageWidth = "setPageImageWidth";
   public static final String VAR_pageImageHeight = "pageImageHeight";
+  public static final String SET_pageImageHeight = "setPageImageHeight";
   public static final String VAR_pageImageType = "pageImageType";
+  public static final String SET_pageImageType = "setPageImageType";
   public static final String VAR_pageImageAlt = "pageImageAlt";
+  public static final String SET_pageImageAlt = "setPageImageAlt";
   public static final String VAR_labelsString = "labelsString";
+  public static final String SET_labelsString = "setLabelsString";
   public static final String VAR_labels = "labels";
+  public static final String SET_labels = "setLabels";
   public static final String VAR_authorName = "authorName";
+  public static final String SET_authorName = "setAuthorName";
   public static final String VAR_authorUrl = "authorUrl";
+  public static final String SET_authorUrl = "setAuthorUrl";
 
   public static List<String> varsQForClass() {
     return CompanyEvent.varsQCompanyEvent(new ArrayList<String>());
@@ -2993,7 +3063,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   public static final String DISPLAY_NAME_locationTitles = "location titles";
   public static final String DISPLAY_NAME_locationLinks = "location links";
   public static final String DISPLAY_NAME_dialogTemplate = "dialog template";
-  public static final String DISPLAY_NAME_pageImageUri = "imageUri";
+  public static final String DISPLAY_NAME_pageImageUri = "image URI";
   public static final String DISPLAY_NAME_pageImageWidth = "";
   public static final String DISPLAY_NAME_pageImageHeight = "";
   public static final String DISPLAY_NAME_pageImageType = "";
@@ -3024,13 +3094,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/evenement/%s";
   }
 
   @Override
@@ -3039,18 +3104,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   }
 
   @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
   public String enUSStringFormatUrlDisplayPageForClass() {
     return "%s/en-us/shop/event/%s";
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
   }
 
   @Override
@@ -3058,14 +3113,58 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     return "%s/en-us/use/event/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return CompanyEvent.varJsonCompanyEvent(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonCompanyEvent(String var, Boolean patch) {
+    switch(var) {
+    case VAR_name:
+      return patch ? SET_name : VAR_name;
+    case VAR_description:
+      return patch ? SET_description : VAR_description;
+    case VAR_startDateTime:
+      return patch ? SET_startDateTime : VAR_startDateTime;
+    case VAR_endDateTime:
+      return patch ? SET_endDateTime : VAR_endDateTime;
+    case VAR_price:
+      return patch ? SET_price : VAR_price;
+    case VAR_pageId:
+      return patch ? SET_pageId : VAR_pageId;
+    case VAR_emailTemplate:
+      return patch ? SET_emailTemplate : VAR_emailTemplate;
+    case VAR_storeUrl:
+      return patch ? SET_storeUrl : VAR_storeUrl;
+    case VAR_location:
+      return patch ? SET_location : VAR_location;
+    case VAR_locationColors:
+      return patch ? SET_locationColors : VAR_locationColors;
+    case VAR_locationTitles:
+      return patch ? SET_locationTitles : VAR_locationTitles;
+    case VAR_locationLinks:
+      return patch ? SET_locationLinks : VAR_locationLinks;
+    case VAR_dialogTemplate:
+      return patch ? SET_dialogTemplate : VAR_dialogTemplate;
+    case VAR_pageImageUri:
+      return patch ? SET_pageImageUri : VAR_pageImageUri;
+    case VAR_pageImageWidth:
+      return patch ? SET_pageImageWidth : VAR_pageImageWidth;
+    case VAR_pageImageHeight:
+      return patch ? SET_pageImageHeight : VAR_pageImageHeight;
+    case VAR_pageImageType:
+      return patch ? SET_pageImageType : VAR_pageImageType;
+    case VAR_pageImageAlt:
+      return patch ? SET_pageImageAlt : VAR_pageImageAlt;
+    case VAR_labelsString:
+      return patch ? SET_labelsString : VAR_labelsString;
+    case VAR_labels:
+      return patch ? SET_labels : VAR_labels;
+    case VAR_authorName:
+      return patch ? SET_authorName : VAR_authorName;
+    case VAR_authorUrl:
+      return patch ? SET_authorUrl : VAR_authorUrl;
+    default:
+      return BaseResult.varJsonBaseResult(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {
@@ -3157,7 +3256,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     case VAR_pageImageHeight:
       return "The image height";
     case VAR_pageImageType:
-      return "The image height";
+      return "The image type";
     case VAR_pageImageAlt:
       return "The image accessibility text. ";
     case VAR_labelsString:

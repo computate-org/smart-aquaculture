@@ -548,6 +548,8 @@ public class CompanyEventGenPage extends CompanyEventGenPageGen<PageLayout> {
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/event");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/evenement");
   }
 
   @Override

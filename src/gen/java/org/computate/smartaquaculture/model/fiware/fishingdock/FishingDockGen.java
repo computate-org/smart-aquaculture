@@ -69,6 +69,8 @@ import org.computate.vertx.serialize.pgclient.PgClientPolygonDeserializer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -182,14 +184,30 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class FishingDockGen<DEV> extends MapModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FishingDock.class);
 
-  public static final String Description_frFR = "A fishing dock";
-  public static final String AName_frFR = "a fishing dock";
-  public static final String SingularName_frFR = "fishing dock";
-  public static final String PluralName_frFR = "fishing docks";
-  public static final String Title_frFR = "fishing docks";
-  public static final String ThePluralName_frFR = "les fishing docks";
-  public static final String NameAdjectiveSingular_frFR = "fishing dock";
-  public static final String NameAdjectivePlural_frFR = "fishing docks";
+  public static final String Description_frFR = "Un quai de pêche";
+  public static final String AName_frFR = "un quai de pêche";
+  public static final String This_frFR = "ce ";
+  public static final String ThisName_frFR = "ce quai de pêche";
+  public static final String A_frFR = "un ";
+  public static final String TheName_frFR = "le quai de pêche";
+  public static final String SingularName_frFR = "quai de pêche";
+  public static final String PluralName_frFR = "quai de pêches";
+  public static final String NameActual_frFR = "quai de pêche actuel";
+  public static final String AllName_frFR = "tous quai de pêches";
+  public static final String SearchAllNameBy_frFR = "rechercher quai de pêches par ";
+  public static final String SearchAllName_frFR = "rechercher quai de pêches";
+  public static final String Title_frFR = "quai de pêches";
+  public static final String ThePluralName_frFR = "les quai de pêches";
+  public static final String NoNameFound_frFR = "aucun quai de pêche trouvé";
+  public static final String OfName_frFR = "de quai de pêche";
+  public static final String NameAdjectiveSingular_frFR = "quai de pêche";
+  public static final String NameAdjectivePlural_frFR = "quai de pêches";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/quai-de-peche";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/quai-de-peche";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/quai-de-peche";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/quai-de-peche/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/quai-de-peche/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/quai-de-peche/%s";
 
   public static final String Description_enUS = "A fishing dock";
   public static final String AName_enUS = "a fishing dock";
@@ -915,9 +933,39 @@ public abstract class FishingDockGen<DEV> extends MapModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<FishingDock> fqFishingDock(SiteRequest siteRequest, String var, Object val) {
+    Promise<FishingDock> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<FishingDock> searchList = new SearchList<FishingDock>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(FishingDock.class);
+        searchList.fq(String.format("%s:", FishingDock.varIndexedFishingDock(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the fishing dock", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the fishing dock", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the fishing dock", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishingDock(entityVar,  siteRequest_, o);
@@ -1293,11 +1341,17 @@ public abstract class FishingDockGen<DEV> extends MapModel {
     return CLASS_API_ADDRESS_FishingDock;
   }
   public static final String VAR_address = "address";
+  public static final String SET_address = "setAddress";
   public static final String VAR_timeZone = "timeZone";
+  public static final String SET_timeZone = "setTimeZone";
   public static final String VAR_areaServedColors = "areaServedColors";
+  public static final String SET_areaServedColors = "setAreaServedColors";
   public static final String VAR_areaServedTitles = "areaServedTitles";
+  public static final String SET_areaServedTitles = "setAreaServedTitles";
   public static final String VAR_areaServedLinks = "areaServedLinks";
+  public static final String SET_areaServedLinks = "setAreaServedLinks";
   public static final String VAR_areaServed = "areaServed";
+  public static final String SET_areaServed = "setAreaServed";
 
   public static List<String> varsQForClass() {
     return FishingDock.varsQFishingDock(new ArrayList<String>());
@@ -1355,13 +1409,8 @@ public abstract class FishingDockGen<DEV> extends MapModel {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/quai-de-peche/%s";
   }
 
   @Override
@@ -1369,34 +1418,26 @@ public abstract class FishingDockGen<DEV> extends MapModel {
     return "%s/en-us/edit/fishing-dock/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return FishingDock.varJsonFishingDock(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonFishingDock(String var, Boolean patch) {
+    switch(var) {
+    case VAR_address:
+      return patch ? SET_address : VAR_address;
+    case VAR_timeZone:
+      return patch ? SET_timeZone : VAR_timeZone;
+    case VAR_areaServedColors:
+      return patch ? SET_areaServedColors : VAR_areaServedColors;
+    case VAR_areaServedTitles:
+      return patch ? SET_areaServedTitles : VAR_areaServedTitles;
+    case VAR_areaServedLinks:
+      return patch ? SET_areaServedLinks : VAR_areaServedLinks;
+    case VAR_areaServed:
+      return patch ? SET_areaServed : VAR_areaServed;
+    default:
+      return MapModel.varJsonMapModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

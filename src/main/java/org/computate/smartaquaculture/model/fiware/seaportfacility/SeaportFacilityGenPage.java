@@ -531,6 +531,11 @@ public class SeaportFacilityGenPage extends SeaportFacilityGenPageGen<PageLayout
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all seaport facilities");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/seaport-facilities");

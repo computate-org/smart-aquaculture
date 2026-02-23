@@ -66,6 +66,8 @@ import io.vertx.core.json.JsonArray;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -179,14 +181,27 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class MapModelGen<DEV> extends BaseModel {
   protected static final Logger LOG = LoggerFactory.getLogger(MapModel.class);
 
-  public static final String Description_frFR = "A map model";
-  public static final String AName_frFR = "a map model";
-  public static final String SingularName_frFR = "map model";
-  public static final String PluralName_frFR = "map models";
-  public static final String Title_frFR = "map models";
-  public static final String ThePluralName_frFR = "les map models";
-  public static final String NameAdjectiveSingular_frFR = "map model";
-  public static final String NameAdjectivePlural_frFR = "map models";
+  public static final String Description_frFR = "Un modèle de carte";
+  public static final String AName_frFR = "un modèle de carte";
+  public static final String This_frFR = "ce ";
+  public static final String ThisName_frFR = "ce modèle de carte";
+  public static final String A_frFR = "un ";
+  public static final String TheName_frFR = "le modèle de carte";
+  public static final String SingularName_frFR = "modèle de carte";
+  public static final String PluralName_frFR = "modèle de cartes";
+  public static final String NameActual_frFR = "modèle de carte actuel";
+  public static final String AllName_frFR = "tous modèle de cartes";
+  public static final String SearchAllNameBy_frFR = "rechercher modèle de cartes par ";
+  public static final String SearchAllName_frFR = "rechercher modèle de cartes";
+  public static final String Title_frFR = "modèle de cartes";
+  public static final String ThePluralName_frFR = "les modèle de cartes";
+  public static final String NoNameFound_frFR = "aucun modèle de carte trouvé";
+  public static final String OfName_frFR = "de modèle de carte";
+  public static final String NameAdjectiveSingular_frFR = "modèle de carte";
+  public static final String NameAdjectivePlural_frFR = "modèle de cartes";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/modele-de-carte";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/modele-de-carte";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/modele-de-carte";
 
   public static final String Description_enUS = "A map model";
   public static final String AName_enUS = "a map model";
@@ -1075,9 +1090,39 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<MapModel> fqMapModel(SiteRequest siteRequest, String var, Object val) {
+    Promise<MapModel> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<MapModel> searchList = new SearchList<MapModel>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(MapModel.class);
+        searchList.fq(String.format("%s:", MapModel.varIndexedMapModel(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the map model", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the map model", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the map model", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchMapModel(entityVar,  siteRequest_, o);
@@ -1213,6 +1258,8 @@ public abstract class MapModelGen<DEV> extends BaseModel {
       } else if("location".equals(varLower)) {
         if(val instanceof String) {
           setLocation((String)val);
+        } else if(val instanceof JsonObject) {
+          setLocation((JsonObject)val);
         } else if(val instanceof Point) {
           setLocation((Point)val);
         } else if(val instanceof Point) {
@@ -1563,15 +1610,25 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return CLASS_API_ADDRESS_MapModel;
   }
   public static final String VAR_name = "name";
+  public static final String SET_name = "setName";
   public static final String VAR_description = "description";
+  public static final String SET_description = "setDescription";
   public static final String VAR_location = "location";
+  public static final String SET_location = "setLocation";
   public static final String VAR_id = "id";
+  public static final String SET_id = "setId";
   public static final String VAR_entityShortId = "entityShortId";
+  public static final String SET_entityShortId = "setEntityShortId";
   public static final String VAR_ngsildTenant = "ngsildTenant";
+  public static final String SET_ngsildTenant = "setNgsildTenant";
   public static final String VAR_ngsildPath = "ngsildPath";
+  public static final String SET_ngsildPath = "setNgsildPath";
   public static final String VAR_ngsildContext = "ngsildContext";
+  public static final String SET_ngsildContext = "setNgsildContext";
   public static final String VAR_ngsildData = "ngsildData";
+  public static final String SET_ngsildData = "setNgsildData";
   public static final String VAR_color = "color";
+  public static final String SET_color = "setColor";
 
   public static List<String> varsQForClass() {
     return MapModel.varsQMapModel(new ArrayList<String>());
@@ -1645,44 +1702,34 @@ public abstract class MapModelGen<DEV> extends BaseModel {
     return description;
   }
 
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return MapModel.varJsonMapModel(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonMapModel(String var, Boolean patch) {
+    switch(var) {
+    case VAR_name:
+      return patch ? SET_name : VAR_name;
+    case VAR_description:
+      return patch ? SET_description : VAR_description;
+    case VAR_location:
+      return patch ? SET_location : VAR_location;
+    case VAR_id:
+      return patch ? SET_id : VAR_id;
+    case VAR_entityShortId:
+      return patch ? SET_entityShortId : VAR_entityShortId;
+    case VAR_ngsildTenant:
+      return patch ? SET_ngsildTenant : VAR_ngsildTenant;
+    case VAR_ngsildPath:
+      return patch ? SET_ngsildPath : VAR_ngsildPath;
+    case VAR_ngsildContext:
+      return patch ? SET_ngsildContext : VAR_ngsildContext;
+    case VAR_ngsildData:
+      return patch ? SET_ngsildData : VAR_ngsildData;
+    case VAR_color:
+      return patch ? SET_color : VAR_color;
+    default:
+      return BaseModel.varJsonBaseModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

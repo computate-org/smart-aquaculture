@@ -126,17 +126,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("frFR");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -151,11 +152,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, false, "GET").onSuccess(listSeaportFacility -> {
                 response200SearchPageFrFRSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchpagefrfrSeaportFacility succeeded. "));
@@ -203,48 +205,141 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     });
   }
 
+  public void searchpagefrfrSeaportFacilityPageInit(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/installations-portuaires"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/seaport-facilities"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriSearchPageFrFRSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
+    return "fr-fr/rechercher/installations-portuaires/SeaportFacilitySearchPage.htm";
+  }
+  public void templateSearchPageFrFRSeaportFacility(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      SeaportFacility result = listSeaportFacility.first();
+      String pageTemplateUri = templateUriSearchPageFrFRSeaportFacility(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/seaport-facilities/SeaportFacilitySearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFrFRSeaportFacility failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+  }
   public Future<ServiceResponse> response200SearchPageFrFRSeaportFacility(SearchList<SeaportFacility> listSeaportFacility) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
-      List<String> fls = listSeaportFacility.getRequest().getFields();
-      JsonObject json = new JsonObject();
-      JsonArray l = new JsonArray();
-      listSeaportFacility.getList().stream().forEach(o -> {
-        JsonObject json2 = JsonObject.mapFrom(o);
-        if(fls.size() > 0) {
-          Set<String> fieldNames = new HashSet<String>();
-          for(String fieldName : json2.fieldNames()) {
-            String v = SeaportFacility.varIndexedSeaportFacility(fieldName);
-            if(v != null)
-              fieldNames.add(SeaportFacility.varIndexedSeaportFacility(fieldName));
-          }
-          if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
-            fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
-            fieldNames.remove("pk_docvalues_long");
-            fieldNames.remove("created_docvalues_date");
-          }
-          else if(fls.size() >= 1) {
-            fieldNames.removeAll(fls);
-          }
-          for(String fieldName : fieldNames) {
-            if(!fls.contains(fieldName))
-              json2.remove(fieldName);
-          }
+      SeaportFacilityPage page = new SeaportFacilityPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listSeaportFacility.size() >= 1)
+        siteRequest.setRequestPk(listSeaportFacility.get(0).getPk());
+      page.setSearchListSeaportFacility_(listSeaportFacility);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepSeaportFacilityPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          searchpagefrfrSeaportFacilityPageInit(ctx, page, listSeaportFacility, promise1);
+          promise1.future().onSuccess(b -> {
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFrFRSeaportFacility(ctx, page, listSeaportFacility, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFrFRSeaportFacility failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200SearchPageFrFRSeaportFacility failed. "), ex);
+          promise.tryFail(ex);
         }
-        l.add(json2);
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
       });
-      json.put("list", l);
-      response200Search(listSeaportFacility.getRequest(), listSeaportFacility.getResponse(), json);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFrFRSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -296,18 +391,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("frFR");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
-        form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -322,11 +417,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, false, "GET").onSuccess(listSeaportFacility -> {
                 response200EditPageFrFRSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("editpagefrfrSeaportFacility succeeded. "));
@@ -395,7 +491,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
   }
 
   public String templateUriEditPageFrFRSeaportFacility(ServiceRequest serviceRequest, SeaportFacility result) {
-    return "";
+    return "fr-fr/edition/installations-portuaires/SeaportFacilityEditPage.htm";
   }
   public void templateEditPageFrFRSeaportFacility(JsonObject ctx, SeaportFacilityPage page, SearchList<SeaportFacility> listSeaportFacility, Promise<String> promise) {
     try {
@@ -405,8 +501,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
       String pageTemplateUri = templateUriEditPageFrFRSeaportFacility(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/seaport-facilities/SeaportFacilitySearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -451,6 +551,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -555,17 +656,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -580,11 +682,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, false, "GET").onSuccess(listSeaportFacility -> {
                 response200SearchSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchSeaportFacility succeeded. "));
@@ -639,6 +742,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
       List<String> fls = listSeaportFacility.getRequest().getFields();
       JsonObject json = new JsonObject();
       JsonArray l = new JsonArray();
+      List<String> scopes = siteRequest.getScopes();
       listSeaportFacility.getList().stream().forEach(o -> {
         JsonObject json2 = JsonObject.mapFrom(o);
         if(fls.size() > 0) {
@@ -665,15 +769,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
       });
       json.put("list", l);
       response200Search(listSeaportFacility.getRequest(), listSeaportFacility.getResponse(), json);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -725,17 +821,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -750,11 +847,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, false, "GET").onSuccess(listSeaportFacility -> {
                 response200GETSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("getSeaportFacility succeeded. "));
@@ -807,15 +905,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     try {
       SiteRequest siteRequest = listSeaportFacility.getSiteRequest_(SiteRequest.class);
       JsonObject json = JsonObject.mapFrom(listSeaportFacility.getList().stream().findFirst().orElse(null));
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200GETSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -834,17 +924,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
         webClient.post(
@@ -859,7 +950,8 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -875,7 +967,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, true, "PATCH").onSuccess(listSeaportFacility -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listSeaportFacility.getRequest().getRows());
@@ -1002,7 +1094,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             siteRequest.addScopes(scope);
           });
         });
-        searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
+        searchSeaportFacilityList(siteRequest, false, true, true, "PATCH").onSuccess(listSeaportFacility -> {
           try {
             SeaportFacility o = listSeaportFacility.first();
             ApiRequest apiRequest = new ApiRequest();
@@ -1729,15 +1821,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -1756,17 +1840,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "POST"));
         webClient.post(
@@ -1781,7 +1866,8 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -1807,6 +1893,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
               JsonObject params = new JsonObject();
               params.put("body", siteRequest.getJsonObject());
               params.put("path", new JsonObject());
+              params.put("scopes", scopes2);
               params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
               params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
               params.put("form", new JsonObject());
@@ -2651,15 +2738,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       JsonObject json = JsonObject.mapFrom(o);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -2678,17 +2757,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -2703,7 +2783,8 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -2719,7 +2800,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, true, "DELETE").onSuccess(listSeaportFacility -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listSeaportFacility.getRequest().getRows());
@@ -2845,7 +2926,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             siteRequest.addScopes(scope);
           });
         });
-        searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
+        searchSeaportFacilityList(siteRequest, false, true, true, "DELETE").onSuccess(listSeaportFacility -> {
           try {
             SeaportFacility o = listSeaportFacility.first();
             if(o != null && listSeaportFacility.getResponse().getResponse().getNumFound() == 1) {
@@ -3018,15 +3099,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETESeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -3045,17 +3118,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
         webClient.post(
@@ -3070,7 +3144,8 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -3350,15 +3425,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -3376,17 +3443,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -3401,11 +3469,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, false, "GET").onSuccess(listSeaportFacility -> {
                 response200SearchPageSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchpageSeaportFacility succeeded. "));
@@ -3484,8 +3553,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
       String pageTemplateUri = templateUriSearchPageSeaportFacility(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/seaport-facilities/SeaportFacilitySearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -3530,6 +3603,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -3634,18 +3708,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
-        form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -3660,11 +3734,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, false).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, false, "GET").onSuccess(listSeaportFacility -> {
                 response200EditPageSeaportFacility(listSeaportFacility).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("editpageSeaportFacility succeeded. "));
@@ -3743,8 +3818,12 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
       String pageTemplateUri = templateUriEditPageSeaportFacility(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/seaport-facilities/SeaportFacilitySearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -3789,6 +3868,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -3894,17 +3974,18 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String SEAPORTFACILITY = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("SEAPORTFACILITY");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -3919,7 +4000,8 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "SEAPORTFACILITY".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -3935,7 +4017,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
+              searchSeaportFacilityList(siteRequest, false, true, true, "DELETE").onSuccess(listSeaportFacility -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listSeaportFacility.getRequest().getRows());
@@ -4061,7 +4143,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
             siteRequest.addScopes(scope);
           });
         });
-        searchSeaportFacilityList(siteRequest, false, true, true).onSuccess(listSeaportFacility -> {
+        searchSeaportFacilityList(siteRequest, false, true, true, "DELETE").onSuccess(listSeaportFacility -> {
           try {
             SeaportFacility o = listSeaportFacility.first();
             if(o != null && listSeaportFacility.getResponse().getResponse().getNumFound() == 1) {
@@ -4234,15 +4316,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "seaport facility", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterSeaportFacility failed. "), ex);
       promise.tryFail(ex);
@@ -4353,13 +4427,14 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
     return promise.future();
   }
 
-  public Future<SearchList<SeaportFacility>> searchSeaportFacilityList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
+  public Future<SearchList<SeaportFacility>> searchSeaportFacilityList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, String scope) {
     Promise<SearchList<SeaportFacility>> promise = Promise.promise();
     try {
       ServiceRequest serviceRequest = siteRequest.getServiceRequest();
       String entityListStr = siteRequest.getServiceRequest().getParams().getJsonObject("query").getString("fl");
       String[] entityList = entityListStr == null ? null : entityListStr.split(",\\s*");
       SearchList<SeaportFacility> searchList = new SearchList<SeaportFacility>();
+      searchList.setScope(scope);
       String facetRange = null;
       Date facetRangeStart = null;
       Date facetRangeEnd = null;
@@ -4881,7 +4956,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
           params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
           params.put("form", new JsonObject());
           params.put("path", new JsonObject());
-          params.put("scopes", new JsonArray().add("GET").add("PATCH"));
+          params.put("scopes", siteRequest.getScopes());
           JsonObject query = new JsonObject();
           Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
           Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);

@@ -545,9 +545,16 @@ public class FishProcessingGenPage extends FishProcessingGenPageGen<PageLayout> 
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all fish processing plants");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/fish-processing");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/usine-transformation-poisson");
   }
 
   @Override

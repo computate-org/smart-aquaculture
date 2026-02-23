@@ -537,17 +537,24 @@ public class FeedingOperationGenPage extends FeedingOperationGenPageGen<PageLayo
     if(result != null && result.getObjectTitle() != null)
       c.o(result.getObjectTitle());
     else if(result != null)
-      c.o("FeedingOperations");
+      c.o("feeding operations");
     else if(searchListFeedingOperation_ == null || resultCount == 0)
-      c.o("no FeedingOperation found");
+      c.o("no feeding operation found");
     else
-      c.o("FeedingOperations");
+      c.o("feeding operations");
+  }
+
+  @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all feeding operations");
   }
 
   @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/feeding-operation");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/operation-alimentation");
   }
 
   @Override

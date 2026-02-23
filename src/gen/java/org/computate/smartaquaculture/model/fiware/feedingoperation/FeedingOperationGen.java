@@ -69,6 +69,8 @@ import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -97,7 +99,7 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
  * <h2>ApiTag.enUS: true</h2>
- * <p>This class contains a comment <b>"ApiTag: FeedingOperations"</b>, which groups all of the OpenAPIs for FeedingOperation objects under the tag "FeedingOperations". 
+ * <p>This class contains a comment <b>"ApiTag: feeding operations"</b>, which groups all of the OpenAPIs for FeedingOperation objects under the tag "feeding operations". 
  * </p>
  * <h2>ApiUri.enUS: /en-us/api/feeding-operation</h2>
  * <p>This class contains a comment <b>"ApiUri: /en-us/api/feeding-operation"</b>, which defines the base API URI for FeedingOperation objects as "/en-us/api/feeding-operation" in the OpenAPI spec. 
@@ -156,8 +158,8 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>
  *   If a super class of this Java class with `Model: true`, then the child class will also inherit `Promise: true`. 
  * </p>
- * <h2>AName.enUS: a FeedingOperation</h2>
- * <p>This class contains a comment <b>"AName.enUS: a FeedingOperation"</b>, which identifies the language context to describe a FeedingOperation as "a FeedingOperation". 
+ * <h2>AName.enUS: a feeding operation</h2>
+ * <p>This class contains a comment <b>"AName.enUS: a feeding operation"</b>, which identifies the language context to describe a FeedingOperation as "a feeding operation". 
  * </p>
  * <p>
  * Delete the class FeedingOperation in Solr: 
@@ -182,37 +184,53 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class FeedingOperationGen<DEV> extends BaseModel {
   protected static final Logger LOG = LoggerFactory.getLogger(FeedingOperation.class);
 
-  public static final String Description_frFR = "Feeding operation on a group of animals";
-  public static final String AName_frFR = "a FeedingOperation";
-  public static final String SingularName_frFR = "FeedingOperation";
-  public static final String PluralName_frFR = "FeedingOperations";
-  public static final String Title_frFR = "FeedingOperations";
-  public static final String ThePluralName_frFR = "les FeedingOperations";
-  public static final String NameAdjectiveSingular_frFR = "FeedingOperation";
-  public static final String NameAdjectivePlural_frFR = "FeedingOperations";
+  public static final String Description_frFR = "Opération d'alimentation sur un groupe d'animaux";
+  public static final String AName_frFR = "une opération d'alimentation";
+  public static final String This_frFR = "cette ";
+  public static final String ThisName_frFR = "cette opération d'alimentation";
+  public static final String A_frFR = "une ";
+  public static final String TheName_frFR = "l'opération d'alimentation";
+  public static final String SingularName_frFR = "opération d'alimentation";
+  public static final String PluralName_frFR = "opération d'alimentations";
+  public static final String NameActual_frFR = "opération d'alimentation actuelle";
+  public static final String AllName_frFR = "toutes opération d'alimentations";
+  public static final String SearchAllNameBy_frFR = "rechercher opération d'alimentations par ";
+  public static final String SearchAllName_frFR = "rechercher opération d'alimentations";
+  public static final String Title_frFR = "opération d'alimentations";
+  public static final String ThePluralName_frFR = "les opération d'alimentations";
+  public static final String NoNameFound_frFR = "aucune opération d'alimentation trouvée";
+  public static final String OfName_frFR = "d'opération d'alimentation";
+  public static final String NameAdjectiveSingular_frFR = "opération d'alimentation";
+  public static final String NameAdjectivePlural_frFR = "opération d'alimentations";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/operation-alimentation";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/operation-alimentation";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/operation-alimentation";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/operation-alimentation/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/operation-alimentation/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/operation-alimentation/%s";
 
   public static final String Description_enUS = "Feeding operation on a group of animals";
-  public static final String AName_enUS = "a FeedingOperation";
+  public static final String AName_enUS = "a feeding operation";
   public static final String This_enUS = "this ";
-  public static final String ThisName_enUS = "this FeedingOperation";
+  public static final String ThisName_enUS = "this feeding operation";
   public static final String A_enUS = "a ";
-  public static final String TheName_enUS = "the FeedingOperation";
-  public static final String SingularName_enUS = "FeedingOperation";
-  public static final String PluralName_enUS = "FeedingOperations";
-  public static final String NameActual_enUS = "current FeedingOperation";
-  public static final String AllName_enUS = "all FeedingOperations";
-  public static final String SearchAllNameBy_enUS = "search FeedingOperations by ";
-  public static final String SearchAllName_enUS = "search FeedingOperations";
-  public static final String Title_enUS = "FeedingOperations";
-  public static final String ThePluralName_enUS = "the FeedingOperations";
-  public static final String NoNameFound_enUS = "no FeedingOperation found";
+  public static final String TheName_enUS = "the feeding operation";
+  public static final String SingularName_enUS = "feeding operation";
+  public static final String PluralName_enUS = "feeding operations";
+  public static final String NameActual_enUS = "current feeding operation";
+  public static final String AllName_enUS = "all feeding operations";
+  public static final String SearchAllNameBy_enUS = "search feeding operations by ";
+  public static final String SearchAllName_enUS = "search feeding operations";
+  public static final String Title_enUS = "feeding operations";
+  public static final String ThePluralName_enUS = "the feeding operations";
+  public static final String NoNameFound_enUS = "no feeding operation found";
   public static final String ApiUri_enUS = "/en-us/api/feeding-operation";
   public static final String ApiUriSearchPage_enUS = "/en-us/search/feeding-operation";
   public static final String ApiUriEditPage_enUS = "/en-us/edit/feeding-operation/{entityShortId}";
-  public static final String OfName_enUS = "of FeedingOperation";
-  public static final String ANameAdjective_enUS = "a FeedingOperation";
-  public static final String NameAdjectiveSingular_enUS = "FeedingOperation";
-  public static final String NameAdjectivePlural_enUS = "FeedingOperations";
+  public static final String OfName_enUS = "of feeding operation";
+  public static final String ANameAdjective_enUS = "a feeding operation";
+  public static final String NameAdjectiveSingular_enUS = "feeding operation";
+  public static final String NameAdjectivePlural_enUS = "feeding operations";
   public static final String Search_enUS_OpenApiUri = "/en-us/api/feeding-operation";
   public static final String Search_enUS_StringFormatUri = "/en-us/api/feeding-operation";
   public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/feeding-operation";
@@ -2325,9 +2343,39 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<FeedingOperation> fqFeedingOperation(SiteRequest siteRequest, String var, Object val) {
+    Promise<FeedingOperation> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<FeedingOperation> searchList = new SearchList<FeedingOperation>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(FeedingOperation.class);
+        searchList.fq(String.format("%s:", FeedingOperation.varIndexedFeedingOperation(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the feeding operation", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the feeding operation", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the feeding operation", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFeedingOperation(entityVar,  siteRequest_, o);
@@ -2559,6 +2607,8 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
       } else if("location".equals(varLower)) {
         if(val instanceof String) {
           setLocation((String)val);
+        } else if(val instanceof JsonObject) {
+          setLocation((JsonObject)val);
         } else if(val instanceof Point) {
           setLocation((Point)val);
         } else if(val instanceof Point) {
@@ -3339,31 +3389,57 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
     return CLASS_API_ADDRESS_FeedingOperation;
   }
   public static final String VAR_name = "name";
+  public static final String SET_name = "setName";
   public static final String VAR_description = "description";
+  public static final String SET_description = "setDescription";
   public static final String VAR_location = "location";
+  public static final String SET_location = "setLocation";
   public static final String VAR_areaServedColors = "areaServedColors";
+  public static final String SET_areaServedColors = "setAreaServedColors";
   public static final String VAR_areaServedTitles = "areaServedTitles";
+  public static final String SET_areaServedTitles = "setAreaServedTitles";
   public static final String VAR_areaServedLinks = "areaServedLinks";
+  public static final String SET_areaServedLinks = "setAreaServedLinks";
   public static final String VAR_areaServed = "areaServed";
+  public static final String SET_areaServed = "setAreaServed";
   public static final String VAR_id = "id";
+  public static final String SET_id = "setId";
   public static final String VAR_entityShortId = "entityShortId";
+  public static final String SET_entityShortId = "setEntityShortId";
   public static final String VAR_ngsildTenant = "ngsildTenant";
+  public static final String SET_ngsildTenant = "setNgsildTenant";
   public static final String VAR_ngsildPath = "ngsildPath";
+  public static final String SET_ngsildPath = "setNgsildPath";
   public static final String VAR_ngsildContext = "ngsildContext";
+  public static final String SET_ngsildContext = "setNgsildContext";
   public static final String VAR_ngsildData = "ngsildData";
+  public static final String SET_ngsildData = "setNgsildData";
   public static final String VAR_address = "address";
+  public static final String SET_address = "setAddress";
   public static final String VAR_alternateName = "alternateName";
+  public static final String SET_alternateName = "setAlternateName";
   public static final String VAR_category = "category";
+  public static final String SET_category = "setCategory";
   public static final String VAR_dataProvider = "dataProvider";
+  public static final String SET_dataProvider = "setDataProvider";
   public static final String VAR_dateCreated = "dateCreated";
+  public static final String SET_dateCreated = "setDateCreated";
   public static final String VAR_dateModified = "dateModified";
+  public static final String SET_dateModified = "setDateModified";
   public static final String VAR_endpoint = "endpoint";
+  public static final String SET_endpoint = "setEndpoint";
   public static final String VAR_hasProvider = "hasProvider";
+  public static final String SET_hasProvider = "setHasProvider";
   public static final String VAR_owner = "owner";
+  public static final String SET_owner = "setOwner";
   public static final String VAR_relatedSource = "relatedSource";
+  public static final String SET_relatedSource = "setRelatedSource";
   public static final String VAR_seeAlso = "seeAlso";
+  public static final String SET_seeAlso = "setSeeAlso";
   public static final String VAR_source = "source";
+  public static final String SET_source = "setSource";
   public static final String VAR_version = "version";
+  public static final String SET_version = "setVersion";
 
   public static List<String> varsQForClass() {
     return FeedingOperation.varsQFeedingOperation(new ArrayList<String>());
@@ -3472,7 +3548,7 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
 
   @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/operation-alimentation/%s";
   }
 
   @Override
@@ -3480,34 +3556,66 @@ public abstract class FeedingOperationGen<DEV> extends BaseModel {
     return "%s/en-us/edit/feeding-operation/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return FeedingOperation.varJsonFeedingOperation(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonFeedingOperation(String var, Boolean patch) {
+    switch(var) {
+    case VAR_name:
+      return patch ? SET_name : VAR_name;
+    case VAR_description:
+      return patch ? SET_description : VAR_description;
+    case VAR_location:
+      return patch ? SET_location : VAR_location;
+    case VAR_areaServedColors:
+      return patch ? SET_areaServedColors : VAR_areaServedColors;
+    case VAR_areaServedTitles:
+      return patch ? SET_areaServedTitles : VAR_areaServedTitles;
+    case VAR_areaServedLinks:
+      return patch ? SET_areaServedLinks : VAR_areaServedLinks;
+    case VAR_areaServed:
+      return patch ? SET_areaServed : VAR_areaServed;
+    case VAR_id:
+      return patch ? SET_id : VAR_id;
+    case VAR_entityShortId:
+      return patch ? SET_entityShortId : VAR_entityShortId;
+    case VAR_ngsildTenant:
+      return patch ? SET_ngsildTenant : VAR_ngsildTenant;
+    case VAR_ngsildPath:
+      return patch ? SET_ngsildPath : VAR_ngsildPath;
+    case VAR_ngsildContext:
+      return patch ? SET_ngsildContext : VAR_ngsildContext;
+    case VAR_ngsildData:
+      return patch ? SET_ngsildData : VAR_ngsildData;
+    case VAR_address:
+      return patch ? SET_address : VAR_address;
+    case VAR_alternateName:
+      return patch ? SET_alternateName : VAR_alternateName;
+    case VAR_category:
+      return patch ? SET_category : VAR_category;
+    case VAR_dataProvider:
+      return patch ? SET_dataProvider : VAR_dataProvider;
+    case VAR_dateCreated:
+      return patch ? SET_dateCreated : VAR_dateCreated;
+    case VAR_dateModified:
+      return patch ? SET_dateModified : VAR_dateModified;
+    case VAR_endpoint:
+      return patch ? SET_endpoint : VAR_endpoint;
+    case VAR_hasProvider:
+      return patch ? SET_hasProvider : VAR_hasProvider;
+    case VAR_owner:
+      return patch ? SET_owner : VAR_owner;
+    case VAR_relatedSource:
+      return patch ? SET_relatedSource : VAR_relatedSource;
+    case VAR_seeAlso:
+      return patch ? SET_seeAlso : VAR_seeAlso;
+    case VAR_source:
+      return patch ? SET_source : VAR_source;
+    case VAR_version:
+      return patch ? SET_version : VAR_version;
+    default:
+      return BaseModel.varJsonBaseModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

@@ -82,6 +82,8 @@ import java.lang.Long;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -1607,9 +1609,39 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<FishingBoat> fq(SiteRequest siteRequest, String var, Object val) {
+    Promise<FishingBoat> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<FishingBoat> searchList = new SearchList<FishingBoat>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(FishingBoat.class);
+        searchList.fq(String.format("%s:", FishingBoat.varIndexedFishingBoat(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the fishing boat", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the fishing boat", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the fishing boat", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishingBoat(entityVar,  siteRequest_, o);
@@ -2248,19 +2280,33 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return CLASS_API_ADDRESS_FishingBoat;
   }
   public static final String VAR_timeZone = "timeZone";
+  public static final String SET_timeZone = "setTimeZone";
   public static final String VAR_fishingDockId = "fishingDockId";
+  public static final String SET_fishingDockId = "setFishingDockId";
   public static final String VAR_departureDate = "departureDate";
+  public static final String SET_departureDate = "setDepartureDate";
   public static final String VAR_arrivalDate = "arrivalDate";
+  public static final String SET_arrivalDate = "setArrivalDate";
   public static final String VAR_avgSpeedInMph = "avgSpeedInMph";
+  public static final String SET_avgSpeedInMph = "setAvgSpeedInMph";
   public static final String VAR_maxSpeedInMph = "maxSpeedInMph";
+  public static final String SET_maxSpeedInMph = "setMaxSpeedInMph";
   public static final String VAR_milesPerGallon = "milesPerGallon";
+  public static final String SET_milesPerGallon = "setMilesPerGallon";
   public static final String VAR_gallonsOfGas = "gallonsOfGas";
+  public static final String SET_gallonsOfGas = "setGallonsOfGas";
   public static final String VAR_areaServedColors = "areaServedColors";
+  public static final String SET_areaServedColors = "setAreaServedColors";
   public static final String VAR_areaServedTitles = "areaServedTitles";
+  public static final String SET_areaServedTitles = "setAreaServedTitles";
   public static final String VAR_areaServedLinks = "areaServedLinks";
+  public static final String SET_areaServedLinks = "setAreaServedLinks";
   public static final String VAR_path = "path";
+  public static final String SET_path = "setPath";
   public static final String VAR_simulation = "simulation";
+  public static final String SET_simulation = "setSimulation";
   public static final String VAR_simulationDelayMillis = "simulationDelayMillis";
+  public static final String SET_simulationDelayMillis = "setSimulationDelayMillis";
 
   public static List<String> varsQForClass() {
     return FishingBoat.varsQFishingBoat(new ArrayList<String>());
@@ -2337,11 +2383,6 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
     return "%s/fr-fr/edition/bateau-de-peche/%s";
   }
@@ -2351,34 +2392,42 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return "%s/en-us/edit/fishing-boat/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return FishingBoat.varJsonFishingBoat(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonFishingBoat(String var, Boolean patch) {
+    switch(var) {
+    case VAR_timeZone:
+      return patch ? SET_timeZone : VAR_timeZone;
+    case VAR_fishingDockId:
+      return patch ? SET_fishingDockId : VAR_fishingDockId;
+    case VAR_departureDate:
+      return patch ? SET_departureDate : VAR_departureDate;
+    case VAR_arrivalDate:
+      return patch ? SET_arrivalDate : VAR_arrivalDate;
+    case VAR_avgSpeedInMph:
+      return patch ? SET_avgSpeedInMph : VAR_avgSpeedInMph;
+    case VAR_maxSpeedInMph:
+      return patch ? SET_maxSpeedInMph : VAR_maxSpeedInMph;
+    case VAR_milesPerGallon:
+      return patch ? SET_milesPerGallon : VAR_milesPerGallon;
+    case VAR_gallonsOfGas:
+      return patch ? SET_gallonsOfGas : VAR_gallonsOfGas;
+    case VAR_areaServedColors:
+      return patch ? SET_areaServedColors : VAR_areaServedColors;
+    case VAR_areaServedTitles:
+      return patch ? SET_areaServedTitles : VAR_areaServedTitles;
+    case VAR_areaServedLinks:
+      return patch ? SET_areaServedLinks : VAR_areaServedLinks;
+    case VAR_path:
+      return patch ? SET_path : VAR_path;
+    case VAR_simulation:
+      return patch ? SET_simulation : VAR_simulation;
+    case VAR_simulationDelayMillis:
+      return patch ? SET_simulationDelayMillis : VAR_simulationDelayMillis;
+    default:
+      return MapModel.varJsonMapModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

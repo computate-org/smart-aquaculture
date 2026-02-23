@@ -69,6 +69,8 @@ import org.computate.vertx.serialize.vertx.JsonObjectDeserializer;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -97,7 +99,7 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>This class contains a comment <b>"Api: true"</b>, which means this class will have Java Vert.x API backend code generated for these objects. 
  * </p>
  * <h2>ApiTag.enUS: true</h2>
- * <p>This class contains a comment <b>"ApiTag: Feeds"</b>, which groups all of the OpenAPIs for Feed objects under the tag "Feeds". 
+ * <p>This class contains a comment <b>"ApiTag: feeds"</b>, which groups all of the OpenAPIs for Feed objects under the tag "feeds". 
  * </p>
  * <h2>ApiUri.enUS: /en-us/api/feed</h2>
  * <p>This class contains a comment <b>"ApiUri: /en-us/api/feed"</b>, which defines the base API URI for Feed objects as "/en-us/api/feed" in the OpenAPI spec. 
@@ -156,8 +158,8 @@ import org.computate.search.response.solr.SolrResponse;
  * <p>
  *   If a super class of this Java class with `Model: true`, then the child class will also inherit `Promise: true`. 
  * </p>
- * <h2>AName.enUS: a Feed</h2>
- * <p>This class contains a comment <b>"AName.enUS: a Feed"</b>, which identifies the language context to describe a Feed as "a Feed". 
+ * <h2>AName.enUS: a feed</h2>
+ * <p>This class contains a comment <b>"AName.enUS: a feed"</b>, which identifies the language context to describe a Feed as "a feed". 
  * </p>
  * <p>
  * Delete the class Feed in Solr: 
@@ -182,37 +184,53 @@ import org.computate.search.response.solr.SolrResponse;
 public abstract class FeedGen<DEV> extends BaseModel {
   protected static final Logger LOG = LoggerFactory.getLogger(Feed.class);
 
-  public static final String Description_frFR = "Feed tak for a group of animals";
-  public static final String AName_frFR = "a Feed";
-  public static final String SingularName_frFR = "Feed";
-  public static final String PluralName_frFR = "Feeds";
-  public static final String Title_frFR = "Feeds";
-  public static final String ThePluralName_frFR = "les Feeds";
-  public static final String NameAdjectiveSingular_frFR = "Feed";
-  public static final String NameAdjectivePlural_frFR = "Feeds";
+  public static final String Description_frFR = "Nourriture pour un groupe d'animaux";
+  public static final String AName_frFR = "une nourriture";
+  public static final String This_frFR = "cette ";
+  public static final String ThisName_frFR = "cette nourriture";
+  public static final String A_frFR = "une ";
+  public static final String TheName_frFR = "la nourriture";
+  public static final String SingularName_frFR = "nourriture";
+  public static final String PluralName_frFR = "nourritures";
+  public static final String NameActual_frFR = "nourriture actuelle";
+  public static final String AllName_frFR = "toutes nourritures";
+  public static final String SearchAllNameBy_frFR = "rechercher nourritures par ";
+  public static final String SearchAllName_frFR = "rechercher nourritures";
+  public static final String Title_frFR = "nourritures";
+  public static final String ThePluralName_frFR = "les nourritures";
+  public static final String NoNameFound_frFR = "aucune nourriture trouvée";
+  public static final String OfName_frFR = "de nourriture";
+  public static final String NameAdjectiveSingular_frFR = "nourriture";
+  public static final String NameAdjectivePlural_frFR = "nourritures";
+  public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/nourriture";
+  public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/nourriture";
+  public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/nourriture";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/nourriture/{entityShortId}";
+  public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/nourriture/%s";
+  public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/nourriture/%s";
 
   public static final String Description_enUS = "Feed tak for a group of animals";
-  public static final String AName_enUS = "a Feed";
+  public static final String AName_enUS = "a feed";
   public static final String This_enUS = "this ";
-  public static final String ThisName_enUS = "this Feed";
+  public static final String ThisName_enUS = "this feed";
   public static final String A_enUS = "a ";
-  public static final String TheName_enUS = "the Feed";
-  public static final String SingularName_enUS = "Feed";
-  public static final String PluralName_enUS = "Feeds";
-  public static final String NameActual_enUS = "current Feed";
-  public static final String AllName_enUS = "all Feeds";
-  public static final String SearchAllNameBy_enUS = "search Feeds by ";
-  public static final String SearchAllName_enUS = "search Feeds";
-  public static final String Title_enUS = "Feeds";
-  public static final String ThePluralName_enUS = "the Feeds";
-  public static final String NoNameFound_enUS = "no Feed found";
+  public static final String TheName_enUS = "the feed";
+  public static final String SingularName_enUS = "feed";
+  public static final String PluralName_enUS = "feeds";
+  public static final String NameActual_enUS = "current feed";
+  public static final String AllName_enUS = "all feeds";
+  public static final String SearchAllNameBy_enUS = "search feeds by ";
+  public static final String SearchAllName_enUS = "search feeds";
+  public static final String Title_enUS = "feeds";
+  public static final String ThePluralName_enUS = "the feeds";
+  public static final String NoNameFound_enUS = "no feed found";
   public static final String ApiUri_enUS = "/en-us/api/feed";
   public static final String ApiUriSearchPage_enUS = "/en-us/search/feed";
   public static final String ApiUriEditPage_enUS = "/en-us/edit/feed/{entityShortId}";
-  public static final String OfName_enUS = "of Feed";
-  public static final String ANameAdjective_enUS = "a Feed";
-  public static final String NameAdjectiveSingular_enUS = "Feed";
-  public static final String NameAdjectivePlural_enUS = "Feeds";
+  public static final String OfName_enUS = "of feed";
+  public static final String ANameAdjective_enUS = "a feed";
+  public static final String NameAdjectiveSingular_enUS = "feed";
+  public static final String NameAdjectivePlural_enUS = "feeds";
   public static final String Search_enUS_OpenApiUri = "/en-us/api/feed";
   public static final String Search_enUS_StringFormatUri = "/en-us/api/feed";
   public static final String Search_enUS_StringFormatUrl = "%s/en-us/api/feed";
@@ -2048,9 +2066,39 @@ public abstract class FeedGen<DEV> extends BaseModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<Feed> fqFeed(SiteRequest siteRequest, String var, Object val) {
+    Promise<Feed> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<Feed> searchList = new SearchList<Feed>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(Feed.class);
+        searchList.fq(String.format("%s:", Feed.varIndexedFeed(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the feed", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the feed", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the feed", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFeed(entityVar,  siteRequest_, o);
@@ -2258,6 +2306,8 @@ public abstract class FeedGen<DEV> extends BaseModel {
       } else if("location".equals(varLower)) {
         if(val instanceof String) {
           setLocation((String)val);
+        } else if(val instanceof JsonObject) {
+          setLocation((JsonObject)val);
         } else if(val instanceof Point) {
           setLocation((Point)val);
         } else if(val instanceof Point) {
@@ -2934,27 +2984,49 @@ public abstract class FeedGen<DEV> extends BaseModel {
     return CLASS_API_ADDRESS_Feed;
   }
   public static final String VAR_name = "name";
+  public static final String SET_name = "setName";
   public static final String VAR_description = "description";
+  public static final String SET_description = "setDescription";
   public static final String VAR_location = "location";
+  public static final String SET_location = "setLocation";
   public static final String VAR_areaServedColors = "areaServedColors";
+  public static final String SET_areaServedColors = "setAreaServedColors";
   public static final String VAR_areaServedTitles = "areaServedTitles";
+  public static final String SET_areaServedTitles = "setAreaServedTitles";
   public static final String VAR_areaServedLinks = "areaServedLinks";
+  public static final String SET_areaServedLinks = "setAreaServedLinks";
   public static final String VAR_areaServed = "areaServed";
+  public static final String SET_areaServed = "setAreaServed";
   public static final String VAR_id = "id";
+  public static final String SET_id = "setId";
   public static final String VAR_entityShortId = "entityShortId";
+  public static final String SET_entityShortId = "setEntityShortId";
   public static final String VAR_ngsildTenant = "ngsildTenant";
+  public static final String SET_ngsildTenant = "setNgsildTenant";
   public static final String VAR_ngsildPath = "ngsildPath";
+  public static final String SET_ngsildPath = "setNgsildPath";
   public static final String VAR_ngsildContext = "ngsildContext";
+  public static final String SET_ngsildContext = "setNgsildContext";
   public static final String VAR_ngsildData = "ngsildData";
+  public static final String SET_ngsildData = "setNgsildData";
   public static final String VAR_address = "address";
+  public static final String SET_address = "setAddress";
   public static final String VAR_alternateName = "alternateName";
+  public static final String SET_alternateName = "setAlternateName";
   public static final String VAR_dataProvider = "dataProvider";
+  public static final String SET_dataProvider = "setDataProvider";
   public static final String VAR_dateCreated = "dateCreated";
+  public static final String SET_dateCreated = "setDateCreated";
   public static final String VAR_dateModified = "dateModified";
+  public static final String SET_dateModified = "setDateModified";
   public static final String VAR_owner = "owner";
+  public static final String SET_owner = "setOwner";
   public static final String VAR_relatedSource = "relatedSource";
+  public static final String SET_relatedSource = "setRelatedSource";
   public static final String VAR_seeAlso = "seeAlso";
+  public static final String SET_seeAlso = "setSeeAlso";
   public static final String VAR_source = "source";
+  public static final String SET_source = "setSource";
 
   public static List<String> varsQForClass() {
     return Feed.varsQFeed(new ArrayList<String>());
@@ -3054,7 +3126,7 @@ public abstract class FeedGen<DEV> extends BaseModel {
 
   @Override
   public String frFRStringFormatUrlEditPageForClass() {
-    return null;
+    return "%s/fr-fr/edition/nourriture/%s";
   }
 
   @Override
@@ -3062,34 +3134,58 @@ public abstract class FeedGen<DEV> extends BaseModel {
     return "%s/en-us/edit/feed/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return Feed.varJsonFeed(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonFeed(String var, Boolean patch) {
+    switch(var) {
+    case VAR_name:
+      return patch ? SET_name : VAR_name;
+    case VAR_description:
+      return patch ? SET_description : VAR_description;
+    case VAR_location:
+      return patch ? SET_location : VAR_location;
+    case VAR_areaServedColors:
+      return patch ? SET_areaServedColors : VAR_areaServedColors;
+    case VAR_areaServedTitles:
+      return patch ? SET_areaServedTitles : VAR_areaServedTitles;
+    case VAR_areaServedLinks:
+      return patch ? SET_areaServedLinks : VAR_areaServedLinks;
+    case VAR_areaServed:
+      return patch ? SET_areaServed : VAR_areaServed;
+    case VAR_id:
+      return patch ? SET_id : VAR_id;
+    case VAR_entityShortId:
+      return patch ? SET_entityShortId : VAR_entityShortId;
+    case VAR_ngsildTenant:
+      return patch ? SET_ngsildTenant : VAR_ngsildTenant;
+    case VAR_ngsildPath:
+      return patch ? SET_ngsildPath : VAR_ngsildPath;
+    case VAR_ngsildContext:
+      return patch ? SET_ngsildContext : VAR_ngsildContext;
+    case VAR_ngsildData:
+      return patch ? SET_ngsildData : VAR_ngsildData;
+    case VAR_address:
+      return patch ? SET_address : VAR_address;
+    case VAR_alternateName:
+      return patch ? SET_alternateName : VAR_alternateName;
+    case VAR_dataProvider:
+      return patch ? SET_dataProvider : VAR_dataProvider;
+    case VAR_dateCreated:
+      return patch ? SET_dateCreated : VAR_dateCreated;
+    case VAR_dateModified:
+      return patch ? SET_dateModified : VAR_dateModified;
+    case VAR_owner:
+      return patch ? SET_owner : VAR_owner;
+    case VAR_relatedSource:
+      return patch ? SET_relatedSource : VAR_relatedSource;
+    case VAR_seeAlso:
+      return patch ? SET_seeAlso : VAR_seeAlso;
+    case VAR_source:
+      return patch ? SET_source : VAR_source;
+    default:
+      return BaseModel.varJsonBaseModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

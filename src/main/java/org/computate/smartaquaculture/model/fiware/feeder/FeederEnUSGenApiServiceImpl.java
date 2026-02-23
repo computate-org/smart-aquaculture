@@ -129,27 +129,28 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
 
   protected static final Logger LOG = LoggerFactory.getLogger(FeederEnUSGenApiServiceImpl.class);
 
-  // Search //
+  // SearchPageFrFR //
 
   @Override
-  public void searchFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+  public void searchpagefrfrFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
     Boolean classPublicRead = false;
     user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
       try {
-        siteRequest.setLang("enUS");
+        siteRequest.setLang("frFR");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -164,11 +165,542 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
+              searchFeederList(siteRequest, false, true, false, "GET").onSuccess(listFeeder -> {
+                response200SearchPageFrFRFeeder(listFeeder).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("searchpagefrfrFeeder succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("searchpagefrfrFeeder failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("searchpagefrfrFeeder failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+              });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("searchpagefrfrFeeder failed. "), ex);
+            error(null, eventHandler, ex);
+          }
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("searchpagefrfrFeeder failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("searchpagefrfrFeeder failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("searchpagefrfrFeeder failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void searchpagefrfrFeederPageInit(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/nourrisseur"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/nourrisseur"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/feeder"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/feeder"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriSearchPageFrFRFeeder(ServiceRequest serviceRequest, Feeder result) {
+    return "fr-fr/rechercher/nourrisseur/FeederSearchPage.htm";
+  }
+  public void templateSearchPageFrFRFeeder(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      Feeder result = listFeeder.first();
+      String pageTemplateUri = templateUriSearchPageFrFRFeeder(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/feeder/FeederSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFrFRFeeder failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+  }
+  public Future<ServiceResponse> response200SearchPageFrFRFeeder(SearchList<Feeder> listFeeder) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
+      FeederPage page = new FeederPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listFeeder.size() >= 1)
+        siteRequest.setRequestPk(listFeeder.get(0).getPk());
+      page.setSearchListFeeder_(listFeeder);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepFeederPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          searchpagefrfrFeederPageInit(ctx, page, listFeeder, promise1);
+          promise1.future().onSuccess(b -> {
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFrFRFeeder(ctx, page, listFeeder, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFrFRFeeder failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200SearchPageFrFRFeeder failed. "), ex);
+          promise.tryFail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200SearchPageFrFRFeeder failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotSearchPageFrFRFeeder(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotSearchPageFrFRFeeder(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
+  // EditPageFrFR //
+
+  @Override
+  public void editpagefrfrFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = false;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("frFR");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+              , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+              , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+              )
+              .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+              .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+              .sendForm(form)
+              .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFeederList(siteRequest, false, true, false, "GET").onSuccess(listFeeder -> {
+                response200EditPageFrFRFeeder(listFeeder).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("editpagefrfrFeeder succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("editpagefrfrFeeder failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("editpagefrfrFeeder failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("editpagefrfrFeeder failed. "), ex);
+            error(null, eventHandler, ex);
+          }
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("editpagefrfrFeeder failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("editpagefrfrFeeder failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("editpagefrfrFeeder failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void editpagefrfrFeederPageInit(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/nourrisseur"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/feeder"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriEditPageFrFRFeeder(ServiceRequest serviceRequest, Feeder result) {
+    return "fr-fr/edition/nourrisseur/FeederEditPage.htm";
+  }
+  public void templateEditPageFrFRFeeder(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      Feeder result = listFeeder.first();
+      String pageTemplateUri = templateUriEditPageFrFRFeeder(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/feeder/FeederSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateEditPageFrFRFeeder failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+  }
+  public Future<ServiceResponse> response200EditPageFrFRFeeder(SearchList<Feeder> listFeeder) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
+      FeederPage page = new FeederPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listFeeder.size() >= 1)
+        siteRequest.setRequestPk(listFeeder.get(0).getPk());
+      page.setSearchListFeeder_(listFeeder);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepFeederPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          editpagefrfrFeederPageInit(ctx, page, listFeeder, promise1);
+          promise1.future().onSuccess(b -> {
+            Promise<String> promise2 = Promise.promise();
+            templateEditPageFrFRFeeder(ctx, page, listFeeder, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200EditPageFrFRFeeder failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200EditPageFrFRFeeder failed. "), ex);
+          promise.tryFail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200EditPageFrFRFeeder failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotEditPageFrFRFeeder(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotEditPageFrFRFeeder(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
+  // Search //
+
+  @Override
+  public void searchFeeder(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = false;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("enUS");
+        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
+        String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
+        if(entityShortId != null)
+          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+            , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+            , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+            )
+            .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+            .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+            .sendForm(form)
+            .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchFeederList(siteRequest, false, true, false, "GET").onSuccess(listFeeder -> {
                 response200SearchFeeder(listFeeder).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchFeeder succeeded. "));
@@ -223,6 +755,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       List<String> fls = listFeeder.getRequest().getFields();
       JsonObject json = new JsonObject();
       JsonArray l = new JsonArray();
+      List<String> scopes = siteRequest.getScopes();
       listFeeder.getList().stream().forEach(o -> {
         JsonObject json2 = JsonObject.mapFrom(o);
         if(fls.size() > 0) {
@@ -249,15 +782,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       });
       json.put("list", l);
       response200Search(listFeeder.getRequest(), listFeeder.getResponse(), json);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "Feeder", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchFeeder failed. "), ex);
       promise.tryFail(ex);
@@ -309,17 +834,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -334,11 +860,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
+              searchFeederList(siteRequest, false, true, false, "GET").onSuccess(listFeeder -> {
                 response200GETFeeder(listFeeder).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("getFeeder succeeded. "));
@@ -391,15 +918,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     try {
       SiteRequest siteRequest = listFeeder.getSiteRequest_(SiteRequest.class);
       JsonObject json = JsonObject.mapFrom(listFeeder.getList().stream().findFirst().orElse(null));
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "Feeder", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200GETFeeder failed. "), ex);
       promise.tryFail(ex);
@@ -418,17 +937,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
         webClient.post(
@@ -443,7 +963,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -459,7 +980,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+              searchFeederList(siteRequest, false, true, true, "PATCH").onSuccess(listFeeder -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listFeeder.getRequest().getRows());
@@ -586,7 +1107,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             siteRequest.addScopes(scope);
           });
         });
-        searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+        searchFeederList(siteRequest, false, true, true, "PATCH").onSuccess(listFeeder -> {
           try {
             Feeder o = listFeeder.first();
             ApiRequest apiRequest = new ApiRequest();
@@ -1057,15 +1578,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "Feeder", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHFeeder failed. "), ex);
       promise.tryFail(ex);
@@ -1084,17 +1597,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "POST"));
         webClient.post(
@@ -1109,7 +1623,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -1135,6 +1650,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
               JsonObject params = new JsonObject();
               params.put("body", siteRequest.getJsonObject());
               params.put("path", new JsonObject());
+              params.put("scopes", scopes2);
               params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
               params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
               params.put("form", new JsonObject());
@@ -1691,15 +2207,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       JsonObject json = JsonObject.mapFrom(o);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "Feeder", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTFeeder failed. "), ex);
       promise.tryFail(ex);
@@ -1718,17 +2226,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -1743,7 +2252,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -1759,7 +2269,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+              searchFeederList(siteRequest, false, true, true, "DELETE").onSuccess(listFeeder -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listFeeder.getRequest().getRows());
@@ -1885,7 +2395,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             siteRequest.addScopes(scope);
           });
         });
-        searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+        searchFeederList(siteRequest, false, true, true, "DELETE").onSuccess(listFeeder -> {
           try {
             Feeder o = listFeeder.first();
             if(o != null && listFeeder.getResponse().getResponse().getNumFound() == 1) {
@@ -2058,15 +2568,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "Feeder", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFeeder failed. "), ex);
       promise.tryFail(ex);
@@ -2085,17 +2587,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
         webClient.post(
@@ -2110,7 +2613,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -2390,15 +2894,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "Feeder", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportFeeder failed. "), ex);
       promise.tryFail(ex);
@@ -2416,17 +2912,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -2441,11 +2938,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
+              searchFeederList(siteRequest, false, true, false, "GET").onSuccess(listFeeder -> {
                 response200SearchPageFeeder(listFeeder).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchpageFeeder succeeded. "));
@@ -2496,6 +2994,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
   public void searchpageFeederPageInit(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<Void> promise) {
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/nourrisseur"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/nourrisseur"));
     ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
     ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
     ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
@@ -2522,8 +3022,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       String pageTemplateUri = templateUriSearchPageFeeder(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/feeder/FeederSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -2568,6 +3072,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -2672,18 +3177,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
-        form.add("permission", String.format("%s-%s#%s", Feeder.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -2698,11 +3203,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFeederList(siteRequest, false, true, false).onSuccess(listFeeder -> {
+              searchFeederList(siteRequest, false, true, false, "GET").onSuccess(listFeeder -> {
                 response200EditPageFeeder(listFeeder).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("editpageFeeder succeeded. "));
@@ -2753,6 +3259,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
   public void editpageFeederPageInit(JsonObject ctx, FeederPage page, SearchList<Feeder> listFeeder, Promise<Void> promise) {
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/nourrisseur"));
     ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
     ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
     ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
@@ -2780,8 +3287,12 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
       String pageTemplateUri = templateUriEditPageFeeder(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/feeder/FeederSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -2826,6 +3337,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -2931,17 +3443,18 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FEEDER = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FEEDER");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        form.add("permission", String.format("%s#%s", Feeder.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -2956,7 +3469,8 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FEEDER".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -2972,7 +3486,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+              searchFeederList(siteRequest, false, true, true, "DELETE").onSuccess(listFeeder -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listFeeder.getRequest().getRows());
@@ -3098,7 +3612,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
             siteRequest.addScopes(scope);
           });
         });
-        searchFeederList(siteRequest, false, true, true).onSuccess(listFeeder -> {
+        searchFeederList(siteRequest, false, true, true, "DELETE").onSuccess(listFeeder -> {
           try {
             Feeder o = listFeeder.first();
             if(o != null && listFeeder.getResponse().getResponse().getNumFound() == 1) {
@@ -3271,15 +3785,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "Feeder", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterFeeder failed. "), ex);
       promise.tryFail(ex);
@@ -3390,13 +3896,14 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
     return promise.future();
   }
 
-  public Future<SearchList<Feeder>> searchFeederList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
+  public Future<SearchList<Feeder>> searchFeederList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, String scope) {
     Promise<SearchList<Feeder>> promise = Promise.promise();
     try {
       ServiceRequest serviceRequest = siteRequest.getServiceRequest();
       String entityListStr = siteRequest.getServiceRequest().getParams().getJsonObject("query").getString("fl");
       String[] entityList = entityListStr == null ? null : entityListStr.split(",\\s*");
       SearchList<Feeder> searchList = new SearchList<Feeder>();
+      searchList.setScope(scope);
       String facetRange = null;
       Date facetRangeStart = null;
       Date facetRangeEnd = null;
@@ -3918,7 +4425,7 @@ public class FeederEnUSGenApiServiceImpl extends BaseApiServiceImpl implements F
           params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
           params.put("form", new JsonObject());
           params.put("path", new JsonObject());
-          params.put("scopes", new JsonArray().add("GET").add("PATCH"));
+          params.put("scopes", siteRequest.getScopes());
           JsonObject query = new JsonObject();
           Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
           Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);

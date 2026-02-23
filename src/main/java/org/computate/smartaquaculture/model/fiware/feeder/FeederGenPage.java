@@ -545,9 +545,16 @@ public class FeederGenPage extends FeederGenPageGen<PageLayout> {
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all Feeders");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/feeder");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/nourrisseur");
   }
 
   @Override

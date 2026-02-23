@@ -45,6 +45,7 @@ import io.vertx.ext.auth.authorization.AuthorizationProvider;
 @ProxyGen
 public interface MapModelEnUSGenApiService {
 
+  public void searchpagefrfrMapModel(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler);
 
   public void searchMapModel(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler);
   public void getMapModel(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler);

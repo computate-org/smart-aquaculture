@@ -34,9 +34,11 @@ import org.computate.smartaquaculture.result.BaseResult;
  * ApiMethod:
  *   SearchPageFrFR:
  *     Language: frFR
+ *     Page: TimeZonePage
  *     ApiUri: /fr-fr/rechercher/fuseau-horaire
  *   EditPageFrFR:
  *     Language: frFR
+ *     Page: TimeZonePage
  *     ApiUri: /fr-fr/edition/fuseau-horaire/{entityShortId}
  *   Search:
  *   GET:

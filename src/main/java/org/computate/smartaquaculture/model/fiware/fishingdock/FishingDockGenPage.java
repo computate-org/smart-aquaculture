@@ -545,9 +545,16 @@ public class FishingDockGenPage extends FishingDockGenPageGen<PageLayout> {
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all fishing docks");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/fishing-dock");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/quai-de-peche");
   }
 
   @Override

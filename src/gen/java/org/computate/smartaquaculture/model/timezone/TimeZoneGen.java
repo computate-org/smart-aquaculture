@@ -51,6 +51,8 @@ import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 import io.vertx.core.json.JsonObject;
@@ -703,9 +705,39 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<TimeZone> fqTimeZone(SiteRequest siteRequest, String var, Object val) {
+    Promise<TimeZone> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<TimeZone> searchList = new SearchList<TimeZone>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(TimeZone.class);
+        searchList.fq(String.format("%s:", TimeZone.varIndexedTimeZone(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the time zone", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the time zone", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the time zone", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchTimeZone(entityVar,  siteRequest_, o);
@@ -1028,10 +1060,15 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
     return CLASS_API_ADDRESS_TimeZone;
   }
   public static final String VAR_abbreviation = "abbreviation";
+  public static final String SET_abbreviation = "setAbbreviation";
   public static final String VAR_location = "location";
+  public static final String SET_location = "setLocation";
   public static final String VAR_name = "name";
+  public static final String SET_name = "setName";
   public static final String VAR_displayName = "displayName";
+  public static final String SET_displayName = "setDisplayName";
   public static final String VAR_id = "id";
+  public static final String SET_id = "setId";
 
   public static List<String> varsQForClass() {
     return TimeZone.varsQTimeZone(new ArrayList<String>());
@@ -1089,11 +1126,6 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
     return "%s/fr-fr/edition/fuseau-horaire/%s";
   }
@@ -1103,34 +1135,24 @@ public abstract class TimeZoneGen<DEV> extends BaseResult {
     return "%s/en-us/edit/time-zone/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return TimeZone.varJsonTimeZone(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonTimeZone(String var, Boolean patch) {
+    switch(var) {
+    case VAR_abbreviation:
+      return patch ? SET_abbreviation : VAR_abbreviation;
+    case VAR_location:
+      return patch ? SET_location : VAR_location;
+    case VAR_name:
+      return patch ? SET_name : VAR_name;
+    case VAR_displayName:
+      return patch ? SET_displayName : VAR_displayName;
+    case VAR_id:
+      return patch ? SET_id : VAR_id;
+    default:
+      return BaseResult.varJsonBaseResult(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

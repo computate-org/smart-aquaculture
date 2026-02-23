@@ -537,6 +537,11 @@ public class TimeZoneGenPage extends TimeZoneGenPageGen<PageLayout> {
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all time zones");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/time-zone");

@@ -40,9 +40,11 @@ import io.vertx.pgclient.data.Path;
  * ApiMethod:
  *   SearchPageFrFR:
  *     Language: frFR
+ *     Page: FishingBoatPage
  *     ApiUri: /fr-fr/rechercher/bateau-de-peche
  *   EditPageFrFR:
  *     Language: frFR
+ *     Page: FishingBoatPage
  *     ApiUri: /fr-fr/edition/bateau-de-peche/{entityShortId}
  *   Search:
  *   GET:

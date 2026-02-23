@@ -544,9 +544,16 @@ public class MapModelGenPage extends MapModelGenPageGen<PageLayout> {
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all map models");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/map-model");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/modele-de-carte");
   }
 
   @Override

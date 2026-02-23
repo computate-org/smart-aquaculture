@@ -143,17 +143,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("frFR");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -168,11 +169,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, false).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, false, "GET").onSuccess(listFishingBoat -> {
                 response200SearchPageFrFRFishingBoat(listFishingBoat).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchpagefrfrFishingBoat succeeded. "));
@@ -220,48 +222,141 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     });
   }
 
+  public void searchpagefrfrFishingBoatPageInit(JsonObject ctx, FishingBoatPage page, SearchList<FishingBoat> listFishingBoat, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/bateau-de-peche"));
+    ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/bateau-de-peche"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fishing-boat"));
+    ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/fishing-boat"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriSearchPageFrFRFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
+    return "fr-fr/rechercher/bateau-de-peche/FishingBoatSearchPage.htm";
+  }
+  public void templateSearchPageFrFRFishingBoat(JsonObject ctx, FishingBoatPage page, SearchList<FishingBoat> listFishingBoat, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      FishingBoat result = listFishingBoat.first();
+      String pageTemplateUri = templateUriSearchPageFrFRFishingBoat(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/fishing-boat/FishingBoatSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateSearchPageFrFRFishingBoat failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+  }
   public Future<ServiceResponse> response200SearchPageFrFRFishingBoat(SearchList<FishingBoat> listFishingBoat) {
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
-      List<String> fls = listFishingBoat.getRequest().getFields();
-      JsonObject json = new JsonObject();
-      JsonArray l = new JsonArray();
-      listFishingBoat.getList().stream().forEach(o -> {
-        JsonObject json2 = JsonObject.mapFrom(o);
-        if(fls.size() > 0) {
-          Set<String> fieldNames = new HashSet<String>();
-          for(String fieldName : json2.fieldNames()) {
-            String v = FishingBoat.varIndexedFishingBoat(fieldName);
-            if(v != null)
-              fieldNames.add(FishingBoat.varIndexedFishingBoat(fieldName));
-          }
-          if(fls.size() == 1 && fls.stream().findFirst().orElse(null).equals("saves_docvalues_strings")) {
-            fieldNames.removeAll(Optional.ofNullable(json2.getJsonArray("saves_docvalues_strings")).orElse(new JsonArray()).stream().map(s -> s.toString()).collect(Collectors.toList()));
-            fieldNames.remove("pk_docvalues_long");
-            fieldNames.remove("created_docvalues_date");
-          }
-          else if(fls.size() >= 1) {
-            fieldNames.removeAll(fls);
-          }
-          for(String fieldName : fieldNames) {
-            if(!fls.contains(fieldName))
-              json2.remove(fieldName);
-          }
+      FishingBoatPage page = new FishingBoatPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      if(listFishingBoat.size() >= 1)
+        siteRequest.setRequestPk(listFishingBoat.get(0).getPk());
+      page.setSearchListFishingBoat_(listFishingBoat);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepFishingBoatPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          searchpagefrfrFishingBoatPageInit(ctx, page, listFishingBoat, promise1);
+          promise1.future().onSuccess(b -> {
+            Promise<String> promise2 = Promise.promise();
+            templateSearchPageFrFRFishingBoat(ctx, page, listFishingBoat, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200SearchPageFrFRFishingBoat failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200SearchPageFrFRFishingBoat failed. "), ex);
+          promise.tryFail(ex);
         }
-        l.add(json2);
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
       });
-      json.put("list", l);
-      response200Search(listFishingBoat.getRequest(), listFishingBoat.getResponse(), json);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchPageFrFRFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -313,18 +408,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("frFR");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
-        form.add("permission", String.format("%s-%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -339,11 +434,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, false).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, false, "GET").onSuccess(listFishingBoat -> {
                 response200EditPageFrFRFishingBoat(listFishingBoat).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("editpagefrfrFishingBoat succeeded. "));
@@ -412,7 +508,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
   }
 
   public String templateUriEditPageFrFRFishingBoat(ServiceRequest serviceRequest, FishingBoat result) {
-    return "";
+    return "fr-fr/edition/bateau-de-peche/FishingBoatEditPage.htm";
   }
   public void templateEditPageFrFRFishingBoat(JsonObject ctx, FishingBoatPage page, SearchList<FishingBoat> listFishingBoat, Promise<String> promise) {
     try {
@@ -422,8 +518,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       String pageTemplateUri = templateUriEditPageFrFRFishingBoat(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/fishing-boat/FishingBoatSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -468,6 +568,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -572,17 +673,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -597,11 +699,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, false).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, false, "GET").onSuccess(listFishingBoat -> {
                 response200SearchFishingBoat(listFishingBoat).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchFishingBoat succeeded. "));
@@ -656,6 +759,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       List<String> fls = listFishingBoat.getRequest().getFields();
       JsonObject json = new JsonObject();
       JsonArray l = new JsonArray();
+      List<String> scopes = siteRequest.getScopes();
       listFishingBoat.getList().stream().forEach(o -> {
         JsonObject json2 = JsonObject.mapFrom(o);
         if(fls.size() > 0) {
@@ -682,15 +786,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       });
       json.put("list", l);
       response200Search(listFishingBoat.getRequest(), listFishingBoat.getResponse(), json);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200SearchFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -742,17 +838,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -767,11 +864,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, false).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, false, "GET").onSuccess(listFishingBoat -> {
                 response200GETFishingBoat(listFishingBoat).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("getFishingBoat succeeded. "));
@@ -824,15 +922,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     try {
       SiteRequest siteRequest = listFishingBoat.getSiteRequest_(SiteRequest.class);
       JsonObject json = JsonObject.mapFrom(listFishingBoat.getList().stream().findFirst().orElse(null));
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200GETFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -851,17 +941,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
         webClient.post(
@@ -876,7 +967,8 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("PATCH")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -892,7 +984,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, true).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, true, "PATCH").onSuccess(listFishingBoat -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listFishingBoat.getRequest().getRows());
@@ -1019,7 +1111,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             siteRequest.addScopes(scope);
           });
         });
-        searchFishingBoatList(siteRequest, false, true, true).onSuccess(listFishingBoat -> {
+        searchFishingBoatList(siteRequest, false, true, true, "PATCH").onSuccess(listFishingBoat -> {
           try {
             FishingBoat o = listFishingBoat.first();
             ApiRequest apiRequest = new ApiRequest();
@@ -1513,15 +1605,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200PATCHFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -1540,17 +1624,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "POST"));
         webClient.post(
@@ -1565,7 +1650,8 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("POST")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -1591,6 +1677,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
               JsonObject params = new JsonObject();
               params.put("body", siteRequest.getJsonObject());
               params.put("path", new JsonObject());
+              params.put("scopes", scopes2);
               params.put("cookie", siteRequest.getServiceRequest().getParams().getJsonObject("cookie"));
               params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
               params.put("form", new JsonObject());
@@ -2196,15 +2283,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     try {
       SiteRequest siteRequest = o.getSiteRequest_();
       JsonObject json = JsonObject.mapFrom(o);
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200POSTFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -2223,17 +2302,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -2248,7 +2328,8 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -2264,7 +2345,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, true).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, true, "DELETE").onSuccess(listFishingBoat -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listFishingBoat.getRequest().getRows());
@@ -2390,7 +2471,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             siteRequest.addScopes(scope);
           });
         });
-        searchFishingBoatList(siteRequest, false, true, true).onSuccess(listFishingBoat -> {
+        searchFishingBoatList(siteRequest, false, true, true, "DELETE").onSuccess(listFishingBoat -> {
           try {
             FishingBoat o = listFishingBoat.first();
             if(o != null && listFishingBoat.getResponse().getResponse().getNumFound() == 1) {
@@ -2594,15 +2675,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -2621,17 +2694,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
         webClient.post(
@@ -2646,7 +2720,8 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("PUT")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -2926,15 +3001,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200PUTImportFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -2952,17 +3019,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -2977,11 +3045,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, false).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, false, "GET").onSuccess(listFishingBoat -> {
                 response200SearchPageFishingBoat(listFishingBoat).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("searchpageFishingBoat succeeded. "));
@@ -3060,8 +3129,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       String pageTemplateUri = templateUriSearchPageFishingBoat(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/fishing-boat/FishingBoatSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -3106,6 +3179,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -3210,18 +3284,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
-        form.add("permission", String.format("%s-%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "GET"));
         webClient.post(
@@ -3236,11 +3310,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, false).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, false, "GET").onSuccess(listFishingBoat -> {
                 response200EditPageFishingBoat(listFishingBoat).onSuccess(response -> {
                   eventHandler.handle(Future.succeededFuture(response));
                   LOG.debug(String.format("editpageFishingBoat succeeded. "));
@@ -3319,8 +3394,12 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
       String pageTemplateUri = templateUriEditPageFishingBoat(serviceRequest, result);
       String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
       Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
-      String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
-      if(pageTemplateUri.endsWith(".md")) {
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "en-us/search/fishing-boat/FishingBoatSearchPage.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
         Map<String, Object> data = new HashMap<>();
         String body = "";
@@ -3365,6 +3444,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
         promise.complete(renderedTemplate);
       } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
         String renderedTemplate = jinjava.render(template, ctx.getMap());
         promise.complete(renderedTemplate);
       }
@@ -3470,17 +3550,18 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         siteRequest.setLang("enUS");
         String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
         String FISHINGBOAT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("FISHINGBOAT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
         MultiMap form = MultiMap.caseInsensitiveMultiMap();
         form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
         form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
         form.add("response_mode", "permissions");
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_ADMIN)));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, config.getString(ComputateConfigKeys.AUTH_SCOPE_SUPER_ADMIN)));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "GET"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "POST"));
-        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PATCH"));
         form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "PUT"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", FishingBoat.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
           form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
         webClient.post(
@@ -3495,7 +3576,8 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
         .onComplete(authorizationDecisionResponse -> {
           try {
             HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
-            JsonArray scopes = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray().stream().findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "FISHINGBOAT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
             if(authorizationDecisionResponse.failed() || !scopes.contains("DELETE")) {
               String msg = String.format("403 FORBIDDEN user %s to %s %s", siteRequest.getUser().attributes().getJsonObject("accessToken").getString("preferred_username"), serviceRequest.getExtra().getString("method"), serviceRequest.getExtra().getString("uri"));
               eventHandler.handle(Future.succeededFuture(
@@ -3511,7 +3593,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             } else {
               siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
               List<String> scopes2 = siteRequest.getScopes();
-              searchFishingBoatList(siteRequest, false, true, true).onSuccess(listFishingBoat -> {
+              searchFishingBoatList(siteRequest, false, true, true, "DELETE").onSuccess(listFishingBoat -> {
                 try {
                   ApiRequest apiRequest = new ApiRequest();
                   apiRequest.setRows(listFishingBoat.getRequest().getRows());
@@ -3637,7 +3719,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
             siteRequest.addScopes(scope);
           });
         });
-        searchFishingBoatList(siteRequest, false, true, true).onSuccess(listFishingBoat -> {
+        searchFishingBoatList(siteRequest, false, true, true, "DELETE").onSuccess(listFishingBoat -> {
           try {
             FishingBoat o = listFishingBoat.first();
             if(o != null && listFishingBoat.getResponse().getResponse().getNumFound() == 1) {
@@ -3841,15 +3923,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     Promise<ServiceResponse> promise = Promise.promise();
     try {
       JsonObject json = new JsonObject();
-      if(json == null) {
-        String entityShortId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("entityShortId");
-        String m = String.format("%s %s not found", "fishing boat", entityShortId);
-        promise.complete(new ServiceResponse(404
-            , m
-            , Buffer.buffer(new JsonObject().put("message", m).encodePrettily()), null));
-      } else {
-        promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
-      }
+      promise.complete(ServiceResponse.completedWithJson(Buffer.buffer(Optional.ofNullable(json).orElse(new JsonObject()).encodePrettily())));
     } catch(Exception ex) {
       LOG.error(String.format("response200DELETEFilterFishingBoat failed. "), ex);
       promise.tryFail(ex);
@@ -3960,13 +4034,14 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
     return promise.future();
   }
 
-  public Future<SearchList<FishingBoat>> searchFishingBoatList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify) {
+  public Future<SearchList<FishingBoat>> searchFishingBoatList(SiteRequest siteRequest, Boolean populate, Boolean store, Boolean modify, String scope) {
     Promise<SearchList<FishingBoat>> promise = Promise.promise();
     try {
       ServiceRequest serviceRequest = siteRequest.getServiceRequest();
       String entityListStr = siteRequest.getServiceRequest().getParams().getJsonObject("query").getString("fl");
       String[] entityList = entityListStr == null ? null : entityListStr.split(",\\s*");
       SearchList<FishingBoat> searchList = new SearchList<FishingBoat>();
+      searchList.setScope(scope);
       String facetRange = null;
       Date facetRangeStart = null;
       Date facetRangeEnd = null;
@@ -4369,6 +4444,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 if(o2 != null) {
                   JsonObject params = new JsonObject();
                   params.put("body", new JsonObject());
+                  params.put("scopes", siteRequest.getScopes());
                   params.put("cookie", new JsonObject());
                   params.put("path", new JsonObject());
                   params.put("query", new JsonObject().put("q", "*:*").put("fq", new JsonArray().add("solrId:" + solrId2)).put("var", new JsonArray().add("refresh:false")));
@@ -4404,6 +4480,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
                 if(o2 != null) {
                   JsonObject params = new JsonObject();
                   params.put("body", new JsonObject());
+                  params.put("scopes", siteRequest.getScopes());
                   params.put("cookie", new JsonObject());
                   params.put("path", new JsonObject());
                   params.put("query", new JsonObject().put("q", "*:*").put("fq", new JsonArray().add("solrId:" + solrId2)).put("var", new JsonArray().add("refresh:false")));
@@ -4434,7 +4511,7 @@ public class FishingBoatEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
           params.put("header", siteRequest.getServiceRequest().getParams().getJsonObject("header"));
           params.put("form", new JsonObject());
           params.put("path", new JsonObject());
-          params.put("scopes", new JsonArray().add("GET").add("PATCH"));
+          params.put("scopes", siteRequest.getScopes());
           JsonObject query = new JsonObject();
           Boolean softCommit = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getBoolean("softCommit")).orElse(null);
           Integer commitWithin = Optional.ofNullable(siteRequest.getServiceRequest().getParams()).map(p -> p.getJsonObject("query")).map( q -> q.getInteger("commitWithin")).orElse(null);

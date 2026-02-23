@@ -245,9 +245,9 @@ public abstract class FeedPageGen<DEV> extends FeedGenPage {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFeedPage(entityVar,  siteRequest_, o);
@@ -302,71 +302,6 @@ public abstract class FeedPageGen<DEV> extends FeedGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return FeedPage.displayNameFeedPage(var);
   }
@@ -374,71 +309,6 @@ public abstract class FeedPageGen<DEV> extends FeedGenPage {
     switch(var) {
     default:
       return FeedGenPage.displayNameFeedGenPage(var);
-    }
-  }
-
-  public static String descriptionFeedPage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return FeedGenPage.descriptionFeedGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.classSimpleNameFeedGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.htmColumnFeedGenPage(var);
-    }
-  }
-
-  public static Integer htmRowFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.htmRowFeedGenPage(var);
-    }
-  }
-
-  public static Integer htmCellFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.htmCellFeedGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.lengthMinFeedGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.lengthMaxFeedGenPage(var);
-    }
-  }
-
-  public static Integer maxFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.maxFeedGenPage(var);
-    }
-  }
-
-  public static Integer minFeedPage(String var) {
-    switch(var) {
-      default:
-        return FeedGenPage.minFeedGenPage(var);
     }
   }
 }

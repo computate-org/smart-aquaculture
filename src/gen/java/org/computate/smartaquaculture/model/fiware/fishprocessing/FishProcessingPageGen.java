@@ -245,9 +245,9 @@ public abstract class FishProcessingPageGen<DEV> extends FishProcessingGenPage {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishProcessingPage(entityVar,  siteRequest_, o);
@@ -302,71 +302,6 @@ public abstract class FishProcessingPageGen<DEV> extends FishProcessingGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return FishProcessingPage.displayNameFishProcessingPage(var);
   }
@@ -374,71 +309,6 @@ public abstract class FishProcessingPageGen<DEV> extends FishProcessingGenPage {
     switch(var) {
     default:
       return FishProcessingGenPage.displayNameFishProcessingGenPage(var);
-    }
-  }
-
-  public static String descriptionFishProcessingPage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return FishProcessingGenPage.descriptionFishProcessingGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.classSimpleNameFishProcessingGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.htmColumnFishProcessingGenPage(var);
-    }
-  }
-
-  public static Integer htmRowFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.htmRowFishProcessingGenPage(var);
-    }
-  }
-
-  public static Integer htmCellFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.htmCellFishProcessingGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.lengthMinFishProcessingGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.lengthMaxFishProcessingGenPage(var);
-    }
-  }
-
-  public static Integer maxFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.maxFishProcessingGenPage(var);
-    }
-  }
-
-  public static Integer minFishProcessingPage(String var) {
-    switch(var) {
-      default:
-        return FishProcessingGenPage.minFishProcessingGenPage(var);
     }
   }
 }

@@ -43,6 +43,8 @@ import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -3355,9 +3357,39 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<SeaportFacility> fqSeaportFacility(SiteRequest siteRequest, String var, Object val) {
+    Promise<SeaportFacility> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<SeaportFacility> searchList = new SearchList<SeaportFacility>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(SeaportFacility.class);
+        searchList.fq(String.format("%s:", SeaportFacility.varIndexedSeaportFacility(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the seaport facility", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the seaport facility", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the seaport facility", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchSeaportFacility(entityVar,  siteRequest_, o);
@@ -4865,45 +4897,85 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return CLASS_API_ADDRESS_SeaportFacility;
   }
   public static final String VAR_address = "address";
+  public static final String SET_address = "setAddress";
   public static final String VAR_alternateName = "alternateName";
+  public static final String SET_alternateName = "setAlternateName";
   public static final String VAR_authorizedPropulsion = "authorizedPropulsion";
+  public static final String SET_authorizedPropulsion = "setAuthorizedPropulsion";
   public static final String VAR_boatSupplyingServices = "boatSupplyingServices";
+  public static final String SET_boatSupplyingServices = "setBoatSupplyingServices";
   public static final String VAR_contactPoint = "contactPoint";
+  public static final String SET_contactPoint = "setContactPoint";
   public static final String VAR_contractingAuthority = "contractingAuthority";
+  public static final String SET_contractingAuthority = "setContractingAuthority";
   public static final String VAR_contractingCompany = "contractingCompany";
+  public static final String SET_contractingCompany = "setContractingCompany";
   public static final String VAR_currencyAccepted = "currencyAccepted";
+  public static final String SET_currencyAccepted = "setCurrencyAccepted";
   public static final String VAR_dataProvider = "dataProvider";
+  public static final String SET_dataProvider = "setDataProvider";
   public static final String VAR_dateCreated = "dateCreated";
+  public static final String SET_dateCreated = "setDateCreated";
   public static final String VAR_dateLastReported = "dateLastReported";
+  public static final String SET_dateLastReported = "setDateLastReported";
   public static final String VAR_dateModified = "dateModified";
+  public static final String SET_dateModified = "setDateModified";
   public static final String VAR_electricTransport = "electricTransport";
+  public static final String SET_electricTransport = "setElectricTransport";
   public static final String VAR_endDate = "endDate";
+  public static final String SET_endDate = "setEndDate";
   public static final String VAR_facilities = "facilities";
+  public static final String SET_facilities = "setFacilities";
   public static final String VAR_maxDraft = "maxDraft";
+  public static final String SET_maxDraft = "setMaxDraft";
   public static final String VAR_maxLength = "maxLength";
+  public static final String SET_maxLength = "setMaxLength";
   public static final String VAR_maxTonnage = "maxTonnage";
+  public static final String SET_maxTonnage = "setMaxTonnage";
   public static final String VAR_maxWidth = "maxWidth";
+  public static final String SET_maxWidth = "setMaxWidth";
   public static final String VAR_minLength = "minLength";
+  public static final String SET_minLength = "setMinLength";
   public static final String VAR_nearbyServices = "nearbyServices";
+  public static final String SET_nearbyServices = "setNearbyServices";
   public static final String VAR_numberOfPlace = "numberOfPlace";
+  public static final String SET_numberOfPlace = "setNumberOfPlace";
   public static final String VAR_openingHours = "openingHours";
+  public static final String SET_openingHours = "setOpeningHours";
   public static final String VAR_openingHoursSpecification = "openingHoursSpecification";
+  public static final String SET_openingHoursSpecification = "setOpeningHoursSpecification";
   public static final String VAR_owner = "owner";
+  public static final String SET_owner = "setOwner";
   public static final String VAR_paymentAccepted = "paymentAccepted";
+  public static final String SET_paymentAccepted = "setPaymentAccepted";
   public static final String VAR_portServicesProvided = "portServicesProvided";
+  public static final String SET_portServicesProvided = "setPortServicesProvided";
   public static final String VAR_refBoatAuthorized = "refBoatAuthorized";
+  public static final String SET_refBoatAuthorized = "setRefBoatAuthorized";
   public static final String VAR_refBoatPlaceAvailable = "refBoatPlaceAvailable";
+  public static final String SET_refBoatPlaceAvailable = "setRefBoatPlaceAvailable";
   public static final String VAR_refBoatPlacePricing = "refBoatPlacePricing";
+  public static final String SET_refBoatPlacePricing = "setRefBoatPlacePricing";
   public static final String VAR_refDevice = "refDevice";
+  public static final String SET_refDevice = "setRefDevice";
   public static final String VAR_refPointOfInterest = "refPointOfInterest";
+  public static final String SET_refPointOfInterest = "setRefPointOfInterest";
   public static final String VAR_rentalSaleServices = "rentalSaleServices";
+  public static final String SET_rentalSaleServices = "setRentalSaleServices";
   public static final String VAR_routeType = "routeType";
+  public static final String SET_routeType = "setRouteType";
   public static final String VAR_seeAlso = "seeAlso";
+  public static final String SET_seeAlso = "setSeeAlso";
   public static final String VAR_source = "source";
+  public static final String SET_source = "setSource";
   public static final String VAR_startDate = "startDate";
+  public static final String SET_startDate = "setStartDate";
   public static final String VAR_transportServices = "transportServices";
+  public static final String SET_transportServices = "setTransportServices";
   public static final String VAR_typeOfPort = "typeOfPort";
+  public static final String SET_typeOfPort = "setTypeOfPort";
   public static final String VAR_webSite = "webSite";
+  public static final String SET_webSite = "setWebSite";
 
   public static List<String> varsQForClass() {
     return SeaportFacility.varsQSeaportFacility(new ArrayList<String>());
@@ -5056,11 +5128,6 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
     return "%s/fr-fr/edition/installations-portuaires/%s";
   }
@@ -5070,34 +5137,94 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return "%s/en-us/edit/seaport-facilities/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return SeaportFacility.varJsonSeaportFacility(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonSeaportFacility(String var, Boolean patch) {
+    switch(var) {
+    case VAR_address:
+      return patch ? SET_address : VAR_address;
+    case VAR_alternateName:
+      return patch ? SET_alternateName : VAR_alternateName;
+    case VAR_authorizedPropulsion:
+      return patch ? SET_authorizedPropulsion : VAR_authorizedPropulsion;
+    case VAR_boatSupplyingServices:
+      return patch ? SET_boatSupplyingServices : VAR_boatSupplyingServices;
+    case VAR_contactPoint:
+      return patch ? SET_contactPoint : VAR_contactPoint;
+    case VAR_contractingAuthority:
+      return patch ? SET_contractingAuthority : VAR_contractingAuthority;
+    case VAR_contractingCompany:
+      return patch ? SET_contractingCompany : VAR_contractingCompany;
+    case VAR_currencyAccepted:
+      return patch ? SET_currencyAccepted : VAR_currencyAccepted;
+    case VAR_dataProvider:
+      return patch ? SET_dataProvider : VAR_dataProvider;
+    case VAR_dateCreated:
+      return patch ? SET_dateCreated : VAR_dateCreated;
+    case VAR_dateLastReported:
+      return patch ? SET_dateLastReported : VAR_dateLastReported;
+    case VAR_dateModified:
+      return patch ? SET_dateModified : VAR_dateModified;
+    case VAR_electricTransport:
+      return patch ? SET_electricTransport : VAR_electricTransport;
+    case VAR_endDate:
+      return patch ? SET_endDate : VAR_endDate;
+    case VAR_facilities:
+      return patch ? SET_facilities : VAR_facilities;
+    case VAR_maxDraft:
+      return patch ? SET_maxDraft : VAR_maxDraft;
+    case VAR_maxLength:
+      return patch ? SET_maxLength : VAR_maxLength;
+    case VAR_maxTonnage:
+      return patch ? SET_maxTonnage : VAR_maxTonnage;
+    case VAR_maxWidth:
+      return patch ? SET_maxWidth : VAR_maxWidth;
+    case VAR_minLength:
+      return patch ? SET_minLength : VAR_minLength;
+    case VAR_nearbyServices:
+      return patch ? SET_nearbyServices : VAR_nearbyServices;
+    case VAR_numberOfPlace:
+      return patch ? SET_numberOfPlace : VAR_numberOfPlace;
+    case VAR_openingHours:
+      return patch ? SET_openingHours : VAR_openingHours;
+    case VAR_openingHoursSpecification:
+      return patch ? SET_openingHoursSpecification : VAR_openingHoursSpecification;
+    case VAR_owner:
+      return patch ? SET_owner : VAR_owner;
+    case VAR_paymentAccepted:
+      return patch ? SET_paymentAccepted : VAR_paymentAccepted;
+    case VAR_portServicesProvided:
+      return patch ? SET_portServicesProvided : VAR_portServicesProvided;
+    case VAR_refBoatAuthorized:
+      return patch ? SET_refBoatAuthorized : VAR_refBoatAuthorized;
+    case VAR_refBoatPlaceAvailable:
+      return patch ? SET_refBoatPlaceAvailable : VAR_refBoatPlaceAvailable;
+    case VAR_refBoatPlacePricing:
+      return patch ? SET_refBoatPlacePricing : VAR_refBoatPlacePricing;
+    case VAR_refDevice:
+      return patch ? SET_refDevice : VAR_refDevice;
+    case VAR_refPointOfInterest:
+      return patch ? SET_refPointOfInterest : VAR_refPointOfInterest;
+    case VAR_rentalSaleServices:
+      return patch ? SET_rentalSaleServices : VAR_rentalSaleServices;
+    case VAR_routeType:
+      return patch ? SET_routeType : VAR_routeType;
+    case VAR_seeAlso:
+      return patch ? SET_seeAlso : VAR_seeAlso;
+    case VAR_source:
+      return patch ? SET_source : VAR_source;
+    case VAR_startDate:
+      return patch ? SET_startDate : VAR_startDate;
+    case VAR_transportServices:
+      return patch ? SET_transportServices : VAR_transportServices;
+    case VAR_typeOfPort:
+      return patch ? SET_typeOfPort : VAR_typeOfPort;
+    case VAR_webSite:
+      return patch ? SET_webSite : VAR_webSite;
+    default:
+      return MapModel.varJsonMapModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

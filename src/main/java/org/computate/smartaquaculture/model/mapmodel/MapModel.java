@@ -27,14 +27,20 @@ import io.vertx.pgclient.data.Polygon;
 /**
  * Fiware: true
  * Order: 4
- * Description: A map model
- * AName: a map model
+ * Description.enUS: A map model
+ * Description.frFR: Un modèle de carte
+ * AName.enUS: a map model
+ * AName.frFR: un modèle de carte
  * Icon: <i class="fa-duotone fa-regular fa-map-location-dot"></i>
  * Rows: 100
  * 
  * SearchPageUri: /en-us/search/map-model
  * ApiUri: /en-us/api/map-model
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: MapModelPage
+ *     ApiUri: /fr-fr/rechercher/modele-de-carte
  *   Search:
  *   GET:
  * AuthGroup:

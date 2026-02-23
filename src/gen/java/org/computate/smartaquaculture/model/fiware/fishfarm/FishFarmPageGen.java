@@ -245,9 +245,9 @@ public abstract class FishFarmPageGen<DEV> extends FishFarmGenPage {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishFarmPage(entityVar,  siteRequest_, o);
@@ -302,71 +302,6 @@ public abstract class FishFarmPageGen<DEV> extends FishFarmGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return FishFarmPage.displayNameFishFarmPage(var);
   }
@@ -374,71 +309,6 @@ public abstract class FishFarmPageGen<DEV> extends FishFarmGenPage {
     switch(var) {
     default:
       return FishFarmGenPage.displayNameFishFarmGenPage(var);
-    }
-  }
-
-  public static String descriptionFishFarmPage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return FishFarmGenPage.descriptionFishFarmGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.classSimpleNameFishFarmGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.htmColumnFishFarmGenPage(var);
-    }
-  }
-
-  public static Integer htmRowFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.htmRowFishFarmGenPage(var);
-    }
-  }
-
-  public static Integer htmCellFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.htmCellFishFarmGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.lengthMinFishFarmGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.lengthMaxFishFarmGenPage(var);
-    }
-  }
-
-  public static Integer maxFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.maxFishFarmGenPage(var);
-    }
-  }
-
-  public static Integer minFishFarmPage(String var) {
-    switch(var) {
-      default:
-        return FishFarmGenPage.minFishFarmGenPage(var);
     }
   }
 }

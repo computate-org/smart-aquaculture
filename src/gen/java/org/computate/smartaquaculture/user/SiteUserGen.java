@@ -55,6 +55,8 @@ import java.lang.Boolean;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -1259,9 +1261,39 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<SiteUser> fqSiteUser(SiteRequest siteRequest, String var, Object val) {
+    Promise<SiteUser> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<SiteUser> searchList = new SearchList<SiteUser>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(SiteUser.class);
+        searchList.fq(String.format("%s:", SiteUser.varIndexedSiteUser(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the site user", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the site user", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the site user", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchSiteUser(entityVar,  siteRequest_, o);
@@ -1837,18 +1869,31 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return CLASS_API_ADDRESS_SiteUser;
   }
   public static final String VAR_userKeys = "userKeys";
+  public static final String SET_userKeys = "setUserKeys";
   public static final String VAR_userId = "userId";
+  public static final String SET_userId = "setUserId";
   public static final String VAR_userName = "userName";
+  public static final String SET_userName = "setUserName";
   public static final String VAR_userEmail = "userEmail";
+  public static final String SET_userEmail = "setUserEmail";
   public static final String VAR_userFirstName = "userFirstName";
+  public static final String SET_userFirstName = "setUserFirstName";
   public static final String VAR_userLastName = "userLastName";
+  public static final String SET_userLastName = "setUserLastName";
   public static final String VAR_userFullName = "userFullName";
+  public static final String SET_userFullName = "setUserFullName";
   public static final String VAR_userProfileUrl = "userProfileUrl";
+  public static final String SET_userProfileUrl = "setUserProfileUrl";
   public static final String VAR_seeArchived = "seeArchived";
+  public static final String SET_seeArchived = "setSeeArchived";
   public static final String VAR_displayName = "displayName";
+  public static final String SET_displayName = "setDisplayName";
   public static final String VAR_siteFontSize = "siteFontSize";
+  public static final String SET_siteFontSize = "setSiteFontSize";
   public static final String VAR_siteTheme = "siteTheme";
+  public static final String SET_siteTheme = "setSiteTheme";
   public static final String VAR_customerProfileId = "customerProfileId";
+  public static final String SET_customerProfileId = "setCustomerProfileId";
 
   public static List<String> varsQForClass() {
     return SiteUser.varsQSiteUser(new ArrayList<String>());
@@ -1909,11 +1954,6 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
     return "%s/fr-fr/edition/utilisateur/%s";
   }
@@ -1923,34 +1963,40 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
     return "%s/en-us/edit/user/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return SiteUser.varJsonSiteUser(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonSiteUser(String var, Boolean patch) {
+    switch(var) {
+    case VAR_userKeys:
+      return patch ? SET_userKeys : VAR_userKeys;
+    case VAR_userId:
+      return patch ? SET_userId : VAR_userId;
+    case VAR_userName:
+      return patch ? SET_userName : VAR_userName;
+    case VAR_userEmail:
+      return patch ? SET_userEmail : VAR_userEmail;
+    case VAR_userFirstName:
+      return patch ? SET_userFirstName : VAR_userFirstName;
+    case VAR_userLastName:
+      return patch ? SET_userLastName : VAR_userLastName;
+    case VAR_userFullName:
+      return patch ? SET_userFullName : VAR_userFullName;
+    case VAR_userProfileUrl:
+      return patch ? SET_userProfileUrl : VAR_userProfileUrl;
+    case VAR_seeArchived:
+      return patch ? SET_seeArchived : VAR_seeArchived;
+    case VAR_displayName:
+      return patch ? SET_displayName : VAR_displayName;
+    case VAR_siteFontSize:
+      return patch ? SET_siteFontSize : VAR_siteFontSize;
+    case VAR_siteTheme:
+      return patch ? SET_siteTheme : VAR_siteTheme;
+    case VAR_customerProfileId:
+      return patch ? SET_customerProfileId : VAR_customerProfileId;
+    default:
+      return BaseModel.varJsonBaseModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

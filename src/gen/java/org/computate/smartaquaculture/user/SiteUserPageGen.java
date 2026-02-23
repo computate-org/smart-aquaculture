@@ -245,9 +245,9 @@ public abstract class SiteUserPageGen<DEV> extends SiteUserGenPage {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchSiteUserPage(entityVar,  siteRequest_, o);
@@ -302,71 +302,6 @@ public abstract class SiteUserPageGen<DEV> extends SiteUserGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return SiteUserPage.displayNameSiteUserPage(var);
   }
@@ -374,71 +309,6 @@ public abstract class SiteUserPageGen<DEV> extends SiteUserGenPage {
     switch(var) {
     default:
       return SiteUserGenPage.displayNameSiteUserGenPage(var);
-    }
-  }
-
-  public static String descriptionSiteUserPage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return SiteUserGenPage.descriptionSiteUserGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.classSimpleNameSiteUserGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.htmColumnSiteUserGenPage(var);
-    }
-  }
-
-  public static Integer htmRowSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.htmRowSiteUserGenPage(var);
-    }
-  }
-
-  public static Integer htmCellSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.htmCellSiteUserGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.lengthMinSiteUserGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.lengthMaxSiteUserGenPage(var);
-    }
-  }
-
-  public static Integer maxSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.maxSiteUserGenPage(var);
-    }
-  }
-
-  public static Integer minSiteUserPage(String var) {
-    switch(var) {
-      default:
-        return SiteUserGenPage.minSiteUserGenPage(var);
     }
   }
 }

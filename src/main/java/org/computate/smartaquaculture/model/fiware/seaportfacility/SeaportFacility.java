@@ -37,9 +37,11 @@ import io.vertx.pgclient.data.Polygon;
  * ApiMethod:
  *   SearchPageFrFR:
  *     Language: frFR
+ *     Page: SeaportFacilityPage
  *     ApiUri: /fr-fr/rechercher/installations-portuaires
  *   EditPageFrFR:
  *     Language: frFR
+ *     Page: SeaportFacilityPage
  *     ApiUri: /fr-fr/edition/installations-portuaires/{entityShortId}
  *   Search:
  *   GET:

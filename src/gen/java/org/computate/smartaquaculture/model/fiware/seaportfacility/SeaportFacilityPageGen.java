@@ -245,9 +245,9 @@ public abstract class SeaportFacilityPageGen<DEV> extends SeaportFacilityGenPage
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchSeaportFacilityPage(entityVar,  siteRequest_, o);
@@ -302,71 +302,6 @@ public abstract class SeaportFacilityPageGen<DEV> extends SeaportFacilityGenPage
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return SeaportFacilityPage.displayNameSeaportFacilityPage(var);
   }
@@ -374,71 +309,6 @@ public abstract class SeaportFacilityPageGen<DEV> extends SeaportFacilityGenPage
     switch(var) {
     default:
       return SeaportFacilityGenPage.displayNameSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static String descriptionSeaportFacilityPage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.descriptionSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.classSimpleNameSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.htmColumnSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static Integer htmRowSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.htmRowSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static Integer htmCellSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.htmCellSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.lengthMinSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.lengthMaxSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static Integer maxSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.maxSeaportFacilityGenPage(var);
-    }
-  }
-
-  public static Integer minSeaportFacilityPage(String var) {
-    switch(var) {
-      default:
-        return SeaportFacilityGenPage.minSeaportFacilityGenPage(var);
     }
   }
 }

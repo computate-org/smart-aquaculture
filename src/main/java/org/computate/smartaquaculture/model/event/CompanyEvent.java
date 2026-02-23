@@ -38,8 +38,10 @@ import io.vertx.pgclient.data.Point;
 
 /**
  * Order: 2
- * Description: See the upcoming computate in-person and online events
- * AName: an event
+ * Description.enUS: See the upcoming computate in-person and online events
+ * Description.frFR: Voir les événements en personne et en ligne à venir de computate
+ * AName.enUS: an event
+ * AName.frFR: un événement
  * Icon: <i class="fa-duotone fa-regular fa-map-location-dot"></i>
  * Sort.desc: startDateTime
  * MenuDetails.enUS: info
@@ -53,6 +55,14 @@ import io.vertx.pgclient.data.Point;
  * UserPageUri: /en-us/use/event/{pageId}
  * ApiUri: /en-us/api/event
  * ApiMethod:
+ *   SearchPageFrFR:
+ *     Language: frFR
+ *     Page: CompanyEventPage
+ *     ApiUri: /fr-fr/rechercher/evenement
+ *   EditPageFrFR:
+ *     Language: frFR
+ *     Page: CompanyEventPage
+ *     ApiUri: /fr-fr/edition/evenement/{entityShortId}
  *   Search:
  *   GET:
  *   PATCH:
@@ -80,8 +90,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: event name
-   * Description: The event name. 
+   * DisplayName.enUS: event name
+   * DisplayName.frFR: nom de l'événement
+   * Description.enUS: The event name. 
+   * Description.frFR: Le nom de l'événement. 
    * HtmRow: 3
    * HtmCell: 1
    * HtmColumn: 2
@@ -95,8 +107,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: event description
-   * Description: The event description. 
+   * DisplayName.enUS: event description
+   * DisplayName.frFR: description de l'événement
+   * Description.enUS: The event description. 
+   * Description.frFR: La description de l'événement. 
    * HtmRow: 3
    * HtmCell: 2
    * HtmColumn: 3
@@ -109,8 +123,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: start date time
-   * Description: The start date time. 
+   * DisplayName.enUS: start date time
+   * DisplayName.frFR: date et heure de début
+   * Description.enUS: The start date time. 
+   * Description.frFR: La date et heure de début. 
    * HtmRow: 3
    * HtmCell: 3
    * HtmColumn: 1
@@ -123,8 +139,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: end date time
-   * Description: The end date time. 
+   * DisplayName.enUS: end date time
+   * DisplayName.frFR: date et heure de fin
+   * Description.enUS: The end date time. 
+   * Description.frFR: La date et heure de fin. 
    * HtmRow: 3
    * HtmCell: 4
    * Facet: true
@@ -136,8 +154,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: price
-   * Description: The price of the product per developer. 
+   * DisplayName.enUS: price
+   * DisplayName.frFR: prix
+   * Description.enUS: The price of the product per developer. 
+   * Description.frFR: Le prix du produit par développeur. 
    * HtmRow: 3
    * HtmCell: 5
    * Facet: true
@@ -153,8 +173,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * HtmRow: 99
    * HtmCell: 1
    * Facet: true
-   * DisplayName: Page ID
-   * Description: The ID for this page. 
+   * DisplayName.enUS: Page ID
+   * DisplayName.frFR: ID de la page
+   * Description.enUS: The ID for this page. 
+   * Description.frFR: L'ID pour cette page.
    * VarId: true
    */
   protected void _pageId(Wrap<String> w) {
@@ -166,8 +188,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: email template
-   * Description: The HTML email template for this product. 
+   * DisplayName.enUS: email template
+   * DisplayName.frFR: modèle de courriel
+   * Description.enUS: The HTML email template for this product. 
+   * Description.frFR: Le modèle de courriel HTML pour ce produit. 
    */
   protected void _emailTemplate(Wrap<String> w) {
   }
@@ -177,8 +201,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * DocValues: true
    * Persist: true
    * Facet: true
-   * DisplayName: store URL
-   * Description: The store URL for this page. 
+   * DisplayName.enUS: store URL
+   * DisplayName.frFR: URL du magasin
+   * Description.enUS: The store URL for this page. 
+   * Description.frFR: L'URL du magasin pour cette page.
    */
   protected void _storeUrl(Wrap<String> w) {
   }
@@ -188,7 +214,8 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * Location: true
    * DocValues: true
    * Persist: true
-   * DisplayName: map location
+   * DisplayName.enUS: map location
+   * DisplayName.frFR: emplacement sur la carte
    * HtmRow: 3
    * HtmCell: 1
    * Facet: true
@@ -201,8 +228,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * LocationColor: true
    * Indexed: true
    * Stored: true
-   * DisplayName: location colors
-   * Description: The colors of each location Points. 
+   * DisplayName.enUS: location colors
+   * DisplayName.frFR: couleurs des emplacements
+   * Description.enUS: The colors of each location Points. 
+   * Description.frFR: Les couleurs de chaque point d'emplacement. 
    */
   protected void _locationColors(List<String> l) {
     l.add("#3388ff");
@@ -213,8 +242,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * LocationTitle: true
    * Indexed: true
    * Stored: true
-   * DisplayName: location titles
-   * Description: The titles of each location Paths. 
+   * DisplayName.enUS: location titles
+   * DisplayName.frFR: titres des emplacements
+   * Description.enUS: The titles of each location Paths. 
+   * Description.frFR: Les titres de chaque chemin d'emplacement. 
    */
   protected void _locationTitles(List<String> l) {
     l.add(objectTitle);
@@ -225,8 +256,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * LocationUrl: true
    * Indexed: true
    * Stored: true
-   * DisplayName: location links
-   * Description: The links of each location Paths. 
+   * DisplayName.enUS: location links
+   * DisplayName.frFR: liens des emplacements
+   * Description.enUS: The links of each location Paths. 
+   * Description.frFR: Les liens de chaque chemin d'emplacement. 
    */
   protected void _locationLinks(List<String> l) {
     l.add(editPage);
@@ -236,8 +269,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: dialog template
-   * Description: The dialog template for this product. 
+   * DisplayName.enUS: dialog template
+   * DisplayName.frFR: modèle de dialogue
+   * Description.enUS: The dialog template for this product. 
+   * Description.frFR: Le modèle de dialogue pour ce produit.
    */
   protected void _dialogTemplate(Wrap<String> w) {
     w.o(String.format("en-us/shop/event/%s/dialog.inc", pageId));
@@ -250,15 +285,18 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * HtmRow: 4
    * HtmCell: 1
    * Facet: true
-   * DisplayName: imageUri
-   * Description: The page image URI
+   * DisplayName.enUS: image URI
+   * DisplayName.frFR: URI de l'image
+   * Description.enUS: The page image URI
+   * Description.frFR: L'URI de l'image de la page
    */
   protected void _pageImageUri(Wrap<String> w) {
   }
   
   /**
    * DocValues: true
-   * Description: The image width
+   * Description.enUS: The image width
+   * Description.frFR: La largeur de l'image
    */
   protected void _pageImageWidth(Wrap<Integer> w) {
     if(pageImageUri != null) {
@@ -279,14 +317,16 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
 
   /**
    * DocValues: true
-   * Description: The image height
+   * Description.enUS: The image height
+   * Description.frFR: La hauteur de l'image
    */
   protected void _pageImageHeight(Wrap<Integer> c) {
   }
 
   /**
    * DocValues: true
-   * Description: The image height
+   * Description.enUS: The image type
+   * Description.frFR: Le type d'image
    */
   protected void _pageImageType(Wrap<String> c) {
   }
@@ -294,7 +334,8 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
   /**
    * Persist: true
    * DocValues: true
-   * Description: The image accessibility text. 
+   * Description.enUS: The image accessibility text. 
+   * Description.frFR: Le texte d'accessibilité de l'image. 
    */
   protected void _pageImageAlt(Wrap<String> c) {
   }
@@ -303,8 +344,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: labels string
-   * Description: The labels String for this article comma-separated. 
+   * DisplayName.enUS: labels string
+   * DisplayName.frFR: chaîne d'étiquettes
+   * Description.enUS: The labels String for this article comma-separated. 
+   * Description.frFR: La chaîne d'étiquettes pour cet article, séparées par des virgules. 
    */
   protected void _labelsString(Wrap<String> w) {
   }
@@ -313,8 +356,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
-   * DisplayName: labels
-   * Description: The labels for this article. 
+   * DisplayName.enUS: labels
+   * DisplayName.frFR: étiquettes
+   * Description.enUS: The labels for this article. 
+   * Description.frFR: Les étiquettes pour cet article. 
    */
   protected void _labels(List<String> l) {
     if(labelsString != null) {
@@ -329,8 +374,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * HtmRow: 3
    * HtmCell: 3
    * Facet: true
-   * DisplayName: author name
-   * Description: The author name
+   * DisplayName.enUS: author name
+   * DisplayName.frFR: nom de l'auteur
+   * Description.enUS: The author name
+   * Description.frFR: Le nom de l'auteur
    */
   protected void _authorName(Wrap<String> w) {
   }
@@ -342,8 +389,10 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * HtmRow: 3
    * HtmCell: 3
    * Facet: true
-   * DisplayName: author URL
-   * Description: The author URL
+   * DisplayName.enUS: author URL
+   * DisplayName.frFR: URL de l'auteur
+   * Description.enUS: The author URL
+   * Description.frFR: L'URL de l'auteur
    */
   protected void _authorUrl(Wrap<String> w) {
   }

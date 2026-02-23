@@ -42,9 +42,11 @@ import org.computate.smartaquaculture.request.SiteRequest;
  * ApiMethod:
  *   SearchPageFrFR:
  *     Language: frFR
+ *     Page: SiteUserPage
  *     ApiUri: /fr-fr/rechercher/utlisateur
  *   EditPageFrFR:
  *     Language: frFR
+ *     Page: SiteUserPage
  *     ApiUri: /fr-fr/edition/utilisateur/{entityShortId}
  *   Search:
  *   PATCH:

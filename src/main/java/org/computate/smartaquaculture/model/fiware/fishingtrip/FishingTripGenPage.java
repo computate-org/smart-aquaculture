@@ -544,9 +544,16 @@ public class FishingTripGenPage extends FishingTripGenPageGen<PageLayout> {
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all fishing trips");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/fishing-trip");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/sortie-de-peche");
   }
 
   @Override

@@ -537,17 +537,24 @@ public class FeedGenPage extends FeedGenPageGen<PageLayout> {
     if(result != null && result.getObjectTitle() != null)
       c.o(result.getObjectTitle());
     else if(result != null)
-      c.o("Feeds");
+      c.o("feeds");
     else if(searchListFeed_ == null || resultCount == 0)
-      c.o("no Feed found");
+      c.o("no feed found");
     else
-      c.o("Feeds");
+      c.o("feeds");
+  }
+
+  @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all feeds");
   }
 
   @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/feed");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/nourriture");
   }
 
   @Override

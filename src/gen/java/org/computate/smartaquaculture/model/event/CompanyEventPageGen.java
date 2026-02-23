@@ -245,9 +245,9 @@ public abstract class CompanyEventPageGen<DEV> extends CompanyEventGenPage {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchCompanyEventPage(entityVar,  siteRequest_, o);
@@ -302,71 +302,6 @@ public abstract class CompanyEventPageGen<DEV> extends CompanyEventGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return CompanyEventPage.displayNameCompanyEventPage(var);
   }
@@ -374,71 +309,6 @@ public abstract class CompanyEventPageGen<DEV> extends CompanyEventGenPage {
     switch(var) {
     default:
       return CompanyEventGenPage.displayNameCompanyEventGenPage(var);
-    }
-  }
-
-  public static String descriptionCompanyEventPage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return CompanyEventGenPage.descriptionCompanyEventGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.classSimpleNameCompanyEventGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.htmColumnCompanyEventGenPage(var);
-    }
-  }
-
-  public static Integer htmRowCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.htmRowCompanyEventGenPage(var);
-    }
-  }
-
-  public static Integer htmCellCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.htmCellCompanyEventGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.lengthMinCompanyEventGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.lengthMaxCompanyEventGenPage(var);
-    }
-  }
-
-  public static Integer maxCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.maxCompanyEventGenPage(var);
-    }
-  }
-
-  public static Integer minCompanyEventPage(String var) {
-    switch(var) {
-      default:
-        return CompanyEventGenPage.minCompanyEventGenPage(var);
     }
   }
 }

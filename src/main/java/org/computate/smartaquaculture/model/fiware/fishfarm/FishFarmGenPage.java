@@ -545,9 +545,16 @@ public class FishFarmGenPage extends FishFarmGenPageGen<PageLayout> {
   }
 
   @Override
+  protected void _classAllName(Wrap<String> w) {
+    w.o("all fish farms");
+  }
+
+  @Override
   protected void _pageUri(Wrap<String> w) {
     if("enUS".equals(lang))
       w.o("/en-us/search/fish-farm");
+    else if("frFR".equals(lang))
+      w.o("/fr-fr/rechercher/ferme-piscicole");
   }
 
   @Override

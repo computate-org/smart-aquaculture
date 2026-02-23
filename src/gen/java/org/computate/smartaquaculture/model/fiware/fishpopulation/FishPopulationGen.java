@@ -81,6 +81,8 @@ import java.lang.Boolean;
 import org.computate.search.wrap.Wrap;
 import io.vertx.core.Promise;
 import io.vertx.core.Future;
+import org.computate.vertx.search.list.SearchList;
+import org.computate.search.tool.SearchTool;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.computate.search.response.solr.SolrResponse;
 
@@ -3646,9 +3648,39 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
+
+  public static Future<FishPopulation> fqFishPopulation(SiteRequest siteRequest, String var, Object val) {
+    Promise<FishPopulation> promise = Promise.promise();
+    try {
+      if(val == null) {
+        promise.complete();
+      } else {
+        SearchList<FishPopulation> searchList = new SearchList<FishPopulation>();
+        searchList.setStore(true);
+        searchList.q("*:*");
+        searchList.setC(FishPopulation.class);
+        searchList.fq(String.format("%s:", FishPopulation.varIndexedFishPopulation(var)) + SearchTool.escapeQueryChars(val.toString()));
+        searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
+          try {
+            promise.complete(searchList.getList().stream().findFirst().orElse(null));
+          } catch(Throwable ex) {
+            LOG.error("Error while querying the fish population", ex);
+            promise.fail(ex);
+          }
+        }).onFailure(ex -> {
+          LOG.error("Error while querying the fish population", ex);
+          promise.fail(ex);
+        });
+      }
+    } catch(Throwable ex) {
+      LOG.error("Error while querying the fish population", ex);
+      promise.fail(ex);
+    }
+    return promise.future();
+  }
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishPopulation(entityVar,  siteRequest_, o);
@@ -5142,43 +5174,81 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return CLASS_API_ADDRESS_FishPopulation;
   }
   public static final String VAR_address = "address";
+  public static final String SET_address = "setAddress";
   public static final String VAR_alternateName = "alternateName";
+  public static final String SET_alternateName = "setAlternateName";
   public static final String VAR_bodyMasse = "bodyMasse";
+  public static final String SET_bodyMasse = "setBodyMasse";
   public static final String VAR_culturedIn = "culturedIn";
+  public static final String SET_culturedIn = "setCulturedIn";
   public static final String VAR_dataProvider = "dataProvider";
+  public static final String SET_dataProvider = "setDataProvider";
   public static final String VAR_dateCreated = "dateCreated";
+  public static final String SET_dateCreated = "setDateCreated";
   public static final String VAR_dateModified = "dateModified";
+  public static final String SET_dateModified = "setDateModified";
   public static final String VAR_fishRemoved = "fishRemoved";
+  public static final String SET_fishRemoved = "setFishRemoved";
   public static final String VAR_initialNumber = "initialNumber";
+  public static final String SET_initialNumber = "setInitialNumber";
   public static final String VAR_owner = "owner";
+  public static final String SET_owner = "setOwner";
   public static final String VAR_refSpecie = "refSpecie";
+  public static final String SET_refSpecie = "setRefSpecie";
   public static final String VAR_relatedSource = "relatedSource";
+  public static final String SET_relatedSource = "setRelatedSource";
   public static final String VAR_seeAlso = "seeAlso";
+  public static final String SET_seeAlso = "setSeeAlso";
   public static final String VAR_source = "source";
+  public static final String SET_source = "setSource";
   public static final String VAR_areaServedColors = "areaServedColors";
+  public static final String SET_areaServedColors = "setAreaServedColors";
   public static final String VAR_areaServedTitles = "areaServedTitles";
+  public static final String SET_areaServedTitles = "setAreaServedTitles";
   public static final String VAR_areaServedLinks = "areaServedLinks";
+  public static final String SET_areaServedLinks = "setAreaServedLinks";
   public static final String VAR_areaServed = "areaServed";
+  public static final String SET_areaServed = "setAreaServed";
   public static final String VAR_scientificName = "scientificName";
+  public static final String SET_scientificName = "setScientificName";
   public static final String VAR_maturityDaysBegin = "maturityDaysBegin";
+  public static final String SET_maturityDaysBegin = "setMaturityDaysBegin";
   public static final String VAR_maturityDaysEnd = "maturityDaysEnd";
+  public static final String SET_maturityDaysEnd = "setMaturityDaysEnd";
   public static final String VAR_incubationDaysBegin = "incubationDaysBegin";
+  public static final String SET_incubationDaysBegin = "setIncubationDaysBegin";
   public static final String VAR_incubationDaysEnd = "incubationDaysEnd";
+  public static final String SET_incubationDaysEnd = "setIncubationDaysEnd";
   public static final String VAR_incubationNumberMin = "incubationNumberMin";
+  public static final String SET_incubationNumberMin = "setIncubationNumberMin";
   public static final String VAR_incubationNumberMax = "incubationNumberMax";
+  public static final String SET_incubationNumberMax = "setIncubationNumberMax";
   public static final String VAR_percentPopulationPregnantMin = "percentPopulationPregnantMin";
+  public static final String SET_percentPopulationPregnantMin = "setPercentPopulationPregnantMin";
   public static final String VAR_percentPopulationPregnantMax = "percentPopulationPregnantMax";
+  public static final String SET_percentPopulationPregnantMax = "setPercentPopulationPregnantMax";
   public static final String VAR_populationsAtBirth = "populationsAtBirth";
+  public static final String SET_populationsAtBirth = "setPopulationsAtBirth";
   public static final String VAR_populationsNow = "populationsNow";
+  public static final String SET_populationsNow = "setPopulationsNow";
   public static final String VAR_incubationDate = "incubationDate";
+  public static final String SET_incubationDate = "setIncubationDate";
   public static final String VAR_previousPopulation = "previousPopulation";
+  public static final String SET_previousPopulation = "setPreviousPopulation";
   public static final String VAR_incubationDaysNow = "incubationDaysNow";
+  public static final String SET_incubationDaysNow = "setIncubationDaysNow";
   public static final String VAR_waterTemperature = "waterTemperature";
+  public static final String SET_waterTemperature = "setWaterTemperature";
   public static final String VAR_waterSalinity = "waterSalinity";
+  public static final String SET_waterSalinity = "setWaterSalinity";
   public static final String VAR_waterOxygen = "waterOxygen";
+  public static final String SET_waterOxygen = "setWaterOxygen";
   public static final String VAR_waterPh = "waterPh";
+  public static final String SET_waterPh = "setWaterPh";
   public static final String VAR_simulation = "simulation";
+  public static final String SET_simulation = "setSimulation";
   public static final String VAR_simulationDelayMillis = "simulationDelayMillis";
+  public static final String SET_simulationDelayMillis = "setSimulationDelayMillis";
 
   public static List<String> varsQForClass() {
     return FishPopulation.varsQFishPopulation(new ArrayList<String>());
@@ -5287,11 +5357,6 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   }
 
   @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
   public String frFRStringFormatUrlEditPageForClass() {
     return "%s/fr-fr/edition/population-poissons/%s";
   }
@@ -5301,34 +5366,90 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return "%s/en-us/edit/fish-population/%s";
   }
 
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
+  public static String varJsonForClass(String var, Boolean patch) {
+    return FishPopulation.varJsonFishPopulation(var, patch);
   }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
+  public static String varJsonFishPopulation(String var, Boolean patch) {
+    switch(var) {
+    case VAR_address:
+      return patch ? SET_address : VAR_address;
+    case VAR_alternateName:
+      return patch ? SET_alternateName : VAR_alternateName;
+    case VAR_bodyMasse:
+      return patch ? SET_bodyMasse : VAR_bodyMasse;
+    case VAR_culturedIn:
+      return patch ? SET_culturedIn : VAR_culturedIn;
+    case VAR_dataProvider:
+      return patch ? SET_dataProvider : VAR_dataProvider;
+    case VAR_dateCreated:
+      return patch ? SET_dateCreated : VAR_dateCreated;
+    case VAR_dateModified:
+      return patch ? SET_dateModified : VAR_dateModified;
+    case VAR_fishRemoved:
+      return patch ? SET_fishRemoved : VAR_fishRemoved;
+    case VAR_initialNumber:
+      return patch ? SET_initialNumber : VAR_initialNumber;
+    case VAR_owner:
+      return patch ? SET_owner : VAR_owner;
+    case VAR_refSpecie:
+      return patch ? SET_refSpecie : VAR_refSpecie;
+    case VAR_relatedSource:
+      return patch ? SET_relatedSource : VAR_relatedSource;
+    case VAR_seeAlso:
+      return patch ? SET_seeAlso : VAR_seeAlso;
+    case VAR_source:
+      return patch ? SET_source : VAR_source;
+    case VAR_areaServedColors:
+      return patch ? SET_areaServedColors : VAR_areaServedColors;
+    case VAR_areaServedTitles:
+      return patch ? SET_areaServedTitles : VAR_areaServedTitles;
+    case VAR_areaServedLinks:
+      return patch ? SET_areaServedLinks : VAR_areaServedLinks;
+    case VAR_areaServed:
+      return patch ? SET_areaServed : VAR_areaServed;
+    case VAR_scientificName:
+      return patch ? SET_scientificName : VAR_scientificName;
+    case VAR_maturityDaysBegin:
+      return patch ? SET_maturityDaysBegin : VAR_maturityDaysBegin;
+    case VAR_maturityDaysEnd:
+      return patch ? SET_maturityDaysEnd : VAR_maturityDaysEnd;
+    case VAR_incubationDaysBegin:
+      return patch ? SET_incubationDaysBegin : VAR_incubationDaysBegin;
+    case VAR_incubationDaysEnd:
+      return patch ? SET_incubationDaysEnd : VAR_incubationDaysEnd;
+    case VAR_incubationNumberMin:
+      return patch ? SET_incubationNumberMin : VAR_incubationNumberMin;
+    case VAR_incubationNumberMax:
+      return patch ? SET_incubationNumberMax : VAR_incubationNumberMax;
+    case VAR_percentPopulationPregnantMin:
+      return patch ? SET_percentPopulationPregnantMin : VAR_percentPopulationPregnantMin;
+    case VAR_percentPopulationPregnantMax:
+      return patch ? SET_percentPopulationPregnantMax : VAR_percentPopulationPregnantMax;
+    case VAR_populationsAtBirth:
+      return patch ? SET_populationsAtBirth : VAR_populationsAtBirth;
+    case VAR_populationsNow:
+      return patch ? SET_populationsNow : VAR_populationsNow;
+    case VAR_incubationDate:
+      return patch ? SET_incubationDate : VAR_incubationDate;
+    case VAR_previousPopulation:
+      return patch ? SET_previousPopulation : VAR_previousPopulation;
+    case VAR_incubationDaysNow:
+      return patch ? SET_incubationDaysNow : VAR_incubationDaysNow;
+    case VAR_waterTemperature:
+      return patch ? SET_waterTemperature : VAR_waterTemperature;
+    case VAR_waterSalinity:
+      return patch ? SET_waterSalinity : VAR_waterSalinity;
+    case VAR_waterOxygen:
+      return patch ? SET_waterOxygen : VAR_waterOxygen;
+    case VAR_waterPh:
+      return patch ? SET_waterPh : VAR_waterPh;
+    case VAR_simulation:
+      return patch ? SET_simulation : VAR_simulation;
+    case VAR_simulationDelayMillis:
+      return patch ? SET_simulationDelayMillis : VAR_simulationDelayMillis;
+    default:
+      return MapModel.varJsonMapModel(var, patch);
+    }
   }
 
   public static String displayNameForClass(String var) {

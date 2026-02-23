@@ -258,9 +258,9 @@ public abstract class FishingBoatPageGen<DEV> extends FishingBoatGenPage {
     }
   }
 
-  ////////////////
+  //////////////////
   // staticSearch //
-  ////////////////
+  //////////////////
 
   public static Object staticSearchForClass(String entityVar, SiteRequest siteRequest_, Object o) {
     return staticSearchFishingBoatPage(entityVar,  siteRequest_, o);
@@ -315,71 +315,6 @@ public abstract class FishingBoatPageGen<DEV> extends FishingBoatGenPage {
   public static final String CLASS_AUTH_RESOURCE = "";
 
 
-  @Override
-  public String idForClass() {
-    return null;
-  }
-
-  @Override
-  public String titleForClass() {
-    return null;
-  }
-
-  @Override
-  public String nameForClass() {
-    return null;
-  }
-
-  @Override
-  public String classNameAdjectiveSingularForClass() {
-    return null;
-  }
-
-  @Override
-  public String descriptionForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlEditPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDisplayPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlUserPageForClass() {
-    return null;
-  }
-
-  @Override
-  public String frFRStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
-  @Override
-  public String enUSStringFormatUrlDownloadForClass() {
-    return null;
-  }
-
   public static String displayNameForClass(String var) {
     return FishingBoatPage.displayNameFishingBoatPage(var);
   }
@@ -387,71 +322,6 @@ public abstract class FishingBoatPageGen<DEV> extends FishingBoatGenPage {
     switch(var) {
     default:
       return FishingBoatGenPage.displayNameFishingBoatGenPage(var);
-    }
-  }
-
-  public static String descriptionFishingBoatPage(String var) {
-    if(var == null)
-      return null;
-    switch(var) {
-      default:
-        return FishingBoatGenPage.descriptionFishingBoatGenPage(var);
-    }
-  }
-
-  public static String classSimpleNameFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.classSimpleNameFishingBoatGenPage(var);
-    }
-  }
-
-  public static Integer htmColumnFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.htmColumnFishingBoatGenPage(var);
-    }
-  }
-
-  public static Integer htmRowFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.htmRowFishingBoatGenPage(var);
-    }
-  }
-
-  public static Integer htmCellFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.htmCellFishingBoatGenPage(var);
-    }
-  }
-
-  public static Integer lengthMinFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.lengthMinFishingBoatGenPage(var);
-    }
-  }
-
-  public static Integer lengthMaxFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.lengthMaxFishingBoatGenPage(var);
-    }
-  }
-
-  public static Integer maxFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.maxFishingBoatGenPage(var);
-    }
-  }
-
-  public static Integer minFishingBoatPage(String var) {
-    switch(var) {
-      default:
-        return FishingBoatGenPage.minFishingBoatGenPage(var);
     }
   }
 }
