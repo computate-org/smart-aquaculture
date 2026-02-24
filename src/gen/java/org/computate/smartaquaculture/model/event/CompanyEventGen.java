@@ -212,9 +212,15 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   public static final String SearchPageFrFR_frFR_OpenApiUri = "/fr-fr/rechercher/evenement";
   public static final String SearchPageFrFR_frFR_StringFormatUri = "/fr-fr/rechercher/evenement";
   public static final String SearchPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/rechercher/evenement";
-  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/evenement/{entityShortId}";
+  public static final String EditPageFrFR_frFR_OpenApiUri = "/fr-fr/edition/evenement/{pageId}";
   public static final String EditPageFrFR_frFR_StringFormatUri = "/fr-fr/edition/evenement/%s";
   public static final String EditPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/edition/evenement/%s";
+  public static final String DisplayPageFrFR_frFR_OpenApiUri = "/fr-fr/visiter/evenement/{pageId}";
+  public static final String DisplayPageFrFR_frFR_StringFormatUri = "/fr-fr/visiter/evenement/%s";
+  public static final String DisplayPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/visiter/evenement/%s";
+  public static final String UserPageFrFR_frFR_OpenApiUri = "/fr-fr/utilisateur/evenement/{pageId}";
+  public static final String UserPageFrFR_frFR_StringFormatUri = "/fr-fr/utilisateur/evenement/%s";
+  public static final String UserPageFrFR_frFR_StringFormatUrl = "%s/fr-fr/utilisateur/evenement/%s";
 
   public static final String Description_enUS = "See the upcoming computate in-person and online events";
   public static final String AName_enUS = "an event";
@@ -336,6 +342,68 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     return name;
   }
 
+	//////////////
+  // nameFrFR //
+	//////////////
+
+
+  /**
+   *  The entity nameFrFR
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String nameFrFR;
+
+  /**
+   * <br> The entity nameFrFR
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.event.CompanyEvent&fq=entiteVar_enUS_indexed_string:nameFrFR">Find the entity nameFrFR in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _nameFrFR(Wrap<String> w);
+
+  public String getNameFrFR() {
+    return nameFrFR;
+  }
+  public void setNameFrFR(String o) {
+    this.nameFrFR = CompanyEvent.staticSetNameFrFR(siteRequest_, o);
+  }
+  public static String staticSetNameFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected CompanyEvent nameFrFRInit() {
+    Wrap<String> nameFrFRWrap = new Wrap<String>().var("nameFrFR");
+    if(nameFrFR == null) {
+      _nameFrFR(nameFrFRWrap);
+      Optional.ofNullable(nameFrFRWrap.getO()).ifPresent(o -> {
+        setNameFrFR(o);
+      });
+    }
+    return (CompanyEvent)this;
+  }
+
+  public static String staticSearchNameFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrNameFrFR(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqNameFrFR(SiteRequest siteRequest_, String o) {
+    return CompanyEvent.staticSearchNameFrFR(siteRequest_, CompanyEvent.staticSetNameFrFR(siteRequest_, o)).toString();
+  }
+
+  public String sqlNameFrFR() {
+    return nameFrFR;
+  }
+
+  public static String staticJsonNameFrFR(String nameFrFR) {
+    return nameFrFR;
+  }
+
 	/////////////////
   // description //
 	/////////////////
@@ -396,6 +464,68 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
 
   public static String staticJsonDescription(String description) {
     return description;
+  }
+
+	/////////////////////
+  // descriptionFrFR //
+	/////////////////////
+
+
+  /**
+   *  The entity descriptionFrFR
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String descriptionFrFR;
+
+  /**
+   * <br> The entity descriptionFrFR
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.event.CompanyEvent&fq=entiteVar_enUS_indexed_string:descriptionFrFR">Find the entity descriptionFrFR in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _descriptionFrFR(Wrap<String> w);
+
+  public String getDescriptionFrFR() {
+    return descriptionFrFR;
+  }
+  public void setDescriptionFrFR(String o) {
+    this.descriptionFrFR = CompanyEvent.staticSetDescriptionFrFR(siteRequest_, o);
+  }
+  public static String staticSetDescriptionFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected CompanyEvent descriptionFrFRInit() {
+    Wrap<String> descriptionFrFRWrap = new Wrap<String>().var("descriptionFrFR");
+    if(descriptionFrFR == null) {
+      _descriptionFrFR(descriptionFrFRWrap);
+      Optional.ofNullable(descriptionFrFRWrap.getO()).ifPresent(o -> {
+        setDescriptionFrFR(o);
+      });
+    }
+    return (CompanyEvent)this;
+  }
+
+  public static String staticSearchDescriptionFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrDescriptionFrFR(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqDescriptionFrFR(SiteRequest siteRequest_, String o) {
+    return CompanyEvent.staticSearchDescriptionFrFR(siteRequest_, CompanyEvent.staticSetDescriptionFrFR(siteRequest_, o)).toString();
+  }
+
+  public String sqlDescriptionFrFR() {
+    return descriptionFrFR;
+  }
+
+  public static String staticJsonDescriptionFrFR(String descriptionFrFR) {
+    return descriptionFrFR;
   }
 
 	///////////////////
@@ -1251,6 +1381,68 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     return dialogTemplate;
   }
 
+	////////////////////////
+  // dialogTemplateFrFR //
+	////////////////////////
+
+
+  /**
+   *  The entity dialogTemplateFrFR
+   *	 is defined as null before being initialized. 
+   */
+  @JsonProperty
+  @JsonInclude(Include.NON_NULL)
+  protected String dialogTemplateFrFR;
+
+  /**
+   * <br> The entity dialogTemplateFrFR
+   *  is defined as null before being initialized. 
+   * <br><a href="https://solr.apps-crc.testing/solr/#/computate/query?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:org.computate.smartaquaculture.model.event.CompanyEvent&fq=entiteVar_enUS_indexed_string:dialogTemplateFrFR">Find the entity dialogTemplateFrFR in Solr</a>
+   * <br>
+   * @param w is for wrapping a value to assign to this entity during initialization. 
+   **/
+  protected abstract void _dialogTemplateFrFR(Wrap<String> w);
+
+  public String getDialogTemplateFrFR() {
+    return dialogTemplateFrFR;
+  }
+  public void setDialogTemplateFrFR(String o) {
+    this.dialogTemplateFrFR = CompanyEvent.staticSetDialogTemplateFrFR(siteRequest_, o);
+  }
+  public static String staticSetDialogTemplateFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+  protected CompanyEvent dialogTemplateFrFRInit() {
+    Wrap<String> dialogTemplateFrFRWrap = new Wrap<String>().var("dialogTemplateFrFR");
+    if(dialogTemplateFrFR == null) {
+      _dialogTemplateFrFR(dialogTemplateFrFRWrap);
+      Optional.ofNullable(dialogTemplateFrFRWrap.getO()).ifPresent(o -> {
+        setDialogTemplateFrFR(o);
+      });
+    }
+    return (CompanyEvent)this;
+  }
+
+  public static String staticSearchDialogTemplateFrFR(SiteRequest siteRequest_, String o) {
+    return o;
+  }
+
+  public static String staticSearchStrDialogTemplateFrFR(SiteRequest siteRequest_, String o) {
+    return o == null ? null : o.toString();
+  }
+
+  public static String staticSearchFqDialogTemplateFrFR(SiteRequest siteRequest_, String o) {
+    return CompanyEvent.staticSearchDialogTemplateFrFR(siteRequest_, CompanyEvent.staticSetDialogTemplateFrFR(siteRequest_, o)).toString();
+  }
+
+  public String sqlDialogTemplateFrFR() {
+    return dialogTemplateFrFR;
+  }
+
+  public static String staticJsonDialogTemplateFrFR(String dialogTemplateFrFR) {
+    return dialogTemplateFrFR;
+  }
+
 	//////////////////
   // pageImageUri //
 	//////////////////
@@ -1856,7 +2048,9 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       Promise<Void> promise2 = Promise.promise();
       try {
         nameInit();
+        nameFrFRInit();
         descriptionInit();
+        descriptionFrFRInit();
         startDateTimeInit();
         endDateTimeInit();
         priceInit();
@@ -1868,6 +2062,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         locationTitlesInit();
         locationLinksInit();
         dialogTemplateInit();
+        dialogTemplateFrFRInit();
         pageImageUriInit();
         pageImageWidthInit();
         pageImageHeightInit();
@@ -1932,8 +2127,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(var) {
       case "name":
         return oCompanyEvent.name;
+      case "nameFrFR":
+        return oCompanyEvent.nameFrFR;
       case "description":
         return oCompanyEvent.description;
+      case "descriptionFrFR":
+        return oCompanyEvent.descriptionFrFR;
       case "startDateTime":
         return oCompanyEvent.startDateTime;
       case "endDateTime":
@@ -1956,6 +2155,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         return oCompanyEvent.locationLinks;
       case "dialogTemplate":
         return oCompanyEvent.dialogTemplate;
+      case "dialogTemplateFrFR":
+        return oCompanyEvent.dialogTemplateFrFR;
       case "pageImageUri":
         return oCompanyEvent.pageImageUri;
       case "pageImageWidth":
@@ -2015,8 +2216,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(entityVar) {
     case "name":
       return CompanyEvent.staticSetName(siteRequest_, v);
+    case "nameFrFR":
+      return CompanyEvent.staticSetNameFrFR(siteRequest_, v);
     case "description":
       return CompanyEvent.staticSetDescription(siteRequest_, v);
+    case "descriptionFrFR":
+      return CompanyEvent.staticSetDescriptionFrFR(siteRequest_, v);
     case "startDateTime":
     case "endDateTime":
     case "price":
@@ -2037,6 +2242,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       return CompanyEvent.staticSetLocationLinks(siteRequest_, v);
     case "dialogTemplate":
       return CompanyEvent.staticSetDialogTemplate(siteRequest_, v);
+    case "dialogTemplateFrFR":
+      return CompanyEvent.staticSetDialogTemplateFrFR(siteRequest_, v);
     case "pageImageUri":
       return CompanyEvent.staticSetPageImageUri(siteRequest_, v);
     case "pageImageWidth":
@@ -2101,8 +2308,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(entityVar) {
     case "name":
       return CompanyEvent.staticSearchName(siteRequest_, (String)o);
+    case "nameFrFR":
+      return CompanyEvent.staticSearchNameFrFR(siteRequest_, (String)o);
     case "description":
       return CompanyEvent.staticSearchDescription(siteRequest_, (String)o);
+    case "descriptionFrFR":
+      return CompanyEvent.staticSearchDescriptionFrFR(siteRequest_, (String)o);
     case "startDateTime":
       return CompanyEvent.staticSearchStartDateTime(siteRequest_, (ZonedDateTime)o);
     case "endDateTime":
@@ -2125,6 +2336,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       return CompanyEvent.staticSearchLocationLinks(siteRequest_, (String)o);
     case "dialogTemplate":
       return CompanyEvent.staticSearchDialogTemplate(siteRequest_, (String)o);
+    case "dialogTemplateFrFR":
+      return CompanyEvent.staticSearchDialogTemplateFrFR(siteRequest_, (String)o);
     case "pageImageUri":
       return CompanyEvent.staticSearchPageImageUri(siteRequest_, (String)o);
     case "pageImageWidth":
@@ -2159,8 +2372,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(entityVar) {
     case "name":
       return CompanyEvent.staticSearchStrName(siteRequest_, (String)o);
+    case "nameFrFR":
+      return CompanyEvent.staticSearchStrNameFrFR(siteRequest_, (String)o);
     case "description":
       return CompanyEvent.staticSearchStrDescription(siteRequest_, (String)o);
+    case "descriptionFrFR":
+      return CompanyEvent.staticSearchStrDescriptionFrFR(siteRequest_, (String)o);
     case "startDateTime":
       return CompanyEvent.staticSearchStrStartDateTime(siteRequest_, (String)o);
     case "endDateTime":
@@ -2183,6 +2400,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       return CompanyEvent.staticSearchStrLocationLinks(siteRequest_, (String)o);
     case "dialogTemplate":
       return CompanyEvent.staticSearchStrDialogTemplate(siteRequest_, (String)o);
+    case "dialogTemplateFrFR":
+      return CompanyEvent.staticSearchStrDialogTemplateFrFR(siteRequest_, (String)o);
     case "pageImageUri":
       return CompanyEvent.staticSearchStrPageImageUri(siteRequest_, (String)o);
     case "pageImageWidth":
@@ -2217,8 +2436,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(entityVar) {
     case "name":
       return CompanyEvent.staticSearchFqName(siteRequest_, o);
+    case "nameFrFR":
+      return CompanyEvent.staticSearchFqNameFrFR(siteRequest_, o);
     case "description":
       return CompanyEvent.staticSearchFqDescription(siteRequest_, o);
+    case "descriptionFrFR":
+      return CompanyEvent.staticSearchFqDescriptionFrFR(siteRequest_, o);
     case "startDateTime":
       return CompanyEvent.staticSearchFqStartDateTime(siteRequest_, o);
     case "endDateTime":
@@ -2241,6 +2464,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       return CompanyEvent.staticSearchFqLocationLinks(siteRequest_, o);
     case "dialogTemplate":
       return CompanyEvent.staticSearchFqDialogTemplate(siteRequest_, o);
+    case "dialogTemplateFrFR":
+      return CompanyEvent.staticSearchFqDialogTemplateFrFR(siteRequest_, o);
     case "pageImageUri":
       return CompanyEvent.staticSearchFqPageImageUri(siteRequest_, o);
     case "pageImageWidth":
@@ -2291,11 +2516,23 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         }
         saves.add("name");
         return val;
+      } else if("namefrfr".equals(varLower)) {
+        if(val instanceof String) {
+          setNameFrFR((String)val);
+        }
+        saves.add("nameFrFR");
+        return val;
       } else if("description".equals(varLower)) {
         if(val instanceof String) {
           setDescription((String)val);
         }
         saves.add("description");
+        return val;
+      } else if("descriptionfrfr".equals(varLower)) {
+        if(val instanceof String) {
+          setDescriptionFrFR((String)val);
+        }
+        saves.add("descriptionFrFR");
         return val;
       } else if("startdatetime".equals(varLower)) {
         if(val instanceof String) {
@@ -2363,6 +2600,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         }
         saves.add("dialogTemplate");
         return val;
+      } else if("dialogtemplatefrfr".equals(varLower)) {
+        if(val instanceof String) {
+          setDialogTemplateFrFR((String)val);
+        }
+        saves.add("dialogTemplateFrFR");
+        return val;
       } else if("pageimageuri".equals(varLower)) {
         if(val instanceof String) {
           setPageImageUri((String)val);
@@ -2428,10 +2671,22 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
           oCompanyEvent.setName(name);
       }
 
+      if(saves.contains("nameFrFR")) {
+        String nameFrFR = (String)doc.get("nameFrFR_docvalues_string");
+        if(nameFrFR != null)
+          oCompanyEvent.setNameFrFR(nameFrFR);
+      }
+
       if(saves.contains("description")) {
         String description = (String)doc.get("description_docvalues_string");
         if(description != null)
           oCompanyEvent.setDescription(description);
+      }
+
+      if(saves.contains("descriptionFrFR")) {
+        String descriptionFrFR = (String)doc.get("descriptionFrFR_docvalues_string");
+        if(descriptionFrFR != null)
+          oCompanyEvent.setDescriptionFrFR(descriptionFrFR);
       }
 
       if(saves.contains("startDateTime")) {
@@ -2509,6 +2764,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
           oCompanyEvent.setDialogTemplate(dialogTemplate);
       }
 
+      if(saves.contains("dialogTemplateFrFR")) {
+        String dialogTemplateFrFR = (String)doc.get("dialogTemplateFrFR_docvalues_string");
+        if(dialogTemplateFrFR != null)
+          oCompanyEvent.setDialogTemplateFrFR(dialogTemplateFrFR);
+      }
+
       if(saves.contains("pageImageUri")) {
         String pageImageUri = (String)doc.get("pageImageUri_docvalues_string");
         if(pageImageUri != null)
@@ -2574,8 +2835,14 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     if(name != null) {
       doc.put("name_docvalues_string", name);
     }
+    if(nameFrFR != null) {
+      doc.put("nameFrFR_docvalues_string", nameFrFR);
+    }
     if(description != null) {
       doc.put("description_docvalues_string", description);
+    }
+    if(descriptionFrFR != null) {
+      doc.put("descriptionFrFR_docvalues_string", descriptionFrFR);
     }
     if(startDateTime != null) {
       doc.put("startDateTime_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(startDateTime.toInstant(), ZoneId.of("UTC"))));
@@ -2622,6 +2889,9 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     if(dialogTemplate != null) {
       doc.put("dialogTemplate_docvalues_string", dialogTemplate);
     }
+    if(dialogTemplateFrFR != null) {
+      doc.put("dialogTemplateFrFR_docvalues_string", dialogTemplateFrFR);
+    }
     if(pageImageUri != null) {
       doc.put("pageImageUri_docvalues_string", pageImageUri);
     }
@@ -2661,8 +2931,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(entityVar) {
       case "name":
         return "name_docvalues_string";
+      case "nameFrFR":
+        return "nameFrFR_docvalues_string";
       case "description":
         return "description_docvalues_string";
+      case "descriptionFrFR":
+        return "descriptionFrFR_docvalues_string";
       case "startDateTime":
         return "startDateTime_docvalues_date";
       case "endDateTime":
@@ -2685,6 +2959,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         return "locationLinks_indexedstored_strings";
       case "dialogTemplate":
         return "dialogTemplate_docvalues_string";
+      case "dialogTemplateFrFR":
+        return "dialogTemplateFrFR_docvalues_string";
       case "pageImageUri":
         return "pageImageUri_docvalues_string";
       case "pageImageWidth":
@@ -2712,8 +2988,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(entityVar) {
       case "name":
         return "name_docvalues_string";
+      case "nameFrFR":
+        return "nameFrFR_docvalues_string";
       case "description":
         return "description_docvalues_string";
+      case "descriptionFrFR":
+        return "descriptionFrFR_docvalues_string";
       case "startDateTime":
         return "startDateTime_docvalues_date";
       case "endDateTime":
@@ -2736,6 +3016,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         return "locationLinks_indexedstored_strings";
       case "dialogTemplate":
         return "dialogTemplate_docvalues_string";
+      case "dialogTemplateFrFR":
+        return "dialogTemplateFrFR_docvalues_string";
       case "pageImageUri":
         return "pageImageUri_docvalues_string";
       case "pageImageWidth":
@@ -2763,8 +3045,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(searchVar) {
       case "name_docvalues_string":
         return "name";
+      case "nameFrFR_docvalues_string":
+        return "nameFrFR";
       case "description_docvalues_string":
         return "description";
+      case "descriptionFrFR_docvalues_string":
+        return "descriptionFrFR";
       case "startDateTime_docvalues_date":
         return "startDateTime";
       case "endDateTime_docvalues_date":
@@ -2787,6 +3073,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         return "locationLinks";
       case "dialogTemplate_docvalues_string":
         return "dialogTemplate";
+      case "dialogTemplateFrFR_docvalues_string":
+        return "dialogTemplateFrFR";
       case "pageImageUri_docvalues_string":
         return "pageImageUri";
       case "pageImageWidth_docvalues_int":
@@ -2836,7 +3124,9 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     SiteRequest siteRequest = oCompanyEvent.getSiteRequest_();
 
     oCompanyEvent.setName(Optional.ofNullable(doc.get("name_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oCompanyEvent.setNameFrFR(Optional.ofNullable(doc.get("nameFrFR_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setDescription(Optional.ofNullable(doc.get("description_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oCompanyEvent.setDescriptionFrFR(Optional.ofNullable(doc.get("descriptionFrFR_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setStartDateTime(Optional.ofNullable(doc.get("startDateTime_docvalues_date")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setEndDateTime(Optional.ofNullable(doc.get("endDateTime_docvalues_date")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setPrice(Optional.ofNullable(doc.get("price_docvalues_string")).map(v -> v.toString()).orElse(null));
@@ -2854,6 +3144,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       oCompanyEvent.addLocationLinks(CompanyEvent.staticSetLocationLinks(siteRequest, v.toString()));
     });
     oCompanyEvent.setDialogTemplate(Optional.ofNullable(doc.get("dialogTemplate_docvalues_string")).map(v -> v.toString()).orElse(null));
+    oCompanyEvent.setDialogTemplateFrFR(Optional.ofNullable(doc.get("dialogTemplateFrFR_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setPageImageUri(Optional.ofNullable(doc.get("pageImageUri_docvalues_string")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setPageImageWidth(Optional.ofNullable(doc.get("pageImageWidth_docvalues_int")).map(v -> v.toString()).orElse(null));
     oCompanyEvent.setPageImageHeight(Optional.ofNullable(doc.get("pageImageHeight_docvalues_int")).map(v -> v.toString()).orElse(null));
@@ -2880,8 +3171,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       CompanyEvent original = (CompanyEvent)o;
       if(!Objects.equals(name, original.getName()))
         apiRequest.addVars("name");
+      if(!Objects.equals(nameFrFR, original.getNameFrFR()))
+        apiRequest.addVars("nameFrFR");
       if(!Objects.equals(description, original.getDescription()))
         apiRequest.addVars("description");
+      if(!Objects.equals(descriptionFrFR, original.getDescriptionFrFR()))
+        apiRequest.addVars("descriptionFrFR");
       if(!Objects.equals(startDateTime, original.getStartDateTime()))
         apiRequest.addVars("startDateTime");
       if(!Objects.equals(endDateTime, original.getEndDateTime()))
@@ -2904,6 +3199,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
         apiRequest.addVars("locationLinks");
       if(!Objects.equals(dialogTemplate, original.getDialogTemplate()))
         apiRequest.addVars("dialogTemplate");
+      if(!Objects.equals(dialogTemplateFrFR, original.getDialogTemplateFrFR()))
+        apiRequest.addVars("dialogTemplateFrFR");
       if(!Objects.equals(pageImageUri, original.getPageImageUri()))
         apiRequest.addVars("pageImageUri");
       if(!Objects.equals(pageImageWidth, original.getPageImageWidth()))
@@ -2934,7 +3231,9 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     StringBuilder sb = new StringBuilder();
     sb.append(super.toString());
     sb.append(Optional.ofNullable(name).map(v -> "name: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(nameFrFR).map(v -> "nameFrFR: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(description).map(v -> "description: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(descriptionFrFR).map(v -> "descriptionFrFR: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(startDateTime).map(v -> "startDateTime: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(endDateTime).map(v -> "endDateTime: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(price).map(v -> "price: " + v + "\n").orElse(""));
@@ -2946,6 +3245,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     sb.append(Optional.ofNullable(locationTitles).map(v -> "locationTitles: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(locationLinks).map(v -> "locationLinks: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(dialogTemplate).map(v -> "dialogTemplate: \"" + v + "\"\n" ).orElse(""));
+    sb.append(Optional.ofNullable(dialogTemplateFrFR).map(v -> "dialogTemplateFrFR: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(pageImageUri).map(v -> "pageImageUri: \"" + v + "\"\n" ).orElse(""));
     sb.append(Optional.ofNullable(pageImageWidth).map(v -> "pageImageWidth: " + v + "\n").orElse(""));
     sb.append(Optional.ofNullable(pageImageHeight).map(v -> "pageImageHeight: " + v + "\n").orElse(""));
@@ -2967,8 +3267,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   }
   public static final String VAR_name = "name";
   public static final String SET_name = "setName";
+  public static final String VAR_nameFrFR = "nameFrFR";
+  public static final String SET_nameFrFR = "setNameFrFR";
   public static final String VAR_description = "description";
   public static final String SET_description = "setDescription";
+  public static final String VAR_descriptionFrFR = "descriptionFrFR";
+  public static final String SET_descriptionFrFR = "setDescriptionFrFR";
   public static final String VAR_startDateTime = "startDateTime";
   public static final String SET_startDateTime = "setStartDateTime";
   public static final String VAR_endDateTime = "endDateTime";
@@ -2991,6 +3295,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   public static final String SET_locationLinks = "setLocationLinks";
   public static final String VAR_dialogTemplate = "dialogTemplate";
   public static final String SET_dialogTemplate = "setDialogTemplate";
+  public static final String VAR_dialogTemplateFrFR = "dialogTemplateFrFR";
+  public static final String SET_dialogTemplateFrFR = "setDialogTemplateFrFR";
   public static final String VAR_pageImageUri = "pageImageUri";
   public static final String SET_pageImageUri = "setPageImageUri";
   public static final String VAR_pageImageWidth = "pageImageWidth";
@@ -3023,6 +3329,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   }
   public static List<String> varsFqCompanyEvent(List<String> vars) {
     vars.add(VAR_name);
+    vars.add(VAR_nameFrFR);
     vars.add(VAR_description);
     vars.add(VAR_startDateTime);
     vars.add(VAR_endDateTime);
@@ -3051,7 +3358,9 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   }
 
   public static final String DISPLAY_NAME_name = "event name";
+  public static final String DISPLAY_NAME_nameFrFR = "";
   public static final String DISPLAY_NAME_description = "event description";
+  public static final String DISPLAY_NAME_descriptionFrFR = "";
   public static final String DISPLAY_NAME_startDateTime = "start date time";
   public static final String DISPLAY_NAME_endDateTime = "end date time";
   public static final String DISPLAY_NAME_price = "price";
@@ -3063,6 +3372,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   public static final String DISPLAY_NAME_locationTitles = "location titles";
   public static final String DISPLAY_NAME_locationLinks = "location links";
   public static final String DISPLAY_NAME_dialogTemplate = "dialog template";
+  public static final String DISPLAY_NAME_dialogTemplateFrFR = "dialog template";
   public static final String DISPLAY_NAME_pageImageUri = "image URI";
   public static final String DISPLAY_NAME_pageImageWidth = "";
   public static final String DISPLAY_NAME_pageImageHeight = "";
@@ -3104,8 +3414,18 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   }
 
   @Override
+  public String frFRStringFormatUrlDisplayPageForClass() {
+    return "%s/fr-fr/visiter/evenement/%s";
+  }
+
+  @Override
   public String enUSStringFormatUrlDisplayPageForClass() {
     return "%s/en-us/shop/event/%s";
+  }
+
+  @Override
+  public String frFRStringFormatUrlUserPageForClass() {
+    return "%s/fr-fr/utilisateur/evenement/%s";
   }
 
   @Override
@@ -3120,8 +3440,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(var) {
     case VAR_name:
       return patch ? SET_name : VAR_name;
+    case VAR_nameFrFR:
+      return patch ? SET_nameFrFR : VAR_nameFrFR;
     case VAR_description:
       return patch ? SET_description : VAR_description;
+    case VAR_descriptionFrFR:
+      return patch ? SET_descriptionFrFR : VAR_descriptionFrFR;
     case VAR_startDateTime:
       return patch ? SET_startDateTime : VAR_startDateTime;
     case VAR_endDateTime:
@@ -3144,6 +3468,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       return patch ? SET_locationLinks : VAR_locationLinks;
     case VAR_dialogTemplate:
       return patch ? SET_dialogTemplate : VAR_dialogTemplate;
+    case VAR_dialogTemplateFrFR:
+      return patch ? SET_dialogTemplateFrFR : VAR_dialogTemplateFrFR;
     case VAR_pageImageUri:
       return patch ? SET_pageImageUri : VAR_pageImageUri;
     case VAR_pageImageWidth:
@@ -3174,8 +3500,12 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(var) {
     case VAR_name:
       return DISPLAY_NAME_name;
+    case VAR_nameFrFR:
+      return DISPLAY_NAME_nameFrFR;
     case VAR_description:
       return DISPLAY_NAME_description;
+    case VAR_descriptionFrFR:
+      return DISPLAY_NAME_descriptionFrFR;
     case VAR_startDateTime:
       return DISPLAY_NAME_startDateTime;
     case VAR_endDateTime:
@@ -3198,6 +3528,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       return DISPLAY_NAME_locationLinks;
     case VAR_dialogTemplate:
       return DISPLAY_NAME_dialogTemplate;
+    case VAR_dialogTemplateFrFR:
+      return DISPLAY_NAME_dialogTemplateFrFR;
     case VAR_pageImageUri:
       return DISPLAY_NAME_pageImageUri;
     case VAR_pageImageWidth:
@@ -3249,6 +3581,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       return "The links of each location Paths. ";
     case VAR_dialogTemplate:
       return "The dialog template for this product. ";
+    case VAR_dialogTemplateFrFR:
+      return "The dialog template for this product. ";
     case VAR_pageImageUri:
       return "The page image URI";
     case VAR_pageImageWidth:
@@ -3276,7 +3610,11 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     switch(var) {
     case VAR_name:
       return "String";
+    case VAR_nameFrFR:
+      return "String";
     case VAR_description:
+      return "String";
+    case VAR_descriptionFrFR:
       return "String";
     case VAR_startDateTime:
       return "ZonedDateTime";
@@ -3299,6 +3637,8 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     case VAR_locationLinks:
       return "List";
     case VAR_dialogTemplate:
+      return "String";
+    case VAR_dialogTemplateFrFR:
       return "String";
     case VAR_pageImageUri:
       return "String";

@@ -62,7 +62,15 @@ import io.vertx.pgclient.data.Point;
  *   EditPageFrFR:
  *     Language: frFR
  *     Page: CompanyEventPage
- *     ApiUri: /fr-fr/edition/evenement/{entityShortId}
+ *     ApiUri: /fr-fr/edition/evenement/{pageId}
+ *   DisplayPageFrFR:
+ *     Language: frFR
+ *     Page: CompanyEventPage
+ *     ApiUri: /fr-fr/visiter/evenement/{pageId}
+ *   UserPageFrFR:
+ *     Language: frFR
+ *     Page: CompanyEventPage
+ *     ApiUri: /fr-fr/utilisateur/evenement/{pageId}
  *   Search:
  *   GET:
  *   PATCH:
@@ -107,6 +115,15 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
+   * Facet: true
+   */
+  protected void _nameFrFR(Wrap<String> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
    * DisplayName.enUS: event description
    * DisplayName.frFR: description de l'événement
    * Description.enUS: The event description. 
@@ -117,6 +134,14 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    * Facet: true
    */
   protected void _description(Wrap<String> w) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   */
+  protected void _descriptionFrFR(Wrap<String> w) {
   }
 
   /**
@@ -276,6 +301,19 @@ public class CompanyEvent extends CompanyEventGen<BaseResult> {
    */
   protected void _dialogTemplate(Wrap<String> w) {
     w.o(String.format("en-us/shop/event/%s/dialog.inc", pageId));
+  }
+
+  /**
+   * {@inheritDoc}
+   * DocValues: true
+   * Persist: true
+   * DisplayName.enUS: dialog template
+   * DisplayName.frFR: modèle de dialogue
+   * Description.enUS: The dialog template for this product. 
+   * Description.frFR: Le modèle de dialogue pour ce produit.
+   */
+  protected void _dialogTemplateFrFR(Wrap<String> w) {
+    w.o(String.format("fr-fr/visiter/evenement/%s/dialog.inc", pageId));
   }
 
   /**

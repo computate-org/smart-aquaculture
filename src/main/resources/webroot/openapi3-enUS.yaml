@@ -997,7 +997,7 @@ paths:
             text/html; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/UserPageCompanyEventResponse'
-  /fr-fr/edition/evenement/{entityShortId}:
+  /fr-fr/edition/evenement/{pageId}:
     get:
       operationId: editpagefrfrCompanyEvent
       x-vertx-event-bus: smart-aquaculture-enUS-CompanyEvent
@@ -1037,7 +1037,7 @@ paths:
             type: array
             items:
                 type: string
-        - name: entityShortId
+        - name: pageId
           in: path
           description: >+
           required: true
@@ -1284,6 +1284,107 @@ paths:
             text/html; charset=utf-8:
               schema:
                 $ref: '#/components/schemas/SearchPageFrFRCompanyEventResponse'
+  /fr-fr/utilisateur/evenement/{pageId}:
+    get:
+      operationId: userpagefrfrCompanyEvent
+      x-vertx-event-bus: smart-aquaculture-enUS-CompanyEvent
+      security:
+        - openIdConnect:
+          - openid
+          - profile
+          - customerProfileId
+      description: >+
+      summary: >+
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - name: pageId
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/UserPageFrFRCompanyEventResponse'
+  /fr-fr/visiter/evenement/{pageId}:
+    get:
+      operationId: displaypagefrfrCompanyEvent
+      x-vertx-event-bus: smart-aquaculture-enUS-CompanyEvent
+      description: >+
+      summary: >+
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_FONT_SIZE
+          in: cookie
+          schema:
+            type: string
+        - name: SITE_THEME
+          in: cookie
+          schema:
+            type: string
+        - name: WEB_COMPONENTS_THEME
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: var
+          description: 'The var parameters are additional optional variables and values to pass into the application. '
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - name: pageId
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/DisplayPageFrFRCompanyEventResponse'
   /en-us/api/feed:
     get:
       operationId: searchFeed
@@ -19921,6 +20022,16 @@ components:
         text/html; charset=utf-8:
           schema:
             $ref: '#/components/schemas/SearchPageFrFRCompanyEventResponse'
+    UserPageFrFRCompanyEventResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/UserPageFrFRCompanyEventResponse'
+    DisplayPageFrFRCompanyEventResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/DisplayPageFrFRCompanyEventResponse'
     SearchFeedResponse:
       content:
         application/json; charset=utf-8:
@@ -20962,6 +21073,8 @@ components:
                       type: string
                   dialogTemplate:
                     type: string
+                  dialogTemplateFrFR:
+                    type: string
                   pageImageUri:
                     type: string
                   pageImageWidth:
@@ -21106,6 +21219,13 @@ components:
             removeDialogTemplate:
               type: string
             removeAllDialogTemplate:
+              type: string
+            setDialogTemplateFrFR:
+              type: string
+              nullable: true
+            removeDialogTemplateFrFR:
+              type: string
+            removeAllDialogTemplateFrFR:
               type: string
             setPageImageUri:
               type: string
@@ -21305,6 +21425,13 @@ components:
               type: string
             removeAllDialogTemplate:
               type: string
+            setDialogTemplateFrFR:
+              type: string
+              nullable: true
+            removeDialogTemplateFrFR:
+              type: string
+            removeAllDialogTemplateFrFR:
+              type: string
             setPageImageUri:
               type: string
               nullable: true
@@ -21414,6 +21541,8 @@ components:
                 type: string
             dialogTemplate:
               type: string
+            dialogTemplateFrFR:
+              type: string
             pageImageUri:
               type: string
             pageImageWidth:
@@ -21470,6 +21599,8 @@ components:
                 type: string
             dialogTemplate:
               type: string
+            dialogTemplateFrFR:
+              type: string
             pageImageUri:
               type: string
             pageImageWidth:
@@ -21525,6 +21656,8 @@ components:
               items:
                 type: string
             dialogTemplate:
+              type: string
+            dialogTemplateFrFR:
               type: string
             pageImageUri:
               type: string
@@ -21587,6 +21720,8 @@ components:
                       type: string
                   dialogTemplate:
                     type: string
+                  dialogTemplateFrFR:
+                    type: string
                   pageImageUri:
                     type: string
                   pageImageWidth:
@@ -21642,6 +21777,8 @@ components:
                     items:
                       type: string
                   dialogTemplate:
+                    type: string
+                  dialogTemplateFrFR:
                     type: string
                   pageImageUri:
                     type: string
@@ -21699,6 +21836,8 @@ components:
                 type: string
             dialogTemplate:
               type: string
+            dialogTemplateFrFR:
+              type: string
             pageImageUri:
               type: string
             pageImageWidth:
@@ -21755,6 +21894,8 @@ components:
                 type: string
             dialogTemplate:
               type: string
+            dialogTemplateFrFR:
+              type: string
             pageImageUri:
               type: string
             pageImageWidth:
@@ -21791,6 +21932,12 @@ components:
       allOf:
         - type: string
     SearchPageFrFRCompanyEventResponse:
+      allOf:
+        - type: string
+    UserPageFrFRCompanyEventResponse:
+      allOf:
+        - type: string
+    DisplayPageFrFRCompanyEventResponse:
       allOf:
         - type: string
     SearchFeedResponse:

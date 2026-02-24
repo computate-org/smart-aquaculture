@@ -615,6 +615,492 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     }
   }
 
+  // DisplayPageFrFR //
+
+  @Override
+  public void displaypagefrfrCompanyEvent(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = true;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("frFR");
+              searchCompanyEventList(siteRequest, false, true, false, "GET").onSuccess(listCompanyEvent -> {
+                response200DisplayPageFrFRCompanyEvent(listCompanyEvent).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("displaypagefrfrCompanyEvent succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("displaypagefrfrCompanyEvent failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("displaypagefrfrCompanyEvent failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+            });
+      } catch(Exception ex) {
+        LOG.error(String.format("displaypagefrfrCompanyEvent failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("displaypagefrfrCompanyEvent failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("displaypagefrfrCompanyEvent failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void displaypagefrfrCompanyEventPageInit(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriDisplayPageFrFRCompanyEvent(ServiceRequest serviceRequest, CompanyEvent result) {
+    return String.format("%s.htm", StringUtils.substringBefore(serviceRequest.getExtra().getString("uri").substring(1), "?"));
+  }
+  public void templateDisplayPageFrFRCompanyEvent(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      CompanyEvent result = listCompanyEvent.first();
+      String pageTemplateUri = templateUriDisplayPageFrFRCompanyEvent(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "%s.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateDisplayPageFrFRCompanyEvent failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+  }
+  public Future<ServiceResponse> response200DisplayPageFrFRCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
+      CompanyEventPage page = new CompanyEventPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      page.setSearchListCompanyEvent_(listCompanyEvent);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepCompanyEventPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          displaypagefrfrCompanyEventPageInit(ctx, page, listCompanyEvent, promise1);
+          promise1.future().onSuccess(b -> {
+            Promise<String> promise2 = Promise.promise();
+            templateDisplayPageFrFRCompanyEvent(ctx, page, listCompanyEvent, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200DisplayPageFrFRCompanyEvent failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200DisplayPageFrFRCompanyEvent failed. "), ex);
+          promise.tryFail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200DisplayPageFrFRCompanyEvent failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotDisplayPageFrFRCompanyEvent(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotDisplayPageFrFRCompanyEvent(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
+  // UserPageFrFR //
+
+  @Override
+  public void userpagefrfrCompanyEvent(ServiceRequest serviceRequest, Handler<AsyncResult<ServiceResponse>> eventHandler) {
+    Boolean classPublicRead = true;
+    user(serviceRequest, SiteRequest.class, SiteUser.class, SiteUser.getClassApiAddress(), "postSiteUserFuture", "patchSiteUserFuture", classPublicRead).onSuccess(siteRequest -> {
+      try {
+        siteRequest.setLang("frFR");
+        String pageId = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("pageId");
+        String COMPANYEVENT = siteRequest.getServiceRequest().getParams().getJsonObject("path").getString("COMPANYEVENT");
+        List<String> groups = Optional.ofNullable(siteRequest.getGroups()).orElse(new ArrayList<>());
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        form.add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
+        form.add("audience", config.getString(ComputateConfigKeys.AUTH_CLIENT));
+        form.add("response_mode", "permissions");
+        form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "POST"));
+        form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "PATCH"));
+        form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "GET"));
+        form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "DELETE"));
+        form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
+        form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
+        if(pageId != null)
+          form.add("permission", String.format("%s#%s", pageId, "GET"));
+        webClient.post(
+            config.getInteger(ComputateConfigKeys.AUTH_PORT)
+              , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
+              , config.getString(ComputateConfigKeys.AUTH_TOKEN_URI)
+              )
+              .ssl(config.getBoolean(ComputateConfigKeys.AUTH_SSL))
+              .putHeader("Authorization", String.format("Bearer %s", Optional.ofNullable(siteRequest.getUser()).map(u -> u.principal().getString("access_token")).orElse("")))
+              .sendForm(form)
+              .expecting(HttpResponseExpectation.SC_OK)
+        .onComplete(authorizationDecisionResponse -> {
+          try {
+            HttpResponse<Buffer> authorizationDecision = authorizationDecisionResponse.result();
+            JsonArray authorizationDecisionBody = authorizationDecisionResponse.failed() ? new JsonArray() : authorizationDecision.bodyAsJsonArray();
+            JsonArray scopes = authorizationDecisionBody.stream().map(o -> (JsonObject)o).filter(o -> "COMPANYEVENT".equals(o.getString("rsname"))).findFirst().map(decision -> ((JsonObject)decision).getJsonArray("scopes")).orElse(new JsonArray());
+            {
+              siteRequest.setScopes(scopes.stream().map(o -> o.toString()).collect(Collectors.toList()));
+              List<String> scopes2 = siteRequest.getScopes();
+              searchCompanyEventList(siteRequest, false, true, false, "GET").onSuccess(listCompanyEvent -> {
+                response200UserPageFrFRCompanyEvent(listCompanyEvent).onSuccess(response -> {
+                  eventHandler.handle(Future.succeededFuture(response));
+                  LOG.debug(String.format("userpagefrfrCompanyEvent succeeded. "));
+                }).onFailure(ex -> {
+                  LOG.error(String.format("userpagefrfrCompanyEvent failed. "), ex);
+                  error(siteRequest, eventHandler, ex);
+                });
+              }).onFailure(ex -> {
+                LOG.error(String.format("userpagefrfrCompanyEvent failed. "), ex);
+                error(siteRequest, eventHandler, ex);
+            });
+            }
+          } catch(Exception ex) {
+            LOG.error(String.format("userpagefrfrCompanyEvent failed. "), ex);
+            error(null, eventHandler, ex);
+          }
+        });
+      } catch(Exception ex) {
+        LOG.error(String.format("userpagefrfrCompanyEvent failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    }).onFailure(ex -> {
+      if("Inactive Token".equals(ex.getMessage()) || StringUtils.startsWith(ex.getMessage(), "invalid_grant:")) {
+        try {
+          eventHandler.handle(Future.succeededFuture(new ServiceResponse(302, "Found", null, MultiMap.caseInsensitiveMultiMap().add(HttpHeaders.LOCATION, "/logout?redirect_uri=" + URLEncoder.encode(serviceRequest.getExtra().getString("uri"), "UTF-8")))));
+        } catch(Exception ex2) {
+          LOG.error(String.format("userpagefrfrCompanyEvent failed. ", ex2));
+          error(null, eventHandler, ex2);
+        }
+      } else if(StringUtils.startsWith(ex.getMessage(), "401 UNAUTHORIZED ")) {
+        eventHandler.handle(Future.succeededFuture(
+          new ServiceResponse(401, "UNAUTHORIZED",
+            Buffer.buffer().appendString(
+              new JsonObject()
+                .put("errorCode", "401")
+                .put("errorMessage", "SSO Resource Permission check returned DENY")
+                .encodePrettily()
+              ), MultiMap.caseInsensitiveMultiMap()
+              )
+          ));
+      } else {
+        LOG.error(String.format("userpagefrfrCompanyEvent failed. "), ex);
+        error(null, eventHandler, ex);
+      }
+    });
+  }
+
+  public void userpagefrfrCompanyEventPageInit(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<Void> promise) {
+    String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
+
+    ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+
+    ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
+    ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("enUSUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("enUSUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("enUSUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
+
+    promise.complete();
+  }
+
+  public String templateUriUserPageFrFRCompanyEvent(ServiceRequest serviceRequest, CompanyEvent result) {
+    return String.format("%s.htm", StringUtils.substringBefore(serviceRequest.getExtra().getString("uri").substring(1), "?"));
+  }
+  public void templateUserPageFrFRCompanyEvent(JsonObject ctx, CompanyEventPage page, SearchList<CompanyEvent> listCompanyEvent, Promise<String> promise) {
+    try {
+      SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
+      ServiceRequest serviceRequest = siteRequest.getServiceRequest();
+      CompanyEvent result = listCompanyEvent.first();
+      String pageTemplateUri = templateUriUserPageFrFRCompanyEvent(serviceRequest, result);
+      String siteTemplatePath = config.getString(ComputateConfigKeys.TEMPLATE_PATH);
+      Path resourceTemplatePath = Path.of(siteTemplatePath, pageTemplateUri);
+      if(result == null || !Files.exists(resourceTemplatePath)) {
+        String template = Files.readString(Path.of(siteTemplatePath, "%s.htm"), Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else if(pageTemplateUri.endsWith(".md")) {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String metaPrefixResult = String.format("%s.", i18n.getString(I18n.var_resultat));
+        Map<String, Object> data = new HashMap<>();
+        String body = "";
+        if(template.startsWith("---\n")) {
+          Matcher mMeta = Pattern.compile("---\n([\\w\\W]+?)\n---\n([\\w\\W]+)", Pattern.MULTILINE).matcher(template);
+          if(mMeta.find()) {
+            String meta = mMeta.group(1);
+            body = mMeta.group(2);
+            Yaml yaml = new Yaml();
+            Map<String, Object> map = yaml.load(meta);
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+            map.forEach((resultKey, value) -> {
+              if(resultKey.startsWith(metaPrefixResult)) {
+                String key = StringUtils.substringAfter(resultKey, metaPrefixResult);
+                String val = Optional.ofNullable(value).map(v -> v.toString()).orElse(null);
+                if(val instanceof String) {
+                  String rendered = jinjava.render(val, ctx.getMap());
+                  data.put(key, rendered);
+                } else {
+                  data.put(key, val);
+                }
+              }
+            });
+          }
+        }
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().build();
+        org.commonmark.node.Node document = parser.parse(body);
+        org.commonmark.renderer.html.HtmlRenderer renderer = org.commonmark.renderer.html.HtmlRenderer.builder().build();
+        String pageExtends =  Optional.ofNullable((String)data.get("extends")).orElse("en-us/Article.htm");
+        String htmTemplate = "{% extends \"" + pageExtends + "\" %}\n{% block htmBodyMiddleArticle %}\n" + renderer.render(document) + "\n{% endblock htmBodyMiddleArticle %}\n";
+        String renderedTemplate = jinjava.render(htmTemplate, ctx.getMap());
+        promise.complete(renderedTemplate);
+      } else {
+        String template = siteTemplatePath == null ? Resources.toString(Resources.getResource(resourceTemplatePath.toString()), StandardCharsets.UTF_8) : Files.readString(resourceTemplatePath, Charset.forName("UTF-8"));
+        String renderedTemplate = jinjava.render(template, ctx.getMap());
+        promise.complete(renderedTemplate);
+      }
+    } catch(Exception ex) {
+      LOG.error(String.format("templateUserPageFrFRCompanyEvent failed. "), ex);
+      ExceptionUtils.rethrow(ex);
+    }
+  }
+  public Future<ServiceResponse> response200UserPageFrFRCompanyEvent(SearchList<CompanyEvent> listCompanyEvent) {
+    Promise<ServiceResponse> promise = Promise.promise();
+    try {
+      SiteRequest siteRequest = listCompanyEvent.getSiteRequest_(SiteRequest.class);
+      CompanyEventPage page = new CompanyEventPage();
+      MultiMap requestHeaders = MultiMap.caseInsensitiveMultiMap();
+      siteRequest.setRequestHeaders(requestHeaders);
+
+      page.setSearchListCompanyEvent_(listCompanyEvent);
+      page.setSiteRequest_(siteRequest);
+      page.setServiceRequest(siteRequest.getServiceRequest());
+      page.setWebClient(webClient);
+      page.setVertx(vertx);
+      page.promiseDeepCompanyEventPage(siteRequest).onSuccess(a -> {
+        try {
+          JsonObject ctx = ConfigKeys.getPageContext(config);
+          ctx.mergeIn(JsonObject.mapFrom(page));
+          Promise<Void> promise1 = Promise.promise();
+          userpagefrfrCompanyEventPageInit(ctx, page, listCompanyEvent, promise1);
+          promise1.future().onSuccess(b -> {
+            Promise<String> promise2 = Promise.promise();
+            templateUserPageFrFRCompanyEvent(ctx, page, listCompanyEvent, promise2);
+            promise2.future().onSuccess(renderedTemplate -> {
+              try {
+                Buffer buffer = Buffer.buffer(renderedTemplate);
+                promise.complete(new ServiceResponse(200, "OK", buffer, requestHeaders));
+              } catch(Throwable ex) {
+                LOG.error(String.format("response200UserPageFrFRCompanyEvent failed. "), ex);
+                promise.fail(ex);
+              }
+            }).onFailure(ex -> {
+              promise.fail(ex);
+            });
+          }).onFailure(ex -> {
+            promise.tryFail(ex);
+          });
+        } catch(Exception ex) {
+          LOG.error(String.format("response200UserPageFrFRCompanyEvent failed. "), ex);
+          promise.tryFail(ex);
+        }
+      }).onFailure(ex -> {
+        promise.tryFail(ex);
+      });
+    } catch(Exception ex) {
+      LOG.error(String.format("response200UserPageFrFRCompanyEvent failed. "), ex);
+      promise.tryFail(ex);
+    }
+    return promise.future();
+  }
+  public void responsePivotUserPageFrFRCompanyEvent(List<SolrResponse.Pivot> pivots, JsonArray pivotArray) {
+    if(pivots != null) {
+      for(SolrResponse.Pivot pivotField : pivots) {
+        String entityIndexed = pivotField.getField();
+        String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
+        JsonObject pivotJson = new JsonObject();
+        pivotArray.add(pivotJson);
+        pivotJson.put("field", entityVar);
+        pivotJson.put("value", pivotField.getValue());
+        pivotJson.put("count", pivotField.getCount());
+        Collection<SolrResponse.PivotRange> pivotRanges = pivotField.getRanges().values();
+        List<SolrResponse.Pivot> pivotFields2 = pivotField.getPivotList();
+        if(pivotRanges != null) {
+          JsonObject rangeJson = new JsonObject();
+          pivotJson.put("ranges", rangeJson);
+          for(SolrResponse.PivotRange rangeFacet : pivotRanges) {
+            JsonObject rangeFacetJson = new JsonObject();
+            String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
+            rangeJson.put(rangeFacetVar, rangeFacetJson);
+            JsonObject rangeFacetCountsObject = new JsonObject();
+            rangeFacetJson.put("counts", rangeFacetCountsObject);
+            rangeFacet.getCounts().forEach((value, count) -> {
+              rangeFacetCountsObject.put(value, count);
+            });
+          }
+        }
+        if(pivotFields2 != null) {
+          JsonArray pivotArray2 = new JsonArray();
+          pivotJson.put("pivot", pivotArray2);
+          responsePivotUserPageFrFRCompanyEvent(pivotFields2, pivotArray2);
+        }
+      }
+    }
+  }
+
   // Search //
 
   @Override
@@ -3511,30 +3997,33 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 
       o.persistForClass(CompanyEvent.VAR_name, CompanyEvent.staticSetName(siteRequest2, (String)result.get(CompanyEvent.VAR_name)));
       o.persistForClass(CompanyEvent.VAR_created, CompanyEvent.staticSetCreated(siteRequest2, (String)result.get(CompanyEvent.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
+      o.persistForClass(CompanyEvent.VAR_nameFrFR, CompanyEvent.staticSetNameFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_nameFrFR)));
       o.persistForClass(CompanyEvent.VAR_description, CompanyEvent.staticSetDescription(siteRequest2, (String)result.get(CompanyEvent.VAR_description)));
-      o.persistForClass(CompanyEvent.VAR_startDateTime, CompanyEvent.staticSetStartDateTime(siteRequest2, (String)result.get(CompanyEvent.VAR_startDateTime), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       o.persistForClass(CompanyEvent.VAR_archived, CompanyEvent.staticSetArchived(siteRequest2, (String)result.get(CompanyEvent.VAR_archived)));
+      o.persistForClass(CompanyEvent.VAR_descriptionFrFR, CompanyEvent.staticSetDescriptionFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_descriptionFrFR)));
+      o.persistForClass(CompanyEvent.VAR_startDateTime, CompanyEvent.staticSetStartDateTime(siteRequest2, (String)result.get(CompanyEvent.VAR_startDateTime), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       o.persistForClass(CompanyEvent.VAR_endDateTime, CompanyEvent.staticSetEndDateTime(siteRequest2, (String)result.get(CompanyEvent.VAR_endDateTime), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       o.persistForClass(CompanyEvent.VAR_price, CompanyEvent.staticSetPrice(siteRequest2, (String)result.get(CompanyEvent.VAR_price)));
       o.persistForClass(CompanyEvent.VAR_pageId, CompanyEvent.staticSetPageId(siteRequest2, (String)result.get(CompanyEvent.VAR_pageId)));
       o.persistForClass(CompanyEvent.VAR_emailTemplate, CompanyEvent.staticSetEmailTemplate(siteRequest2, (String)result.get(CompanyEvent.VAR_emailTemplate)));
-      o.persistForClass(CompanyEvent.VAR_storeUrl, CompanyEvent.staticSetStoreUrl(siteRequest2, (String)result.get(CompanyEvent.VAR_storeUrl)));
-      o.persistForClass(CompanyEvent.VAR_location, CompanyEvent.staticSetLocation(siteRequest2, (String)result.get(CompanyEvent.VAR_location)));
       o.persistForClass(CompanyEvent.VAR_objectTitle, CompanyEvent.staticSetObjectTitle(siteRequest2, (String)result.get(CompanyEvent.VAR_objectTitle)));
+      o.persistForClass(CompanyEvent.VAR_storeUrl, CompanyEvent.staticSetStoreUrl(siteRequest2, (String)result.get(CompanyEvent.VAR_storeUrl)));
       o.persistForClass(CompanyEvent.VAR_displayPage, CompanyEvent.staticSetDisplayPage(siteRequest2, (String)result.get(CompanyEvent.VAR_displayPage)));
+      o.persistForClass(CompanyEvent.VAR_location, CompanyEvent.staticSetLocation(siteRequest2, (String)result.get(CompanyEvent.VAR_location)));
       o.persistForClass(CompanyEvent.VAR_displayPageFrFR, CompanyEvent.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_displayPageFrFR)));
       o.persistForClass(CompanyEvent.VAR_editPage, CompanyEvent.staticSetEditPage(siteRequest2, (String)result.get(CompanyEvent.VAR_editPage)));
-      o.persistForClass(CompanyEvent.VAR_dialogTemplate, CompanyEvent.staticSetDialogTemplate(siteRequest2, (String)result.get(CompanyEvent.VAR_dialogTemplate)));
       o.persistForClass(CompanyEvent.VAR_editPageFrFR, CompanyEvent.staticSetEditPageFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_editPageFrFR)));
-      o.persistForClass(CompanyEvent.VAR_pageImageUri, CompanyEvent.staticSetPageImageUri(siteRequest2, (String)result.get(CompanyEvent.VAR_pageImageUri)));
       o.persistForClass(CompanyEvent.VAR_userPage, CompanyEvent.staticSetUserPage(siteRequest2, (String)result.get(CompanyEvent.VAR_userPage)));
+      o.persistForClass(CompanyEvent.VAR_dialogTemplate, CompanyEvent.staticSetDialogTemplate(siteRequest2, (String)result.get(CompanyEvent.VAR_dialogTemplate)));
       o.persistForClass(CompanyEvent.VAR_userPageFrFR, CompanyEvent.staticSetUserPageFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_userPageFrFR)));
+      o.persistForClass(CompanyEvent.VAR_dialogTemplateFrFR, CompanyEvent.staticSetDialogTemplateFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_dialogTemplateFrFR)));
       o.persistForClass(CompanyEvent.VAR_download, CompanyEvent.staticSetDownload(siteRequest2, (String)result.get(CompanyEvent.VAR_download)));
+      o.persistForClass(CompanyEvent.VAR_pageImageUri, CompanyEvent.staticSetPageImageUri(siteRequest2, (String)result.get(CompanyEvent.VAR_pageImageUri)));
       o.persistForClass(CompanyEvent.VAR_downloadFrFR, CompanyEvent.staticSetDownloadFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_downloadFrFR)));
+      o.persistForClass(CompanyEvent.VAR_solrId, CompanyEvent.staticSetSolrId(siteRequest2, (String)result.get(CompanyEvent.VAR_solrId)));
       o.persistForClass(CompanyEvent.VAR_pageImageAlt, CompanyEvent.staticSetPageImageAlt(siteRequest2, (String)result.get(CompanyEvent.VAR_pageImageAlt)));
       o.persistForClass(CompanyEvent.VAR_labelsString, CompanyEvent.staticSetLabelsString(siteRequest2, (String)result.get(CompanyEvent.VAR_labelsString)));
       o.persistForClass(CompanyEvent.VAR_labels, CompanyEvent.staticSetLabels(siteRequest2, (String)result.get(CompanyEvent.VAR_labels)));
-      o.persistForClass(CompanyEvent.VAR_solrId, CompanyEvent.staticSetSolrId(siteRequest2, (String)result.get(CompanyEvent.VAR_solrId)));
       o.persistForClass(CompanyEvent.VAR_authorName, CompanyEvent.staticSetAuthorName(siteRequest2, (String)result.get(CompanyEvent.VAR_authorName)));
       o.persistForClass(CompanyEvent.VAR_authorUrl, CompanyEvent.staticSetAuthorUrl(siteRequest2, (String)result.get(CompanyEvent.VAR_authorUrl)));
 
