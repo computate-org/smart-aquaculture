@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -109,8 +110,6 @@ import io.vertx.core.json.JsonArray;
  **/
 public abstract class DbToSolrSyncGen<DEV> extends AbstractVerticle {
   protected static final Logger LOG = LoggerFactory.getLogger(DbToSolrSync.class);
-
-  public static final String SITE_NAME = "smart-aquaculture";
   public static final String runDbToSolrSyncComplete1 = "database to solr sync completed. ";
   public static final String runDbToSolrSyncComplete = runDbToSolrSyncComplete1;
 

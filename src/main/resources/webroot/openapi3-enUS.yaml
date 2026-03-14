@@ -21043,7 +21043,11 @@ components:
                 properties:
                   name:
                     type: string
+                  nameFrFR:
+                    type: string
                   description:
+                    type: string
+                  descriptionFrFR:
                     type: string
                   startDateTime:
                     type: string
@@ -21106,12 +21110,26 @@ components:
               type: string
             removeAllName:
               type: string
+            setNameFrFR:
+              type: string
+              nullable: true
+            removeNameFrFR:
+              type: string
+            removeAllNameFrFR:
+              type: string
             setDescription:
               type: string
               nullable: true
             removeDescription:
               type: string
             removeAllDescription:
+              type: string
+            setDescriptionFrFR:
+              type: string
+              nullable: true
+            removeDescriptionFrFR:
+              type: string
+            removeAllDescriptionFrFR:
               type: string
             setStartDateTime:
               type: string
@@ -21311,12 +21329,26 @@ components:
               type: string
             removeAllName:
               type: string
+            setNameFrFR:
+              type: string
+              nullable: true
+            removeNameFrFR:
+              type: string
+            removeAllNameFrFR:
+              type: string
             setDescription:
               type: string
               nullable: true
             removeDescription:
               type: string
             removeAllDescription:
+              type: string
+            setDescriptionFrFR:
+              type: string
+              nullable: true
+            removeDescriptionFrFR:
+              type: string
+            removeAllDescriptionFrFR:
               type: string
             setStartDateTime:
               type: string
@@ -21511,7 +21543,11 @@ components:
           properties:
             name:
               type: string
+            nameFrFR:
+              type: string
             description:
+              type: string
+            descriptionFrFR:
               type: string
             startDateTime:
               type: string
@@ -21569,7 +21605,11 @@ components:
           properties:
             name:
               type: string
+            nameFrFR:
+              type: string
             description:
+              type: string
+            descriptionFrFR:
               type: string
             startDateTime:
               type: string
@@ -21627,7 +21667,11 @@ components:
           properties:
             name:
               type: string
+            nameFrFR:
+              type: string
             description:
+              type: string
+            descriptionFrFR:
               type: string
             startDateTime:
               type: string
@@ -21690,7 +21734,11 @@ components:
                 properties:
                   name:
                     type: string
+                  nameFrFR:
+                    type: string
                   description:
+                    type: string
+                  descriptionFrFR:
                     type: string
                   startDateTime:
                     type: string
@@ -21748,7 +21796,11 @@ components:
           properties:
                   name:
                     type: string
+                  nameFrFR:
+                    type: string
                   description:
+                    type: string
+                  descriptionFrFR:
                     type: string
                   startDateTime:
                     type: string
@@ -21806,7 +21858,11 @@ components:
           properties:
             name:
               type: string
+            nameFrFR:
+              type: string
             description:
+              type: string
+            descriptionFrFR:
               type: string
             startDateTime:
               type: string
@@ -21864,7 +21920,11 @@ components:
           properties:
             name:
               type: string
+            nameFrFR:
+              type: string
             description:
+              type: string
+            descriptionFrFR:
               type: string
             startDateTime:
               type: string
@@ -29926,6 +29986,8 @@ components:
                     type: string
                   pageImageAlt:
                     type: string
+                  pageTemplate:
+                    type: string
                   prerequisiteArticleIds:
                     type: string
                   prerequisiteArticles:
@@ -30133,6 +30195,13 @@ components:
             removePageImageAlt:
               type: string
             removeAllPageImageAlt:
+              type: string
+            setPageTemplate:
+              type: string
+              nullable: true
+            removePageTemplate:
+              type: string
+            removeAllPageTemplate:
               type: string
             setPrerequisiteArticleIds:
               type: string
@@ -30426,6 +30495,13 @@ components:
               type: string
             removeAllPageImageAlt:
               type: string
+            setPageTemplate:
+              type: string
+              nullable: true
+            removePageTemplate:
+              type: string
+            removeAllPageTemplate:
+              type: string
             setPrerequisiteArticleIds:
               type: string
               nullable: true
@@ -30598,6 +30674,8 @@ components:
               type: string
             pageImageAlt:
               type: string
+            pageTemplate:
+              type: string
             prerequisiteArticleIds:
               type: string
             prerequisiteArticles:
@@ -30686,6 +30764,8 @@ components:
               type: string
             pageImageAlt:
               type: string
+            pageTemplate:
+              type: string
             prerequisiteArticleIds:
               type: string
             prerequisiteArticles:
@@ -30773,6 +30853,8 @@ components:
             pageImageType:
               type: string
             pageImageAlt:
+              type: string
+            pageTemplate:
               type: string
             prerequisiteArticleIds:
               type: string
@@ -30867,6 +30949,8 @@ components:
                     type: string
                   pageImageAlt:
                     type: string
+                  pageTemplate:
+                    type: string
                   prerequisiteArticleIds:
                     type: string
                   prerequisiteArticles:
@@ -30954,6 +31038,8 @@ components:
                   pageImageType:
                     type: string
                   pageImageAlt:
+                    type: string
+                  pageTemplate:
                     type: string
                   prerequisiteArticleIds:
                     type: string
@@ -31043,6 +31129,8 @@ components:
               type: string
             pageImageAlt:
               type: string
+            pageTemplate:
+              type: string
             prerequisiteArticleIds:
               type: string
             prerequisiteArticles:
@@ -31130,6 +31218,8 @@ components:
             pageImageType:
               type: string
             pageImageAlt:
+              type: string
+            pageTemplate:
               type: string
             prerequisiteArticleIds:
               type: string

@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -2753,6 +2754,8 @@ public abstract class BaseResultGen<DEV> extends Object {
       return 1;
     case VAR_archived:
       return 2;
+    case VAR_displayPage:
+      return 99;
       default:
         return null;
     }
@@ -2766,6 +2769,8 @@ public abstract class BaseResultGen<DEV> extends Object {
       return 3;
     case VAR_archived:
       return 1;
+    case VAR_displayPage:
+      return 2;
       default:
         return null;
     }

@@ -59,7 +59,7 @@ SITE_REPO_HTTPS: "{{ SITE_REPO | replace('git@github.com:', 'https://github.com/
 # The port of the site. 
 SITE_PORT: 10230
 # The host name of the site. 
-SITE_HOST_NAME: "{{ lookup('env', 'SITE_HOST_NAME') | default('localhost', true) }}"
+SITE_HOST_NAME: "{{ lookup('env', 'SITE_HOST_NAME_' + SITE_SHORT_NAME) | default('localhost', true) }}"
 # The base URL of the site. 
 SITE_BASE_URL: "{{ lookup('env', 'SITE_BASE_URL') | default('http://' + SITE_HOST_NAME + ':' + (SITE_PORT | string), true) }}"
 # The public facing URL for the site. 
@@ -289,7 +289,7 @@ ZOOKEEPER_SESSION_TIMEOUT_MILLIS: 5000
 # The unique ID for solr records in the search engine
 SOLR_ID: "solrId"
 # The namespace in OpenShift where Solr will run. 
-SOLR_NAMESPACE: "{{ lookup('env', 'SOLR_NAMESPACE') | default('solr', true) }}"
+SOLR_NAMESPACE: "{{ lookup('env', 'SOLR_NAMESPACE_' + SITE_SHORT_NAME) | default('solr', true) }}"
 # Whether to use SSL when connecting to Solr. 
 SOLR_SSL: "{{ (lookup('env', 'SOLR_SSL') | lower) != 'false' }}"
 # The host name to connect to Solr in OpenShift. 
@@ -329,7 +329,7 @@ SOLR_URL_COMPUTATE: "{{ ('https://' if SOLR_SSL_COMPUTATE | bool == True else 'h
 # Enable the connections to the database. 
 ENABLE_DATABASE: true
 # The namespace of the database in OpenShift. 
-DATABASE_NAMESPACE: postgres
+DATABASE_NAMESPACE: "{{ lookup('env', 'DATABASE_NAMESPACE_' + SITE_SHORT_NAME) | default('postgres', true) }}"
 # The PostgreSQL database host name. 
 DATABASE_HOST_NAME: "{{ lookup('env', 'DATABASE_HOST_NAME') | default('console-openshift-console.' + OPENSHIFT_APPS_DOMAIN, true) }}"
 # The PostgreSQL database port. 

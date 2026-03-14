@@ -25,7 +25,6 @@ import java.util.Objects;
 import io.vertx.core.WorkerExecutor;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.pgclient.PgPool;
 import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.mqtt.MqttClient;
@@ -46,6 +45,7 @@ import org.computate.search.response.solr.SolrResponse.StatsField;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import java.security.Principal;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.io.PrintWriter;
@@ -101,7 +101,6 @@ import io.vertx.ext.auth.authorization.RoleBasedAuthorization;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.api.service.ServiceResponse;
 import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import java.util.HashMap;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
@@ -152,7 +151,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -417,7 +416,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -682,7 +681,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -847,7 +846,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -950,7 +949,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "PATCH"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1287,14 +1286,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 
       for(String entityVar : methodNames) {
         switch(entityVar) {
-          case "setAddress":
-              o2.setAddress(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(FishProcessing.VAR_address + "=$" + num);
-              num++;
-              bParams.add(o2.sqlAddress());
-            break;
           case "setName":
               o2.setName(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1302,6 +1293,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               bSql.append(FishProcessing.VAR_name + "=$" + num);
               num++;
               bParams.add(o2.sqlName());
+            break;
+          case "setAddress":
+              o2.setAddress(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(FishProcessing.VAR_address + "=$" + num);
+              num++;
+              bParams.add(o2.sqlAddress());
             break;
           case "setDescription":
               o2.setDescription(jsonObject.getString(entityVar));
@@ -1351,14 +1350,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlEntityShortId());
             break;
-          case "setAreaServed":
-              o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishProcessing.VAR_areaServed, num));
-              num++;
-              bParams.add(o2.sqlAreaServed());
-            break;
           case "setNgsildTenant":
               o2.setNgsildTenant(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1366,6 +1357,14 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
               num++;
               bParams.add(o2.sqlNgsildTenant());
+            break;
+          case "setAreaServed":
+              o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+              if(bParams.size() > 0)
+                bSql.append(", ");
+              bSql.append(String.format("%s=ST_GeomFromGeoJSON($%s)", FishProcessing.VAR_areaServed, num));
+              num++;
+              bParams.add(o2.sqlAreaServed());
             break;
           case "setNgsildPath":
               o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -1562,7 +1561,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "POST"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "POST"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1838,15 +1837,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         Set<String> entityVars = jsonObject.fieldNames();
         for(String entityVar : entityVars) {
           switch(entityVar) {
-          case FishProcessing.VAR_address:
-            o2.setAddress(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishProcessing.VAR_address + "=$" + num);
-            num++;
-            bParams.add(o2.sqlAddress());
-            break;
           case FishProcessing.VAR_name:
             o2.setName(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1855,6 +1845,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             bSql.append(FishProcessing.VAR_name + "=$" + num);
             num++;
             bParams.add(o2.sqlName());
+            break;
+          case FishProcessing.VAR_address:
+            o2.setAddress(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishProcessing.VAR_address + "=$" + num);
+            num++;
+            bParams.add(o2.sqlAddress());
             break;
           case FishProcessing.VAR_description:
             o2.setDescription(jsonObject.getString(entityVar));
@@ -1910,15 +1909,6 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             num++;
             bParams.add(o2.sqlEntityShortId());
             break;
-          case FishProcessing.VAR_areaServed:
-            o2.setAreaServed(jsonObject.getJsonObject(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(FishProcessing.VAR_areaServed + "=$" + num);
-            num++;
-            bParams.add(o2.sqlAreaServed());
-            break;
           case FishProcessing.VAR_ngsildTenant:
             o2.setNgsildTenant(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1927,6 +1917,15 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             bSql.append(FishProcessing.VAR_ngsildTenant + "=$" + num);
             num++;
             bParams.add(o2.sqlNgsildTenant());
+            break;
+          case FishProcessing.VAR_areaServed:
+            o2.setAreaServed(jsonObject.getJsonObject(entityVar));
+            if(bParams.size() > 0) {
+              bSql.append(", ");
+            }
+            bSql.append(FishProcessing.VAR_areaServed + "=$" + num);
+            num++;
+            bParams.add(o2.sqlAreaServed());
             break;
           case FishProcessing.VAR_ngsildPath:
             o2.setNgsildPath(jsonObject.getString(entityVar));
@@ -2137,7 +2136,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2498,7 +2497,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "PUT"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2823,7 +2822,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3088,7 +3087,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3354,7 +3353,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", FishProcessing.CLASS_AUTH_RESOURCE, entityShortId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -4017,7 +4016,7 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT address, name, description, created, location, id, archived, entityShortId, ST_AsGeoJSON(areaServed) as areaServed, ngsildTenant, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishProcessing WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, address, description, created, location, id, archived, entityShortId, ngsildTenant, ST_AsGeoJSON(areaServed) as areaServed, ngsildPath, ngsildContext, sessionId, ngsildData, userKey, color, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM FishProcessing WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -4372,16 +4371,16 @@ public class FishProcessingEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       FishProcessing o = new FishProcessing();
       o.setSiteRequest_((SiteRequest)siteRequest);
 
-      o.persistForClass(FishProcessing.VAR_address, FishProcessing.staticSetAddress(siteRequest2, (String)result.get(FishProcessing.VAR_address)));
       o.persistForClass(FishProcessing.VAR_name, FishProcessing.staticSetName(siteRequest2, (String)result.get(FishProcessing.VAR_name)));
+      o.persistForClass(FishProcessing.VAR_address, FishProcessing.staticSetAddress(siteRequest2, (String)result.get(FishProcessing.VAR_address)));
       o.persistForClass(FishProcessing.VAR_description, FishProcessing.staticSetDescription(siteRequest2, (String)result.get(FishProcessing.VAR_description)));
       o.persistForClass(FishProcessing.VAR_created, FishProcessing.staticSetCreated(siteRequest2, (String)result.get(FishProcessing.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       o.persistForClass(FishProcessing.VAR_location, FishProcessing.staticSetLocation(siteRequest2, (String)result.get(FishProcessing.VAR_location)));
       o.persistForClass(FishProcessing.VAR_id, FishProcessing.staticSetId(siteRequest2, (String)result.get(FishProcessing.VAR_id)));
       o.persistForClass(FishProcessing.VAR_archived, FishProcessing.staticSetArchived(siteRequest2, (String)result.get(FishProcessing.VAR_archived)));
       o.persistForClass(FishProcessing.VAR_entityShortId, FishProcessing.staticSetEntityShortId(siteRequest2, (String)result.get(FishProcessing.VAR_entityShortId)));
-      o.persistForClass(FishProcessing.VAR_areaServed, FishProcessing.staticSetAreaServed(siteRequest2, (String)result.get(FishProcessing.VAR_areaServed)));
       o.persistForClass(FishProcessing.VAR_ngsildTenant, FishProcessing.staticSetNgsildTenant(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildTenant)));
+      o.persistForClass(FishProcessing.VAR_areaServed, FishProcessing.staticSetAreaServed(siteRequest2, (String)result.get(FishProcessing.VAR_areaServed)));
       o.persistForClass(FishProcessing.VAR_ngsildPath, FishProcessing.staticSetNgsildPath(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildPath)));
       o.persistForClass(FishProcessing.VAR_ngsildContext, FishProcessing.staticSetNgsildContext(siteRequest2, (String)result.get(FishProcessing.VAR_ngsildContext)));
       o.persistForClass(FishProcessing.VAR_sessionId, FishProcessing.staticSetSessionId(siteRequest2, (String)result.get(FishProcessing.VAR_sessionId)));

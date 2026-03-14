@@ -127,7 +127,7 @@ if __name__ == '__main__':
     yaml.add_representer(str, quoted_presenter)
     yaml.dump(config, str_io, width=float('inf'), default_flow_style=False)
     str = str_io.getvalue()
-    str = str.replace("': '", "'='")
+    str = re.sub("': (['\"])", r"'=\1", str)
     str = re.sub(r"'([^']+)'=", r"\1=", str)
     str = re.sub(r"([^=])''", r'\1' + "'\"'\"'", str)
     print(str)

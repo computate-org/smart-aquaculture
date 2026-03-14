@@ -1,16 +1,3 @@
-/*
- * Copyright Computate Limited Liability Company in Utah, USA. 
- * SPDX-License-Identifier: AGPL-3.0
- * This program and the accompanying materials are made available under the
- * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
- * 
- * https://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You may not propagate or modify a covered work except as expressly provided 
- * under this License. Any attempt otherwise to propagate or modify it is void, 
- * and will automatically terminate your rights under this License (including 
- * any patent licenses granted under the third paragraph of section 11).
- */
 package org.computate.smartaquaculture.model;
 
 import org.computate.smartaquaculture.request.SiteRequest;
@@ -31,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -698,7 +686,7 @@ public abstract class BaseModelGen<DEV> extends Object {
    *  The entity sessionId
    *	 is defined as null before being initialized. 
    */
-  @JsonProperty
+  @JsonIgnore
   @JsonInclude(Include.NON_NULL)
   protected String sessionId;
 

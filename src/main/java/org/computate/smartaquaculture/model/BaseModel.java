@@ -1,16 +1,4 @@
-/*
- * Copyright Computate Limited Liability Company in Utah, USA. 
- * SPDX-License-Identifier: AGPL-3.0
- * This program and the accompanying materials are made available under the
- * terms of the GNU AFFERO GENERAL PUBLIC LICENSE which is available at
- * 
- * https://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You may not propagate or modify a covered work except as expressly provided 
- * under this License. Any attempt otherwise to propagate or modify it is void, 
- * and will automatically terminate your rights under this License (including 
- * any patent licenses granted under the third paragraph of section 11).
- */
+
 package org.computate.smartaquaculture.model;
 
 import java.net.URLEncoder;
@@ -20,6 +8,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -159,6 +148,7 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
    * Persist: true
    * Modify: false
    * Description: The session ID of the user that created this object
+   * Ignore: true
    */
   protected void _sessionId(Wrap<String> w) {
   }
@@ -190,9 +180,9 @@ public class BaseModel extends BaseModelGen<Object> implements ComputateBaseMode
       s = Normalizer.normalize(s, Normalizer.Form.NFD);
       s = StringUtils.lowerCase(s);
       s = StringUtils.trim(s);
-      s = StringUtils.replacePattern(s, "\\s{1,}", "-");
-      s = StringUtils.replacePattern(s, "[^\\w-]", "");
-      s = StringUtils.replacePattern(s, "-{2,}", "-");
+      s = RegExUtils.replacePattern(s, "[\\s_]{1,}", "-");
+      s = RegExUtils.replacePattern(s, "[^A-Za-z0-9-]", "");
+      s = RegExUtils.replacePattern(s, "[-_]{2,}", "-");
     }
 
     return s;

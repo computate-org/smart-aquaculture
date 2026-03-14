@@ -25,7 +25,6 @@ import java.util.Objects;
 import io.vertx.core.WorkerExecutor;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.pgclient.PgPool;
 import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.mqtt.MqttClient;
@@ -46,6 +45,7 @@ import org.computate.search.response.solr.SolrResponse.StatsField;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import java.security.Principal;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.io.PrintWriter;
@@ -101,7 +101,6 @@ import io.vertx.ext.auth.authorization.RoleBasedAuthorization;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.api.service.ServiceResponse;
 import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import java.util.HashMap;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
@@ -375,7 +374,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -827,7 +826,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "PATCH"));
+          form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_AUTH_RESOURCE, pageId, "PATCH"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1095,7 +1094,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "POST"));
+          form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_AUTH_RESOURCE, pageId, "POST"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1311,7 +1310,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "PUT"));
+          form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_AUTH_RESOURCE, pageId, "PUT"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1617,7 +1616,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_AUTH_RESOURCE, pageId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2090,7 +2089,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2577,7 +2576,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", SitePage.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", SitePage.CLASS_AUTH_RESOURCE, pageId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3270,6 +3269,7 @@ public class SitePageEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       o.persistForClass(SitePage.VAR_pageImageUri, SitePage.staticSetPageImageUri(siteRequest2, (String)result.get(SitePage.VAR_pageImageUri)));
       o.persistForClass(SitePage.VAR_solrId, SitePage.staticSetSolrId(siteRequest2, (String)result.get(SitePage.VAR_solrId)));
       o.persistForClass(SitePage.VAR_pageImageAlt, SitePage.staticSetPageImageAlt(siteRequest2, (String)result.get(SitePage.VAR_pageImageAlt)));
+      o.persistForClass(SitePage.VAR_pageTemplate, SitePage.staticSetPageTemplate(siteRequest2, (String)result.get(SitePage.VAR_pageTemplate)));
       o.persistForClass(SitePage.VAR_prerequisiteArticleIds, SitePage.staticSetPrerequisiteArticleIds(siteRequest2, (String)result.get(SitePage.VAR_prerequisiteArticleIds)));
       o.persistForClass(SitePage.VAR_nextArticleIds, SitePage.staticSetNextArticleIds(siteRequest2, (String)result.get(SitePage.VAR_nextArticleIds)));
       o.persistForClass(SitePage.VAR_labelsString, SitePage.staticSetLabelsString(siteRequest2, (String)result.get(SitePage.VAR_labelsString)));

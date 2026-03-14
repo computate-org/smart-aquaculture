@@ -194,7 +194,7 @@ ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS ngsildContext text;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS ngsildData jsonb;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS color text;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS timeZone text;
-ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS fishingDockId text references FishingDock(entityShortId);
+ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS fishingDockId text;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS departureDate timestamp with time zone;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS arrivalDate timestamp with time zone;
 ALTER TABLE FishingBoat ADD COLUMN IF NOT EXISTS avgSpeedInMph decimal;
@@ -461,3 +461,5 @@ ALTER TABLE SeaportFacility ADD COLUMN IF NOT EXISTS startDate text;
 ALTER TABLE SeaportFacility ADD COLUMN IF NOT EXISTS transportServices jsonb;
 ALTER TABLE SeaportFacility ADD COLUMN IF NOT EXISTS typeOfPort jsonb;
 ALTER TABLE SeaportFacility ADD COLUMN IF NOT EXISTS webSite text;
+
+DO $$ BEGIN IF NOT EXISTS (SELECT constraint_name FROM information_schema.constraint_column_usage WHERE table_schema = 'public' AND constraint_name = 'fishingboat_fishingdockid_fishingdock_fkey') THEN ALTER TABLE FishingBoat ADD CONSTRAINT fishingboat_fishingdockid_fishingdock_fkey FOREIGN KEY(fishingDockId) REFERENCES FishingDock(entityShortId); END IF; END $$;

@@ -12,7 +12,6 @@ import java.util.Objects;
 import io.vertx.core.WorkerExecutor;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.pgclient.PgPool;
 import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.mqtt.MqttClient;
@@ -33,6 +32,7 @@ import org.computate.search.response.solr.SolrResponse.StatsField;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import java.security.Principal;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.io.PrintWriter;
@@ -88,7 +88,6 @@ import io.vertx.ext.auth.authorization.RoleBasedAuthorization;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.api.service.ServiceResponse;
 import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import java.util.HashMap;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
@@ -171,10 +170,10 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
     ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
     ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
@@ -364,7 +363,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -434,11 +433,11 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -818,7 +817,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "PATCH"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "PATCH"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1228,14 +1227,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlDisplayPage());
             break;
-          case "setDisplayPageFrFR":
-              o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(CompanyWebinar.VAR_displayPageFrFR + "=$" + num);
-              num++;
-              bParams.add(o2.sqlDisplayPageFrFR());
-            break;
           case "setEditPage":
               o2.setEditPage(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1243,14 +1234,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               bSql.append(CompanyWebinar.VAR_editPage + "=$" + num);
               num++;
               bParams.add(o2.sqlEditPage());
-            break;
-          case "setEditPageFrFR":
-              o2.setEditPageFrFR(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(CompanyWebinar.VAR_editPageFrFR + "=$" + num);
-              num++;
-              bParams.add(o2.sqlEditPageFrFR());
             break;
           case "setUserPage":
               o2.setUserPage(jsonObject.getString(entityVar));
@@ -1260,14 +1243,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               num++;
               bParams.add(o2.sqlUserPage());
             break;
-          case "setUserPageFrFR":
-              o2.setUserPageFrFR(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(CompanyWebinar.VAR_userPageFrFR + "=$" + num);
-              num++;
-              bParams.add(o2.sqlUserPageFrFR());
-            break;
           case "setDownload":
               o2.setDownload(jsonObject.getString(entityVar));
               if(bParams.size() > 0)
@@ -1275,14 +1250,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
               bSql.append(CompanyWebinar.VAR_download + "=$" + num);
               num++;
               bParams.add(o2.sqlDownload());
-            break;
-          case "setDownloadFrFR":
-              o2.setDownloadFrFR(jsonObject.getString(entityVar));
-              if(bParams.size() > 0)
-                bSql.append(", ");
-              bSql.append(CompanyWebinar.VAR_downloadFrFR + "=$" + num);
-              num++;
-              bParams.add(o2.sqlDownloadFrFR());
             break;
         }
       }
@@ -1358,7 +1325,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "POST"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "POST"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1769,15 +1736,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             num++;
             bParams.add(o2.sqlDisplayPage());
             break;
-          case CompanyWebinar.VAR_displayPageFrFR:
-            o2.setDisplayPageFrFR(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(CompanyWebinar.VAR_displayPageFrFR + "=$" + num);
-            num++;
-            bParams.add(o2.sqlDisplayPageFrFR());
-            break;
           case CompanyWebinar.VAR_editPage:
             o2.setEditPage(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1786,15 +1744,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             bSql.append(CompanyWebinar.VAR_editPage + "=$" + num);
             num++;
             bParams.add(o2.sqlEditPage());
-            break;
-          case CompanyWebinar.VAR_editPageFrFR:
-            o2.setEditPageFrFR(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(CompanyWebinar.VAR_editPageFrFR + "=$" + num);
-            num++;
-            bParams.add(o2.sqlEditPageFrFR());
             break;
           case CompanyWebinar.VAR_userPage:
             o2.setUserPage(jsonObject.getString(entityVar));
@@ -1805,15 +1754,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             num++;
             bParams.add(o2.sqlUserPage());
             break;
-          case CompanyWebinar.VAR_userPageFrFR:
-            o2.setUserPageFrFR(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(CompanyWebinar.VAR_userPageFrFR + "=$" + num);
-            num++;
-            bParams.add(o2.sqlUserPageFrFR());
-            break;
           case CompanyWebinar.VAR_download:
             o2.setDownload(jsonObject.getString(entityVar));
             if(bParams.size() > 0) {
@@ -1822,15 +1762,6 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
             bSql.append(CompanyWebinar.VAR_download + "=$" + num);
             num++;
             bParams.add(o2.sqlDownload());
-            break;
-          case CompanyWebinar.VAR_downloadFrFR:
-            o2.setDownloadFrFR(jsonObject.getString(entityVar));
-            if(bParams.size() > 0) {
-              bSql.append(", ");
-            }
-            bSql.append(CompanyWebinar.VAR_downloadFrFR + "=$" + num);
-            num++;
-            bParams.add(o2.sqlDownloadFrFR());
             break;
           }
         }
@@ -1905,7 +1836,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2256,7 +2187,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "PUT"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "PUT"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2613,10 +2544,10 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
     ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
     ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
@@ -2806,7 +2737,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2876,11 +2807,11 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -3102,11 +3033,11 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -3296,7 +3227,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3366,11 +3297,11 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/webinar"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/webinar"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -3561,7 +3492,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", CompanyWebinar.CLASS_AUTH_RESOURCE, pageId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -4215,7 +4146,7 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       SiteRequest siteRequest = o.getSiteRequest_();
       SqlConnection sqlConnection = siteRequest.getSqlConnection();
       Long pk = o.getPk();
-      sqlConnection.preparedQuery("SELECT name, description, created, pageId, joinUri, archived, webinarUrlAmericas, webinarUrlApac, webinarUrlEmea, icalUrl, sessionId, userKey, joinUrl, objectTitle, displayPage, displayPageFrFR, editPage, editPageFrFR, userPage, userPageFrFR, download, downloadFrFR FROM CompanyWebinar WHERE pk=$1")
+      sqlConnection.preparedQuery("SELECT name, description, created, pageId, joinUri, archived, webinarUrlAmericas, webinarUrlApac, webinarUrlEmea, icalUrl, sessionId, userKey, joinUrl, objectTitle, displayPage, editPage, userPage, download FROM CompanyWebinar WHERE pk=$1")
           .collecting(Collectors.toList())
           .execute(Tuple.of(pk)
           ).onSuccess(result -> {
@@ -4435,13 +4366,9 @@ public class CompanyWebinarEnUSGenApiServiceImpl extends BaseApiServiceImpl impl
       o.persistForClass(CompanyWebinar.VAR_joinUrl, CompanyWebinar.staticSetJoinUrl(siteRequest2, (String)result.get(CompanyWebinar.VAR_joinUrl)));
       o.persistForClass(CompanyWebinar.VAR_objectTitle, CompanyWebinar.staticSetObjectTitle(siteRequest2, (String)result.get(CompanyWebinar.VAR_objectTitle)));
       o.persistForClass(CompanyWebinar.VAR_displayPage, CompanyWebinar.staticSetDisplayPage(siteRequest2, (String)result.get(CompanyWebinar.VAR_displayPage)));
-      o.persistForClass(CompanyWebinar.VAR_displayPageFrFR, CompanyWebinar.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(CompanyWebinar.VAR_displayPageFrFR)));
       o.persistForClass(CompanyWebinar.VAR_editPage, CompanyWebinar.staticSetEditPage(siteRequest2, (String)result.get(CompanyWebinar.VAR_editPage)));
-      o.persistForClass(CompanyWebinar.VAR_editPageFrFR, CompanyWebinar.staticSetEditPageFrFR(siteRequest2, (String)result.get(CompanyWebinar.VAR_editPageFrFR)));
       o.persistForClass(CompanyWebinar.VAR_userPage, CompanyWebinar.staticSetUserPage(siteRequest2, (String)result.get(CompanyWebinar.VAR_userPage)));
-      o.persistForClass(CompanyWebinar.VAR_userPageFrFR, CompanyWebinar.staticSetUserPageFrFR(siteRequest2, (String)result.get(CompanyWebinar.VAR_userPageFrFR)));
       o.persistForClass(CompanyWebinar.VAR_download, CompanyWebinar.staticSetDownload(siteRequest2, (String)result.get(CompanyWebinar.VAR_download)));
-      o.persistForClass(CompanyWebinar.VAR_downloadFrFR, CompanyWebinar.staticSetDownloadFrFR(siteRequest2, (String)result.get(CompanyWebinar.VAR_downloadFrFR)));
 
       o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {
         try {

@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -58,9 +59,9 @@ import org.computate.vertx.tool.VertxTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import io.vertx.pgclient.data.Point;
@@ -441,26 +442,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setBodyMasse(String o) {
     this.bodyMasse = FishPopulation.staticSetBodyMasse(siteRequest_, o);
   }
+  public static Integer staticScaleBodyMasse() {
+    return 2;
+  }
   public static MathContext staticMathContextBodyMasse() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetBodyMasse(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextBodyMasse());
+      return new BigDecimal(o, staticMathContextBodyMasse()).setScale(staticScaleBodyMasse(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setBodyMasse(Double o) {
-    setBodyMasse(new BigDecimal(o, staticMathContextBodyMasse()));
+    setBodyMasse(new BigDecimal(o, staticMathContextBodyMasse()).setScale(staticScaleBodyMasse(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setBodyMasse(Integer o) {
-    setBodyMasse(new BigDecimal(o, staticMathContextBodyMasse()));
+    setBodyMasse(new BigDecimal(o, staticMathContextBodyMasse()).setScale(staticScaleBodyMasse(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setBodyMasse(Number o) {
-    setBodyMasse(new BigDecimal(o.doubleValue(), staticMathContextBodyMasse()));
+    setBodyMasse(new BigDecimal(o.doubleValue(), staticMathContextBodyMasse()).setScale(staticScaleBodyMasse(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation bodyMasseInit() {
     Wrap<BigDecimal> bodyMasseWrap = new Wrap<BigDecimal>().var("bodyMasse");
@@ -473,11 +477,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchBodyMasse(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchBodyMasse(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrBodyMasse(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrBodyMasse(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -527,26 +531,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setCulturedIn(String o) {
     this.culturedIn = FishPopulation.staticSetCulturedIn(siteRequest_, o);
   }
+  public static Integer staticScaleCulturedIn() {
+    return 2;
+  }
   public static MathContext staticMathContextCulturedIn() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetCulturedIn(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextCulturedIn());
+      return new BigDecimal(o, staticMathContextCulturedIn()).setScale(staticScaleCulturedIn(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setCulturedIn(Double o) {
-    setCulturedIn(new BigDecimal(o, staticMathContextCulturedIn()));
+    setCulturedIn(new BigDecimal(o, staticMathContextCulturedIn()).setScale(staticScaleCulturedIn(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setCulturedIn(Integer o) {
-    setCulturedIn(new BigDecimal(o, staticMathContextCulturedIn()));
+    setCulturedIn(new BigDecimal(o, staticMathContextCulturedIn()).setScale(staticScaleCulturedIn(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setCulturedIn(Number o) {
-    setCulturedIn(new BigDecimal(o.doubleValue(), staticMathContextCulturedIn()));
+    setCulturedIn(new BigDecimal(o.doubleValue(), staticMathContextCulturedIn()).setScale(staticScaleCulturedIn(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation culturedInInit() {
     Wrap<BigDecimal> culturedInWrap = new Wrap<BigDecimal>().var("culturedIn");
@@ -559,11 +566,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchCulturedIn(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchCulturedIn(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrCulturedIn(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrCulturedIn(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -799,26 +806,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setFishRemoved(String o) {
     this.fishRemoved = FishPopulation.staticSetFishRemoved(siteRequest_, o);
   }
+  public static Integer staticScaleFishRemoved() {
+    return 2;
+  }
   public static MathContext staticMathContextFishRemoved() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetFishRemoved(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextFishRemoved());
+      return new BigDecimal(o, staticMathContextFishRemoved()).setScale(staticScaleFishRemoved(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setFishRemoved(Double o) {
-    setFishRemoved(new BigDecimal(o, staticMathContextFishRemoved()));
+    setFishRemoved(new BigDecimal(o, staticMathContextFishRemoved()).setScale(staticScaleFishRemoved(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setFishRemoved(Integer o) {
-    setFishRemoved(new BigDecimal(o, staticMathContextFishRemoved()));
+    setFishRemoved(new BigDecimal(o, staticMathContextFishRemoved()).setScale(staticScaleFishRemoved(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setFishRemoved(Number o) {
-    setFishRemoved(new BigDecimal(o.doubleValue(), staticMathContextFishRemoved()));
+    setFishRemoved(new BigDecimal(o.doubleValue(), staticMathContextFishRemoved()).setScale(staticScaleFishRemoved(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation fishRemovedInit() {
     Wrap<BigDecimal> fishRemovedWrap = new Wrap<BigDecimal>().var("fishRemoved");
@@ -831,11 +841,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchFishRemoved(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchFishRemoved(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrFishRemoved(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrFishRemoved(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -885,26 +895,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setInitialNumber(String o) {
     this.initialNumber = FishPopulation.staticSetInitialNumber(siteRequest_, o);
   }
+  public static Integer staticScaleInitialNumber() {
+    return 2;
+  }
   public static MathContext staticMathContextInitialNumber() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetInitialNumber(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextInitialNumber());
+      return new BigDecimal(o, staticMathContextInitialNumber()).setScale(staticScaleInitialNumber(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setInitialNumber(Double o) {
-    setInitialNumber(new BigDecimal(o, staticMathContextInitialNumber()));
+    setInitialNumber(new BigDecimal(o, staticMathContextInitialNumber()).setScale(staticScaleInitialNumber(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setInitialNumber(Integer o) {
-    setInitialNumber(new BigDecimal(o, staticMathContextInitialNumber()));
+    setInitialNumber(new BigDecimal(o, staticMathContextInitialNumber()).setScale(staticScaleInitialNumber(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setInitialNumber(Number o) {
-    setInitialNumber(new BigDecimal(o.doubleValue(), staticMathContextInitialNumber()));
+    setInitialNumber(new BigDecimal(o.doubleValue(), staticMathContextInitialNumber()).setScale(staticScaleInitialNumber(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation initialNumberInit() {
     Wrap<BigDecimal> initialNumberWrap = new Wrap<BigDecimal>().var("initialNumber");
@@ -917,11 +930,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchInitialNumber(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchInitialNumber(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrInitialNumber(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrInitialNumber(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1042,26 +1055,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setRefSpecie(String o) {
     this.refSpecie = FishPopulation.staticSetRefSpecie(siteRequest_, o);
   }
+  public static Integer staticScaleRefSpecie() {
+    return 2;
+  }
   public static MathContext staticMathContextRefSpecie() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetRefSpecie(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextRefSpecie());
+      return new BigDecimal(o, staticMathContextRefSpecie()).setScale(staticScaleRefSpecie(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setRefSpecie(Double o) {
-    setRefSpecie(new BigDecimal(o, staticMathContextRefSpecie()));
+    setRefSpecie(new BigDecimal(o, staticMathContextRefSpecie()).setScale(staticScaleRefSpecie(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setRefSpecie(Integer o) {
-    setRefSpecie(new BigDecimal(o, staticMathContextRefSpecie()));
+    setRefSpecie(new BigDecimal(o, staticMathContextRefSpecie()).setScale(staticScaleRefSpecie(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setRefSpecie(Number o) {
-    setRefSpecie(new BigDecimal(o.doubleValue(), staticMathContextRefSpecie()));
+    setRefSpecie(new BigDecimal(o.doubleValue(), staticMathContextRefSpecie()).setScale(staticScaleRefSpecie(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation refSpecieInit() {
     Wrap<BigDecimal> refSpecieWrap = new Wrap<BigDecimal>().var("refSpecie");
@@ -1074,11 +1090,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchRefSpecie(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchRefSpecie(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrRefSpecie(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrRefSpecie(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1575,7 +1591,6 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       try {
         List<Polygon> shape = null;
         if(StringUtils.isNotBlank(o)) {
-          ObjectMapper objectMapper = new ObjectMapper();
           SimpleModule module = new SimpleModule();
           module.setDeserializerModifier(new BeanDeserializerModifier() {
             @Override
@@ -1586,7 +1601,7 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
               return deserializer;
             }
           });
-          objectMapper.registerModule(module);
+          ObjectMapper objectMapper = JsonMapper.builder().addModule(module).build();
           shape = (List<Polygon>)objectMapper.readValue(Json.encode(o), Polygon.class);
         }
         return shape;
@@ -1761,26 +1776,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setMaturityDaysBegin(String o) {
     this.maturityDaysBegin = FishPopulation.staticSetMaturityDaysBegin(siteRequest_, o);
   }
+  public static Integer staticScaleMaturityDaysBegin() {
+    return 2;
+  }
   public static MathContext staticMathContextMaturityDaysBegin() {
     return new MathContext(16, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMaturityDaysBegin(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMaturityDaysBegin());
+      return new BigDecimal(o, staticMathContextMaturityDaysBegin()).setScale(staticScaleMaturityDaysBegin(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMaturityDaysBegin(Double o) {
-    setMaturityDaysBegin(new BigDecimal(o, staticMathContextMaturityDaysBegin()));
+    setMaturityDaysBegin(new BigDecimal(o, staticMathContextMaturityDaysBegin()).setScale(staticScaleMaturityDaysBegin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaturityDaysBegin(Integer o) {
-    setMaturityDaysBegin(new BigDecimal(o, staticMathContextMaturityDaysBegin()));
+    setMaturityDaysBegin(new BigDecimal(o, staticMathContextMaturityDaysBegin()).setScale(staticScaleMaturityDaysBegin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaturityDaysBegin(Number o) {
-    setMaturityDaysBegin(new BigDecimal(o.doubleValue(), staticMathContextMaturityDaysBegin()));
+    setMaturityDaysBegin(new BigDecimal(o.doubleValue(), staticMathContextMaturityDaysBegin()).setScale(staticScaleMaturityDaysBegin(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation maturityDaysBeginInit() {
     Wrap<BigDecimal> maturityDaysBeginWrap = new Wrap<BigDecimal>().var("maturityDaysBegin");
@@ -1793,11 +1811,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchMaturityDaysBegin(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMaturityDaysBegin(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMaturityDaysBegin(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMaturityDaysBegin(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1847,26 +1865,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setMaturityDaysEnd(String o) {
     this.maturityDaysEnd = FishPopulation.staticSetMaturityDaysEnd(siteRequest_, o);
   }
+  public static Integer staticScaleMaturityDaysEnd() {
+    return 2;
+  }
   public static MathContext staticMathContextMaturityDaysEnd() {
     return new MathContext(16, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMaturityDaysEnd(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMaturityDaysEnd());
+      return new BigDecimal(o, staticMathContextMaturityDaysEnd()).setScale(staticScaleMaturityDaysEnd(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMaturityDaysEnd(Double o) {
-    setMaturityDaysEnd(new BigDecimal(o, staticMathContextMaturityDaysEnd()));
+    setMaturityDaysEnd(new BigDecimal(o, staticMathContextMaturityDaysEnd()).setScale(staticScaleMaturityDaysEnd(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaturityDaysEnd(Integer o) {
-    setMaturityDaysEnd(new BigDecimal(o, staticMathContextMaturityDaysEnd()));
+    setMaturityDaysEnd(new BigDecimal(o, staticMathContextMaturityDaysEnd()).setScale(staticScaleMaturityDaysEnd(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaturityDaysEnd(Number o) {
-    setMaturityDaysEnd(new BigDecimal(o.doubleValue(), staticMathContextMaturityDaysEnd()));
+    setMaturityDaysEnd(new BigDecimal(o.doubleValue(), staticMathContextMaturityDaysEnd()).setScale(staticScaleMaturityDaysEnd(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation maturityDaysEndInit() {
     Wrap<BigDecimal> maturityDaysEndWrap = new Wrap<BigDecimal>().var("maturityDaysEnd");
@@ -1879,11 +1900,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchMaturityDaysEnd(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMaturityDaysEnd(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMaturityDaysEnd(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMaturityDaysEnd(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1933,26 +1954,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setIncubationDaysBegin(String o) {
     this.incubationDaysBegin = FishPopulation.staticSetIncubationDaysBegin(siteRequest_, o);
   }
+  public static Integer staticScaleIncubationDaysBegin() {
+    return 2;
+  }
   public static MathContext staticMathContextIncubationDaysBegin() {
     return new MathContext(16, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetIncubationDaysBegin(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextIncubationDaysBegin());
+      return new BigDecimal(o, staticMathContextIncubationDaysBegin()).setScale(staticScaleIncubationDaysBegin(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setIncubationDaysBegin(Double o) {
-    setIncubationDaysBegin(new BigDecimal(o, staticMathContextIncubationDaysBegin()));
+    setIncubationDaysBegin(new BigDecimal(o, staticMathContextIncubationDaysBegin()).setScale(staticScaleIncubationDaysBegin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationDaysBegin(Integer o) {
-    setIncubationDaysBegin(new BigDecimal(o, staticMathContextIncubationDaysBegin()));
+    setIncubationDaysBegin(new BigDecimal(o, staticMathContextIncubationDaysBegin()).setScale(staticScaleIncubationDaysBegin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationDaysBegin(Number o) {
-    setIncubationDaysBegin(new BigDecimal(o.doubleValue(), staticMathContextIncubationDaysBegin()));
+    setIncubationDaysBegin(new BigDecimal(o.doubleValue(), staticMathContextIncubationDaysBegin()).setScale(staticScaleIncubationDaysBegin(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation incubationDaysBeginInit() {
     Wrap<BigDecimal> incubationDaysBeginWrap = new Wrap<BigDecimal>().var("incubationDaysBegin");
@@ -1965,11 +1989,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchIncubationDaysBegin(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchIncubationDaysBegin(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrIncubationDaysBegin(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrIncubationDaysBegin(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2019,26 +2043,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setIncubationDaysEnd(String o) {
     this.incubationDaysEnd = FishPopulation.staticSetIncubationDaysEnd(siteRequest_, o);
   }
+  public static Integer staticScaleIncubationDaysEnd() {
+    return 2;
+  }
   public static MathContext staticMathContextIncubationDaysEnd() {
     return new MathContext(16, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetIncubationDaysEnd(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextIncubationDaysEnd());
+      return new BigDecimal(o, staticMathContextIncubationDaysEnd()).setScale(staticScaleIncubationDaysEnd(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setIncubationDaysEnd(Double o) {
-    setIncubationDaysEnd(new BigDecimal(o, staticMathContextIncubationDaysEnd()));
+    setIncubationDaysEnd(new BigDecimal(o, staticMathContextIncubationDaysEnd()).setScale(staticScaleIncubationDaysEnd(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationDaysEnd(Integer o) {
-    setIncubationDaysEnd(new BigDecimal(o, staticMathContextIncubationDaysEnd()));
+    setIncubationDaysEnd(new BigDecimal(o, staticMathContextIncubationDaysEnd()).setScale(staticScaleIncubationDaysEnd(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationDaysEnd(Number o) {
-    setIncubationDaysEnd(new BigDecimal(o.doubleValue(), staticMathContextIncubationDaysEnd()));
+    setIncubationDaysEnd(new BigDecimal(o.doubleValue(), staticMathContextIncubationDaysEnd()).setScale(staticScaleIncubationDaysEnd(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation incubationDaysEndInit() {
     Wrap<BigDecimal> incubationDaysEndWrap = new Wrap<BigDecimal>().var("incubationDaysEnd");
@@ -2051,11 +2078,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchIncubationDaysEnd(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchIncubationDaysEnd(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrIncubationDaysEnd(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrIncubationDaysEnd(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2105,26 +2132,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setIncubationNumberMin(String o) {
     this.incubationNumberMin = FishPopulation.staticSetIncubationNumberMin(siteRequest_, o);
   }
+  public static Integer staticScaleIncubationNumberMin() {
+    return 2;
+  }
   public static MathContext staticMathContextIncubationNumberMin() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetIncubationNumberMin(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextIncubationNumberMin());
+      return new BigDecimal(o, staticMathContextIncubationNumberMin()).setScale(staticScaleIncubationNumberMin(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setIncubationNumberMin(Double o) {
-    setIncubationNumberMin(new BigDecimal(o, staticMathContextIncubationNumberMin()));
+    setIncubationNumberMin(new BigDecimal(o, staticMathContextIncubationNumberMin()).setScale(staticScaleIncubationNumberMin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationNumberMin(Integer o) {
-    setIncubationNumberMin(new BigDecimal(o, staticMathContextIncubationNumberMin()));
+    setIncubationNumberMin(new BigDecimal(o, staticMathContextIncubationNumberMin()).setScale(staticScaleIncubationNumberMin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationNumberMin(Number o) {
-    setIncubationNumberMin(new BigDecimal(o.doubleValue(), staticMathContextIncubationNumberMin()));
+    setIncubationNumberMin(new BigDecimal(o.doubleValue(), staticMathContextIncubationNumberMin()).setScale(staticScaleIncubationNumberMin(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation incubationNumberMinInit() {
     Wrap<BigDecimal> incubationNumberMinWrap = new Wrap<BigDecimal>().var("incubationNumberMin");
@@ -2137,11 +2167,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchIncubationNumberMin(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchIncubationNumberMin(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrIncubationNumberMin(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrIncubationNumberMin(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2191,26 +2221,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setIncubationNumberMax(String o) {
     this.incubationNumberMax = FishPopulation.staticSetIncubationNumberMax(siteRequest_, o);
   }
+  public static Integer staticScaleIncubationNumberMax() {
+    return 2;
+  }
   public static MathContext staticMathContextIncubationNumberMax() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetIncubationNumberMax(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextIncubationNumberMax());
+      return new BigDecimal(o, staticMathContextIncubationNumberMax()).setScale(staticScaleIncubationNumberMax(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setIncubationNumberMax(Double o) {
-    setIncubationNumberMax(new BigDecimal(o, staticMathContextIncubationNumberMax()));
+    setIncubationNumberMax(new BigDecimal(o, staticMathContextIncubationNumberMax()).setScale(staticScaleIncubationNumberMax(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationNumberMax(Integer o) {
-    setIncubationNumberMax(new BigDecimal(o, staticMathContextIncubationNumberMax()));
+    setIncubationNumberMax(new BigDecimal(o, staticMathContextIncubationNumberMax()).setScale(staticScaleIncubationNumberMax(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationNumberMax(Number o) {
-    setIncubationNumberMax(new BigDecimal(o.doubleValue(), staticMathContextIncubationNumberMax()));
+    setIncubationNumberMax(new BigDecimal(o.doubleValue(), staticMathContextIncubationNumberMax()).setScale(staticScaleIncubationNumberMax(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation incubationNumberMaxInit() {
     Wrap<BigDecimal> incubationNumberMaxWrap = new Wrap<BigDecimal>().var("incubationNumberMax");
@@ -2223,11 +2256,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchIncubationNumberMax(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchIncubationNumberMax(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrIncubationNumberMax(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrIncubationNumberMax(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2277,26 +2310,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setPercentPopulationPregnantMin(String o) {
     this.percentPopulationPregnantMin = FishPopulation.staticSetPercentPopulationPregnantMin(siteRequest_, o);
   }
+  public static Integer staticScalePercentPopulationPregnantMin() {
+    return 2;
+  }
   public static MathContext staticMathContextPercentPopulationPregnantMin() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetPercentPopulationPregnantMin(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextPercentPopulationPregnantMin());
+      return new BigDecimal(o, staticMathContextPercentPopulationPregnantMin()).setScale(staticScalePercentPopulationPregnantMin(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setPercentPopulationPregnantMin(Double o) {
-    setPercentPopulationPregnantMin(new BigDecimal(o, staticMathContextPercentPopulationPregnantMin()));
+    setPercentPopulationPregnantMin(new BigDecimal(o, staticMathContextPercentPopulationPregnantMin()).setScale(staticScalePercentPopulationPregnantMin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setPercentPopulationPregnantMin(Integer o) {
-    setPercentPopulationPregnantMin(new BigDecimal(o, staticMathContextPercentPopulationPregnantMin()));
+    setPercentPopulationPregnantMin(new BigDecimal(o, staticMathContextPercentPopulationPregnantMin()).setScale(staticScalePercentPopulationPregnantMin(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setPercentPopulationPregnantMin(Number o) {
-    setPercentPopulationPregnantMin(new BigDecimal(o.doubleValue(), staticMathContextPercentPopulationPregnantMin()));
+    setPercentPopulationPregnantMin(new BigDecimal(o.doubleValue(), staticMathContextPercentPopulationPregnantMin()).setScale(staticScalePercentPopulationPregnantMin(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation percentPopulationPregnantMinInit() {
     Wrap<BigDecimal> percentPopulationPregnantMinWrap = new Wrap<BigDecimal>().var("percentPopulationPregnantMin");
@@ -2309,11 +2345,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchPercentPopulationPregnantMin(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchPercentPopulationPregnantMin(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrPercentPopulationPregnantMin(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrPercentPopulationPregnantMin(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2363,26 +2399,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setPercentPopulationPregnantMax(String o) {
     this.percentPopulationPregnantMax = FishPopulation.staticSetPercentPopulationPregnantMax(siteRequest_, o);
   }
+  public static Integer staticScalePercentPopulationPregnantMax() {
+    return 2;
+  }
   public static MathContext staticMathContextPercentPopulationPregnantMax() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetPercentPopulationPregnantMax(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextPercentPopulationPregnantMax());
+      return new BigDecimal(o, staticMathContextPercentPopulationPregnantMax()).setScale(staticScalePercentPopulationPregnantMax(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setPercentPopulationPregnantMax(Double o) {
-    setPercentPopulationPregnantMax(new BigDecimal(o, staticMathContextPercentPopulationPregnantMax()));
+    setPercentPopulationPregnantMax(new BigDecimal(o, staticMathContextPercentPopulationPregnantMax()).setScale(staticScalePercentPopulationPregnantMax(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setPercentPopulationPregnantMax(Integer o) {
-    setPercentPopulationPregnantMax(new BigDecimal(o, staticMathContextPercentPopulationPregnantMax()));
+    setPercentPopulationPregnantMax(new BigDecimal(o, staticMathContextPercentPopulationPregnantMax()).setScale(staticScalePercentPopulationPregnantMax(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setPercentPopulationPregnantMax(Number o) {
-    setPercentPopulationPregnantMax(new BigDecimal(o.doubleValue(), staticMathContextPercentPopulationPregnantMax()));
+    setPercentPopulationPregnantMax(new BigDecimal(o.doubleValue(), staticMathContextPercentPopulationPregnantMax()).setScale(staticScalePercentPopulationPregnantMax(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation percentPopulationPregnantMaxInit() {
     Wrap<BigDecimal> percentPopulationPregnantMaxWrap = new Wrap<BigDecimal>().var("percentPopulationPregnantMax");
@@ -2395,11 +2434,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchPercentPopulationPregnantMax(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchPercentPopulationPregnantMax(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrPercentPopulationPregnantMax(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrPercentPopulationPregnantMax(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2800,26 +2839,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setIncubationDaysNow(String o) {
     this.incubationDaysNow = FishPopulation.staticSetIncubationDaysNow(siteRequest_, o);
   }
+  public static Integer staticScaleIncubationDaysNow() {
+    return 2;
+  }
   public static MathContext staticMathContextIncubationDaysNow() {
     return new MathContext(16, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetIncubationDaysNow(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextIncubationDaysNow());
+      return new BigDecimal(o, staticMathContextIncubationDaysNow()).setScale(staticScaleIncubationDaysNow(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setIncubationDaysNow(Double o) {
-    setIncubationDaysNow(new BigDecimal(o, staticMathContextIncubationDaysNow()));
+    setIncubationDaysNow(new BigDecimal(o, staticMathContextIncubationDaysNow()).setScale(staticScaleIncubationDaysNow(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationDaysNow(Integer o) {
-    setIncubationDaysNow(new BigDecimal(o, staticMathContextIncubationDaysNow()));
+    setIncubationDaysNow(new BigDecimal(o, staticMathContextIncubationDaysNow()).setScale(staticScaleIncubationDaysNow(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setIncubationDaysNow(Number o) {
-    setIncubationDaysNow(new BigDecimal(o.doubleValue(), staticMathContextIncubationDaysNow()));
+    setIncubationDaysNow(new BigDecimal(o.doubleValue(), staticMathContextIncubationDaysNow()).setScale(staticScaleIncubationDaysNow(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation incubationDaysNowInit() {
     Wrap<BigDecimal> incubationDaysNowWrap = new Wrap<BigDecimal>().var("incubationDaysNow");
@@ -2832,11 +2874,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchIncubationDaysNow(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchIncubationDaysNow(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrIncubationDaysNow(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrIncubationDaysNow(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2886,26 +2928,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setWaterTemperature(String o) {
     this.waterTemperature = FishPopulation.staticSetWaterTemperature(siteRequest_, o);
   }
+  public static Integer staticScaleWaterTemperature() {
+    return 2;
+  }
   public static MathContext staticMathContextWaterTemperature() {
     return new MathContext(3, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetWaterTemperature(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextWaterTemperature());
+      return new BigDecimal(o, staticMathContextWaterTemperature()).setScale(staticScaleWaterTemperature(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setWaterTemperature(Double o) {
-    setWaterTemperature(new BigDecimal(o, staticMathContextWaterTemperature()));
+    setWaterTemperature(new BigDecimal(o, staticMathContextWaterTemperature()).setScale(staticScaleWaterTemperature(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterTemperature(Integer o) {
-    setWaterTemperature(new BigDecimal(o, staticMathContextWaterTemperature()));
+    setWaterTemperature(new BigDecimal(o, staticMathContextWaterTemperature()).setScale(staticScaleWaterTemperature(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterTemperature(Number o) {
-    setWaterTemperature(new BigDecimal(o.doubleValue(), staticMathContextWaterTemperature()));
+    setWaterTemperature(new BigDecimal(o.doubleValue(), staticMathContextWaterTemperature()).setScale(staticScaleWaterTemperature(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation waterTemperatureInit() {
     Wrap<BigDecimal> waterTemperatureWrap = new Wrap<BigDecimal>().var("waterTemperature");
@@ -2918,11 +2963,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchWaterTemperature(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchWaterTemperature(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrWaterTemperature(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrWaterTemperature(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -2972,26 +3017,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setWaterSalinity(String o) {
     this.waterSalinity = FishPopulation.staticSetWaterSalinity(siteRequest_, o);
   }
+  public static Integer staticScaleWaterSalinity() {
+    return 2;
+  }
   public static MathContext staticMathContextWaterSalinity() {
     return new MathContext(3, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetWaterSalinity(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextWaterSalinity());
+      return new BigDecimal(o, staticMathContextWaterSalinity()).setScale(staticScaleWaterSalinity(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setWaterSalinity(Double o) {
-    setWaterSalinity(new BigDecimal(o, staticMathContextWaterSalinity()));
+    setWaterSalinity(new BigDecimal(o, staticMathContextWaterSalinity()).setScale(staticScaleWaterSalinity(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterSalinity(Integer o) {
-    setWaterSalinity(new BigDecimal(o, staticMathContextWaterSalinity()));
+    setWaterSalinity(new BigDecimal(o, staticMathContextWaterSalinity()).setScale(staticScaleWaterSalinity(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterSalinity(Number o) {
-    setWaterSalinity(new BigDecimal(o.doubleValue(), staticMathContextWaterSalinity()));
+    setWaterSalinity(new BigDecimal(o.doubleValue(), staticMathContextWaterSalinity()).setScale(staticScaleWaterSalinity(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation waterSalinityInit() {
     Wrap<BigDecimal> waterSalinityWrap = new Wrap<BigDecimal>().var("waterSalinity");
@@ -3004,11 +3052,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchWaterSalinity(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchWaterSalinity(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrWaterSalinity(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrWaterSalinity(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -3058,26 +3106,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setWaterOxygen(String o) {
     this.waterOxygen = FishPopulation.staticSetWaterOxygen(siteRequest_, o);
   }
+  public static Integer staticScaleWaterOxygen() {
+    return 2;
+  }
   public static MathContext staticMathContextWaterOxygen() {
     return new MathContext(3, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetWaterOxygen(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextWaterOxygen());
+      return new BigDecimal(o, staticMathContextWaterOxygen()).setScale(staticScaleWaterOxygen(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setWaterOxygen(Double o) {
-    setWaterOxygen(new BigDecimal(o, staticMathContextWaterOxygen()));
+    setWaterOxygen(new BigDecimal(o, staticMathContextWaterOxygen()).setScale(staticScaleWaterOxygen(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterOxygen(Integer o) {
-    setWaterOxygen(new BigDecimal(o, staticMathContextWaterOxygen()));
+    setWaterOxygen(new BigDecimal(o, staticMathContextWaterOxygen()).setScale(staticScaleWaterOxygen(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterOxygen(Number o) {
-    setWaterOxygen(new BigDecimal(o.doubleValue(), staticMathContextWaterOxygen()));
+    setWaterOxygen(new BigDecimal(o.doubleValue(), staticMathContextWaterOxygen()).setScale(staticScaleWaterOxygen(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation waterOxygenInit() {
     Wrap<BigDecimal> waterOxygenWrap = new Wrap<BigDecimal>().var("waterOxygen");
@@ -3090,11 +3141,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchWaterOxygen(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchWaterOxygen(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrWaterOxygen(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrWaterOxygen(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -3144,26 +3195,29 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
   public void setWaterPh(String o) {
     this.waterPh = FishPopulation.staticSetWaterPh(siteRequest_, o);
   }
+  public static Integer staticScaleWaterPh() {
+    return 2;
+  }
   public static MathContext staticMathContextWaterPh() {
     return new MathContext(3, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetWaterPh(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextWaterPh());
+      return new BigDecimal(o, staticMathContextWaterPh()).setScale(staticScaleWaterPh(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setWaterPh(Double o) {
-    setWaterPh(new BigDecimal(o, staticMathContextWaterPh()));
+    setWaterPh(new BigDecimal(o, staticMathContextWaterPh()).setScale(staticScaleWaterPh(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterPh(Integer o) {
-    setWaterPh(new BigDecimal(o, staticMathContextWaterPh()));
+    setWaterPh(new BigDecimal(o, staticMathContextWaterPh()).setScale(staticScaleWaterPh(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setWaterPh(Number o) {
-    setWaterPh(new BigDecimal(o.doubleValue(), staticMathContextWaterPh()));
+    setWaterPh(new BigDecimal(o.doubleValue(), staticMathContextWaterPh()).setScale(staticScaleWaterPh(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishPopulation waterPhInit() {
     Wrap<BigDecimal> waterPhWrap = new Wrap<BigDecimal>().var("waterPh");
@@ -3176,11 +3230,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     return (FishPopulation)this;
   }
 
-  public static Double staticSearchWaterPh(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchWaterPh(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrWaterPh(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrWaterPh(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -3782,9 +3836,9 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     case "alternateName":
       return FishPopulation.staticSearchStrAlternateName(siteRequest_, (String)o);
     case "bodyMasse":
-      return FishPopulation.staticSearchStrBodyMasse(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrBodyMasse(siteRequest_, (String)o);
     case "culturedIn":
-      return FishPopulation.staticSearchStrCulturedIn(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrCulturedIn(siteRequest_, (String)o);
     case "dataProvider":
       return FishPopulation.staticSearchStrDataProvider(siteRequest_, (String)o);
     case "dateCreated":
@@ -3792,13 +3846,13 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     case "dateModified":
       return FishPopulation.staticSearchStrDateModified(siteRequest_, (String)o);
     case "fishRemoved":
-      return FishPopulation.staticSearchStrFishRemoved(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrFishRemoved(siteRequest_, (String)o);
     case "initialNumber":
-      return FishPopulation.staticSearchStrInitialNumber(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrInitialNumber(siteRequest_, (String)o);
     case "owner":
       return FishPopulation.staticSearchStrOwner(siteRequest_, (String)o);
     case "refSpecie":
-      return FishPopulation.staticSearchStrRefSpecie(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrRefSpecie(siteRequest_, (String)o);
     case "relatedSource":
       return FishPopulation.staticSearchStrRelatedSource(siteRequest_, (String)o);
     case "seeAlso":
@@ -3816,21 +3870,21 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     case "scientificName":
       return FishPopulation.staticSearchStrScientificName(siteRequest_, (String)o);
     case "maturityDaysBegin":
-      return FishPopulation.staticSearchStrMaturityDaysBegin(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrMaturityDaysBegin(siteRequest_, (String)o);
     case "maturityDaysEnd":
-      return FishPopulation.staticSearchStrMaturityDaysEnd(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrMaturityDaysEnd(siteRequest_, (String)o);
     case "incubationDaysBegin":
-      return FishPopulation.staticSearchStrIncubationDaysBegin(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrIncubationDaysBegin(siteRequest_, (String)o);
     case "incubationDaysEnd":
-      return FishPopulation.staticSearchStrIncubationDaysEnd(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrIncubationDaysEnd(siteRequest_, (String)o);
     case "incubationNumberMin":
-      return FishPopulation.staticSearchStrIncubationNumberMin(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrIncubationNumberMin(siteRequest_, (String)o);
     case "incubationNumberMax":
-      return FishPopulation.staticSearchStrIncubationNumberMax(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrIncubationNumberMax(siteRequest_, (String)o);
     case "percentPopulationPregnantMin":
-      return FishPopulation.staticSearchStrPercentPopulationPregnantMin(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrPercentPopulationPregnantMin(siteRequest_, (String)o);
     case "percentPopulationPregnantMax":
-      return FishPopulation.staticSearchStrPercentPopulationPregnantMax(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrPercentPopulationPregnantMax(siteRequest_, (String)o);
     case "populationsAtBirth":
       return FishPopulation.staticSearchStrPopulationsAtBirth(siteRequest_, (Long)o);
     case "populationsNow":
@@ -3840,15 +3894,15 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     case "previousPopulation":
       return FishPopulation.staticSearchStrPreviousPopulation(siteRequest_, (Long)o);
     case "incubationDaysNow":
-      return FishPopulation.staticSearchStrIncubationDaysNow(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrIncubationDaysNow(siteRequest_, (String)o);
     case "waterTemperature":
-      return FishPopulation.staticSearchStrWaterTemperature(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrWaterTemperature(siteRequest_, (String)o);
     case "waterSalinity":
-      return FishPopulation.staticSearchStrWaterSalinity(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrWaterSalinity(siteRequest_, (String)o);
     case "waterOxygen":
-      return FishPopulation.staticSearchStrWaterOxygen(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrWaterOxygen(siteRequest_, (String)o);
     case "waterPh":
-      return FishPopulation.staticSearchStrWaterPh(siteRequest_, (Double)o);
+      return FishPopulation.staticSearchStrWaterPh(siteRequest_, (String)o);
     case "simulation":
       return FishPopulation.staticSearchStrSimulation(siteRequest_, (Boolean)o);
     case "simulationDelayMillis":
@@ -4327,13 +4381,13 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       }
 
       if(saves.contains("bodyMasse")) {
-        Double bodyMasse = (Double)doc.get("bodyMasse_docvalues_string");
+        String bodyMasse = (String)doc.get("bodyMasse_docvalues_string");
         if(bodyMasse != null)
           oFishPopulation.setBodyMasse(bodyMasse);
       }
 
       if(saves.contains("culturedIn")) {
-        Double culturedIn = (Double)doc.get("culturedIn_docvalues_string");
+        String culturedIn = (String)doc.get("culturedIn_docvalues_string");
         if(culturedIn != null)
           oFishPopulation.setCulturedIn(culturedIn);
       }
@@ -4357,13 +4411,13 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       }
 
       if(saves.contains("fishRemoved")) {
-        Double fishRemoved = (Double)doc.get("fishRemoved_docvalues_string");
+        String fishRemoved = (String)doc.get("fishRemoved_docvalues_string");
         if(fishRemoved != null)
           oFishPopulation.setFishRemoved(fishRemoved);
       }
 
       if(saves.contains("initialNumber")) {
-        Double initialNumber = (Double)doc.get("initialNumber_docvalues_string");
+        String initialNumber = (String)doc.get("initialNumber_docvalues_string");
         if(initialNumber != null)
           oFishPopulation.setInitialNumber(initialNumber);
       }
@@ -4375,7 +4429,7 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       }
 
       if(saves.contains("refSpecie")) {
-        Double refSpecie = (Double)doc.get("refSpecie_docvalues_string");
+        String refSpecie = (String)doc.get("refSpecie_docvalues_string");
         if(refSpecie != null)
           oFishPopulation.setRefSpecie(refSpecie);
       }
@@ -4441,49 +4495,49 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       }
 
       if(saves.contains("maturityDaysBegin")) {
-        Double maturityDaysBegin = (Double)doc.get("maturityDaysBegin_docvalues_string");
+        String maturityDaysBegin = (String)doc.get("maturityDaysBegin_docvalues_string");
         if(maturityDaysBegin != null)
           oFishPopulation.setMaturityDaysBegin(maturityDaysBegin);
       }
 
       if(saves.contains("maturityDaysEnd")) {
-        Double maturityDaysEnd = (Double)doc.get("maturityDaysEnd_docvalues_string");
+        String maturityDaysEnd = (String)doc.get("maturityDaysEnd_docvalues_string");
         if(maturityDaysEnd != null)
           oFishPopulation.setMaturityDaysEnd(maturityDaysEnd);
       }
 
       if(saves.contains("incubationDaysBegin")) {
-        Double incubationDaysBegin = (Double)doc.get("incubationDaysBegin_docvalues_string");
+        String incubationDaysBegin = (String)doc.get("incubationDaysBegin_docvalues_string");
         if(incubationDaysBegin != null)
           oFishPopulation.setIncubationDaysBegin(incubationDaysBegin);
       }
 
       if(saves.contains("incubationDaysEnd")) {
-        Double incubationDaysEnd = (Double)doc.get("incubationDaysEnd_docvalues_string");
+        String incubationDaysEnd = (String)doc.get("incubationDaysEnd_docvalues_string");
         if(incubationDaysEnd != null)
           oFishPopulation.setIncubationDaysEnd(incubationDaysEnd);
       }
 
       if(saves.contains("incubationNumberMin")) {
-        Double incubationNumberMin = (Double)doc.get("incubationNumberMin_docvalues_string");
+        String incubationNumberMin = (String)doc.get("incubationNumberMin_docvalues_string");
         if(incubationNumberMin != null)
           oFishPopulation.setIncubationNumberMin(incubationNumberMin);
       }
 
       if(saves.contains("incubationNumberMax")) {
-        Double incubationNumberMax = (Double)doc.get("incubationNumberMax_docvalues_string");
+        String incubationNumberMax = (String)doc.get("incubationNumberMax_docvalues_string");
         if(incubationNumberMax != null)
           oFishPopulation.setIncubationNumberMax(incubationNumberMax);
       }
 
       if(saves.contains("percentPopulationPregnantMin")) {
-        Double percentPopulationPregnantMin = (Double)doc.get("percentPopulationPregnantMin_docvalues_string");
+        String percentPopulationPregnantMin = (String)doc.get("percentPopulationPregnantMin_docvalues_string");
         if(percentPopulationPregnantMin != null)
           oFishPopulation.setPercentPopulationPregnantMin(percentPopulationPregnantMin);
       }
 
       if(saves.contains("percentPopulationPregnantMax")) {
-        Double percentPopulationPregnantMax = (Double)doc.get("percentPopulationPregnantMax_docvalues_string");
+        String percentPopulationPregnantMax = (String)doc.get("percentPopulationPregnantMax_docvalues_string");
         if(percentPopulationPregnantMax != null)
           oFishPopulation.setPercentPopulationPregnantMax(percentPopulationPregnantMax);
       }
@@ -4519,31 +4573,31 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
       }
 
       if(saves.contains("incubationDaysNow")) {
-        Double incubationDaysNow = (Double)doc.get("incubationDaysNow_docvalues_string");
+        String incubationDaysNow = (String)doc.get("incubationDaysNow_docvalues_string");
         if(incubationDaysNow != null)
           oFishPopulation.setIncubationDaysNow(incubationDaysNow);
       }
 
       if(saves.contains("waterTemperature")) {
-        Double waterTemperature = (Double)doc.get("waterTemperature_docvalues_string");
+        String waterTemperature = (String)doc.get("waterTemperature_docvalues_string");
         if(waterTemperature != null)
           oFishPopulation.setWaterTemperature(waterTemperature);
       }
 
       if(saves.contains("waterSalinity")) {
-        Double waterSalinity = (Double)doc.get("waterSalinity_docvalues_string");
+        String waterSalinity = (String)doc.get("waterSalinity_docvalues_string");
         if(waterSalinity != null)
           oFishPopulation.setWaterSalinity(waterSalinity);
       }
 
       if(saves.contains("waterOxygen")) {
-        Double waterOxygen = (Double)doc.get("waterOxygen_docvalues_string");
+        String waterOxygen = (String)doc.get("waterOxygen_docvalues_string");
         if(waterOxygen != null)
           oFishPopulation.setWaterOxygen(waterOxygen);
       }
 
       if(saves.contains("waterPh")) {
-        Double waterPh = (Double)doc.get("waterPh_docvalues_string");
+        String waterPh = (String)doc.get("waterPh_docvalues_string");
         if(waterPh != null)
           oFishPopulation.setWaterPh(waterPh);
       }
@@ -4573,9 +4627,11 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     }
     if(bodyMasse != null) {
       doc.put("bodyMasse_docvalues_string", bodyMasse.toPlainString());
+      doc.put("bodyMasse_docvalues_double", bodyMasse.doubleValue());
     }
     if(culturedIn != null) {
       doc.put("culturedIn_docvalues_string", culturedIn.toPlainString());
+      doc.put("culturedIn_docvalues_double", culturedIn.doubleValue());
     }
     if(dataProvider != null) {
       doc.put("dataProvider_docvalues_string", dataProvider);
@@ -4588,15 +4644,18 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     }
     if(fishRemoved != null) {
       doc.put("fishRemoved_docvalues_string", fishRemoved.toPlainString());
+      doc.put("fishRemoved_docvalues_double", fishRemoved.doubleValue());
     }
     if(initialNumber != null) {
       doc.put("initialNumber_docvalues_string", initialNumber.toPlainString());
+      doc.put("initialNumber_docvalues_double", initialNumber.doubleValue());
     }
     if(owner != null) {
       doc.put("owner_docvalues_string", owner.encode());
     }
     if(refSpecie != null) {
       doc.put("refSpecie_docvalues_string", refSpecie.toPlainString());
+      doc.put("refSpecie_docvalues_double", refSpecie.doubleValue());
     }
     if(relatedSource != null) {
       doc.put("relatedSource_docvalues_string", relatedSource.encode());
@@ -4636,27 +4695,35 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     }
     if(maturityDaysBegin != null) {
       doc.put("maturityDaysBegin_docvalues_string", maturityDaysBegin.toPlainString());
+      doc.put("maturityDaysBegin_docvalues_double", maturityDaysBegin.doubleValue());
     }
     if(maturityDaysEnd != null) {
       doc.put("maturityDaysEnd_docvalues_string", maturityDaysEnd.toPlainString());
+      doc.put("maturityDaysEnd_docvalues_double", maturityDaysEnd.doubleValue());
     }
     if(incubationDaysBegin != null) {
       doc.put("incubationDaysBegin_docvalues_string", incubationDaysBegin.toPlainString());
+      doc.put("incubationDaysBegin_docvalues_double", incubationDaysBegin.doubleValue());
     }
     if(incubationDaysEnd != null) {
       doc.put("incubationDaysEnd_docvalues_string", incubationDaysEnd.toPlainString());
+      doc.put("incubationDaysEnd_docvalues_double", incubationDaysEnd.doubleValue());
     }
     if(incubationNumberMin != null) {
       doc.put("incubationNumberMin_docvalues_string", incubationNumberMin.toPlainString());
+      doc.put("incubationNumberMin_docvalues_double", incubationNumberMin.doubleValue());
     }
     if(incubationNumberMax != null) {
       doc.put("incubationNumberMax_docvalues_string", incubationNumberMax.toPlainString());
+      doc.put("incubationNumberMax_docvalues_double", incubationNumberMax.doubleValue());
     }
     if(percentPopulationPregnantMin != null) {
       doc.put("percentPopulationPregnantMin_docvalues_string", percentPopulationPregnantMin.toPlainString());
+      doc.put("percentPopulationPregnantMin_docvalues_double", percentPopulationPregnantMin.doubleValue());
     }
     if(percentPopulationPregnantMax != null) {
       doc.put("percentPopulationPregnantMax_docvalues_string", percentPopulationPregnantMax.toPlainString());
+      doc.put("percentPopulationPregnantMax_docvalues_double", percentPopulationPregnantMax.doubleValue());
     }
     if(populationsAtBirth != null) {
       JsonArray l = new JsonArray();
@@ -4680,18 +4747,23 @@ public abstract class FishPopulationGen<DEV> extends MapModel {
     }
     if(incubationDaysNow != null) {
       doc.put("incubationDaysNow_docvalues_string", incubationDaysNow.toPlainString());
+      doc.put("incubationDaysNow_docvalues_double", incubationDaysNow.doubleValue());
     }
     if(waterTemperature != null) {
       doc.put("waterTemperature_docvalues_string", waterTemperature.toPlainString());
+      doc.put("waterTemperature_docvalues_double", waterTemperature.doubleValue());
     }
     if(waterSalinity != null) {
       doc.put("waterSalinity_docvalues_string", waterSalinity.toPlainString());
+      doc.put("waterSalinity_docvalues_double", waterSalinity.doubleValue());
     }
     if(waterOxygen != null) {
       doc.put("waterOxygen_docvalues_string", waterOxygen.toPlainString());
+      doc.put("waterOxygen_docvalues_double", waterOxygen.doubleValue());
     }
     if(waterPh != null) {
       doc.put("waterPh_docvalues_string", waterPh.toPlainString());
+      doc.put("waterPh_docvalues_double", waterPh.doubleValue());
     }
     if(simulation != null) {
       doc.put("simulation_docvalues_boolean", simulation);

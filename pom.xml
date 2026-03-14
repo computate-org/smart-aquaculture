@@ -7,7 +7,7 @@
   <version>1.0.0</version>
   <name>Smart Aquaculture</name>
   <description>Caring for fish populations, fisheries, and feeding of fish and people</description>
-  <url>https://smartaquaculture.computate.org</url>
+  <url>https://smaq.computate.org</url>
   <packaging>jar</packaging>
 
   <licenses>
@@ -22,7 +22,7 @@
       <name>Users</name>
       <subscribe>https://computate.topicbox.com/groups/computate</subscribe>
       <unsubscribe>https://computate.topicbox.com/groups/computate</unsubscribe>
-      <post>mailto:smart-aquaculture@computate.topicbox.com</post>
+      <post>mailto:smart-aquaculture@group.computate.org</post>
       <archive>https://computate.topicbox.com/groups/computate</archive>
     </mailingList>
   </mailingLists>
@@ -72,52 +72,44 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-    <vertx-maven-plugin.version>1.0.28</vertx-maven-plugin.version>
-    <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
-    <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
-    <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-    <flatten-maven-plugin.version>1.3.0</flatten-maven-plugin.version>
-    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-    <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
-    <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-    <postgresql.version>42.5.1</postgresql.version>
-    <ongres-scram.version>2.1</ongres-scram.version>
-    <junit.version>5.9.1</junit.version>
-    <junit-platform-launcher.version>1.4.2</junit-platform-launcher.version>
-    <mockito.version>4.10.0</mockito.version>
-    <commonmark.version>0.21.0</commonmark.version>
+    <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+    <vertx-maven-plugin.version>2.0.2</vertx-maven-plugin.version>
+    <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
+    <exec-maven-plugin.version>3.6.3</exec-maven-plugin.version>
+    <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
+    <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
+    <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
+    <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+    <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+    <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+    <postgresql.version>42.7.10</postgresql.version>
+    <ongres-scram.version>3.2</ongres-scram.version>
+    <junit.version>6.0.3</junit.version>
+    <junit-platform-launcher.version>6.0.3</junit-platform-launcher.version>
+    <mockito.version>5.22.0</mockito.version>
+    <kafka.version>4.2.0</kafka.version>
 
     <rest-assured.version>5.3.2</rest-assured.version>
 
-    <vertx-base.version>4.5.8</vertx-base.version>
+    <vertx-base.version>4.5.24</vertx-base.version>
     <vertx.version>${vertx-base.version}</vertx.version>
 
-    <jfreechart.version>1.5.3</jfreechart.version>
-    <handlebars.version>4.3.1</handlebars.version>
-    <jinjava.version>2.8.1</jinjava.version>
-    <flying-saucer.version>9.1.22</flying-saucer.version>
-    <openpdf.version>1.3.30</openpdf.version>
-    <itext-asian.version>5.2.0</itext-asian.version>
-    <commons-text.version>1.10.0</commons-text.version>
-    <log4j.version>2.22.0</log4j.version>
-    <slf4j.version>2.0.9</slf4j.version>
-    <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
-    <solr.version>8.11.1</solr.version>
-    <jackson.version>2.14.1</jackson.version>
-    <jackson-databind.version>2.14.1</jackson-databind.version>
-    <commons-lang3.version>3.16.0</commons-lang3.version>
-    <commons-configuration2.version>2.8.0</commons-configuration2.version>
-    <snakeyaml.version>1.33.0.redhat-00001</snakeyaml.version>
-    <kie.version>7.67.0.Final-redhat-00017</kie.version>
-    <drools.version>8.32.0.Final</drools.version>
-    <cloudevents.version>2.4.0</cloudevents.version>
+    <jinjava.version>2.8.3</jinjava.version>
+    <commons-text.version>1.15.0</commons-text.version>
+    <log4j.version>2.25.3</log4j.version>
+    <slf4j.version>2.0.17</slf4j.version>
+    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
+    <solr.version>9.10.1</solr.version>
+    <jackson.version>3.1.0</jackson.version>
+    <jackson-databind.version>3.1.0</jackson-databind.version>
+    <jackson-datatype-jsr310.version>3.0.0-rc2</jackson-datatype-jsr310.version>
+    <commons-lang3.version>3.20.0</commons-lang3.version>
+    <snakeyaml.version>2.6</snakeyaml.version>
     <opentelemetry.version>1.18.0</opentelemetry.version>
     <geotools.version>34.0</geotools.version>
 
-    <computate.version>4.5.8.0</computate.version>
+    <computate.version>4.5.24.1</computate.version>
   </properties>
 
   <dependencyManagement>
@@ -184,48 +176,32 @@
 
     <dependency>
       <groupId>com.ongres.scram</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>scram-common</artifactId>
       <version>${ongres-scram.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.ongres.scram</groupId>
-      <artifactId>client</artifactId>
+      <artifactId>scram-client</artifactId>
       <version>${ongres-scram.version}</version>
     </dependency>
 
-    <!-- ################# -->
-    <!-- Flying Saucer PDF -->
-    <!-- ################# -->
+    <!-- Jackson Data -->
 
     <dependency>
-      <groupId>org.xhtmlrenderer</groupId>
-      <artifactId>flying-saucer-core</artifactId>
-      <version>${flying-saucer.version}</version>
+      <groupId>tools.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
-
     <dependency>
-      <groupId>org.xhtmlrenderer</groupId>
-      <artifactId>flying-saucer-swt</artifactId>
-      <version>${flying-saucer.version}</version>
+      <groupId>tools.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${jackson-databind.version}</version>
     </dependency>
-
     <dependency>
-      <groupId>org.xhtmlrenderer</groupId>
-      <artifactId>flying-saucer-pdf-itext5</artifactId>
-      <version>${flying-saucer.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.librepdf</groupId>
-      <artifactId>openpdf</artifactId>
-      <version>${openpdf.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.itextpdf</groupId>
-      <artifactId>itext-asian</artifactId>
-      <version>${itext-asian.version}</version>
+      <groupId>tools.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson-datatype-jsr310.version}</version>
     </dependency>
 
     <!-- ###### -->
@@ -240,16 +216,6 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-templ-handlebars</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.jknack</groupId>
-      <artifactId>handlebars-jackson2</artifactId>
-      <version>${handlebars.version}</version>
     </dependency>
 
     <dependency>
@@ -277,6 +243,11 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-reactive-streams</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-openapi</artifactId>
     </dependency>
 
     <dependency>
@@ -383,23 +354,6 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-opentracing</artifactId>
-    </dependency>
-    
-    <!-- ########## -->
-    <!-- jfreechart -->
-    <!-- ########## -->
-    <dependency>
-      <groupId>org.jfree</groupId>
-      <artifactId>jfreechart</artifactId>
-      <version>${jfreechart.version}</version>
-    </dependency>
-
-    <!-- markdown -->
-
-    <dependency>
-      <groupId>org.commonmark</groupId>
-      <artifactId>commonmark</artifactId>
-      <version>${commonmark.version}</version>
     </dependency>
 
     <!-- logging -->
@@ -635,7 +589,6 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
         <configuration>
-          <!-- Updated to compile for Java 21 (LTS) -->
           <source>21</source>
           <target>21</target>
           <encoding>UTF-8</encoding>
@@ -676,24 +629,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>io.reactiverse</groupId>
-        <artifactId>vertx-maven-plugin</artifactId>
-        <version>${vertx-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>vmp</id>
-            <goals>
-              <goal>initialize</goal>
-              <goal>package</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <redeploy>true</redeploy>
-        </configuration>
-      </plugin>
-
       <!-- JaCoCo Code Coverage Plugin -->
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -716,26 +651,16 @@
         </executions>
       </plugin>
 
-      <!-- Nexus Staging Plugin -->
+      <!-- Sonatype Central Publishing Plugin -->
       <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>${nexus-staging-maven-plugin.version}</version>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>${central-publishing-maven-plugin.version}</version>
         <extensions>true</extensions>
         <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>false</autoReleaseAfterClose>
+          <publishingServerId>central</publishingServerId>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <distributionManagement>
-    <!-- Central Repository -->
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>

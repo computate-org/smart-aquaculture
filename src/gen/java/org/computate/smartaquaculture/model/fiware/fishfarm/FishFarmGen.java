@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -57,9 +58,9 @@ import org.computate.vertx.tool.VertxTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import io.vertx.pgclient.data.Point;
@@ -618,7 +619,6 @@ public abstract class FishFarmGen<DEV> extends MapModel {
       try {
         List<Polygon> shape = null;
         if(StringUtils.isNotBlank(o)) {
-          ObjectMapper objectMapper = new ObjectMapper();
           SimpleModule module = new SimpleModule();
           module.setDeserializerModifier(new BeanDeserializerModifier() {
             @Override
@@ -629,7 +629,7 @@ public abstract class FishFarmGen<DEV> extends MapModel {
               return deserializer;
             }
           });
-          objectMapper.registerModule(module);
+          ObjectMapper objectMapper = JsonMapper.builder().addModule(module).build();
           shape = (List<Polygon>)objectMapper.readValue(Json.encode(o), Polygon.class);
         }
         return shape;

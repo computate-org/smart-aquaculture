@@ -45,12 +45,12 @@ import org.computate.smartaquaculture.model.event.CompanyEventEnUSGenApiService;
 import org.computate.smartaquaculture.model.webinar.CompanyWebinar;
 import org.computate.smartaquaculture.model.webinar.CompanyWebinarEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.webinar.CompanyWebinarEnUSGenApiService;
-import org.computate.smartaquaculture.model.mapmodel.MapModel;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
-import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
 import org.computate.smartaquaculture.page.SitePage;
 import org.computate.smartaquaculture.page.SitePageEnUSApiServiceImpl;
 import org.computate.smartaquaculture.page.SitePageEnUSGenApiService;
+import org.computate.smartaquaculture.model.mapmodel.MapModel;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSApiServiceImpl;
+import org.computate.smartaquaculture.model.mapmodel.MapModelEnUSGenApiService;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSApiServiceImpl;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulationEnUSGenApiService;
@@ -112,11 +112,9 @@ import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.api.trace.Tracer;
 import io.vertx.ext.auth.authentication.TokenCredentials;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
-import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.mail.MailClient;
 import io.vertx.ext.mail.MailConfig;
 import io.vertx.ext.web.client.WebClient;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.netty.handler.codec.mqtt.MqttQoS;
@@ -175,7 +173,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
   private JsonObject i18n;
 
   /**
-   * A io.vertx.ext.jdbc.JDBCClient for connecting to the relational database PostgreSQL. 
+   * A JDBC client for connecting to the relational database PostgreSQL. 
    **/
   private Pool pgPool;
 
@@ -205,10 +203,10 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
     this.sdkMeterProvider = sdkMeterProvider;
   }
 
-  /**	
-   *	This is called by Vert.x when the verticle instance is deployed. 
-   *	Initialize a new site context object for storing information about the entire site in English. 
-   *	Setup the startPromise to handle the configuration steps and starting the server. 
+  /**
+   * This is called by Vert.x when the verticle instance is deployed. 
+   * Initialize a new site context object for storing information about the entire site in English. 
+   * Setup the startPromise to handle the configuration steps and starting the server. 
    **/
   @Override()
   public void start(Promise<Void> startPromise) throws Exception, Exception {
@@ -300,7 +298,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
     return promise.future();
   }
 
-  /**	
+  /**
    **/
   private Future<Void> configureWebClient() {
     Promise<Void> promise = Promise.promise();
@@ -317,7 +315,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
     return promise.future();
   }
 
-  /**	
+  /**
    * 
    * Val.ConnectionError.enUS: Could not open the database client connection. 
    * Val.ConnectionSuccess.enUS: The database client connection was successful. 
@@ -325,10 +323,10 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
    * Val.InitError.enUS: Could not initialize the database tables. 
    * Val.InitSuccess.enUS: The database was initialized successfully. 
    * 
-   *	Configure shared database connections across the cluster for massive scaling of the application. 
-   *	Return a promise that configures a shared database client connection. 
-   *	Load the database configuration into a shared io.vertx.ext.jdbc.JDBCClient for a scalable, clustered datasource connection pool. 
-   *	Initialize the database tables if not already created for the first time. 
+   * Configure shared database connections across the cluster for massive scaling of the application. 
+   * Return a promise that configures a shared database client connection. 
+   * Load the database configuration into a shared JDBC client for a scalable, clustered datasource connection pool. 
+   * Initialize the database tables if not already created for the first time. 
    **/
   private Future<Void> configureData() {
     Promise<Void> promise = Promise.promise();
@@ -341,9 +339,9 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
       pgOptions.setDatabase(config().getString(ConfigKeys.DATABASE_DATABASE));
       pgOptions.setUser(config().getString(ConfigKeys.DATABASE_USERNAME));
       pgOptions.setPassword(config().getString(ConfigKeys.DATABASE_PASSWORD));
-      pgOptions.setIdleTimeout(Integer.parseInt(config().getString(ConfigKeys.DATABASE_MAX_IDLE_TIME)));
-      pgOptions.setIdleTimeoutUnit(TimeUnit.HOURS);
-      pgOptions.setConnectTimeout(Integer.parseInt(config().getString(ConfigKeys.DATABASE_CONNECT_TIMEOUT)));
+      // pgOptions.setIdleTimeout(Integer.parseInt(config().getString(ConfigKeys.DATABASE_MAX_IDLE_TIME)));
+      // pgOptions.setIdleTimeoutUnit(TimeUnit.HOURS);
+      // pgOptions.setConnectTimeout(Integer.parseInt(config().getString(ConfigKeys.DATABASE_CONNECT_TIMEOUT)));
 
       PoolOptions poolOptions = new PoolOptions();
       poolOptions.setMaxSize(jdbcMaxPoolSize);
@@ -366,12 +364,12 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
     return promise.future();
   }
 
-  /**	
+  /**
    * Val.Fail.enUS: Could not configure the shared worker executor. 
    * Val.Complete.enUS: The shared worker executor "{}" was configured successfully. 
    * 
-   *	Configure a shared worker executor for running blocking tasks in the background. 
-   *	Return a promise that configures the shared worker executor. 
+   * Configure a shared worker executor for running blocking tasks in the background. 
+   * Return a promise that configures the shared worker executor. 
    **/
   private Future<Void> configureSharedWorkerExecutor() {
     Promise<Void> promise = Promise.promise();
@@ -445,7 +443,7 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
    * Description: Import initial data
    * Val.Skip.enUS: The data import is disabled. 
    **/
-  private Future<Void> importData() {
+  public Future<Void> importData() {
     Promise<Void> promise = Promise.promise();
     if(Boolean.valueOf(config().getString(ConfigKeys.ENABLE_IMPORT_DATA))) {
       SiteRequest siteRequest = new SiteRequest();
@@ -484,36 +482,36 @@ public class WorkerVerticle extends WorkerVerticleGen<AbstractVerticle> {
       SeaportFacilityEnUSApiServiceImpl apiSeaportFacility = new SeaportFacilityEnUSApiServiceImpl();
       initializeApiService(apiSeaportFacility);
 
-			apiTimeZone.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, TimeZone.CLASS_CANONICAL_NAME, TimeZone.CLASS_SIMPLE_NAME, TimeZone.CLASS_API_ADDRESS_TimeZone, TimeZone.CLASS_AUTH_RESOURCE, "id", "userPage", "download").onSuccess(q1 -> {
-				apiCompanyEvent.importTimer(Paths.get(templatePath, "/en-us/shop/event"), vertx, siteRequest, CompanyEvent.CLASS_CANONICAL_NAME, CompanyEvent.CLASS_SIMPLE_NAME, CompanyEvent.CLASS_API_ADDRESS_CompanyEvent, CompanyEvent.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q2 -> {
-					apiCompanyWebinar.importTimer(Paths.get(templatePath, "/en-us/view/webinar"), vertx, siteRequest, CompanyWebinar.CLASS_CANONICAL_NAME, CompanyWebinar.CLASS_SIMPLE_NAME, CompanyWebinar.CLASS_API_ADDRESS_CompanyWebinar, CompanyWebinar.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q3 -> {
-						apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, SitePage.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q4 -> {
-							apiFishPopulation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishPopulation.CLASS_CANONICAL_NAME, FishPopulation.CLASS_SIMPLE_NAME, FishPopulation.CLASS_API_ADDRESS_FishPopulation, FishPopulation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q5 -> {
-								apiFishingDock.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingDock.CLASS_CANONICAL_NAME, FishingDock.CLASS_SIMPLE_NAME, FishingDock.CLASS_API_ADDRESS_FishingDock, FishingDock.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q6 -> {
-									apiFishingBoat.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingBoat.CLASS_CANONICAL_NAME, FishingBoat.CLASS_SIMPLE_NAME, FishingBoat.CLASS_API_ADDRESS_FishingBoat, FishingBoat.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q7 -> {
-										apiFishFarm.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishFarm.CLASS_CANONICAL_NAME, FishFarm.CLASS_SIMPLE_NAME, FishFarm.CLASS_API_ADDRESS_FishFarm, FishFarm.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q8 -> {
-											apiFishProcessing.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishProcessing.CLASS_CANONICAL_NAME, FishProcessing.CLASS_SIMPLE_NAME, FishProcessing.CLASS_API_ADDRESS_FishProcessing, FishProcessing.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q9 -> {
-												apiFeedingOperation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FeedingOperation.CLASS_CANONICAL_NAME, FeedingOperation.CLASS_SIMPLE_NAME, FeedingOperation.CLASS_API_ADDRESS_FeedingOperation, FeedingOperation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q10 -> {
-													apiFishingTrip.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingTrip.CLASS_CANONICAL_NAME, FishingTrip.CLASS_SIMPLE_NAME, FishingTrip.CLASS_API_ADDRESS_FishingTrip, FishingTrip.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q11 -> {
-														apiFeeder.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feeder.CLASS_CANONICAL_NAME, Feeder.CLASS_SIMPLE_NAME, Feeder.CLASS_API_ADDRESS_Feeder, Feeder.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q12 -> {
-															apiFeed.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feed.CLASS_CANONICAL_NAME, Feed.CLASS_SIMPLE_NAME, Feed.CLASS_API_ADDRESS_Feed, Feed.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q13 -> {
-																apiSeaportFacility.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, SeaportFacility.CLASS_CANONICAL_NAME, SeaportFacility.CLASS_SIMPLE_NAME, SeaportFacility.CLASS_API_ADDRESS_SeaportFacility, SeaportFacility.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q14 -> {
-																	LOG.info("data import complete");
-																	promise.complete();
-																}).onFailure(ex -> promise.fail(ex));
-															}).onFailure(ex -> promise.fail(ex));
-														}).onFailure(ex -> promise.fail(ex));
-													}).onFailure(ex -> promise.fail(ex));
-												}).onFailure(ex -> promise.fail(ex));
-											}).onFailure(ex -> promise.fail(ex));
-										}).onFailure(ex -> promise.fail(ex));
-									}).onFailure(ex -> promise.fail(ex));
-								}).onFailure(ex -> promise.fail(ex));
-							}).onFailure(ex -> promise.fail(ex));
-						}).onFailure(ex -> promise.fail(ex));
-					}).onFailure(ex -> promise.fail(ex));
-				}).onFailure(ex -> promise.fail(ex));
-			}).onFailure(ex -> promise.fail(ex));
+      apiTimeZone.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, TimeZone.CLASS_CANONICAL_NAME, TimeZone.CLASS_SIMPLE_NAME, TimeZone.CLASS_API_ADDRESS_TimeZone, TimeZone.CLASS_AUTH_RESOURCE, "id", "userPage", "download").onSuccess(q1 -> {
+        apiCompanyEvent.importTimer(Paths.get(templatePath, "/en-us/shop/event"), vertx, siteRequest, CompanyEvent.CLASS_CANONICAL_NAME, CompanyEvent.CLASS_SIMPLE_NAME, CompanyEvent.CLASS_API_ADDRESS_CompanyEvent, CompanyEvent.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q2 -> {
+          apiCompanyWebinar.importTimer(Paths.get(templatePath, "/en-us/view/webinar"), vertx, siteRequest, CompanyWebinar.CLASS_CANONICAL_NAME, CompanyWebinar.CLASS_SIMPLE_NAME, CompanyWebinar.CLASS_API_ADDRESS_CompanyWebinar, CompanyWebinar.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q3 -> {
+            apiSitePage.importTimer(Paths.get(templatePath, "/en-us/view/article"), vertx, siteRequest, SitePage.CLASS_CANONICAL_NAME, SitePage.CLASS_SIMPLE_NAME, SitePage.CLASS_API_ADDRESS_SitePage, SitePage.CLASS_AUTH_RESOURCE, "pageId", "userPage", "download").onSuccess(q4 -> {
+              apiFishPopulation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishPopulation.CLASS_CANONICAL_NAME, FishPopulation.CLASS_SIMPLE_NAME, FishPopulation.CLASS_API_ADDRESS_FishPopulation, FishPopulation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q5 -> {
+                apiFishingDock.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingDock.CLASS_CANONICAL_NAME, FishingDock.CLASS_SIMPLE_NAME, FishingDock.CLASS_API_ADDRESS_FishingDock, FishingDock.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q6 -> {
+                  apiFishingBoat.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingBoat.CLASS_CANONICAL_NAME, FishingBoat.CLASS_SIMPLE_NAME, FishingBoat.CLASS_API_ADDRESS_FishingBoat, FishingBoat.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q7 -> {
+                    apiFishFarm.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishFarm.CLASS_CANONICAL_NAME, FishFarm.CLASS_SIMPLE_NAME, FishFarm.CLASS_API_ADDRESS_FishFarm, FishFarm.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q8 -> {
+                      apiFishProcessing.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishProcessing.CLASS_CANONICAL_NAME, FishProcessing.CLASS_SIMPLE_NAME, FishProcessing.CLASS_API_ADDRESS_FishProcessing, FishProcessing.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q9 -> {
+                        apiFeedingOperation.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FeedingOperation.CLASS_CANONICAL_NAME, FeedingOperation.CLASS_SIMPLE_NAME, FeedingOperation.CLASS_API_ADDRESS_FeedingOperation, FeedingOperation.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q10 -> {
+                          apiFishingTrip.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, FishingTrip.CLASS_CANONICAL_NAME, FishingTrip.CLASS_SIMPLE_NAME, FishingTrip.CLASS_API_ADDRESS_FishingTrip, FishingTrip.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q11 -> {
+                            apiFeeder.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feeder.CLASS_CANONICAL_NAME, Feeder.CLASS_SIMPLE_NAME, Feeder.CLASS_API_ADDRESS_Feeder, Feeder.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q12 -> {
+                              apiFeed.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, Feed.CLASS_CANONICAL_NAME, Feed.CLASS_SIMPLE_NAME, Feed.CLASS_API_ADDRESS_Feed, Feed.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q13 -> {
+                                apiSeaportFacility.importTimer(Paths.get(templatePath, "TODO"), vertx, siteRequest, SeaportFacility.CLASS_CANONICAL_NAME, SeaportFacility.CLASS_SIMPLE_NAME, SeaportFacility.CLASS_API_ADDRESS_SeaportFacility, SeaportFacility.CLASS_AUTH_RESOURCE, "entityShortId", "userPage", "download").onSuccess(q14 -> {
+                                  LOG.info("data import complete");
+                                  promise.complete();
+                                }).onFailure(ex -> promise.fail(ex));
+                              }).onFailure(ex -> promise.fail(ex));
+                            }).onFailure(ex -> promise.fail(ex));
+                          }).onFailure(ex -> promise.fail(ex));
+                        }).onFailure(ex -> promise.fail(ex));
+                      }).onFailure(ex -> promise.fail(ex));
+                    }).onFailure(ex -> promise.fail(ex));
+                  }).onFailure(ex -> promise.fail(ex));
+                }).onFailure(ex -> promise.fail(ex));
+              }).onFailure(ex -> promise.fail(ex));
+            }).onFailure(ex -> promise.fail(ex));
+          }).onFailure(ex -> promise.fail(ex));
+        }).onFailure(ex -> promise.fail(ex));
+      }).onFailure(ex -> promise.fail(ex));
     }
     else {
       LOG.info(importDataSkip);

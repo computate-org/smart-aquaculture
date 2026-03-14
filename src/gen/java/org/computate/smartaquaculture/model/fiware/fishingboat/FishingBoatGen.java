@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -69,9 +70,9 @@ import org.computate.vertx.tool.VertxTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import io.vertx.pgclient.data.Point;
@@ -611,26 +612,29 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setAvgSpeedInMph(String o) {
     this.avgSpeedInMph = FishingBoat.staticSetAvgSpeedInMph(siteRequest_, o);
   }
+  public static Integer staticScaleAvgSpeedInMph() {
+    return 2;
+  }
   public static MathContext staticMathContextAvgSpeedInMph() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetAvgSpeedInMph(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextAvgSpeedInMph());
+      return new BigDecimal(o, staticMathContextAvgSpeedInMph()).setScale(staticScaleAvgSpeedInMph(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setAvgSpeedInMph(Double o) {
-    setAvgSpeedInMph(new BigDecimal(o, staticMathContextAvgSpeedInMph()));
+    setAvgSpeedInMph(new BigDecimal(o, staticMathContextAvgSpeedInMph()).setScale(staticScaleAvgSpeedInMph(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setAvgSpeedInMph(Integer o) {
-    setAvgSpeedInMph(new BigDecimal(o, staticMathContextAvgSpeedInMph()));
+    setAvgSpeedInMph(new BigDecimal(o, staticMathContextAvgSpeedInMph()).setScale(staticScaleAvgSpeedInMph(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setAvgSpeedInMph(Number o) {
-    setAvgSpeedInMph(new BigDecimal(o.doubleValue(), staticMathContextAvgSpeedInMph()));
+    setAvgSpeedInMph(new BigDecimal(o.doubleValue(), staticMathContextAvgSpeedInMph()).setScale(staticScaleAvgSpeedInMph(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishingBoat avgSpeedInMphInit() {
     Wrap<BigDecimal> avgSpeedInMphWrap = new Wrap<BigDecimal>().var("avgSpeedInMph");
@@ -643,11 +647,11 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return (FishingBoat)this;
   }
 
-  public static Double staticSearchAvgSpeedInMph(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchAvgSpeedInMph(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrAvgSpeedInMph(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrAvgSpeedInMph(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -697,26 +701,29 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setMaxSpeedInMph(String o) {
     this.maxSpeedInMph = FishingBoat.staticSetMaxSpeedInMph(siteRequest_, o);
   }
+  public static Integer staticScaleMaxSpeedInMph() {
+    return 2;
+  }
   public static MathContext staticMathContextMaxSpeedInMph() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMaxSpeedInMph(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMaxSpeedInMph());
+      return new BigDecimal(o, staticMathContextMaxSpeedInMph()).setScale(staticScaleMaxSpeedInMph(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMaxSpeedInMph(Double o) {
-    setMaxSpeedInMph(new BigDecimal(o, staticMathContextMaxSpeedInMph()));
+    setMaxSpeedInMph(new BigDecimal(o, staticMathContextMaxSpeedInMph()).setScale(staticScaleMaxSpeedInMph(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxSpeedInMph(Integer o) {
-    setMaxSpeedInMph(new BigDecimal(o, staticMathContextMaxSpeedInMph()));
+    setMaxSpeedInMph(new BigDecimal(o, staticMathContextMaxSpeedInMph()).setScale(staticScaleMaxSpeedInMph(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxSpeedInMph(Number o) {
-    setMaxSpeedInMph(new BigDecimal(o.doubleValue(), staticMathContextMaxSpeedInMph()));
+    setMaxSpeedInMph(new BigDecimal(o.doubleValue(), staticMathContextMaxSpeedInMph()).setScale(staticScaleMaxSpeedInMph(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishingBoat maxSpeedInMphInit() {
     Wrap<BigDecimal> maxSpeedInMphWrap = new Wrap<BigDecimal>().var("maxSpeedInMph");
@@ -729,11 +736,11 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return (FishingBoat)this;
   }
 
-  public static Double staticSearchMaxSpeedInMph(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMaxSpeedInMph(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMaxSpeedInMph(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMaxSpeedInMph(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -783,26 +790,29 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setMilesPerGallon(String o) {
     this.milesPerGallon = FishingBoat.staticSetMilesPerGallon(siteRequest_, o);
   }
+  public static Integer staticScaleMilesPerGallon() {
+    return 2;
+  }
   public static MathContext staticMathContextMilesPerGallon() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMilesPerGallon(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMilesPerGallon());
+      return new BigDecimal(o, staticMathContextMilesPerGallon()).setScale(staticScaleMilesPerGallon(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMilesPerGallon(Double o) {
-    setMilesPerGallon(new BigDecimal(o, staticMathContextMilesPerGallon()));
+    setMilesPerGallon(new BigDecimal(o, staticMathContextMilesPerGallon()).setScale(staticScaleMilesPerGallon(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMilesPerGallon(Integer o) {
-    setMilesPerGallon(new BigDecimal(o, staticMathContextMilesPerGallon()));
+    setMilesPerGallon(new BigDecimal(o, staticMathContextMilesPerGallon()).setScale(staticScaleMilesPerGallon(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMilesPerGallon(Number o) {
-    setMilesPerGallon(new BigDecimal(o.doubleValue(), staticMathContextMilesPerGallon()));
+    setMilesPerGallon(new BigDecimal(o.doubleValue(), staticMathContextMilesPerGallon()).setScale(staticScaleMilesPerGallon(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishingBoat milesPerGallonInit() {
     Wrap<BigDecimal> milesPerGallonWrap = new Wrap<BigDecimal>().var("milesPerGallon");
@@ -815,11 +825,11 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return (FishingBoat)this;
   }
 
-  public static Double staticSearchMilesPerGallon(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMilesPerGallon(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMilesPerGallon(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMilesPerGallon(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -869,26 +879,29 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
   public void setGallonsOfGas(String o) {
     this.gallonsOfGas = FishingBoat.staticSetGallonsOfGas(siteRequest_, o);
   }
+  public static Integer staticScaleGallonsOfGas() {
+    return 2;
+  }
   public static MathContext staticMathContextGallonsOfGas() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetGallonsOfGas(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextGallonsOfGas());
+      return new BigDecimal(o, staticMathContextGallonsOfGas()).setScale(staticScaleGallonsOfGas(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setGallonsOfGas(Double o) {
-    setGallonsOfGas(new BigDecimal(o, staticMathContextGallonsOfGas()));
+    setGallonsOfGas(new BigDecimal(o, staticMathContextGallonsOfGas()).setScale(staticScaleGallonsOfGas(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setGallonsOfGas(Integer o) {
-    setGallonsOfGas(new BigDecimal(o, staticMathContextGallonsOfGas()));
+    setGallonsOfGas(new BigDecimal(o, staticMathContextGallonsOfGas()).setScale(staticScaleGallonsOfGas(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setGallonsOfGas(Number o) {
-    setGallonsOfGas(new BigDecimal(o.doubleValue(), staticMathContextGallonsOfGas()));
+    setGallonsOfGas(new BigDecimal(o.doubleValue(), staticMathContextGallonsOfGas()).setScale(staticScaleGallonsOfGas(), RoundingMode.valueOf("HALF_UP")));
   }
   protected FishingBoat gallonsOfGasInit() {
     Wrap<BigDecimal> gallonsOfGasWrap = new Wrap<BigDecimal>().var("gallonsOfGas");
@@ -901,11 +914,11 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     return (FishingBoat)this;
   }
 
-  public static Double staticSearchGallonsOfGas(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchGallonsOfGas(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrGallonsOfGas(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrGallonsOfGas(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1192,7 +1205,6 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
       try {
         Path shape = null;
         if(StringUtils.isNotBlank(o)) {
-          ObjectMapper objectMapper = new ObjectMapper();
           SimpleModule module = new SimpleModule();
           module.setDeserializerModifier(new BeanDeserializerModifier() {
             @Override
@@ -1203,7 +1215,7 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
               return deserializer;
             }
           });
-          objectMapper.registerModule(module);
+          ObjectMapper objectMapper = JsonMapper.builder().addModule(module).build();
           shape = objectMapper.readValue(Json.encode(o), Path.class);
         }
         return shape;
@@ -1699,13 +1711,13 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     case "arrivalDate":
       return FishingBoat.staticSearchStrArrivalDate(siteRequest_, (String)o);
     case "avgSpeedInMph":
-      return FishingBoat.staticSearchStrAvgSpeedInMph(siteRequest_, (Double)o);
+      return FishingBoat.staticSearchStrAvgSpeedInMph(siteRequest_, (String)o);
     case "maxSpeedInMph":
-      return FishingBoat.staticSearchStrMaxSpeedInMph(siteRequest_, (Double)o);
+      return FishingBoat.staticSearchStrMaxSpeedInMph(siteRequest_, (String)o);
     case "milesPerGallon":
-      return FishingBoat.staticSearchStrMilesPerGallon(siteRequest_, (Double)o);
+      return FishingBoat.staticSearchStrMilesPerGallon(siteRequest_, (String)o);
     case "gallonsOfGas":
-      return FishingBoat.staticSearchStrGallonsOfGas(siteRequest_, (Double)o);
+      return FishingBoat.staticSearchStrGallonsOfGas(siteRequest_, (String)o);
     case "areaServedColors":
       return FishingBoat.staticSearchStrAreaServedColors(siteRequest_, (String)o);
     case "areaServedTitles":
@@ -1920,25 +1932,25 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
       }
 
       if(saves.contains("avgSpeedInMph")) {
-        Double avgSpeedInMph = (Double)doc.get("avgSpeedInMph_docvalues_string");
+        String avgSpeedInMph = (String)doc.get("avgSpeedInMph_docvalues_string");
         if(avgSpeedInMph != null)
           oFishingBoat.setAvgSpeedInMph(avgSpeedInMph);
       }
 
       if(saves.contains("maxSpeedInMph")) {
-        Double maxSpeedInMph = (Double)doc.get("maxSpeedInMph_docvalues_string");
+        String maxSpeedInMph = (String)doc.get("maxSpeedInMph_docvalues_string");
         if(maxSpeedInMph != null)
           oFishingBoat.setMaxSpeedInMph(maxSpeedInMph);
       }
 
       if(saves.contains("milesPerGallon")) {
-        Double milesPerGallon = (Double)doc.get("milesPerGallon_docvalues_string");
+        String milesPerGallon = (String)doc.get("milesPerGallon_docvalues_string");
         if(milesPerGallon != null)
           oFishingBoat.setMilesPerGallon(milesPerGallon);
       }
 
       if(saves.contains("gallonsOfGas")) {
-        Double gallonsOfGas = (Double)doc.get("gallonsOfGas_docvalues_string");
+        String gallonsOfGas = (String)doc.get("gallonsOfGas_docvalues_string");
         if(gallonsOfGas != null)
           oFishingBoat.setGallonsOfGas(gallonsOfGas);
       }
@@ -2007,15 +2019,19 @@ public abstract class FishingBoatGen<DEV> extends MapModel {
     }
     if(avgSpeedInMph != null) {
       doc.put("avgSpeedInMph_docvalues_string", avgSpeedInMph.toPlainString());
+      doc.put("avgSpeedInMph_docvalues_double", avgSpeedInMph.doubleValue());
     }
     if(maxSpeedInMph != null) {
       doc.put("maxSpeedInMph_docvalues_string", maxSpeedInMph.toPlainString());
+      doc.put("maxSpeedInMph_docvalues_double", maxSpeedInMph.doubleValue());
     }
     if(milesPerGallon != null) {
       doc.put("milesPerGallon_docvalues_string", milesPerGallon.toPlainString());
+      doc.put("milesPerGallon_docvalues_double", milesPerGallon.doubleValue());
     }
     if(gallonsOfGas != null) {
       doc.put("gallonsOfGas_docvalues_string", gallonsOfGas.toPlainString());
+      doc.put("gallonsOfGas_docvalues_double", gallonsOfGas.doubleValue());
     }
     if(areaServedColors != null) {
       JsonArray l = new JsonArray();

@@ -25,7 +25,6 @@ import java.util.Objects;
 import io.vertx.core.WorkerExecutor;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.pgclient.PgPool;
 import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.mqtt.MqttClient;
@@ -46,6 +45,7 @@ import org.computate.search.response.solr.SolrResponse.StatsField;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import java.security.Principal;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.io.PrintWriter;
@@ -101,7 +101,6 @@ import io.vertx.ext.auth.authorization.RoleBasedAuthorization;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.api.service.ServiceResponse;
 import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import java.util.HashMap;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
@@ -184,10 +183,10 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
     ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
     ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
@@ -374,7 +373,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(id != null)
-          form.add("permission", String.format("%s#%s", id, "GET"));
+          form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -444,11 +443,11 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -825,7 +824,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(id != null)
-          form.add("permission", String.format("%s#%s", id, "PATCH"));
+          form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "PATCH"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1092,7 +1091,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(id != null)
-          form.add("permission", String.format("%s#%s", id, "POST"));
+          form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "POST"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1307,7 +1306,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(id != null)
-          form.add("permission", String.format("%s#%s", id, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1556,7 +1555,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(id != null)
-          form.add("permission", String.format("%s#%s", id, "PUT"));
+          form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "PUT"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1894,10 +1893,10 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
     ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
     ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
@@ -2084,7 +2083,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(id != null)
-          form.add("permission", String.format("%s#%s", id, "GET"));
+          form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2154,11 +2153,11 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/fuseau-horaire"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/time-zone"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -2346,7 +2345,7 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "DELETE"));
         form.add("permission", String.format("%s#%s", TimeZone.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(id != null)
-          form.add("permission", String.format("%s#%s", id, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", TimeZone.CLASS_AUTH_RESOURCE, id, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3017,21 +3016,17 @@ public class TimeZoneEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
       o.setSiteRequest_((SiteRequest)siteRequest);
 
       o.persistForClass(TimeZone.VAR_abbreviation, TimeZone.staticSetAbbreviation(siteRequest2, (String)result.get(TimeZone.VAR_abbreviation)));
-      o.persistForClass(TimeZone.VAR_created, TimeZone.staticSetCreated(siteRequest2, (String)result.get(TimeZone.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       o.persistForClass(TimeZone.VAR_location, TimeZone.staticSetLocation(siteRequest2, (String)result.get(TimeZone.VAR_location)));
+      o.persistForClass(TimeZone.VAR_created, TimeZone.staticSetCreated(siteRequest2, (String)result.get(TimeZone.VAR_created), Optional.ofNullable(siteRequest).map(r -> r.getConfig()).map(config -> config.getString(ConfigKeys.SITE_ZONE)).map(z -> ZoneId.of(z)).orElse(ZoneId.of("UTC"))));
       o.persistForClass(TimeZone.VAR_name, TimeZone.staticSetName(siteRequest2, (String)result.get(TimeZone.VAR_name)));
-      o.persistForClass(TimeZone.VAR_archived, TimeZone.staticSetArchived(siteRequest2, (String)result.get(TimeZone.VAR_archived)));
       o.persistForClass(TimeZone.VAR_displayName, TimeZone.staticSetDisplayName(siteRequest2, (String)result.get(TimeZone.VAR_displayName)));
+      o.persistForClass(TimeZone.VAR_archived, TimeZone.staticSetArchived(siteRequest2, (String)result.get(TimeZone.VAR_archived)));
       o.persistForClass(TimeZone.VAR_id, TimeZone.staticSetId(siteRequest2, (String)result.get(TimeZone.VAR_id)));
       o.persistForClass(TimeZone.VAR_objectTitle, TimeZone.staticSetObjectTitle(siteRequest2, (String)result.get(TimeZone.VAR_objectTitle)));
       o.persistForClass(TimeZone.VAR_displayPage, TimeZone.staticSetDisplayPage(siteRequest2, (String)result.get(TimeZone.VAR_displayPage)));
-      o.persistForClass(TimeZone.VAR_displayPageFrFR, TimeZone.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(TimeZone.VAR_displayPageFrFR)));
       o.persistForClass(TimeZone.VAR_editPage, TimeZone.staticSetEditPage(siteRequest2, (String)result.get(TimeZone.VAR_editPage)));
-      o.persistForClass(TimeZone.VAR_editPageFrFR, TimeZone.staticSetEditPageFrFR(siteRequest2, (String)result.get(TimeZone.VAR_editPageFrFR)));
       o.persistForClass(TimeZone.VAR_userPage, TimeZone.staticSetUserPage(siteRequest2, (String)result.get(TimeZone.VAR_userPage)));
-      o.persistForClass(TimeZone.VAR_userPageFrFR, TimeZone.staticSetUserPageFrFR(siteRequest2, (String)result.get(TimeZone.VAR_userPageFrFR)));
       o.persistForClass(TimeZone.VAR_download, TimeZone.staticSetDownload(siteRequest2, (String)result.get(TimeZone.VAR_download)));
-      o.persistForClass(TimeZone.VAR_downloadFrFR, TimeZone.staticSetDownloadFrFR(siteRequest2, (String)result.get(TimeZone.VAR_downloadFrFR)));
       o.persistForClass(TimeZone.VAR_solrId, TimeZone.staticSetSolrId(siteRequest2, (String)result.get(TimeZone.VAR_solrId)));
 
       o.promiseDeepForClass((SiteRequest)siteRequest).onSuccess(o2 -> {

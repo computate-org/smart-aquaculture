@@ -20,6 +20,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -148,9 +149,9 @@ public class BaseResult extends BaseResultGen<Object> implements ComputateBaseRe
       s = Normalizer.normalize(s, Normalizer.Form.NFD);
       s = StringUtils.lowerCase(s);
       s = StringUtils.trim(s);
-      s = StringUtils.replacePattern(s, "\\s{1,}", "-");
-      s = StringUtils.replacePattern(s, "[^\\w-]", "");
-      s = StringUtils.replacePattern(s, "-{2,}", "-");
+      s = RegExUtils.replacePattern(s, "[\\s_]{1,}", "-");
+      s = RegExUtils.replacePattern(s, "[^A-Za-z0-9-]", "");
+      s = RegExUtils.replacePattern(s, "[-_]{2,}", "-");
     }
 
     return s;
@@ -172,6 +173,8 @@ public class BaseResult extends BaseResultGen<Object> implements ComputateBaseRe
    * {@inheritDoc}
    * DocValues: true
    * Persist: true
+   * HtmRow: 99
+   * HtmCell: 2
    * Facet: true
    * DisplayName: display page
    * Description: Visit this landing page. 

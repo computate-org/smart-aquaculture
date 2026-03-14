@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -1263,26 +1264,29 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
   public void setMaxDraft(String o) {
     this.maxDraft = SeaportFacility.staticSetMaxDraft(siteRequest_, o);
   }
+  public static Integer staticScaleMaxDraft() {
+    return 2;
+  }
   public static MathContext staticMathContextMaxDraft() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMaxDraft(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMaxDraft());
+      return new BigDecimal(o, staticMathContextMaxDraft()).setScale(staticScaleMaxDraft(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMaxDraft(Double o) {
-    setMaxDraft(new BigDecimal(o, staticMathContextMaxDraft()));
+    setMaxDraft(new BigDecimal(o, staticMathContextMaxDraft()).setScale(staticScaleMaxDraft(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxDraft(Integer o) {
-    setMaxDraft(new BigDecimal(o, staticMathContextMaxDraft()));
+    setMaxDraft(new BigDecimal(o, staticMathContextMaxDraft()).setScale(staticScaleMaxDraft(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxDraft(Number o) {
-    setMaxDraft(new BigDecimal(o.doubleValue(), staticMathContextMaxDraft()));
+    setMaxDraft(new BigDecimal(o.doubleValue(), staticMathContextMaxDraft()).setScale(staticScaleMaxDraft(), RoundingMode.valueOf("HALF_UP")));
   }
   protected SeaportFacility maxDraftInit() {
     Wrap<BigDecimal> maxDraftWrap = new Wrap<BigDecimal>().var("maxDraft");
@@ -1295,11 +1299,11 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return (SeaportFacility)this;
   }
 
-  public static Double staticSearchMaxDraft(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMaxDraft(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMaxDraft(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMaxDraft(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1349,26 +1353,29 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
   public void setMaxLength(String o) {
     this.maxLength = SeaportFacility.staticSetMaxLength(siteRequest_, o);
   }
+  public static Integer staticScaleMaxLength() {
+    return 2;
+  }
   public static MathContext staticMathContextMaxLength() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMaxLength(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMaxLength());
+      return new BigDecimal(o, staticMathContextMaxLength()).setScale(staticScaleMaxLength(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMaxLength(Double o) {
-    setMaxLength(new BigDecimal(o, staticMathContextMaxLength()));
+    setMaxLength(new BigDecimal(o, staticMathContextMaxLength()).setScale(staticScaleMaxLength(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxLength(Integer o) {
-    setMaxLength(new BigDecimal(o, staticMathContextMaxLength()));
+    setMaxLength(new BigDecimal(o, staticMathContextMaxLength()).setScale(staticScaleMaxLength(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxLength(Number o) {
-    setMaxLength(new BigDecimal(o.doubleValue(), staticMathContextMaxLength()));
+    setMaxLength(new BigDecimal(o.doubleValue(), staticMathContextMaxLength()).setScale(staticScaleMaxLength(), RoundingMode.valueOf("HALF_UP")));
   }
   protected SeaportFacility maxLengthInit() {
     Wrap<BigDecimal> maxLengthWrap = new Wrap<BigDecimal>().var("maxLength");
@@ -1381,11 +1388,11 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return (SeaportFacility)this;
   }
 
-  public static Double staticSearchMaxLength(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMaxLength(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMaxLength(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMaxLength(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1435,26 +1442,29 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
   public void setMaxTonnage(String o) {
     this.maxTonnage = SeaportFacility.staticSetMaxTonnage(siteRequest_, o);
   }
+  public static Integer staticScaleMaxTonnage() {
+    return 2;
+  }
   public static MathContext staticMathContextMaxTonnage() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMaxTonnage(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMaxTonnage());
+      return new BigDecimal(o, staticMathContextMaxTonnage()).setScale(staticScaleMaxTonnage(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMaxTonnage(Double o) {
-    setMaxTonnage(new BigDecimal(o, staticMathContextMaxTonnage()));
+    setMaxTonnage(new BigDecimal(o, staticMathContextMaxTonnage()).setScale(staticScaleMaxTonnage(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxTonnage(Integer o) {
-    setMaxTonnage(new BigDecimal(o, staticMathContextMaxTonnage()));
+    setMaxTonnage(new BigDecimal(o, staticMathContextMaxTonnage()).setScale(staticScaleMaxTonnage(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxTonnage(Number o) {
-    setMaxTonnage(new BigDecimal(o.doubleValue(), staticMathContextMaxTonnage()));
+    setMaxTonnage(new BigDecimal(o.doubleValue(), staticMathContextMaxTonnage()).setScale(staticScaleMaxTonnage(), RoundingMode.valueOf("HALF_UP")));
   }
   protected SeaportFacility maxTonnageInit() {
     Wrap<BigDecimal> maxTonnageWrap = new Wrap<BigDecimal>().var("maxTonnage");
@@ -1467,11 +1477,11 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return (SeaportFacility)this;
   }
 
-  public static Double staticSearchMaxTonnage(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMaxTonnage(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMaxTonnage(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMaxTonnage(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1521,26 +1531,29 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
   public void setMaxWidth(String o) {
     this.maxWidth = SeaportFacility.staticSetMaxWidth(siteRequest_, o);
   }
+  public static Integer staticScaleMaxWidth() {
+    return 2;
+  }
   public static MathContext staticMathContextMaxWidth() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMaxWidth(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMaxWidth());
+      return new BigDecimal(o, staticMathContextMaxWidth()).setScale(staticScaleMaxWidth(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMaxWidth(Double o) {
-    setMaxWidth(new BigDecimal(o, staticMathContextMaxWidth()));
+    setMaxWidth(new BigDecimal(o, staticMathContextMaxWidth()).setScale(staticScaleMaxWidth(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxWidth(Integer o) {
-    setMaxWidth(new BigDecimal(o, staticMathContextMaxWidth()));
+    setMaxWidth(new BigDecimal(o, staticMathContextMaxWidth()).setScale(staticScaleMaxWidth(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMaxWidth(Number o) {
-    setMaxWidth(new BigDecimal(o.doubleValue(), staticMathContextMaxWidth()));
+    setMaxWidth(new BigDecimal(o.doubleValue(), staticMathContextMaxWidth()).setScale(staticScaleMaxWidth(), RoundingMode.valueOf("HALF_UP")));
   }
   protected SeaportFacility maxWidthInit() {
     Wrap<BigDecimal> maxWidthWrap = new Wrap<BigDecimal>().var("maxWidth");
@@ -1553,11 +1566,11 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return (SeaportFacility)this;
   }
 
-  public static Double staticSearchMaxWidth(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMaxWidth(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMaxWidth(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMaxWidth(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1607,26 +1620,29 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
   public void setMinLength(String o) {
     this.minLength = SeaportFacility.staticSetMinLength(siteRequest_, o);
   }
+  public static Integer staticScaleMinLength() {
+    return 2;
+  }
   public static MathContext staticMathContextMinLength() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetMinLength(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextMinLength());
+      return new BigDecimal(o, staticMathContextMinLength()).setScale(staticScaleMinLength(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setMinLength(Double o) {
-    setMinLength(new BigDecimal(o, staticMathContextMinLength()));
+    setMinLength(new BigDecimal(o, staticMathContextMinLength()).setScale(staticScaleMinLength(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMinLength(Integer o) {
-    setMinLength(new BigDecimal(o, staticMathContextMinLength()));
+    setMinLength(new BigDecimal(o, staticMathContextMinLength()).setScale(staticScaleMinLength(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setMinLength(Number o) {
-    setMinLength(new BigDecimal(o.doubleValue(), staticMathContextMinLength()));
+    setMinLength(new BigDecimal(o.doubleValue(), staticMathContextMinLength()).setScale(staticScaleMinLength(), RoundingMode.valueOf("HALF_UP")));
   }
   protected SeaportFacility minLengthInit() {
     Wrap<BigDecimal> minLengthWrap = new Wrap<BigDecimal>().var("minLength");
@@ -1639,11 +1655,11 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return (SeaportFacility)this;
   }
 
-  public static Double staticSearchMinLength(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchMinLength(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrMinLength(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrMinLength(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1764,26 +1780,29 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
   public void setNumberOfPlace(String o) {
     this.numberOfPlace = SeaportFacility.staticSetNumberOfPlace(siteRequest_, o);
   }
+  public static Integer staticScaleNumberOfPlace() {
+    return 2;
+  }
   public static MathContext staticMathContextNumberOfPlace() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetNumberOfPlace(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextNumberOfPlace());
+      return new BigDecimal(o, staticMathContextNumberOfPlace()).setScale(staticScaleNumberOfPlace(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setNumberOfPlace(Double o) {
-    setNumberOfPlace(new BigDecimal(o, staticMathContextNumberOfPlace()));
+    setNumberOfPlace(new BigDecimal(o, staticMathContextNumberOfPlace()).setScale(staticScaleNumberOfPlace(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setNumberOfPlace(Integer o) {
-    setNumberOfPlace(new BigDecimal(o, staticMathContextNumberOfPlace()));
+    setNumberOfPlace(new BigDecimal(o, staticMathContextNumberOfPlace()).setScale(staticScaleNumberOfPlace(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setNumberOfPlace(Number o) {
-    setNumberOfPlace(new BigDecimal(o.doubleValue(), staticMathContextNumberOfPlace()));
+    setNumberOfPlace(new BigDecimal(o.doubleValue(), staticMathContextNumberOfPlace()).setScale(staticScaleNumberOfPlace(), RoundingMode.valueOf("HALF_UP")));
   }
   protected SeaportFacility numberOfPlaceInit() {
     Wrap<BigDecimal> numberOfPlaceWrap = new Wrap<BigDecimal>().var("numberOfPlace");
@@ -1796,11 +1815,11 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     return (SeaportFacility)this;
   }
 
-  public static Double staticSearchNumberOfPlace(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchNumberOfPlace(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrNumberOfPlace(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrNumberOfPlace(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -3521,19 +3540,19 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     case "facilities":
       return SeaportFacility.staticSearchStrFacilities(siteRequest_, (String)o);
     case "maxDraft":
-      return SeaportFacility.staticSearchStrMaxDraft(siteRequest_, (Double)o);
+      return SeaportFacility.staticSearchStrMaxDraft(siteRequest_, (String)o);
     case "maxLength":
-      return SeaportFacility.staticSearchStrMaxLength(siteRequest_, (Double)o);
+      return SeaportFacility.staticSearchStrMaxLength(siteRequest_, (String)o);
     case "maxTonnage":
-      return SeaportFacility.staticSearchStrMaxTonnage(siteRequest_, (Double)o);
+      return SeaportFacility.staticSearchStrMaxTonnage(siteRequest_, (String)o);
     case "maxWidth":
-      return SeaportFacility.staticSearchStrMaxWidth(siteRequest_, (Double)o);
+      return SeaportFacility.staticSearchStrMaxWidth(siteRequest_, (String)o);
     case "minLength":
-      return SeaportFacility.staticSearchStrMinLength(siteRequest_, (Double)o);
+      return SeaportFacility.staticSearchStrMinLength(siteRequest_, (String)o);
     case "nearbyServices":
       return SeaportFacility.staticSearchStrNearbyServices(siteRequest_, (String)o);
     case "numberOfPlace":
-      return SeaportFacility.staticSearchStrNumberOfPlace(siteRequest_, (Double)o);
+      return SeaportFacility.staticSearchStrNumberOfPlace(siteRequest_, (String)o);
     case "openingHours":
       return SeaportFacility.staticSearchStrOpeningHours(siteRequest_, (String)o);
     case "openingHoursSpecification":
@@ -4138,31 +4157,31 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
       }
 
       if(saves.contains("maxDraft")) {
-        Double maxDraft = (Double)doc.get("maxDraft_docvalues_string");
+        String maxDraft = (String)doc.get("maxDraft_docvalues_string");
         if(maxDraft != null)
           oSeaportFacility.setMaxDraft(maxDraft);
       }
 
       if(saves.contains("maxLength")) {
-        Double maxLength = (Double)doc.get("maxLength_docvalues_string");
+        String maxLength = (String)doc.get("maxLength_docvalues_string");
         if(maxLength != null)
           oSeaportFacility.setMaxLength(maxLength);
       }
 
       if(saves.contains("maxTonnage")) {
-        Double maxTonnage = (Double)doc.get("maxTonnage_docvalues_string");
+        String maxTonnage = (String)doc.get("maxTonnage_docvalues_string");
         if(maxTonnage != null)
           oSeaportFacility.setMaxTonnage(maxTonnage);
       }
 
       if(saves.contains("maxWidth")) {
-        Double maxWidth = (Double)doc.get("maxWidth_docvalues_string");
+        String maxWidth = (String)doc.get("maxWidth_docvalues_string");
         if(maxWidth != null)
           oSeaportFacility.setMaxWidth(maxWidth);
       }
 
       if(saves.contains("minLength")) {
-        Double minLength = (Double)doc.get("minLength_docvalues_string");
+        String minLength = (String)doc.get("minLength_docvalues_string");
         if(minLength != null)
           oSeaportFacility.setMinLength(minLength);
       }
@@ -4174,7 +4193,7 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
       }
 
       if(saves.contains("numberOfPlace")) {
-        Double numberOfPlace = (Double)doc.get("numberOfPlace_docvalues_string");
+        String numberOfPlace = (String)doc.get("numberOfPlace_docvalues_string");
         if(numberOfPlace != null)
           oSeaportFacility.setNumberOfPlace(numberOfPlace);
       }
@@ -4339,24 +4358,30 @@ public abstract class SeaportFacilityGen<DEV> extends MapModel {
     }
     if(maxDraft != null) {
       doc.put("maxDraft_docvalues_string", maxDraft.toPlainString());
+      doc.put("maxDraft_docvalues_double", maxDraft.doubleValue());
     }
     if(maxLength != null) {
       doc.put("maxLength_docvalues_string", maxLength.toPlainString());
+      doc.put("maxLength_docvalues_double", maxLength.doubleValue());
     }
     if(maxTonnage != null) {
       doc.put("maxTonnage_docvalues_string", maxTonnage.toPlainString());
+      doc.put("maxTonnage_docvalues_double", maxTonnage.doubleValue());
     }
     if(maxWidth != null) {
       doc.put("maxWidth_docvalues_string", maxWidth.toPlainString());
+      doc.put("maxWidth_docvalues_double", maxWidth.doubleValue());
     }
     if(minLength != null) {
       doc.put("minLength_docvalues_string", minLength.toPlainString());
+      doc.put("minLength_docvalues_double", minLength.doubleValue());
     }
     if(nearbyServices != null) {
       doc.put("nearbyServices_docvalues_string", nearbyServices.encode());
     }
     if(numberOfPlace != null) {
       doc.put("numberOfPlace_docvalues_string", numberOfPlace.toPlainString());
+      doc.put("numberOfPlace_docvalues_double", numberOfPlace.doubleValue());
     }
     if(openingHours != null) {
       doc.put("openingHours_docvalues_string", openingHours);

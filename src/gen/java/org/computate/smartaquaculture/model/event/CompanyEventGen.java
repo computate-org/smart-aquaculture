@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.computate.search.serialize.ComputateLocalDateSerializer;
 import org.computate.search.serialize.ComputateLocalDateDeserializer;
@@ -66,9 +67,9 @@ import org.computate.vertx.tool.VertxTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
@@ -740,26 +741,29 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
   public void setPrice(String o) {
     this.price = CompanyEvent.staticSetPrice(siteRequest_, o);
   }
+  public static Integer staticScalePrice() {
+    return 2;
+  }
   public static MathContext staticMathContextPrice() {
-    return new MathContext(2, RoundingMode.valueOf("HALF_UP"));
+    return new MathContext(0, RoundingMode.valueOf("HALF_UP"));
   }
   public static BigDecimal staticSetPrice(SiteRequest siteRequest_, String o) {
     o = StringUtils.removeAll(o, "[^\\d\\.-]");
     if(NumberUtils.isParsable(o))
-      return new BigDecimal(o, staticMathContextPrice());
+      return new BigDecimal(o, staticMathContextPrice()).setScale(staticScalePrice(), RoundingMode.valueOf("HALF_UP"));
     return null;
   }
   @JsonIgnore
   public void setPrice(Double o) {
-    setPrice(new BigDecimal(o, staticMathContextPrice()));
+    setPrice(new BigDecimal(o, staticMathContextPrice()).setScale(staticScalePrice(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setPrice(Integer o) {
-    setPrice(new BigDecimal(o, staticMathContextPrice()));
+    setPrice(new BigDecimal(o, staticMathContextPrice()).setScale(staticScalePrice(), RoundingMode.valueOf("HALF_UP")));
   }
   @JsonIgnore
   public void setPrice(Number o) {
-    setPrice(new BigDecimal(o.doubleValue(), staticMathContextPrice()));
+    setPrice(new BigDecimal(o.doubleValue(), staticMathContextPrice()).setScale(staticScalePrice(), RoundingMode.valueOf("HALF_UP")));
   }
   protected CompanyEvent priceInit() {
     Wrap<BigDecimal> priceWrap = new Wrap<BigDecimal>().var("price");
@@ -772,11 +776,11 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     return (CompanyEvent)this;
   }
 
-  public static Double staticSearchPrice(SiteRequest siteRequest_, BigDecimal o) {
-    return o == null ? null : o.doubleValue();
+  public static String staticSearchPrice(SiteRequest siteRequest_, BigDecimal o) {
+    return o == null ? null : o.toString();
   }
 
-  public static String staticSearchStrPrice(SiteRequest siteRequest_, Double o) {
+  public static String staticSearchStrPrice(SiteRequest siteRequest_, String o) {
     return o == null ? null : o.toString();
   }
 
@@ -1018,7 +1022,6 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       try {
         Point shape = null;
         if(StringUtils.isNotBlank(o)) {
-          ObjectMapper objectMapper = new ObjectMapper();
           SimpleModule module = new SimpleModule();
           module.setDeserializerModifier(new BeanDeserializerModifier() {
             @Override
@@ -1029,7 +1032,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
               return deserializer;
             }
           });
-          objectMapper.registerModule(module);
+          ObjectMapper objectMapper = JsonMapper.builder().addModule(module).build();
           shape = objectMapper.readValue(Json.encode(o), Point.class);
         }
         return shape;
@@ -2383,7 +2386,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     case "endDateTime":
       return CompanyEvent.staticSearchStrEndDateTime(siteRequest_, (String)o);
     case "price":
-      return CompanyEvent.staticSearchStrPrice(siteRequest_, (Double)o);
+      return CompanyEvent.staticSearchStrPrice(siteRequest_, (String)o);
     case "pageId":
       return CompanyEvent.staticSearchStrPageId(siteRequest_, (String)o);
     case "emailTemplate":
@@ -2702,7 +2705,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
       }
 
       if(saves.contains("price")) {
-        Double price = (Double)doc.get("price_docvalues_string");
+        String price = (String)doc.get("price_docvalues_string");
         if(price != null)
           oCompanyEvent.setPrice(price);
       }
@@ -2852,6 +2855,7 @@ public abstract class CompanyEventGen<DEV> extends BaseResult {
     }
     if(price != null) {
       doc.put("price_docvalues_string", price.toPlainString());
+      doc.put("price_docvalues_double", price.doubleValue());
     }
     if(pageId != null) {
       doc.put("pageId_docvalues_string", pageId);

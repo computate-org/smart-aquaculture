@@ -48,21 +48,22 @@ import io.vertx.sqlclient.RowStream;
 
 import org.computate.smartaquaculture.config.ConfigKeys;
 import org.computate.smartaquaculture.request.SiteRequest;
-import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
-import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
-import org.computate.smartaquaculture.model.fiware.feed.Feed;
+import org.computate.smartaquaculture.model.webinar.CompanyWebinar;
 import org.computate.smartaquaculture.model.mapmodel.MapModel;
 import org.computate.smartaquaculture.model.fiware.fishpopulation.FishPopulation;
-import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
 import org.computate.smartaquaculture.model.fiware.fishingdock.FishingDock;
-import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing;
-import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
 import org.computate.smartaquaculture.model.fiware.fishingboat.FishingBoat;
+import org.computate.smartaquaculture.model.fiware.fishfarm.FishFarm;
+import org.computate.smartaquaculture.model.fiware.fishprocessing.FishProcessing;
+import org.computate.smartaquaculture.model.fiware.feedingoperation.FeedingOperation;
+import org.computate.smartaquaculture.model.fiware.fishingtrip.FishingTrip;
+import org.computate.smartaquaculture.model.fiware.feeder.Feeder;
+import org.computate.smartaquaculture.model.fiware.feed.Feed;
+import org.computate.smartaquaculture.model.fiware.seaportfacility.SeaportFacility;
 
 
 /**
  * Description: A Java class to start the Vert.x application as a main method. 
- * Keyword: classSimpleNameVerticle
  **/
 public class DbToSolrSync extends DbToSolrSyncGen<AbstractVerticle> {
   private static final Logger LOG = LoggerFactory.getLogger(DbToSolrSync.class);
@@ -225,27 +226,31 @@ public class DbToSolrSync extends DbToSolrSyncGen<AbstractVerticle> {
       pgOptions.setDatabase(config.getString(ConfigKeys.DATABASE_DATABASE));
       pgOptions.setUser(config.getString(ConfigKeys.DATABASE_USERNAME));
       pgOptions.setPassword(config.getString(ConfigKeys.DATABASE_PASSWORD));
-      pgOptions.setIdleTimeout(Integer.parseInt(config.getString(ConfigKeys.DATABASE_MAX_IDLE_TIME)));
-      pgOptions.setIdleTimeoutUnit(TimeUnit.SECONDS);
-      pgOptions.setConnectTimeout(Integer.parseInt(config.getString(ConfigKeys.DATABASE_CONNECT_TIMEOUT)));
+      // pgOptions.setIdleTimeout(Integer.parseInt(config.getString(ConfigKeys.DATABASE_MAX_IDLE_TIME)));
+      // pgOptions.setIdleTimeoutUnit(TimeUnit.SECONDS);
+      // pgOptions.setConnectTimeout(Integer.parseInt(config.getString(ConfigKeys.DATABASE_CONNECT_TIMEOUT)));
 
       PoolOptions poolOptions = new PoolOptions();
       poolOptions.setMaxSize(Integer.parseInt(config.getString(ConfigKeys.DATABASE_MAX_POOL_SIZE)));
       poolOptions.setMaxWaitQueueSize(Integer.parseInt(config.getString(ConfigKeys.DATABASE_MAX_WAIT_QUEUE_SIZE)));
 
       Pool pgPool = PgBuilder.pool().connectingTo(pgOptions).with(poolOptions).using(vertx).build();
-      dbToSolrSyncRecord(vertx, config, pgPool, FeedingOperation.CLASS_SIMPLE_NAME).onSuccess(q1 -> {
-        dbToSolrSyncRecord(vertx, config, pgPool, Feeder.CLASS_SIMPLE_NAME).onSuccess(q2 -> {
-          dbToSolrSyncRecord(vertx, config, pgPool, Feed.CLASS_SIMPLE_NAME).onSuccess(q3 -> {
-            dbToSolrSyncRecord(vertx, config, pgPool, MapModel.CLASS_SIMPLE_NAME).onSuccess(q4 -> {
-              dbToSolrSyncRecord(vertx, config, pgPool, FishPopulation.CLASS_SIMPLE_NAME).onSuccess(q5 -> {
+      dbToSolrSyncRecord(vertx, config, pgPool, CompanyWebinar.CLASS_SIMPLE_NAME).onSuccess(q1 -> {
+        dbToSolrSyncRecord(vertx, config, pgPool, MapModel.CLASS_SIMPLE_NAME).onSuccess(q2 -> {
+          dbToSolrSyncRecord(vertx, config, pgPool, FishPopulation.CLASS_SIMPLE_NAME).onSuccess(q3 -> {
+            dbToSolrSyncRecord(vertx, config, pgPool, FishingDock.CLASS_SIMPLE_NAME).onSuccess(q4 -> {
+              dbToSolrSyncRecord(vertx, config, pgPool, FishingBoat.CLASS_SIMPLE_NAME).onSuccess(q5 -> {
                 dbToSolrSyncRecord(vertx, config, pgPool, FishFarm.CLASS_SIMPLE_NAME).onSuccess(q6 -> {
-                  dbToSolrSyncRecord(vertx, config, pgPool, FishingDock.CLASS_SIMPLE_NAME).onSuccess(q7 -> {
-                    dbToSolrSyncRecord(vertx, config, pgPool, FishProcessing.CLASS_SIMPLE_NAME).onSuccess(q8 -> {
+                  dbToSolrSyncRecord(vertx, config, pgPool, FishProcessing.CLASS_SIMPLE_NAME).onSuccess(q7 -> {
+                    dbToSolrSyncRecord(vertx, config, pgPool, FeedingOperation.CLASS_SIMPLE_NAME).onSuccess(q8 -> {
                       dbToSolrSyncRecord(vertx, config, pgPool, FishingTrip.CLASS_SIMPLE_NAME).onSuccess(q9 -> {
-                        dbToSolrSyncRecord(vertx, config, pgPool, FishingBoat.CLASS_SIMPLE_NAME).onSuccess(q10 -> {
-                          LOG.info(dbToSolrSyncComplete);
-                          promise.complete();
+                        dbToSolrSyncRecord(vertx, config, pgPool, Feeder.CLASS_SIMPLE_NAME).onSuccess(q10 -> {
+                          dbToSolrSyncRecord(vertx, config, pgPool, Feed.CLASS_SIMPLE_NAME).onSuccess(q11 -> {
+                            dbToSolrSyncRecord(vertx, config, pgPool, SeaportFacility.CLASS_SIMPLE_NAME).onSuccess(q12 -> {
+                              LOG.info(dbToSolrSyncComplete);
+                              promise.complete();
+                            }).onFailure(ex -> promise.fail(ex));
+                          }).onFailure(ex -> promise.fail(ex));
                         }).onFailure(ex -> promise.fail(ex));
                       }).onFailure(ex -> promise.fail(ex));
                     }).onFailure(ex -> promise.fail(ex));

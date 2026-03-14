@@ -12,7 +12,6 @@ import java.util.Objects;
 import io.vertx.core.WorkerExecutor;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.pgclient.PgPool;
 import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.mqtt.MqttClient;
@@ -33,6 +32,7 @@ import org.computate.search.response.solr.SolrResponse.StatsField;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import java.security.Principal;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.io.PrintWriter;
@@ -88,7 +88,6 @@ import io.vertx.ext.auth.authorization.RoleBasedAuthorization;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.api.service.ServiceResponse;
 import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import java.util.HashMap;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
@@ -139,7 +138,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -404,7 +403,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -669,7 +668,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -834,7 +833,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -937,7 +936,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "PATCH"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "PATCH"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1853,7 +1852,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "POST"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "POST"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2770,7 +2769,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3131,7 +3130,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "PUT"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "PUT"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3456,7 +3455,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3721,7 +3720,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3987,7 +3986,7 @@ public class SeaportFacilityEnUSGenApiServiceImpl extends BaseApiServiceImpl imp
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         form.add("permission", String.format("%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, "Admin"));
         if(entityShortId != null)
-          form.add("permission", String.format("%s#%s", entityShortId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", SeaportFacility.CLASS_AUTH_RESOURCE, entityShortId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)

@@ -25,7 +25,6 @@ import java.util.Objects;
 import io.vertx.core.WorkerExecutor;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.pgclient.PgPool;
 import org.computate.vertx.openapi.ComputateOAuth2AuthHandlerImpl;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.mqtt.MqttClient;
@@ -46,6 +45,7 @@ import org.computate.search.response.solr.SolrResponse.StatsField;
 import java.util.stream.Collectors;
 import io.vertx.core.json.Json;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import java.security.Principal;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.io.PrintWriter;
@@ -101,7 +101,6 @@ import io.vertx.ext.auth.authorization.RoleBasedAuthorization;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.ext.web.api.service.ServiceResponse;
 import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import java.util.HashMap;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
@@ -184,10 +183,10 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
     ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
@@ -375,7 +374,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -445,11 +444,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -669,11 +668,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -861,7 +860,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -931,11 +930,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -1313,7 +1312,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "PATCH"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "PATCH"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1581,7 +1580,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "POST"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "POST"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -1797,7 +1796,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2047,7 +2046,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "PUT"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "PUT"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2385,10 +2384,10 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
     ctx.put("frFRUrlPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
@@ -2576,7 +2575,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -2646,11 +2645,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -2870,11 +2869,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -3062,7 +3061,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "GET"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "GET"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
               , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -3132,11 +3131,11 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
     String siteBaseUrl = config.getString(ComputateConfigKeys.SITE_BASE_URL);
 
     ctx.put("frFRUrlSearchPage", String.format("%s%s", siteBaseUrl, "/fr-fr/rechercher/evenement"));
-    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPageFrFR()));
-    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPageFrFR()));
-    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPageFrFR()));
-    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownloadFrFR()));
+    ctx.put("frFRUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
+    ctx.put("frFRUrlEditPage", Optional.ofNullable(page.getResult()).map(o -> o.getEditPage()));
+    ctx.put("frFRUrlUserPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlPage", Optional.ofNullable(page.getResult()).map(o -> o.getUserPage()));
+    ctx.put("frFRUrlDownload", Optional.ofNullable(page.getResult()).map(o -> o.getDownload()));
 
     ctx.put("enUSUrlSearchPage", String.format("%s%s", siteBaseUrl, "/en-us/search/event"));
     ctx.put("enUSUrlDisplayPage", Optional.ofNullable(page.getResult()).map(o -> o.getDisplayPage()));
@@ -3325,7 +3324,7 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "Admin"));
         form.add("permission", String.format("%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, "SuperAdmin"));
         if(pageId != null)
-          form.add("permission", String.format("%s#%s", pageId, "DELETE"));
+          form.add("permission", String.format("%s-%s#%s", CompanyEvent.CLASS_AUTH_RESOURCE, pageId, "DELETE"));
         webClient.post(
             config.getInteger(ComputateConfigKeys.AUTH_PORT)
             , config.getString(ComputateConfigKeys.AUTH_HOST_NAME)
@@ -4010,17 +4009,13 @@ public class CompanyEventEnUSGenApiServiceImpl extends BaseApiServiceImpl implem
       o.persistForClass(CompanyEvent.VAR_storeUrl, CompanyEvent.staticSetStoreUrl(siteRequest2, (String)result.get(CompanyEvent.VAR_storeUrl)));
       o.persistForClass(CompanyEvent.VAR_displayPage, CompanyEvent.staticSetDisplayPage(siteRequest2, (String)result.get(CompanyEvent.VAR_displayPage)));
       o.persistForClass(CompanyEvent.VAR_location, CompanyEvent.staticSetLocation(siteRequest2, (String)result.get(CompanyEvent.VAR_location)));
-      o.persistForClass(CompanyEvent.VAR_displayPageFrFR, CompanyEvent.staticSetDisplayPageFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_displayPageFrFR)));
       o.persistForClass(CompanyEvent.VAR_editPage, CompanyEvent.staticSetEditPage(siteRequest2, (String)result.get(CompanyEvent.VAR_editPage)));
-      o.persistForClass(CompanyEvent.VAR_editPageFrFR, CompanyEvent.staticSetEditPageFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_editPageFrFR)));
       o.persistForClass(CompanyEvent.VAR_userPage, CompanyEvent.staticSetUserPage(siteRequest2, (String)result.get(CompanyEvent.VAR_userPage)));
-      o.persistForClass(CompanyEvent.VAR_dialogTemplate, CompanyEvent.staticSetDialogTemplate(siteRequest2, (String)result.get(CompanyEvent.VAR_dialogTemplate)));
-      o.persistForClass(CompanyEvent.VAR_userPageFrFR, CompanyEvent.staticSetUserPageFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_userPageFrFR)));
-      o.persistForClass(CompanyEvent.VAR_dialogTemplateFrFR, CompanyEvent.staticSetDialogTemplateFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_dialogTemplateFrFR)));
       o.persistForClass(CompanyEvent.VAR_download, CompanyEvent.staticSetDownload(siteRequest2, (String)result.get(CompanyEvent.VAR_download)));
-      o.persistForClass(CompanyEvent.VAR_pageImageUri, CompanyEvent.staticSetPageImageUri(siteRequest2, (String)result.get(CompanyEvent.VAR_pageImageUri)));
-      o.persistForClass(CompanyEvent.VAR_downloadFrFR, CompanyEvent.staticSetDownloadFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_downloadFrFR)));
+      o.persistForClass(CompanyEvent.VAR_dialogTemplate, CompanyEvent.staticSetDialogTemplate(siteRequest2, (String)result.get(CompanyEvent.VAR_dialogTemplate)));
+      o.persistForClass(CompanyEvent.VAR_dialogTemplateFrFR, CompanyEvent.staticSetDialogTemplateFrFR(siteRequest2, (String)result.get(CompanyEvent.VAR_dialogTemplateFrFR)));
       o.persistForClass(CompanyEvent.VAR_solrId, CompanyEvent.staticSetSolrId(siteRequest2, (String)result.get(CompanyEvent.VAR_solrId)));
+      o.persistForClass(CompanyEvent.VAR_pageImageUri, CompanyEvent.staticSetPageImageUri(siteRequest2, (String)result.get(CompanyEvent.VAR_pageImageUri)));
       o.persistForClass(CompanyEvent.VAR_pageImageAlt, CompanyEvent.staticSetPageImageAlt(siteRequest2, (String)result.get(CompanyEvent.VAR_pageImageAlt)));
       o.persistForClass(CompanyEvent.VAR_labelsString, CompanyEvent.staticSetLabelsString(siteRequest2, (String)result.get(CompanyEvent.VAR_labelsString)));
       o.persistForClass(CompanyEvent.VAR_labels, CompanyEvent.staticSetLabels(siteRequest2, (String)result.get(CompanyEvent.VAR_labels)));
